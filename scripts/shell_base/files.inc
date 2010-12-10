@@ -86,7 +86,9 @@ function rm_files(){
  * @return int  value from exec command
  */
 function create_files(){
-    $files_path = _COS_PATH . '/logs/coscms.log ';
+    $files_path = _COS_PATH . '/htdocs/files ';
+    $files_path.= _COS_PATH . '/htdocs/logo ';
+    $files_path.= _COS_PATH . '/logs/coscms.log ';
     $command = "touch $files_path";
     cos_exec($command);
 }
