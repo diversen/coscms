@@ -56,6 +56,7 @@ function install($options = false) {
     $pro->loadProfileFiles($options['profile']);
 
     $pro->setProfileTemplate();
+
     create_files();
     chmod_files();
 }

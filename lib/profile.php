@@ -213,9 +213,11 @@ class profile  {
     public function setProfileTemplate ($template = null){
         $db = new db();
         $db->connect();
-        if (!empty($template)){
+        if (isset($template)){
             $this->profileTemplate = $template;
         }
+
+        echo $this->profileTemplate;
 
         $ini_file = _COS_PATH . "/htdocs/templates/$this->profileTemplate/$this->profileTemplate.ini";
         $ini_file_dist = $ini_file . "-dist";
