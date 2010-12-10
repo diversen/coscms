@@ -1,0 +1,4 @@
+reply_to = mail@mandlen.dk
+allow_send_news = admin
+[development]
+reply_to = dennis.iversen@gmail.com

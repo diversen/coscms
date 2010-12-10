@@ -1,0 +1,8 @@
+allow_create = "super"
+allow_edit = "super"
+show_menu = "admin"
+show_admin_link = "super"
+use_email_login = 1
+use_openid = 0
+allow_edit_openid = "super"
+account_default_url = "/account/login/index"

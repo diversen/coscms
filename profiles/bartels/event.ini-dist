@@ -1,0 +1,5 @@
+allow_edit_event = "admin"
+use_text_part = 1
+num_chars_teaser = 50
+scale_image_width = 250
+event_filters[0] = "bartels"

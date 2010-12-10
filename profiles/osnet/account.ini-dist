@@ -1,0 +1,11 @@
+allow_edit = "super"
+show_menu = ""
+show_admin_link = "super"
+use_openid_login = 1
+allow_edit_openid = "admin"
+allow_create = "super"
+use_email_login = 0
+account_default_url = "/account/openid/index"
+use_facebook_login = 1
+facebook_api_secrect = "secret"
+facebook_api_appid = "appid"

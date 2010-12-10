@@ -1,0 +1,122 @@
+<?php
+
+/**
+ * File contains contains class creating simple translation
+ *
+ * @package    coslib
+ */
+
+/**
+ * Class for doing simple translations
+ *
+ * @package    coslib
+ */
+class lang {
+
+    static public $language = '';
+
+    static public $dict = array ();
+
+    static function getLanguage (){
+        return self::$language;
+    }
+    /**
+     * method for initing and loading correct language
+     * includes translations found in database and translations found in top
+     * translation directory (lang),
+     * 
+     */
+
+
+    static function init(){
+        self::$language = register::$vars['coscms_main']['language'];
+
+        $system_lang = array();
+        $db = new db();
+        $system_language = $db->select(
+            'language',
+            'language',
+            register::$vars['coscms_main']['language']
+        );
+
+        // create system lanugage for all modules
+        foreach($system_language as $key => $val){
+            $module_lang = unserialize($val['translation']);
+            
+            $system_lang = array_merge($system_lang, $module_lang);
+            
+        }
+
+
+
+        // include main language set in config/config.ini
+        $lang_file =
+            _COS_PATH .
+            '/lang/' .
+            register::$vars['coscms_main']['language'] . 
+            '/language.inc';
+
+        include $lang_file;
+        self::$dict = array_merge($_COS_LANG, $system_lang);
+    }
+
+
+    /**
+     * method for doing translations. If a translation is not found we
+     * prepend the untranslated string with 'NT' (needs translation)
+     *
+     * @global  array   $_COS_LANG reference to the main language array
+     * @param   string  $sentence the sentence to translate.
+     * @return  string  translated string
+     */
+    static function translate($sentence){
+        
+        if (isset(self::$dict[$sentence])){
+            return self::$dict[$sentence];
+        } else {
+            return "NT: '$sentence'";
+        }
+    }
+
+    /**
+     *
+     *
+     * @param   string   the base module to load (e.g. content or account)
+     */
+    static function loadModuleLanguage($module){
+        $base = _COS_PATH . "/modules";
+
+        $language_file =
+            $base . "/$module" . '/lang/' .
+            register::$vars['coscms_main']['language'] .
+            '/language.inc';
+
+        if (file_exists($language_file)){
+            include $language_file;
+            if (isset($_COS_LANG_MODULE)){
+                self::$dict = array_merge(self::$dict, $_COS_LANG_MODULE);
+            }
+        }
+    }
+
+    /**
+     *
+     *
+     * @param   string   the base module to load (e.g. content or account)
+     */
+    static function loadModuleSystemLanguage($module){
+        $base = _COS_PATH . "/modules";
+
+        $language_file =
+            $base . "/$module" . '/lang/' .
+            register::$vars['coscms_main']['language'] .
+            '/system.inc';
+
+        if (file_exists($language_file)){
+            include $language_file;
+            if (isset($_COS_LANG_MODULE)){
+                self::$dict = array_merge(self::$dict, $_COS_LANG_MODULE);
+            }
+        }
+    }
+}

@@ -1,0 +1,23 @@
+Conventions for naming path, modules and classes:
+
+modules should have a saying name, like
+- module_system
+
+tables connected to module_system should be called something like
+- module_system_file
+- module_system_release
+
+Base classes connected to a module, e.g. module_system should have the name:
+- moduleSystem
+
+Extended classes should have names like moduleSystemRelease
+for a sub module connected to module_system
+
+e.g. base module_system is located like this
+
+modules/module_system
+
+a sub module like moduleRelease
+modules/module_system/release: should have the following base class name:
+
+moduleSystemRelease

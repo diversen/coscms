@@ -1,0 +1,64 @@
+<?php
+
+$_MODULE_SETTINGS = array();
+
+// This is for setting contact info
+$_MODULE_SETTINGS['google_contact_info'] = <<<EOD
+<hr id='thick_hr' />
+<div id='headline'>Adresse</div>
+<hr id='thin_hr' />
+<p>
+Herr Bartels<br />
+Åboulevarden 46<br />
+8000 Århus C<br />
+Tlf. 86180833<br />
+<a href="mailto:herrbartels@sol.dk">herrbartels@sol.dk</a>
+</p>
+<hr id='thick_hr' />
+<div id='headline'>Åbningstider</div>
+<hr id='thin_hr' />
+<p>
+onsdag  20.00 - 03.00<br />
+torsdag 20.00 – 04.00<br />
+fredag  20.00 – 04.00<br />
+lørdag  20.00 – 05.00<br />
+<br />
+Ved helligdage og fodbold har vi yderligere åben – tjek kalender,  facebook og forside.
+</p>
+<hr id='thick_hr' />
+<div id='headline'>Kontakt:</div>
+<hr id='thin_hr' />
+<p>
+<a href="mailto:herrbartels@sol.dk">herrbartels@sol.dk</a><br />
+86180833 (helst mellem 10.00 – 14.00 om mandagen)
+<hr id='thick_hr' />
+<div id='headline'>Ejere:</div>
+<hr id='thin_hr' />
+<p>
+Jonas Holme Højbjerg: <a href="mailto:jonasbartels@yahoo.dk">jonasbartels@yahoo.dk</a><br />
+Njal Elsborg Hansen: <a href="mailto:njalhansen@sol.dk">njalhansen@sol.dk</a>
+<p/>
+<!--
+<div id='headfont'>Jonas</div>
+<div id='content_font'>51603991</div>
+<div id='content_font'><a href='mailto:jonasbartels@yahoo.dk'>jonasbartels@yahoo.dk</a></div>
+<hr id='thick_hr' />
+<div id='headline'>Indehaver</div>
+<hr id='thin_hr' />
+<div id='headfont'>Njal</div>
+<div id='content_font'>26849844</div>
+<div id='content_font'><a href='mailto:njalhansen@sol.dk'>njalhansen@sol.dk</a></div>
+<hr id='thick_hr' />
+<div id='headline'>Adresse</div>
+<hr id='thin_hr' />
+<div id='headfont'>Herr Bartels</div>
+<div id='content_font'>Åboulevarden 46</div>
+<div id=''content_font'>8000 Århus C</div>
+<hr id='thick_hr' />-->
+<!-- end of contact info -->
+EOD;
+
+// this is for setting iframe
+$_MODULE_SETTINGS['google_map_info']  = <<<EOD
+<iframe width="325" height="325" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="http://maps.google.dk/maps?f=q&amp;source=s_q&amp;hl=da&amp;geocode=&amp;q=herr+bartels&amp;sll=55.869147,11.228027&amp;sspn=4.835229,13.886719&amp;ie=UTF8&amp;hq=herr+bartels&amp;hnear=&amp;t=h&amp;ll=56.155733,10.209517&amp;spn=0.002091,0.00456&amp;z=17&amp;output=embed"></iframe><br /><small><a href="http://maps.google.dk/maps?f=q&amp;source=embed&amp;hl=da&amp;geocode=&amp;q=herr+bartels&amp;sll=55.869147,11.228027&amp;sspn=4.835229,13.886719&amp;ie=UTF8&amp;hq=herr+bartels&amp;hnear=&amp;t=h&amp;ll=56.155733,10.209517&amp;spn=0.002091,0.00456&amp;z=17" style="color:#0000FF;text-align:left">Vis stort kort</a></small>
+EOD;

@@ -1,0 +1,5 @@
+blog_simple_per_page = 5
+blog_simple_filters[] = markdown
+blog_simple_filters[] = safe
+blog_simple_abstract_length = 250
+blog_simple_allow = admin

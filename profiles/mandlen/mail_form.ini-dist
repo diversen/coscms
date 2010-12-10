@@ -1,0 +1,3 @@
+mail_form_send_to = "mail@mandlen.dk"
+[development]
+mail_form_send_to = "dennis.iversen@gmail.com"

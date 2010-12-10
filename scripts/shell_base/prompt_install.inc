@@ -1,0 +1,121 @@
+<?php
+
+
+
+/**
+ * File containing documentation functions for shell mode
+ *
+ * @package     shell
+ */
+function prompt_install(){
+    if (defined('NO_CONFIG_FILE')){
+        cos_cli_print("No profile is loaded");
+    }
+    $profiles = get_file_list('profiles', array('dir_only' => true));
+    cos_cli_print("List of profiles: ");
+    foreach ($profiles as $key => $val){
+        cos_cli_print("\t".$val);
+    }
+
+    // select profile and load it
+    $profile = cos_readline('Enter profile, and hit return: ');
+    load_profile(array('profile' => $profile, 'config_only' => true));
+    cos_cli_print("Main config file is loaded for $profile loaded");
+
+    // load profile.
+    register::$vars['coscms_main'] = parse_ini_file(_COS_PATH . '/config/config.ini', true);
+    
+    // get configuration info
+    $host = cos_readline('Enter mysql host, and hit return: ');
+    $database = cos_readline('Enter database name, and hit return: ');
+    $username = cos_readline('Enter database user, and hit return: ');
+    $password = cos_readline('Enter database users password, and hit return: ');
+    $server_name = cos_readline('Enter server host name (e.g. www.coscms.org), and hit return: ');
+    $site_email = cos_readline('Enter email (site wide) to send messages from, and hit return: ');
+    
+    // questions for creating a super user
+    $super_user = cos_readline('Enter superuser username, and hit return: ');
+    $super_password = cos_readline('Enter superuser password, and hit return: ');
+    $super_email = cos_readline('Enter superuser email, and hit return: ');
+
+    // assemble configuration info
+    register::$vars['coscms_main']['url'] = "mysql:dbname=$database;host=$host";
+    register::$vars['coscms_main']['username'] = $username;
+    register::$vars['coscms_main']['password'] = $password;
+    register::$vars['coscms_main']['server_name'] = $server_name;
+    register::$vars['coscms_main']['site_email'] = $server_name;
+
+    // write it to ini file
+    $content = array_to_ini_file(register::$vars['coscms_main']);
+    $path = _COS_PATH . "/config/config.ini";
+    file_put_contents($path, $content);
+
+    // install profile.
+    $confirm_mes = "Configuration rewritten (config/config.ini). Many more options can be set here, so check it out at some point.";
+    $confirm_mes.= "Will now install system ... ";
+    
+    cos_cli_print($confirm_mes);
+    install($options = array('profile' => $profile));
+
+    // we can then add user when database is created
+    include_module ("account/create", array('load_language' => true));
+    $account = new accountCreate(false);
+    $values = array(
+                'username'=> $super_user,
+                'password' => md5($super_password),
+                'email' => $super_email,
+                'verified' => 1,
+                'admin' => 1,
+                'super' => 1);
+    $account->createSystemUser($values);
+    cos_cli_print("If no critical errors, system should be installed.");
+}
+
+function get_password(){
+    $site_password = cos_readline('Enter system user password, and hit return: ');
+    $site_password2 = cos_readline('Retype system user password, and hit return: ');
+    if ($site_password == $site_password2){
+        return $site_password;
+    } else {
+        get_password();
+    }
+}
+
+/**
+ *
+ * @param   array     ini array read from ini file with parse_ini_file
+ * @return  string    ini file readable by parse_ini_file
+ */
+function array_to_ini_file($ary){
+    $content = '';
+    foreach ($ary as $key => $val){
+        if (is_array($val)){
+            foreach ($val as $k => $v){
+                if(is_numeric($val) || is_bool($val)){
+                    $content.= "{$key}[$k] = {$v}\n";
+                } else {
+                    $content.= "{$key}[$k] = \"{$v}\"\n";
+                }
+            }
+        } else {
+            if(is_numeric($val) || is_bool($val)){
+                $content.= "{$key} = {$val}\n";
+            } else {
+                $content.= "{$key} = \"{$val}\"\n";
+            }
+        }
+    }
+    return $content;
+}
+
+mainCli::setCommand('prompt-install', array(
+    'description' => 'Commands for doing a prompt install with questions asked and answered',
+));
+
+
+mainCli::setOption('prompt_install', array(
+    'long_name'   => '--install',
+    'description' => 'Will prompt user for install info',
+    'action'      => 'StoreTrue'
+));
+

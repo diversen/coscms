@@ -1,0 +1,5 @@
+page_template = ""
+use_jquery = 1
+allow_edit_gallery = "admin"
+gallery_thumb_size = 100
+gallery_image_size = 1200

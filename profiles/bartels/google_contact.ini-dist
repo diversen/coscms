@@ -1,0 +1,4 @@
+load_php_ini = 1
+blocks_sec[0] = "/modules/google_contact/blocks/google_contact.php"
+blocks_sec_module_only = ""
+google_contact_as_content = 0

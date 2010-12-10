@@ -1,0 +1,15 @@
+#
+htdocs/logo/*
+scripts/cron.php
+*.ini
+htdocs/files
+htdocs/test.php
+htdocs/css/*.css*
+htdocs/phpdocs
+config/config.ini
+logs/*.log*
+nbproject/*
+profiles/test/*
+modules/*
+tmp/*
+htdocs/templates/*
