@@ -124,6 +124,18 @@ $_PROFILE_MODULES = array (
   ),
 );
 
+$_PROFILE_TEMPLATES = array (
+
+  6 => 
+  array (
+    'public_clone_url' => 'git://github.com/diversen/bartels.git',
+    'module_version' => '1.08',
+    'module_name' => 'bartels',
+  ),
+);
+
+
+
 $_PROFILE_TEMPLATE = 'bartels';
 
 $_PROFILE_USE_HOME = 0;
