@@ -11,5 +11,4 @@ logs/*.log*
 nbproject/*
 profiles/test/*
 modules/*
-tmp/*
 htdocs/templates/*
