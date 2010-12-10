@@ -171,7 +171,14 @@ $_PROFILE_MODULES = array (
   ),
 );
 
-$_PROFILE_TEMPLATE = 'mandlen';
 
-$_PROFILE_USE_HOME = 0;
+$_PROFILE_TEMPLATES = array (
+
+  6 => 
+  array (
+    'public_clone_url' => 'git://github.com/diversen/mandlen.git',
+    'module_version' => '1.03',
+    'module_name' => 'mandlen',
+  ),
+);
 
