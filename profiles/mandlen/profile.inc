@@ -182,3 +182,6 @@ $_PROFILE_TEMPLATES = array (
   ),
 );
 
+$_PROFILE_TEMPLATE = 'mandlen';
+
+$_PROFILE_USE_HOME = 0;
