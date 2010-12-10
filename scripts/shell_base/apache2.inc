@@ -66,7 +66,7 @@ function a2_enable_site($options){
 
     // create apache2 conf and enable site
     $apache2_conf = create_a2_conf($hostname);
-    $tmp_file = "tmp/$hostname";
+    $tmp_file = _COS_PATH . "/tmp/$hostname";
     file_put_contents($tmp_file, $apache2_conf);
     $apache2_conf_file = "/etc/apache2/sites-available/$hostname";
     cos_exec("sudo cp -f tmp/$hostname $apache2_conf_file");
