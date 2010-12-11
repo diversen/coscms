@@ -224,7 +224,7 @@ mainCli::setOption('git_install', array(
 ));
 
 
-mainCli::setOption('git_install_template', array(
+mainCli::setOption('git_clone_template', array(
     'long_name'   => '--temp-in',
     'description' => 'Will install remote clone url with latest version',
     'action'      => 'StoreTrue'
