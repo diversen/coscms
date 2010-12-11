@@ -11,3 +11,4 @@ nbproject/*
 profiles/test/*
 modules/*
 htdocs/templates/*
+htdocs/files/*

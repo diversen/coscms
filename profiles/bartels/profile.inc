@@ -154,6 +154,12 @@ $_PROFILE_TEMPLATES = array (
     'module_version' => '1.08',
     'module_name' => 'bartels',
   ),
+  1 => 
+  array (
+    'public_clone_url' => 'git://github.com/diversen/fancybox.git',
+    'module_version' => '1.03',
+    'module_name' => 'fancybox',
+  ),
 );
 
 $_PROFILE_TEMPLATE = 'bartels';
