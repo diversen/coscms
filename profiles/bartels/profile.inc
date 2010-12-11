@@ -10,6 +10,7 @@ $_PROFILE_MODULES = array (
     'run_level' => '0',
     'load_on' => NULL,
     'parent' => NULL,
+    'is_shell' => NULL,
     'public_clone_url' => 'git://github.com/diversen/error.git',
   ),
   1 => 
@@ -21,6 +22,7 @@ $_PROFILE_MODULES = array (
     'run_level' => '0',
     'load_on' => NULL,
     'parent' => NULL,
+    'is_shell' => NULL,
     'public_clone_url' => 'git://github.com/diversen/settings.git',
   ),
   2 => 
@@ -32,6 +34,7 @@ $_PROFILE_MODULES = array (
     'run_level' => '0',
     'load_on' => NULL,
     'parent' => NULL,
+    'is_shell' => NULL,
     'public_clone_url' => 'git://github.com/diversen/account.git',
   ),
   3 => 
@@ -43,6 +46,7 @@ $_PROFILE_MODULES = array (
     'run_level' => '0',
     'load_on' => NULL,
     'parent' => NULL,
+    'is_shell' => NULL,
     'public_clone_url' => 'git://github.com/diversen/gallery.git',
   ),
   4 => 
@@ -54,6 +58,7 @@ $_PROFILE_MODULES = array (
     'run_level' => '0',
     'load_on' => NULL,
     'parent' => NULL,
+    'is_shell' => NULL,
     'public_clone_url' => 'git://github.com/diversen/event.git',
   ),
   5 => 
@@ -65,6 +70,7 @@ $_PROFILE_MODULES = array (
     'run_level' => '0',
     'load_on' => NULL,
     'parent' => NULL,
+    'is_shell' => NULL,
     'public_clone_url' => 'git://github.com/diversen/comment.git',
   ),
   6 => 
@@ -76,6 +82,7 @@ $_PROFILE_MODULES = array (
     'run_level' => '0',
     'load_on' => NULL,
     'parent' => NULL,
+    'is_shell' => NULL,
     'public_clone_url' => 'git://github.com/diversen/content.git',
   ),
   7 => 
@@ -87,6 +94,7 @@ $_PROFILE_MODULES = array (
     'run_level' => '0',
     'load_on' => NULL,
     'parent' => NULL,
+    'is_shell' => NULL,
     'public_clone_url' => 'git://github.com/diversen/google_contact.git',
   ),
   8 => 
@@ -98,6 +106,7 @@ $_PROFILE_MODULES = array (
     'run_level' => '0',
     'load_on' => NULL,
     'parent' => NULL,
+    'is_shell' => NULL,
     'public_clone_url' => 'git://github.com/diversen/files.git',
   ),
   9 => 
@@ -109,6 +118,7 @@ $_PROFILE_MODULES = array (
     'run_level' => '0',
     'load_on' => NULL,
     'parent' => NULL,
+    'is_shell' => NULL,
     'public_clone_url' => 'git://github.com/diversen/image.git',
   ),
   10 => 
@@ -120,21 +130,31 @@ $_PROFILE_MODULES = array (
     'run_level' => '0',
     'load_on' => NULL,
     'parent' => NULL,
+    'is_shell' => NULL,
     'public_clone_url' => 'git://github.com/diversen/system.git',
+  ),
+  11 => 
+  array (
+    'id' => '22',
+    'module_name' => 'filter_bartels',
+    'module_version' => '1.01',
+    'menu_item' => '0',
+    'run_level' => '0',
+    'load_on' => NULL,
+    'parent' => NULL,
+    'is_shell' => NULL,
+    'public_clone_url' => 'git://github.com/diversen/filter_bartels.git',
   ),
 );
 
 $_PROFILE_TEMPLATES = array (
-
-  6 => 
+  0 => 
   array (
     'public_clone_url' => 'git://github.com/diversen/bartels.git',
     'module_version' => '1.08',
     'module_name' => 'bartels',
   ),
 );
-
-
 
 $_PROFILE_TEMPLATE = 'bartels';
 
