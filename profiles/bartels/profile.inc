@@ -151,7 +151,7 @@ $_PROFILE_TEMPLATES = array (
   0 => 
   array (
     'public_clone_url' => 'git://github.com/diversen/bartels.git',
-    'module_version' => '1.08',
+    'module_version' => 'master',
     'module_name' => 'bartels',
   ),
   1 => 
