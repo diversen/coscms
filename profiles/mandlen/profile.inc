@@ -39,18 +39,6 @@ $_PROFILE_MODULES = array (
   ),
   3 => 
   array (
-    'id' => '4',
-    'module_name' => 'comment',
-    'module_version' => '1.01',
-    'menu_item' => '0',
-    'run_level' => '0',
-    'load_on' => NULL,
-    'parent' => NULL,
-    'is_shell' => NULL,
-    'public_clone_url' => 'git://github.com/diversen/comment.git',
-  ),
-  4 => 
-  array (
     'id' => '8',
     'module_name' => 'image',
     'module_version' => '1.011',
@@ -61,7 +49,7 @@ $_PROFILE_MODULES = array (
     'is_shell' => NULL,
     'public_clone_url' => 'git://github.com/diversen/image.git',
   ),
-  5 => 
+  4 => 
   array (
     'id' => '9',
     'module_name' => 'order',
@@ -73,7 +61,7 @@ $_PROFILE_MODULES = array (
     'is_shell' => NULL,
     'public_clone_url' => 'git://github.com/diversen/order.git',
   ),
-  6 => 
+  5 => 
   array (
     'id' => '10',
     'module_name' => 'content',
@@ -85,7 +73,7 @@ $_PROFILE_MODULES = array (
     'is_shell' => NULL,
     'public_clone_url' => 'git://github.com/diversen/content.git',
   ),
-  7 => 
+  6 => 
   array (
     'id' => '11',
     'module_name' => 'account',
@@ -97,7 +85,7 @@ $_PROFILE_MODULES = array (
     'is_shell' => NULL,
     'public_clone_url' => 'git://github.com/diversen/account.git',
   ),
-  8 => 
+  7 => 
   array (
     'id' => '13',
     'module_name' => 'newsletter',
@@ -109,7 +97,7 @@ $_PROFILE_MODULES = array (
     'is_shell' => NULL,
     'public_clone_url' => 'git://github.com/diversen/newsletter.git',
   ),
-  9 => 
+  8 => 
   array (
     'id' => '14',
     'module_name' => 'recommend',
@@ -121,7 +109,7 @@ $_PROFILE_MODULES = array (
     'is_shell' => NULL,
     'public_clone_url' => 'git://github.com/diversen/recommend.git',
   ),
-  10 => 
+  9 => 
   array (
     'id' => '15',
     'module_name' => 'system',
@@ -133,7 +121,7 @@ $_PROFILE_MODULES = array (
     'is_shell' => NULL,
     'public_clone_url' => 'git://github.com/diversen/system.git',
   ),
-  11 => 
+  10 => 
   array (
     'id' => '16',
     'module_name' => 'mail_form',
@@ -145,7 +133,7 @@ $_PROFILE_MODULES = array (
     'is_shell' => NULL,
     'public_clone_url' => 'git://github.com/diversen/mail_form.git',
   ),
-  12 => 
+  11 => 
   array (
     'id' => '17',
     'module_name' => 'system_backup',
@@ -157,7 +145,7 @@ $_PROFILE_MODULES = array (
     'is_shell' => NULL,
     'public_clone_url' => 'git://github.com/diversen/system_backup.git',
   ),
-  13 => 
+  12 => 
   array (
     'id' => '18',
     'module_name' => 'filter_simple',
@@ -171,10 +159,8 @@ $_PROFILE_MODULES = array (
   ),
 );
 
-
 $_PROFILE_TEMPLATES = array (
-
-  6 => 
+  0 => 
   array (
     'public_clone_url' => 'git://github.com/diversen/mandlen.git',
     'module_version' => '1.03',
@@ -185,3 +171,4 @@ $_PROFILE_TEMPLATES = array (
 $_PROFILE_TEMPLATE = 'mandlen';
 
 $_PROFILE_USE_HOME = 0;
+
