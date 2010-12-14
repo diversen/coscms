@@ -84,7 +84,6 @@ function git_upgrade_all (){
 }
 
 function git_clone($options, $type){
-    print_r($options);
     // get latest repo tag
     $latest = latest_tag($options['repo']);
     
@@ -125,10 +124,12 @@ function git_clone($options, $type){
         // Repo exists or
         // at least same dir name exists.
         // cos_cli_print("$clone_command failed.");
-        echo $repo_dir = $clone_path . "/$module_name";
+        $repo_dir = $clone_path . "/$module_name";
 
         // check if path is a git repo
         $git_folder = $repo_dir . "/.git";
+
+
         if (file_exists($git_folder)){
             // repo exists. We pull changes and set version
             $git_command = "cd $repo_dir && git checkout $checkout";
@@ -136,10 +137,9 @@ function git_clone($options, $type){
             // no git repo - empty dir we presume.
             $git_command = "cd $clone_path && git clone $options[repo] && cd $module_name && git checkout $checkout";
         }
-        echo $git_command;
         $ret = cos_system($git_command);
     } else {
-        echo $git_command = "cd $clone_path && git clone $options[repo] && cd $module_name && git checkout $checkout";
+        $git_command = "cd $clone_path && git clone $options[repo] && cd $module_name && git checkout $checkout";
         $ret = cos_system($git_command);
     }
 
