@@ -133,7 +133,7 @@ class session {
 
     public static function killSession (){
         setcookie ("system_cookie", "", time() - 3600, "/");
-        unset($_SESSION['id'], $_SESSION['admin'], $_SESSION['super']);
+        unset($_SESSION['id'], $_SESSION['admin'], $_SESSION['super'], $_SESSION['account_type']);
 
     }
     // {{{ static public function isInSession() (ret: boolean)
