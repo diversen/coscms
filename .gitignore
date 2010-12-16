@@ -12,3 +12,4 @@ profiles/test/*
 modules/*
 htdocs/templates/*
 htdocs/files/*
+htdocs/youtube_import/*
