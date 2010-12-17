@@ -1,3 +1,4 @@
 [TODO]
+add pull all to git script.
 add profile to content articles.
 add check to how many submission users can make.
