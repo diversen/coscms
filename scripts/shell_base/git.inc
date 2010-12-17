@@ -203,10 +203,11 @@ function git_upgrade_all ($options){
 
     $modules = profile::getModules();
     foreach ($modules as $key => $val){
+        print_r($val);
         if (isset(register::$vars['git_use_master'])){
             $tag = 'master';
         } else {
-            $tag = latest_tag($val['public_clone_url'], true);
+            echo $tag = latest_tag($val['public_clone_url'], true);
             sleep(3);
         }
 
