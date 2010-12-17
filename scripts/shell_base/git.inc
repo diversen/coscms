@@ -1,7 +1,11 @@
 <?php
 
 
-
+/**
+ *
+ * @param   string    $repo
+ * @return  string    module name
+ */
 function get_module_name_from_repo ($repo){
     $url = parse_url($repo);
     $parts = explode('/', $url['path']);
@@ -19,6 +23,7 @@ function get_module_name_from_repo ($repo){
  * https://github.com/troelskn/pearhub
  *
  * @param   string  a git url url
+ * @param   mixed   set this and tags will not be cached in static var
  * @return  array   array of remote tags
  */
 function get_tags($url = null, $clear = null) {
@@ -52,6 +57,7 @@ function get_tags($url = null, $clear = null) {
  * https://github.com/troelskn/pearhub
  *
  * @param   string  a git url url
+ * @param   mixed   set clear and tags will not be cached in static var
  * @return  array   array of remote tags
  */
 function latest_tag($repo, $clear = null) {
@@ -63,7 +69,10 @@ function latest_tag($repo, $clear = null) {
     return null;
 }
 
-
+/**
+ * function for showing git tags (just for teseting)
+ * @param array $options
+ */
 function remote_tags ($options){
     $tags = get_tags($options['repo']);
     print_r($tags);
@@ -93,6 +102,12 @@ function git_install ($options, $type = 'module'){
     }
 }
 
+/**
+ * function for getting path to a repo.
+ * @param string     $module_name
+ * @param string     $type (module, profile, template)
+ * @return string 
+ */
 
 function get_repo_path ($module_name, $type = 'module'){
     // set repo_dir according to module type.
@@ -124,7 +139,11 @@ function git_clone_profile($options){
 
 
 
-
+/**
+ * function used for cloning a repo
+ * @param array $options
+ * @param string $type
+ */
 
 function git_clone($options, $type){
     // get latest repo tag
@@ -192,12 +211,20 @@ function git_clone($options, $type){
     }    
 }
 
+/**
+ * cli call function is --master is set then master will be used instead of
+ * normal tag
+ *
+ * @param array $options
+ */
 function git_use_master ($options){
     register::$vars['git_use_master'] = 1;
 }
 
 /**
- * get latest tag for all module and templates and upgrade according to latest tag
+ * get latest tag for modules and templates and
+ * upgrade according to latest tag
+ * @param   array   options from cli env
  */
 function git_upgrade_all ($options){
 
@@ -214,7 +241,7 @@ function git_upgrade_all ($options){
         }
     }
     $templates = profile::getAllTemplates();
-    print_r($templates);
+
     foreach ($templates as $key => $val){
         if (isset(register::$vars['git_use_master'])){
             $tag = 'master';
@@ -229,10 +256,12 @@ function git_upgrade_all ($options){
 }
 
 /**
+ * function for upgrading a module, template or profile according to latest tag
+ * or master
  *
- * function for upgrading a module repo.
- * @private
- * @param array $options
+ * @param array     with module options
+ * @param string    tag with wersion or 'master'
+ * @param string    module, templatee or profile. 
  */
 function _git_upgrade ($val, $tag, $type = 'module'){
     $repo_path = get_repo_path($val['module_name'], $type);
@@ -250,17 +279,13 @@ function _git_upgrade ($val, $tag, $type = 'module'){
     }
 }
 
-
-
-
-
 mainCli::setCommand('git', array(
     'description' => 'Commands for using git',
 ));
 
 mainCli::setOption('git_use_master', array(
     'long_name'   => '--master',
-    'description' => 'Will create profile with master repos for all modules and templates',
+    'description' => 'Will use master. Valid for all-up',
     'action'      => 'StoreTrue'
 ));
 
@@ -311,6 +336,6 @@ mainCli::setArgument(
 
 mainCli::setArgument(
     'version',
-    array('description'=> 'Optional: Specify the version to checkout e.g. master or 1.11',
+    array('description'=> 'Specify the version to checkout e.g. master or 1.11',
         'optional' => true,
 ));
