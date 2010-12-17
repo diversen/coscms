@@ -231,7 +231,7 @@ function _git_upgrade ($val, $tag, $type = 'module'){
         // sorry - but it is called with a diffrent name in the upgrade_module
         // function ...
         $val['Module'] = $val['module_name'];
-        upgrade_module($options);
+        upgrade_module($val);
     }
 }
 
