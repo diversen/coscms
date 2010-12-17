@@ -225,7 +225,7 @@ function git_upgrade_all ($options){
  */
 function _git_upgrade ($val, $tag, $type = 'module'){
     $repo_path = get_repo_path($val['module_name'], $type);
-    $git_command = "cd $repo_path && git pull && git checkout $tag";
+    $git_command = "cd $repo_path && git pull $val[public_clone_url] master && git checkout $tag";
     $ret = cos_system($git_command);
     if ($type == 'module'){
         // sorry - but it is called with a diffrent name in the upgrade_module
