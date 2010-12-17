@@ -203,12 +203,10 @@ function git_upgrade_all ($options){
 
     $modules = profile::getModules();
     foreach ($modules as $key => $val){
-        print_r($val);
         if (isset(register::$vars['git_use_master'])){
             $tag = 'master';
         } else {
-            echo $tag = latest_tag($val['public_clone_url'], true);
-            sleep(3);
+            $tag = latest_tag($val['public_clone_url'], true);
         }
 
         if ( ($tag == 'master') OR  ($tag > $val['module_version'])) {
@@ -216,6 +214,17 @@ function git_upgrade_all ($options){
         }
     }
     $templates = profile::getAllTemplates();
+    foreach ($templates as $key => $val){
+        if (isset(register::$vars['git_use_master'])){
+            $tag = 'master';
+        } else {
+            $tag = latest_tag($val['public_clone_url'], true);
+        }
+
+        if ( ($tag == 'master') OR  ($tag > $val['module_version'])) {
+            _git_upgrade ($val, $tag, 'template');
+        }
+    }
 }
 
 /**
@@ -228,6 +237,7 @@ function _git_upgrade ($val, $tag, $type = 'module'){
     $repo_path = get_repo_path($val['module_name'], $type);
     $git_command = "cd $repo_path && git pull $val[public_clone_url] && git fetch --tags && git checkout $tag";
     $ret = cos_system($git_command);
+    
     if ($type == 'module'){
         // sorry - but it is called with a diffrent name in the upgrade_module
         // function ...
