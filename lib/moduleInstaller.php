@@ -718,7 +718,7 @@ class moduleInstaller extends db {
 
         // update registry
         $this->updateRegistry($specific, $row['id']);
-        if ( isset($version) && ($version > $current_version) ){
+        if ( $specific > $current_version ){
             //self::$dbh->commit();
             $this->confirm = "Module: " . $this->installInfo['NAME'] . " ";
             $this->confirm.= "Version: " . $version . " Installed. ";
