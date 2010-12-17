@@ -720,8 +720,8 @@ class moduleInstaller extends db {
         $this->updateRegistry($specific, $row['id']);
         if ( $specific > $current_version ){
             //self::$dbh->commit();
-            $this->confirm = "Module: " . $this->installInfo['NAME'] . " ";
-            $this->confirm.= "Version: " . $version . " Installed. ";
+            $this->confirm = "Module: '" . $this->installInfo['NAME'] . "' ";
+            $this->confirm.= "Version: '" . $specific . " Installed. " . "' ";
             $this->confirm.= "Upgraded from $current_version";
             return true;
         } else {
