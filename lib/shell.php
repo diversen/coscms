@@ -26,7 +26,6 @@ include_once "lib/moduleloader.php";
 include_once "lib/moduleInstaller.php";
 include_once 'Console/CommandLine.php';
 
-// {{{ class mainCli (for parsing command line scripts).
 /**
  * class shell is a wrapper function around PEAR::commandLine
  *
@@ -52,7 +51,9 @@ class mainCli {
      * @var string  holding command
      */
     static $command;
-
+    
+    public static $ini = array();
+    // {{{ init ()
     /**
      * constructor
      * static function for initing command parser
@@ -64,7 +65,8 @@ class mainCli {
         self::$parser->description = 'Command line program for installing cos cms and reading databases';
         self::$parser->version = '0.0.1';
     }
-
+    // }}}
+    // {{{ function setCommand($command, $options)
     /**
      * method for setting a command
      *
@@ -75,6 +77,8 @@ class mainCli {
         self::$command = self::$parser->addCommand($command, $options);
     }
 
+    // }}}
+    // {{{ setOptions ($command, $options)
     /**
      * method for setting an option
      *
@@ -85,7 +89,8 @@ class mainCli {
     static function setOption ($command, $options){
         self::$command->addOption($command, $options);
     }
-
+    // }}}
+    // {{{ function setArgument($argument, $options){
     /**
      * method for setting an argument
      *
@@ -95,7 +100,8 @@ class mainCli {
     static function setArgument($argument, $options){
         self::$command->addArgument($argument, $options);
     }
-
+    // }}}
+    // {{{ function run ()
     /**
      * method for running the parser
      *
@@ -143,9 +149,10 @@ class mainCli {
             self::$parser->displayError($e->getMessage());
         }        
     }
+    // }}}
 
-    public static $ini = array();
 
+    // {{{ loadCliModules ()
     public static function loadCliModules (){
         $modules = moduleLoader::getAllModules();
         foreach ($modules as $key => $val){
@@ -162,9 +169,8 @@ class mainCli {
             }
         }
     }
+    // }}}
 }
-
-// }}}
 
 mainCli::init();
 
