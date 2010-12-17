@@ -214,6 +214,7 @@ function git_upgrade_all ($options){
         }
     }
     $templates = profile::getAllTemplates();
+    print_r($templates);
     foreach ($templates as $key => $val){
         if (isset(register::$vars['git_use_master'])){
             $tag = 'master';
