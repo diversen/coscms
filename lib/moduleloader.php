@@ -194,7 +194,6 @@ class moduleLoader {
     
     /**
      * method for setting info for homepage controller /
-     * @todo    make it work.
      */
     public function setErrorModuleFiles(){     
         $error_module = 'error';

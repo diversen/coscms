@@ -314,7 +314,6 @@ class db {
 
     /**
      * Function for updating a row in a table
-     * @todo    bug when using arrays as search.
      * 
      * @param   string  table the table to insert into
      * @param   array   values to update
@@ -447,7 +446,6 @@ class db {
     /**
      * Method for showing errors
      *
-     * @todo    add     option for production and development
      * @param   string  msg the message to show with the backtrace
      */
     protected function fatalError($msg) {

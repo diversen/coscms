@@ -99,7 +99,6 @@ class mainCli {
     /**
      * method for running the parser
      *
-     * @todo    check what the parser returns
      * @return  int     0 on success any other int is failure
      */
     static function run(){

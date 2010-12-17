@@ -336,7 +336,6 @@ class layout extends db {
 
         $ret_blocks = array();
         foreach ($blocks as $key => $val) {
-            // @TODO May be better just to move it to a block
             if ($val == 'module_menu'){
                 $ret_blocks[] = self::getMainMenu();
                 continue; 

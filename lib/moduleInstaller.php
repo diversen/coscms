@@ -194,8 +194,7 @@ class moduleInstaller extends db {
 
     /**
      * method for upgrading all modules.
-     *
-     * @TODO make it work
+     * Not used for now. 
      */
     public function upgradeAll(){
         $modules = $this->getModules();
@@ -628,7 +627,7 @@ class moduleInstaller extends db {
      *          NOTE that the update of registry is taking place before the
      *          actual upgrade of the modules sql. ERROR CODE:
      *
-     * @TODO    Error!: SQLSTATE[HY000]: General error: 2014
+     *          Error!: SQLSTATE[HY000]: General error: 2014
      *          Cannot execute queries while other unbuffered queries are active.
      *          Consider using PDOStatement::fetchAll().
      *          Alternatively, if your code is only ever going to run against mysql,

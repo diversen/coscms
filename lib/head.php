@@ -46,7 +46,6 @@ if (!file_exists($config_file)){
 
 // set a unified server_name
 if (empty(register::$vars['coscms_main']['server_name'])){
-    //@TODO Fix in cli mode. No SERVER['HTTP_HOST'] vars
     register::$vars['coscms_main']['server_name'] = @$_SERVER['SERVER_NAME'];
 }
 

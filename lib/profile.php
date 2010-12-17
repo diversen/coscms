@@ -55,7 +55,6 @@ class profile  {
 
     /**
      * we use a var for db
-     * @TODO why excactly
      *
      * @var object  holding db. 
      */

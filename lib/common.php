@@ -9,7 +9,6 @@
 // {{{ function get_zero_or_positive($int, $max = null);
 /**
  * function for checking if var is int larger than zero
- * @TODO: Use filter_var
  * 
  * @param   mixed   $int the var to check
  * @param   int     $max max size of integer
