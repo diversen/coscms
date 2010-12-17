@@ -231,6 +231,9 @@ function _git_upgrade ($val, $tag, $type = 'module'){
         // sorry - but it is called with a diffrent name in the upgrade_module
         // function ...
         $val['Module'] = $val['module_name'];
+
+        // when version is set to null we upgrade to latest possible
+        $val['Version'] = null;
         upgrade_module($val);
     }
 }
