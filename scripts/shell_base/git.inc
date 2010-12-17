@@ -1,5 +1,76 @@
 <?php
 
+
+
+function get_module_name_from_repo ($repo){
+    $url = parse_url($repo);
+    $parts = explode('/', $url['path']);
+
+    if (count($parts) == 1) {
+        return false;
+    }
+    $last = array_pop($parts);
+    $module_name = substr($last, 0, -4);
+    return $module_name;
+}
+
+/**
+ * following function are sligtly modified from:
+ * https://github.com/troelskn/pearhub
+ *
+ * @param   string  a git url url
+ * @return  array   array of remote tags
+ */
+function get_tags($url = null, $clear = null) {
+    static $tags;
+
+    // clear tags if operation will be used more than once.
+    if ($clear){
+        $tags = null;
+    }
+    
+    if ($tags == null) {
+        $tags = array();
+        $output = array();
+        $ret = 0;
+
+        $command = "git ls-remote --tags $url";
+        exec($command.' 2>&1', $output, $ret);
+
+        foreach ($output as $line) {
+            trim($line);
+            if (preg_match('~^[0-9a-f]{40}\s+refs/tags/(([a-zA-Z_-]+)?([0-9]+)(\.([0-9]+))?(\.([0-9]+))?([A-Za-z]+[0-9A-Za-z-]*)?)$~', $line, $reg)) {
+                $tags[] = $reg[1];
+            }
+        }
+    }
+    return $tags;
+}
+
+/**
+ * following function are sligtly modified from:
+ * https://github.com/troelskn/pearhub
+ *
+ * @param   string  a git url url
+ * @return  array   array of remote tags
+ */
+function latest_tag($repo, $clear = null) {
+    $tags = get_tags($repo, $clear);
+    if (count($tags) > 0) {
+        sort($tags);
+        return $tags[count($tags) - 1];
+    }
+    return null;
+}
+
+
+function remote_tags ($options){
+    $tags = get_tags($options['repo']);
+    print_r($tags);
+    $latest = latest_tag();
+    print_r($latest);
+}
+
 /**
  * function for cloning a git repo
  * note: No sql will be installed. You will need to run
@@ -16,6 +87,14 @@ function git_install ($options, $type = 'module'){
 
     $options['Module'] = $module_name;
 
+    $ret = git_clone ($options, $type);
+    if ($type == 'module'){
+        install_module($options);
+    }
+}
+
+
+function get_repo_path ($module_name, $type = 'module'){
     // set repo_dir according to module type.
     if($type == 'template'){
         $repo_dir = _COS_PATH . "/htdocs/templates/$module_name";
@@ -24,13 +103,8 @@ function git_install ($options, $type = 'module'){
     } else {
         $repo_dir = _COS_PATH . "/modules/$module_name";
     }
-
-    $ret = git_clone ($options, $type);
-    if ($type == 'module'){
-        install_module($options);
-    }
+    return $repo_dir;
 }
-
 
 /**
  * function for cloning a template repo
@@ -48,40 +122,9 @@ function git_clone_profile($options){
     git_clone($options, 'profile');
 }
 
-/**
- * function for upgrading a module repo.
- * @param array $options
- */
-function git_upgrade ($options){
-    $options['Module'] = get_module_name_from_repo($options['repo']);
-    if (!$options['Module']){
-        // test if the 'repo' is a module name
-        // and fetch repo info from install.inc
-        $module_path = _COS_PATH . '/modules/' . $options['repo'];
-        if (file_exists($module_path)){
-            // most likely a repo in a path
-            // module exists, compare with remote server
-            $options['Module'] = $options['repo'];
-            $upgrade = new moduleInstaller($options);
 
-            if (!isset($upgrade->installInfo['PUBLIC_CLONE_URL'])){
-                cos_cli_abort("\$_INSTALL['PUBLIC_CLONE_URL'] needs to be set in install.inc in order to upgrade from a module name " );
-            }
-            
-            $options['repo'] = $upgrade->installInfo['PUBLIC_CLONE_URL'];
 
-        } else {
-            cos_cli_abort($options['repo'] . " is not a module in module_path or a git repo");
-        }
-    }
 
-    upgrade_module ($options);
-
-}
-
-function git_upgrade_all (){
-
-}
 
 function git_clone($options, $type){
     // get latest repo tag
@@ -149,72 +192,61 @@ function git_clone($options, $type){
     }    
 }
 
-
-function get_module_name_from_repo ($repo){
-    $url = parse_url($repo);
-    $parts = explode('/', $url['path']);
-
-    if (count($parts) == 1) {
-        return false;
-    }
-    $last = array_pop($parts);
-    $module_name = substr($last, 0, -4);
-    return $module_name;
+function git_use_master ($options){
+    register::$vars['git_use_master'] = 1;
 }
 
 /**
- * following function are sligtly modified from:
- * https://github.com/troelskn/pearhub
- *
- * @param   string  a git url url
- * @return  array   array of remote tags
+ * get latest tag for all module and templates and upgrade according to latest tag
  */
-function get_tags($url = null) {
-    static $tags;
-    if ($tags == null) {
-        $tags = array();
-        $output = array();
-        $ret = 0;
+function git_upgrade_all ($options){
 
-        $command = "git ls-remote --tags $url";
-        exec($command.' 2>&1', $output, $ret);
+    $modules = profile::getModules();
+    foreach ($modules as $key => $val){
+        if (isset(register::$vars['git_use_master'])){
+            $tag = 'master';
+        } else {
+            $tag = latest_tag($val['public_clone_url'], true);
+            sleep(3);
+        }
 
-        foreach ($output as $line) {
-            trim($line);
-            if (preg_match('~^[0-9a-f]{40}\s+refs/tags/(([a-zA-Z_-]+)?([0-9]+)(\.([0-9]+))?(\.([0-9]+))?([A-Za-z]+[0-9A-Za-z-]*)?)$~', $line, $reg)) {
-                $tags[] = $reg[1];
-            }
+        if ( ($tag == 'master') OR  ($tag > $val['module_version'])) {
+            _git_upgrade ($val, $tag, 'module');
         }
     }
-    return $tags;
+    $templates = profile::getAllTemplates();
 }
 
 /**
- * following function are sligtly modified from:
- * https://github.com/troelskn/pearhub
  *
- * @param   string  a git url url
- * @return  array   array of remote tags
+ * function for upgrading a module repo.
+ * @private
+ * @param array $options
  */
-function latest_tag($repo) {
-    $tags = get_tags($repo);
-    if (count($tags) > 0) {
-        sort($tags);
-        return $tags[count($tags) - 1];
+function _git_upgrade ($val, $tag, $type = 'module'){
+    $repo_path = get_repo_path($val['module_name'], $type);
+    $git_command = "cd $repo_path && git pull && git checkout $tag";
+    $ret = cos_system($git_command);
+    if ($type == 'module'){
+        // sorry - but it is called with a diffrent name in the upgrade_module
+        // function ...
+        $val['Module'] = $val['module_name'];
+        upgrade_module($options);
     }
-    return null;
 }
 
 
-function remote_tags ($options){
-    $tags = get_tags($options['repo']);
-    print_r($tags);
-    $latest = latest_tag();
-    print_r($latest);
-}
+
+
 
 mainCli::setCommand('git', array(
     'description' => 'Commands for using git',
+));
+
+mainCli::setOption('git_use_master', array(
+    'long_name'   => '--master',
+    'description' => 'Will create profile with master repos for all modules and templates',
+    'action'      => 'StoreTrue'
 ));
 
 mainCli::setOption('git_install', array(
@@ -242,6 +274,14 @@ mainCli::setOption('git_upgrade', array(
     'action'      => 'StoreTrue'
 ));
 
+mainCli::setOption('git_upgrade_all', array(
+    'long_name'   => '--all-up',
+    'description' => 'Will check latest remote versions of modules, templates and profiles, and compare with locale version. If remote is higher it will be checked out and system will be upgraded',
+    'action'      => 'StoreTrue'
+));
+
+
+
 mainCli::setOption('remote_tags', array(
     'long_name'   => '--remote-tags',
     'description' => 'Will list remote tags',
@@ -251,7 +291,7 @@ mainCli::setOption('remote_tags', array(
 mainCli::setArgument(
     'repo',
     array('description'=> 'Specify the git repo to be used',
-        'optional' => false,
+        'optional' => true,
 ));
 
 mainCli::setArgument(

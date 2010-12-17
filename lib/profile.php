@@ -82,7 +82,7 @@ class profile  {
      *
      * @return array    assoc array of all modules
      */
-    public function getModules(){
+    public static function getModules(){
         $db = new db();
         $db->connect();
         $modules = $db->selectAll('modules');
@@ -128,7 +128,7 @@ class profile  {
      * method for getting all templates located in htdocs/template
      * used for settings current templates in profiles/profile/profile.inc file
      */
-    public function getAllTemplates (){
+    public static function getAllTemplates (){
         $dir = _COS_PATH . "/htdocs/templates";
         $templates = get_file_list($dir, array('dir_only' => true));
 

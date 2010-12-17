@@ -42,7 +42,6 @@ function install($options = false) {
         $options['Module'] = $val['module_name'];
         git_install($options, 'module');
         sleep(3);
-
     }
     
     // install templates
@@ -50,6 +49,7 @@ function install($options = false) {
         $options['repo'] = $val['public_clone_url'];
         $options['version'] = $val['module_version'];
         git_install($options, 'template');
+        sleep(3);
     }
 
     // load profile ini files
