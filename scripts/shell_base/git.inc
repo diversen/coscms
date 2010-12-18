@@ -277,6 +277,7 @@ function _git_upgrade ($val, $tag, $type = 'module'){
         $val['Version'] = null;
         upgrade_module($val);
     }
+    print "\n---\n";
 }
 
 mainCli::setCommand('git', array(

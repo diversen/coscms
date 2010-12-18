@@ -1495,7 +1495,7 @@ class HTML_Form
      * @see HTML_Form::displayText(), HTML_Form::displayTextRow(),
      *      HTML_Form::returnTextRow(), HTML_Form::addText()
      */
-    function returnText($name, $default = null, $size = HTML_FORM_TEXT_SIZE,
+    static function returnText($name, $default = null, $size = HTML_FORM_TEXT_SIZE,
                         $maxlength = 0, $attr = '')
     {
         $str  = '<input type="text" name="' . $name . '" ';
@@ -1917,7 +1917,7 @@ class HTML_Form
      * @see HTML_Form::displaySubmit(), HTML_Form::displaySubmitRow(),
      *      HTML_Form::returnSubmitRow(), HTML_Form::addSubmit()
      */
-    function returnSubmit($title = 'Submit Changes', $name = 'submit',
+    static function returnSubmit($title = 'Submit Changes', $name = 'submit',
                           $attr = '')
     {
         return '<input type="submit" name="' . $name . '"'
