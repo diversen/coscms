@@ -252,7 +252,7 @@ $_PROFILE_TEMPLATES = array (
   ),
   3 => 
   array (
-    'public_clone_url' => 'git://github.com/diversen/blackncool.git',
+    'public_clone_url' => 'git://github.com/diversen/blacknwhite.git',
     'module_version' => 'master',
     'module_name' => 'blacknwhite',
   ),
