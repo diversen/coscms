@@ -29,7 +29,6 @@ class db {
      */
     static $debug = array();
 
-
     /**
      * constructor will try to call method connect
      */
@@ -50,26 +49,27 @@ class db {
      * if a connection is open we use that connection
      * connection string is read from config/config.ini
      *
-     * @global <array> $_COS_MAIN is holding the info about the database
      */
-    public function connect(){
+    public function connect($options = null){
         //global $_COS_MAIN;
         self::$debug[] = "Trying to connect with " . register::$vars['coscms_main']['url'];
         try {
             self::$dbh = new PDO(
-                //$_COS_MAIN['url'],
-                //$_COS_MAIN['username'],
-                //$_COS_MAIN['password']
                 register::$vars['coscms_main']['url'],
                 register::$vars['coscms_main']['username'],
                 register::$vars['coscms_main']['password']
 
             );
-            //PDO::MYSQL_ATTR_USE_BUFFERED_QUERY = true;
             self::$dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             if(!self::$dbh) $this->connect();
         } catch (PDOException $e) {
-            $this->fatalError ('Connection failed: ' . $e->getMessage());
+            if (!$options){
+                $this->fatalError ('Connection failed: ' . $e->getMessage());
+            } else {
+                if (isset($options['dont_die'])){
+                    return "NO_DB_CONN";
+                }
+            }
         }
         self::$debug[]  = 'Connected!';
     }

@@ -150,10 +150,18 @@ class mainCli {
         }        
     }
     // }}}
-
-
     // {{{ loadCliModules ()
     public static function loadCliModules (){
+
+        // we just test if any db connection exists
+        $db = new db();
+        $ret = @$db->connect(array('dont_die' => 1));
+        if ($ret == 'NO_DB_CONN'){
+            // if no db conn we exists before loading any more modules. 
+            return;
+        }
+
+
         $modules = moduleLoader::getAllModules();
         foreach ($modules as $key => $val){
             if ($val['is_shell'] == 1){
@@ -182,7 +190,7 @@ foreach ($file_list as $key => $val){
     include_once $path;
 }
 
-//mainCli::loadCliModules();
+mainCli::loadCliModules();
 
 // after adding all commands found we run main program.
 mainCli::run();
