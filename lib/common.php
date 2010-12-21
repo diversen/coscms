@@ -757,7 +757,7 @@ function cos_url_decode($string){
 // }}}
 
 
-function get_profile_link ($user){
+function get_profile_link (&$user){
     static $profile_object;
 
     if (!isset($profile_object)){

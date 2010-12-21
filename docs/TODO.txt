@@ -1,4 +1,2 @@
 [TODO]
-don't load shell modules when system not installed.;:
-add profile to content articles.
 add check to how many submission users can make.
