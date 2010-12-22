@@ -239,6 +239,7 @@ function git_upgrade_all ($options){
         if ( ($tag == 'master') OR  ($tag > $val['module_version'])) {
             _git_upgrade ($val, $tag, 'module');
         }
+        sleep(3);
     }
     $templates = profile::getAllTemplates();
 
@@ -252,6 +253,7 @@ function git_upgrade_all ($options){
         if ( ($tag == 'master') OR  ($tag > $val['module_version'])) {
             _git_upgrade ($val, $tag, 'template');
         }
+        sleep(3);
     }
 }
 
