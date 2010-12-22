@@ -160,7 +160,7 @@ function git_clone($options, $type){
     // we abort if there is no tags.
     if (!$latest){
         if (register::$vars['git_use_master'] == 1){
-            $latest = 'master';
+            $checkout = 'master';
         } else {
             cos_cli_abort("No tags for repo: $options[repo]");
         }
