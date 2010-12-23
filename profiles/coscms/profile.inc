@@ -5,7 +5,7 @@ $_PROFILE_MODULES = array (
   array (
     'id' => '1',
     'module_name' => 'error',
-    'module_version' => '1.01',
+    'module_version' => '1.011',
     'menu_item' => '0',
     'run_level' => '0',
     'load_on' => NULL,
@@ -169,6 +169,42 @@ $_PROFILE_MODULES = array (
     'is_shell' => NULL,
     'public_clone_url' => 'git://github.com/diversen/filter_simple.git',
   ),
+  14 => 
+  array (
+    'id' => '223',
+    'module_name' => 'alive',
+    'module_version' => '1.01',
+    'menu_item' => '0',
+    'run_level' => '0',
+    'load_on' => NULL,
+    'parent' => NULL,
+    'is_shell' => '1',
+    'public_clone_url' => 'git://github.com/diversen/alive.git',
+  ),
+  15 => 
+  array (
+    'id' => '224',
+    'module_name' => 'filter_php',
+    'module_version' => '1.01',
+    'menu_item' => '0',
+    'run_level' => '0',
+    'load_on' => NULL,
+    'parent' => NULL,
+    'is_shell' => NULL,
+    'public_clone_url' => 'git://github.com/diversen/filter_php.git',
+  ),
+  16 => 
+  array (
+    'id' => '225',
+    'module_name' => 'filter_geshi',
+    'module_version' => '1.01',
+    'menu_item' => '0',
+    'run_level' => '0',
+    'load_on' => NULL,
+    'parent' => NULL,
+    'is_shell' => NULL,
+    'public_clone_url' => 'git://github.com/diversen/filter_geshi.git',
+  ),
 );
 
 $_PROFILE_TEMPLATES = array (
@@ -186,9 +222,21 @@ $_PROFILE_TEMPLATES = array (
   ),
   2 => 
   array (
+    'public_clone_url' => 'git://github.com/diversen/js-toc.git',
+    'module_version' => '1.03',
+    'module_name' => 'js-toc',
+  ),
+  3 => 
+  array (
     'public_clone_url' => 'git://github.com/diversen/fancybox.git',
     'module_version' => '1.03',
     'module_name' => 'fancybox',
+  ),
+  4 => 
+  array (
+    'public_clone_url' => 'git://github.com/diversen/less-style.git',
+    'module_version' => '1.03',
+    'module_name' => 'less-style',
   ),
 );
 

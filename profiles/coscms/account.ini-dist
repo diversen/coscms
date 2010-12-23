@@ -6,5 +6,5 @@ use_email_login = 0
 use_openid_login = 1
 allow_edit_openid = "admin"
 account_default_url = "/account/openid/index"
-facebook_api_secrect = "your_api_secret"
+facebook_api_secret = "your_api_secret"
 facebook_api_appid = "your_app_id"
