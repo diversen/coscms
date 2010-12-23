@@ -135,18 +135,6 @@ $_PROFILE_MODULES = array (
   ),
   11 => 
   array (
-    'id' => '220',
-    'module_name' => 'filter_language',
-    'module_version' => '1.01',
-    'menu_item' => '0',
-    'run_level' => '0',
-    'load_on' => NULL,
-    'parent' => NULL,
-    'is_shell' => NULL,
-    'public_clone_url' => 'git://github.com/diversen/filter_language.git',
-  ),
-  12 => 
-  array (
     'id' => '221',
     'module_name' => 'gravatar',
     'module_version' => '1.01',
@@ -157,7 +145,7 @@ $_PROFILE_MODULES = array (
     'is_shell' => NULL,
     'public_clone_url' => 'git://github.com/diversen/gravatar.git',
   ),
-  13 => 
+  12 => 
   array (
     'id' => '222',
     'module_name' => 'filter_safe',
@@ -169,31 +157,7 @@ $_PROFILE_MODULES = array (
     'is_shell' => NULL,
     'public_clone_url' => 'git://github.com/diversen/filter_simple.git',
   ),
-  14 => 
-  array (
-    'id' => '223',
-    'module_name' => 'alive',
-    'module_version' => '1.01',
-    'menu_item' => '0',
-    'run_level' => '0',
-    'load_on' => NULL,
-    'parent' => NULL,
-    'is_shell' => '1',
-    'public_clone_url' => 'git://github.com/diversen/alive.git',
-  ),
-  15 => 
-  array (
-    'id' => '224',
-    'module_name' => 'filter_php',
-    'module_version' => '1.01',
-    'menu_item' => '0',
-    'run_level' => '0',
-    'load_on' => NULL,
-    'parent' => NULL,
-    'is_shell' => NULL,
-    'public_clone_url' => 'git://github.com/diversen/filter_php.git',
-  ),
-  16 => 
+  13 => 
   array (
     'id' => '225',
     'module_name' => 'filter_geshi',
