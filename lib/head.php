@@ -80,7 +80,6 @@ if (!defined('_COS_CLI')){
 
     $locale = register::$vars['coscms_main']['language'].'.UTF8';
     setlocale(LC_ALL, $locale);
-echo strftime("%A %e %B %Y", mktime(0, 0, 0, 12, 22, 1978));
     // set default timezone
     date_default_timezone_set(register::$vars['coscms_main']['date_default_timezone']);
     $moduleLoader->runLevel(4);
