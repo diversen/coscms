@@ -181,10 +181,10 @@ class moduleLoader {
 
         $controller_dir = $base . "/$frontpage_module/";
 
-        $uri = uri::fragment(0);
+        $first = uri::fragment(0);
         
-        if (!empty($uri)){
-            $controller_file = $controller_dir . $uri . ".php";
+        if (!empty($first)){
+            $controller_file = $controller_dir . $first . ".php";
         } else {
             $controller_file = $controller_dir . "index.php";
         }
@@ -353,7 +353,6 @@ class moduleLoader {
 
     public static function modulePathToClassName ($path){
         $ary = explode('_', $path);
-        //print_r($ary);
         if (count($ary) == 1){
             return $ary[0];
         }
