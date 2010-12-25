@@ -42,7 +42,6 @@ if (!file_exists($config_file)){
     }
 }
 
-//print_r(register::$vars['coscms_main']);
 
 // set a unified server_name
 if (empty(register::$vars['coscms_main']['server_name'])){
@@ -71,12 +70,17 @@ if (!defined('_COS_CLI')){
 
     // select all db settings and merge them with ini file settings
     $db_settings = $db->selectOne('settings', 'id', 1);
-    //$_COS_MAIN = array_merge($_COS_MAIN, $db_settings);
+
+
+
 
     register::$vars['coscms_main'] =
         array_merge(register::$vars['coscms_main'] , $db_settings);
     $moduleLoader->runLevel(2);
 
+    $locale = register::$vars['coscms_main']['language'].'.UTF8';
+    setlocale(LC_ALL, $locale);
+echo strftime("%A %e %B %Y", mktime(0, 0, 0, 12, 22, 1978));
     // set default timezone
     date_default_timezone_set(register::$vars['coscms_main']['date_default_timezone']);
     $moduleLoader->runLevel(4);
