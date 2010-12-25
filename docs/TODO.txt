@@ -11,6 +11,7 @@ attach comments to modules.
 branch or fork as new module.
 better admin mode.
 
+use strftime func ofr formatting according to locales.
 filter: add default explanation of filter to lang/system.inc, e.g. :
 - $_LANG['filter_geshi'] = 'Use <code lang="php"> ... your code ... </code>
 for highlighting source code
