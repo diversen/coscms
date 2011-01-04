@@ -5,11 +5,8 @@ when passing spam auto accept
 close account on bad submissions
 preview function
 accept - go back
-treads in comments.
-comment comment.
-attach comments to modules.
+
 branch or fork as new module.
-better admin mode.
 
 use strftime func ofr formatting according to locales.
 filter: add default explanation of filter to lang/system.inc, e.g. :
