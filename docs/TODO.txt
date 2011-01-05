@@ -1,14 +1,6 @@
 [TODO]
 add check to how many submission users can make.
-comment: check against spam filters 123.
-when passing spam auto accept
 close account on bad submissions
 preview function
 accept - go back
 
-branch or fork as new module.
-
-use strftime func ofr formatting according to locales.
-filter: add default explanation of filter to lang/system.inc, e.g. :
-- $_LANG['filter_geshi'] = 'Use <code lang="php"> ... your code ... </code>
-for highlighting source code
