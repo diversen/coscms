@@ -371,7 +371,7 @@ class db {
         if (!isset($where)) $where = array();
         $sql = "SELECT count(*) as num_rows FROM `$table`";
         if (!empty($where) && is_array($where)){
-            $sql.= "WHERE ";
+            $sql.= " WHERE ";
             foreach ($where as $key => $val){
                 $params[] ="`$key`=:$key";
             }
@@ -381,11 +381,13 @@ class db {
 
         self::$debug[]  = "Trying to prepare getNumRows sql: $sql";
         $stmt = self::$dbh->prepare($sql);
+
         foreach ($where as $key => $val){
             $stmt->bindValue (":$key", $val);
         }
         $ret = $stmt->execute();
         $row = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
         return $row[0]['num_rows'];
     }
 

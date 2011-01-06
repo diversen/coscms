@@ -1,6 +1,8 @@
 [TODO]
-add check to how many submission users can make.
-close account on bad submissions
-preview function
-accept - go back
+Forum
+Category api
+remove all profiles but one,
+move other profiles to repos.
+
+
 

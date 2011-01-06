@@ -285,8 +285,13 @@ function view_drop_down_db($name, $table, $field, $id, $selected=null, $extras =
  * @param   int     the element which will be selected
  * @return  string  the select element to be added to a form
  */
-function view_drop_down($name, $rows, $field, $id, $selected=null){
-    $dropdown = '<select name="'.$name.'">'."\n";
+function view_drop_down($name, $rows, $field, $id, $selected=null, $behav = null){
+    $dropdown = "<select name=\"$name\" ";
+    if (isset($behav)){
+        $dropdown.= $behav;
+
+    }
+    $dropdown.= ">\n";
     foreach($rows as $row){
         if ($row[$id] == $selected){
             $s = ' selected';
