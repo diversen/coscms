@@ -497,7 +497,36 @@ function timestamp_to_days($updated){
 }
 // }}}
 
-// {{{
+/**
+ * include filters is used to include filters.
+ * this is used if you need to set some settings in the
+ * filter before using it.
+ *
+ * @param   mixed   string or array of filters to include
+ *
+ */
+function include_filters ($filter){
+    if (!is_array($filter)){
+        $class_path = _COS_PATH . "/modules/filter_$filter/$filter.inc";
+        include_once $class_path;
+
+    }
+
+    if (is_array ($filter)){
+        foreach($filter as $key => $val){
+            $class_path = _COS_PATH . "/modules/filter_$val/$val.inc";
+            include_once $class_path;
+        }
+    }
+}
+
+// {{{ get_filtered_content($filter, $content)
+/**
+ *
+ * @param  mixed    string or array (filters to use)
+ * @param  mixed    string or array (to use filters on)
+ * @return mixed    string or array
+ */
 function get_filtered_content ($filter, $content){
     
     if (!is_array($filter)){
