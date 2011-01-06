@@ -444,6 +444,26 @@ function cos_htmlentities($values){
     return $values;
 }
 
+
+/**
+ * function for creating rewriting htmlentities for safe display on screen
+ *
+ * @param   array|string    value(s) to transform
+ * @return  array|string    value(s) transformed
+ */
+function cos_htmlentities_decode($values){
+    if (is_array($values)){
+        foreach($values as $key => $val){
+            $values[$key] = html_entity_decode($val, ENT_COMPAT, 'UTF-8');
+        }
+    } else if (is_string($values)) {
+        $values =  html_entity_decode($values, ENT_COMPAT, 'UTF-8');
+    } else {
+        $values = '';
+    }
+    return $values;
+}
+//html_entity_decode
 // }}}
 // {{{ function cos_htmlspecialchars($values)
 
