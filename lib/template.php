@@ -1,31 +1,74 @@
 <?php
 
 /**
+ * @package coslib
+ */
+
+/**
  * simple template class for cos cms
+ * @package coslib
  */
 abstract class template {
     
-    //static $meta = '';
+    /**
+     * @var array   holding css files
+     */
     static $css = array();
+
+    /**
+     * @var array   holding js files
+     */
     static $js = array();
+
+    /**
+     * @var array   holding inline js strings
+     */
     static $inlineJs = array();
+
+    /**
+     * @var array   holding inline css strings
+     */
     static $inlineCss = array();
+
+    /**
+     * @var string  holding meta tags
+     */
     static $meta = '';
+
+    /**
+     * @var string  holding title of page being parsed
+     */
     static $title = '';
+
+    /**
+     * @var string   holding last html strings
+     */
     static $endHTML = '';
+
+    /**
+     * @var string   holding end of content string
+     */
     static $endContent = '';
 
+    /**
+     * method for setting title of page
+     * @param string $title
+     */
     public static function setTitle($title){
         self::$title = $title;
     }
 
+    /**
+     * method for getting title of page
+     * @return <type>
+     */
     public static function getTitle(){
         return self::$title;
     }
+
     /**
      * method for setting meta tags.
      * @param   array   array of metatags with name => content
-     *
      */
     public static function setMeta($ary){
         foreach($ary as $key => $val){
@@ -33,13 +76,8 @@ abstract class template {
         }
     }
 
-    public static function substituteElement ($element){
-
-
-    }
-
-
     /**
+     * method for setting css files to be used on page
      *
      * @param string    string css_url pointing to the css on your server e.g. /templates/module/good.css
      * @param int       loading order. 0 is loaded first and > 0 is loaded later
@@ -53,15 +91,12 @@ abstract class template {
     }
 
     /**
-     *
+     * method for getting css for displaing in user template
      * @return  string  the css as a string
      */
     public static function getCss(){
         $str = "";
-
         ksort(self::$css);
-
-        //print_r(self::$css);
         $str.= "<style type=\"text/css\" title=\"no-style\" media=\"screen\">\n";
         foreach (self::$css as $key => $val){
             $str.= "\t@import \"$val\";\n";
@@ -72,7 +107,7 @@ abstract class template {
 
 
     /**
-     *
+     * method for setting css files to be used by user templates
      * @param   string   string pointing to the path of the javascript
      * @param   int      int. the loading order of javascript 0 is first > 0 is
      *                   later.
@@ -87,7 +122,7 @@ abstract class template {
     }
 
     /**
-     *
+     * method for getting css files used in user templates
      * @return  string  the css as a string
      */
     public static function getJs(){
@@ -100,7 +135,8 @@ abstract class template {
     }
     
     /**
-     * Will load the js as file and place it inline in the html document
+     * Will load the js as file and place and add it to array which can
+     * be parsed in user templates.
      * 
      * @param   string   string file path of the javascript
      * @param   int      int. the loading order of javascript 0 is first > 0 is
@@ -116,7 +152,7 @@ abstract class template {
     }
 
     /**
-     *
+     * method for getting all inline js as a string
      * @return  string  the css as a string
      */
     public static function getInlineJs(){
@@ -127,8 +163,9 @@ abstract class template {
         }
         return $str;
     }
-/**
-     * Will load the css as file and place it inline in the html document
+
+    /**
+     * method for setting user css used inline in user templates.
      *
      * @param   string   string file path of the css
      * @param   int      int. the loading order of css 0 is first > 0 is
@@ -143,6 +180,13 @@ abstract class template {
         }
     }
 
+    /**
+     * method for parsing a css file and substituing css var with
+     * php defined values
+     * @param string $css
+     * @param array  $vars
+     * @param int    $order
+     */
     public static function setParseVarsCss($css, $vars, $order = null){
         $str = get_include_contents($css, $vars);
         //$str = file_get_contents($css);
@@ -154,7 +198,7 @@ abstract class template {
     }
 
     /**
-     *
+     * method for getting css used in inline in user templates
      * @return  string  the css as a string
      */
     public static function getInlineCss(){
@@ -166,19 +210,34 @@ abstract class template {
         return $str;
     }
 
+    /**
+     * method for adding string to end of html
+     * @param   string  string to add to end of html
+     */
     public static function setEndHTML($str){
         self::$endHTML.=$str;
     }
 
+    /**
+     * method for getting end of html
+     * @return  string  end of html
+     */
     public static function getEndHTML(){
         return self::$endHTML;
     }
 
-
+    /**
+     * method for setting end html
+     * @param string    end content
+     */
     public static function setEndContent($str){
         self::$endContent.=$str;
     }
 
+    /**
+     * method for getting end of html
+     * @return <type>
+     */
     public static function getEndContent(){
         return self::$endContent;
     }

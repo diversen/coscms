@@ -1,6 +1,10 @@
 <?php
 
 /**
+ * @package     coslib
+ */
+
+/**
  * function for creating a file with all strings
  * to be translated in a module by traversing all files
  * in the module.

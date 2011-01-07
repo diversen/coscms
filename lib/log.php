@@ -1,5 +1,12 @@
 <?php
 
+/**
+ * @package coslib
+ */
+
+/**
+ * @package coslib
+ */
 class log {
 
     /**

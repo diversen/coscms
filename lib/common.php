@@ -823,10 +823,6 @@ function mail_smtp ($recipient, $subject, $message, $from, $reply_to/*$headers =
 
 /**
  * @package coslib
- */
-
-/**
- *
  * class for validating email and and emailAndDomain
  */
 class cosValidate {

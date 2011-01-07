@@ -1,6 +1,11 @@
 <?php
 
 /**
+ * @package coslib
+ */
+
+
+/**
  * ignore for now.
  * 
  * @ignore
@@ -11,7 +16,9 @@ define ('FORM_COLS', 60);
 define ('FORM_ROWS', 14);
 
 
-// simple form class
+/**
+ * @package coslib
+ */
 class form2 {
 
     public static $elements = array();
@@ -277,6 +284,10 @@ class form2 {
     }
 }
 
+
+/**
+ * @package coslib
+ */
 class dbForm extends form2 {
 
     static $fields = array();

@@ -39,12 +39,6 @@ function get_template_info($template_name){
     return $info;
 }
 
-
-
-
-
-
-
 /**
  * function for purgeing a template
  *

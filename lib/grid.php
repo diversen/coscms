@@ -1,14 +1,17 @@
 <?php
 
-/**
- * @ignore
- */
 
 /**
  * File contains contains class for creating forms from a tables schema
  *
  * @package    coslib
  */
+
+/**
+ * @ignore
+ */
+
+
 
 
 /**

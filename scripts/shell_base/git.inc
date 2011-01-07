@@ -1,5 +1,8 @@
 <?php
 
+/**
+ * @package shell
+ */
 
 /**
  *

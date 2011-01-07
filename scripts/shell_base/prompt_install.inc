@@ -7,6 +7,11 @@
  *
  * @package     shell
  */
+
+/**
+ * function for doing a prompt install from shell mode
+ * is a wrapper around other shell functions.
+ */
 function prompt_install(){
     if (defined('NO_CONFIG_FILE')){
         cos_cli_print("No profile is loaded");

@@ -1,7 +1,10 @@
 <?php
 
-// {{{ create_cron_line($site)
+/**
+ * @package shell
+ */
 
+// {{{ create_cron_line($site)
 /**
  * function for showing a readline form where we can collect 
  * information about how crons should be done

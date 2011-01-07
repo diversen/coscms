@@ -7,9 +7,15 @@
  * @package     shell
  */
 
+/**
+ * @ignore
+ */
 define('_COS_PATH', realpath(dirname($_SERVER['SCRIPT_FILENAME']) . '/..'));
 define('_COS_CLI', 1);
 
+/**
+ * @package shell
+ */
 class register {
     public static $vars = array();
 }
@@ -31,7 +37,6 @@ include_once 'Console/CommandLine.php';
  *
  * @package     shell
  */
-
 class mainCli {
 
     /**
@@ -51,7 +56,11 @@ class mainCli {
      * @var string  holding command
      */
     static $command;
-    
+
+    /**
+     *
+     * @var array   used for holding ini settings for shell modules.
+     */
     public static $ini = array();
     // {{{ init ()
     /**

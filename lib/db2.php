@@ -1,9 +1,16 @@
 <?php
 
 /**
+ * @package coslib
+ */
+
+/**
  * @ignore for now.
  */
 
+/**
+ * @package coslib
+ */
 class db2 {
 
     static $query = '';

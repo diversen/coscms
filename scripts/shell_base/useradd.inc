@@ -1,5 +1,15 @@
 <?php
 
+/**
+ * @package shell
+ *
+ */
+
+/**
+ *
+ * @param array $options
+ * @return int
+ */
 function useradd_add ($options = null){ 
 	$type = cos_readline('Enter type of super user to add [1] Email User, [2] OpenID user: ');
 	if ($type == 1){
@@ -26,6 +36,11 @@ function useradd_add ($options = null){
 	return $values;
 }
 
+/**
+ * function for inserting user
+ * @param   array   $values
+ * @return  boolean
+ */
 function useradd_db_insert ($values){
 	$db = new db();
 	return $res = $db->insert('account', $values);

@@ -229,14 +229,12 @@ class profile  {
     }
 
     /**
-     * method for settinge weather we use a home url or not in main menu
-     * @return  
+     * method for settinge weather we use a home url or not in main menu 
      */
     public function setProfileUseHome(){
         $db = new db();
         $db->connect();
         $sql = "INSERT INTO `menus` VALUES (1, 'home', '/', '', '', 0, 0);";
-        //$values = array('template' => $this->profileTemplate);
         if ($this->profileUseHome){
             $res = $db->rawQuery($sql);
         }

@@ -1,9 +1,16 @@
 <?php
 
+/**
+ * @package     coslib
+ */
+
+/**
+ * @package     coslib
+ */
 
 class menu {
     /**
-     *
+     * get system menu array from name
      * @param string    name of the system menu to get
      */
     public static function getSystemMenuArray ($name){
@@ -16,6 +23,7 @@ class menu {
 
 
     /**
+     * update system menu array
      *
      * @param array  $values to insert into menu
      * @param string $name of menu to manipulate
