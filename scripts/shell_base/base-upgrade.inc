@@ -1,16 +1,10 @@
 <?php
 
 /**
- * @ignore
+ * @package shell
  */
 
-function list_tags(){
-    $list_tags = "git tag -l";
-    cos_system($list_tags);
-    return $ret;
-}
-
-
+/*
 mainCli::setCommand('base', array(
     'description' => 'Commands for upgrading base system',
 ));
@@ -35,3 +29,4 @@ mainCli::setArgument(
         'optional' => true,
 ));
 
+*/
