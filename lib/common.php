@@ -6,6 +6,8 @@
  * @package    coslib
  */
 
+// Variable function
+
 // {{{ function get_zero_or_positive($int, $max = null);
 /**
  * function for checking if var is int larger than zero
@@ -37,8 +39,173 @@ function get_zero_or_positive($int, $max = null){
 }
 
 // }}}
-// {{{ function get_file_list($dir)
+// {{{ function cos_htmlentites($values)
 
+/**
+ * function for creating rewriting htmlentities for safe display on screen
+ *
+ * @param   array|string    value(s) to transform
+ * @return  array|string    value(s) transformed
+ */
+function cos_htmlentities($values){
+    if (is_array($values)){
+        foreach($values as $key => $val){
+            $values[$key] = htmlentities($val, ENT_COMPAT, 'UTF-8');
+        }
+    } else if (is_string($values)) {
+        $values =  htmlentities($values, ENT_COMPAT, 'UTF-8');
+    } else {
+        $values = '';
+    }
+    return $values;
+}
+
+
+/**
+ * function for creating rewriting htmlentities for safe display on screen
+ *
+ * @param   array|string    value(s) to transform
+ * @return  array|string    value(s) transformed
+ */
+function cos_htmlentities_decode($values){
+    if (is_array($values)){
+        foreach($values as $key => $val){
+            $values[$key] = html_entity_decode($val, ENT_COMPAT, 'UTF-8');
+        }
+    } else if (is_string($values)) {
+        $values =  html_entity_decode($values, ENT_COMPAT, 'UTF-8');
+    } else {
+        $values = '';
+    }
+    return $values;
+}
+//html_entity_decode
+// }}}
+// {{{ function cos_htmlspecialchars($values)
+
+/**
+ * function for creating rewriting htmlspecialchars for safe display on screen
+ *
+ * @param   array|string    value(s) to transform
+ * @return  array|string    value(s) transformed
+ */
+function cos_htmlspecialchars($values){
+    if (is_array($values)){
+        foreach($values as $key => $val){
+            $values[$key] = htmlspecialchars($val, ENT_COMPAT, 'UTF-8');
+        }
+    } else {
+        $values =  htmlspecialchars($values, ENT_COMPAT, 'UTF-8');
+    }
+    return $values;
+}
+
+// }}}
+// {{{ function timestamp_to_days($timestamp)
+/**
+ * method for transforming a timestamp to days
+ * @param   string  timestamp
+ * @return  int     days
+ */
+function timestamp_to_days($updated){
+    $diff = time() - strtotime($updated);
+    $diff / 60 / 60 / 24;
+}
+// }}}
+// {{{ function isvalue($var)
+/**
+ * method used for checking if something is a value
+ * is something is sat and has values
+ *
+ * @param   mixed
+ * @return  boolean
+ */
+function isvalue($var){
+    if (isset($var) && !empty($var)){
+        return true;
+    }
+    return false;
+}
+
+// }}}
+// {{{ function substr2 ($str, $length, $min)
+/** 
+ * Substring without losing word meaning and
+ * tiny words (length 3 by default) are included on the result.
+ *  "..." is added if result do not reach original string length
+ * Found on php.net
+ *
+ * @param   string  string to operate on
+ * @param   int     length to cut at
+ * @param   int     size of minimum word
+ * @return  string  string transformed
+ */
+function substr2($str, $length, $minword = 3)
+{
+    $sub = '';
+    $len = 0;
+
+    foreach (explode(' ', $str) as $word)
+    {
+        $part = (($sub != '') ? ' ' : '') . $word;
+        $sub .= $part;
+        $len += strlen($part);
+
+        if (strlen($word) > $minword && strlen($sub) >= $length)
+        {
+            break;
+        }
+    }
+
+    return $sub . (($len < strlen($str)) ? ' ... ' : '');
+}
+
+// }}}
+// {{{ function save_post($id)
+/**
+ * simple method for saving $_POST vars to session
+ *
+ * @param   string  id of the post to save
+ */
+function save_post ($id){
+     $_SESSION[$id] = $_POST;
+}
+
+// }}}
+// {{{ function load_post($id)
+/**
+ * method for loading $_POST vars from session
+ * @param   string  id of the post to load
+ */
+function load_post($id){
+    $_POST = @$_SESSION[$id];
+}
+// }}}
+// {{{ function cos_url_encode($string)
+/**
+ * function for url encoding a utf8 string
+ * @param   string  the utf8 string to encode
+ * @return  string  the utf8 encoded string
+ */
+function cos_url_encode($string){
+    return urlencode(utf8_encode($string));
+}
+
+// }}}
+// {{{ function cos_url_decode ($string)
+/**
+ * function for decoding a url8 encoded string
+ * @param   string  the string to decode
+ * @return  string  the decoded utf8 string
+ */
+function cos_url_decode($string){
+    return utf8_decode(urldecode($string));
+}
+// }}}
+
+// File functions
+
+// {{{ function get_file_list($dir)
 /**
  * function for getting a file list of a directory (. and .. will not be
  * collected
@@ -77,7 +244,7 @@ function get_file_list($dir, $options = null){
 }
 
 // }}}
-// {{{ get_file_list_recursive
+// {{{ function get_file_list_recursive($start_dir)
 /**
  *
  * found on php.net
@@ -105,6 +272,9 @@ function get_file_list_recursive($start_dir) {
     return $files;
 }
 // }}}
+
+// System function for including model, modules or controllers. 
+
 // {{{ function include_module($module)
 /**
  * function for including a modules view and model file
@@ -135,7 +305,7 @@ function include_module($module, $options = null){
 }
 
 // }}}
-// {{{ include_model($module)
+// {{{ function include_model($module)
 /**
  *
  * @param   string   $module module to include e.g. (content/article)
@@ -149,7 +319,7 @@ function include_model($module){
 }
 
 // }}}
-// {{{ include_controller($controller, $options)
+// {{{ function include_controller($controller, $options)
 /**
  *
  * @param string    controller to include (e.g. content/article/add)
@@ -162,6 +332,145 @@ function include_controller($controller, $options = null){
 }
 
 // }}}
+// {{{ function include_filters($filters)
+/**
+ * include filters is used to include filters.
+ * this is used if you need to set some settings in the
+ * filter before using it.
+ *
+ * @param   mixed   string or array of filters to include
+ *
+ */
+function include_filters ($filter){
+    if (!is_array($filter)){
+        $class_path = _COS_PATH . "/modules/filter_$filter/$filter.inc";
+        include_once $class_path;
+
+    }
+
+    if (is_array ($filter)){
+        foreach($filter as $key => $val){
+            $class_path = _COS_PATH . "/modules/filter_$val/$val.inc";
+            include_once $class_path;
+        }
+    }
+}
+// }}}
+// {{{ function get_filtered_content($filter, $content)
+/**
+ *
+ * @param  mixed    string or array (filters to use)
+ * @param  mixed    string or array (to use filters on)
+ * @return mixed    string or array
+ */
+function get_filtered_content ($filter, $content){
+    
+    if (!is_array($filter)){
+        $class_path = _COS_PATH . "/modules/filter_$filter/$filter.inc";
+        include_once $class_path;
+        $class = 'filter' . ucfirst($filter);
+        $filter_class = new $class;
+
+        if (is_array($content)){
+            foreach ($content as $key => $val){
+                $content[$key] = $filter_class->filter($val);
+            }
+        } else {
+            $content = $filter_class->filter($content);
+        }
+        
+        return $content;
+    }
+
+    if (is_array ($filter)){
+
+        foreach($filter as $key => $val){
+
+            $class_path = _COS_PATH . "/modules/filter_$val/$val.inc";
+            include_once $class_path;
+            $class = 'filter' . ucfirst($val);
+            $filter_class = new $class;
+            if (is_array($content)){
+                foreach ($content as $key => $val){
+                    $content[$key] = $filter_class->filter($val);
+                }
+            } else {
+                $content = $filter_class->filter($content);
+            }
+        }
+        return $content;
+    }
+    return '';
+}
+
+// }}}
+// {{{ function get_module_ini($values)
+/**
+ * method for getting a modules ini settings
+ */
+function get_module_ini($value){
+    if (!isset(register::$vars['coscms_main']['module'][$value])){
+        return null;
+    }
+    if (register::$vars['coscms_main']['module'][$value] == '0'){
+        return null;
+    }
+    
+    return register::$vars['coscms_main']['module'][$value];
+    
+}
+// }}}
+// {{{ function get_main_ini($value)
+/**
+ * method for getting a main ini setting
+ *
+ * @param   string  ini setting to get
+ * @return  mixed   the setting
+ */
+function get_main_ini($value){
+    if (!isset(register::$vars['coscms_main'][$value])){
+        return null;
+    }
+
+    if (register::$vars['coscms_main'][$value] == '0'){
+        return null;
+    }
+    return register::$vars['coscms_main'][$value];
+}
+
+// }}}
+// {{{ function get_include_contents ($filename)
+/**
+ * function for getting content from a file
+ * used as a very simple template function
+ */
+function get_include_contents($filename, $vars = null) {
+    if (is_file($filename)) {
+        ob_start();
+        include $filename;
+        $contents = ob_get_contents();
+        ob_end_clean();
+        return $contents;
+    }
+    return false;
+}
+
+// }}}
+// {{{ function get_module_path
+/**
+ * method for getting a path to a module
+ *
+ * @param   string  the module
+ * @return  string  the module path
+ */
+function get_module_path ($module){
+    return _COS_PATH . '/modules/' . $module;
+}
+
+// }}}
+
+// HTML and HTTP function
+
 // {{{ function create_seo_title($title)
 /**
  * function for creating a seo friendly title
@@ -306,6 +615,92 @@ function view_drop_down($name, $rows, $field, $id, $selected=null, $behav = null
 }
 
 // }}}
+// {{{ function simple_template ($file)
+/**
+ * simple template method for collecting a string from a file
+ */
+function simple_template ($file){
+    ob_start();
+    include $file;
+    $parsed = ob_get_contents();
+    ob_end_clean();
+    return $parsed;
+}
+// }}}
+// {{{ function get_profile_link (&$user)
+/**
+ * gets users profile link if a module system is in place. 
+ * @param   array   user row
+ */
+function get_profile_link (&$user){
+    static $profile_object;
+
+    if (!isset($profile_object)){
+        $profile_system = get_main_ini('profile_module');
+        if (!isset($profile_system)){
+            return $user['username'];
+        }
+
+        include_model ($profile_system);
+
+        $profile_object = moduleLoader::modulePathToClassName($profile_system);
+        $profile_object = new $profile_object();        
+        $link = $profile_object->createProfileLink($user);
+        return $link;
+    }
+
+    return $profile_object->createProfileLink($user);
+}
+// }}}
+// {{{ function simple_prg () 
+/**
+ * simple function for creating prg pattern. 
+ * (Keep state when reloading browser and resends forms etc.) 
+ */
+
+function simple_prg (){
+    // check to see if we should start prg
+    if ($_SERVER['REQUEST_METHOD'] == 'POST'){
+        $uniqid = uniqid();
+        $_SESSION['post'][$uniqid] = $_POST;
+        $_SESSION['REQUEST_URI'] = $_SERVER['REQUEST_URI'];
+
+        header("HTTP/1.1 303 See Other");
+        $header = "Location: " . $_SERVER['REQUEST_URI'] . '?prg=1&uniqid=' . $uniqid;
+        header($header);
+        die;
+    }
+
+    if (!isset($_SESSION['REQUEST_URI'])){
+        @$_SESSION['post'] = null;
+    } else {
+        if (isset($_GET['prg'])){
+            $uniqid = $_GET['uniqid'];
+            $_POST = @$_SESSION['post'][$uniqid];
+        } else {
+            @$_SESSION['REQUEST_URI'] = null;
+        }
+    }
+}
+// }}}
+// {{{ function send_cache_headers()
+/**
+ * method for sending cache headers when e.g. sending images from db
+ */
+function send_cache_headers (){
+
+    // one month
+    $expires = 60*60*24*30;
+    header("Pragma: public");
+    header("Cache-Control: maxage=".$expires);
+    header('Expires: ' . gmdate('D, d M Y H:i:s', time()+$expires) . ' GMT');
+    
+}
+
+// }}}
+
+// Mail functions
+
 // {{{ function mail_utf8($to, $subject, $message, $from)
 
 /**
@@ -360,7 +755,7 @@ function mail_utf8($to, $subject, $message, $from, $reply_to=null) {
 }
 
 // }}} 
-// {{{ mail_smtp
+// {{{ function mail_smtp($recipient, $subject, $message, $from, $reply_to)
 /**
  * method for sending mails via smtp
  */
@@ -423,319 +818,21 @@ function mail_smtp ($recipient, $subject, $message, $from, $reply_to/*$headers =
     return $result;
 }
 // }}}
-// {{{ function cos_htmlentites($values)
+
+// Validation, Email and URL
 
 /**
- * function for creating rewriting htmlentities for safe display on screen
- *
- * @param   array|string    value(s) to transform
- * @return  array|string    value(s) transformed
+ * @package coslib
  */
-function cos_htmlentities($values){
-    if (is_array($values)){
-        foreach($values as $key => $val){
-            $values[$key] = htmlentities($val, ENT_COMPAT, 'UTF-8');
-        }
-    } else if (is_string($values)) {
-        $values =  htmlentities($values, ENT_COMPAT, 'UTF-8');
-    } else {
-        $values = '';
-    }
-    return $values;
-}
 
-
-/**
- * function for creating rewriting htmlentities for safe display on screen
- *
- * @param   array|string    value(s) to transform
- * @return  array|string    value(s) transformed
- */
-function cos_htmlentities_decode($values){
-    if (is_array($values)){
-        foreach($values as $key => $val){
-            $values[$key] = html_entity_decode($val, ENT_COMPAT, 'UTF-8');
-        }
-    } else if (is_string($values)) {
-        $values =  html_entity_decode($values, ENT_COMPAT, 'UTF-8');
-    } else {
-        $values = '';
-    }
-    return $values;
-}
-//html_entity_decode
-// }}}
-// {{{ function cos_htmlspecialchars($values)
-
-/**
- * function for creating rewriting htmlspecialchars for safe display on screen
- *
- * @param   array|string    value(s) to transform
- * @return  array|string    value(s) transformed
- */
-function cos_htmlspecialchars($values){
-    if (is_array($values)){
-        foreach($values as $key => $val){
-            $values[$key] = htmlspecialchars($val, ENT_COMPAT, 'UTF-8');
-        }
-    } else {
-        $values =  htmlspecialchars($values, ENT_COMPAT, 'UTF-8');
-    }
-    return $values;
-}
-
-// }}}
-// {{{ timestamp_to_days($timestamp)
-/**
- * method for transforming a timestamp to days
- * @param   string  timestamp
- * @return  int     days
- */
-function timestamp_to_days($updated){
-    $diff = time() - strtotime($updated);
-    $diff / 60 / 60 / 24;
-}
-// }}}
-
-/**
- * include filters is used to include filters.
- * this is used if you need to set some settings in the
- * filter before using it.
- *
- * @param   mixed   string or array of filters to include
- *
- */
-function include_filters ($filter){
-    if (!is_array($filter)){
-        $class_path = _COS_PATH . "/modules/filter_$filter/$filter.inc";
-        include_once $class_path;
-
-    }
-
-    if (is_array ($filter)){
-        foreach($filter as $key => $val){
-            $class_path = _COS_PATH . "/modules/filter_$val/$val.inc";
-            include_once $class_path;
-        }
-    }
-}
-
-// {{{ get_filtered_content($filter, $content)
-/**
- *
- * @param  mixed    string or array (filters to use)
- * @param  mixed    string or array (to use filters on)
- * @return mixed    string or array
- */
-function get_filtered_content ($filter, $content){
-    
-    if (!is_array($filter)){
-        $class_path = _COS_PATH . "/modules/filter_$filter/$filter.inc";
-        include_once $class_path;
-        $class = 'filter' . ucfirst($filter);
-        $filter_class = new $class;
-
-        if (is_array($content)){
-            foreach ($content as $key => $val){
-                $content[$key] = $filter_class->filter($val);
-            }
-        } else {
-            $content = $filter_class->filter($content);
-        }
-        
-        return $content;
-    }
-
-    if (is_array ($filter)){
-
-        foreach($filter as $key => $val){
-
-            $class_path = _COS_PATH . "/modules/filter_$val/$val.inc";
-            include_once $class_path;
-            $class = 'filter' . ucfirst($val);
-            $filter_class = new $class;
-            if (is_array($content)){
-                foreach ($content as $key => $val){
-                    $content[$key] = $filter_class->filter($val);
-                }
-            } else {
-                $content = $filter_class->filter($content);
-            }
-        }
-        return $content;
-    }
-    return '';
-}
-
-// }}}
-// {{{ get_module_ini($values)
-/**
- * method for getting a modules ini settings
- */
-function get_module_ini($value){
-    if (!isset(register::$vars['coscms_main']['module'][$value])){
-        return null;
-    }
-    if (register::$vars['coscms_main']['module'][$value] == '0'){
-        return null;
-    }
-    
-    return register::$vars['coscms_main']['module'][$value];
-    
-}
-// }}}
-// {{{ get_main_ini($value)
-/**
- * method for getting a main ini setting
- *
- * @param   string  ini setting to get
- * @return  mixed   the setting
- */
-function get_main_ini($value){
-    if (!isset(register::$vars['coscms_main'][$value])){
-        return null;
-    }
-
-    if (register::$vars['coscms_main'][$value] == '0'){
-        return null;
-    }
-    return register::$vars['coscms_main'][$value];
-}
-
-// }}}
-// {{{ isvalue($var)
-/**
- * method used for checking if something is a value
- * is something is sat and has values
- *
- * @param   mixed
- * @return  boolean
- */
-function isvalue($var){
-    if (isset($var) && !empty($var)){
-        return true;
-    }
-    return false;
-}
-
-// }}}
-// {{{ get_include_contents ($filename)
-/**
- * function for getting content from a file
- * used as a very simple template function
- */
-function get_include_contents($filename, $vars = null) {
-    if (is_file($filename)) {
-        ob_start();
-        include $filename;
-        $contents = ob_get_contents();
-        ob_end_clean();
-        return $contents;
-    }
-    return false;
-}
-
-// }}}
-// {{{ substr2 ($str, $length, $min)
-/** 
- * Substring without losing word meaning and
- * tiny words (length 3 by default) are included on the result.
- *  "..." is added if result do not reach original string length
- * Found on php.net
- *
- * @param   string  string to operate on
- * @param   int     length to cut at
- * @param   int     size of minimum word
- * @return  string  string transformed
- */
-function substr2($str, $length, $minword = 3)
-{
-    $sub = '';
-    $len = 0;
-
-    foreach (explode(' ', $str) as $word)
-    {
-        $part = (($sub != '') ? ' ' : '') . $word;
-        $sub .= $part;
-        $len += strlen($part);
-
-        if (strlen($word) > $minword && strlen($sub) >= $length)
-        {
-            break;
-        }
-    }
-
-    return $sub . (($len < strlen($str)) ? ' ... ' : '');
-}
-
-// }}}
-// {{{ send_cache_headers()
-/**
- * method for sending cache headers when e.g. sending images from db
- */
-function send_cache_headers (){
-
-    // one month
-    $expires = 60*60*24*30;
-    header("Pragma: public");
-    header("Cache-Control: maxage=".$expires);
-    header('Expires: ' . gmdate('D, d M Y H:i:s', time()+$expires) . ' GMT');
-    
-}
-
-// }}}
-// {{{ get_module_path
-/**
- * method for getting a path to a module
- *
- * @param   string  the module
- * @return  string  the module path
- */
-function get_module_path ($module){
-    return _COS_PATH . '/modules/' . $module;
-}
-
-// }}}
-// {{{ save_post($id)
-/**
- * simple method for saving $_POST vars to session
- *
- * @param   string  id of the post to save
- */
-function save_post ($id){
-     $_SESSION[$id] = $_POST;
-}
-
-// }}}
-// {{{ load_post($id)
-/**
- * method for loading $_POST vars from session
- * @param   string  id of the post to load
- */
-function load_post($id){
-    $_POST = @$_SESSION[$id];
-}
-// }}}
-// {{{ simple_template ($file)
-/**
- * simple template method for collecting a string from a file
- */
-function simple_template ($file){
-    ob_start();
-    include $file;
-    $parsed = ob_get_contents();
-    ob_end_clean();
-    return $parsed;
-}
-// }}}
-// {{{ class for validating
 /**
  *
  * class for validating email and and emailAndDomain
  */
 class cosValidate {
+    // {{{ public static function email ($email)
     /**
-     * method for just validating email
+     * method for validating email with php filter_var function
      * @param   string  email
      * @return  boolean 
      */
@@ -745,9 +842,10 @@ class cosValidate {
         }
         return true;
     }
-    
+    // }}}
+    // {{{ public static function urlWithFilter($url)
     /**
-     * method for just validating email
+     * method for validating email with php filter_var function
      * @param   string  email
      * @return  boolean 
      */
@@ -758,9 +856,10 @@ class cosValidate {
         }
         return true;
     }
-
+    // }}} 
+    // {{{ public static function url ($url)
     /**
-     * method for just validating email
+     * method for validating url with PEAR::Validate filter 
      * @param   string  email
      * @return  boolean
      */
@@ -772,9 +871,10 @@ class cosValidate {
         }
         return true;
     }
-    
+    // }}}
+    // {{{ public static function validateEmailAndDomain ($email
     /**
-     * method for vaildating the email the emails domain
+     * method for vaildating the email the emails domain with PEAR:Validate
      * @param   string  email
      * @return  boolean 
      */
@@ -786,76 +886,8 @@ class cosValidate {
         }
         return false;
     }
-}
-// }}}
-// {{{ cos_url_encode($string)
-/**
- * function for url encoding a utf8 string
- * @param   string  the utf8 string to encode
- * @return  string  the utf8 encoded string
- */
-function cos_url_encode($string){
-    return urlencode(utf8_encode($string));
+    // }}}
 }
 
-// }}}
-// {{{ cos_url_decode
-/**
- * function for decoding a url8 encoded string
- * @param   string  the string to decode
- * @return  string  the decoded utf8 string
- */
-function cos_url_decode($string){
-    return utf8_decode(urldecode($string));
-}
-// }}}
 
 
-function get_profile_link (&$user){
-    static $profile_object;
-
-    if (!isset($profile_object)){
-        $profile_system = get_main_ini('profile_module');
-        if (!isset($profile_system)){
-            return $user['username'];
-        }
-
-        include_model ($profile_system);
-
-        $profile_object = moduleLoader::modulePathToClassName($profile_system);
-        $profile_object = new $profile_object();        
-        $link = $profile_object->createProfileLink($user);
-        return $link;
-    }
-
-    return $profile_object->createProfileLink($user);
-}
-
-/**
- * function for creating prg pattern with ease
- */
-
-function simple_prg (){
-    // check to see if we should start prg
-    if ($_SERVER['REQUEST_METHOD'] == 'POST'){
-        $uniqid = uniqid();
-        $_SESSION['post'][$uniqid] = $_POST;
-        $_SESSION['REQUEST_URI'] = $_SERVER['REQUEST_URI'];
-
-        header("HTTP/1.1 303 See Other");
-        $header = "Location: " . $_SERVER['REQUEST_URI'] . '?prg=1&uniqid=' . $uniqid;
-        header($header);
-        die;
-    }
-
-    if (!isset($_SESSION['REQUEST_URI'])){
-        @$_SESSION['post'] = null;
-    } else {
-        if (isset($_GET['prg'])){
-            $uniqid = $_GET['uniqid'];
-            $_POST = @$_SESSION['post'][$uniqid];
-        } else {
-            @$_SESSION['REQUEST_URI'] = null;
-        }
-    }
-}

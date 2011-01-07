@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * ignore for now.
+ * 
+ * @ignore
+ */
+
 define ('FORM_SIZE', 20);
 define ('FORM_COLS', 60);
 define ('FORM_ROWS', 14);

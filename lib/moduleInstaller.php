@@ -94,7 +94,7 @@ class moduleInstaller extends db {
         if (file_exists($module_dir)){
             $install_file = "$module_dir/install.inc";
             if (!file_exists($install_file)){
-                die("No install file '$install_file' found in: '$module_dir'\n");
+                cos_cli_print("Notice: No install file '$install_file' found in: '$module_dir'\n");
             }
 
             include $install_file;
@@ -115,7 +115,7 @@ class moduleInstaller extends db {
             
             
         } else {
-            die ("No module dir: $module_dir\n");
+            cos_cli_print ("Notice: No module dir: $module_dir\n");
         }
     }
 

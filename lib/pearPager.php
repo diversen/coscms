@@ -7,6 +7,7 @@
  */
 
 /**
+ * @ignore
  * defining PAGER_PER_PAGE, can be overriden in common.inc in a template dir
  */
 if (!defined('PAGER_PER_PAGE')){

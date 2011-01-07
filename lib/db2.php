@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * @ignore for now.
+ */
+
 class db2 {
 
     static $query = '';

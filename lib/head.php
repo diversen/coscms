@@ -1,6 +1,10 @@
 <?php
 
 /**
+ * @ignore
+ */
+
+/**
  * @package    coslib
  */
 register::$vars['coscms_main'] = array();

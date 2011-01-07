@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * @ignore
+ */
+
 function list_tags(){
     $list_tags = "git tag -l";
     cos_system($list_tags);

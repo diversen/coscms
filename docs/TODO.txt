@@ -1,8 +1,13 @@
 [TODO]
+documentation check
 Forum
 Category api
 remove all profiles but one,
 move other profiles to repos.
+make it possible to override base classes.
+
+[overrides]
+session = override_session (module_name)
 
 
 

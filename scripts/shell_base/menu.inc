@@ -20,7 +20,7 @@ function install_menu($options){
     $module_path = get_module_path($options['Module']);
     if (!file_exists($module_path)){
         cos_cli_print("Module $options[Module] does not exists in modules dir. ");
-        cos_cli_abort();
+        //cos_cli_abort();
     }
 
     $mod = new moduleInstaller($options);
@@ -35,8 +35,9 @@ function install_all (){
     $mods = moduleInstaller::getModules();
     foreach ($mods as $key => $val){
         $options = array('Module' => $val['module_name']);
-        $mod = new moduleInstaller($options);
-        $mod->insertMenuItem();
+        //$mod = new moduleInstaller($options);
+        //$mod->insertMenuItem();
+        install_menu($options);
     }
     return 1;
 }
@@ -46,8 +47,9 @@ function uninstall_all (){
     $mods = moduleInstaller::getModules();
     foreach ($mods as $key => $val){
         $options = array('Module' => $val['module_name']);
-        $mod = new moduleInstaller($options);
-        $mod->deleteMenuItem();
+        //$mod = new moduleInstaller($options);
+        //$mod->deleteMenuItem();
+        uninstall_menu($options);
     }
     return 1;
 }
@@ -63,7 +65,7 @@ function uninstall_menu($options){
     $module_path = _COS_PATH . '/modules/' . $options['Module'];
     if (!file_exists($module_path)){
         cos_cli_print("Module $options[Module] does not exists in modules dir. ");
-        cos_cli_abort();
+        //cos_cli_abort();
     }
 
     $menu = new moduleInstaller($options);
