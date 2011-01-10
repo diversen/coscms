@@ -84,6 +84,7 @@ class pearPager {
             'altPrev' => lang::translate('pager_prev_page'),
             'altNext' => lang::translate('pager_next_page'),
             'altPage' => lang::translate('pager_page'),
+            'separator' => '',
             'mode'       => 'Sliding',
             'perPage'    => PAGER_PER_PAGE,
             'delta'      => 2,
