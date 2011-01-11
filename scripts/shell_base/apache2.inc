@@ -122,23 +122,23 @@ function a2_disable_site($options){
 // }}}
 
 mainCli::setCommand('apache2', array(
-    'description' => 'enable or disable coscms as an apache2 virtual server',
+    'description' => 'Command for automatic configuration and setup of apache2 as virtual server',
 ));
 
 mainCli::setOption('a2_enable_site', array(
     'long_name'   => '--enable',
-    'description' => 'Will enable current directory as an apache2 virtual host',
+    'description' => 'Will enable current directory as an apache2 virtual host. Will also add new sitename to your /et/hosts file',
     'action'      => 'StoreTrue'
 ));
 
 mainCli::setOption('a2_disable_site', array(
     'long_name'   => '--disable',
-    'description' => 'Will disable current directory as an apache2 virtual host',
+    'description' => 'Will disable current directory as an apache2 virtual host, and remove sitename from /etc/hosts files',
     'action'      => 'StoreTrue'
 ));
 
 mainCli::setArgument(
     'hostname',
-    array('description'=> 'Specify the hostname to be used',
+    array('description'=> 'Specify the apache hostname to be used for install or uninstall. yoursite will be http://yoursite',
         'optional' => false,
 ));
