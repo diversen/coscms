@@ -84,7 +84,7 @@ class moduleInstaller extends db {
         $ini_file_dist = $module_dir . "/$module_name.ini-dist";
 
         if (isset($options['profile'])){
-            echo $ini_file_dist = _COS_PATH . "/profiles/$options[profile]/$module_name.ini-dist";
+            $ini_file_dist = _COS_PATH . "/profiles/$options[profile]/$module_name.ini-dist";
         }
 
         if (!file_exists($ini_file)){
@@ -583,7 +583,7 @@ class moduleInstaller extends db {
         $this->deleteMenuItem();
         $this->delete('language', 'module_name', $this->installInfo['NAME']);
         //self::$dbh->beginTransaction();
-        //print_r($downgrades);
+
         if (!empty($downgrades)) {
             foreach ($downgrades as $key => $val){
                 $version = substr($val, 0, -4);

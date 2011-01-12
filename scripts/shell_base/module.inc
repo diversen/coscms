@@ -13,7 +13,6 @@
  */
 function install_module($options){
 
-    print_r($options);
     $module = $options['Module'];
     $module_path = _COS_PATH . "/modules/$module";
 
