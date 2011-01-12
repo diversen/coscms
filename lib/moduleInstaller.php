@@ -84,7 +84,7 @@ class moduleInstaller extends db {
         $ini_file_dist = $module_dir . "/$module_name.ini-dist";
 
         if (isset($options['profile'])){
-            echo $ini_file_dist = _COS_PATH . "/profiles/$options[profile]/$module.ini-dist";
+            echo $ini_file_dist = _COS_PATH . "/profiles/$options[profile]/$module_name.ini-dist";
         }
 
         if (!file_exists($ini_file)){
