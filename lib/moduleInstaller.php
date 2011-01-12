@@ -475,6 +475,10 @@ class moduleInstaller extends db {
         $ini_file_dist = _COS_PATH . "/modules/$module/$module.ini-dist";
         $ini_file_dist_php = _COS_PATH . "/modules/$module/$module.php.ini-dist";
 
+        if (isset($options['Profile'])){
+            $ini_file_dist = _COS_PATH . "/profiles/$options[Profile]/$module.ini-dist";
+        }
+
         if (!file_exists($ini_file)){
             if (!copy($ini_file_dist, $ini_file)){
                 $this->error = "Error: Could not copy $ini_file to $ini_file_dist" . NEW_LINE;
