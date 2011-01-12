@@ -2,4 +2,4 @@ page_template = "view:bartels/gallery"
 allow_edit_gallery = "admin"
 gallery_thumb_size = 50
 gallery_image_size = 1200
-use_jquery = 1
+use_jquery = 0
