@@ -82,6 +82,11 @@ class moduleInstaller extends db {
         $module_dir = _COS_PATH . "/modules/$module_name";
         $ini_file = $module_dir . "/$module_name.ini";
         $ini_file_dist = $module_dir . "/$module_name.ini-dist";
+
+        if (isset($options['profile'])){
+            $ini_file_dist = _COS_PATH . "/profiles/$options[profile]/$module.ini-dist";
+        }
+
         if (!file_exists($ini_file)){
             if (file_exists($ini_file_dist)){
                 copy ($ini_file_dist, $ini_file);
@@ -474,10 +479,6 @@ class moduleInstaller extends db {
         $ini_file_php = _COS_PATH . "/modules/$module/$module.php.ini";
         $ini_file_dist = _COS_PATH . "/modules/$module/$module.ini-dist";
         $ini_file_dist_php = _COS_PATH . "/modules/$module/$module.php.ini-dist";
-
-        if (isset($options['profile'])){
-            $ini_file_dist = _COS_PATH . "/profiles/$options[profile]/$module.ini-dist";
-        }
 
         if (!file_exists($ini_file)){
             if (!copy($ini_file_dist, $ini_file)){
