@@ -318,6 +318,12 @@ mainCli::setOption('git_upgrade_template', array(
     'action'      => 'StoreTrue'
 ));
 
+mainCli::setOption('git_clone_profile', array(
+    'long_name'   => '--pro-in',
+    'description' => 'Will clone remote profile with latest version',
+    'action'      => 'StoreTrue'
+));
+
 mainCli::setOption('git_upgrade', array(
     'long_name'   => '--mod-up',
     'description' => 'Will check latest remote version and compare with locale version. If remote is higher it will be checked out and system will be upgraded',
