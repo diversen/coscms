@@ -12,9 +12,14 @@ use_email_login = 0
 ;use open id login
 use_openid_login = 1
 ; who can edit openid accounts
-allow_edit_openid = admin
+allow_edit_openid = "admin"
 ; default login url
 account_default_url = "/account/openid/index"
 use_facebook_login = 1
+
+facebook_api_secret = "56bde0172dd59713768e1ede9b90ca20"
+facebook_api_appid = 142138975837699
+
+[development]
 facebook_api_secret = "6039f43f4de848a9987c87b21c03c2f8"
 facebook_api_appid = 120475118019501

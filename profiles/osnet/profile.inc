@@ -183,18 +183,6 @@ $_PROFILE_MODULES = array (
   ),
   15 => 
   array (
-    'id' => '92',
-    'module_name' => 'filter_language',
-    'module_version' => '1.01',
-    'menu_item' => '0',
-    'run_level' => '0',
-    'load_on' => NULL,
-    'parent' => NULL,
-    'is_shell' => NULL,
-    'public_clone_url' => 'git://github.com/diversen/filter_language.git',
-  ),
-  16 => 
-  array (
     'id' => '93',
     'module_name' => 'gravatar',
     'module_version' => '1.01',
@@ -205,7 +193,7 @@ $_PROFILE_MODULES = array (
     'is_shell' => NULL,
     'public_clone_url' => 'git://github.com/diversen/gravatar.git',
   ),
-  17 => 
+  16 => 
   array (
     'id' => '94',
     'module_name' => 'image',
@@ -217,79 +205,54 @@ $_PROFILE_MODULES = array (
     'is_shell' => NULL,
     'public_clone_url' => 'git://github.com/diversen/image.git',
   ),
-  18 => 
+  17 => 
   array (
-    'id' => '95',
-    'module_name' => 'filter_safe',
+    'id' => '96',
+    'module_name' => 'filter_purify',
     'module_version' => '1.01',
     'menu_item' => '0',
     'run_level' => '0',
     'load_on' => NULL,
     'parent' => NULL,
     'is_shell' => NULL,
-    'public_clone_url' => 'git://github.com/diversen/filter_simple.git',
+    'public_clone_url' => 'git://github.com/diversen/filter_purify.git',
+  ),
+  18 => 
+  array (
+    'id' => '97',
+    'module_name' => 'filter_geshi',
+    'module_version' => '1.01',
+    'menu_item' => '0',
+    'run_level' => '0',
+    'load_on' => NULL,
+    'parent' => NULL,
+    'is_shell' => NULL,
+    'public_clone_url' => 'git://github.com/diversen/filter_geshi.git',
   ),
 );
 
 $_PROFILE_TEMPLATES = array (
   0 => 
   array (
-    'public_clone_url' => 'git://github.com/diversen/bartels.git',
-    'module_version' => '1.08',
-    'module_name' => 'bartels',
+    'public_clone_url' => 'git://github.com/diversen/js-toc.git',
+    'module_version' => '1.03',
+    'module_name' => 'js-toc',
   ),
   1 => 
-  array (
-    'public_clone_url' => 'git://github.com/diversen/naked.git',
-    'module_version' => '1.03',
-    'module_name' => 'naked',
-  ),
-  2 => 
-  array (
-    'public_clone_url' => 'git://github.com/diversen/highlight.git',
-    'module_version' => '1.03',
-    'module_name' => 'highlight',
-  ),
-  3 => 
-  array (
-    'public_clone_url' => 'git://github.com/diversen/blacknwhite.git',
-    'module_version' => '1.03',
-    'module_name' => 'blacknwhite',
-  ),
-  4 => 
-  array (
-    'public_clone_url' => 'git://github.com/diversen/clean.git',
-    'module_version' => '1.03',
-    'module_name' => 'clean',
-  ),
-  5 => 'js-toc',
-  6 => 
   array (
     'public_clone_url' => 'git://github.com/diversen/fancybox.git',
     'module_version' => '1.03',
     'module_name' => 'fancybox',
   ),
-  7 => 
+  2 => 
   array (
-    'public_clone_url' => 'git://github.com/diversen/less-style.git',
+    'public_clone_url' => 'git://github.com/diversen/zimpleza.git',
     'module_version' => '1.03',
-    'module_name' => 'less-style',
-  ),
-  8 => 
-  array (
-    'public_clone_url' => 'git://github.com/diversen/no-style.git',
-    'module_version' => '1.03',
-    'module_name' => 'no-style',
-  ),
-  9 => 
-  array (
-    'public_clone_url' => 'git://github.com/diversen/mandlen.git',
-    'module_version' => '1.03',
-    'module_name' => 'mandlen',
+    'module_name' => 'zimpleza',
   ),
 );
 
-$_PROFILE_TEMPLATE = 'blacknwhite';
+$_PROFILE_TEMPLATE = 'zimpleza';
 
 $_PROFILE_USE_HOME = 0;
 
