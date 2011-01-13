@@ -173,7 +173,7 @@ class mainCli {
 
         $modules = moduleLoader::getAllModules();
         foreach ($modules as $key => $val){
-            if ($val['is_shell'] == 1){
+            if (isset($val['is_shell']) && $val['is_shell'] == 1){
                 // include all base commands from scripts/commands folder
                 $command_path = _COS_PATH . "/modules/$val[module_name]";
                 //$file_list = get_file_list($command_path);
