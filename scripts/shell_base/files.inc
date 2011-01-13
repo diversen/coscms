@@ -99,7 +99,7 @@ function create_files(){
         cos_exec($command);
     }
 
-    $files_path.= _COS_PATH . '/htdocs/logo';
+    $files_path = _COS_PATH . '/htdocs/logo';
     if (!file_exists($files_path)){
         $command = "mkdir $files_path";
         cos_exec($command);
