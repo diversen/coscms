@@ -87,14 +87,23 @@ function rm_files(){
  */
 function create_files(){
 
-    $files_path = _COS_PATH . '/logs/coscms.log ';
-    $command = "touch $files_path";
-    cos_exec($command);
+    $files_path = _COS_PATH . '/logs/coscms.log';
+    if (!file_exists($files_path)){
+        $command = "touch $files_path";
+        cos_exec($command);
+    }
 
-    $files_path = _COS_PATH . '/htdocs/files ';
-    $files_path.= _COS_PATH . '/htdocs/logo ';
-    $command = "mkdir $files_path";
-    cos_exec($command);
+    $files_path = _COS_PATH . '/htdocs/files';
+    if (!file_exists($files_path)){
+        $command = "mkdir $files_path";
+        cos_exec($command);
+    }
+
+    $files_path.= _COS_PATH . '/htdocs/logo';
+    if (!file_exists($files_path)){
+        $command = "mkdir $files_path";
+        cos_exec($command);
+    }
 }
 
 // }}}

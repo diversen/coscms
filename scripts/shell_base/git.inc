@@ -162,11 +162,11 @@ function git_clone($options, $type){
 
     // we abort if there is no tags.
     if (!$latest){
-        if (register::$vars['git_use_master'] == 1){
-            $checkout = 'master';
-        } else {
-            cos_cli_abort("No tags for repo: $options[repo]");
-        }
+        //if (register::$vars['git_use_master'] == 1){
+        $checkout = 'master';
+        //} else {
+        //    cos_cli_abort("No tags for repo: $options[repo]");
+        //}
     }
 
     // set dir according to module type. Template, profile or module.

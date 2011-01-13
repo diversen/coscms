@@ -21,7 +21,7 @@ function create_db(){
     $db = get_db_info();
     $command = 
         "mysqladmin -u" . register::$vars['coscms_main']['username'] .
-        " -p" . register::$vars['coscms_main'][password] . " -h$db[host] ";
+        " -p" . register::$vars['coscms_main']['password'] . " -h$db[host] ";
     
     $command.= "--default-character-set=utf8 ";
     $command.= "CREATE $db[name]";

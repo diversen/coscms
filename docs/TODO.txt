@@ -8,22 +8,8 @@ make it possible to override base classes.
 more gracefull test to see if database exists on install
 same with :
 
-Command [error] mkdir: cannot create directory
-`/home/dennis/www/bartelstest/htdocs/files
-on first install
-
 gallery no style when using bartels profile.
 after setting css styles arives.
-
-If 2. install: 
-Command [error] mkdir: cannot create directory `/home/dennis/www/bartelstest/htdocs/files':
-
-Maybe to harsh: 
-PHP Notice:  Undefined index: git_use_master in /home/dennis/www/mandtest/scripts/shell_base/git.inc on line 165
-No tags for repo: git@github.com:diversen/mandlen-profile.git
-Aborting!
-
-PHP Notice:  Use of undefined constant password - assumed 'password' in /home/dennis/www/mandtest/scripts/shell_base/db.inc on line 24
 
 option for running an auto post install script. e.g. for installing a
 image as logo, etc.
