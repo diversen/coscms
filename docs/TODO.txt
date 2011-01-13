@@ -1,23 +1,11 @@
 [TODO]
 
+
+[Ideas]
 Forum
 Category api
-remove all profiles but one,
-move other profiles to repos.
-make it possible to override base classes.
-more gracefull test to see if database exists on install
-same with :
-
-gallery no style when using bartels profile.
-after setting css styles arives.
-
+override all base classes found in lib
 option for running an auto post install script. e.g. for installing a
 image as logo, etc.
-
 options for moving config settings to db (edit them on web).
-
-[overrides]
-session = override_session (module_name)
-
-
 
