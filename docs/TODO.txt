@@ -25,7 +25,10 @@ Aborting!
 
 PHP Notice:  Use of undefined constant password - assumed 'password' in /home/dennis/www/mandtest/scripts/shell_base/db.inc on line 24
 
+option for running an auto post install script. e.g. for installing a
+image as logo, etc.
 
+options for moving config settings to db (edit them on web).
 
 [overrides]
 session = override_session (module_name)
