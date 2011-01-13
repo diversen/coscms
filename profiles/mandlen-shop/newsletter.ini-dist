@@ -1,4 +1,0 @@
-reply_to = mail@mandlenshop.dk
-allow_send_news = admin
-[development]
-reply_to = mail@gmail.com
