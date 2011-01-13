@@ -10,7 +10,8 @@
  * @param array $options
  * @return int
  */
-function useradd_add ($options = null){ 
+function useradd_add ($options = null){
+    echo "useradd";
 	$type = cos_readline('Enter type of super user to add [1] Email User, [2] OpenID user: ');
 	if ($type == 1){
 		$values['username'] = cos_readline ("Enter username: ");

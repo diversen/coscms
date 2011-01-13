@@ -1,11 +1,10 @@
 [TODO]
-
+Finish comment,
+create admin
 
 [Ideas]
 Forum
 Category api
-override all base classes found in lib
-option for running an auto post install script. e.g. for installing a
-image as logo, etc.
 options for moving config settings to db (edit them on web).
+create admin for comments.
 
