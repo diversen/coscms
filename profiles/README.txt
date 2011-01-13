@@ -3,16 +3,18 @@ This is the profiles dir
 The dir will be used for making profiles which describes an install of distinct
 type of sites. So far there is made room for three profiles for testing.
 
-Default is the default install profile.
-Bartels is an example site with a gallery and an event calendar
-Coscms is the coscms.org install profile.
+osnet is the default install profile.
 
-When creating an install profile use the command:
-./coscli.sh profile --create-profile my-profile
+For creating / adding / delting see: 
 
-This will create a profile from current site settings
+./coscli.sh profile -h
+
+This happens when you create a profile:
+
 All modules current ini file settings and config/config.ini settings
-It will export all modules as an array in module.php where $_PROFILE_MODULES
-holds all info about the modules at the time when the profile were created.
+will be exported as an array to profile/yourprofile/profile.inc where 
+$_PROFILE_MODULES holds all info about the modules at the time when 
+the profile were created.
 
-Finally it will export which template is being used.
+Finally it will export which templates is being used and which is 
+enabled.
