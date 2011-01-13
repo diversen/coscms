@@ -1,5 +1,5 @@
 url = "mysql:dbname=osnet;host=localhost"
-username = "user"
+username = "root"
 password = "pass"
 server_name = "www.os-cms.net"
 site_email = "admin@os-cms.dk"
@@ -20,16 +20,13 @@ session_host = ""
 cookie_time = 30
 frontpage_module = "content"
 profile_module = "account_profile"
-blocks[] = "module_menu"
-;blocks[] = "/modules/content/blocks/simpleTree.php"
+
 blocks[] = "/modules/content/blocks/category.php"
-google_ac = ""
+
 ssh_port = 12312
 ssh_host = 123.123.123.123
 prod_path = /home/dennis/www/os-cms.net
 locale_path = /home/dennis/www/osnet
-module_host = http://www.coscms.org
-
 
 [development]
 server_name = osnet
@@ -39,5 +36,4 @@ smtp_params_sender = "mail@gmail.com";
 smtp_params_port     = "465";
 smtp_params_auth     = "true";
 smtp_params_username = "mail@gmail.com";
-smtp_params_password = "password";
-;cookie_time = 20
+smtp_params_password = "pass";
