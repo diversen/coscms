@@ -249,7 +249,7 @@ abstract class template {
      * @param string $template
      */
     public static function setTemplateCss ($template){
-        if (isset(register::$vars['coscms_main']['css'])){
+        if (!empty(register::$vars['coscms_main']['css'])){
             $css = register::$vars['coscms_main']['css'];
             template::setCss("/templates/$template/$css");
         } else {
