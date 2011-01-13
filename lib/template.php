@@ -241,4 +241,19 @@ abstract class template {
     public static function getEndContent(){
         return self::$endContent;
     }
+
+    /**
+     * checks if a css style is registered. If not
+     * we use common.css in template folder.
+     * 
+     * @param string $template
+     */
+    public static function setTemplateCss ($template){
+        if (isset(register::$vars['coscms_main']['css'])){
+            $css = register::$vars['coscms_main']['css'];
+            template::setCss("/templates/$template/$css");
+        } else {
+            template::setCss("/templates/$template/common.css");
+        }
+    }
 }
