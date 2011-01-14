@@ -1,10 +1,5 @@
 [TODO]
-Finish comment,
-create admin
 
 [Ideas]
-Forum
-Category api
-options for moving config settings to db (edit them on web).
-create admin for comments.
+
 
