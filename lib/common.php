@@ -735,7 +735,11 @@ function mail_utf8($to, $subject, $message, $from, $reply_to=null) {
         if (isset(register::$vars['coscms_main']['smtp_mail'])){
             $res = mail_smtp ($to, $subject, $message, $from, $reply_to);
         } else {
-            $res = mail($to, $subject, $message, $headers);
+            if ($bounce){
+                $res = mail($to, $subject, $message, $headers, "-f $bounce");
+            } else {
+                $res = mail($to, $subject, $message, $headers);
+            }
         }
 
         $log = "TO: $to\n";
