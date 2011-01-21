@@ -721,6 +721,12 @@ function mail_utf8($to, $subject, $message, $from, $reply_to=null) {
         $reply_to = $from;
     }
     $headers.= "Reply-To: $reply_to" . "\r\n";
+
+    $bounce = get_main_ini('site_email_bounce');
+    if ($bounce){
+        $headers.= "Return-Path: $bounce\r\n";
+    }
+
     $subject = '=?UTF-8?B?'.base64_encode($subject).'?=';
     $message = wordwrap($message, 70);
     
@@ -780,12 +786,13 @@ function mail_smtp ($recipient, $subject, $message, $from, $reply_to/*$headers =
         'Content-type' => 'text/plain; charset=UTF-8'
     );
 
-
+    $bounce = get_main_ini('site_email_bounce');
+    if ($bounce){
+        $headers['Return-Path'] = $bounce;
+    }
 
     // Creating the Mime message
     $mime = new Mail_mime($crlf);
-
-
 
     // Setting the body of the email
     $mime->setTXTBody($message);
