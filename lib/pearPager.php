@@ -54,11 +54,7 @@ class pearPager {
     public function pearPage ($options = null){
 
         require_once 'Pager/Pager.php';
-
-        
-
-        
-
+     
         //first, we use Pager to create the links
         $num_items = $this->total;
         $uri_ary = explode('?', $_SERVER['REQUEST_URI']);
@@ -76,7 +72,12 @@ class pearPager {
         if (isset($options['add_extra'])){
             $filename.=$options['add_extra'];
         }
-        
+
+        if (isset($options['pager_per_page'])){
+            $pager_per_page = $options['pager_per_page'];
+        } else {
+            $pager_per_page = PAGER_PER_PAGE;
+        }
         
         // set options
         
