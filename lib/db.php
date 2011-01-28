@@ -334,7 +334,7 @@ class db {
         if (is_array($search)){
             foreach ($search as $key => $val){
                 //array('username' => 1, $key => '2343');
-                $params[] ="`$key`=:$key";
+                $params[] ="`$key`= " . self::$dbh->quote($val);
             }
             $params = implode(' AND ', $params);
             $sql .= $params;
@@ -342,6 +342,7 @@ class db {
             $search = self::$dbh->quote($search);
             $sql .= " `id` = $search";
         }
+        print $sql;
         self::$debug[]  = "Trying to prepare update sql: $sql";
         $stmt = self::$dbh->prepare($sql);
 
@@ -433,6 +434,7 @@ class db {
             // continue if field value is 'submit' or 'captcha'
             if ($key == 'submit') continue;
             if ($key == 'captcha') continue;
+            if ($key == 'MAX_FILE_SIZE') continue;
             $ary[$key] = $value;
         }
         return $ary;

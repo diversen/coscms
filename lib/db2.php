@@ -1,223 +1,255 @@
 <?php
 
-/**
- * @package coslib
- */
-
-/**
- * @ignore for now.
- */
-
-/**
- * @package coslib
- */
 class db2 {
 
-    static $query = '';
+   /**
+     * @var false|object database handle
+     */
     static $dbh = false;
+
+    /**
+     *
+     * @var  array  holds all sql statements when in debug mode.
+     */
     static $debug = array();
-    static $whereIsset = null;
-    static $crudMethod = null;
 
     /**
-     * Selects all rows from a table
-     * @param  string $table
-     * @return array $rows
+     * @var for holding query
      */
-    public function selectAll($table, $search = array()){
-        $this->method('SELECT');
-        $this->fields('*');
-        $this->table($table);
-        $rows = $this->preExeSelect($search);
-        return $rows;
-    }
+    static $query = null;
 
     /**
-     * Select one row
+     * @var for holding PDO statement
+     */
+    public static $stmt = null;
+
+    /**
      *
-     * @param String $table
-     * @param String $search
-     * @return array $row
+     * @var array   holding all statements that will be bound
      */
-    public function selectOne($table, $search){
-        $this->method('SELECT');
-        $this->fields('*');
-        $this->table($table);
-        $this->where($search);
-        $this->limit(0, 1);
-        $row = $this->preExeSelect($search);
-        if (!empty($row)){
-            return $row[0];
-        } else {
-            return array();
-        }
-    }
+    public static $bind = array();
 
     /**
-     * constructor checks if there is a handle otherwise connect and
-     * creates a handle
      *
-     * @param string $url
-     * @param string $user
-     * @param string $pass
+     * @var string|null  indicatin if a WHERE sql sentence has been used
      */
-    function __construct($url = null, $user = null, $pass = null){
+    public static $where = null;
+
+    /**
+     * constructor will try to call method connect
+     * if no database handle exists
+     */
+    public function __construct(){
         if (!self::$dbh){
-            if (!$url){
-                self::connect(
-                    register::$vars['coscms_main']['url'],
-                    register::$vars['coscms_main']['username'],
-                    register::$vars['coscms_main']['password']
-                );
-            }
+            self::connect();
         }
-        return $this;
     }
 
-    /**
-     * Try to connect to database with specified params
-     *
-     * @param String $url
-     * @param String $user
-     * @param String $pass
-     */
-    public static function connect($url = null, $user = null, $pass = null){
+   public function connect($options = null){
+        //global $_COS_MAIN;
+        self::$debug[] = "Trying to connect with " . register::$vars['coscms_main']['url'];
         try {
-            if (isset($user) && isset($pass)){
-                self::$dbh = new PDO(
-                    $url,
-                    $user,
-                    $pass
-                );
-            } else {
-                self::$dbh = new PDO(
-                    $url
-                );
-            }
+            self::$dbh = new PDO(
+                register::$vars['coscms_main']['url'],
+                register::$vars['coscms_main']['username'],
+                register::$vars['coscms_main']['password']
 
+            );
             self::$dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             if(!self::$dbh) $this->connect();
         } catch (PDOException $e) {
-            die ('Connection failed: ' . $e->getMessage() . "\n");
+            if (!$options){
+                $this->fatalError ('Connection failed: ' . $e->getMessage());
+            } else {
+                if (isset($options['dont_die'])){
+                    return "NO_DB_CONN";
+                }
+            }
         }
+        self::$debug[]  = 'Connected!';
     }
 
     /**
-     * Sets a Crud method (insert, update, delete, read)
-     * @param  String $method
-     * @return Object $this
-     */
-    public function method ($method){
-        $method = strtoupper($method);
-        self::$crudMethod = $method;
-        switch ($method) {
-            case "INSERT": 
-                self::$query = "INSERT INTO ";
-                break;
-            case "UPDATE": 
-                self::$query = "UPDATE ";
-                break;
-            case "DELETE": 
-                self::$query = "DELETE FROM ";
-                break;
-            case "SELECT": 
-                self::$query = "SELECT ";
-                break;
-        }
-        return $this;
-    }
-
-    /**
-     * Sets field part of a query
      *
-     * @param String $fields
-     * @return object $this
+     * @param string $table the table to select from
+     * @param string $columns the columns to fetch
+     *               e.g. 'title, year, updated' else '*'
      */
-    public function fields ($fields){
-        self::$query.= " $fields FROM ";
-        return $this;
+    public static function get($table, $columns = '*'){
+        self::$query = "SELECT $columns FROM $table ";
     }
 
     /**
-     * Sets table part of query
-     * @param  String $table
-     * @return object $this
+     * method for counting num rows in a table
+     * @param string $table
+     * @return int   num rows in the table
      */
-    public function table($table){
-        self::$query.= $table . " ";
-        return $this;
-    }
-
-    /**
-     * Sets where part part of query
-     *
-     * @param  array  $search
-     * @param  String $logic
-     * @return object $this
-     */
-    public function where ($search = array(), $logic = 'AND'){
-        if (!self::$whereIsset){
-            self::$query.= "WHERE ";
-            self::$whereIsset = true;
-        }
-        foreach ($search as $key => $val){
-            $params[] ="$key = :$key";
-        }
-        $params = implode(" $logic ", $params);
-        self::$query.= $params;
-        return $this;
-    }
-
-    /**
-     * Sets order by part of a query
-     * @param  string  $orderBy
-     * @return object  $this
-     */
-    public function orderBy ($orderBy) {
-        self::$query.= " ORDER BY " . $orderBy;
-        return $this;
-    }
-
-    /**
-     * Sets limit part of aa query
-     * @param  int    $from
-     * @param  int    $limit
-     * @return object $this
-     */
-    public function limit ($from, $limit) {
-        self::$query.= " LIMIT $from, $limit";
-        return $this;
-    }
-
-    /**
-     * Prepares and executes a select query
-     *
-     * @param  array  $search (values to be prepared and executed)
-     * @return array  $rows
-     */
-    public function preExeSelect($search = array()){
+    public static function numRows($table){
+        self::$query = "SELECT count(*) as num_rows FROM $table ";
         $stmt = self::$dbh->prepare(self::$query);
-        foreach ($search as $key => $val){
-            $stmt->bindValue (":$key", $val);
-        }
         $stmt->execute();
         $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        return $rows;
+        return $rows[0]['num_rows'];
     }
 
     /**
-     * prepares and executes a insert query
      *
-     * @param  array     $values
-     * @param  array     $bind
-     * @return boolean   true on success and false on failure
+     * @param string $colunm and condition e.g. "id >"
+     * @param mixed  $value '20' if id or e.g. 'title' if a title'
+     * @param int    $bind PDO constant indicating which datatype we
+     *               are using, e.g. 1 = INT, 2 => STRING
      */
-    public function preExeInsert($values, $bind = null){
+    public static function filter ($column, $value, $bind = null){
+        if (self::$where != 'set')
+            self::$query.= " WHERE ";
+
+        self::$where = 'set';
+
+        self::$query.= " $column ? ";
+        self::$bind[] = array ('value' => $value, 'bind' => $bind);
+    }
+
+    /**
+     *
+     * @param string $condition (e.g. 'AND' 'OR')
+     */
+    public static function condition ($condition){
+        self::$query.= " $condition ";
+    }
+
+    /**
+     *
+     * @param string $column column to order by
+     * @param string $order (ASC or DESC)
+     */
+    public static function order ($column, $order = 'ASC'){
+        self::$query.= " ORDER BY $column $order";
+    }
+
+    /**
+     * method for setting a limit in the query
+     * @param int $from
+     * @param int $limit
+     */
+    public static function limit ($from, $limit){
+        self::$query.= " LIMIT $from, $limit";
+    }
+
+    /**
+     * method for preparing all bound columns and corresponding values
+     */
+    private static function prepare (){
+        if (self::$bind){
+            $i = 1;
+            foreach (self::$bind as $key => $val){
+                self::$stmt->bindValue ($i, $val['value'], $val['bind']);
+                $i++;
+            }
+        }
+        self::$bind = null;
+
+    }
+
+    /**
+     * method for fetching rows from database
+     * @return array    assoc array of rows
+     */
+    public static function fetch (){
+        self::$stmt = self::$dbh->prepare(self::$query);
+        self::prepare();
+
+        self::$stmt->execute();
+        $rows = self::$stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        self::$debug[] = self::$query;
+        self::unsetVars();
+        self::$query = null;
+
+        return $rows;
+    }
+    /**
+     * method for unsetting static vars when an operation is compleate.
+     */
+    public static function unsetVars (){
+        self::$query = self::$bind = self::$where = self::$stmt = null;
+    }
+
+    /**
+     * shorthand for selecting all rows in a database
+     * @param   string $table
+     * @return  array  assoc array of all rows.
+     */
+    public static function select ($table){
+        self::get($table);
+        return self::fetch();
+    }
+
+    /**
+     *
+     * @param string $table
+     * @param int    $id (optional) when set we presume that there is
+     *               a column with the name 'id' in the table and
+     *               delete the row with this id.
+     * @return <type>
+     */
+    public static function delete ($table, $id = null) {
+        self::$query = "DELETE FROM `$table` ";
+        if ($id){
+            self::$query = " WHERE id = ?";
+            $stmt = self::$dbh->prepare($sql);
+            $stmt->bindParam(1, $id);
+            $ret = $stmt->execute();
+            return $ret;
+        }
+    }
+
+    /**
+     *
+     * @return boolean  $res result from update or delete action
+     */
+    public static function put (){
+        self::$stmt = self::$dbh->prepare(self::$query);
+        self::prepare();
+
+        $res = self::$stmt->execute();
+
+        self::$debug[] = self::$query;
+        self::unsetVars();
+        return $res;
+    }
+
+    /**
+     * method for starting a update on a database table.
+     * @param string $table
+     * @param array  $values assoc array of values. Like
+     *               array ('title' => 'new title', 'update' => '2011-02-02')
+     */
+    public static function update ($table, $values){
+        self::$query = "Update `$table` SET ";
+        $ary = array ();
+        foreach ($values as $key => $value){
+            $ary[] =  "$key = ? ";
+            self::$bind[] = array ('value' => $value, 'bind' => null);
+        }
+        self::$query.= implode (',', $ary);
+    }
+
+    /**
+     * Method for inserting values into a table
+     *
+     * @param   string  table the table to insert into
+     * @param   array   values to insert, .e.g <code>array ('username' => 'test', 'password' => md5('test'))</code>
+     * @return  boolean true or false
+     */
+    public static function insert($table, $values, $bind = null){
         $fieldnames = array_keys($values);
+        $sql = "INSERT INTO $table";
         $fields = '( ' . implode(' ,', $fieldnames) . ' )';
         $bound = '(:' . implode(', :', $fieldnames) . ' )';
-        self::$query.= $fields.' VALUES '.$bound;
-        $stmt = self::$dbh->prepare(self::$query);
+        $sql .= $fields.' VALUES '.$bound;
+        self::$debug[]  = "Trying to prepare insert sql: $sql";
+        $stmt = self::$dbh->prepare($sql);
+        // bind speciel params
         if (isset($bind) && is_array($bind)){
             foreach ($values as $key => $val){
                 if (isset($bind[$key])){
@@ -226,165 +258,10 @@ class db2 {
                     $stmt->bindParam(":".$key, $values[$key]);
                 }
             }
-            return  $stmt->execute();
-        }
-        return $stmt->execute($values);
-    }
-
-    /**
-     * wrapper function for doing a insert
-     * @param String $table
-     * @param array  $values
-     * @param array  $bind
-     * @return boolean
-     */
-    public function insert ($table, $values, $bind = null){
-        $this->method('insert');
-        $this->table($table);
-        $ret = $this->preExeInsert($values);
-        return $ret;
-    }
-
-    /**
-     * prepares and executes an update
-
-     * @param  array $values
-     * @param  array $bind
-     * @param  array $search ('id' => 3)
-     * @return boolean
-     */
-    public function preExeUpdate($values, $search, $bind = null ){
-        $fieldnames = array_keys($values);
-        self::$query.= " SET ";
-
-        foreach ($values as $field => $value ){
-            $ary[] = " $field=" . ":$field ";
-        }
-
-        self::$query.= implode (',', $ary);
-        self::$query.= " WHERE ";
-        
-        foreach ($search as $key => $val){
-            self::$query.=" $key = " . self::$dbh->quote($val);
-        }
-        
-        $stmt = self::$dbh->prepare(self::$query);
-        if (isset($bind) && is_array($bind)){
-            foreach ($values as $key => $val){
-                if (isset($bind[$key])){
-                    $stmt->bindParam(":".$key, $values[$key], $bind[$key]);
-                } else {
-                    $stmt->bindParam(":".$key, $values[$key]);
-                }
-            }
-            return $stmt->execute();
-        } 
-        return $stmt->execute($values);
-    }
-
-    /**
-     * wrapper function for doing a insert
-     * @param String $table
-     * @param array  $values
-     * @param array  $bind
-     * @return boolean
-     */
-    public function update ($table, $values, $search, $bind = null){
-        $this->method('update');
-        $this->table($table);
-        $ret = $this->preExeUpdate($values, $search, $bind);
-        return $ret;
-    }
-
-    /**
-     * Executes a delete statement
-     * @param  array  $search
-     * @param  string $logic
-     * @return boolean
-     */
-    public function preExeDelete($search, $logic = 'AND'){
-        foreach ($search as $key => $val){
-            $params[] ="$key = :$key";
-        }
-        $params = implode(" $logic ", $params);
-        self::$query.= "WHERE " . $params;
-        $stmt = self::$dbh->prepare(self::$query);
-        foreach ($search as $key => $val){
-            $stmt->bindValue (":$key", $val);
-        }
-        $ret = $stmt->execute();     
-        return $ret;
-    }
-
-/**
-     * wrapper function for doing a insert
-     * @param String $table
-     * @param array  $values
-     * @param array  $bind
-     * @return boolean
-     */
-    public function delete ($table, $search){
-        $this->method('delete');
-        $this->table($table);
-        $ret = $this->preExeDelete($search);
-        return $ret;
-    }
-
-    /**
-     * raw select query for fetching rows
-     * @param  String $sql
-     * @return array  $rows
-     */
-    public function selectQuery($sql){
-        $stmt = self::$dbh->query($sql);
-        $ret = $stmt->execute();
-        $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        return $rows;
-    }
-
-    /**
-     * Method for doing a raw query. Anything will go
-     *
-     * @param   string  the query to execute
-     * @return  object  the stmt object returned from the query
-     */
-    public function rawQuery($sql){
-        self::$debug[]  = "Trying to prepare rawQuery sql: $sql";
-        $stmt = self::$dbh->query($sql);
-        return $stmt;
-    }
-
-    /**
-     * method for preparing a form submission. wil remove
-     * submit fields and cpatcha fields from array
-     * @param   array $ary
-     * @return  array $ret
-     */
-    public static function prepareToPost($ary = array()){
-        self::$debug[] = "Trying to prepareToPost";
-        $ret = array();
-        foreach ($ary as $key => $value){
-            // continue if field value is 'submit' or 'captcha'
-            if ($key == 'submit') continue;
-            if ($key == 'captcha') continue;
-            $ret[$key] = $value;
+            $ret = $stmt->execute();
+        } else {
+            $ret = $stmt->execute($values);
         }
         return $ret;
-    }
-
-    /**
-     * error method
-     * @param String $msg
-     */
-    public static function fatalError($msg) {
-        self::$debug[] = "Fatal error encountered";
-        echo "<pre>Error!: $msg\n";
-        $bt = debug_backtrace();
-        foreach($bt as $line) {
-            $args = var_export($line['args'], true);
-            echo "{$line['function']}($args) at {$line['file']}:{$line['line']}\n";
-        }
-        echo "</pre>";
-        die();
     }
 }
