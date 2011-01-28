@@ -342,7 +342,7 @@ class db {
             $search = self::$dbh->quote($search);
             $sql .= " `id` = $search";
         }
-        print $sql;
+
         self::$debug[]  = "Trying to prepare update sql: $sql";
         $stmt = self::$dbh->prepare($sql);
 
