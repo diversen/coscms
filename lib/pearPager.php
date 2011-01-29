@@ -97,7 +97,7 @@ class pearPager {
         );
 
         $pager = Pager::factory($pager_options);
-        echo "<hr />\n";
+        //echo "<hr />\n";
         echo "<div id =\"pager\">" . $pager->links . "</div>\n" ;
 
     }
