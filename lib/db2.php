@@ -11,12 +11,12 @@ class db2 {
      *
      * @var  array  holds all sql statements when in debug mode.
      */
-    static $debug = array();
+    public static $debug = array();
 
     /**
      * @var for holding query
      */
-    static $query = null;
+    public static $query = null;
 
     /**
      * @var for holding PDO statement
