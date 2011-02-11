@@ -67,7 +67,7 @@ class pearPager {
             }
         }
 
-        $filename = $uri . '?from=' . '%d';
+        $filename = $uri . '?from=' . '%d' . '&';
 
         if (isset($options['add_extra'])){
             $filename.=$options['add_extra'];
