@@ -100,7 +100,8 @@ function upgrade_module($options){
     $module_path = _COS_PATH . '/modules/' . $options['Module'];
     if (!file_exists($module_path)){
         cos_cli_print("Module $options[Module] does not exists in modules dir. Try to install first.");
-        cos_cli_abort();
+        cos_cli_print("This means that module exists in modules table. Try uninstall");
+        return;
     }
 
     // module exists, compare with remote server
