@@ -695,7 +695,7 @@ class moduleInstaller extends db {
                 $this->error = 'Module SQL ' . $this->installInfo['NAME'] . " ";
                 $this->error.= 'does not have such a version. Possible version are: ';
                 $this->error.= $possible_versions;
-                return false;
+                //return false;
             }
             
             // perform SQL updates
