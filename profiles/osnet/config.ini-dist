@@ -12,7 +12,7 @@ date_format_short = "d-M-Y"
 date_format_long = "d-M-Y H:i:s"
 send_mail = 1
 
-language = "en_UK"
+language = "en_GB"
 lang = "en"
 session_time = 0
 session_path = "/"

@@ -40,11 +40,11 @@ class lang {
         );
 
         // create system lanugage for all modules
-        foreach($system_language as $key => $val){
-            $module_lang = unserialize($val['translation']);
-            
-            $system_lang = array_merge($system_lang, $module_lang);
-            
+       if (!empty($system_language)){
+            foreach($system_language as $key => $val){
+                $module_lang = unserialize($val['translation']);
+                $system_lang = array_merge($system_lang, $module_lang);
+            }
         }
 
 
@@ -55,9 +55,11 @@ class lang {
             '/lang/' .
             register::$vars['coscms_main']['language'] . 
             '/language.inc';
-
-        include $lang_file;
-        self::$dict = array_merge($_COS_LANG, $system_lang);
+        
+        if (file_exists($lang_file)){
+            include $lang_file;
+            self::$dict = array_merge($_COS_LANG, $system_lang);
+        }
     }
 
 
@@ -84,6 +86,7 @@ class lang {
      * @param   string   the base module to load (e.g. content or account)
      */
     static function loadModuleLanguage($module){
+        
         $base = _COS_PATH . "/modules";
 
         $language_file =
