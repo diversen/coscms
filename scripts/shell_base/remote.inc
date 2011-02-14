@@ -42,7 +42,7 @@ function load_remote(){
     // create current dump
     dump_db_file();
     // move source tree
-    move_to_remote();
+    //move_to_remote();
     // create ssh command for loading latest db
     $command = 'ssh -p' . register::$vars['coscms_main']['ssh_port'] . ' ';
     $command.= getenv('USER') . '@' . register::$vars['coscms_main']['ssh_host'] . ' ';
@@ -176,7 +176,7 @@ mainCli::setOption('move_to_remote', array(
 
 mainCli::setOption('load_remote', array(
     'long_name'   => '--load-remote',
-    'description' => 'Will move complete source tree to remote ssh server and load latest dump onto production server',
+    'description' => 'Will load latest dump onto production server',
     'action'      => 'StoreTrue'
 ));
 
