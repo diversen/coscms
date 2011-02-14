@@ -28,6 +28,27 @@ function move_to_remote(){
     passthru($command, $ret);
 }
 // }}}
+// {{{ move_to_remote()
+/**
+ * function for moving local files to remote via ssh server
+ *
+ * @return int  value from exec command
+ */
+function move_to_remote_latest_dump(){
+
+    if (empty(register::$vars['coscms_main']['ssh_user'])){
+        register::$vars['coscms_main']['ssh_user'] = getenv('USER');
+    }
+
+    $command = "rsync -e 'ssh -p " . register::$vars['coscms_main']['ssh_port'] . "' -avl ";
+    $command.= "./backup/sql/* "; // move all except hidden files
+    $command.=
+        register::$vars['coscms_main']['ssh_user'] . "@" .
+        register::$vars['coscms_main']['ssh_host'] . ":" .
+        register::$vars['coscms_main']['prod_path'];
+    passthru($command, $ret);
+}
+// }}}
 // {{{ load_remote()
 /**
  * function for creating latest dump,
@@ -38,11 +59,11 @@ function move_to_remote(){
  */
 function load_remote(){
     // remove remote files
-    rm_files_remote();
+    //rm_files_remote();
     // create current dump
     dump_db_file();
-    // move source tree
-    //move_to_remote();
+    // move backup/sql/*
+    move_to_remote_latest_dump();
     // create ssh command for loading latest db
     $command = 'ssh -p' . register::$vars['coscms_main']['ssh_port'] . ' ';
     $command.= getenv('USER') . '@' . register::$vars['coscms_main']['ssh_host'] . ' ';
