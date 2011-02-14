@@ -68,7 +68,7 @@ function load_remote(){
     $command = 'ssh -p' . register::$vars['coscms_main']['ssh_port'] . ' ';
     $command.= getenv('USER') . '@' . register::$vars['coscms_main']['ssh_host'] . ' ';
     $command.= '"';
-    $command.= "cd ". register::$vars['coscms_main']['prod_path'] . "; ./coscli.sh db --load-db-file;";
+    $command.= "sudo cd ". register::$vars['coscms_main']['prod_path'] . "; ./coscli.sh db --load-db-file;";
     $command.= "./coscli.sh file --chmod-files";
     $command.= '"' . "\n";
     $ret = cos_system($command);
