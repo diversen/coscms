@@ -34,7 +34,7 @@ function create_module_skeleton($args){
         // create dirs for language. Only need in base module
         $lang_dir = $module_path . "/lang";
         cos_exec('mkdir ' . $lang_dir);
-        $lang_dir_en = $module_path . "/lang/en_UK";
+        $lang_dir_en = $module_path . "/lang/en_GB";
         cos_exec('mkdir ' . $lang_dir_en);
 
         $files = $module_path . "/menu.inc ";
