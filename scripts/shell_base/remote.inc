@@ -45,7 +45,7 @@ function move_to_remote_latest_dump(){
     $command.=
         register::$vars['coscms_main']['ssh_user'] . "@" .
         register::$vars['coscms_main']['ssh_host'] . ":" .
-        register::$vars['coscms_main']['prod_path'];
+        register::$vars['coscms_main']['prod_path'] . "/backup/sql";
     passthru($command, $ret);
 }
 // }}}
