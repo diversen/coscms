@@ -16,6 +16,10 @@
  */
 function translate($options){
 
+
+    $strings_all = array();
+    $strings_all[] = '';
+
     $module_dir = _COS_PATH . "/modules/$options[Module]";
     if (!file_exists($module_dir)){
         cos_cli_abort('No such module dir: ' . $module_dir);
@@ -33,7 +37,7 @@ function translate($options){
         $search = '/lang::translate\(\'([^\']+)\'\)/s';
         preg_match_all($search, $file_str, $out);
         $strings = $out[1];
-        
+
         // no strings we continue
         if (empty($strings)) continue;
 
@@ -53,9 +57,16 @@ function translate($options){
 
             // and we add all strings in that file
             foreach ($strings as $trans){
+                // check if string already has been translated
+                if (array_search($trans, $strings_all)) {
+                    continue;
+                }
                 $str.= "\$_COS_LANG_MODULE['$trans'] = '$trans';" . "\n";
             }
+
         }
+        $values = array_values($strings);
+        $strings_all = array_merge($strings_all, $values);
 
     }
 
@@ -76,7 +87,6 @@ function translate($options){
     // final: write the translation file
     $write_sys_file = $lang_dir . "/system.inc";
     file_put_contents($write_sys_file, $sys_str);
-
 }
 
 /**
