@@ -296,7 +296,7 @@ function include_module($module, $options = null){
     $view_file = $module_path . '/' . "view.$last.inc";
     $ary = explode('/', $module);
     lang::loadModuleLanguage($ary[0]);
-    moduleLoader::getModuleIniSettings($ary[0]);
+    moduleLoader::setModuleIniSettings($ary[0]);
 
     include_once $model_file;
     if (file_exists($view_file)){
@@ -345,13 +345,14 @@ function include_filters ($filter){
     if (!is_array($filter)){
         $class_path = _COS_PATH . "/modules/filter_$filter/$filter.inc";
         include_once $class_path;
-
+        moduleLoader::setModuleIniSettings("filter_$filter");
     }
 
     if (is_array ($filter)){
         foreach($filter as $key => $val){
             $class_path = _COS_PATH . "/modules/filter_$val/$val.inc";
             include_once $class_path;
+            moduleLoader::setModuleIniSettings("filter_$val");
         }
     }
 }
@@ -366,8 +367,9 @@ function include_filters ($filter){
 function get_filtered_content ($filter, $content){
     
     if (!is_array($filter)){
-        $class_path = _COS_PATH . "/modules/filter_$filter/$filter.inc";
-        include_once $class_path;
+        //$class_path = _COS_PATH . "/modules/filter_$filter/$filter.inc";
+        //include_once $class_path;
+        include_filters($filter);
         $class = 'filter' . ucfirst($filter);
         $filter_class = new $class;
 
@@ -386,8 +388,10 @@ function get_filtered_content ($filter, $content){
 
         foreach($filter as $key => $val){
 
-            $class_path = _COS_PATH . "/modules/filter_$val/$val.inc";
-            include_once $class_path;
+            //$class_path = _COS_PATH . "/modules/filter_$val/$val.inc";
+            //include_once $class_path;
+
+            include_filters($val);
             $class = 'filter' . ucfirst($val);
             $filter_class = new $class;
             if (is_array($content)){

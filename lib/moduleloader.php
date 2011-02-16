@@ -388,14 +388,37 @@ class moduleLoader {
     public static function getModuleIniSettings($module){
 
         // only read ini file settings once.
-        if (isset(self::$iniSettings[$module])){
+        if (!isset(self::$iniSettings[$module])){
+            self::setModuleIniSettings($module);
             return self::$iniSettings[$module];
+        } else {
+            return null;
         }
+    }
+
+    /**
+     * method for getting a modules ini settings.
+     *
+     * @return  array   array with ini settings of module.
+     */
+    public static function setModuleIniSettings($module){
+
+        // only read ini file settings once.
+        //if (isset(self::$iniSettings[$module])){
+        //    return self::$iniSettings[$module];
+        // }
+        if (!isset(self::$iniSettings['module'])){
+            self::$iniSettings['module'] = array();
+        }
+
         $ini_file = _COS_PATH . "/modules/$module/$module.ini";
         self::$iniSettings[$module] = parse_ini_file($ini_file, true);
 
-        register::$vars['coscms_main']['module'] = array_merge(
-                register::$vars['coscms_main']['module'], self::$iniSettings[$module] );
-        return self::$iniSettings[$module];
+        if (is_array(self::$iniSettings['module'])){
+            register::$vars['coscms_main']['module'] = array_merge(
+                register::$vars['coscms_main']['module'],
+                self::$iniSettings[$module]
+            );
+        }
     }
 }
