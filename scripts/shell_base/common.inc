@@ -41,7 +41,7 @@ function cos_readline($str){
  * @return int 1 on y or 0 on anything else.
  */
 
-function confirm_readline($line = null, $setSilence = null){
+function cos_confirm_readline($line = null, $setSilence = null){
     static $silence = null;
     if (isset($setSilence)){
         $silence = 1;

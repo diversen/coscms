@@ -21,8 +21,15 @@ function translate($options){
     $strings_all[] = '';
 
     $module_dir = _COS_PATH . "/modules/$options[Module]";
+    
+    // don't translate if we don't have a module dir.
     if (!file_exists($module_dir)){
         cos_cli_abort('No such module dir: ' . $module_dir);
+    }
+
+
+    if (file_exists($module_dir)){
+
     }
 
     // get all files  from modules dir
@@ -82,6 +89,14 @@ function translate($options){
 
     // final: write the translation file
     $write_file = $lang_dir . "/language.inc";
+
+    // issue warning if language file already exists
+    if (file_exists($write_file)){
+        if (!cos_confirm_readline("Language files already exists.\nThese file will be over written")) {
+            cos_cli_abort();
+        }
+    }
+
     file_put_contents($write_file, $str);
 
     // final: write the translation file

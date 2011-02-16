@@ -109,7 +109,7 @@ function load_locale(){
     }
 
     // create remote latest.sql
-    if (!confirm_readline('Locale database will be destroyed ')){
+    if (!cos_confirm_readline('Locale database will be destroyed ')){
         exit(0);
     }
 
@@ -150,7 +150,7 @@ function move_to_locale(){
     }
 
     // create remote latest.sql
-    if (!confirm_readline('Locale database will be destroyed ')){
+    if (!cos_confirm_readline('Locale database will be destroyed ')){
         exit(0);
     }
 

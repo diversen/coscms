@@ -124,7 +124,7 @@ function upgrade_module($options){
  * questions raised by scripts
  */
 function force_confirm_readline(){
-    confirm_readline(null, 1);
+    cos_confirm_readline(null, 1);
 }
 
 /**
