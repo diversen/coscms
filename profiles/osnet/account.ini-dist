@@ -18,8 +18,8 @@ account_default_url = "/account/openid/index"
 use_facebook_login = 1
 
 facebook_api_secret = "secret"
-facebook_api_appid = "app_id"
+facebook_api_appid = "appid"
 
 [development]
 facebook_api_secret = "secret"
-facebook_api_appid = "app_id"
+facebook_api_appid = "appid"
