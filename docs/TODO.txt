@@ -7,3 +7,4 @@ Add Flood control on comments.
 
 Categories as tags.
 Full version of fotos in gallery.
+fix doubles quoteing in account_profile.
