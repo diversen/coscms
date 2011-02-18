@@ -1,5 +1,6 @@
 [TODO]
 
+better check on unused template when updating all.
 push single module sql to remote.
 Option for updating accurate profile when modules are added.
 
