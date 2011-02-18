@@ -218,6 +218,6 @@ mainCli::setArgument('Module',
           'optional' => false));
 
 mainCli::setArgument('Language',
-    array('description'=> 'Specicify the folder in lang which will serve as language, e.g. en_UK or da_DK',
+    array('description'=> 'Specicify the folder in lang which will serve as language, e.g. en_GB or da_DK',
           'optional' => false));
 
