@@ -217,6 +217,18 @@ $_PROFILE_MODULES = array (
     'is_shell' => NULL,
     'public_clone_url' => 'git://github.com/diversen/filter_markdownExt.git',
   ),
+  18 => 
+  array (
+    'id' => '97',
+    'module_name' => 'filter_markdown',
+    'module_version' => '1.01',
+    'menu_item' => '0',
+    'run_level' => '0',
+    'load_on' => NULL,
+    'parent' => NULL,
+    'is_shell' => NULL,
+    'public_clone_url' => 'git://github.com/diversen/filter_markdown.git',
+  ),
 );
 
 $_PROFILE_TEMPLATES = array (

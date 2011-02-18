@@ -8,14 +8,14 @@ show_menu =
 ; how can se the admin link
 show_admin_link = admin
 ; use email login
-use_email_login = 0
+use_email_login = 1
 ;use open id login
 use_openid_login = 1
 ; who can edit openid accounts
 allow_edit_openid = "admin"
 ; default login url
 account_default_url = "/account/openid/index"
-use_facebook_login = 1
+use_facebook_login = 0
 
 facebook_api_secret = "secret"
 facebook_api_appid = "appid"
