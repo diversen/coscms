@@ -171,18 +171,6 @@ $_PROFILE_MODULES = array (
   ),
   14 => 
   array (
-    'id' => '92',
-    'module_name' => 'filter_language',
-    'module_version' => '1.01',
-    'menu_item' => '0',
-    'run_level' => '0',
-    'load_on' => NULL,
-    'parent' => NULL,
-    'is_shell' => NULL,
-    'public_clone_url' => NULL,
-  ),
-  15 => 
-  array (
     'id' => '93',
     'module_name' => 'gravatar',
     'module_version' => '1.01',
@@ -193,7 +181,7 @@ $_PROFILE_MODULES = array (
     'is_shell' => NULL,
     'public_clone_url' => 'git://github.com/diversen/gravatar.git',
   ),
-  16 => 
+  15 => 
   array (
     'id' => '94',
     'module_name' => 'image',
@@ -205,7 +193,7 @@ $_PROFILE_MODULES = array (
     'is_shell' => NULL,
     'public_clone_url' => 'git://github.com/diversen/image.git',
   ),
-  17 => 
+  16 => 
   array (
     'id' => '96',
     'module_name' => 'filter_markdownExt',
@@ -217,9 +205,9 @@ $_PROFILE_MODULES = array (
     'is_shell' => NULL,
     'public_clone_url' => 'git://github.com/diversen/filter_markdownExt.git',
   ),
-  18 => 
+  17 => 
   array (
-    'id' => '97',
+    'id' => '98',
     'module_name' => 'filter_markdown',
     'module_version' => '1.01',
     'menu_item' => '0',
