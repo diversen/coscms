@@ -1,7 +1,7 @@
-comment_view_filter = "markdownExt"
+comment_view_filter = "markdown"
 comment_post_filter = "purify"
 comment_date_format = "d-M-Y H:i:s"
 comment_use_akismet = 0
-comment_akismet_key = "ad79db494d20"
+comment_akismet_key = "aksimet_key"
 ; if server name is supplied it will be used else we user $_SERVER[SERVER_NAME]
 ;comment_server_name =
