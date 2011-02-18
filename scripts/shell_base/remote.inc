@@ -58,20 +58,20 @@ function move_to_remote_latest_dump(){
  * @return int  value from exec command
  */
 function load_remote(){
-    // remove remote files
-    //rm_files_remote();
+
     // create current dump
     dump_db_file();
+
     // move backup/sql/*
     move_to_remote_latest_dump();
+
     // create ssh command for loading latest db
     $command = 'ssh -p' . register::$vars['coscms_main']['ssh_port'] . ' ';
     $command.= getenv('USER') . '@' . register::$vars['coscms_main']['ssh_host'] . ' ';
     $command.= '"';
-    $command.= "sudo cd ". register::$vars['coscms_main']['prod_path'] . "; ./coscli.sh db --load-db-file;";
-    $command.= "./coscli.sh file --chmod-files";
+    $command.= "cd ". register::$vars['coscms_main']['prod_path'] . " && ./coscli.sh db --load-db-file;";
     $command.= '"' . "\n";
-    $ret = cos_system($command);
+    passthru($command, $ret);
     return $ret;
 }
 

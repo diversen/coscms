@@ -1,10 +1,10 @@
 [TODO]
-Add Flood control on comments.
-Add option for published / not published
+
 Add update option for module_system.
-Option for updating accurate profile when modules are added.
 push single module sql to remote.
+Option for updating accurate profile when modules are added.
+
+Add Flood control on comments.
+
 Categories as tags.
-Some sort of support module.
 Full version of fotos in gallery.
-Fix remote: Execute command better.
