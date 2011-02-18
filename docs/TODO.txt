@@ -1,6 +1,5 @@
 [TODO]
 
-Add update option for module_system.
 push single module sql to remote.
 Option for updating accurate profile when modules are added.
 
