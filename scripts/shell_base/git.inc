@@ -246,7 +246,6 @@ function git_upgrade_all ($options){
         if ( ($tag == 'master') OR  ($tag > $val['module_version'])) {
             _git_upgrade ($val, $tag, 'module');
         }
-        sleep(3);
     }
     
     $templates = profile::getAllTemplates();
@@ -261,7 +260,48 @@ function git_upgrade_all ($options){
         if ( ($tag == 'master') OR  ($tag > $val['module_version'])) {
             _git_upgrade ($val, $tag, 'template');
         }
+    }
+}
+
+/**
+ * function for adding and commiting all modules and templates
+ * @param   array   options from cli env
+ */
+function git_commit_all ($options){
+
+    $modules = profile::getModules();
+    foreach ($modules as $key => $val){
+        /*
+        if (isset(register::$vars['git_use_master'])){
+            $tag = 'master';
+        } else {
+            $tag = latest_tag($val['public_clone_url'], true);
+        }
+
+        if ( ($tag == 'master') OR  ($tag > $val['module_version'])) {
+            _git_upgrade ($val, $tag, 'module');
+        }*/
+        print_r($val);
+
+    }
+
+    $templates = profile::getAllTemplates();
+
+    foreach ($templates as $key => $val){
+        /**
+        if (isset(register::$vars['git_use_master'])){
+            $tag = 'master';
+        } else {
+            $tag = latest_tag($val['public_clone_url'], true);
+        }
+
+        if ( ($tag == 'master') OR  ($tag > $val['module_version'])) {
+            _git_upgrade ($val, $tag, 'template');
+        }
         sleep(3);
+         * 
+         */
+        print_r($val);
     }
 }
 
@@ -306,7 +346,6 @@ mainCli::setOption('git_install', array(
     'action'      => 'StoreTrue'
 ));
 
-
 mainCli::setOption('git_clone_template', array(
     'long_name'   => '--temp-in',
     'description' => 'Will install remote clone url with latest version',
@@ -334,6 +373,12 @@ mainCli::setOption('git_upgrade', array(
 mainCli::setOption('git_upgrade_all', array(
     'long_name'   => '--all-up',
     'description' => 'Will check latest remote versions of modules, templates and profiles, and compare with locale version. If remote is higher it will be checked out and system will be upgraded',
+    'action'      => 'StoreTrue'
+));
+
+mainCli::setOption('git_commit_all', array(
+    'long_name'   => '--commit-all',
+    'description' => 'Will try and commit all modules and templates in one try.',
     'action'      => 'StoreTrue'
 ));
 
