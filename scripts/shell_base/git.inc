@@ -248,6 +248,7 @@ function git_upgrade_all ($options){
         }
         sleep(3);
     }
+    
     $templates = profile::getAllTemplates();
 
     foreach ($templates as $key => $val){
