@@ -645,7 +645,7 @@ function get_profile_link (&$user){
             return $user['username'];
         }
 
-        include_model ($profile_system);
+        include_module ($profile_system);
 
         $profile_object = moduleLoader::modulePathToClassName($profile_system);
         $profile_object = new $profile_object();        
