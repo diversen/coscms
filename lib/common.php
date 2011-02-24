@@ -633,10 +633,15 @@ function simple_template ($file){
 // }}}
 // {{{ function get_profile_link (&$user)
 /**
- * gets users profile link if a module system is in place. 
- * @param   array   user row
+ * Gets user profile link if a profile system is in place.
+ * Profile systems must be set in main config/config.ini
+ * the option array can be used to setting special options for profile module
+ * 
+ * @param   array   user options
+ * @param   array   options
+ * @return  string  string showing the profile
  */
-function get_profile_link (&$user){
+function get_profile_link (&$user, $options = null){
     static $profile_object;
 
     if (!isset($profile_object)){
@@ -649,11 +654,11 @@ function get_profile_link (&$user){
 
         $profile_object = moduleLoader::modulePathToClassName($profile_system);
         $profile_object = new $profile_object();        
-        $link = $profile_object->createProfileLink($user);
+        $link = $profile_object->createProfileLink($user, $options);
         return $link;
     }
 
-    return $profile_object->createProfileLink($user);
+    return $profile_object->createProfileLink($user, $options);
 }
 // }}}
 // {{{ function simple_prg () 
