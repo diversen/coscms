@@ -502,7 +502,7 @@ function create_link($url, $title, $return_url = false, $css = null){
     if (class_exists('rewrite_manip')) {
         $alt_uri = rewrite_manip::getRowFromRequest($url);
         if (isset($alt_uri)){
-            $url = $alt_uri; //$row['rewrite_uri'];
+            $url = $alt_uri; 
         }
     }
 
@@ -512,6 +512,7 @@ function create_link($url, $title, $return_url = false, $css = null){
     if ($_SERVER['REQUEST_URI'] == $url){
         return "<a href=\"$url\" class=\"current\">$title</a>";
     }
+
     if ($css){
         $link = "<a href=\"$url\" class=\"$css\">$title</a>";
         return $link;
@@ -535,6 +536,7 @@ function create_link($url, $title, $return_url = false, $css = null){
 function create_image_link($url, $href_image, $options = null){
     $str = '';
     if (isset($options['alt'])) $str.= " alt = \"$options[alt]\" ";
+    if (isset($options['title'])) $str.= " title = \"$options[title]\" ";
     if (isset($options['width'])) $str.= " width = \"$options[width]\" ";
     if (isset($options['height'])) $alt = $options['height'];
     return "<a href=\"$url\"><img $str src=\"$href_image\" /></a>";
