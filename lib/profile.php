@@ -93,6 +93,7 @@ class profile  {
             $mi = new moduleInstaller($options);
 
             $modules[$key]['public_clone_url'] = $mi->installInfo['PUBLIC_CLONE_URL'];
+            $modules[$key]['private_clone_url'] = $mi->installInfo['PRIVATE_CLONE_URL'];
             if (self::$master){
                 $modules[$key]['module_version'] = 'master';
             }
@@ -138,12 +139,15 @@ class profile  {
                 include $install;
                 $templates[$key] = array ();
                 $templates[$key]['public_clone_url'] = $_INSTALL['PUBLIC_CLONE_URL'];
+                $templates[$key]['private_clone_url'] = $_INSTALL['PRIVATE_CLONE_URL'];
                 if (!self::$master){
                     $templates[$key]['module_version'] = "$_INSTALL[VERSION]";
                 } else {
                     $templates[$key]['module_version'] = "master";
                 }
                 $templates[$key]['module_name'] = $val;
+            } else {
+                unset($templates[$key]);
             }
 
         }

@@ -263,6 +263,8 @@ function git_upgrade_all ($options){
     }
 }
 
+
+
 /**
  * function for adding and commiting all modules and templates
  * @param   array   options from cli env
@@ -271,38 +273,52 @@ function git_commit_all ($options){
 
     $modules = profile::getModules();
     foreach ($modules as $key => $val){
-        /*
-        if (isset(register::$vars['git_use_master'])){
-            $tag = 'master';
-        } else {
-            $tag = latest_tag($val['public_clone_url'], true);
-        }
-
-        if ( ($tag == 'master') OR  ($tag > $val['module_version'])) {
-            _git_upgrade ($val, $tag, 'module');
-        }*/
-        print_r($val);
+        _git_commit($val, 'module');
 
     }
 
     $templates = profile::getAllTemplates();
 
     foreach ($templates as $key => $val){
-        /**
-        if (isset(register::$vars['git_use_master'])){
-            $tag = 'master';
-        } else {
-            $tag = latest_tag($val['public_clone_url'], true);
-        }
-
-        if ( ($tag == 'master') OR  ($tag > $val['module_version'])) {
-            _git_upgrade ($val, $tag, 'template');
-        }
-        sleep(3);
-         * 
-         */
-        print_r($val);
+        _git_commit($val, 'template');
     }
+}
+
+/**
+ * function for upgrading a module, template or profile according to latest tag
+ * or master
+ *
+ * @param array     with module options
+ * @param string    tag with wersion or 'master'
+ * @param string    module, templatee or profile.
+ */
+function _git_commit ($val, $type = 'module'){
+    $repo_path = get_repo_path($val['module_name'], $type);
+
+    if (!_git_is_repo ($repo_path)){
+        cos_cli_print("$repo_path is not a git repo");
+        return;
+    }
+
+    if (empty($val['private_clone_url'])) {
+        cos_cli_print("No private clone url is set in install.inc of $val[module_name]");
+        return;
+    }
+    
+    if (!cos_confirm_readline("You are about to commit module: $val[module_name]. Continue?")){
+        return;
+    }
+
+    $git_command = "cd $repo_path && git add . ";
+    passthru($git_command);
+
+    $git_command = "cd $repo_path && git commit ";
+    proc_close(proc_open($git_command, array(0 => STDIN, 1 => STDOUT, 2 => STDERR), $pipes));
+
+    $git_command = "cd $repo_path && git push $val[private_clone_url]";
+    passthru($git_command);
+
+    print "\n---\n";
 }
 
 /**
@@ -315,6 +331,12 @@ function git_commit_all ($options){
  */
 function _git_upgrade ($val, $tag, $type = 'module'){
     $repo_path = get_repo_path($val['module_name'], $type);
+
+    if (!_git_is_repo ($repo_path)){
+        cos_cli_print("$repo_path is not a git repo");
+        return;
+    }
+
     $git_command = "cd $repo_path && git checkout master && git pull && git fetch --tags && git checkout $tag";
     $ret = cos_system($git_command);
     
@@ -329,6 +351,16 @@ function _git_upgrade ($val, $tag, $type = 'module'){
     }
     print "\n---\n";
 }
+
+function _git_is_repo($path){
+    $repo = $path . "/.git";
+    if (!file_exists($repo)){
+        return false;
+    }
+    return true;
+}
+
+
 
 mainCli::setCommand('git', array(
     'description' => 'Commands for using git',
@@ -377,7 +409,7 @@ mainCli::setOption('git_upgrade_all', array(
 ));
 
 mainCli::setOption('git_commit_all', array(
-    'long_name'   => '--commit-all',
+    'long_name'   => '--all-commit',
     'description' => 'Will try and commit all modules and templates in one try.',
     'action'      => 'StoreTrue'
 ));
