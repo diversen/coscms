@@ -1,1 +1,4 @@
-account_profile_post_filter = "purify"
+account_profile_use_identicon = 1
+account_profile_image_size_small = 42
+account_profile_image_size_large = 42
+account_profile_use_gravatar = 1

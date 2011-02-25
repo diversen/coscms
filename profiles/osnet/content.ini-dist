@@ -22,3 +22,4 @@ use_blog = 0
 use_social_bookmark = 0
 use_jquery_sorting = 0
 use_jquery_toc = 1
+plugins[] = "comment"
