@@ -1,0 +1,35 @@
+url = "mysql:dbname=coscms;host=localhost"
+username = "root"
+password = "password"
+server_name = "www.yoursite.org"
+site_email = "site-wide@email.com"
+debug = 0
+show_creds = 0
+benchmark = 0
+template = "naked"
+date_default_timezone = "Europe/Copenhagen"
+date_format_long = "d-M-Y H:i:s"
+date_format_short = "d-M-Y"
+send_mail = 1
+language = "en_GB"
+lang = "en"
+session_time = 3600
+session_path = "/"
+session_host = ""
+cookie_time = 30
+frontpage_module = "content"
+profile_module = "account_profile"
+blocks[] = "/modules/content/blocks/simpleTree.php"
+ssh_port = 27678
+ssh_host = 123.123.123.123
+prod_path = /home/dennis/www/www.coscms.org
+locale_path = /home/dennis/www/coscms
+[development]
+server_name = coscms
+smtp_mail = 1
+smtp_params_host = "ssl://smtp.gmail.com"
+smtp_params_sender = "username@gmail.com";
+smtp_params_port     = "465";
+smtp_params_auth     = "true";
+smtp_params_username = "username@gmail.com";
+smtp_params_password = "password";
