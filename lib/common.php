@@ -896,10 +896,14 @@ class cosValidate {
      * @param   string  email
      * @return  boolean 
      */
-    public static function validateEmailAndDomain ($email){
+    public static function validateEmailAndDomain ($email, $options = null){
         require_once 'Validate.php';
 
-        if (Validate::email($email, array('check_domain' => 'true'))) {
+        if (!$options){
+            $options = array('check_domain' => 'true');
+        }
+               
+        if (Validate::email($email, $options)) {
             return true;
         }
         return false;

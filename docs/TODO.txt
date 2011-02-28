@@ -2,12 +2,13 @@
 
 
 push single module sql to remote.
+mysqldump -u -p database_one table_name > /var/www/backups/table_name.sql
 Option for updating accurate profile when modules are added.
 
 Add Flood control on comments.
-option for adding comment without login. 
 Better comment admin
-move comment down
 
 Categories as tags.
 Full version of fotos in gallery.
+
+mysqldump -d -h localhost -u root -pmypassword databasename > dumpfile.sql
