@@ -9,6 +9,7 @@ config/config.ini
 logs/*.log*
 nbproject/*
 profiles/test/*
+profiles/*
 modules/*
 htdocs/templates/*
 htdocs/files/*

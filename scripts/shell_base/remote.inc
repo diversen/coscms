@@ -16,7 +16,7 @@
 function move_file_to_remote($options){
 
     if (!isset($options['File'])){
-        die ('doh');
+        cos_cli_abort('You need to specify file to move');
     }
 
     if (empty(register::$vars['coscms_main']['ssh_user'])){
@@ -29,7 +29,6 @@ function move_file_to_remote($options){
         register::$vars['coscms_main']['ssh_user'] . "@" .
         register::$vars['coscms_main']['ssh_host'] . ":" .
         register::$vars['coscms_main']['prod_path'];
-    echo $command; 
     passthru($command, $ret);
 }
 // }}}
@@ -137,7 +136,7 @@ function load_locale(){
 
     // create remote latest.sql
     if (!cos_confirm_readline('Locale database will be destroyed ')){
-        exit(0);
+        exit(1);
     }
 
     $command = 'ssh -p' . register::$vars['coscms_main']['ssh_port'] . ' ';
@@ -195,7 +194,7 @@ function move_to_locale(){
     // set locale public files to be owned by user
     chmod_files_to_owner();
     $command = "";
-    $command = "rsync -e 'ssh -p " . register::$vars['coscms_main'][ssh_port] . "' -avl ";
+    $command = "rsync -e 'ssh -p " . register::$vars['coscms_main']['ssh_port'] . "' -avl ";
     $command.= 
         register::$vars['coscms_main']['ssh_user'] . "@" .
         register::$vars['coscms_main']['ssh_host'] . ":" .
