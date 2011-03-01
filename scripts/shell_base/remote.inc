@@ -13,6 +13,33 @@
  *
  * @return int  value from exec command
  */
+function move_file_to_remote($options){
+
+    if (!isset($options['File'])){
+        die ('doh');
+    }
+
+    if (empty(register::$vars['coscms_main']['ssh_user'])){
+        register::$vars['coscms_main']['ssh_user'] = getenv('USER');
+    }
+
+    $command = "rsync -e 'ssh -p " . register::$vars['coscms_main']['ssh_port'] . "' -avl ";
+    $command.= "$options[File] "; // move all except hidden files
+    $command.=
+        register::$vars['coscms_main']['ssh_user'] . "@" .
+        register::$vars['coscms_main']['ssh_host'] . ":" .
+        register::$vars['coscms_main']['prod_path'];
+    echo $command; 
+    passthru($command, $ret);
+}
+// }}}
+
+// {{{ move_to_remote()
+/**
+ * function for moving local files to remote via ssh server
+ *
+ * @return int  value from exec command
+ */
 function move_to_remote(){
 
     if (empty(register::$vars['coscms_main']['ssh_user'])){
@@ -195,6 +222,12 @@ mainCli::setOption('move_to_remote', array(
     'action'      => 'StoreTrue'
 ));
 
+mainCli::setOption('move_file_to_remote', array(
+    'long_name'   => '--move-file-to-remote',
+    'description' => 'Will move complete source tree to remote ssh server',
+    'action'      => 'StoreTrue'
+));
+
 mainCli::setOption('load_remote', array(
     'long_name'   => '--load-remote',
     'description' => 'Will load latest dump onto production server',
@@ -207,8 +240,16 @@ mainCli::setOption('move_to_locale', array(
     'action'      => 'StoreTrue'
 ));
 
+
+
 mainCli::setOption('load_locale', array(
     'long_name'   => '--load-locale',
     'description' => 'Will get and load latest dump from production to locale server',
     'action'      => 'StoreTrue'
+));
+
+mainCli::setArgument(
+    'File',
+    array('description'=> 'Specify filename to be moved',
+        'optional' => true,
 ));
