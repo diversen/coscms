@@ -3,6 +3,7 @@ htdocs/logo/*
 scripts/cron.php
 *.ini
 htdocs/test.php
+htdocs/test/*
 htdocs/css/*.css*
 htdocs/phpdocs
 config/config.ini

@@ -360,10 +360,20 @@ function _git_is_repo($path){
     return true;
 }
 
+function git_no_questions (){
+    cos_confirm_readline(null, 1);
+}
+
 
 
 mainCli::setCommand('git', array(
     'description' => 'Commands for using git',
+));
+
+mainCli::setOption('git_no_questions', array(
+    'long_name'   => '--silence',
+    'description' => 'Will ask [y] to all questions raised',
+    'action'      => 'StoreTrue'
 ));
 
 mainCli::setOption('git_use_master', array(
@@ -414,13 +424,13 @@ mainCli::setOption('git_commit_all', array(
     'action'      => 'StoreTrue'
 ));
 
-
-
 mainCli::setOption('remote_tags', array(
     'long_name'   => '--remote-tags',
     'description' => 'Will list remote tags',
     'action'      => 'StoreTrue'
 ));
+
+
 
 mainCli::setArgument(
     'repo',
