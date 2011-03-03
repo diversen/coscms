@@ -1,7 +1,7 @@
 comment_view_filter = "markdown"
 comment_date_format = "d-M-Y H:i:s"
-commont_allow_anon_post = 1
+comment_allow_anon_post = 1
+comment_anon_post_verify = 1
+comment_user_post_verify = 1
 comment_use_akismet = 0
 comment_akismet_key = "aksimet_key"
-; if server name is supplied it will be used else we user $_SERVER[SERVER_NAME]
-;comment_server_name =

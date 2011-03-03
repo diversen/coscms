@@ -31,7 +31,7 @@ frontpage_module = "content"
 profile_module = "account_profile"
 ; blocks enabled.
 blocks[] = "/modules/content/blocks/treeKeepState.php"
-; ssh host and porrt are used if we want to be
+; ssh host and porrt are used if we want to be 
 ; able to tranfer sites between servers with rsync and ssh
 ; see ./coscli.sh remote -h
 ssh_port = 12312
@@ -42,7 +42,7 @@ prod_path = /home/dennis/www/www.coscms.org
 locale_path = /home/dennis/www/coscms
 ; development settings
 ; only used when sitename is coscms (locale server name)
-; we set some smtp settings because we are not on a mail host.
+; we set some smtp settings because we are not on a mail host. 
 [development]
 server_name = "coscms"
 smtp_mail = 1

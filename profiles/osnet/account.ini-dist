@@ -1,25 +1,11 @@
-; who can create account: user, admin, super or anyone (blank)
-allow_create =
-; who can access user account and edit them
-; note if set to admin, admin can set himself as super
-allow_edit = admin
-; who can see account menu: user, admin, super or anyone (blank)
-show_menu =
-; how can se the admin link
-show_admin_link = admin
-; use email login
-use_email_login = 1
-;use open id login
+allow_create = ""
+allow_edit = "admin"
+show_menu = ""
+show_admin_link = "admin"
+use_email_login = 0
 use_openid_login = 1
-; who can edit openid accounts
 allow_edit_openid = "admin"
-; default login url
 account_default_url = "/account/openid/index"
 use_facebook_login = 0
-
-facebook_api_secret = "secret"
-facebook_api_appid = "appid"
-
-[development]
 facebook_api_secret = "secret"
 facebook_api_appid = "appid"

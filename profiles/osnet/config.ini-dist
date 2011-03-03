@@ -1,39 +1,54 @@
-url = "mysql:dbname=osnet;host=localhost"
-username = "root"
-password = "pass"
-server_name = "www.os-cms.net"
-site_email = "admin@os-cms.dk"
-debug = 0
-show_creds = 0
-benchmark = 0
-template = "naked"
+; database url to use
+url = "mysql:dbname=dbname;host=localhost"
+; your database user name
+username = "user"
+; database password
+password = "password"
+; server name
+server_name = "www.coscms.org"
+; from mail when sending mails with native mail function
+site_email = "dennis@os-cms.dk"
+; default timezone
 date_default_timezone = "Europe/Copenhagen"
-date_format_short = "d-M-Y"
+; some default time settings to use when displaying dates.
 date_format_long = "d-M-Y H:i:s"
+date_format_short = "d-M-Y"
+; send mail or not.
 send_mail = 1
-
+; language
 language = "en_GB"
+; language code for HTML
 lang = "en"
-session_time = 0
+; session settings time in secounds.
+session_time = 3600
 session_path = "/"
 session_host = ""
+; cookie lifetimes in days.
 cookie_time = 30
+; frontpage module
 frontpage_module = "content"
+; profile module
 profile_module = "account_profile"
-
-blocks[] = "/modules/content/blocks/category.php"
-
+; blocks enabled.
+blocks[] = "/modules/content/blocks/treeKeepState.php"
+; ssh host and porrt are used if we want to be 
+; able to tranfer sites between servers with rsync and ssh
+; see ./coscli.sh remote -h
 ssh_port = 12312
 ssh_host = 123.123.123.123
-prod_path = /home/dennis/www/os-cms.net
-locale_path = /home/dennis/www/osnet
-
+; production path on remote server
+prod_path = /home/dennis/www/www.coscms.org
+; locale path on locale machine
+locale_path = /home/dennis/www/coscms
+; development settings
+; only used when sitename is coscms (locale server name)
+; we set some smtp settings because we are not on a mail host. 
 [development]
-server_name = osnet
+server_name = "coscms"
 smtp_mail = 1
 smtp_params_host = "ssl://smtp.gmail.com"
-smtp_params_sender = "mail@gmail.com";
-smtp_params_port     = "465";
-smtp_params_auth     = "true";
-smtp_params_username = "mail@gmail.com";
-smtp_params_password = "pass";
+smtp_params_sender = "mail@gmail.com"
+smtp_params_port     = "465"
+smtp_params_auth     = "true"
+smtp_params_username = "mail@gmail.com"
+smtp_params_password = "password"
