@@ -269,7 +269,7 @@ $_PROFILE_TEMPLATES = array (
   array (
     'public_clone_url' => 'git://github.com/diversen/clean.git',
     'private_clone_url' => 'git@github.com:diversen/clean.git',
-    'module_version' => '1.03',
+    'module_version' => '1.04',
     'module_name' => 'clean',
   ),
   3 => 
