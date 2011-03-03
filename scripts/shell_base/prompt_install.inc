@@ -39,9 +39,9 @@ function prompt_install(){
     $site_email = cos_readline('Enter email (site wide) to send messages from, and hit return: ');
     
     // questions for creating a super user
-    $super_user = cos_readline('Enter superuser username, and hit return: ');
-    $super_password = cos_readline('Enter superuser password, and hit return: ');
-    $super_email = cos_readline('Enter superuser email, and hit return: ');
+    //$super_user = cos_readline('Enter superuser username, and hit return: ');
+    //$super_password = cos_readline('Enter superuser password, and hit return: ');
+    //$super_email = cos_readline('Enter superuser email, and hit return: ');
 
     // assemble configuration info
     register::$vars['coscms_main']['url'] = "mysql:dbname=$database;host=$host";
@@ -63,8 +63,9 @@ function prompt_install(){
     install($options = array('profile' => $profile));
 
     // we can then add user when database is created
-    include_module ("account/create", array('load_language' => true));
-    $account = new accountCreate(false);
+    //include_module ("account/create", array('load_language' => true));
+    //$account = new accountCreate(false);
+    /*
     $values = array(
                 'username'=> $super_user,
                 'password' => md5($super_password),
@@ -73,7 +74,10 @@ function prompt_install(){
                 'admin' => 1,
                 'super' => 1);
     $account->createSystemUser($values);
-    cos_cli_print("If no critical errors, system should be installed.");
+    cos_cli_print("If no critical errors, system should be installed.");*/
+    useradd_add();
+    $login = "http://$server_name/account/login/index";
+    cos_cli_print("You are now able to log in: At $login");
 }
 
 function get_password(){
