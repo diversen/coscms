@@ -1,0 +1,4 @@
+blog_per_page = 5
+blog_filters[0] = "markdownExt"
+blog_abstract_length = 250
+blog_allow = "admin"
