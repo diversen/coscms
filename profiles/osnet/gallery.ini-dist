@@ -1,4 +1,4 @@
-page_template =
+page_template = ""
 use_jquery = 1
 allow_edit_gallery = "admin"
 gallery_thumb_size = 100
