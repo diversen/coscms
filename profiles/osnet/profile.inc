@@ -133,6 +133,19 @@ $_PROFILE_MODULES = array (
   ),
   10 => 
   array (
+    'id' => '69',
+    'module_name' => 'comment',
+    'module_version' => '1.02',
+    'menu_item' => '0',
+    'run_level' => '0',
+    'load_on' => NULL,
+    'parent' => NULL,
+    'is_shell' => NULL,
+    'public_clone_url' => 'git://github.com/diversen/comment.git',
+    'private_clone_url' => 'git@github.com:diversen/comment.git',
+  ),
+  11 => 
+  array (
     'id' => '85',
     'module_name' => 'account_profile',
     'module_version' => '1.01',
@@ -144,7 +157,7 @@ $_PROFILE_MODULES = array (
     'public_clone_url' => 'git://github.com/diversen/account_profile.git',
     'private_clone_url' => 'git@github.com:diversen/account_profile.git',
   ),
-  11 => 
+  12 => 
   array (
     'id' => '90',
     'module_name' => 'filter_youtube',
@@ -157,7 +170,20 @@ $_PROFILE_MODULES = array (
     'public_clone_url' => 'git://github.com/diversen/filter_youtube.git',
     'private_clone_url' => 'git@github.com:diversen/filter_youtube.git',
   ),
-  12 => 
+  13 => 
+  array (
+    'id' => '91',
+    'module_name' => 'filter_markdown',
+    'module_version' => '1.02',
+    'menu_item' => '0',
+    'run_level' => '0',
+    'load_on' => NULL,
+    'parent' => NULL,
+    'is_shell' => NULL,
+    'public_clone_url' => 'git://github.com/diversen/filter_markdown.git',
+    'private_clone_url' => 'git@github.com:diversen/filter_markdown.git',
+  ),
+  14 => 
   array (
     'id' => '93',
     'module_name' => 'gravatar',
@@ -170,7 +196,7 @@ $_PROFILE_MODULES = array (
     'public_clone_url' => 'git://github.com/diversen/gravatar.git',
     'private_clone_url' => 'git@github.com:diversen/gravatar.git',
   ),
-  13 => 
+  15 => 
   array (
     'id' => '94',
     'module_name' => 'image',
@@ -183,48 +209,9 @@ $_PROFILE_MODULES = array (
     'public_clone_url' => 'git://github.com/diversen/image.git',
     'private_clone_url' => 'git@github.com:diversen/image.git',
   ),
-  14 => 
-  array (
-    'id' => '96',
-    'module_name' => 'filter_markdownExt',
-    'module_version' => '1.02',
-    'menu_item' => '0',
-    'run_level' => '0',
-    'load_on' => NULL,
-    'parent' => NULL,
-    'is_shell' => NULL,
-    'public_clone_url' => 'git://github.com/diversen/filter_markdownExt.git',
-    'private_clone_url' => 'git@github.com:diversen/filter_markdownExt.git',
-  ),
-  15 => 
-  array (
-    'id' => '98',
-    'module_name' => 'filter_markdown',
-    'module_version' => '1.02',
-    'menu_item' => '0',
-    'run_level' => '0',
-    'load_on' => NULL,
-    'parent' => NULL,
-    'is_shell' => NULL,
-    'public_clone_url' => 'git://github.com/diversen/filter_markdown.git',
-    'private_clone_url' => 'git@github.com:diversen/filter_markdown.git',
-  ),
   16 => 
   array (
-    'id' => '99',
-    'module_name' => 'comment',
-    'module_version' => '1.02',
-    'menu_item' => '0',
-    'run_level' => '0',
-    'load_on' => NULL,
-    'parent' => NULL,
-    'is_shell' => NULL,
-    'public_clone_url' => 'git://github.com/diversen/comment.git',
-    'private_clone_url' => 'git@github.com:diversen/comment.git',
-  ),
-  17 => 
-  array (
-    'id' => '100',
+    'id' => '96',
     'module_name' => 'blog',
     'module_version' => '1.02',
     'menu_item' => '1',
@@ -235,19 +222,6 @@ $_PROFILE_MODULES = array (
     'public_clone_url' => 'git://github.com/diversen/blog.git',
     'private_clone_url' => 'git@github.com:diversen/blog.git',
   ),
-  18 => 
-  array (
-    'id' => '101',
-    'module_name' => 'filter_geshi',
-    'module_version' => '1.02',
-    'menu_item' => '0',
-    'run_level' => '0',
-    'load_on' => NULL,
-    'parent' => NULL,
-    'is_shell' => NULL,
-    'public_clone_url' => 'git://github.com/diversen/filter_geshi.git',
-    'private_clone_url' => 'git@github.com:diversen/filter_geshi.git',
-  ),
 );
 
 $_PROFILE_TEMPLATES = array (
@@ -255,7 +229,7 @@ $_PROFILE_TEMPLATES = array (
   array (
     'public_clone_url' => 'git://github.com/diversen/js-toc.git',
     'private_clone_url' => 'git@github.com:diversen/js-toc.git',
-    'module_version' => '1.03',
+    'module_version' => '1.04',
     'module_name' => 'js-toc',
   ),
   1 => 
