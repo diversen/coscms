@@ -18,5 +18,3 @@ register::$vars['coscms_main']['alive_mail_to'] = 'dennis.iversen@gmail.com';
 register::$vars['coscms_main']['alive_mail_from'] = 'dennis.iversen@gmail.com';
 
 hosts_alive();
-
-?>

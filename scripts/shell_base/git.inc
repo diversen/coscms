@@ -367,7 +367,7 @@ function git_no_questions (){
 
 
 mainCli::setCommand('git', array(
-    'description' => 'Commands for using git',
+    'description' => 'Commands for using git. Can be used for installing and uninstalling modules from git repos (remote)',
 ));
 
 mainCli::setOption('git_no_questions', array(

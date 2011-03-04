@@ -168,24 +168,24 @@ function update_ini_file ($options){
 
 
 mainCli::setCommand('module', array(
-    'description' => 'Commands for installing and uninstalling modules',
+    'description' => 'Commands for installing and uninstalling modules (only locale)',
 ));
 
 // create commandline parser
 mainCli::setOption('install_module', array(
-    'long_name'   => '--install',
+    'long_name'   => '--mod-in',
     'description' => 'Will install specified module',
     'action'      => 'StoreTrue'
 ));
 
 mainCli::setOption('uninstall_module', array(
-    'long_name'   => '--uninstall',
+    'long_name'   => '--mod-down',
     'description' => 'Will uninstall specified module',
     'action'      => 'StoreTrue'
 ));
 
 mainCli::setOption('upgrade_module', array(
-    'long_name'   => '--upgrade',
+    'long_name'   => '--mod-up',
     'description' => 'Will upgrade specified module to latest version',
     'action'      => 'StoreTrue'
 ));
@@ -198,18 +198,17 @@ mainCli::setOption('purge_module', array(
 
 
 mainCli::setOption('upgrade_all', array(
-    'long_name'   => '--upgrade-all',
+    'long_name'   => '--up-all',
     'description' => 'Will check all repos for later versions. Then checkout and upgrade sql if any new tags were found',
     'action'      => 'StoreTrue',
 
 ));
 
 mainCli::setOption('update_ini_file', array(
-    'long_name'   => '--ini-update',
+    'long_name'   => '--up-ini',
     'description' => 'Will add new ini settings from ini-dist to ini',
     'action'      => 'StoreTrue'
 ));
-
 
 mainCli::setArgument(
     'Module',
