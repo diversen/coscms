@@ -1,0 +1,4 @@
+1.01
+
+Install generates config/config.ini from default config/config.ini-dist
+It should use profiles config file. It affects e.g. blocks on install. 
