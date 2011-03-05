@@ -34,6 +34,8 @@ include_once "lib/db.php";
 include_once "lib/moduleloader.php";
 include_once "lib/moduleInstaller.php";
 
+include_once "lib/common.php";
+include_once "scripts/shell_base/common.inc";
 /**
  * class shell is a wrapper function around PEAR::commandLine
  *
@@ -136,16 +138,15 @@ class mainCli {
         try {
             $ret = 0;
 
-            
-
             $result = self::$parser->parse();
 
+            // we need to check domain here
             $domain = $result->options['domain'];
             register::$vars['domain'] = $domain;
-            include_once "lib/head.php";
 
-            
-            
+            // before loading head.php where ini settings are being read.
+            include_once "lib/head.php";
+           
             if (is_object($result) && isset($result->command_name)){
                 if (isset($result->command->options)){
                     foreach ($result->command->options as $key => $val){
@@ -219,8 +220,6 @@ class mainCli {
 mainCli::init();
 
 
-include_once "lib/common.php";
-include_once "scripts/shell_base/common.inc";
 
 
 // include all base commands from scripts/commands folder

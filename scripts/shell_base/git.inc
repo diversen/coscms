@@ -343,7 +343,7 @@ function _git_upgrade ($val, $tag, $type = 'module'){
         return;
     }
 
-    $git_command = "cd $repo_path && git checkout master && git pull && git fetch --tags && git checkout $tag";
+    $git_command = "cd $repo_path && git pull && git fetch --tags && git checkout $tag";
     $ret = cos_system($git_command);
     
     if ($type == 'module'){
