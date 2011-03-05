@@ -26,14 +26,12 @@ class register {
 
 register::$vars['coscms_base'] = _COS_PATH;
 
-
 include_once 'Console/CommandLine.php';
 include_once "lib/uri.php";
 include_once "lib/lang.php";
 include_once "lib/db.php";
 include_once "lib/moduleloader.php";
 include_once "lib/moduleInstaller.php";
-
 include_once "lib/common.php";
 include_once "scripts/shell_base/common.inc";
 /**
@@ -67,7 +65,6 @@ class mainCli {
      */
     public static $ini = array();
 
-    public static $result;
     // {{{ init ()
     /**
      * constructor
@@ -137,7 +134,7 @@ class mainCli {
     static function run(){
         try {
             $ret = 0;
-
+            
             $result = self::$parser->parse();
 
             // we need to check domain here
@@ -146,6 +143,7 @@ class mainCli {
 
             // before loading head.php where ini settings are being read.
             include_once "lib/head.php";
+
            
             if (is_object($result) && isset($result->command_name)){
                 if (isset($result->command->options)){
@@ -189,17 +187,24 @@ class mainCli {
     // }}}
     // {{{ loadCliModules ()
     public static function loadCliModules (){
-
         // we just test if any db connection exists
+
+
+        // we always load cli module from base config
+        $ini_file = _COS_PATH . "/config/config.ini";
+        register::$vars['coscms_main'] = parse_ini_file($ini_file, true);
+
         $db = new db();
         $ret = @$db->connect(array('dont_die' => 1));
+      
         if ($ret == 'NO_DB_CONN'){
+
             // if no db conn we exists before loading any more modules. 
             return;
         }
 
-
         $modules = moduleLoader::getAllModules();
+
         foreach ($modules as $key => $val){
             if (isset($val['is_shell']) && $val['is_shell'] == 1){
                 // include all base commands from scripts/commands folder
@@ -230,9 +235,7 @@ foreach ($file_list as $key => $val){
     include_once $path;
 }
 
-
 mainCli::loadCliModules();
-
 
 // after adding all commands found we run main program.
 mainCli::run();
