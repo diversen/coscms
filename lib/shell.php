@@ -187,12 +187,10 @@ class mainCli {
     // }}}
     // {{{ loadCliModules ()
     public static function loadCliModules (){
-        // we just test if any db connection exists
+        // check if a connection exists.
 
-
-        // we always load cli module from base config
         $ini_file = _COS_PATH . "/config/config.ini";
-        register::$vars['coscms_main'] = parse_ini_file($ini_file, true);
+        register::$vars['coscms_main'] = @parse_ini_file($ini_file, true);
 
         $db = new db();
         $ret = @$db->connect(array('dont_die' => 1));
