@@ -4,7 +4,9 @@
 push single module sql to remote.
 mysqldump -u -p database_one table_name > /var/www/backups/table_name.sql
 Option for updating accurate profile when modules are added.
-
+write shell guide / module guide shell.
+Set up a demo.
+ooption for using gravatars.
 Add Flood control on comments.
 Better comment admin
 
