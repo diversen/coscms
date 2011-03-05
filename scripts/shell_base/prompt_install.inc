@@ -24,8 +24,6 @@ function prompt_install(){
     $tags.= "master";
 
     cos_cli_print ($tags);
-
-
     $tag = cos_readline("Enter tag (version) to use:");
 
     cos_exec("git checkout $tag");

@@ -7,11 +7,15 @@
  * @package     shell
  */
 
+
+
 /**
  * @ignore
  */
 define('_COS_PATH', realpath(dirname($_SERVER['SCRIPT_FILENAME']) . '/..'));
 define('_COS_CLI', 1);
+
+
 
 /**
  * @package shell
@@ -22,15 +26,13 @@ class register {
 
 register::$vars['coscms_base'] = _COS_PATH;
 
-include_once "scripts/shell_base/common.inc";
-include_once "lib/head.php";
+
+include_once 'Console/CommandLine.php';
 include_once "lib/uri.php";
 include_once "lib/lang.php";
-include_once "lib/common.php";
 include_once "lib/db.php";
 include_once "lib/moduleloader.php";
 include_once "lib/moduleInstaller.php";
-include_once 'Console/CommandLine.php';
 
 /**
  * class shell is a wrapper function around PEAR::commandLine
@@ -62,6 +64,8 @@ class mainCli {
      * @var array   used for holding ini settings for shell modules.
      */
     public static $ini = array();
+
+    public static $result;
     // {{{ init ()
     /**
      * constructor
@@ -73,6 +77,18 @@ class mainCli {
         self::$parser = new Console_CommandLine();
         self::$parser->description = 'Command line program for installing cos cms and reading databases';
         self::$parser->version = '0.0.1';
+
+        // Adding an main option for setting domain
+        self::$parser->addOption(
+            'domain',
+            array(
+                'short_name'  => '-d',
+                'long_name'   => '--domain',
+                'description' => 'Domain to use if using multi hosts. If not set we will use default domain',
+                'action'      => 'StoreString',
+                'default'     => 'default',
+            )
+        );
     }
     // }}}
     // {{{ function setCommand($command, $options)
@@ -119,7 +135,17 @@ class mainCli {
     static function run(){
         try {
             $ret = 0;
+
+            
+
             $result = self::$parser->parse();
+
+            $domain = $result->options['domain'];
+            register::$vars['domain'] = $domain;
+            include_once "lib/head.php";
+
+            
+            
             if (is_object($result) && isset($result->command_name)){
                 if (isset($result->command->options)){
                     foreach ($result->command->options as $key => $val){
@@ -155,6 +181,7 @@ class mainCli {
 
 
         } catch (Exception $e) {
+            
             self::$parser->displayError($e->getMessage());
         }        
     }
@@ -191,6 +218,11 @@ class mainCli {
 
 mainCli::init();
 
+
+include_once "lib/common.php";
+include_once "scripts/shell_base/common.inc";
+
+
 // include all base commands from scripts/commands folder
 $command_path = _COS_PATH . "/scripts/shell_base";
 $file_list = get_file_list($command_path);
@@ -199,7 +231,9 @@ foreach ($file_list as $key => $val){
     include_once $path;
 }
 
+
 mainCli::loadCliModules();
+
 
 // after adding all commands found we run main program.
 mainCli::run();

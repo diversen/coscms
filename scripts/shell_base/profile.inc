@@ -9,7 +9,7 @@
 /**
  * @ignore
  */
-include_once "profile.php";
+include_once "lib/profile.php";
 
 
 /**

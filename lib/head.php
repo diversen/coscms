@@ -25,8 +25,24 @@ ini_set('include_path', $ini_path . PATH_SEPARATOR .
 // parse main config.ini file
 register::$vars['coscms_debug']['include_path'] = ini_get('include_path');
 
+// determine host and see if we use virtual hosting
+// where one code base can be used for more virtual hosts.
+if (defined('_COS_CLI')){
+    if (isset(register::$vars['domain']) && register::$vars['domain'] != 'default'){
+        $config_file = _COS_PATH . "/config/multi/". register::$vars['domain'] . "/config.ini";
+    } else {
+        $config_file = _COS_PATH . "/config/config.ini";
+    }
+} else {
+    $virtual_host_dir = _COS_PATH . "/config/multi/$_SERVER[SERVER_NAME]";
+    if (file_exists($virtual_host_dir)){
+        $config_file = $virtual_host_dir . "/config.ini";
+    } else {
+        $config_file = _COS_PATH . "/config/config.ini";
+    }
+}
 // load ini settings from file
-$config_file = register::$vars['coscms_base'] . '/config/config.ini';
+//$config_file = register::$vars['coscms_base'] . '/config/config.ini';
 if (!file_exists($config_file)){
     define ("NO_CONFIG_FILE", true);
 } else {

@@ -7,6 +7,7 @@ htdocs/test/*
 htdocs/css/*.css*
 htdocs/phpdocs
 config/config.ini
+config/multi/*
 logs/*.log*
 nbproject/*
 profiles/test/*

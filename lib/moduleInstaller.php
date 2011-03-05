@@ -17,7 +17,7 @@ if (!defined('_COS_CLI')){
  * define new line if not cli
  */
 define('NEW_LINE', $new_line);
-
+include_once "lib/db.php";
 
 /**
  * class for installing a module or upgrading it.

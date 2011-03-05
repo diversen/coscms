@@ -9,8 +9,8 @@
 /**
  * @ignore
  */
-include_once "moduleInstaller.php";
-include_once "profile.php";
+include_once "lib/moduleInstaller.php";
+include_once "lib/profile.php";
 
 /**
  * wrapper function for settings template
