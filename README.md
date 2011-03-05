@@ -71,4 +71,4 @@ On Ubuntu (on Debian you will need todo a su root):
 	echo ""
 	echo "Zend lib should be placed in /usr/share/php/Zend"
 
-
+<script src="https://gist.github.com/736578.js?file=check_deps.sh"></script>
