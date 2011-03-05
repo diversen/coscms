@@ -14,8 +14,22 @@
  */
 function prompt_install(){
     if (defined('NO_CONFIG_FILE')){
-        cos_cli_print("No profile is loaded");
+        cos_cli_print("No config file (config/config.ini) is loaded");
     }
+
+    cos_cli_print('The following tags can be used:');
+
+    $tags = '';
+    $tags.= get_coscms_tags_local ();
+    $tags.= "master";
+
+    cos_cli_print ($tags);
+
+
+    $tag = cos_readline("Enter tag (version) to use:");
+
+    cos_exec("git checkout $tag");
+
     $profiles = get_file_list('profiles', array('dir_only' => true));
     cos_cli_print("List of profiles: ");
     foreach ($profiles as $key => $val){
@@ -25,7 +39,7 @@ function prompt_install(){
     // select profile and load it
     $profile = cos_readline('Enter profile, and hit return: ');
     load_profile(array('profile' => $profile, 'config_only' => true));
-    cos_cli_print("Main config file is loaded for $profile loaded");
+    cos_cli_print("Main config file (config/config.ini) for $profile is loaded");
 
     // load profile.
     register::$vars['coscms_main'] = parse_ini_file(_COS_PATH . '/config/config.ini', true);

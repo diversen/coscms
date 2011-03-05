@@ -21,6 +21,12 @@ function get_module_name_from_repo ($repo){
     return $module_name;
 }
 
+function get_coscms_tags_local (){
+    $command = "git tag -l";
+    $ret = exec($command, $output);
+    return cos_parse_shell_output($output);
+}
+
 /**
  * following function are sligtly modified from:
  * https://github.com/troelskn/pearhub

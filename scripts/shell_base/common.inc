@@ -95,9 +95,11 @@ function get_db_info(){
 // {{{ cos_exec($command)
 /**
  * function for executing commands with php built-in command exec
- * @param <string> $command to execute
- * @return <int>   $ret the value returned by the shell script being
- *                 executed through exec()
+ * @param   string  $command to execute
+ * @param   array   $options defaults to:
+ *                  array ('silence' => false);
+ * @return  mixed   $ret the value returned by the shell script being
+ *                  executed through exec()
  */
 function cos_exec($command, $options = array()){
     $output = array();
@@ -120,6 +122,15 @@ function cos_exec($command, $options = array()){
     return $ret;
 }
 // }}}
+
+function cos_parse_shell_output ($output){
+    if (!is_array($output)) return;
+    $end_output = '';
+    foreach($output as $key => $val){
+        $end_output.= $val ."\n";
+    }
+    return $end_output;    
+}
 // {{{ cos_exec($command)
 /**
  * function for executing commands with php built-in command exec

@@ -220,8 +220,6 @@ class profile  {
             $this->profileTemplate = $template;
         }
 
-        echo $this->profileTemplate;
-
         $ini_file = _COS_PATH . "/htdocs/templates/$this->profileTemplate/$this->profileTemplate.ini";
         $ini_file_dist = $ini_file . "-dist";
 
