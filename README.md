@@ -4,4 +4,5 @@ DEPENDENCIES:
 
 INSTALL: 
 
-[Install] (http://coscms.org/content/article/view/43)
+[Install](http://coscms.org/content/article/view/43)
+[This link](http://example.net/) 
