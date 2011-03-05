@@ -1,5 +1,8 @@
 [TODO]
 
+way to tell which filters are enabled and some help
+in coscms profile Title does not display before
+menu has been updated.
 
 push single module sql to remote.
 mysqldump -u -p database_one table_name > /var/www/backups/table_name.sql
