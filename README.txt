@@ -1,4 +1,8 @@
 Coscms is a small and simple CMS system / framework for building all kind of websites. Easy to use, administer, and extend with modules (both web and shell modules), templates. Export websites as profiles. Easy to install and use with debian systems. 
+
+INSTALL:
+
+<script src="https://gist.github.com/736578.js"> </script>
  
 Install Instructions, short module guide: 
 
