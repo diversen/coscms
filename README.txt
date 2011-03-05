@@ -2,7 +2,7 @@ Coscms is a small and simple CMS system / framework for building all kind of web
 
 INSTALL: 
 
-You will need a system with PHP5.3. You can use versions lower but they have issues with the system. 
+You will need a system with PHP5.3. You can use versions lower but they have issues with the system (better parsing of ini files in PHP5.3) 
 
 REQUIREMENTS
 
@@ -70,6 +70,5 @@ On Ubuntu (on Debian you will need todo a su root):
 	echo "But always good to have!"
 	echo ""
 	echo "Zend lib should be placed in /usr/share/php/Zend"
-
 
 
