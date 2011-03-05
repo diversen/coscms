@@ -2,7 +2,18 @@ Coscms is a small and simple CMS system / framework for building all kind of web
 
 DEPENDENCIES: 
 
+[Dependencies](http://coscms.org/content/article/view/43)
+
 INSTALL: 
 
 [Install](http://coscms.org/content/article/view/43)
-[This link](http://example.net/) 
+
+[Step by Step](http://coscms.org/content/article/view/1)
+
+[Install Site Script](http://coscms.org/content/article/view/26)
+
+EXTEND: 
+
+[Extend](http://coscms.org/content/article/view/40)
+
+[Web Module](http://coscms.org/content/article/view/27)
