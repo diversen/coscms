@@ -235,6 +235,19 @@ $_PROFILE_MODULES = array (
     'public_clone_url' => 'git://github.com/diversen/filter_markdownExt.git',
     'private_clone_url' => 'git@github.com:diversen/filter_markdownExt.git',
   ),
+  18 => 
+  array (
+    'id' => '98',
+    'module_name' => 'filter_geshi',
+    'module_version' => '1.02',
+    'menu_item' => '0',
+    'run_level' => '0',
+    'load_on' => NULL,
+    'parent' => NULL,
+    'is_shell' => NULL,
+    'public_clone_url' => 'git://github.com/diversen/filter_geshi.git',
+    'private_clone_url' => 'git@github.com:diversen/filter_geshi.git',
+  ),
 );
 
 $_PROFILE_TEMPLATES = array (
