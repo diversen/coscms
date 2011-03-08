@@ -378,12 +378,14 @@ mainCli::setCommand('git', array(
 
 mainCli::setOption('git_no_questions', array(
     'long_name'   => '--silence',
+    'short_name'   => '-s',
     'description' => 'Will ask [y] to all questions raised',
     'action'      => 'StoreTrue'
 ));
 
 mainCli::setOption('git_use_master', array(
     'long_name'   => '--master',
+    'short_name'   => '-m',
     'description' => 'Will use master. Valid for all-up',
     'action'      => 'StoreTrue'
 ));
