@@ -251,9 +251,24 @@ abstract class template {
     public static function setTemplateCss ($template){
         if (!empty(register::$vars['coscms_main']['css'])){
             $css = register::$vars['coscms_main']['css'];
+            $css_dir =  _COS_PATH . "/htdocs/templates/$template/$css";
+            if (is_dir($css_dir)){
+                self::setTemplateCssDir ($template, $css);
+                return;
+            }
             template::setCss("/templates/$template/$css");
         } else {
             template::setCss("/templates/$template/common.css");
+        }
+    }
+
+    public static function setTemplateCssDir ($template, $css){
+        self::setCss("/templates/$template/$css/$css.css");
+
+        // load js connected to css if any
+        $js = "/templates/$template/$css/$css.js";
+        if (file_exists($js)){
+            self::setJs($js);
         }
     }
 }
