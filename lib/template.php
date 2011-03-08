@@ -267,8 +267,8 @@ abstract class template {
 
         // load js connected to css if any
         $js = "/templates/$template/$css/$css.js";
-        if (file_exists($js)){
-            self::setJs($js);
-        }
+        if (file_exists(_COS_PATH . "/htdocs/$js")){
+            self::setJs($js, 1000);
+        } 
     }
 }
