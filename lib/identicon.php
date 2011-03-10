@@ -369,7 +369,7 @@ function save_identicon ($hash, $size, $filename) {
     $center=self::getcenter($xsh,$cfr,$cfg,$cfb,$sfr,$sfg,$sfb,$xbg);
     imagecopy($identicon,$center,$spriteZ,$spriteZ,0,0,$spriteZ,$spriteZ);
 
-    // $identicon=imagerotate($identicon,$angle,$bg);
+    $identicon=imagerotate($identicon,$angle,$bg);
 
     /* make white transparent */
     imagecolortransparent($identicon,$bg);
