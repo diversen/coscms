@@ -93,9 +93,6 @@ if (!defined('_COS_CLI')){
     // select all db settings and merge them with ini file settings
     $db_settings = $db->selectOne('settings', 'id', 1);
 
-
-
-
     register::$vars['coscms_main'] =
         array_merge(register::$vars['coscms_main'] , $db_settings);
     $moduleLoader->runLevel(2);
