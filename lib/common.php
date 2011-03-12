@@ -484,7 +484,7 @@ function get_module_path ($module){
  */
 function create_seo_title($title){
     $title = explode(' ', $title);
-    $title = strtolower(implode($title, '_'));
+    $title = strtolower(implode($title, '-'));
     return $title;
 }
 
