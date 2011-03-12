@@ -99,13 +99,10 @@ class HTML {
 
     public static function parseExtra ($extra) {
         $str = '';
+        
         foreach ($extra as $key => $val){
             $str.= " $key = \"$val\" ";
         }
         return $str;
-    }
-
-    public static function deleteForm (){
-        
     }
 }
