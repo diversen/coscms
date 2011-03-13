@@ -272,6 +272,11 @@ function get_file_list_recursive($start_dir) {
     return $files;
 }
 // }}}
+// {{{
+
+function include_template_inc ($template){
+    include_once _COS_PATH . "/htdocs/templates/$template/common.inc";
+}
 
 // System function for including model, modules or controllers. 
 
@@ -759,7 +764,7 @@ function mail_utf8($to, $subject, $message, $from, $reply_to=null) {
         $log.= "HEADERS: $headers\n";
         $log.= "RESULT $res\n";
 
-        if (register::$vars['coscms_main']['debug']){
+        if (isset(register::$vars['coscms_main']['debug'])){
             $log_file = _COS_PATH . '/logs/coscms.log';
             error_log($log, 3, $log_file);
         }
