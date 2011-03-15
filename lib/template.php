@@ -97,11 +97,15 @@ abstract class template {
     public static function getCss(){
         $str = "";
         ksort(self::$css);
-        $str.= "<style type=\"text/css\" title=\"no-style\" media=\"screen\">\n";
+        //$str.= "<style type=\"text/css\" title=\"no-style\" media=\"screen\">\n";
+
         foreach (self::$css as $key => $val){
-            $str.= "\t@import \"$val\";\n";
+            //$str.= "\t@import \"$val\";\n";
+            $str.= "<link rel=\"stylesheet\" type=\"text/css\" href=\"$val\" />\n";
+
+            //$str.= "<script src=\"$val\" type=\"text/css\"></script>\n";
         }
-        $str.= "</style>\n";
+        //$str.= "</style>\n";
         return $str;
     }
 

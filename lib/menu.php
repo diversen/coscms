@@ -9,6 +9,13 @@
  */
 
 class menu {
+
+    public static $options = array();
+
+    public static function setOptions ($extra){
+        self::$options = $extra;
+    }
+
     /**
      * get system menu array from name
      * @param string    name of the system menu to get
@@ -120,7 +127,7 @@ class menu {
      * @return      array   str with html displaying the tree
      */
     public static function getTreeHTML($menu, $name, $id){
-        static $stack;
+        static $stack, $first_done;
 
         if (!isset($stack)){
             $stack = self::getStack($name, $id);
@@ -130,7 +137,12 @@ class menu {
         static $str = '';
 
         if (!empty($menu)){
-            $str.="<ul>";
+            if (isset(self::$options['first_ul'])  && !isset($first_done)){
+                $str.= self::$options['first_ul'];
+                $first_done = 1;
+            } else {
+                $str.="<ul>\n";
+            }
         }
 
         $element = array_shift($stack);
@@ -139,13 +151,14 @@ class menu {
                 create_link(
                     "/content/article/view/$val[id]",
                     $val['title']) . "";
-            if (!empty($val['sub'])){
-                
+            if (!empty($val['sub'])){              
                 if ( $element == $val['id']){
                     self::getTreeHTML($val['sub'], $name, $element);
+                } else {
+                    $str.="</li>\n";
                 }
             } else {
-                $str.="</li>";
+                $str.="</li>\n";
             }
         }
         

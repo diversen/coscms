@@ -28,7 +28,7 @@ class HTML {
     public static function formStart (
             $name = 'form', $method ='post', $action = '',
             $enctype = "multipart/form-data") {
-        $str = "<form action=\"$action\" method=\"$method\" name=\"$name\" $enctype = \"$enctype\">\n";
+        $str = "<form action=\"$action\" method=\"$method\" name=\"$name\" enctype = \"$enctype\">\n";
         $str.= "<fieldset>\n";
         self::$formStr.= $str;
         return $str;
@@ -68,7 +68,19 @@ class HTML {
 
         $value = self::setValue($name, $value);
         $extra = self::parseExtra($extra);
-        $str = "<input type=\"text\" name=\"$name\" $extra value=\"$value\" />\n";
+        $str = "<input type=\"text\" name=\"$name\" $extra value=\"$value\" /><br />\n";
+        self::$formStr.= $str;
+        return $str;
+    }
+
+    public static function password ($name, $value = '', $extra = array()){
+        if (!isset($extra['size'])){
+            $extra['size'] = HTML_FORM_TEXT_SIZE;
+        }
+
+        $value = self::setValue($name, $value);
+        $extra = self::parseExtra($extra);
+        $str = "<input type=\"password\" name=\"$name\" $extra value=\"$value\" /><br />\n";
         self::$formStr.= $str;
         return $str;
     }
@@ -86,6 +98,19 @@ class HTML {
         $extra = self::parseExtra($extra);
         $str =  "<textarea name=\"$name\" $extra>$value</textarea><br />\n";
         self::$formStr.= $str;
+        return $str;
+    }
+
+    public static function checkbox ($name, $value = '1', $extra = array ()) {
+        $extra = self::parseExtra($extra);
+        
+        $value = self::setValue($name, $value);
+        if ($value){
+            $extra.= " checked=\"yes\" ";
+        }
+
+        $str = "<input type=\"checkbox\" name=\"$name\" value=\"$value\" $extra /><br />\n";
+        self::$formStr.= $str ;
         return $str;
     }
 
