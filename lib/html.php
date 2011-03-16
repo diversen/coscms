@@ -130,4 +130,11 @@ class HTML {
         }
         return $str;
     }
+
+    public static function createLink ($url, $title, $options = array()) {
+        $options = self::parseExtra($options);
+        $str = "<a href=\"$url\" $options \">$title</a>";
+        return $str;
+
+    }
 }

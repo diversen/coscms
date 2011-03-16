@@ -80,6 +80,7 @@ if (!defined('_COS_CLI')){
     include "uri.php";
     include "moduleloader.php";
     include "session.php";
+    include "html.php";
     include "layout.php";
     include "template.php";
 
