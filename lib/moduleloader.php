@@ -221,6 +221,8 @@ class moduleLoader {
         $uri = uri::getInstance();
         $info = $uri->getInfo();
 
+        
+
 
         if (empty($info['module_base'])){
             $this->setHomeModuleFiles();
@@ -261,7 +263,6 @@ class moduleLoader {
             self::$status[404] = 1;
             $this->setErrorModuleFiles(); 
         }
-
     }
 
 
@@ -375,6 +376,13 @@ class moduleLoader {
             $this->initModule();
             include_once $this->info['controller_file'];  
         }
+
+        if (isset(self::$status[404])){
+            $this->setErrorModuleFiles();
+            $this->initModule();
+            include_once $this->info['controller_file'];
+        }
+
         $str = ob_get_contents();
         ob_clean();
         return $str;
