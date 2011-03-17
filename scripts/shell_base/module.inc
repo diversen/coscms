@@ -198,14 +198,14 @@ mainCli::setOption('purge_module', array(
 
 
 mainCli::setOption('upgrade_all', array(
-    'long_name'   => '--up-all',
+    'long_name'   => '--all-up',
     'description' => 'Will check all repos for later versions. Then checkout and upgrade sql if any new tags were found',
     'action'      => 'StoreTrue',
 
 ));
 
 mainCli::setOption('update_ini_file', array(
-    'long_name'   => '--up-ini',
+    'long_name'   => '--ini-up',
     'description' => 'Will add new ini settings from ini-dist to ini',
     'action'      => 'StoreTrue'
 ));
