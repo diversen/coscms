@@ -182,7 +182,7 @@ class db {
             }
 
             $sql .= " WHERE ";
-            if (is_array($search)){
+            if (is_array($search) && !empty($search)){
                 foreach ($search as $key => $val){
                     $params[] ="`$key`=:$key";
                 }
