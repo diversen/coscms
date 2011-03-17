@@ -488,7 +488,7 @@ function get_module_path ($module){
  * @return  string   the title with _ instead of spaces ' '
  */
 function create_seo_title($title){
-    $title = explode(' ', $title);
+    $title = explode(' ', ($title));
     $title = strtolower(implode($title, '-'));
     return $title;
 }
@@ -914,6 +914,21 @@ class cosValidate {
         return false;
     }
     // }}}
+}
+
+// from http://chyrp.net/
+function cos_sanitize_url($string, $force_lowercase = true, $remove_special = false) {
+    $strip = array("~", "`", "!", "@", "#", "$", "%", "^", "&", "*", "(", ")", "_", "=", "+", "[", "{", "]",
+                   "}", "\\", "|", ";", ":", "\"", "'", "&#8216;", "&#8217;", "&#8220;", "&#8221;", "&#8211;", "&#8212;",
+                   "â€”", "â€“", ",", "<", ".", ">", "/", "?");
+    $clean = trim(str_replace($strip, "", strip_tags($string)));
+    $clean = preg_replace('/\s+/', "-", $clean);
+    $clean = ($remove_special) ? preg_replace("/[^a-zA-Z0-9]/", "", $clean) : $clean ;
+    return ($force_lowercase) ?
+        (function_exists('mb_strtolower')) ?
+            mb_strtolower($clean, 'UTF-8') :
+            strtolower($clean) :
+        $clean;
 }
 
 
