@@ -217,58 +217,16 @@ $_PROFILE_TEMPLATES = array (
     'public_clone_url' => 'git://github.com/diversen/jquery-markedit.git',
     'private_clone_url' => 'git@github.com:diversen/jquery-markedit.git',
     'module_version' => '1.12',
-    'module_name' => 'bla2',
-  ),
-  2 => 
-  array (
-    'public_clone_url' => 'git://github.com/diversen/jquery-markedit.git',
-    'private_clone_url' => 'git@github.com:diversen/jquery-markedit.git',
-    'module_version' => '1.12',
-    'module_name' => 'bla',
-  ),
-  3 => 
-  array (
-    'public_clone_url' => 'git://github.com/diversen/less-style.git',
-    'private_clone_url' => 'git@github.com:diversen/jquery-markedit.git',
-    'module_version' => '1.03',
-    'module_name' => 'less-style',
-  ),
-  4 => 
-  array (
-    'public_clone_url' => 'git://github.com/diversen/blacknwhite.git',
-    'private_clone_url' => 'git@github.com:diversen/jquery-markedit.git',
-    'module_version' => '1.03',
-    'module_name' => 'blacknwhite',
-  ),
-  5 => 
-  array (
-    'public_clone_url' => 'git://github.com/diversen/jquery-markedit.git',
-    'private_clone_url' => 'git@github.com:diversen/jquery-markedit.git',
-    'module_version' => '1.12',
     'module_name' => 'jquery-markedit',
   ),
-  6 => 
-  array (
-    'public_clone_url' => 'git://github.com/diversen/naked.git',
-    'private_clone_url' => 'git@github.com:diversen/jquery-markedit.git',
-    'module_version' => '1.03',
-    'module_name' => 'naked',
-  ),
-  7 => 
+  1 => 
   array (
     'public_clone_url' => 'git://github.com/diversen/js-toc.git',
     'private_clone_url' => 'git@github.com:diversen/js-toc.git',
     'module_version' => '1.04',
     'module_name' => 'js-toc',
   ),
-  8 => 
-  array (
-    'public_clone_url' => 'git://github.com/diversen/bartels.git',
-    'private_clone_url' => 'git@github.com:diversen/bartels.git',
-    'module_version' => '1.08',
-    'module_name' => 'bartels',
-  ),
-  9 => 
+  2 => 
   array (
     'public_clone_url' => 'git://github.com/diversen/clean.git',
     'private_clone_url' => 'git@github.com:diversen/clean.git',
