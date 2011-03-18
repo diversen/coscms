@@ -2,3 +2,7 @@ blog_per_page = 5
 blog_filters[0] = "markdownExt"
 blog_abstract_length = 250
 blog_allow = "admin"
+blog_use_comment = 1
+blog_comment_reference = "blog"
+blog_use_addthis = 1
+blog_use_jquery_markedit = 1
