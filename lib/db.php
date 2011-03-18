@@ -211,7 +211,7 @@ class db {
             self::$debug[]  = "Trying to prepare selectAll sql: $sql";
             try {     
                 $stmt = self::$dbh->prepare($sql);
-                if (is_array($search)){
+                if (is_array($search) && !empty($search)){
                     foreach ($search as $key => $val){
                         $stmt->bindValue (":$key", $val);
                     }
