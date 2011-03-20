@@ -79,7 +79,7 @@ class layout extends db {
         // always a module menu in web mode
 
         self::$menu['main'] = $db->selectQuery("SELECT * FROM `menus` WHERE  (`parent` IS NULL OR `parent` = '0') AND `admin_only` IS NULL ORDER BY `weight` ASC");
-
+        self::$menu['admin'] = $db->selectQuery("SELECT * FROM `menus` WHERE `admin_only` IS NOT NULL ORDER BY `weight` ASC");
         // if status is set we don't load module menus. Must be 404 or 403.
         // we then return empty array. module loader will know what to do.
 
@@ -184,11 +184,11 @@ class layout extends db {
 
 
     /**
-     * function for parsing MAIN menu list.
-     * Main menu is the menu holding all info about modules in database.
+     * function for parsing Admin menu list.
+     * Admin menu is the menu holding all info about modules in database.
      * Therefore it is also some sort of top level module menu.
      */
-    public static function parseMainMenuList (){
+    public static function parseAdminMenuList (){
 
         $module_base = uri::$info['module_base'];
         $parent = moduleLoader::getParentModule($module_base);
@@ -197,7 +197,7 @@ class layout extends db {
         }
 
         $menu = array();
-        $menu = self::$menu['main'];
+        $menu = self::$menu['admin'];
         $str = $css = '';
         foreach($menu as $k => $v){
             if ( !empty($v['auth'])){
@@ -226,6 +226,51 @@ class layout extends db {
         return $str;
 
     }
+
+    /**
+     * function for parsing Admin menu list.
+     * Admin menu is the menu holding all info about modules in database.
+     * Therefore it is also some sort of top level module menu.
+     */
+    public static function parseMainMenuList (){
+
+        $module_base = uri::$info['module_base'];
+        $parent = moduleLoader::getParentModule($module_base);
+        if ($parent){
+            $module_base = "/" . $parent;
+        }
+
+        $menu = array();
+        $menu = self::$menu['main'];
+        $str = $css = '';
+        foreach($menu as $k => $v){
+            if ( !empty($v['auth'])){
+                if (!session::isUser()) continue;
+                if (!session::isAdmin() && $v['auth'] == 'admin') continue;
+                if (!session::isSuper()  && $v['auth'] == 'super') continue;
+            }
+
+            if (isset($v['url']) && !empty($module_base)){
+                if (strstr($v['url'], $module_base)){
+                    $css = 'current';
+                } else {
+                    $css = false;
+                }
+            }
+
+            $str.="<li>";
+            $link = create_link( $v['url'], $v['title'], false, $css);
+
+            $str.=  $link;
+            if (isset($v['sub'])){
+                $str .= self::parseMainMenuList($v['sub']);
+            }
+            $str .= "</li>\n";
+        }
+        return $str;
+
+    }
+
 
     /**
      * method for parsing a module menu.
