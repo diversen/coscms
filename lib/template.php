@@ -262,7 +262,7 @@ abstract class template {
             }
             template::setCss("/templates/$template/$css");
         } else {
-            template::setCss("/templates/$template/common.css");
+            template::setCss("/templates/$template/default/default.css");
         }
     }
 
