@@ -79,7 +79,7 @@ function prompt_install(){
         $options['master'] = true;
     }
 
-    install($options = array('profile' => $profile));
+    install($options);
 
     // we can then add user when database is created
     //include_module ("account/create", array('load_language' => true));
