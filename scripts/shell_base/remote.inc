@@ -212,7 +212,7 @@ function move_to_locale(){
 // }}}
 
 mainCli::setCommand('remote', array(
-    'description' => "Commands for moving files between servers. ",
+    'description' => "Commands for moving files between servers using rsync and ssh. ",
 ));
 
 mainCli::setOption('move_to_remote', array(
