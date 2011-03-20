@@ -79,7 +79,12 @@ class layout extends db {
         // always a module menu in web mode
 
         self::$menu['main'] = $db->selectQuery("SELECT * FROM `menus` WHERE  (`parent` IS NULL OR `parent` = '0') AND `admin_only` IS NULL ORDER BY `weight` ASC");
-        self::$menu['admin'] = $db->selectQuery("SELECT * FROM `menus` WHERE `admin_only` IS NOT NULL ORDER BY `weight` ASC");
+
+        if (session::isAdmin()){
+            self::$menu['admin'] = $db->selectQuery("SELECT * FROM `menus` WHERE `admin_only` IS NOT NULL ORDER BY `weight` ASC");
+
+        }
+
         // if status is set we don't load module menus. Must be 404 or 403.
         // we then return empty array. module loader will know what to do.
 
