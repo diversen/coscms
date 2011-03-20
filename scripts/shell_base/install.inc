@@ -41,8 +41,12 @@ function install($options = false) {
         $options['repo'] = $val['public_clone_url'];
         $options['version'] = $val['module_version'];
         $options['Module'] = $val['module_name'];
+        //if (isset($options['master'])){
+
+        //}
+
         git_install($options, 'module');
-        sleep(3);
+        //sleep(1);
     }
     
     // install templates

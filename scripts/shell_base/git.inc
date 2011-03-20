@@ -170,8 +170,12 @@ function git_clone($options, $type){
     if (!$latest){
         $checkout = 'master';
     }
-
+    
     if (isset(register::$vars['git_use_master'])){
+        $checkout = 'master';
+    }
+
+    if (isset($options['master'])){
         $checkout = 'master';
     }
 

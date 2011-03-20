@@ -72,6 +72,13 @@ function prompt_install(){
     $confirm_mes.= "Will now install system ... ";
     
     cos_cli_print($confirm_mes);
+
+    $options = array();
+    $options['profile'] = $profile;
+    if ($tag == 'master'){
+        $options['master'] = true;
+    }
+
     install($options = array('profile' => $profile));
 
     // we can then add user when database is created
