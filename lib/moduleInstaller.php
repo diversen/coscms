@@ -495,10 +495,7 @@ class moduleInstaller extends db {
             }
         }
 
-        // insert into registry. Set menu item and insert language.
-        $this->insertRegistry();
-        $this->insertLanguage();
-        $this->insertMenuItem();
+        
         
 
         // if any sql install sql
@@ -530,7 +527,10 @@ class moduleInstaller extends db {
                 //if ($version == $specific) break;
             }
         }
-
+// insert into registry. Set menu item and insert language.
+        $this->insertRegistry();
+        $this->insertLanguage();
+        $this->insertMenuItem();
 
         /*
         $install_sql_file = $this->getSqlFileName(
