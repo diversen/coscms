@@ -14,24 +14,9 @@ $_PROFILE_MODULES = array (
     'public_clone_url' => 'git://github.com/diversen/error.git',
     'private_clone_url' => 'git@github.com:diversen/error.git',
   ),
-
-
   1 => 
   array (
     'id' => '2',
-    'module_name' => 'system',
-    'module_version' => '1.021',
-    'menu_item' => '1',
-    'run_level' => '0',
-    'load_on' => NULL,
-    'parent' => NULL,
-    'is_shell' => NULL,
-    'public_clone_url' => 'git://github.com/diversen/system.git',
-    'private_clone_url' => 'git@github.com:diversen/system.git',
-  ),
-  9 => 
-  array (
-    'id' => '10',
     'module_name' => 'settings',
     'module_version' => '1.041',
     'menu_item' => '1',
@@ -133,7 +118,19 @@ $_PROFILE_MODULES = array (
     'public_clone_url' => 'git://github.com/diversen/gallery.git',
     'private_clone_url' => 'git@github.com:diversen/gallery.git',
   ),
-
+  9 => 
+  array (
+    'id' => '10',
+    'module_name' => 'system',
+    'module_version' => '1.021',
+    'menu_item' => '1',
+    'run_level' => '0',
+    'load_on' => NULL,
+    'parent' => NULL,
+    'is_shell' => NULL,
+    'public_clone_url' => 'git://github.com/diversen/system.git',
+    'private_clone_url' => 'git@github.com:diversen/system.git',
+  ),
   10 => 
   array (
     'id' => '11',
@@ -250,6 +247,19 @@ $_PROFILE_MODULES = array (
     'is_shell' => NULL,
     'public_clone_url' => 'git://github.com/diversen/comment.git',
     'private_clone_url' => 'git@github.com:diversen/comment.git',
+  ),
+  19 => 
+  array (
+    'id' => '21',
+    'module_name' => 'filter_geshi',
+    'module_version' => '1.02',
+    'menu_item' => '0',
+    'run_level' => '0',
+    'load_on' => NULL,
+    'parent' => NULL,
+    'is_shell' => NULL,
+    'public_clone_url' => 'git://github.com/diversen/filter_geshi.git',
+    'private_clone_url' => 'git@github.com:diversen/filter_geshi.git',
   ),
 );
 
