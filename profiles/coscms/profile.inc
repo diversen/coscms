@@ -45,7 +45,7 @@ $_PROFILE_MODULES = array (
     'id' => '4',
     'module_name' => 'comment',
     'module_version' => '1.021',
-    'menu_item' => '0',
+    'menu_item' => '1',
     'run_level' => '0',
     'load_on' => NULL,
     'parent' => NULL,
@@ -94,7 +94,7 @@ $_PROFILE_MODULES = array (
   ),
   7 => 
   array (
-    'id' => '9',
+    'id' => '8',
     'module_name' => 'account_profile',
     'module_version' => '1.01',
     'menu_item' => '0',
@@ -107,7 +107,7 @@ $_PROFILE_MODULES = array (
   ),
   8 => 
   array (
-    'id' => '10',
+    'id' => '9',
     'module_name' => 'module_system_git',
     'module_version' => '1.08',
     'menu_item' => '1',
@@ -120,7 +120,7 @@ $_PROFILE_MODULES = array (
   ),
   9 => 
   array (
-    'id' => '11',
+    'id' => '10',
     'module_name' => 'gravatar',
     'module_version' => '1.02',
     'menu_item' => '0',
@@ -133,7 +133,7 @@ $_PROFILE_MODULES = array (
   ),
   10 => 
   array (
-    'id' => '12',
+    'id' => '11',
     'module_name' => 'filter_php',
     'module_version' => '1.02',
     'menu_item' => '0',
@@ -146,7 +146,7 @@ $_PROFILE_MODULES = array (
   ),
   11 => 
   array (
-    'id' => '13',
+    'id' => '12',
     'module_name' => 'filter_markdownExt',
     'module_version' => '1.02',
     'menu_item' => '0',
@@ -159,7 +159,7 @@ $_PROFILE_MODULES = array (
   ),
   12 => 
   array (
-    'id' => '14',
+    'id' => '13',
     'module_name' => 'filter_markdown',
     'module_version' => '1.02',
     'menu_item' => '0',
@@ -172,7 +172,7 @@ $_PROFILE_MODULES = array (
   ),
   13 => 
   array (
-    'id' => '15',
+    'id' => '14',
     'module_name' => 'blog',
     'module_version' => '1.02',
     'menu_item' => '1',
@@ -185,7 +185,7 @@ $_PROFILE_MODULES = array (
   ),
   14 => 
   array (
-    'id' => '20',
+    'id' => '15',
     'module_name' => 'error',
     'module_version' => '1.02',
     'menu_item' => '0',
