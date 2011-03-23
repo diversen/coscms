@@ -137,4 +137,12 @@ class HTML {
         return $str;
 
     }
+
+    public static function widget ($class, $method){
+        include_module ($class);
+        $str = $class::$method();
+        self::$formStr.= $str ;
+        return $str;
+
+    }
 }

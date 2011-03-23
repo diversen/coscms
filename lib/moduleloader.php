@@ -352,15 +352,43 @@ class moduleLoader {
         }
     }
 
+    /**
+     * return modules classname from a modules path.
+     * @param  string   $path (e.g. account_profile)
+     * @return string   $classname (e.g. accountProfile)
+     */
     public static function modulePathToClassName ($path){
-        $ary = explode('_', $path);
+
+        $ary = explode('/', $path);
+        if (count($ary) == 1){
+            $class = $path;
+        }
+        if (count($ary) == 2){
+            $class = $ary[1];
+        }
+
+        $ary = explode('_', $class);
         if (count($ary) == 1){
             return $ary[0];
         }
-
         if (count($ary) == 2){
             $str = $ary[0] . ucfirst($ary[1]);
             return $str;
+        }
+    }
+
+    /**
+     * returns a modules class path from modules path
+     * @param   string $path (e.g. content/article)
+     * @return  string $class_path (e.g. content/article/model.article.inc)
+     */
+    public static function modulePathToModelPath ($path){
+        $ary = explode('/', $path);
+        if (count($ary) == 1){
+            return "$path/model.$path.inc";
+        }
+        if (count($ary) == 2){
+            return "$path/model.$ary[1].inc";
         }
     }
     
