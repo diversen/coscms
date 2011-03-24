@@ -159,9 +159,10 @@ class HTML {
         return $values;
     }
 
-    public static function widget ($class, $method){
+    public static function widget ($class, $method, $name = null, $value = null){
         include_module ($class);
-        $str = $class::$method();
+        $value = self::setValue($name, $value);
+        $str = $class::$method($name, $value);
         self::$formStr.= $str ;
         return $str;
     }
