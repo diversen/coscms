@@ -348,8 +348,12 @@ function include_view ($module, $view, $vars = null, $return = null){
         } else {
             echo $contents;
         }
+    } else {
+        echo "View not found";
+        return false;
+
     }
-    return false;
+    
 }
 // {{{ function include_controller($controller, $options)
 /**

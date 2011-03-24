@@ -146,6 +146,18 @@ class HTML {
         return $str;
 
     }
+    public static function htmlentities($values){
+        if (is_array($values)){
+            foreach($values as $key => $val){
+                $values[$key] = htmlentities($val, ENT_COMPAT, 'UTF-8');
+            }
+        } else if (is_string($values)) {
+            $values =  htmlentities($values, ENT_COMPAT, 'UTF-8');
+        } else {
+            $values = '';
+        }
+        return $values;
+    }
 
     public static function widget ($class, $method){
         include_module ($class);
