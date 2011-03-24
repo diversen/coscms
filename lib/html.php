@@ -7,6 +7,8 @@ class HTML {
     public static $formStr = '';
     public static $autoLoadTrigger;
 
+    public static $br = "<br />";
+
     public static function init ($values = array ()) {
 
         if (!empty(self::$autoLoadTrigger)){
@@ -19,6 +21,14 @@ class HTML {
                 self::$values = $values;
             }
         } 
+    }
+
+    public static function disableBr (){
+        echo "bla". self::$br = '';
+    }
+
+    public static function enableBr (){
+        self::$br = "<br />";
     }
 
     public static function setValues ($values) {
@@ -47,7 +57,7 @@ class HTML {
     }
 
     public static function label ($label_for, $label) {
-        $str = "<label for=\"$label_for\">$label</label><br />\n";
+        $str = "<label for=\"$label_for\">$label</label>" . self::$br . "\n";
         self::$formStr.= $str;
         return $str;
     }
@@ -68,7 +78,7 @@ class HTML {
 
         $value = self::setValue($name, $value);
         $extra = self::parseExtra($extra);
-        $str = "<input type=\"text\" name=\"$name\" $extra value=\"$value\" /><br />\n";
+        $str = "<input type=\"text\" name=\"$name\" $extra value=\"$value\" />" . self::$br . "\n";
         self::$formStr.= $str;
         return $str;
     }
@@ -80,7 +90,7 @@ class HTML {
 
         $value = self::setValue($name, $value);
         $extra = self::parseExtra($extra);
-        $str = "<input type=\"password\" name=\"$name\" $extra value=\"$value\" /><br />\n";
+        $str = "<input type=\"password\" name=\"$name\" $extra value=\"$value\" />" . self::$br . "\n";
         self::$formStr.= $str;
         return $str;
     }
@@ -96,7 +106,7 @@ class HTML {
 
         $value = self::setValue($name, $value);
         $extra = self::parseExtra($extra);
-        $str =  "<textarea name=\"$name\" $extra>$value</textarea><br />\n";
+        $str =  "<textarea name=\"$name\" $extra>$value</textarea>" . self::$br . "\n";
         self::$formStr.= $str;
         return $str;
     }
@@ -109,15 +119,14 @@ class HTML {
             $extra.= " checked=\"yes\" ";
         }
 
-        $str = "<input type=\"checkbox\" name=\"$name\" value=\"$value\" $extra /><br />\n";
+        $str = "<input type=\"checkbox\" name=\"$name\" value=\"$value\" $extra />" . self::$br . "\n";
         self::$formStr.= $str ;
         return $str;
     }
 
     public static function submit ($name, $value, $extra = array ()) {
         $extra = self::parseExtra($extra);
-
-        $str =  "<input type=\"submit\" $extra name=\"$name\" value=\"$value\" /><br />";
+        $str =  "<input type=\"submit\" $extra name=\"$name\" value=\"$value\" />" . self::$br . "";
         self::$formStr.= $str ;
         return $str;
     }
@@ -143,6 +152,5 @@ class HTML {
         $str = $class::$method();
         self::$formStr.= $str ;
         return $str;
-
     }
 }

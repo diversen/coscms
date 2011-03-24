@@ -324,6 +324,20 @@ function include_model($module){
 }
 
 // }}}
+
+/**
+ * function for including a view file.
+ * Maps to module (e.g. 'tags' and 'view file' e.g. 'add')
+ * we presume that views are placed in modules views folder
+ * e.g. tags/views And we presume that views always has a .inc
+ * postfix
+ *
+ * @param string $module
+ * @param string $file
+ */
+function include_view ($module, $file){
+    include _COS_PATH . "/modules/$module/views/$file.inc";
+}
 // {{{ function include_controller($controller, $options)
 /**
  *
