@@ -24,7 +24,7 @@ class HTML {
     }
 
     public static function disableBr (){
-        echo "bla". self::$br = '';
+        echo self::$br = '';
     }
 
     public static function enableBr (){

@@ -335,8 +335,19 @@ function include_model($module){
  * @param string $module
  * @param string $file
  */
-function include_view ($module, $file){
-    include _COS_PATH . "/modules/$module/views/$file.inc";
+function include_view ($module, $file, $vars = null){
+    $filename = _COS_PATH . "/modules/$module/views/$file.inc";
+
+    if (is_file($filename)) {
+        ob_start();
+        include $filename;
+        $contents = ob_get_contents();
+        ob_end_clean();
+        print $contents;
+    }
+    return false;
+
+    //include
 }
 // {{{ function include_controller($controller, $options)
 /**
