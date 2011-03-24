@@ -10,6 +10,7 @@
  * @ignore
  * defining PAGER_PER_PAGE, can be overriden in common.inc in a template dir
  */
+
 if (!defined('PAGER_PER_PAGE')){
     define ('PAGER_PER_PAGE', 10);
 }
@@ -35,6 +36,7 @@ class pearPager {
      * @var int where from do we start paging
      */
     public $from = 0;
+    public $perPage = null;
 
     // }}}
     
@@ -43,9 +45,15 @@ class pearPager {
      *
      * @param int  sum of all links to be paged.
      */
-    public function __construct($total){
+    public function __construct($total, $per_page = null){
         $this->total = $total;
         $this->validate();
+        if (isset($per_page)){
+            $this->perPage = $per_page;
+        } else {
+            $this->perPage = PAGER_PER_PAGE;
+        }
+
     }
 
     // }}}
@@ -87,7 +95,7 @@ class pearPager {
             'altPage' => lang::translate('pager_page'),
             'separator' => '',
             'mode'       => 'Sliding',
-            'perPage'    => PAGER_PER_PAGE,
+            'perPage'    => $this->perPage,
             'delta'      => 2,
             'urlVar'    => 'from', 
             'append'   => false,
@@ -110,8 +118,11 @@ class pearPager {
     public function validate(){
         if (!isset($_GET['from'])) $_GET['from'] = 0;
         $this->from = get_zero_or_positive($_GET['from'], $this->total);
+
+        
+
         if ($this->from > 0){
-            $this->from = ($this->from - 1) * PAGER_PER_PAGE;
+            $this->from = ($this->from - 1) * $this->perPage;
         }
     }
     // }}}
