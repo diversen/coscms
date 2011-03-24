@@ -315,9 +315,11 @@ class db {
     /**
      * Function for updating a row in a table
      * 
-     * @param   string  table the table to insert into
-     * @param   array   values to update
-     * @param   int     primary id of row to be updated e.g array ('username' => 'test', 'password' => md5('test'))
+     * @param   string  the table to insert into
+     * @param   array   values to update e.g.:
+     *                  array ('username' => 'test', 'password' => md5('test')
+     * @param   mixed   primary id of row (need to have an id in table or
+     *                  array ('username' => 'test')
      * @return  int     value of last updated row
      */
     public function update($table, $values, $search, $bind = null){
