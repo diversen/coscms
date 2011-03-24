@@ -146,7 +146,7 @@ class HTML {
         return $str;
 
     }
-    public static function htmlentities($values){
+    public static function entitiesEncode($values){
         if (is_array($values)){
             foreach($values as $key => $val){
                 $values[$key] = htmlentities($val, ENT_COMPAT, 'UTF-8');
