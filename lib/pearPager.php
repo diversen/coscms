@@ -46,13 +46,14 @@ class pearPager {
      * @param int  sum of all links to be paged.
      */
     public function __construct($total, $per_page = null){
-        $this->total = $total;
-        $this->validate();
+        
         if (isset($per_page)){
             $this->perPage = $per_page;
         } else {
             $this->perPage = PAGER_PER_PAGE;
         }
+        $this->total = $total;
+        $this->validate();
 
     }
 
@@ -82,9 +83,9 @@ class pearPager {
         }
 
         if (isset($options['pager_per_page'])){
-            $pager_per_page = $options['pager_per_page'];
+            $this->perPage = $options['pager_per_page'];
         } else {
-            $pager_per_page = PAGER_PER_PAGE;
+            //$pager_per_page = $this->perPage;
         }
         
         // set options
