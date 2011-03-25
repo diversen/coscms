@@ -14,7 +14,6 @@ $_PROFILE_MODULES = array (
     'public_clone_url' => 'git://github.com/diversen/system.git',
     'private_clone_url' => 'git@github.com:diversen/system.git',
   ),
-
   1 => 
   array (
     'id' => '2',
@@ -30,6 +29,19 @@ $_PROFILE_MODULES = array (
   ),
   2 => 
   array (
+    'id' => '3',
+    'module_name' => 'error',
+    'module_version' => '1.02',
+    'menu_item' => '0',
+    'run_level' => '0',
+    'load_on' => NULL,
+    'parent' => NULL,
+    'is_shell' => NULL,
+    'public_clone_url' => 'git://github.com/diversen/error.git',
+    'private_clone_url' => 'git@github.com:diversen/error.git',
+  ),
+  3 => 
+  array (
     'id' => '6',
     'module_name' => 'content',
     'module_version' => '1.14',
@@ -41,7 +53,7 @@ $_PROFILE_MODULES = array (
     'public_clone_url' => 'git://github.com/diversen/content.git',
     'private_clone_url' => 'git@github.com:diversen/content.git',
   ),
-  3 => 
+  4 => 
   array (
     'id' => '41',
     'module_name' => 'comment',
@@ -54,7 +66,7 @@ $_PROFILE_MODULES = array (
     'public_clone_url' => 'git://github.com/diversen/comment.git',
     'private_clone_url' => 'git@github.com:diversen/comment.git',
   ),
-  4 => 
+  5 => 
   array (
     'id' => '49',
     'module_name' => 'files',
@@ -67,7 +79,7 @@ $_PROFILE_MODULES = array (
     'public_clone_url' => 'git://github.com/diversen/files.git',
     'private_clone_url' => 'git@github.com:diversen/files.git',
   ),
-  5 => 
+  6 => 
   array (
     'id' => '146',
     'module_name' => 'account',
@@ -80,7 +92,7 @@ $_PROFILE_MODULES = array (
     'public_clone_url' => 'git://github.com/diversen/account.git',
     'private_clone_url' => 'git@github.com:diversen/account.git',
   ),
-  6 => 
+  7 => 
   array (
     'id' => '166',
     'module_name' => 'google_analytics',
@@ -93,20 +105,6 @@ $_PROFILE_MODULES = array (
     'public_clone_url' => 'git://github.com/diversen/google_analytics.git',
     'private_clone_url' => 'git@github.com:diversen/google_analytics.git',
   ),
-  7 => 
-  array (
-    'id' => '182',
-    'module_name' => 'error',
-    'module_version' => '1.02',
-    'menu_item' => '0',
-    'run_level' => '0',
-    'load_on' => NULL,
-    'parent' => NULL,
-    'is_shell' => NULL,
-    'public_clone_url' => 'git://github.com/diversen/error.git',
-    'private_clone_url' => 'git@github.com:diversen/error.git',
-  ),
-
   8 => 
   array (
     'id' => '207',
