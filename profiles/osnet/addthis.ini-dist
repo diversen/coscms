@@ -1,3 +1,1 @@
-; default template
-; you can set this and specify another addthis view file
 addthis_template = "addthis.inc"
