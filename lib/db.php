@@ -522,7 +522,7 @@ class QBuilder extends db {
         self::$query.= " $filter ";
         self::$query.= "(";
         $num_val = count($values);
-        print_r($values);
+
         foreach ($values as $key => $val){
             self::$query.=" ? ";
             self::$bind[] = array ('value' => $val, 'bind' => null);
@@ -562,7 +562,6 @@ class QBuilder extends db {
      * method for preparing all bound columns and corresponding values
      */
     private static function prepare (){
-        print self::$query;
         if (self::$bind){
             $i = 1;
             foreach (self::$bind as $key => $val){
