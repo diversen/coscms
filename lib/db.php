@@ -384,7 +384,8 @@ class db {
     /**
      * Method for counting rows in a table
      *
-     * @param   string  table to count number of rows in
+     * @param   string  $table to count number of rows in
+     * @param   array   $where ('username => 'test')
      * @return  int     num_rows number of rows
      */
     public function getNumRows($table, $where = null){
@@ -481,5 +482,120 @@ class db {
         }
         echo "</pre>";
         die();
+    }
+}
+
+class QBuilder extends db {
+    /**
+     * @var for holding query
+     */
+    public static $query = null;
+
+    /**
+     * @var for holding PDO statement
+     */
+    public static $stmt = null;
+
+    /**
+     *
+     * @var array   holding all statements that will be bound
+     */
+    public static $bind = array();
+
+    /**
+     *
+     * @var string|null  indicatin if a WHERE sql sentence has been used
+     */
+    public static $where = null;
+
+    public static function setSelect ($table, $fields ='*'){
+        self::$query = "SELECT $fields FROM $table WHERE ";
+    }
+
+    public static function filter ($filter, $value, $bind = null) {
+        // e.g. id > 3
+        self::$query.= " $filter ? ";
+        self::$bind[] = array ('value' => $value, 'bind' => $bind);
+    }
+
+    public static function filterIn ($filter, $values) {
+        self::$query.= " $filter ";
+        self::$query.= "(";
+        $num_val = count($values);
+        print_r($values);
+        foreach ($values as $key => $val){
+            self::$query.=" ? ";
+            self::$bind[] = array ('value' => $val, 'bind' => null);
+            $num_val--;
+            if ($num_val) self::$query.=",";
+        }
+        self::$query.=")";
+    }
+
+    /**
+     *
+     * @param string $condition (e.g. 'AND' 'OR')
+     */
+    public static function condition ($condition){
+        self::$query.= " $condition ";
+    }
+
+    /**
+     *
+     * @param string $column column to order by
+     * @param string $order (ASC or DESC)
+     */
+    public static function order ($column, $order = 'ASC'){
+        self::$query.= " ORDER BY $column $order";
+    }
+
+    /**
+     * method for setting a limit in the query
+     * @param int $from
+     * @param int $limit
+     */
+    public static function limit ($from, $limit){
+        self::$query.= " LIMIT $from, $limit";
+    }
+
+    /**
+     * method for preparing all bound columns and corresponding values
+     */
+    private static function prepare (){
+        print self::$query;
+        if (self::$bind){
+            $i = 1;
+            foreach (self::$bind as $key => $val){
+                self::$stmt->bindValue ($i, $val['value'], $val['bind']);
+                $i++;
+            }
+        }
+        self::$bind = null;
+
+    }
+
+    /**
+     * method for fetching rows from database
+     * @return array    assoc array of rows
+     */
+    public static function fetch (){
+        self::$stmt = self::$dbh->prepare(self::$query);
+        self::prepare();
+
+        self::$stmt->execute();
+        $rows = self::$stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        self::$debug[] = self::$query;
+        self::unsetVars();
+        self::$query = null;
+
+        return $rows;
+    }
+
+    /**
+     * method for unsetting static vars when an operation is compleate.
+     */
+    public static function unsetVars (){
+        self::$query = self::$bind = self::$where = self::$stmt = null;
     }
 }
