@@ -95,7 +95,7 @@ class db2 {
     /**
      *
      * @param string $colunm and condition e.g. "id >"
-     * @param mixed  $value '20' if id or e.g. 'title' if a title'
+     * @param string $value '20' if id or e.g. 'title' if a title'
      * @param int    $bind PDO constant indicating which datatype we
      *               are using, e.g. 1 = INT, 2 => STRING
      */

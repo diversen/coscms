@@ -150,13 +150,30 @@ class db {
      * @return  boolean true on succes or false on failure
      */
     public function delete($table, $fieldname, $search){
+        $sql = "DELETE FROM `$table` WHERE ";
 
-            $sql = "DELETE FROM `$table` WHERE `$fieldname`=:search";
-            self::$debug[]  = "Trying to prepare delete sql: $sql";
-            $stmt = self::$dbh->prepare($sql);
-            $stmt->bindParam(':search', $search);
+        if (is_array($search)){
+            foreach ($search as $key => $val){
+                $params[] ="`$key`= " . self::$dbh->quote($val);;
+            }
+            $params = implode(' AND ', $params);
+            $sql .= $params;
+        } else {
+            $search = self::$dbh->quote($search);
+            $sql .= " `$fieldname` = $search";
+        }
+
+
+        self::$debug[]  = "Trying to prepare update sql: $sql";
+        $stmt = self::$dbh->prepare($sql);
+
+        if (is_array($search)){
+            $ret = $stmt->execute($search);
+        } else {
+            //$stmt->bindParam(':search', $search);
             $ret = $stmt->execute();
-            return $ret;
+        }
+        return $ret;
     }
 
     /**
