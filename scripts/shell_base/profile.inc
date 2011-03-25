@@ -46,6 +46,30 @@ function create_profile($options) {
     $pro->createProfile($options['profile']);
 }
 
+function upgrade_site_from_profile ($options){
+    // use profile object
+    $pro = new profile();
+    $pro->setProfileInfo($options['profile']);
+
+    // install modules
+    foreach ($pro->profileModules as $key => $val){
+        $options['repo'] = $val['public_clone_url'];
+        $options['version'] = $val['module_version'];
+        $options['Module'] = $val['module_name'];
+
+        git_install($options, 'module');
+        //sleep(1);
+    }
+
+    // install templates
+    foreach ($pro->profileTemplates as $key => $val){
+        $options['repo'] = $val['public_clone_url'];
+        $options['version'] = $val['module_version'];
+        git_install($options, 'template');
+        sleep(3);
+    }
+}
+
 /**
  * wrapper function for creating a profile
  */

@@ -1,6 +1,4 @@
 [TODO]
-Add verify module
-add tags
 simplify content. 
 
 
