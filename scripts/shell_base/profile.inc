@@ -56,9 +56,9 @@ function upgrade_from_profile ($options){
     foreach ($pro->profileModules as $key => $val){
         
         
-        $options['repo'] = $val['public_clone_url'];
-        $options['version'] = $val['module_version'];
-        $options['Module'] = $val['module_name'];
+        $val['repo'] = $val['public_clone_url'];
+        $val['version'] = $val['module_version'];
+        $val['Module'] = $val['module_name'];
 
         $module = new moduleInstaller($options);
 
