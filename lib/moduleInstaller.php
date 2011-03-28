@@ -42,7 +42,7 @@ class moduleInstaller extends db {
      *            this is loaded from install.inc file and will read
      *            the $_INSTALL var
      */
-    public $installInfo;
+    public $installInfo = null;
 
     /**
      *
@@ -130,14 +130,15 @@ class moduleInstaller extends db {
      *
      * @return  boolean true or false
      */
-    public function isInstalled(){
+    public function isInstalled($module = null){
         // test if a module with $this->installInfo['MODULE_NAME']
         // already is installed.
-        try {
-            $row = $this->selectOne('modules', 'module_name', $this->installInfo['NAME'] );
-        } catch (PDOException $e) {
-            $this->fatalError($e->getMessage());
+        if (isset($this->installInfo)){
+            $module = $this->installInfo['NAME'];
         }
+
+        $row = $this->selectOne('modules', 'module_name', $module);
+
         if (!empty($row)){    
             return true;
         }
@@ -856,7 +857,7 @@ class templateInstaller {
      *            this is loaded from install.inc file and will read
      *            the $_INSTALL var
      */
-    public $installInfo;
+    public $installInfo = null;
 
     /**
      * constructor which will take the template to install, upgrade or delete

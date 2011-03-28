@@ -46,27 +46,38 @@ function create_profile($options) {
     $pro->createProfile($options['profile']);
 }
 
-function upgrade_site_from_profile ($options){
+
+function upgrade_from_profile ($options){
     // use profile object
     $pro = new profile();
     $pro->setProfileInfo($options['profile']);
 
     // install modules
     foreach ($pro->profileModules as $key => $val){
+        
+        
         $options['repo'] = $val['public_clone_url'];
         $options['version'] = $val['module_version'];
         $options['Module'] = $val['module_name'];
 
-        git_install($options, 'module');
-        //sleep(1);
+        $module = new moduleInstaller($options);
+
+        if ($module->isInstalled($val['module_name'])){
+            _git_upgrade($val, $val['module_version']);
+        } else {
+            git_install($val, $val['module_version']);
+        }
     }
 
     // install templates
     foreach ($pro->profileTemplates as $key => $val){
+        // check if template is installed.
+        //$template = new templateInstaller($template);
         $options['repo'] = $val['public_clone_url'];
         $options['version'] = $val['module_version'];
-        git_install($options, 'template');
-        sleep(3);
+
+        // no db operations. Just clone version.
+        git_install($val, $val['module_version'], 'template');
     }
 }
 
@@ -112,6 +123,12 @@ mainCli::setOption('create_profile', array(
 ));
 
 mainCli::setOption('recreate_profile', array(
+    'long_name'   => '--recreate',
+    'description' => 'Will recreate profile with specified name. Same as create, but new config/config.ini-dist will not be created',
+    'action'      => 'StoreTrue'
+));
+
+mainCli::setOption('upgrade_from_profile', array(
     'long_name'   => '--recreate',
     'description' => 'Will recreate profile with specified name. Same as create, but new config/config.ini-dist will not be created',
     'action'      => 'StoreTrue'

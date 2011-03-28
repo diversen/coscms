@@ -90,10 +90,7 @@ function remote_tags ($options){
 }
 
 /**
- * function for cloning a git repo
- * note: No sql will be installed. You will need to run
- * command ./coscli.sh module --install module_name
- *
+ * funtion for installing a module
  * @param array     $options
  * @param string    $type (module, profile or template)
  */
@@ -359,6 +356,8 @@ function _git_upgrade ($val, $tag, $type = 'module'){
         $val['Version'] = null;
         upgrade_module($val);
     }
+
+    // no need to upgrade template, as there is no sql. 
     print "\n---\n";
 }
 
