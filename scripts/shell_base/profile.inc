@@ -60,7 +60,7 @@ function upgrade_from_profile ($options){
         $val['version'] = $val['module_version'];
         $val['Module'] = $val['module_name'];
 
-        $module = new moduleInstaller($options);
+        $module = new moduleInstaller($val);
 
         if ($module->isInstalled($val['module_name'])){
             _git_upgrade($val, $val['module_version']);
@@ -73,8 +73,8 @@ function upgrade_from_profile ($options){
     foreach ($pro->profileTemplates as $key => $val){
         // check if template is installed.
         //$template = new templateInstaller($template);
-        $options['repo'] = $val['public_clone_url'];
-        $options['version'] = $val['module_version'];
+        $val['repo'] = $val['public_clone_url'];
+        $val['version'] = $val['module_version'];
 
         // no db operations. Just clone version.
         git_install($val, $val['module_version'], 'template');
