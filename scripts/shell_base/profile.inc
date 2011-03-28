@@ -129,8 +129,8 @@ mainCli::setOption('recreate_profile', array(
 ));
 
 mainCli::setOption('upgrade_from_profile', array(
-    'long_name'   => '--recreate',
-    'description' => 'Will recreate profile with specified name. Same as create, but new config/config.ini-dist will not be created',
+    'long_name'   => '--up-all',
+    'description' => 'Will upgrade from profile',
     'action'      => 'StoreTrue'
 ));
 
