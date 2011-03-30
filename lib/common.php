@@ -291,7 +291,7 @@ function include_module($module, $options = null){
     static $modules = array ();
     if (isset($modules[$module])){
         // module has been included
-        return;
+        return true;
     }
 
     $module_path = register::$vars['coscms_base'] . '/modules/' . $module;
@@ -303,10 +303,17 @@ function include_module($module, $options = null){
     lang::loadModuleLanguage($ary[0]);
     moduleLoader::setModuleIniSettings($ary[0]);
 
-    include_once $model_file;
+
     if (file_exists($view_file)){
         include_once $view_file;
     }
+    if (file_exists($model_file)){
+        include_once $model_file;
+        return true;
+    } else {
+        return false;
+    }
+
 }
 
 // }}}
