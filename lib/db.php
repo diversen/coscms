@@ -90,7 +90,7 @@ class db {
             if (!empty($row)){
                 return $row;
             } else {
-                return 0;
+                return array();
             }
         }
     }

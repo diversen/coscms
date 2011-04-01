@@ -144,7 +144,13 @@ class HTML {
         $options = self::parseExtra($options);
         $str = "<a href=\"$url\" $options>$title</a>";
         return $str;
+    }
 
+    public static function createImage ($src, $options = array()) {
+        $options = self::parseExtra($options);
+        $str = "<img src=\"$src\" $options />";
+
+        return $str;
     }
     public static function entitiesEncode($values){
         if (is_array($values)){

@@ -1,8 +1,7 @@
 content_menu_item_latest = 1
-use_simple = 0
 content_view_bread_crumb = 1
 use_category = 1
-use_comment = 1
+
 use_comment_admin_verify = 1
 use_image_insert = 1
 scale_image_width = 400
@@ -20,9 +19,10 @@ content_jquery_toc = 1
 content_abstract = 1
 content_tags = 1
 content_jquery_sorting = 1
-content_view_sub_modules[] = "files"
 content_view_sub_modules[] = "addthis"
+
 content_view_sub_modules[] = "comment"
+content_view_sub_modules[] = "files"
 content_latest_sub_modules[] = "rss"
 use_tree = 0
 use_search = 1
