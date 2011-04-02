@@ -457,4 +457,57 @@ class moduleLoader {
             );
         }
     }
+
+    public static function subModuleGetPreContent ($modules, $options) {
+        $str = '';
+        foreach ($modules as $key => $val){
+            if (method_exists($val, 'subModulePreContent')){
+                $str = $val::subModulePreContent($options);
+                if (!empty($str)) $ary[] = $str;
+            }
+        }
+        return self::parsePreContent($ary);
+    }
+
+    public static function parsePreContent ($ary = array()){
+        $num = count($ary);
+        $ret_str = '';
+        foreach ($ary as $val){
+            $num--;
+            if ($num) {
+                $ret_str.= $val . "<hr />\n";
+            } else {
+                $ret_str.= $val;
+            }
+        }
+        return $ret_str;
+    }
+
+    public static function subModuleGetInlineContent ($modules, $options){
+        $str = '';
+        foreach ($modules as $key => $val){
+            if (method_exists($val, 'subModuleInlineContent')){
+                $str.=$val::subModuleInlineContent($options);
+            }
+        }
+        return $str;
+    }
+
+    public static function subModuleGetPostContent ($modules, $options){
+
+        $str = '';
+        foreach ($modules as $key => $val){
+            if (method_exists($val, 'subModulePostContent')){
+                $str.=$val::subModulePostContent($options);
+            }
+        }
+        return $str;
+        
+    }
+
+    public static function includeModules ($modules) {
+        foreach ($modules as $key => $val) {
+            include_module ($val);
+        }
+    }
 }
