@@ -233,7 +233,7 @@ class menu {
 
         $list = array();
         foreach ($input_ary as $key => $val){
-            $art = new article();
+            $art = new contentArticle();
             $art = $art->getArticleFromId($key);
 
             if ($val == 'root'){
