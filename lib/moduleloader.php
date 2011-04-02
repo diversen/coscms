@@ -364,7 +364,7 @@ class moduleLoader {
             $class = $path;
         }
         if (count($ary) == 2){
-            $class = $ary[1];
+            $class = $ary[0] . ucfirst($ary[1]);
         }
 
         $ary = explode('_', $class);

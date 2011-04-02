@@ -309,6 +309,7 @@ function include_module($module, $options = null){
     }
     if (file_exists($model_file)){
         include_once $model_file;
+        $modules[$module] = true;
         return true;
     } else {
         return false;
