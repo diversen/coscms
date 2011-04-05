@@ -31,7 +31,7 @@ $_PROFILE_MODULES = array (
   array (
     'id' => '4',
     'module_name' => 'content',
-    'module_version' => '1.14',
+    'module_version' => '1.2',
     'menu_item' => '1',
     'run_level' => '0',
     'load_on' => NULL,
@@ -44,7 +44,7 @@ $_PROFILE_MODULES = array (
   array (
     'id' => '10',
     'module_name' => 'files',
-    'module_version' => '1.02',
+    'module_version' => '1.03',
     'menu_item' => '0',
     'run_level' => '0',
     'load_on' => NULL,
@@ -187,7 +187,7 @@ $_PROFILE_MODULES = array (
   array (
     'id' => '94',
     'module_name' => 'image',
-    'module_version' => '1.02',
+    'module_version' => '1.21',
     'menu_item' => '0',
     'run_level' => '0',
     'load_on' => NULL,
