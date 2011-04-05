@@ -45,6 +45,8 @@ function translate($options){
         preg_match_all($search, $file_str, $out);
         $strings = $out[1];
 
+        $strings = array_unique($strings);
+
         // no strings we continue
         if (empty($strings)) continue;
 
