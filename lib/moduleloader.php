@@ -255,12 +255,19 @@ class moduleLoader {
 
         // all we need is a controller. anything else is optional
         if (!file_exists($this->info['controller_file'])){
+            $mes = "Controller file does not exists: ";
+            $mes.= $this->info['controller_file'];
+            error_log($mes);
             self::$status[404] = 1;
             $this->setErrorModuleFiles();    
         }
 
         if (!$this->isInstalledModule($info['module_base_name'])){
             self::$status[404] = 1;
+            $mes = "Module not installed: ";
+            $mes.= $info['module_base_name'];
+            error_log($mes);
+            //session::setActionMessage($mes);
             $this->setErrorModuleFiles(); 
         }
     }
