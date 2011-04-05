@@ -549,7 +549,7 @@ function create_link($url, $title, $return_url = false, $css = null){
         if (isset($alt_uri)){
             $url = $alt_uri; 
         }
-    }
+    } 
 
     if ($return_url){
         return $url;

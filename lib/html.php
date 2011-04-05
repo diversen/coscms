@@ -146,6 +146,21 @@ class HTML {
         return $str;
     }
 
+    /**
+     *
+     * @param  string $url
+     * @return string $url rewritten is rewrite url exists
+     */
+    public static function getUrl ($url) {
+       if (class_exists('rewrite_manip')) {
+            $alt_uri = rewrite_manip::getRowFromRequest($url);
+            if (isset($alt_uri)){
+                $url = $alt_uri;
+            }
+        }
+        return $url;
+    }
+
     public static function createImage ($src, $options = array()) {
         $options = self::parseExtra($options);
         $str = "<img src=\"$src\" $options />";
@@ -159,6 +174,19 @@ class HTML {
             }
         } else if (is_string($values)) {
             $values =  htmlentities($values, ENT_COMPAT, 'UTF-8');
+        } else {
+            $values = '';
+        }
+        return $values;
+    }
+
+    public static function entitiesDecode($values){
+        if (is_array($values)){
+            foreach($values as $key => $val){
+                $values[$key] = html_entity_decode($val, ENT_COMPAT, 'UTF-8');
+            }
+        } else if (is_string($values)) {
+            $values =  html_entity_decode($values, ENT_COMPAT, 'UTF-8');
         } else {
             $values = '';
         }
