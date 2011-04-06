@@ -250,19 +250,6 @@ $_PROFILE_MODULES = array (
   ),
   19 => 
   array (
-    'id' => '104',
-    'module_name' => 'tags',
-    'module_version' => '1.01',
-    'menu_item' => '1',
-    'run_level' => '0',
-    'load_on' => NULL,
-    'parent' => NULL,
-    'is_shell' => NULL,
-    'public_clone_url' => 'git://github.com/diversen/tags.git',
-    'private_clone_url' => 'git@github.com:diversen/tags.git',
-  ),
-  20 => 
-  array (
     'id' => '105',
     'module_name' => 'blog',
     'module_version' => '1.02',
@@ -273,6 +260,19 @@ $_PROFILE_MODULES = array (
     'is_shell' => NULL,
     'public_clone_url' => 'git://github.com/diversen/blog.git',
     'private_clone_url' => 'git@github.com:diversen/blog.git',
+  ),
+  20 => 
+  array (
+    'id' => '106',
+    'module_name' => 'tags',
+    'module_version' => '1.01',
+    'menu_item' => '1',
+    'run_level' => '0',
+    'load_on' => NULL,
+    'parent' => NULL,
+    'is_shell' => NULL,
+    'public_clone_url' => 'git://github.com/diversen/tags.git',
+    'private_clone_url' => 'git@github.com:diversen/tags.git',
   ),
 );
 

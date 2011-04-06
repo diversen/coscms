@@ -1,4 +1,4 @@
-content_article_crumb = 1
+content_article_crumb = 0
 content_article_tags = 1
 content_article_abstract = 1
 content_article_jquery_sort = 1
@@ -12,5 +12,4 @@ content_view_sub_modules[1] = "comment"
 content_view_sub_modules[5] = "rewrite"
 content_view_sub_modules[2] = "files"
 content_view_sub_modules[3] = "image"
-content_view_sub_modules[4] = "imagepopup"
 content_latest_sub_modules[0] = "rss"
