@@ -44,7 +44,7 @@ $_PROFILE_MODULES = array (
   array (
     'id' => '6',
     'module_name' => 'content',
-    'module_version' => '1.14',
+    'module_version' => '1.2',
     'menu_item' => '1',
     'run_level' => '0',
     'load_on' => NULL,
@@ -70,7 +70,7 @@ $_PROFILE_MODULES = array (
   array (
     'id' => '49',
     'module_name' => 'files',
-    'module_version' => '1.02',
+    'module_version' => '1.03',
     'menu_item' => '0',
     'run_level' => '0',
     'load_on' => NULL,
@@ -83,7 +83,7 @@ $_PROFILE_MODULES = array (
   array (
     'id' => '146',
     'module_name' => 'account',
-    'module_version' => '1.03',
+    'module_version' => '1.2',
     'menu_item' => '1',
     'run_level' => '0',
     'load_on' => NULL,
@@ -221,6 +221,19 @@ $_PROFILE_MODULES = array (
     'is_shell' => NULL,
     'public_clone_url' => 'git://github.com/diversen/blog.git',
     'private_clone_url' => 'git@github.com:diversen/blog.git',
+  ),
+  17 => 
+  array (
+    'id' => '244',
+    'module_name' => 'rss',
+    'module_version' => '1.2',
+    'menu_item' => '0',
+    'run_level' => '0',
+    'load_on' => NULL,
+    'parent' => NULL,
+    'is_shell' => NULL,
+    'public_clone_url' => 'git://github.com/diversen/rss.git',
+    'private_clone_url' => 'git@github.com:diversen/rss.git',
   ),
 );
 

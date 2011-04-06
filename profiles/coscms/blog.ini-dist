@@ -1,8 +1,11 @@
-blog_per_page = 5
+blog_per_page = 10
 blog_filters[0] = "markdownExt"
 blog_abstract_length = 250
 blog_allow = "admin"
+blog_view_sub_modules[0] = "addthis"
+blog_view_sub_modules[1] = "comment"
 blog_use_comment = 1
 blog_comment_reference = "blog"
 blog_use_addthis = 1
 blog_use_jquery_markedit = 1
+blog_use_tags = 1
