@@ -203,6 +203,8 @@ class layout extends db {
 
         $menu = array();
         $menu = self::$menu['admin'];
+        if (!$menu) return;
+
         $str = $css = '';
         foreach($menu as $k => $v){
             if ( !empty($v['auth'])){

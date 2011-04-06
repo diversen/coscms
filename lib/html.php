@@ -200,4 +200,18 @@ class HTML {
         self::$formStr.= $str ;
         return $str;
     }
+    /*
+    public static function getUl ($elements, $value_field, $options = null){
+        if ($options) {
+            $options = self::parseExtra($options);
+        } else {
+            $options = '';
+        }
+        $str = "<ul" . $options . ">\n";
+        foreach ($elements as $key => $val) {
+            $str.="<li>$val[$value_field]</li>\n";
+        }
+        $str.= "</ul>\n";
+        return $str;
+    }*/
 }

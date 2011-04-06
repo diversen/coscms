@@ -197,7 +197,15 @@ class mainCli {
       
         if ($ret == 'NO_DB_CONN'){
 
-            // if no db conn we exists before loading any more modules. 
+            // if no db conn we exists before loading any more modules.
+            cos_cli_print("Notice: No db exists!");
+            return;
+        }
+
+        $rows = $db->selectQuery("SHOW TABLES");
+
+        if (empty($rows)){
+            cos_cli_print('No tables exists. We can not load all modules');
             return;
         }
 
