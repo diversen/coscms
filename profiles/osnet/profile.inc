@@ -294,28 +294,28 @@ $_PROFILE_TEMPLATES = array (
   array (
     'public_clone_url' => 'git://github.com/diversen/jquery-markedit.git',
     'private_clone_url' => 'git@github.com:diversen/jquery-markedit.git',
-    'module_version' => '1.3',
+    'module_version' => '1.31',
     'module_name' => 'jquery-markedit',
   ),
   1 => 
   array (
     'public_clone_url' => 'git://github.com/diversen/js-toc.git',
     'private_clone_url' => 'git@github.com:diversen/js-toc.git',
-    'module_version' => '1.3',
+    'module_version' => '1.31',
     'module_name' => 'js-toc',
   ),
   2 => 
   array (
     'public_clone_url' => 'git://github.com/diversen/clean.git',
     'private_clone_url' => 'git@github.com:diversen/clean.git',
-    'module_version' => '1.3',
+    'module_version' => '1.31',
     'module_name' => 'clean',
   ),
   3 => 
   array (
     'public_clone_url' => 'git://github.com/diversen/fancybox.git',
     'private_clone_url' => 'git@github.com:diversen/fancybox.git',
-    'module_version' => '1.3',
+    'module_version' => '1.31',
     'module_name' => 'fancybox',
   ),
 );
