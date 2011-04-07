@@ -61,7 +61,7 @@ class moduleInstaller extends db {
      * as param and set info about module to be installed, upgraded, etc.
      * if module is set
      *
-     * @param string name of module to do operations on
+     * @param   array $options
      */
     function __construct($options = null){
         $this->connect();
@@ -74,10 +74,10 @@ class moduleInstaller extends db {
     /**
      * reads install info from modules/module_name/install.inc
      *
-     * @param   string   module_name to get info
+     * @param   array $options
      */
     public function setInstallInfo($options){
-        // checks if an install file exists
+
         $module_name = $options['Module'];
         $module_dir = _COS_PATH . "/modules/$module_name";
         $ini_file = $module_dir . "/$module_name.ini";

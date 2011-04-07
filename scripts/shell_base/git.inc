@@ -348,17 +348,46 @@ function git_tag_all_files ($options){
 
     $modules = profile::getModules();
     foreach ($modules as $key => $val){
+        $val['Module'] = $val['module_name'];
         $val['new_version'] = $version;
-        _git_tag($val, 'module');
+        _git_tag_install_file($val, 'module');
 
     }
 
     $templates = profile::getAllTemplates();
 
     foreach ($templates as $key => $val){
+        $val['Module'] = $val['module_name'];
         $val['new_version'] = $version;
-        _git_tag($val, 'template');
+        _git_tag_install_file($val, 'template');
     }
+}
+
+function _git_tag_install_file ($val, $type = 'module'){
+    $repo_path = get_repo_path($val['module_name'], $type);
+
+    if (!_git_is_repo ($repo_path)){
+        cos_cli_print("$repo_path is not a git repo");
+        return;
+    }
+
+    $install_file = $repo_path . "/install.inc";
+    $handle = @fopen($install_file, "r");
+    $str = '';
+    if ($handle) {
+        while (($buffer = fgets($handle, 4096)) !== false) {
+            if (strstr($buffer, "\$_INSTALL['VERSION']")) {
+                $str.= "\$_INSTALL['VERSION'] = $val[new_version];\n";
+            } else {
+                $str.= $buffer;
+            }
+        }
+        if (!feof($handle)) {
+            echo "Error: unexpected fgets() fail\n";
+        }
+        fclose($handle);
+    }
+    file_put_contents($install_file, $str);
 }
 
 /**
