@@ -368,7 +368,7 @@ function _git_tag_install_file ($val, $type = 'module'){
         return;
     }
 
-    echo $install_file = $repo_path . "/install.inc";
+    $install_file = $repo_path . "/install.inc";
     $handle = @fopen($install_file, "r");
     $str = '';
     if ($handle) {
@@ -385,7 +385,7 @@ function _git_tag_install_file ($val, $type = 'module'){
         fclose($handle);
     }
     file_put_contents($install_file, $str);
-    die;
+    cos_cli_print("Tagged file $install_file with version $val[new_version]");
 }
 
 /**
