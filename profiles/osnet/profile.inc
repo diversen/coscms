@@ -3,7 +3,7 @@
 $_PROFILE_MODULES = array (
   0 =>
   array (
-    'id' => '65',
+    'id' => '1',
     'module_name' => 'system',
     'module_version' => '1.31',
     'menu_item' => '1',
@@ -14,7 +14,6 @@ $_PROFILE_MODULES = array (
     'public_clone_url' => 'git://github.com/diversen/system.git',
     'private_clone_url' => 'git@github.com:diversen/system.git',
   ),
-
   1 => 
   array (
     'id' => '2',
@@ -121,7 +120,7 @@ $_PROFILE_MODULES = array (
   ),
   9 =>
   array (
-    'id' => '1',
+    'id' => '65',
     'module_name' => 'error',
     'module_version' => '1.31',
     'menu_item' => '0',
