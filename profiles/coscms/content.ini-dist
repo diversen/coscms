@@ -1,4 +1,4 @@
-content_allow_edit = 'admin'
+content_allow_edit = "admin"
 content_article_crumb = 0
 content_article_tags = 1
 content_article_abstract = 1
@@ -10,3 +10,4 @@ content_article_filters[2] = "markdownExt"
 content_view_sub_modules[0] = "addthis"
 content_view_sub_modules[1] = "comment"
 content_latest_sub_modules[0] = "rss"
+content_show_latest = "admin"

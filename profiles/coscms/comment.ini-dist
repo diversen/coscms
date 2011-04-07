@@ -6,4 +6,4 @@ comment_user_post_verify = 1
 comment_use_akismet = 0
 comment_akismet_key = "aksimet_key"
 comment_use_jquery_markdown = 1
-comment_allow_edit_comment = 'admin'
+comment_allow_edit_comment = "admin"
