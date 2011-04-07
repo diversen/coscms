@@ -160,6 +160,7 @@ class moduleLoader {
 
         if (!isset($this->levels[$level])) return;
         foreach($this->levels[$level] as $key => $val){
+            moduleLoader::setModuleIniSettings($val);
             $class_path = _COS_PATH . "/modules/$val/model.$val.inc";
             include_once $class_path;
             $class = new $val;
@@ -354,7 +355,6 @@ class moduleLoader {
                 $class_name = self::modulePathToClassName($val['module_name']);
                 $class_object = new $class_name(); 
                 $class_object->init();
-                //self::modulePathToClassName('testmodule');
             }    
         }
     }
@@ -428,16 +428,24 @@ class moduleLoader {
      *
      * @return  array   array with ini settings of module.
      */
-    public static function getModuleIniSettings($module){
+    public static function getModuleIniSettings($module, $single = null){
 
         // only read ini file settings once.
         if (!isset(self::$iniSettings[$module])){
             self::setModuleIniSettings($module);
+            if (isset($single)){
+                if (isset(self::$iniSettings[$module][$single])){
+                    return self::$iniSettings[$module][$single];
+                } else {
+                    return null;
+                }
+            }
             return self::$iniSettings[$module];
         } else {
             return null;
         }
     }
+
 
     /**
      * method for getting a modules ini settings.
@@ -445,16 +453,14 @@ class moduleLoader {
      * @return  array   array with ini settings of module.
      */
     public static function setModuleIniSettings($module){
-
-        // only read ini file settings once.
-        //if (isset(self::$iniSettings[$module])){
-        //    return self::$iniSettings[$module];
-        // }
         if (!isset(self::$iniSettings['module'])){
             self::$iniSettings['module'] = array();
         }
 
+        //echo $module;
+
         $ini_file = _COS_PATH . "/modules/$module/$module.ini";
+        //echo "<br />";
         self::$iniSettings[$module] = parse_ini_file($ini_file, true);
 
         if (is_array(self::$iniSettings['module'])){
