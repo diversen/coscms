@@ -467,6 +467,7 @@ class moduleLoader {
 
     public static function subModuleGetPreContent ($modules, $options) {
         $str = '';
+        $ary = array();
         if (!is_array($modules)) return;
         foreach ($modules as $key => $val){
             if (method_exists($val, 'subModulePreContent')){
