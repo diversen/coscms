@@ -9,7 +9,7 @@ class mycurl {
      protected $_followlocation;
      protected $_timeout;
      protected $_maxRedirects;
-     protected $_cookieFileLocation = './cookie.txt';
+     protected $_cookieFileLocation = '/tmp/cookie.txt';
      protected $_post;
      protected $_postFields;
      protected $_referer ="http://www.google.com";
@@ -46,7 +46,7 @@ class mycurl {
          $this->_includeHeader = $includeHeader;
          $this->_binaryTransfer = $binaryTransfer;
  
-         $this->_cookieFileLocation = dirname(__FILE__).'/cookie.txt';
+         //$this->_cookieFileLocation = dirname(__FILE__).'/cookie.txt';
  
      }
  
