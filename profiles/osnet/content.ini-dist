@@ -1,4 +1,4 @@
-content_allow_edit = 'admin'
+content_allow_edit = "admin"
 content_article_crumb = 0
 content_article_tags = 1
 content_article_abstract = 1
@@ -8,7 +8,8 @@ content_article_latest_menu = 1
 content_article_filters[0] = "youtube"
 content_article_filters[1] = "geshi"
 content_article_filters[2] = "markdownExt"
-content_view_sub_modules[] = "addthis"
-content_view_sub_modules[] = "files"
-content_view_sub_modules[] = "comment"
+content_view_sub_modules[0] = "addthis"
+content_view_sub_modules[1] = "files"
+content_view_sub_modules[2] = "comment"
 content_latest_sub_modules[0] = "rss"
+content_show_latest = "admin"

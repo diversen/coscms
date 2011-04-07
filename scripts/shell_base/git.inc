@@ -332,13 +332,12 @@ function _git_tag ($val, $type = 'module'){
         return;
     }
 
-    echo $git_command = "cd $repo_path && git tag -a \"$val[new_version]\"";
+    $git_command = "cd $repo_path && git tag -a \"$val[new_version]\"";
+    proc_close(proc_open($git_command, array(0 => STDIN, 1 => STDOUT, 2 => STDERR), $pipes));
 
+    $git_command = "cd $repo_path && git push --tags $val[private_clone_url]";
+    passthru($git_command);
 
-    //proc_close(proc_open($git_command, array(0 => STDIN, 1 => STDOUT, 2 => STDERR), $pipes));
-
-    echo $git_command = "cd $repo_path && git push --tags $val[private_clone_url]";
-    //passthru($git_command);
     print "\n---\n";
 }
 
