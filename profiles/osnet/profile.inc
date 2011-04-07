@@ -1,7 +1,7 @@
 <?php 
 
 $_PROFILE_MODULES = array (
-  0 =>
+  0 => 
   array (
     'id' => '1',
     'module_name' => 'system',
@@ -29,6 +29,19 @@ $_PROFILE_MODULES = array (
   ),
   2 => 
   array (
+    'id' => '3',
+    'module_name' => 'error',
+    'module_version' => '1.31',
+    'menu_item' => '0',
+    'run_level' => '0',
+    'load_on' => NULL,
+    'parent' => NULL,
+    'is_shell' => NULL,
+    'public_clone_url' => 'git://github.com/diversen/error.git',
+    'private_clone_url' => 'git@github.com:diversen/error.git',
+  ),
+  3 => 
+  array (
     'id' => '4',
     'module_name' => 'content',
     'module_version' => '1.31',
@@ -40,7 +53,7 @@ $_PROFILE_MODULES = array (
     'public_clone_url' => 'git://github.com/diversen/content.git',
     'private_clone_url' => 'git@github.com:diversen/content.git',
   ),
-  3 => 
+  4 => 
   array (
     'id' => '10',
     'module_name' => 'files',
@@ -53,7 +66,7 @@ $_PROFILE_MODULES = array (
     'public_clone_url' => 'git://github.com/diversen/files.git',
     'private_clone_url' => 'git@github.com:diversen/files.git',
   ),
-  4 => 
+  5 => 
   array (
     'id' => '44',
     'module_name' => 'rewrite',
@@ -66,7 +79,7 @@ $_PROFILE_MODULES = array (
     'public_clone_url' => 'git://github.com/diversen/rewrite.git',
     'private_clone_url' => 'git@github.com:diversen/rewrite.git',
   ),
-  5 => 
+  6 => 
   array (
     'id' => '45',
     'module_name' => 'rewrite_manip',
@@ -79,7 +92,7 @@ $_PROFILE_MODULES = array (
     'public_clone_url' => 'git://github.com/diversen/rewrite_manip.git',
     'private_clone_url' => 'git@github.com:diversen/rewrite_manip.git',
   ),
-  6 => 
+  7 => 
   array (
     'id' => '46',
     'module_name' => 'account',
@@ -92,7 +105,7 @@ $_PROFILE_MODULES = array (
     'public_clone_url' => 'git://github.com/diversen/account.git',
     'private_clone_url' => 'git@github.com:diversen/account.git',
   ),
-  7 => 
+  8 => 
   array (
     'id' => '47',
     'module_name' => 'google_analytics',
@@ -105,7 +118,7 @@ $_PROFILE_MODULES = array (
     'public_clone_url' => 'git://github.com/diversen/google_analytics.git',
     'private_clone_url' => 'git@github.com:diversen/google_analytics.git',
   ),
-  8 => 
+  9 => 
   array (
     'id' => '49',
     'module_name' => 'gallery',
@@ -117,19 +130,6 @@ $_PROFILE_MODULES = array (
     'is_shell' => NULL,
     'public_clone_url' => 'git://github.com/diversen/gallery.git',
     'private_clone_url' => 'git@github.com:diversen/gallery.git',
-  ),
-  9 =>
-  array (
-    'id' => '65',
-    'module_name' => 'error',
-    'module_version' => '1.31',
-    'menu_item' => '0',
-    'run_level' => '0',
-    'load_on' => NULL,
-    'parent' => NULL,
-    'is_shell' => NULL,
-    'public_clone_url' => 'git://github.com/diversen/error.git',
-    'private_clone_url' => 'git@github.com:diversen/error.git',
   ),
   10 => 
   array (
