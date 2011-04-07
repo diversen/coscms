@@ -703,7 +703,7 @@ function get_profile_link (&$user, $options = null){
     if (!isset($profile_object)){
         $profile_system = get_main_ini('profile_module');
         if (!isset($profile_system)){
-            return $user['username'];
+            return '';
         }
 
         include_module ($profile_system);
