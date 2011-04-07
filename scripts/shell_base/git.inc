@@ -292,6 +292,57 @@ function git_commit_all ($options){
 }
 
 /**
+ * function for adding and commiting all modules and templates
+ * @param   array   options from cli env
+ */
+function git_tag_all ($options){
+
+    $version = cos_readline('Enter tag version to use');
+
+    $modules = profile::getModules();
+    foreach ($modules as $key => $val){
+        $val['new_version'] = $version;
+        _git_tag($val, 'module');
+
+    }
+
+    $templates = profile::getAllTemplates();
+
+    foreach ($templates as $key => $val){
+        $val['new_version'] = $version;
+        _git_tag($val, 'template');
+    }
+}
+
+function _git_tag ($val, $type = 'module'){
+    $repo_path = get_repo_path($val['module_name'], $type);
+
+    if (!_git_is_repo ($repo_path)){
+        cos_cli_print("$repo_path is not a git repo");
+        return;
+    }
+
+    if (empty($val['private_clone_url'])) {
+        cos_cli_print("No private clone url is set in install.inc of $val[module_name]");
+        return;
+    }
+
+    if (!cos_confirm_readline("You are about to tag module: $val[module_name]. Continue?")){
+        return;
+    }
+
+    $git_command = "cd $repo_path && git tag -a \"$val[new_version]\"";
+    passthru($git_command);
+
+    $git_command = "cd $repo_path && git commit ";
+    proc_close(proc_open($git_command, array(0 => STDIN, 1 => STDOUT, 2 => STDERR), $pipes));
+
+    $git_command = "cd $repo_path && git push --tags $val[private_clone_url]";
+    passthru($git_command);
+    print "\n---\n";
+}
+
+/**
  * function for upgrading a module, template or profile according to latest tag
  * or master
  *
@@ -324,7 +375,6 @@ function _git_commit ($val, $type = 'module'){
 
     $git_command = "cd $repo_path && git push $val[private_clone_url]";
     passthru($git_command);
-
     print "\n---\n";
 }
 
@@ -432,6 +482,12 @@ mainCli::setOption('git_upgrade_all', array(
 mainCli::setOption('git_commit_all', array(
     'long_name'   => '--all-commit',
     'description' => 'Will try and commit all modules and templates in one try.',
+    'action'      => 'StoreTrue'
+));
+
+mainCli::setOption('git_tag_all', array(
+    'long_name'   => '--all-tag',
+    'description' => 'Will tag and push tags for all modules and templates in one try.',
     'action'      => 'StoreTrue'
 ));
 
