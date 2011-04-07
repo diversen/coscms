@@ -1,3 +1,4 @@
+content_allow_edit = 'admin'
 content_article_crumb = 0
 content_article_tags = 1
 content_article_abstract = 1

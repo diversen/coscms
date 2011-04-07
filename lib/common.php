@@ -280,6 +280,14 @@ function include_template_inc ($template){
 
 // System function for including model, modules or controllers. 
 
+function include_reference_module () {
+    if (!isset($_GET['reference'])){
+        return null;
+    }
+    return include_module($_GET['reference']);
+
+}
+
 // {{{ function include_module($module)
 /**
  * function for including a modules view and model file
@@ -288,6 +296,7 @@ function include_template_inc ($template){
  *                  includes the view and the model file for module.
  */
 function include_module($module, $options = null){
+
     static $modules = array ();
     if (isset($modules[$module])){
         // module has been included
