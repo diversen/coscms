@@ -1,1 +1,1 @@
-allow_edit_settings = "admin"
+settings_allow_edit = "super"
