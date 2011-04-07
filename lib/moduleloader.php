@@ -467,6 +467,7 @@ class moduleLoader {
 
     public static function subModuleGetPreContent ($modules, $options) {
         $str = '';
+        if (!is_array($modules)) return;
         foreach ($modules as $key => $val){
             if (method_exists($val, 'subModulePreContent')){
                 $str = $val::subModulePreContent($options);
@@ -492,6 +493,7 @@ class moduleLoader {
 
     public static function subModuleGetInlineContent ($modules, $options){
         $str = '';
+        if (!is_array($modules)) return $str;
         foreach ($modules as $key => $val){
             if (method_exists($val, 'subModuleInlineContent')){
                 $str.=$val::subModuleInlineContent($options);
@@ -503,6 +505,7 @@ class moduleLoader {
     public static function subModuleGetPostContent ($modules, $options){
 
         $str = '';
+        if (!is_array($modules)) return $str;
         foreach ($modules as $key => $val){
             if (method_exists($val, 'subModulePostContent')){
                 $str.=$val::subModulePostContent($options);
@@ -513,6 +516,7 @@ class moduleLoader {
     }
 
     public static function includeModules ($modules) {
+        if (!is_array($modules)) return false;
         foreach ($modules as $key => $val) {
             include_module ($val);
         }
