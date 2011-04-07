@@ -298,7 +298,7 @@ function git_commit_all ($options){
  */
 function git_tag_all ($options){
 
-    $version = cos_readline('Enter tag version to use');
+    $version = cos_readline('Enter tag version to use ');
 
     $modules = profile::getModules();
     foreach ($modules as $key => $val){
@@ -332,14 +332,13 @@ function _git_tag ($val, $type = 'module'){
         return;
     }
 
-    $git_command = "cd $repo_path && git tag -a \"$val[new_version]\"";
-    passthru($git_command);
+    echo $git_command = "cd $repo_path && git tag -a \"$val[new_version]\"";
 
-    $git_command = "cd $repo_path && git commit ";
-    proc_close(proc_open($git_command, array(0 => STDIN, 1 => STDOUT, 2 => STDERR), $pipes));
 
-    $git_command = "cd $repo_path && git push --tags $val[private_clone_url]";
-    passthru($git_command);
+    //proc_close(proc_open($git_command, array(0 => STDIN, 1 => STDOUT, 2 => STDERR), $pipes));
+
+    echo $git_command = "cd $repo_path && git push --tags $val[private_clone_url]";
+    //passthru($git_command);
     print "\n---\n";
 }
 
@@ -351,11 +350,9 @@ function git_tag_all_files ($options){
         $val['Module'] = $val['module_name'];
         $val['new_version'] = $version;
         _git_tag_install_file($val, 'module');
-
     }
 
     $templates = profile::getAllTemplates();
-
     foreach ($templates as $key => $val){
         $val['Module'] = $val['module_name'];
         $val['new_version'] = $version;
@@ -371,7 +368,7 @@ function _git_tag_install_file ($val, $type = 'module'){
         return;
     }
 
-    $install_file = $repo_path . "/install.inc";
+    echo $install_file = $repo_path . "/install.inc";
     $handle = @fopen($install_file, "r");
     $str = '';
     if ($handle) {
@@ -388,6 +385,7 @@ function _git_tag_install_file ($val, $type = 'module'){
         fclose($handle);
     }
     file_put_contents($install_file, $str);
+    die;
 }
 
 /**
