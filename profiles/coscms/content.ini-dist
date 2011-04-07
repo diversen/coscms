@@ -4,7 +4,7 @@ content_article_abstract = 1
 content_article_jquery_sort = 1
 content_article_jquery_toc = 1
 content_article_latest_menu = 1
-
+content_article_filters[1] = "php"
 content_article_filters[2] = "markdownExt"
 content_view_sub_modules[0] = "addthis"
 content_view_sub_modules[1] = "comment"
