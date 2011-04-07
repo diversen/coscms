@@ -343,7 +343,7 @@ function _git_tag ($val, $type = 'module'){
 }
 
 function git_tag_all_files ($options){
-    $version = cos_readline('Enter tag version to use');
+    $version = cos_readline('Enter tag version to use ');
 
     $modules = profile::getModules();
     foreach ($modules as $key => $val){
