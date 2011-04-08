@@ -31,7 +31,7 @@ frontpage_module = "content"
 profile_module = "account_profile"
 ; blocks enabled.
 blocks[] = "/modules/system/blocks/system_admin_menu.inc"
-blocks[] = "/modules/content/blocks/treeKeepState.php"
+blocks[] = "/modules/content/blocks/content_tree_keep_state.inc"
 ; ssh host and porrt are used if we want to be 
 ; able to tranfer sites between servers with rsync and ssh
 ; see ./coscli.sh remote -h
