@@ -587,8 +587,15 @@ class QBuilder extends db {
         self::$debug[] = self::$query;
         self::unsetVars();
         self::$query = null;
-
         return $rows;
+    }
+
+    public static function fetchSingle (){
+        $rows = self::fetch();
+        if (isset($rows[0])){
+            return $rows[0];
+        }
+        return null;
     }
 
     /**

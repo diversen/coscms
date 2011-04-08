@@ -19,15 +19,27 @@ class cache {
      * get a cached string
      * @param   string    $module
      * @param   int       $id
+     * @param   int       $lifetime in secs
      * @return  string    $str
      */
-    public static function get ($module, $id) {
+    public static function get ($module, $id, $max_life_time = null) {
         $id = self::generateId($module, $id);
 
-        $db = new db();
-        $search = array ('id' => $id);
-        $row = $db->selectOne('system_cache', null, $search);
-        if ($row){
+        QBuilder::setSelect('system_cache');
+        QBuilder::filter('id =', $id);
+        $row = QBuilder::fetchSingle();
+
+        if (!$row) {
+            return null;
+        }
+        if ($max_life_time){
+            $expire = $row['unix_ts'] + $max_life_time;
+            if ($expire < time()){
+                return null;
+            } else {
+                return unserialize($row['data']);
+            }
+        } else {
             return unserialize($row['data']);
         }
         return null;
@@ -41,9 +53,12 @@ class cache {
      * @return  strin   $str
      */
     public static function set ($module, $id, $data) {
+        self::delete($module, $id);
+
         $id = self::generateId($module, $id);
         $db = new db();
-        $values = array ('id' => $id);
+        
+        $values = array ('id' => $id, 'unix_ts' => time());
         $values['data'] = serialize($data);
         return $db->insert('system_cache', $values);
     }
