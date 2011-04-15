@@ -5,7 +5,7 @@ $_PROFILE_MODULES = array (
   array (
     'id' => '1',
     'module_name' => 'system',
-    'module_version' => '1.31',
+    'module_version' => '1.311',
     'menu_item' => '1',
     'run_level' => '0',
     'load_on' => NULL,
@@ -306,12 +306,19 @@ $_PROFILE_TEMPLATES = array (
   ),
   2 => 
   array (
+    'public_clone_url' => 'git://github.com/diversen/zimpleza.git',
+    'private_clone_url' => 'git@github.com:diversen/js-toc.git',
+    'module_version' => '1.03',
+    'module_name' => 'zimpleza',
+  ),
+  3 => 
+  array (
     'public_clone_url' => 'git://github.com/diversen/clean.git',
     'private_clone_url' => 'git@github.com:diversen/clean.git',
     'module_version' => '1.31',
     'module_name' => 'clean',
   ),
-  3 => 
+  4 => 
   array (
     'public_clone_url' => 'git://github.com/diversen/fancybox.git',
     'private_clone_url' => 'git@github.com:diversen/fancybox.git',
