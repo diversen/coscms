@@ -39,6 +39,15 @@ class session {
             ini_set("session.cookie_domain", register::$vars['coscms_main']['session_host']);
         }
 
+
+        // use memcache if available
+        if (get_main_ini('session_handler') == 'memcache'){
+            $host = 'localhost'; $port = '11211';
+            $session_save_path = "tcp://$host:$port?persistent=0&weight=2&timeout=2&retry_interval=10,  ,tcp://$host:$port  ";
+            ini_set('session.save_handler', 'memcache');
+            ini_set('session.save_path', $session_save_path);
+        }
+
         session_start();
 
         self::checkSystemCookie();

@@ -8,7 +8,6 @@
 /**
  * @ignore
  */
-
 register::$vars['coscms_main'] = array();
 register::$vars['coscms_debug'] = array();
 register::$vars['coscms_lang'] = array();
