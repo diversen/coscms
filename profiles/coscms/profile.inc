@@ -235,6 +235,19 @@ $_PROFILE_MODULES = array (
     'public_clone_url' => 'git://github.com/diversen/rss.git',
     'private_clone_url' => 'git@github.com:diversen/rss.git',
   ),
+  18 => 
+  array (
+    'id' => '240',
+    'module_name' => 'addthis',
+    'module_version' => '1.31',
+    'menu_item' => '0',
+    'run_level' => '0',
+    'load_on' => NULL,
+    'parent' => NULL,
+    'is_shell' => NULL,
+    'public_clone_url' => 'git://github.com/diversen/addthis.git',
+    'private_clone_url' => 'git@github.com:diversen/addthis.git',
+  ),
 );
 
 $_PROFILE_TEMPLATES = array (
