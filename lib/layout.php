@@ -164,6 +164,9 @@ class layout extends db {
         $parent = moduleLoader::getParentModule($module);
         if (isset($parent)) $module = $parent;
 
+        // load parent ini settings
+        moduleLoader::getModuleIniSettings($module);
+
         // get base menu as file
         $_MODULE_MENU = self::getMenuFromFile($module);
 
