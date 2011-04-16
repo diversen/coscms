@@ -509,16 +509,29 @@ class QBuilder extends db {
     public static $where = null;
 
     public static function setSelect ($table, $fields ='*'){
-        self::$query = "SELECT $fields FROM $table WHERE ";
+        self::$query = "SELECT $fields FROM $table ";
     }
 
     public static function filter ($filter, $value, $bind = null) {
         // e.g. id > 3
+        static $where = null;
+
+        if (!self::$where) {
+            self::$where = 1;
+            self::$query.= "WHERE ";
+        }
+
         self::$query.= " $filter ? ";
         self::$bind[] = array ('value' => $value, 'bind' => $bind);
     }
 
     public static function filterIn ($filter, $values) {
+
+        if (!self::$where) {
+            self::$where = 1;
+            self::$query.= "WHERE ";
+        }
+
         self::$query.= " $filter ";
         self::$query.= "(";
         $num_val = count($values);
