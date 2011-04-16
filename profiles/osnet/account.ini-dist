@@ -1,7 +1,7 @@
-account_allow_create = "admin"
-account_allow_edit = "admin"
+account_allow_create = "super"
+account_allow_edit = "super"
 account_show_menu = ""
-account_show_admin_link = "admin"
+account_show_admin_link = "super"
 account_use_email_login = 1
 account_use_openid_login = 0
 account_default_url = "/account/login/index"
