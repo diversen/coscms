@@ -470,11 +470,6 @@ function get_module_ini($value){
         return null;
     }
 
-    /*
-    if (register::$vars['coscms_main']['module'][$value] == '0'){
-        return null;
-    }*/
-    
     return register::$vars['coscms_main']['module'][$value];
     
 }
