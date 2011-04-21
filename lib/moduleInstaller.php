@@ -410,9 +410,7 @@ class moduleInstaller extends db {
      * @return boolean true or throws an error on failure
      */
     public function deleteMenuItem($module = null){
-        
-        //if (empty($this->installInfo['MAIN_MENU_ITEM'])) return;
-        //$values = $this->installInfo['MAIN_MENU_ITEM'];
+
         if (!isset($module)){
             $module = $this->installInfo['NAME'];
         }

@@ -59,7 +59,9 @@ class lang {
         if (file_exists($lang_file)){
             include $lang_file;
             self::$dict = array_merge($_COS_LANG, $system_lang);
-        }
+            return;
+        } 
+        self::$dict = $system_lang;
     }
 
 
@@ -71,8 +73,7 @@ class lang {
      * @param   string  $sentence the sentence to translate.
      * @return  string  translated string
      */
-    static function translate($sentence){
-        
+    static function translate($sentence){      
         if (isset(self::$dict[$sentence])){
             return self::$dict[$sentence];
         } else {
