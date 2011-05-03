@@ -146,8 +146,11 @@ abstract class template {
      * @param   int      int. the loading order of javascript 0 is first > 0 is
      *                   later.
      */
-    public static function setInlineJs($js, $order = null){
+    public static function setInlineJs($js, $order = null, $search = null, $replace = null){
         $str = file_get_contents($js);
+        if ($search){
+            $str = str_replace($search, $replace, $str);
+        }
         if (isset($order)){
             self::$inlineJs[$order] = $str;
         } else {
