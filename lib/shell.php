@@ -218,7 +218,10 @@ class mainCli {
                 //$file_list = get_file_list($command_path);
                 //foreach ($file_list as $key => $val){
                 $path =  _COS_PATH . "/modules/$val[module_name]/$val[module_name].inc";
-                include_once $path;
+                
+                if (file_exists($path)) {
+                    include_once $path;
+                }
 
                 $ini = _COS_PATH . "/modules/$val[module_name]/$val[module_name].ini";
                 self::$ini[$val['module_name']] = parse_ini_file($ini);

@@ -94,16 +94,16 @@ function disable_cron_line(){
 function enable_cron_line(){
     
     // check for configuation file
-    $conf = _COS_PATH . '/scripts/cron.php';
-    if (!file_exists($conf)){
+    //$conf = _COS_PATH . '/scripts/cron.php';
+    //if (!file_exists($conf)){
         //@TODO: Add create file.
         //print "No configuration file for cron was found: $conf";
         //print "Do you want me to create it for you";
-        die('No config file was found');
+    //    die('No config file was found');
         //$readline_str = "Do you want to enable cron job for the site [Y/n]? ";
         
         
-    }
+    //}
     
     $readline_str = "Do you want to enable cron job for the site [Y/n]? ";
     $y_or_n = strtoupper(cos_readline($readline_str));
@@ -159,20 +159,21 @@ function enable_cron_line(){
 // }}}
 // {{{ function run_cron()
 function run_cron (){
-    include_once _COS_PATH . "/scripts/cron.php";
-    /*
+    
+    $mi = new moduleLoader();
+    $mods = $mi->getAllModules();
     $module_path = _COS_PATH . "/modules";
-    $modules = get_file_list($module_path, array('dir_only' => true));
-    foreach($modules as $key => $val){
-         $cron_file = $module_path . "/$val/cron.inc";
+
+    foreach($mods as $key => $val){
+         $cron_file = $module_path . "/$val[module_name]/cron.inc";
          if (file_exists($cron_file)){
             include_once $cron_file;
-            $cron_function = $val . "_cron";
+            $cron_function = $val['module_name'] . "_cron";
             if (function_exists($cron_function)){
                 $cron_function();
             }
          }
-    }*/
+    }
 }
 
 
