@@ -245,8 +245,8 @@ $_PROFILE_MODULES = array (
     'load_on' => NULL,
     'parent' => NULL,
     'is_shell' => '1',
-    'public_clone_url' => 'git://github.com/diversen/gtranslate.git',
-    'private_clone_url' => 'git@github.com:diversen/gtranslate.git',
+    'public_clone_url' => 'git://github.com/diversen/google_translate.git',
+    'private_clone_url' => 'git@github.com:diversen/google_translate.git',
   ),
 );
 
