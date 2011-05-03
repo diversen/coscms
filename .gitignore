@@ -12,7 +12,6 @@ config/multi/*
 logs/*.log*
 nbproject/*
 profiles/test/*
-profiles/*
 modules/*
 htdocs/templates/*
 htdocs/files/*

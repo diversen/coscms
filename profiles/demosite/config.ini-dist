@@ -1,0 +1,28 @@
+url = "mysql:dbname=demosite;host=localhost"
+username = "db_user"
+password = "db_pass"
+server_name = "demosite"
+site_email = "demosite"
+date_default_timezone = "Europe/Copenhagen"
+date_format_long = "d-M-Y H:i:s"
+date_format_short = "d-M-Y"
+send_mail = 0
+language = "en_GB"
+lang = "en"
+session_time = 3600
+session_path = "/"
+session_host = ""
+cookie_time = 30
+frontpage_module = "content"
+profile_module = "account_profile"
+blocks[0] = "/modules/system/blocks/system_admin_menu.inc"
+blocks[1] = "/modules/content/blocks/content_tree_keep_state.inc"
+[development]
+server_name = "demosite"
+smtp_mail = 1
+smtp_params_host = "demosite"
+smtp_params_sender = "sender"
+smtp_params_port     = "25"
+smtp_params_auth     = "true"
+smtp_params_username = "username"
+smtp_params_password = "password"
