@@ -32,11 +32,6 @@ profile_module = "account_profile"
 ; blocks enabled.
 blocks[] = "/modules/system/blocks/system_admin_menu.inc"
 blocks[] = "/modules/content/blocks/content_tree_keep_state.inc"
-; ssh host and porrt are used if we want to be 
-; able to tranfer sites between servers with rsync and ssh
-; see ./coscli.sh remote -h
-ssh_port = 12312
-ssh_host = 123.123.123.123
 ; production path on remote server
 prod_path = /home/dennis/www/www.coscms.org
 ; locale path on locale machine
