@@ -4,7 +4,8 @@ blog_abstract_length = 250
 blog_allow = "admin"
 blog_view_sub_modules[0] = "addthis"
 blog_view_sub_modules[1] = "comment"
-blog_view_sub_modules[2] = "rss"
+
+blog_index_sub_modules[2] = "rss"
 blog_use_comment = 1
 blog_comment_reference = "blog"
 blog_use_addthis = 1
