@@ -75,6 +75,30 @@ if (!defined('_COS_CLI')){
     
     // include common functions
     include "common.php";
+
+    $server_redirect = get_main_ini('server_redirect');
+    if ($server_redirect){
+        if($_SERVER['SERVER_NAME'] != $server_redirect){
+            if ($_SERVER['SERVER_PORT'] == 80) {
+                $scheme = "http://";
+            } else {
+                $scheme = "https://";
+            }
+
+            $redirect = $scheme . $server_redirect . $_SERVER['REQUEST_URI'];
+            echo $redirect;
+            header("Location: $redirect");
+        }
+    }
+    
+
+    if (get_main_ini('server_force_ssl')) {
+        if ($_SERVER['SERVER_PORT'] != 443){
+            $redirect = "https://" . $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI'];
+            header("Location: $redirect");
+        }
+    }
+
     include "db.php";
     include "uri.php";
     include "moduleloader.php";
