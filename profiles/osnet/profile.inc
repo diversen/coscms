@@ -44,7 +44,7 @@ $_PROFILE_MODULES = array (
   array (
     'id' => '4',
     'module_name' => 'content',
-    'module_version' => '1.31',
+    'module_version' => '1.311',
     'menu_item' => '1',
     'run_level' => '0',
     'load_on' => NULL,
@@ -252,7 +252,7 @@ $_PROFILE_MODULES = array (
   array (
     'id' => '105',
     'module_name' => 'blog',
-    'module_version' => '1.31',
+    'module_version' => '1.311',
     'menu_item' => '1',
     'run_level' => '0',
     'load_on' => NULL,
@@ -286,19 +286,6 @@ $_PROFILE_MODULES = array (
     'is_shell' => NULL,
     'public_clone_url' => 'git://github.com/diversen/rss.git',
     'private_clone_url' => 'git@github.com:diversen/rss.git',
-  ),
-  22 => 
-  array (
-    'id' => '108',
-    'module_name' => 'remote',
-    'module_version' => '1.31',
-    'menu_item' => '0',
-    'run_level' => '0',
-    'load_on' => NULL,
-    'parent' => NULL,
-    'is_shell' => '1',
-    'public_clone_url' => 'git://github.com/diversen/remote.git',
-    'private_clone_url' => 'git@github.com:diversen/remote.git',
   ),
 );
 

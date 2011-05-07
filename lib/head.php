@@ -86,7 +86,6 @@ if (!defined('_COS_CLI')){
             }
 
             $redirect = $scheme . $server_redirect . $_SERVER['REQUEST_URI'];
-            echo $redirect;
             header("Location: $redirect");
         }
     }
