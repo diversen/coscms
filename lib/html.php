@@ -173,10 +173,14 @@ class HTML {
 
         return $str;
     }
-    public static function entitiesEncode($values){
+    public static function entitiesEncode(&$values){
         if (is_array($values)){
             foreach($values as $key => $val){
-                $values[$key] = htmlentities($val, ENT_COMPAT, 'UTF-8');
+                if (is_array($val)) {
+                    $values[$key] = self::entitiesEncode($val);
+                } else {
+                    $values[$key] = htmlentities($val, ENT_COMPAT, 'UTF-8');
+                }
             }
         } else if (is_string($values)) {
             $values =  htmlentities($values, ENT_COMPAT, 'UTF-8');
@@ -189,7 +193,11 @@ class HTML {
     public static function entitiesDecode($values){
         if (is_array($values)){
             foreach($values as $key => $val){
-                $values[$key] = html_entity_decode($val, ENT_COMPAT, 'UTF-8');
+                if (is_array($val)) {
+                    $values[$key] = self::entitiesDecode($val);
+                } else {
+                    $values[$key] = html_entity_decode($val, ENT_COMPAT, 'UTF-8');
+                }
             }
         } else if (is_string($values)) {
             $values =  html_entity_decode($values, ENT_COMPAT, 'UTF-8');

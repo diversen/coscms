@@ -61,7 +61,7 @@ class menu {
         $item = array ();
         $item['id'] = $val['id'];
         $item['pid'] = 0;
-        $item['title'] = $val['title'];
+        $item['title'] = html::entitiesEncode($val['title']);
         $menu[] = $item;
     }
 
