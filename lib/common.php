@@ -128,6 +128,14 @@ function isvalue($var){
 }
 
 // }}}
+function print_r_str ($str){
+    ob_start();
+    print_r($str);
+    $str = ob_get_contents();
+    ob_end_clean();
+    return $str;
+}
+
 // {{{ function substr2 ($str, $length, $min)
 /** 
  * Substring without losing word meaning and
