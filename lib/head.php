@@ -120,7 +120,12 @@ if (!defined('_COS_CLI')){
         array_merge(register::$vars['coscms_main'] , $db_settings);
     $moduleLoader->runLevel(2);
 
-    $locale = register::$vars['coscms_main']['language'].'.UTF8';
+    if (isset(register::$vars['coscms_main']['locale'])){
+        $locale = register::$vars['coscms_main']['locale'];
+    } else {
+        $locale = register::$vars['coscms_main']['language'].'.UTF8';
+    }
+    //echo $locale;
     setlocale(LC_ALL, $locale);
     // set default timezone
     date_default_timezone_set(register::$vars['coscms_main']['date_default_timezone']);
