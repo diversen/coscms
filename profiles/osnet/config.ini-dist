@@ -11,12 +11,15 @@ site_email = "dennis@os-cms.dk"
 ; default timezone
 date_default_timezone = "Europe/Copenhagen"
 ; some default time settings to use when displaying dates.
-date_format_long = "d-M-Y H:i:s"
-date_format_short = "d-M-Y"
+date_format_long = "%d-%b-%Y %T"
+date_format_short = "%d-%b-%Y"
+; locale
+locale = "en_GB.UTF8"
 ; send mail or not.
 send_mail = 1
-; language
+; language - as in lang/dir
 language = "en_GB"
+; as in html lang
 ; language code for HTML
 lang = "en"
 ; session settings time in secounds.
@@ -32,15 +35,6 @@ profile_module = "account_profile"
 ; blocks enabled.
 blocks[] = "/modules/system/blocks/system_admin_menu.inc"
 blocks[] = "/modules/content/blocks/content_article_tags.inc"
-; ssh host and porrt are used if we want to be 
-; able to tranfer sites between servers with rsync and ssh
-; see ./coscli.sh remote -h
-ssh_port = 12312
-ssh_host = 123.123.123.123
-; production path on remote server
-prod_path = /home/dennis/www/www.coscms.org
-; locale path on locale machine
-locale_path = /home/dennis/www/coscms
 ; development settings
 ; only used when sitename is coscms (locale server name)
 ; we set some smtp settings because we are not on a mail host. 

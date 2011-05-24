@@ -11,8 +11,9 @@ site_email = "dennis@os-cms.dk"
 ; default timezone
 date_default_timezone = "Europe/Copenhagen"
 ; some default time settings to use when displaying dates.
-date_format_long = "d-M-Y H:i:s"
-date_format_short = "d-M-Y"
+date_format_long = "%d-%b-%Y %T"
+date_format_short = "%d-%b-%Y"
+locale = "en_GB.UTF8"
 ; send mail or not.
 send_mail = 1
 ; language
