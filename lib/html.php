@@ -190,7 +190,7 @@ class HTML {
         return $values;
     }
 
-    public static function entitiesDecode($values){
+    public static function entitiesDecode(&$values){
         if (is_array($values)){
             foreach($values as $key => $val){
                 if (is_array($val)) {
