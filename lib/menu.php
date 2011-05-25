@@ -8,6 +8,9 @@
  * @package     coslib
  */
 
+
+include_model ('content/article');
+
 class menu {
 
     public static $options = array();
@@ -112,7 +115,6 @@ class menu {
         foreach ($menu as $key => &$val) {
             if (empty($val)) continue;
             if ($val['id'] == $id){
-                //$val['title'] = html::entitiesDecode($values['title']);
                 $val['title'] = html::entitiesEncode($values['title']);
             }
             if (isset($val['sub'])){
@@ -149,9 +151,14 @@ class menu {
         $element = array_shift($stack);
         foreach ($menu as $key => $val){
             $str.="<li>" .
-                create_link(
-                    "/content/article/view/$val[id]",
-                    $val['title']) . "";
+            html::createLink(
+                    contentArticle::getArticleUrl(
+                            $val['id'], $val['title']),
+                    $val['title']);
+
+                //create_link(
+                    //"/content/article/view/$val[id]/$val[title]",
+                    //$val['title']) . "";
             if (!empty($val['sub'])){              
                 if ( $element == $val['id']){
                     self::getTreeHTML($val['sub'], $name, $element);
@@ -204,10 +211,12 @@ class menu {
         foreach ($ary as $key => $val){
             // no title - item has been deleted.
             if (empty($val['title'])) continue;
-            $str.="<li id=\"list_$val[id]\">" .
-                "<div>" . create_link(
-                    "/content/article/view/$val[id]",
-                    $val['title']) . "</div>";
+            $str.="<li id=\"list_$val[id]\"><div>";
+            $str.= html::createLink(
+                    contentArticle::getArticleUrl(
+                            $val['id'], $val['title']),
+                    $val['title']);
+            $str.= "</div>";
             if (!empty($val['sub'])){
                 self::getManipTreeHTML($val['sub']);
             } 
@@ -229,9 +238,6 @@ class menu {
      */
 
     public static function generateTreeFromAjax ($input_ary){
-
-        include_model ('content/article');
-
         $list = array();
         foreach ($input_ary as $key => $val){
             $art = new contentArticle();
