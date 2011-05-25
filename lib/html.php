@@ -142,11 +142,12 @@ class HTML {
 
     public static function createLink ($url, $title, $options = array()) {
 
-        if ($_SERVER['REQUEST_URI'] == $url){
+        if (urldecode($_SERVER['REQUEST_URI']) == html::entitiesDecode($url)){
             if (!isset($options['class'])){
                 $options['class'] = 'current';
             }
         }
+
         $options = self::parseExtra($options);
         $str = "<a href=\"$url\" $options>$title</a>";
         return $str;
