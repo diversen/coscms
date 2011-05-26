@@ -141,7 +141,8 @@ class HTML {
     }
 
     public static function createLink ($url, $title, $options = array()) {
-
+        //create_link($url, $title);
+        $url = self::getUrl($url);
         if (urldecode($_SERVER['REQUEST_URI']) == html::entitiesDecode($url)){
             if (!isset($options['class'])){
                 $options['class'] = 'current';
