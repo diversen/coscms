@@ -141,29 +141,24 @@ class HTML {
     }
 
     public static function createLink ($url, $title, $options = array()) {
-        //create_link($url, $title);
         $rewritten_url = self::getUrl($url);
 
-        /*
+        // if rewritten
         if ($rewritten_url != $url) {
-            // rewritten get orginal
-            $orginal = rewrite_manip::getUriAlias($url);
-        
+            $orginal = self::getUrl($rewritten_url);
             if ($orginal == $_SERVER['REQUEST_URI']){
                 if (!isset($options['class'])){
                     $options['class'] = 'current';
                 }
             }
-        }*/
-        
+        }
 
-        //if ($url == "/argh") echo $_SERVER['REQUEST_URI'] . '=' . $url;
         $url = $rewritten_url;
         if (urldecode($_SERVER['REQUEST_URI']) == html::entitiesDecode($url)){
             if (!isset($options['class'])){
                 $options['class'] = 'current';
             }
-        }
+        } 
 
         $options = self::parseExtra($options);
         $str = "<a href=\"$url\" $options>$title</a>";
