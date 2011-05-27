@@ -72,7 +72,7 @@ abstract class template {
      */
     public static function setMeta($ary){
         foreach($ary as $key => $val){
-            self::$meta.="<meta name=\"$key\" value=\"$val\" />\n";
+            self::$meta.="<meta name=\"$key\" value=\"" . html::entitiesEncode($val) . "\" />\n";
         }
     }
 
