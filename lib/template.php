@@ -72,8 +72,42 @@ abstract class template {
      */
     public static function setMeta($ary){
         foreach($ary as $key => $val){
-            self::$meta.="<meta name=\"$key\" value=\"" . html::entitiesEncode($val) . "\" />\n";
+            if (isset(self::$meta[$key])){
+                continue;
+            }
+            self::$meta[$key] = html::entitiesEncode($val);
         }
+    }
+
+    public static function getMeta (){
+        
+        $str = '';
+
+        if (!isset(self::$meta['keywords'])) {
+            $str = '';
+            $str = get_main_ini('meta_keywords');
+            $str = trim($str);
+            if (!empty($str)) {
+                self::$meta['keywords'] = $str;
+            }
+        }
+
+        if (empty(self::$meta['description'])) {
+            $str = '';
+            $str = get_main_ini('meta_desc');
+            $str = trim($str);
+            if (!empty($str)) {
+                self::$meta['description'] = $str;
+            }
+        }
+
+        $str = '';
+        foreach (self::$meta as $key => $val) {
+            $str.= "<meta name=\"$key\" value=\"$val\" />\n";
+        }
+
+        return $str;
+
     }
 
     /**
