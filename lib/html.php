@@ -172,7 +172,7 @@ class HTML {
      */
     public static function getUrl ($url) {
        if (class_exists('rewrite_manip')) {
-            $alt_uri = rewrite_manip::getRowFromRequest($url);
+            $alt_uri = rewrite_manip::getRowFromRequest(html::entitiesDecode(rawurldecode($url)));
             if (isset($alt_uri)){
                 $url = $alt_uri;
             }

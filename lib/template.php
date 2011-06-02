@@ -33,7 +33,7 @@ abstract class template {
     /**
      * @var string  holding meta tags
      */
-    static $meta = '';
+    static $meta = array();
 
     /**
      * @var string  holding title of page being parsed
