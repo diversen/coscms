@@ -148,7 +148,7 @@ function print_r_str ($str){
  * @param   int     size of minimum word
  * @return  string  string transformed
  */
-function substr2($str, $length, $minword = 3)
+function substr2($str, $length, $minword = 3, $use_dots = true)
 {
     $sub = '';
     $len = 0;
@@ -165,10 +165,17 @@ function substr2($str, $length, $minword = 3)
         }
     }
 
-    return $sub . (($len < strlen($str)) ? ' ... ' : '');
+    if ($use_dots) {
+        return $sub . (($len < strlen($str)) ? ' ... ' : '');
+    }
+    return $sub;
 }
 
 // }}}
+function cos_remove_extra_ws ($str) {
+    $str = preg_replace('/\s\s+/', ' ', $str);
+    return $str;
+}
 // {{{ function save_post($id)
 /**
  * simple method for saving $_POST vars to session

@@ -186,6 +186,42 @@ class HTML {
 
         return $str;
     }
+
+    public static function specialEncode(&$values){
+        if (is_array($values)){
+            foreach($values as $key => $val){
+                if (is_array($val)) {
+                    $values[$key] = self::specialEncode($val);
+                } else {
+                    $values[$key] = htmlspecialchars($val, ENT_COMPAT, 'UTF-8');
+                }
+            }
+        } else if (is_string($values)) {
+            $values =  htmlspecialchars($values, ENT_COMPAT, 'UTF-8');
+        } else {
+            $values = '';
+        }
+        return $values;
+    }
+
+    public static function specialDecode(&$values){
+        if (is_array($values)){
+            foreach($values as $key => $val){
+                if (is_array($val)) {
+                    $values[$key] = self::specialDecode($val);
+                } else {
+                    $values[$key] = htmlspecialchars_decode($val, ENT_COMPAT, 'UTF-8');
+                }
+            }
+        } else if (is_string($values)) {
+            $values =  htmlspecialchars_decode($values, ENT_COMPAT, 'UTF-8');
+        } else {
+            $values = '';
+        }
+        return $values;
+    }
+
+
     public static function entitiesEncode(&$values){
         if (is_array($values)){
             foreach($values as $key => $val){

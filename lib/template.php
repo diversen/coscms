@@ -75,7 +75,7 @@ abstract class template {
             if (isset(self::$meta[$key])){
                 continue;
             }
-            self::$meta[$key] = html::entitiesEncode($val);
+            self::$meta[$key] = html::specialEncode($val);
         }
     }
 
