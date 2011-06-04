@@ -64,7 +64,7 @@ class menu {
         $item = array ();
         $item['id'] = $val['id'];
         $item['pid'] = 0;
-        $item['title'] = html::entitiesEncode($val['title']);
+        $item['title'] = html::specialEncode($val['title']);
         $menu[] = $item;
     }
 
@@ -115,7 +115,7 @@ class menu {
         foreach ($menu as $key => &$val) {
             if (empty($val)) continue;
             if ($val['id'] == $id){
-                $val['title'] = html::entitiesEncode($values['title']);
+                $val['title'] = html::specialEncode($values['title']);
             }
             if (isset($val['sub'])){
                 self::updateMenuItem($val['sub'], $values, $id);
@@ -247,12 +247,12 @@ class menu {
                 $list[] = array (
                     'id' => $key,
                     'pid' => 0,
-                    'title' => html::entitiesEncode($art['title']));
+                    'title' => html::specialEncode($art['title']));
             } else {
                 $list[] = array (
                     'id' => $key,
                     'pid' => $val,
-                    'title' => html::entitiesEncode($art['title']));
+                    'title' => html::specialEncode($art['title']));
             }
         }
 
