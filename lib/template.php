@@ -103,7 +103,7 @@ abstract class template {
 
         $str = '';
         foreach (self::$meta as $key => $val) {
-            $str.= "<meta name=\"$key\" value=\"$val\" />\n";
+            $str.= "<meta name=\"$key\" content=\"$val\" />\n";
         }
 
         return $str;
