@@ -86,6 +86,7 @@ if (!defined('_COS_CLI')){
             }
 
             $redirect = $scheme . $server_redirect . $_SERVER['REQUEST_URI'];
+            header("HTTP/1.1 301 Moved Permanently");
             header("Location: $redirect");
         }
     }
@@ -94,6 +95,7 @@ if (!defined('_COS_CLI')){
     if (get_main_ini('server_force_ssl')) {
         if ($_SERVER['SERVER_PORT'] != 443){
             $redirect = "https://" . $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI'];
+            header("HTTP/1.1 301 Moved Permanently");
             header("Location: $redirect");
         }
     }
