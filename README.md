@@ -6,9 +6,9 @@ Coscms is a small and simple CMS system / framework for building websites. Easy 
 
 [Main site](http://www.coscms.org)
 
-[Demo Site](http://demo.coscms.org/) Login with admin / admin
+[Demo Site](http://demo.coscms.org/) 
 
-A simple demo with a blog (blog module) and a CMS (content module) and a comment module (comment) and a few more modules. 
+Login with admin / admin. A simple demo with a blog (blog module) and a CMS (content module) and a comment module (comment) and a few more modules. 
 
 ### Dependencies: 
 
