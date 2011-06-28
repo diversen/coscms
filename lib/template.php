@@ -313,3 +313,37 @@ abstract class template {
         } 
     }
 }
+
+class templateView {
+
+    static $viewFolder = 'views';
+    // {{{ include_view
+    /**
+     * function for including a view file.
+     * Maps to module (e.g. 'tags' and 'view file' e.g. 'add')
+     * we presume that views are placed in modules views folder
+     * e.g. tags/views And we presume that views always has a .inc
+     * postfix
+     *
+     * @param string $module
+     * @param string $file
+     */
+    static function includeModuleView ($module, $view, $vars = null, $return = null){
+        $filename = _COS_PATH . "/modules/$module/" . self::$viewFolder . "/$view.inc";
+
+        if (is_file($filename)) {
+            ob_start();
+            include $filename;
+            $contents = ob_get_contents();
+            ob_end_clean();
+            if ($return) {
+                return $contents;
+            } else {
+                echo $contents;
+            }
+        } else {
+            echo "View: $filename not found";
+            return false;
+        }
+    }
+}

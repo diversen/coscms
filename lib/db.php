@@ -82,7 +82,7 @@ class db {
      * @param string simple search conditions for the fieldname (e.g. admin) 
      *        'select * from auth where username = admin'
      * @param array fields the fields to select else * 
-     * @return array|0 the fetched row or 0 if no rows matched the search
+     * @return array the fetched row, emty row if no rows matched the search
      */
     public function selectOne($table, $fieldname=null, $search=null, $fields=null){
         $rows = $this->select($table, $fieldname, $search, $fields);

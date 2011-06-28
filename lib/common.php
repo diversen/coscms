@@ -356,7 +356,7 @@ function include_model($module){
 }
 
 // }}}
-
+// {{{ include_view
 /**
  * function for including a view file.
  * Maps to module (e.g. 'tags' and 'view file' e.g. 'add')
@@ -383,10 +383,11 @@ function include_view ($module, $view, $vars = null, $return = null){
     } else {
         echo "View not found";
         return false;
-
-    }
-    
+    }    
 }
+// }}}
+
+
 // {{{ function include_controller($controller, $options)
 /**
  *
