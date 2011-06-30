@@ -69,12 +69,21 @@ class lang {
      * method for doing translations. If a translation is not found we
      * prepend the untranslated string with 'NT' (needs translation)
      *
-     * @global  array   $_COS_LANG reference to the main language array
      * @param   string  $sentence the sentence to translate.
+     * @param   array   array with substitution to perform on sentence.
+     *                  e.g. array ('a name', 'a adresse')
      * @return  string  translated string
      */
-    static function translate($sentence){      
+    static function translate($sentence, $substitute = array()){
         if (isset(self::$dict[$sentence])){
+            if (!empty($substitute)){
+                $i = 1;
+                foreach ($substitute as $val) {
+                    self::$dict[$sentence] = str_replace("%$i%", $val, self::$dict[$sentence]);
+                    $i++;
+                }
+            }
+
             return self::$dict[$sentence];
         } else {
             return "NT: '$sentence'";
