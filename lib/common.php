@@ -193,7 +193,11 @@ function save_post ($id){
  * @param   string  id of the post to load
  */
 function load_post($id){
-    $_POST = @$_SESSION[$id];
+    if (!isset($_SESSION[$id])) {
+        return false;
+    }
+    $_POST = $_SESSION[$id];
+    return true;
 }
 // }}}
 // {{{ function cos_url_encode($string)
@@ -807,7 +811,7 @@ function mail_utf8($to, $subject, $message, $from, $reply_to=null) {
     $subject = '=?UTF-8?B?'.base64_encode($subject).'?=';
     $message = wordwrap($message, 70);
     
-    if (isset(register::$vars['coscms_main']['send_mail'])){
+    if (get_main_ini('send_mail')){
 
         if (isset(register::$vars['coscms_main']['smtp_mail'])){
             $res = mail_smtp ($to, $subject, $message, $from, $reply_to);
