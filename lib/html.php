@@ -111,6 +111,18 @@ class HTML {
         return $str;
     }
 
+    public static function file ($name, $extra = array()) {
+        if (!isset($extra['size'])){
+            $extra['size'] = HTML_FORM_TEXT_SIZE;
+        }
+
+        //$value = self::setValue($name, $value);
+        $extra = self::parseExtra($extra);
+        $str = "<input type=\"file\" name=\"$name\" size=\"30\" $extra />\n";
+        self::$formStr.= $str;
+        return $str;
+    }
+
     public static function checkbox ($name, $value = '1', $extra = array ()) {
         $extra = self::parseExtra($extra);
         

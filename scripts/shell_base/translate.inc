@@ -158,7 +158,7 @@ function translate_update($options){
 
         // no strings we continue
         if (empty($strings)) continue;
-
+        $strings = array_unique($strings);
         // we add the file info to translation as comment
         //$str.="// Auto updated translation " . " $val\n\n";
 

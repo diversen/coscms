@@ -186,11 +186,16 @@ class uploadBlob {
      * @param   array   $options
      * @return  void
      */
-    public static function getFP($options){
+    public static function getFP($options = array()){
 
         //check if a file was uploaded
         $userfile = $options['filename'];
         $maxsize = $options['maxsize'];
+
+        if (isset($options['scaled_filename'])) {
+            $scaled_filename = $options['scaled_filename'];
+        }
+
         if (isset($options['allow_mime'])){
             $allow_mime = $options['allow_mime'];
         }
@@ -212,6 +217,116 @@ class uploadBlob {
                 }
             }
             return $fp;
+        }
+    }
+    // }}}
+    // {{{ getFP($options
+    /**
+     * the upload function
+     *
+     * @param   array   $options
+     * @return  void
+     */
+    public static function getFPFromFile($options = array()){
+
+        //check if a file was uploaded
+        //$userfile = $options['filename'];
+        //$maxsize = $options['maxsize'];
+
+        //if (isset($options['scaled_filename'])) {
+        //    $scaled_filename = $options['scaled_filename'];
+        //}
+
+
+        //if(is_uploaded_file($_FILES[$userfile]['tmp_name']) &&
+        //        filesize($_FILES[$userfile]['tmp_name']) != false){
+
+        if (!file_exists($options['filename'])) {
+            die ("no such file $options[filename]");
+        }
+        $size = filesize($options['filename']);
+
+            //  check the file is less than the maximum file size
+        if($size > $options['maxsize'] ){
+            throw new Exception("File to large");
+        }
+
+        // check for right content
+        if (isset($options['allow_mime'])){
+            $type = mime_content_type($options['filename']);
+            if (!in_array($type, $options['allow_mime'])) {
+                throw new Exception("File format not allowed");
+            }
+        }
+
+        //print_r($options);
+        $fp = fopen($options['filename'], 'rb');
+        //print $fp; die;
+        return $fp;
+        //}
+    }
+    // }}}
+    static function scaleImageToBlob (
+        $post_filename,
+        $db_table,
+        $id, 
+        $image_length,
+        $maxsize = 4000000 ) {
+        if (!empty($_FILES[$post_filename]['tmp_name'])){
+
+            $options['filename'] =
+                $_FILES[$post_filename]['tmp_name'] . "-scaled";
+            $options['maxsize'] = $maxsize;
+
+            self::scaleImage(
+                $_FILES[$post_filename]['tmp_name'],
+                $options['filename'],
+                $image_length);
+
+            $values['file'] = uploadBlob::getFPFromFile($options);
+            $values['content_type'] = $_FILES[$post_filename]['type'];
+
+            $db = new db();
+            $bind = array('file' => PDO::PARAM_LOB);
+            $res = $db->update($db_table, $values, $id, $bind);
+            return $res;
+            // $last_insert_id = self::$dbh->lastInsertId();
+
+            // $order_image_size_thumb = get_module_ini('order_image_size_thumb');
+            // $this->scaleImage($_FILES['file']['tmp_name'], $_FILES['file']['tmp_name'], $order_image_size_thumb);
+
+            // $values = array();
+            // $values['file_thumb'] = uploadBlob::getFP($options);
+            // $bind = array('file_thumb' => PDO::PARAM_LOB);
+            // $res = $db->update('order_items', $values, $last_insert_id, $bind);
+        }
+    }
+
+    static function scaleImage ($image, $thumb, $length){
+        require_once 'Image/Transform.php';
+
+        //create transform driver object
+        $it = Image_Transform::factory('GD');
+        if (PEAR::isError($it)) {
+            die($it->getMessage());
+        }
+
+        //load the original file
+        $ret = $it->load($image);
+        if (PEAR::isError($ret)) {
+            die($ret->getMessage());
+        }
+
+        //scale
+        $ret = $it->scaleByLength($length);
+        if (PEAR::isError($ret)) {
+            die($ret->getMessage());
+        }
+
+        //save it into a different file
+        $ret = $it->save($thumb);
+        if (PEAR::isError($ret)) {
+            die($ret->getMessage());
         }
     }
     // }}}

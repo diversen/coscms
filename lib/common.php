@@ -6,6 +6,16 @@
  * @package    coslib
  */
 
+/**
+ * puts a string in logs/coscms.log
+ * @param string $message
+ */
+function cos_error_log ($message) {
+    $message.="\n";
+    $destination = _COS_PATH . "/logs/coscms.log";
+    error_log($message, 3, $destination);
+}
+
 // Variable function
 
 // {{{ function get_zero_or_positive($int, $max = null);
