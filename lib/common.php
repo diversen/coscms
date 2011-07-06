@@ -11,6 +11,7 @@
  * @param string $message
  */
 function cos_error_log ($message) {
+    $message = strftime('%c', time()) . ": " . $message;
     $message.="\n";
     $destination = _COS_PATH . "/logs/coscms.log";
     error_log($message, 3, $destination);

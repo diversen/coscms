@@ -166,7 +166,7 @@ class uploadBlob {
      * @var string  name of the form element that holds the file 
      */
     var $options = array();
-
+    public static $errors = array();
     /**
      * @var array   allowed extensions (the mime type of the allowed extensions)
      *              e.g. "application/x-gzip"
@@ -191,10 +191,10 @@ class uploadBlob {
         //check if a file was uploaded
         $userfile = $options['filename'];
         $maxsize = $options['maxsize'];
-
+        /*
         if (isset($options['scaled_filename'])) {
             $scaled_filename = $options['scaled_filename'];
-        }
+        }*/
 
         if (isset($options['allow_mime'])){
             $allow_mime = $options['allow_mime'];
@@ -229,76 +229,84 @@ class uploadBlob {
      */
     public static function getFPFromFile($options = array()){
 
-        //check if a file was uploaded
-        //$userfile = $options['filename'];
-        //$maxsize = $options['maxsize'];
-
-        //if (isset($options['scaled_filename'])) {
-        //    $scaled_filename = $options['scaled_filename'];
-        //}
-
-
-        //if(is_uploaded_file($_FILES[$userfile]['tmp_name']) &&
-        //        filesize($_FILES[$userfile]['tmp_name']) != false){
-
         if (!file_exists($options['filename'])) {
-            die ("no such file $options[filename]");
+            self::$errors[] = 
+            lang::translate('system_class_upload_get_fp_file_does_not_exists')
+            . ' : ' . $options['filename'];
+            return false;
         }
         $size = filesize($options['filename']);
 
-            //  check the file is less than the maximum file size
+        //  check the file is less than the maximum file size
         if($size > $options['maxsize'] ){
-            throw new Exception("File to large");
+            self::$errors[] = lang::translate('system_class_upload_file_too_large') .
+            ": " . $options['filename'];
+            return false;
         }
 
         // check for right content
         if (isset($options['allow_mime'])){
             $type = mime_content_type($options['filename']);
             if (!in_array($type, $options['allow_mime'])) {
-                throw new Exception("File format not allowed");
+                self::$errors[] = lang::translate('system_class_upload_file_format_not_allowed') .
+                ": " . $type;
+                return false;
+                
             }
         }
-
-        //print_r($options);
         $fp = fopen($options['filename'], 'rb');
-        //print $fp; die;
         return $fp;
-        //}
     }
     // }}}
+    /**
+     * method for scaling from a file input field
+     * into a database table
+     *
+     * @param string $post_filename (name of the file input)
+     * @param string $db_table (database table to use)
+     *               Note the table will by default
+     *               scale into a blob field called 'file'
+     * @param int    unique id of the row to scale into
+     *               it is an update operation
+     * @param int    length of the scaled image
+     * @param int    max size in bytes.
+     * @return boolean result of operation
+     *                  may throw an exception
+     */
     static function scaleImageToBlob (
         $post_filename,
         $db_table,
         $id, 
         $image_length,
         $maxsize = 4000000 ) {
-        if (!empty($_FILES[$post_filename]['tmp_name'])){
+        if (isset($_FILES[$post_filename]['tmp_name'])){
 
             $options['filename'] =
                 $_FILES[$post_filename]['tmp_name'] . "-scaled";
             $options['maxsize'] = $maxsize;
 
-            self::scaleImage(
+            $res = self::scaleImage(
                 $_FILES[$post_filename]['tmp_name'],
                 $options['filename'],
-                $image_length);
-
-            $values['file'] = uploadBlob::getFPFromFile($options);
+                $image_length
+            );
+            if (!$res)  {
+                // self::$errors[] = 'could not scale image';
+                return false;
+            }
+            
+            $res = uploadBlob::getFPFromFile($options);
+            if (!$res) {
+                return false;
+            }
+            
+            $values['file'] = $res;
             $values['content_type'] = $_FILES[$post_filename]['type'];
 
             $db = new db();
             $bind = array('file' => PDO::PARAM_LOB);
             $res = $db->update($db_table, $values, $id, $bind);
             return $res;
-            // $last_insert_id = self::$dbh->lastInsertId();
-
-            // $order_image_size_thumb = get_module_ini('order_image_size_thumb');
-            // $this->scaleImage($_FILES['file']['tmp_name'], $_FILES['file']['tmp_name'], $order_image_size_thumb);
-
-            // $values = array();
-            // $values['file_thumb'] = uploadBlob::getFP($options);
-            // $bind = array('file_thumb' => PDO::PARAM_LOB);
-            // $res = $db->update('order_items', $values, $last_insert_id, $bind);
         }
     }
 
@@ -308,26 +316,32 @@ class uploadBlob {
         //create transform driver object
         $it = Image_Transform::factory('GD');
         if (PEAR::isError($it)) {
-            die($it->getMessage());
+            self::$errors[] = lang::translate('system_upload_image_transform_factory_exception');
+            cos_error_log($it->getMessage());
+            return false;
         }
 
         //load the original file
         $ret = $it->load($image);
         if (PEAR::isError($ret)) {
-            die($ret->getMessage());
+            self::$errors[] = lang::translate('system_upload_image_transform_load_exception');
+            cos_error_log($ret->getMessage());
+            return false;
         }
 
-        //scale
         $ret = $it->scaleByLength($length);
         if (PEAR::isError($ret)) {
-            die($ret->getMessage());
+            self::$errors[] = lang::translate('system_upload_factory_image_transform_scale_exception');
+            cos_error_log($ret->getMessage());
+            return false;
         }
 
-        //save it into a different file
         $ret = $it->save($thumb);
         if (PEAR::isError($ret)) {
-            die($ret->getMessage());
+            self::$errors[] = lang::translate('system_upload_factory_image_transform_save_exception');
+            cos_error_log($ret->getMessage());
+            return false;
         }
+        return true;
     }
-    // }}}
 }
