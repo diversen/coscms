@@ -24,7 +24,7 @@ class HTML {
     }
 
     public static function disableBr (){
-        echo self::$br = '';
+        self::$br = '';
     }
 
     public static function enableBr (){
@@ -118,7 +118,7 @@ class HTML {
 
         //$value = self::setValue($name, $value);
         $extra = self::parseExtra($extra);
-        $str = "<input type=\"file\" name=\"$name\" size=\"30\" $extra />\n";
+        $str = "<input type=\"file\" name=\"$name\" size=\"30\" $extra />\n"  . self::$br . "\n";
         self::$formStr.= $str;
         return $str;
     }
@@ -150,6 +150,42 @@ class HTML {
             $str.= " $key = \"$val\" ";
         }
         return $str;
+    }
+
+
+    /**
+     * method for making a drop down box.
+     * 
+     * @param   string  $name the name of the select field
+     * @param   array   $rows the rows making up the ids and names of the select field
+     * @param   string  $field array field which will be used as name of the select element
+     * @param   int     $id the array field which will be used as id of the select element
+     * @param   int     $selected the element which will be selected
+     * @return  string  $extras to be added to a form
+     */
+    public static function select($name, $rows, $field, $id, $value=null, $extra = array()){
+        $value = self::setValue($name, $value);
+        $extra = self::parseExtra($extra);
+
+        $dropdown = "<select name=\"$name\" ";
+        if (isset($extras)){
+            $dropdown.= $extras;
+
+        }
+        $dropdown.= ">\n";
+        foreach($rows as $row){
+            if ($row[$id] == $value){
+                $s = ' selected';
+            } else {
+                $s = '';
+            }
+
+            $dropdown .= '<option value="'.$row[$id].'"' . $s . '>'.$row[$field].'</option>'."\n";
+        }
+        $dropdown .= '</select>'. self::$br . "\n";
+        self::$formStr.= $dropdown ;
+        return $dropdown;
+        //return $dropdown;
     }
 
     public static function createLink ($url, $title, $options = array()) {

@@ -276,8 +276,9 @@ class uploadBlob {
     static function scaleImageToBlob (
         $post_filename,
         $db_table,
-        $id, 
-        $image_length,
+        $field = 'file',
+        $id,
+        $image_length = '400',
         $maxsize = 4000000 ) {
         if (isset($_FILES[$post_filename]['tmp_name'])){
 
@@ -300,11 +301,11 @@ class uploadBlob {
                 return false;
             }
             
-            $values['file'] = $res;
+            $values[$field] = $res;
             $values['content_type'] = $_FILES[$post_filename]['type'];
 
             $db = new db();
-            $bind = array('file' => PDO::PARAM_LOB);
+            $bind = array($field => PDO::PARAM_LOB);
             $res = $db->update($db_table, $values, $id, $bind);
             return $res;
         }

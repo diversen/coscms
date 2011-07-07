@@ -779,10 +779,12 @@ function simple_prg (){
 /**
  * method for sending cache headers when e.g. sending images from db
  */
-function send_cache_headers (){
+function send_cache_headers ($expires = null){
 
     // one month
-    $expires = 60*60*24*30;
+    if (!$expires) {
+        $expires = 60*60*24*30;
+    }
     header("Pragma: public");
     header("Cache-Control: maxage=".$expires);
     header('Expires: ' . gmdate('D, d M Y H:i:s', time()+$expires) . ' GMT');
