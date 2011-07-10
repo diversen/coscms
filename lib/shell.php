@@ -189,8 +189,10 @@ class mainCli {
     public static function loadCliModules (){
         // check if a connection exists.
 
-        $ini_file = _COS_PATH . "/config/config.ini";
-        register::$vars['coscms_main'] = @parse_ini_file($ini_file, true);
+        //$ini_file = _COS_PATH . "/config/config.ini";
+        //register::$vars['coscms_main'] = @parse_ini_file($ini_file, true);
+
+        load_config_file();
 
         $db = new db();
         $ret = @$db->connect(array('dont_die' => 1));

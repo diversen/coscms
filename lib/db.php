@@ -55,9 +55,12 @@ class db {
         self::$debug[] = "Trying to connect with " . register::$vars['coscms_main']['url'];
         try {
             self::$dbh = new PDO(
-                register::$vars['coscms_main']['url'],
-                register::$vars['coscms_main']['username'],
-                register::$vars['coscms_main']['password']
+                get_main_ini('url'),
+                get_main_ini('username'),
+                get_main_ini('password')
+                //register::$vars['coscms_main']['url'],
+                //register::$vars['coscms_main']['username'],
+                //register::$vars['coscms_main']['password']
 
             );
             self::$dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);

@@ -24,44 +24,8 @@ ini_set('include_path', $ini_path . PATH_SEPARATOR .
 // parse main config.ini file
 register::$vars['coscms_debug']['include_path'] = ini_get('include_path');
 
-// determine host and see if we use virtual hosting
-// where one code base can be used for more virtual hosts.
-if (defined('_COS_CLI')){
-    if (isset(register::$vars['domain']) && register::$vars['domain'] != 'default'){
-        $config_file = _COS_PATH . "/config/multi/". register::$vars['domain'] . "/config.ini";
-    } else {
-        $config_file = _COS_PATH . "/config/config.ini";
-    }
-} else {
-    $virtual_host_dir = _COS_PATH . "/config/multi/$_SERVER[SERVER_NAME]";
-    if (file_exists($virtual_host_dir)){
-        $config_file = $virtual_host_dir . "/config.ini";
-    } else {
-        $config_file = _COS_PATH . "/config/config.ini";
-    }
-}
-// load ini settings from file
-//$config_file = register::$vars['coscms_base'] . '/config/config.ini';
-if (!file_exists($config_file)){
-    define ("NO_CONFIG_FILE", true);
-} else {
-    register::$vars['coscms_main'] = parse_ini_file($config_file, true);
-    if (isset(register::$vars['coscms_main']['development'])){
-        if (
-            (register::$vars['coscms_main']['development']['server_name'] ==
-                @$_SERVER['SERVER_NAME'])
-                OR defined('_COS_CLI') )
-            {
-            // we are on development, merge and overwrite normal settings with
-            // development settings.
-            register::$vars['coscms_main'] =
-            array_merge(
-                register::$vars['coscms_main'],
-                register::$vars['coscms_main']['development']
-            );
-        }
-    }
-}
+include_once "lib/common.php";
+load_config_file ();
 
 
 // set a unified server_name
@@ -74,7 +38,7 @@ if (!defined('_COS_CLI')){
     ob_start();
     
     // include common functions
-    include "common.php";
+    // include "common.php";
 
     $server_redirect = get_main_ini('server_redirect');
     if ($server_redirect){
@@ -159,7 +123,7 @@ if (!defined('_COS_CLI')){
     $str = $moduleLoader->loadModule();
 
     mainTemplate::printHeader();
-    print $str;
+    echo $str;
     
 
     $moduleLoader->runLevel(6);
