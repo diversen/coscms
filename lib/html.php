@@ -56,7 +56,7 @@ class HTML {
         return $str;
     }
 
-    public static function label ($label_for, $label) {
+    public static function label ($label_for, $label = '') {
         $str = "<label for=\"$label_for\">$label</label>" . self::$br . "\n";
         self::$formStr.= $str;
         return $str;
@@ -72,6 +72,18 @@ class HTML {
     }
 
     public static function text ($name, $value = '', $extra = array()){
+        if (!isset($extra['size'])){
+            $extra['size'] = HTML_FORM_TEXT_SIZE;
+        }
+
+        $value = self::setValue($name, $value);
+        $extra = self::parseExtra($extra);
+        $str = "<input type=\"text\" name=\"$name\" $extra value=\"$value\" />" . self::$br . "\n";
+        self::$formStr.= $str;
+        return $str;
+    }
+
+    public static function simpleCaptcha ($name, $value = '', $extra = array()){
         if (!isset($extra['size'])){
             $extra['size'] = HTML_FORM_TEXT_SIZE;
         }
