@@ -287,19 +287,6 @@ $_PROFILE_MODULES = array (
     'public_clone_url' => 'git://github.com/diversen/rss.git',
     'private_clone_url' => 'git@github.com:diversen/rss.git',
   ),
-  22 => 
-  array (
-    'id' => '109',
-    'module_name' => 'remote',
-    'module_version' => '1.31',
-    'menu_item' => '0',
-    'run_level' => '0',
-    'load_on' => NULL,
-    'parent' => NULL,
-    'is_shell' => '1',
-    'public_clone_url' => 'git://github.com/diversen/remote.git',
-    'private_clone_url' => 'git@github.com:diversen/remote.git',
-  ),
 );
 
 $_PROFILE_TEMPLATES = array (
