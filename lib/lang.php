@@ -96,7 +96,12 @@ class lang {
      * @param   string   the base module to load (e.g. content or account)
      */
     static function loadModuleLanguage($module){
+        static $loaded = array();
         
+        if (isset($loaded[$module])) {
+            return;
+        }
+
         $base = _COS_PATH . "/modules";
 
         $language_file =
@@ -110,6 +115,8 @@ class lang {
                 self::$dict = array_merge(self::$dict, $_COS_LANG_MODULE);
             }
         }
+
+        $loaded[$module] = true;
     }
 
     /**

@@ -426,21 +426,43 @@ function include_controller($controller, $options = null){
  *
  */
 function include_filters ($filter){
+    static $loaded = array();
+
     if (!is_array($filter)){
         $class_path = _COS_PATH . "/modules/filter_$filter/$filter.inc";
         include_once $class_path;
+        //lang::loadModuleLanguage("filter_$val");
         moduleLoader::setModuleIniSettings("filter_$filter");
+        $loaded[$filter] = true;
     }
 
     if (is_array ($filter)){
         foreach($filter as $key => $val){
+            if (isset($loaded[$val])) continue;
+
             $class_path = _COS_PATH . "/modules/filter_$val/$val.inc";
+            //lang::loadModuleLanguage("filter_$val");
             include_once $class_path;
             moduleLoader::setModuleIniSettings("filter_$val");
+
+            $loaded[$val] = true;
         }
     }
 }
 // }}}
+function get_filters_help ($filters) {
+    include_filters($filters);
+    $str = '<span class="small-font">';
+    $i = 1;
+
+    foreach($filters as $key => $val) {
+
+        $str.= $i . ")" .  lang::translate("filter_" . $val . "_help") . " ";
+    }
+    $str.='</span>';
+    return $str;
+    
+}
 // {{{ function get_filtered_content($filter, $content)
 /**
  *

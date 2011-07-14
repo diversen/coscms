@@ -120,6 +120,13 @@ class HTML {
             $extra['cols'] = HTML_FORM_TEXTAREA_WT;
         }
 
+        if (isset($extra['filter_help'])) {
+            echo $extra['title'] = get_filters_help($extra['filter_help']);
+            
+            //echo lang::translate('filter_markdownExt_help');
+            
+        } 
+
         $value = self::setValue($name, $value);
         $extra = self::parseExtra($extra);
         $str =  "<textarea name=\"$name\" $extra>$value</textarea>" . self::$br . "\n";

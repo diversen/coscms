@@ -458,11 +458,7 @@ class moduleLoader {
         }
 
         $set[$module] = $module;
-
-        //echo $module;
-
         $ini_file = _COS_PATH . "/modules/$module/$module.ini";
-        //echo "<br />";
         self::$iniSettings[$module] = parse_ini_file($ini_file, true);
 
         if (is_array(self::$iniSettings['module'])){
@@ -550,6 +546,7 @@ class moduleLoader {
     public static function includeModules ($modules) {
         if (!is_array($modules)) return false;
         foreach ($modules as $key => $val) {
+            lang::loadModuleLanguage($val);
             include_module ($val);
         }
     }
