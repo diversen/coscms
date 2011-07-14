@@ -9,6 +9,10 @@ class HTML {
 
     public static $br = "<br />";
 
+    public static function getStr () {
+        return self::$formStr;
+    }
+
     public static function init ($values = array ()) {
 
         if (!empty(self::$autoLoadTrigger)){

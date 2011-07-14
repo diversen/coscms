@@ -807,13 +807,19 @@ function send_cache_headers ($expires = null){
  * @return  int     1 on success 0 on error
  */
 function mail_utf8($to, $subject, $message, $from, $reply_to=null) {
+
+    // prevent injection of other headers by trimming emails
+    $reply_to = trim($reply_to); $from = trim ($from);
+
     // create headers for sending email
     $headers = 'MIME-Version: 1.0' . "\r\n";
     $headers.= 'Content-type: text/plain; charset=UTF-8' . "\r\n";
+
     $headers.= "From: $from\r\n";
     if (!$reply_to){
         $reply_to = $from;
     }
+
     $headers.= "Reply-To: $reply_to" . "\r\n";
 
     $bounce = get_main_ini('site_email_bounce');
