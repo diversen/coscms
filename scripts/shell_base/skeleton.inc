@@ -42,7 +42,7 @@ function create_module_skeleton($args){
 
         $files = $module_path . "/menu.inc ";
         $files.= $module_path . "/index.php ";
-        $files.= $module_path . "/README.txt ";
+        $files.= $module_path . "/README.md ";
         $files.= $module_path . "/install.inc ";
         $files.= $module_path . "/$module_name.ini ";
         $files.= $module_path . "/$module_name.ini-dist ";
