@@ -216,8 +216,8 @@ class db {
 
             if ($order_by){
                 //self::$dbh->quote($order_by);
-                $order_by = self::$dbh->quote($order_by);
-                $sql.= " ORDER BY $order_by ";
+                //echo $order_by = self::$dbh->quote($order_by);
+                $sql.= " ORDER BY `$order_by` ";
                 if ($asc == 1){
                     $sql.= "ASC ";
                 } else {
