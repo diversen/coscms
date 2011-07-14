@@ -217,7 +217,7 @@ class db {
             if ($order_by){
                 //self::$dbh->quote($order_by);
                 $order_by = self::$dbh->quote($order_by);
-                $sql.= " ORDER BY `$order_by` ";
+                $sql.= " ORDER BY $order_by ";
                 if ($asc == 1){
                     $sql.= "ASC ";
                 } else {
@@ -227,8 +227,8 @@ class db {
             }
 
             if (isset($from)){
-                $from = self::$dbh->quote($from);
-                $limit = self::$dbh->quote($limit);
+                $from = (int)$from;
+                $limit = (int)$limit;
                 $sql.= "LIMIT $from, $limit";
             }
             self::$debug[]  = "Trying to prepare selectAll sql: $sql";
@@ -576,8 +576,8 @@ class QBuilder extends db {
      * @param int $limit
      */
     public static function limit ($from, $limit){
-        $from = self::$dbh->quote($from);
-        $limit = self::$dbh->quote($limit);
+        $from = (int)$from;
+        $limit = (int)$limit;
         self::$query.= " LIMIT $from, $limit";
     }
 
