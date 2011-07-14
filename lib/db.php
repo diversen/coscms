@@ -215,7 +215,8 @@ class db {
             }
 
             if ($order_by){
-                self::$dbh->quote($order_by);
+                //self::$dbh->quote($order_by);
+                $order_by = self::$dbh->quote($order_by);
                 $sql.= " ORDER BY `$order_by` ";
                 if ($asc == 1){
                     $sql.= "ASC ";
@@ -226,6 +227,8 @@ class db {
             }
 
             if (isset($from)){
+                $from = self::$dbh->quote($from);
+                $limit = self::$dbh->quote($limit);
                 $sql.= "LIMIT $from, $limit";
             }
             self::$debug[]  = "Trying to prepare selectAll sql: $sql";
@@ -512,7 +515,7 @@ class QBuilder extends db {
     public static $where = null;
 
     public static function setSelect ($table, $fields ='*'){
-        self::$query = "SELECT $fields FROM $table ";
+        self::$query = "SELECT $fields FROM `$table` ";
     }
 
     public static function filter ($filter, $value, $bind = null) {
@@ -562,6 +565,8 @@ class QBuilder extends db {
      * @param string $order (ASC or DESC)
      */
     public static function order ($column, $order = 'ASC'){
+        $column = self::$dbh->quote($column);
+        //$order = self::$dbh->quote($order);
         self::$query.= " ORDER BY $column $order";
     }
 
@@ -571,6 +576,8 @@ class QBuilder extends db {
      * @param int $limit
      */
     public static function limit ($from, $limit){
+        $from = self::$dbh->quote($from);
+        $limit = self::$dbh->quote($limit);
         self::$query.= " LIMIT $from, $limit";
     }
 
