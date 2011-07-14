@@ -37,6 +37,9 @@ function create_module_skeleton($args){
         $lang_dir_en = $module_path . "/lang/en_GB";
         cos_exec('mkdir ' . $lang_dir_en);
 
+        $views_dir = $module_path . "/views";
+        cos_exec('mkdir ' . $views_dir);
+
         $files = $module_path . "/menu.inc ";
         $files.= $module_path . "/index.php ";
         $files.= $module_path . "/README.txt ";
