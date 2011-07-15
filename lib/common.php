@@ -451,7 +451,7 @@ function include_filters ($filter){
 }
 // }}}
 function get_filters_help ($filters) {
-
+    include_filters($filters);
     $str = '<span class="small-font">';
     $i = 1;
 
