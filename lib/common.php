@@ -457,7 +457,8 @@ function get_filters_help ($filters) {
 
     foreach($filters as $key => $val) {
 
-        $str.= $i . ") " .  lang::translate("filter_" . $val . "_help") . " ";
+        $str.= $i . ") " .  lang::translate("filter_" . $val . "_help") . "<br />";
+        $i++;
     }
     $str.='</span>';
     return $str;
