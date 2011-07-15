@@ -451,13 +451,13 @@ function include_filters ($filter){
 }
 // }}}
 function get_filters_help ($filters) {
-    include_filters($filters);
+
     $str = '<span class="small-font">';
     $i = 1;
 
     foreach($filters as $key => $val) {
 
-        $str.= $i . ")" .  lang::translate("filter_" . $val . "_help") . " ";
+        $str.= $i . ") " .  lang::translate("filter_" . $val . "_help") . " ";
     }
     $str.='</span>';
     return $str;
