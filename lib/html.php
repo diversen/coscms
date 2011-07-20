@@ -225,7 +225,7 @@ class HTML {
         }
 
         $url = $rewritten_url;
-        if (urldecode($_SERVER['REQUEST_URI']) == html::entitiesDecode($url)){
+        if ($_SERVER['REQUEST_URI'] == $url){
             if (!isset($options['class'])){
                 $options['class'] = 'current';
             }
