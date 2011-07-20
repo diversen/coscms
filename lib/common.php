@@ -1041,6 +1041,19 @@ function cos_sanitize_url($string, $force_lowercase = true, $remove_special = fa
      */
 }
 
+/**
+ * simple sanitize function where only thing removed is /
+ * in order to not confuse the url
+ *
+ * @param string $string string to sanitize
+ * @return string $string sanitized string
+ */
+function cos_sanitize_simple_url($string) {
+    $strip = array("/");
+    return $clean = trim(str_replace($strip, "", strip_tags($string)));
+
+}
+
 function load_config_file() {
     // determine host and see if we use virtual hosting
     // where one code base can be used for more virtual hosts.
