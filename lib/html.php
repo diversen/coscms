@@ -264,11 +264,11 @@ class HTML {
                 if (is_array($val)) {
                     $values[$key] = self::specialEncode($val);
                 } else {
-                    $values[$key] = htmlspecialchars($val, ENT_COMPAT, 'UTF-8');
+                    $values[$key] = htmlspecialchars($val, ENT_COMPAT);
                 }
             }
         } else if (is_string($values)) {
-            $values =  htmlspecialchars($values, ENT_COMPAT, 'UTF-8');
+            $values =  htmlspecialchars($values, ENT_COMPAT);
         } else {
             $values = '';
         }
@@ -281,11 +281,11 @@ class HTML {
                 if (is_array($val)) {
                     $values[$key] = self::specialDecode($val);
                 } else {
-                    $values[$key] = htmlspecialchars_decode($val, ENT_COMPAT, 'UTF-8');
+                    $values[$key] = htmlspecialchars_decode($val, ENT_COMPAT);
                 }
             }
         } else if (is_string($values)) {
-            $values =  htmlspecialchars_decode($values, ENT_COMPAT, 'UTF-8');
+            $values =  htmlspecialchars_decode($values, ENT_COMPAT);
         } else {
             $values = '';
         }
@@ -333,6 +333,27 @@ class HTML {
         $str = $class::$method($name, $value);
         self::$formStr.= $str ;
         return $str;
+    }
+
+    public static function errors ($errors) {
+            if (function_exists('template_view_errors')) {
+                template_view_errors($errors);
+                return;
+            }
+            if (is_string($errors)){
+                echo "<!-- view_error -->\n";
+                echo "<div class=\"form_error\">\n";
+                echo "<p>$message</p></div>\n";
+                return;
+            }
+            echo "<!-- view_form_errors -->\n";
+            echo "<div class=\"form_error\"><ul>\n";
+            foreach($errors as $error){
+                echo "<li>$error</li>\n";
+            }
+            echo "</ul></div>\n";
+            echo "<!-- / end form_error -->\n";
+            return;
     }
     /*
     public static function getUl ($elements, $value_field, $options = null){
