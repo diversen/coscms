@@ -116,7 +116,7 @@ $_PROFILE_MODULES = array (
     'parent' => NULL,
     'is_shell' => NULL,
     'public_clone_url' => 'git://github.com/diversen/module_system_git.git',
-    'private_clone_url' => 'git@github.com:diversen/module_system.git',
+    'private_clone_url' => 'git@github.com:diversen/module_system_git.git',
   ),
   9 => 
   array (
@@ -211,19 +211,6 @@ $_PROFILE_MODULES = array (
   ),
   16 => 
   array (
-    'id' => '238',
-    'module_name' => 'remote',
-    'module_version' => '1.31',
-    'menu_item' => '0',
-    'run_level' => '0',
-    'load_on' => NULL,
-    'parent' => NULL,
-    'is_shell' => '1',
-    'public_clone_url' => 'git://github.com/diversen/remote.git',
-    'private_clone_url' => 'git@github.com:diversen/remote.git',
-  ),
-  17 => 
-  array (
     'id' => '239',
     'module_name' => 'rss',
     'module_version' => '1.31',
@@ -235,7 +222,7 @@ $_PROFILE_MODULES = array (
     'public_clone_url' => 'git://github.com/diversen/rss.git',
     'private_clone_url' => 'git@github.com:diversen/rss.git',
   ),
-  18 => 
+  17 => 
   array (
     'id' => '240',
     'module_name' => 'addthis',
@@ -251,21 +238,28 @@ $_PROFILE_MODULES = array (
 );
 
 $_PROFILE_TEMPLATES = array (
-  0 => 
+  2 => 
   array (
     'public_clone_url' => 'git://github.com/diversen/jquery-markedit.git',
     'private_clone_url' => 'git@github.com:diversen/jquery-markedit.git',
     'module_version' => '1.31',
     'module_name' => 'jquery-markedit',
   ),
-  1 => 
+  3 => 
   array (
     'public_clone_url' => 'git://github.com/diversen/js-toc.git',
     'private_clone_url' => 'git@github.com:diversen/js-toc.git',
     'module_version' => '1.31',
     'module_name' => 'js-toc',
   ),
-  2 => 
+  4 => 
+  array (
+    'public_clone_url' => 'git://github.com/diversen/1kbgrid.git',
+    'private_clone_url' => 'git@github.com:diversen/1kbgrid.git',
+    'module_version' => '1.31',
+    'module_name' => '1kbgrid',
+  ),
+  5 => 
   array (
     'public_clone_url' => 'git://github.com/diversen/clean.git',
     'private_clone_url' => 'git@github.com:diversen/clean.git',
@@ -274,7 +268,7 @@ $_PROFILE_TEMPLATES = array (
   ),
 );
 
-$_PROFILE_TEMPLATE = 'clean';
+$_PROFILE_TEMPLATE = '1kbgrid';
 
 $_PROFILE_USE_HOME = 0;
 
