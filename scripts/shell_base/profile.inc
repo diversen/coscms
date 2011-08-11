@@ -76,10 +76,15 @@ function upgrade_from_profile ($options){
 
     // install templates
     foreach ($pro->profileTemplates as $key => $val){
-        // check if template is installed.
-        //$template = new templateInstaller($template);
+        // TODO: check if template is installed.
+        // e.g. : $template = new templateInstaller($template);
         $val['repo'] = $val['public_clone_url'];
         $val['version'] = $val['module_version'];
+
+        if (isset(register::$vars['profile_use_master'])) {
+            $val['version'] = 'master';
+            //$val['module_version'] = 'master';
+        }
 
         // no db operations. Just clone version.
         git_install($val, 'template');
