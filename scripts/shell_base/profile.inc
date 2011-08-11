@@ -58,6 +58,10 @@ function upgrade_from_profile ($options){
         
         $val['repo'] = $val['public_clone_url'];
         $val['version'] = $val['module_version'];
+        if (isset(register::$vars['profile_use_master'])) {
+            $val['version'] = 'master';
+        }
+               
         $val['Module'] = $val['module_name'];
 
         $module = new moduleInstaller($val);
@@ -89,7 +93,8 @@ function recreate_profile($options) {
     $pro->recreateProfile($options['profile']);
 }
 
-function use_master ($options){
+function profile_use_master ($options){
+    register::$vars['profile_use_master'] = 1;
     $pro = new profile();
     $pro->setMaster();
 }
@@ -104,7 +109,7 @@ mainCli::setOption('load_profile', array(
     'action'      => 'StoreTrue'
 ));
 
-mainCli::setOption('use_master', array(
+mainCli::setOption('profile_use_master', array(
     'long_name'   => '--master',
     'description' => 'Will create profile with master repos for all modules and templates',
     'action'      => 'StoreTrue'
@@ -129,7 +134,7 @@ mainCli::setOption('recreate_profile', array(
 ));
 
 mainCli::setOption('upgrade_from_profile', array(
-    'long_name'   => '--up-all',
+    'long_name'   => '--all-up',
     'description' => 'Will upgrade from profile',
     'action'      => 'StoreTrue'
 ));
