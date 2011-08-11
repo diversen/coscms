@@ -60,6 +60,7 @@ function upgrade_from_profile ($options){
         $val['version'] = $val['module_version'];
         if (isset(register::$vars['profile_use_master'])) {
             $val['version'] = 'master';
+            //$val['module_version'] = 'master';
         }
                
         $val['Module'] = $val['module_name'];
@@ -67,7 +68,7 @@ function upgrade_from_profile ($options){
         $module = new moduleInstaller($val);
 
         if ($module->isInstalled($val['module_name'])){
-            _git_upgrade($val, $val['module_version'], 'module');
+            _git_upgrade($val, $val['version'], 'module');
         } else {
             git_install($val, 'module');
         }
