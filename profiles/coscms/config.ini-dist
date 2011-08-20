@@ -1,6 +1,6 @@
 url = "mysql:dbname=coscms;host=localhost"
 username = "db_user"
-password = "db_password"
+password = "db_pass"
 server_name = "www.coscms.org"
 site_email = "dennis@os-cms.dk"
 date_default_timezone = "Europe/Copenhagen"
@@ -20,12 +20,11 @@ profile_module = "account_profile"
 blocks[] = "/modules/system/blocks/system_admin_menu.inc"
 blocks[] = "/modules/content/blocks/content_tree_keep_state.inc"
 [development]
-server_name = coscms
+server_name = "coscms"
 smtp_mail = 1
-site_email = "yourmail@gmail.com"
-smtp_params_host = "ssl://smtp.gmail.com"
-smtp_params_sender = "yourmail@gmail.com";
-smtp_params_port     = "465";
-smtp_params_auth     = "true";
-smtp_params_username = "yourmail@gmail.com";
-smtp_params_password = "password";
+smtp_params_host = "mail1.stofanet.dk"
+smtp_params_sender = "mail@stofanet.dk"
+smtp_params_port     = "25"
+smtp_params_auth     = "true"
+smtp_params_username = "user"
+smtp_params_password = "pass"
