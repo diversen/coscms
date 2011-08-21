@@ -289,7 +289,7 @@ abstract class template {
      * 
      * @param string $template
      */
-    public static function setTemplateCss ($template){
+    public static function setTemplateCss ($template, $version = 0){
         if (!empty(register::$vars['coscms_main']['css'])){
             $css = register::$vars['coscms_main']['css'];
             $css_dir =  _COS_PATH . "/htdocs/templates/$template/$css";
@@ -297,9 +297,9 @@ abstract class template {
                 self::setTemplateCssDir ($template, $css);
                 return;
             }
-            template::setCss("/templates/$template/$css");
+            template::setCss("/templates/$template/$css?version=$version");
         } else {
-            template::setCss("/templates/$template/default/default.css");
+            template::setCss("/templates/$template/default/default.css?version=$version");
         }
     }
 
