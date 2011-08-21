@@ -1077,6 +1077,23 @@ function load_config_file() {
         define ("NO_CONFIG_FILE", true);
     } else {
         register::$vars['coscms_main'] = parse_ini_file($config_file, true);
+        if (isset(register::$vars['coscms_main']['stage'])){
+            if (
+                (register::$vars['coscms_main']['stage']['server_name'] ==
+                    @$_SERVER['SERVER_NAME'])
+                    AND !defined('_COS_CLI') )
+                {
+                // we are on development, merge and overwrite normal settings with
+                // development settings.
+                register::$vars['coscms_main'] =
+                array_merge(
+                    register::$vars['coscms_main'],
+                    register::$vars['coscms_main']['stage']
+                );
+                return;
+            }
+        }
+
         if (isset(register::$vars['coscms_main']['development'])){
             if (
                 (register::$vars['coscms_main']['development']['server_name'] ==
