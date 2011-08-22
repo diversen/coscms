@@ -568,7 +568,6 @@ class QBuilder extends db {
         //$column = self::$dbh->quote($column);
         //$order = self::$dbh->quote($order);
         self::$query.= " ORDER BY `$column` $order";
-        cos_error_log(self::$query);
     }
 
     /**
