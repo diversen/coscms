@@ -565,9 +565,10 @@ class QBuilder extends db {
      * @param string $order (ASC or DESC)
      */
     public static function order ($column, $order = 'ASC'){
-        $column = self::$dbh->quote($column);
+        //$column = self::$dbh->quote($column);
         //$order = self::$dbh->quote($order);
-        self::$query.= " ORDER BY $column $order";
+        self::$query.= " ORDER BY `$column` $order";
+        cos_error_log(self::$query);
     }
 
     /**
