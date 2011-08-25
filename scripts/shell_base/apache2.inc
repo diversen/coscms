@@ -118,7 +118,7 @@ function a2_disable_site($options){
     }
     file_put_contents("tmp/hosts", $host_file_str);
     cos_exec("sudo cp -f tmp/hosts /etc/hosts");
-    cos_exec("sudo /etc/init.d/apache2 reload");
+    cos_exec("sudo /etc/init.d/apache2 restart");
     cos_exec("rm tmp/hosts"); 
 
 }
