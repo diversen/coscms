@@ -1,4 +1,4 @@
 [TODO]
-simplify content. 
-
+fix bug in blog headline.
+profile recreate should work correct.
 
