@@ -346,4 +346,62 @@ class session {
             die;
         }
     }
+
+    /**
+     * Gets user profile link if a profile system is in place.
+     * Profile systems must be set in main config/config.ini
+     * the option array can be used to setting special options for profile module
+     *
+     * @param   array   user options
+     * @param   array   options
+     * @return  string  string showing the profile
+     */
+    public static function getProfileLink (&$user, $options = null){
+        static $profile_object;
+
+        if (!isset($profile_object)){
+            $profile_system = get_main_ini('profile_module');
+            if (!isset($profile_system)){
+                return '';
+            }
+
+            include_module ($profile_system);
+
+            $profile_object = moduleLoader::modulePathToClassName($profile_system);
+            $profile_object = new $profile_object();
+            $link = $profile_object->createProfileLink($user, $options);
+            return $link;
+        }
+
+        return $profile_object->createProfileLink($user, $options);
+    }
+
+    /**
+     * Gets user profile link if a profile system is in place.
+     * Profile systems must be set in main config/config.ini
+     * the option array can be used to setting special options for profile module
+     *
+     * @param   array   user options
+     * @param   array   options
+     * @return  string  string showing the profile
+     */
+    public static function getProfileInfo (&$user){
+        static $profile_object;
+
+        if (!isset($profile_object)){
+            $profile_system = get_main_ini('profile_module');
+            if (!isset($profile_system)){
+                return false;
+            }
+
+            include_module ($profile_system);
+
+            $profile_object = moduleLoader::modulePathToClassName($profile_system);
+            $profile_object = new $profile_object();
+            return $profile_object->getProfileInfo($user);
+
+        }
+
+        return $profile_object->getProfileInfo($user);
+    }
 }
