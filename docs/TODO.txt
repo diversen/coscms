@@ -1,4 +1,5 @@
 [TODO]
-fix bug in blog headline.
 profile recreate should work correct.
+enable ini settings in template.
+correct update of templates in profiles.
 
