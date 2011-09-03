@@ -79,7 +79,7 @@ function latest_tag($repo, $clear = null) {
 }
 
 /**
- * function for showing git tags (just for teseting)
+ * function for showing git tags (just for testing)
  * @param array $options
  */
 function remote_tags ($options){
