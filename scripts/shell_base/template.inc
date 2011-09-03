@@ -39,6 +39,10 @@ function get_template_info($template_name){
     return $info;
 }
 
+function install_template () {
+    
+}
+
 /**
  * function for purgeing a template
  *
@@ -76,5 +80,5 @@ mainCli::setOption('purge_template', array(
 ));
 
 mainCli::setArgument('template',
-    array('description'=> 'specify the template to load, pack download or upgrade',
+    array('description'=> 'specify the template to set or purge',
           'optional' => true));

@@ -96,7 +96,7 @@ $_PROFILE_MODULES = array (
   array (
     'id' => '207',
     'module_name' => 'account_profile',
-    'module_version' => '1.31',
+    'module_version' => '1.311',
     'menu_item' => '0',
     'run_level' => '0',
     'load_on' => NULL,
@@ -235,24 +235,37 @@ $_PROFILE_MODULES = array (
     'public_clone_url' => 'git://github.com/diversen/addthis.git',
     'private_clone_url' => 'git@github.com:diversen/addthis.git',
   ),
+  18 => 
+  array (
+    'id' => '241',
+    'module_name' => 'questions',
+    'module_version' => '1.311',
+    'menu_item' => '1',
+    'run_level' => '0',
+    'load_on' => NULL,
+    'parent' => NULL,
+    'is_shell' => NULL,
+    'public_clone_url' => 'git://github.com/diversen/questions.git',
+    'private_clone_url' => 'git@github.com:diversen/questions.git',
+  ),
 );
 
 $_PROFILE_TEMPLATES = array (
-  2 => 
+  0 => 
   array (
-    'public_clone_url' => 'git://github.com/diversen/jquery-markedit.git',
-    'private_clone_url' => 'git@github.com:diversen/jquery-markedit.git',
+    'public_clone_url' => 'git://github.com/diversen/clean.git',
+    'private_clone_url' => 'git@github.com:diversen/clean.git',
     'module_version' => '1.31',
-    'module_name' => 'jquery-markedit',
+    'module_name' => 'clean',
   ),
-  3 => 
+  2 => 
   array (
     'public_clone_url' => 'git://github.com/diversen/js-toc.git',
     'private_clone_url' => 'git@github.com:diversen/js-toc.git',
     'module_version' => '1.31',
     'module_name' => 'js-toc',
   ),
-  4 => 
+  3 => 
   array (
     'public_clone_url' => 'git://github.com/diversen/1kbgrid.git',
     'private_clone_url' => 'git@github.com:diversen/1kbgrid.git',
@@ -261,10 +274,10 @@ $_PROFILE_TEMPLATES = array (
   ),
   5 => 
   array (
-    'public_clone_url' => 'git://github.com/diversen/clean.git',
-    'private_clone_url' => 'git@github.com:diversen/clean.git',
+    'public_clone_url' => 'git://github.com/diversen/jquery-markedit.git',
+    'private_clone_url' => 'git@github.com:diversen/jquery-markedit.git',
     'module_version' => '1.31',
-    'module_name' => 'clean',
+    'module_name' => 'jquery-markedit',
   ),
 );
 

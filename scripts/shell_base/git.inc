@@ -105,6 +105,12 @@ function git_install ($options, $type = 'module'){
     $ret = git_clone ($options, $type);
     if ($type == 'module'){
         install_module($options);
+        return;
+    }
+    
+    if ($type == 'template') {
+        install_template($options);
+        return;
     }
 }
 
@@ -315,6 +321,12 @@ function git_tag_all ($options){
     }
 }
 
+/**
+ * function for tagging a module or all modules
+ * @param array $val
+ * @param string $typ (template or module)
+ * @return type 
+ */
 function _git_tag ($val, $type = 'module'){
     $repo_path = get_repo_path($val['module_name'], $type);
 
