@@ -41,12 +41,7 @@ function install($options = false) {
         $options['repo'] = $val['public_clone_url'];
         $options['version'] = $val['module_version'];
         $options['Module'] = $val['module_name'];
-        //if (isset($options['master'])){
-
-        //}
-
         git_install($options, 'module');
-        //sleep(1);
     }
     
     // install templates
@@ -54,7 +49,6 @@ function install($options = false) {
         $options['repo'] = $val['public_clone_url'];
         $options['version'] = $val['module_version'];
         git_install($options, 'template');
-        sleep(3);
     }
 
     // load profile ini files

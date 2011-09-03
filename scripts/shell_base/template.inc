@@ -39,7 +39,7 @@ function get_template_info($template_name){
     return $info;
 }
 
-function install_template () {
+function install_template ($options) {
     print_r($options);
 }
 
