@@ -127,11 +127,11 @@ if ($num_rows == 0){
 
     // if positive we install base modules.
     if ($res){
-        install_module('error');
-        install_module('settings');
-        install_module('account');
-        install_module('path_manip');
-        install_module('content');
+        echo install_module('error');
+        echo install_module('settings');
+        echo install_module('account');
+        echo install_module('path_manip');
+        echo install_module('content');
     }
 } else {
     print "System is already installed! Error<br>";

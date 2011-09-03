@@ -104,7 +104,8 @@ function git_install ($options, $type = 'module'){
 
     $ret = git_clone ($options, $type);
     if ($type == 'module'){
-        install_module($options);
+        $str = install_module($options);
+        cos_cli_print($str);
         return;
     }
     
@@ -457,6 +458,14 @@ function _git_upgrade ($val, $tag, $type = 'module'){
     if ($type == 'module'){
         // sorry - but it is called with a diffrent name in the upgrade_module
         // function ...
+        $val['Module'] = $val['module_name'];
+
+        // when version is set to null we upgrade to latest possible
+        $val['Version'] = null;
+        upgrade_module($val);
+    }
+    
+    if ($type == 'template'){
         $val['Module'] = $val['module_name'];
 
         // when version is set to null we upgrade to latest possible

@@ -16,15 +16,16 @@ function install_module($options){
     $module = $options['Module'];
     $module_path = _COS_PATH . "/modules/$module";
 
-    cos_cli_print("Proceeding with install of module $module");
+    $str = "Proceeding with install of module $module\n";
     $install = new moduleInstaller();
     $install->setInstallInfo($options);
     $ret = $install->install();
     if (!$ret) {
-        print $install->error . "\n";
+        $str.=$install->error . "\n";
     } else {
-        print $install->confirm . "\n";
+        $str.=$install->confirm . "\n";
     }
+    return $str;
 }
 
 /**

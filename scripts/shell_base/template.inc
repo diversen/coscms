@@ -40,7 +40,7 @@ function get_template_info($template_name){
 }
 
 function install_template () {
-    
+    print_r($options);
 }
 
 /**
