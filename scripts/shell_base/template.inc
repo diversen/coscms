@@ -39,8 +39,27 @@ function get_template_info($template_name){
     return $info;
 }
 
-function install_template ($options) {
-    print_r($options);
+function install_template ($options, $return_val = null) {
+    //print_r($options);
+    $template = $options['Template'];
+    
+    //$template_path = _COS_PATH . "/htdocs/templates/$template";
+
+    $str = "Proceeding with install of template $template";
+    $install = new templateInstaller();
+    $install->setInstallInfo($options);
+    $ret = $install->install();
+    if (!$ret) {
+        $str.=$install->error;
+    } else {
+        $str.=$install->confirm;
+    }
+    
+    if ($return_val) {
+        return $str;
+    } else {
+        cos_cli_print($str);
+    }
 }
 
 /**
@@ -79,6 +98,20 @@ mainCli::setOption('purge_template', array(
     'action'      => 'StoreTrue'
 ));
 
-mainCli::setArgument('template',
+// create commandline parser
+mainCli::setOption('install_template', array(
+    'long_name'   => '--temp-in',
+    'description' => 'Will install specified template',
+    'action'      => 'StoreTrue'
+));
+
+mainCli::setArgument(
+    'Template',
     array('description'=> 'specify the template to set or purge',
           'optional' => true));
+
+mainCli::setArgument(
+    'Version',
+    array('description'=> 'Specify the version to upgrade or downgrade to',
+        'optional' => true,
+));

@@ -104,13 +104,14 @@ function git_install ($options, $type = 'module'){
 
     $ret = git_clone ($options, $type);
     if ($type == 'module'){
-        $str = install_module($options);
+        $str = install_module($options, true);
         cos_cli_print($str);
         return;
     }
     
     if ($type == 'template') {
-        install_template($options);
+        $str = install_template($options, true);
+        cos_cli_print($str);
         return;
     }
 }
@@ -466,11 +467,12 @@ function _git_upgrade ($val, $tag, $type = 'module'){
     }
     
     if ($type == 'template'){
-        $val['Module'] = $val['module_name'];
+        // TODO: What to do on template upgrade. 
+        //$val['Module'] = $val['module_name'];
 
         // when version is set to null we upgrade to latest possible
-        $val['Version'] = null;
-        upgrade_module($val);
+        //$val['Version'] = null;
+        //upgrade_module($val);
     }
 
     // no need to upgrade template, as there is no sql. 

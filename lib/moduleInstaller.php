@@ -467,8 +467,8 @@ class moduleInstaller extends db {
         $ret = $this->isInstalled();
         if ($ret){
             $info = $this->getModuleInfo();
-            $this->error = "Module '" . $this->installInfo['NAME'] . " version $info[module_version]";
-            $this->error.= "' already exists in module registry!";
+            $this->error = "Error: Module '" . $this->installInfo['NAME'] . "' version '$info[module_version]'";
+            $this->error.= " already exists in module registry!";
             return false;
         }
 
@@ -509,49 +509,25 @@ class moduleInstaller extends db {
             foreach ($updates as $key => $val){
                 $version = substr($val, 0, -4);
                 if ($this->installInfo['VERSION'] >= $version ) {
-                    //try {
-                        $sql =  $this->getSqlFileString(
-                                    $this->installInfo['NAME'],
-                                    $version,
-                                    'up');
-                        $sql_ary = explode ("\n\n", $sql);
-                        foreach ($sql_ary as $sql_key => $sql_val){
-                            $result = self::$dbh->query($sql_val);
-                        }
-                    //} catch (PDOException $e) {
-                      //  $this->fatalError($e->getMessage());
-                    // }
+                    $sql =  $this->getSqlFileString(
+                                $this->installInfo['NAME'],
+                                $version,
+                                'up');
+                    $sql_ary = explode ("\n\n", $sql);
+                    foreach ($sql_ary as $sql_key => $sql_val){
+                        $result = self::$dbh->query($sql_val);
+                    }
                 }
-                // only upgrade to specified version
-                //if ($version == $specific) break;
             }
         }
-// insert into registry. Set menu item and insert language.
+        
+        // insert into registry. Set menu item and insert language.
         $this->insertRegistry();
         $this->insertLanguage();
         $this->insertMenuItem();
 
-        /*
-        $install_sql_file = $this->getSqlFileName(
-                $this->installInfo['NAME'],
-                $this->installInfo['VERSION'],
-                'up' );
-
-        if (file_exists($install_sql_file)){
-            $sql = file_get_contents($install_sql_file);
-        }
-
-        if (isset($sql)) {
-            try {
-                $result = self::$dbh->query($sql);
-            } catch (PDOException $e) {
-                //self::$dbh->rollBack();
-                $this->fatalError($e->getMessage());
-            }
-        }*/
-
-        $this->confirm = "Module: " . $this->installInfo['NAME'] . " ";
-        $this->confirm.= "Version: " . $this->installInfo['VERSION'] . " ";
+        $this->confirm = "Module '" . $this->installInfo['NAME'] . "' ";
+        $this->confirm.= "version '"  . $this->installInfo['VERSION'] . "' ";
         $this->confirm.= "installed";
         return true;  
     }
@@ -567,8 +543,8 @@ class moduleInstaller extends db {
         $specific = 0;
 
         if (!$this->isInstalled()){
-            $this->error = 'Module ' . $this->installInfo['NAME'];
-            $this->error .= ' does not exists in module registry!';
+            $this->error = "Module '" . $this->installInfo['NAME'];
+            $this->error .= "' does not exists in module registry!";
             return false;
         }
 
@@ -581,13 +557,11 @@ class moduleInstaller extends db {
         $this->deleteRegistry();
         $this->deleteMenuItem();
         $this->delete('language', 'module_name', $this->installInfo['NAME']);
-        //self::$dbh->beginTransaction();
 
         if (!empty($downgrades)) {
             foreach ($downgrades as $key => $val){
                 $version = substr($val, 0, -4);
                 if ($version <= $specific) continue;
-
                     $sql =  $this->getSqlFileString(
                     $this->installInfo['NAME'],
                     $version,
@@ -595,13 +569,7 @@ class moduleInstaller extends db {
                     if (isset($sql)) {
                         $sql_ary = explode ("\n\n", $sql);
                         foreach ($sql_ary as $sql_key => $sql_val){
-                            //try {
-                                $result = self::$dbh->query($sql_val);
-                            //} catch (PDOException $e) {
-                                //self::$dbh->rollBack();
-                            //    $this->fatalError($e->getMessage());
-                            // }
-
+                            $result = self::$dbh->query($sql_val);
                         }
                         
                     $commit = true;
@@ -613,8 +581,8 @@ class moduleInstaller extends db {
 
         // set a confirm message
         if (isset($commit)){
-            $this->confirm = "Module: " . $this->installInfo['NAME'] . " ";
-            $this->confirm.= "Version: " . $this->installInfo['VERSION'] . " ";
+            $this->confirm = "Module '" . $this->installInfo['NAME'] . "' ";
+            $this->confirm.= "version '" . $this->installInfo['VERSION'] . "' ";
             $this->confirm.= "uninstalled";
             return true;
         } else {
@@ -750,7 +718,7 @@ class moduleInstaller extends db {
  * @package    coslib
  */
 
-class templateInstaller {
+class templateInstaller extends moduleInstaller {
     /**
      *
      * @var array holding array of info for the install
@@ -765,30 +733,93 @@ class templateInstaller {
      *
      * @param string name of template to do operations on
      */
-    function __construct($template = null){
-        if (isset($template)){
-            $this->setInstallInfo($template);
+    function __construct($options = null){
+        if (isset($options)){
+            $this->setInstallInfo($options);
         }
     }
 
-    /**
+/**
+     * reads install info from modules/module_name/install.inc
      *
-     * @param   string   module_name to get install info about
+     * @param   array $options
      */
-    public function setInstallInfo($template){
-        $template_dir = _COS_PATH . "/htdocs/templates/$template";
-        $install_file = "$template_dir/install.inc";
+    public function setInstallInfo($options){
 
-        clearstatcache();
-        if (!file_exists($install_file)){
-            die("No install file '$install_file' found in: '$template_dir'\n");
+        $template_name = $options['Template'];
+        $template_dir = _COS_PATH . "/htdocs/templates/$template_name";
+        $ini_file = $template_dir . "/$template_name.ini";
+        $ini_file_dist = $template_dir . "/$template_name.ini-dist";
+
+        if (isset($options['profile'])){
+            $ini_file_dist = _COS_PATH . "/profiles/$options[profile]/$module_name.ini-dist";
         }
 
-        include_once $install_file;
-        $this->installInfo = $_INSTALL;
-
-        if (empty($this->installInfo['RUN_LEVEL'])){
-            $this->installInfo['RUN_LEVEL'] = 0;
+        if (!file_exists($ini_file)){
+            if (file_exists($ini_file_dist)){
+                copy ($ini_file_dist, $ini_file);
+                register::$vars['coscms_main']['template'] = parse_ini_file($ini_file);
+            } 
+        } else {
+            register::$vars['coscms_main']['template'] = parse_ini_file($ini_file);
         }
+
+        if (file_exists($template_dir)){
+            $install_file = "$template_dir/install.inc";
+            if (!file_exists($install_file)){
+                cos_cli_print("Notice: No install file '$install_file' found in: '$template_dir'\n");
+            }
+
+            include $install_file;
+            $this->installInfo = $_INSTALL;
+            
+            // use directory name as name of module
+            $this->installInfo['NAME'] = $template_name;
+            if (empty($this->installInfo['MAIN_MENU_ITEM'])){
+                $this->installInfo['menu_item'] = 0;
+            } else {
+                $this->installInfo['menu_item'] = 1;
+            }
+
+            if (empty($this->installInfo['RUN_LEVEL'])){
+                $this->installInfo['RUN_LEVEL'] = 0;
+            }
+
+            
+            
+        } else {
+            cos_cli_print ("Notice: No module dir: $module_dir\n");
+        }
+    }
+    
+    public function install () {
+
+        // create ini files for template
+        $template = $this->installInfo['NAME'];
+        $ini_file = _COS_PATH . "/htdocs/templates/$template/$template.ini";
+        $ini_file_php = _COS_PATH . "/htdocs/templates/$template/$template.php.ini";
+        $ini_file_dist = _COS_PATH . "/htdocs/templates/$template/$template.ini-dist";
+        $ini_file_dist_php = _COS_PATH . "/htdocs/templates/$template/$template.php.ini-dist";
+
+        if (!file_exists($ini_file)){
+            if (file_exists($ini_file_dist)){
+                if (!copy($ini_file_dist, $ini_file)){
+                    $this->error = "Error: Could not copy $ini_file to $ini_file_dist" . NEW_LINE;
+                    $this->error.= "Make sure your module has an ini-dist file: $ini_file_dist";
+                    return false;
+                }
+            } 
+        }
+        
+        // create php ini file if a php.ini-dist file exists
+        if (!file_exists($ini_file_php)){
+            if (file_exists($ini_file_dist_php)){
+                copy($ini_file_dist_php, $ini_file_php);
+            }
+        }
+        
+        $this->confirm = "Template '" . $this->installInfo['NAME'] . "' installed" . NEW_LINE;
+        $this->confirm.= "Make sure your module has an ini-dist file: $ini_file_dist";
+                    
     }
 }

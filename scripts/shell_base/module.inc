@@ -11,21 +11,23 @@
  *
  * @param  string  module (directory with module) to be installed
  */
-function install_module($options){
+function install_module($options, $return_output = null){
 
-    $module = $options['Module'];
-    $module_path = _COS_PATH . "/modules/$module";
-
-    $str = "Proceeding with install of module $module\n";
+    $str = "Proceeding with install of module '$options[Module]'\n";
     $install = new moduleInstaller();
     $install->setInstallInfo($options);
     $ret = $install->install();
     if (!$ret) {
-        $str.=$install->error . "\n";
+        $str.=$install->error;
     } else {
-        $str.=$install->confirm . "\n";
+        $str.=$install->confirm;
     }
-    return $str;
+    
+    if ($return_output) {
+        return $str;
+    } else { 
+        cos_cli_print($str);
+    }
 }
 
 /**
@@ -116,6 +118,8 @@ function upgrade_module($options){
     } else {
         print $upgrade->confirm . "\n";
     }
+    
+    update_ini_file($options);
 }
 
 
@@ -200,7 +204,7 @@ mainCli::setOption('purge_module', array(
 
 mainCli::setOption('upgrade_all', array(
     'long_name'   => '--all-up',
-    'description' => 'Will check all repos for later versions. Then checkout and upgrade sql if any new tags were found',
+    'description' => 'Will check all repos for later versions, both template and modules. Then checkout and upgrade sql if any new tags were found',
     'action'      => 'StoreTrue',
 
 ));
