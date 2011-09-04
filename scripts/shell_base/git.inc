@@ -259,6 +259,8 @@ function git_upgrade_all ($options){
         }
 
         if ( ($tag == 'master') OR  ($tag > $val['module_version'])) {
+            
+            cos_cli_print("Will upgrade $val[module_name]");
             _git_upgrade ($val, $tag, 'module');
         }
     }
@@ -476,7 +478,7 @@ function _git_upgrade ($val, $tag, $type = 'module'){
     }
 
     // no need to upgrade template, as there is no sql. 
-    print "\n---\n";
+    // print "\n---\n";
 }
 
 function _git_is_repo($path){
