@@ -54,8 +54,7 @@ function upgrade_from_profile ($options){
 
     // install modules
     foreach ($pro->profileModules as $key => $val){
-        
-        
+              
         $val['repo'] = $val['public_clone_url'];
         $val['version'] = $val['module_version'];
         if (isset(register::$vars['profile_use_master'])) {

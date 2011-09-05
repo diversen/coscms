@@ -61,7 +61,12 @@ class HTML {
     }
 
     public static function label ($label_for, $label = '') {
-        $str = "<label for=\"$label_for\">$label</label>" . self::$br . "\n";
+        if ($label_for == 'captcha') {
+            // no label for images
+            $str = $label. self::$br;
+        } else {
+            $str = "<label for=\"$label_for\">$label</label>" . self::$br . "\n";
+        }
         self::$formStr.= $str;
         return $str;
     }

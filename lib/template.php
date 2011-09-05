@@ -49,6 +49,12 @@ abstract class template {
      * @var string   holding end of content string
      */
     static $endContent = '';
+    
+    /**
+     *
+     * @var string  $templateName 
+     */
+    static $templateName = null;
 
     /**
      * method for setting title of page
@@ -282,6 +288,28 @@ abstract class template {
     public static function getEndContent(){
         return self::$endContent;
     }
+    
+    public static function init ($template) {
+        self::$templateName = $template;   
+        self::loadIniSettings();
+    }
+    
+    public static function loadIniSettings () {
+        $ini_file = _COS_PATH . "/htdocs/templates/" . 
+                    self::$templateName . '/' . 
+                    self::$templateName . '.ini';
+        if (file_exists($ini_file)) {    
+            register::$vars['template'] = parse_ini_file($ini_file, true);
+        }
+    }
+    
+    public static function getIniSetting ($var) {
+        if (isset(register::$vars['template'][$var])){
+            return register::$vars['template'][$var];
+        }
+        
+        return null;
+    }
 
     /**
      * checks if a css style is registered. If not
@@ -289,7 +317,14 @@ abstract class template {
      * 
      * @param string $template
      */
-    public static function setTemplateCss ($template, $version = 0){
+    public static function setTemplateCss ($template = '', $version = 0){
+        if (empty($template)) {
+            $template = self::$templateName;
+            if (empty($template)) {
+                die ('No template name is set');
+            }
+        }
+        
         if (!empty(register::$vars['coscms_main']['css'])){
             $css = register::$vars['coscms_main']['css'];
             $css_dir =  _COS_PATH . "/htdocs/templates/$template/$css";

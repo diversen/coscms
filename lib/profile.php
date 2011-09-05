@@ -256,28 +256,26 @@ class profile  {
             // non fatal - we move on
             $this->error[] = "Could not create dir $profile_dir";
         }
-        clearstatcache();
-        foreach ($modules as $key => $val){
-            //print_r($val);
-            $module_ini_file = _COS_PATH . "/modules/$val[module_name]/$val[module_name].ini";
-            $source = _COS_PATH . "/modules/$val[module_name]/$val[module_name].ini";
+        
+        //clearstatcache();
+        $templates = $this->getAllTemplates();
+        //print_r($templates); die;
+        foreach ($templates as $key => $val){
+            $template_ini_file = _COS_PATH . "/htdocs/templates/$val[module_name]/$val[module_name].ini";
+            $source = _COS_PATH . "/htdocs/templates/$val[module_name]/$val[module_name].ini";
             $dest = $profile_dir . "/$val[module_name].ini-dist";
-            if (copy($source, $dest)){
-                $this->confirm[] = "Copy $module_ini_file to $profile_dir";
-            } else {
-                $this->error[] = "Could not copy $module_ini_file to $profile_dir";
+            
+            // templates does not need to have an ini file
+            if (file_exists($source)) {
+                if (copy($source, $dest)){
+                    $this->confirm[] = "Copy $template_ini_file to $template_dir";
+                } else {
+                    $this->error[] = "Could not copy $template_ini_file to $template_dir";
+                }
             }
-
-            // if php ini file exists copy that to.
-            $source = _COS_PATH . "/modules/$val[module_name]/$val[module_name].php.ini";
-            $dest = $profile_dir . "/$val[module_name].php.ini-dist";
-
-            if (file_exists($source)){
-                copy($source, $dest);
-            }
-
         }
-
+        
+        
     }
 
     /**
@@ -337,6 +335,7 @@ class profile  {
      */
     public function loadProfileFiles($profile){
         $profile_dir = _COS_PATH . "/profiles/$profile";
+        
         foreach ($this->profileModules as $key => $val){
             $source = $profile_dir . "/$val[module_name].ini-dist";
             $dest = _COS_PATH . "/modules/$val[module_name]/$val[module_name].ini";
@@ -354,7 +353,28 @@ class profile  {
             if (file_exists($source)){
                 copy($source, $dest);
             }
-        }    
+        }
+        
+        foreach ($this->profileTemplates as $key => $val){
+            $source = $profile_dir . "/$val[module_name].ini-dist";
+            $dest = _COS_PATH . "/htdocs/templates/$val[module_name]/$val[module_name].ini";
+    
+            if (file_exists($source)) {
+                if (copy($source, $dest)){
+                    $this->confirm[] = "Copy $source to $dest";
+                } else {
+                    $this->error[] = "Could not copy $source to $dest";
+                }
+            }
+
+            // if php ini file exists copy that to.
+            //$dest = _COS_PATH . "/modules/$val[module_name]/$val[module_name].php.ini";
+            //$source = $profile_dir . "/$val[module_name].php.ini-dist";
+
+            //if (file_exists($source)){
+            //    copy($source, $dest);
+            //}
+        } 
     }
 
     /**

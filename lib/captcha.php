@@ -19,7 +19,10 @@ class captcha {
      */
     static public function createCaptcha(){
         if (isset($_SESSION['cstr'])){
-            return $_SESSION['cstr'];
+            if (get_main_ini('captcha_image_module') == '1') {
+                return self::createCaptchaImage();
+            }
+            return "* " . $_SESSION['cstr'];
         }
         $num_1 = mt_rand  ( 20  , 40  );
         $num_2 = mt_rand  ( 20  , 40  );
@@ -27,7 +30,10 @@ class captcha {
         $res = $num_1 + $num_2;
         $_SESSION['cstr'] = $str;
         $_SESSION['ckey'] = md5($res);
-        return $str;
+        if (get_main_ini('captcha_image_module') == '1') {
+            return self::createCaptchaImage();
+        }
+        return "* " . $str;
     }
 
     // }}}
@@ -46,5 +52,11 @@ class captcha {
             return 0;
         }
     }
-    // }}} 
+    // }}}
+    
+    static public function createCaptchaImage () {
+        $options = array ('align' => 'top');
+        $options['title'] = lang::translate('system_captcha_alt_image');
+        return "* " . html::createImage('/image_captcha/index', $options);
+    }
 }
