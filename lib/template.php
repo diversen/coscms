@@ -290,24 +290,39 @@ abstract class template {
     }
     
     public static function init ($template) {
-        self::$templateName = $template;   
-        self::loadIniSettings();
+        self::$templateName = $template;
+        if (!isset(register::$vars['template'])) {
+            register::$vars['template'] = array();
+        }       
+        self::loadIniSettings($template);
     }
     
-    public static function loadIniSettings () {
-        $ini_file = _COS_PATH . "/htdocs/templates/" . 
-                    self::$templateName . '/' . 
-                    self::$templateName . '.ini';
-        if (file_exists($ini_file)) {    
-            register::$vars['template'] = parse_ini_file($ini_file, true);
+    public static function loadIniSettings ($template) {
+        static $parsed = array();
+       
+        if (isset($parsed[$template])) return;
+        $ini_file = _COS_PATH . "/htdocs/templates/$template/$template.ini";
+        if (file_exists($ini_file)) { 
+            $settings = parse_ini_file($ini_file, true);
+            if (!is_array($settings)) {
+                return;
+            }
+            
+            register::$vars['template'] = 
+                    array_merge(register::$vars['template'], 
+                    $settings);
+            
+            $parsed[$template] = 1;
         }
     }
     
     public static function getIniSetting ($var) {
-        if (isset(register::$vars['template'][$var])){
-            return register::$vars['template'][$var];
-        }
         
+        if (isset(register::$vars['template'][$var])){
+            //echo "return";
+            return register::$vars['template'][$var];
+        }   
+        //echo "no $var";
         return null;
     }
 
@@ -319,10 +334,11 @@ abstract class template {
      */
     public static function setTemplateCss ($template = '', $version = 0){
         if (empty($template)) {
-            $template = self::$templateName;
-            if (empty($template)) {
-                die ('No template name is set');
-            }
+            //$template = self::$templateName;
+            //if (empty($template)) {
+            die ("No template name given in" . __LINE__);
+            // }
+            //echo $template = dirname();
         }
         
         if (!empty(register::$vars['coscms_main']['css'])){
