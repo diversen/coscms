@@ -334,11 +334,7 @@ abstract class template {
      */
     public static function setTemplateCss ($template = '', $version = 0){
         if (empty($template)) {
-            //$template = self::$templateName;
-            //if (empty($template)) {
-            die ("No template name given in" . __LINE__);
-            // }
-            //echo $template = dirname();
+            die(debug_print_backtrace());
         }
         
         if (!empty(register::$vars['coscms_main']['css'])){
