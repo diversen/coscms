@@ -428,6 +428,9 @@ function _git_commit ($val, $type = 'module'){
         return;
     }
 
+    
+    cos_cli_print ("Will commit $val[module_name]");
+    
     $git_command = "cd $repo_path && git add . ";
     passthru($git_command);
 
@@ -436,7 +439,7 @@ function _git_commit ($val, $type = 'module'){
 
     $git_command = "cd $repo_path && git push $val[private_clone_url]";
     passthru($git_command);
-    print "\n---\n";
+    print "\n";
 }
 
 /**
