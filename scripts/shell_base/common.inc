@@ -72,7 +72,7 @@ function cos_cli_abort($str = null){
     } else {
         $str = "Aborting!";
     }
-    cos_cli_print($str);
+    cos_cli_print(color_output($str, 'r'));
     exit(16);
 }
 // }}}
@@ -106,22 +106,30 @@ function cos_exec($command, $options = array()){
     exec($command.' 2>&1', $output, $ret);
     if ($ret == 0){
         if (!isset($options['silence'])){
-            echo "Command [ok]    " . wordwrap($command) . "\n";
+            echo color_output ("Command [ok]    ", 'y');
+            echo wordwrap($command) . "\n";
         }
     } else {
         if (!isset($options['silence'])){
-            echo "Command [error] ";
+            echo color_output("Command [error] ", 'r');
             $end_output = '';
             foreach($output as $key => $val){
                 $end_output.= $val;
             }
             $end_output = wordwrap($end_output) . "\n";
-            print $end_output;
+            echo $end_output;
         }
     }
     return $ret;
 }
 // }}}
+
+function color_output ($output, $color_code = 'g') {
+    if (isset(register::$vars['coscms_main']['color_shell'])) {
+        return Console_Color::convert("%$color_code$output%n");    
+    } 
+    return $output;
+}
 
 function cos_parse_shell_output ($output){
     if (!is_array($output)) return;
@@ -142,15 +150,16 @@ function cos_system($command){
     $output = array();
     system($command.' 2>&1', $ret);
     if ($ret == 0){
-        echo "Command [ok]    " . wordwrap($command) . "\n";
+        echo color_output("Command [ok]    ", 'g');
+        echo wordwrap($command) . "\n";
     } else {
-        echo "Command [error] ";
+        echo color_output("Command [error] ", 'r');
         $end_output = '';
         foreach($output as $key => $val){
             $end_output.= $val . "\n";
         }
         $end_output = wordwrap($end_output);
-        print $end_output;
+        echo $end_output;
     }
     return $ret;
 }

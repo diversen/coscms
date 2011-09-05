@@ -98,8 +98,9 @@ function dump_db_file ($options = null){
         cos_cli_print('You did not specify file to dump. We create one from current timestamp!');
         $dump_name = "backup/sql/" . time() . ".sql";
     } else {
-        $dump_name = $options['File'];
-    }
+        echo $dump_name = $options['File'];
+        
+     }
     
     $db = get_db_info();
     $command = 
@@ -121,11 +122,14 @@ function dump_db_file ($options = null){
 function load_db_file($options){
     if (!isset($options['File'])){
         cos_cli_print('You did not specify file to load. We use latest!');
-        $latest = _get_latest();
+        $latest = get_latest_db_dump();
         $latest = "backup/sql/" . $latest . ".sql";
         $file = $latest;
     } else {
         $file = $options['File'];
+        if (!file_exists($file)) {
+            cos_cli_abort("No such file: $file");
+        }
     }
     $db = get_db_info();
     $command = 
@@ -142,7 +146,7 @@ function load_db_file($options){
  *
  * @return  int     the executed commands shell status 0 on success.
  */
-function _get_latest($dir = null, $num_files = null){
+function get_latest_db_dump($dir = null, $num_files = null){
     if (!$dir){
         $dir = _COS_PATH . "/backup/sql";
     }

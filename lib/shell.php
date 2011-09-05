@@ -27,6 +27,7 @@ class register {
 register::$vars['coscms_base'] = _COS_PATH;
 
 include_once 'Console/CommandLine.php';
+include_once "Console/Color.php";
 include_once "lib/uri.php";
 include_once "lib/lang.php";
 include_once "lib/db.php";
