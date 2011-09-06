@@ -257,7 +257,29 @@ class profile  {
             $this->error[] = "Could not create dir $profile_dir";
         }
         
-        //clearstatcache();
+        $modules = $this->getModules();
+        clearstatcache();
+        foreach ($modules as $key => $val){
+            //print_r($val);
+            $module_ini_file = _COS_PATH . "/modules/$val[module_name]/$val[module_name].ini";
+            $source = _COS_PATH . "/modules/$val[module_name]/$val[module_name].ini";
+            $dest = $profile_dir . "/$val[module_name].ini-dist";
+            if (copy($source, $dest)){
+                $this->confirm[] = "Copy $module_ini_file to $profile_dir";
+            } else {
+                $this->error[] = "Could not copy $module_ini_file to $profile_dir";
+            }
+
+            // if php ini file exists copy that to.
+            $source = _COS_PATH . "/modules/$val[module_name]/$val[module_name].php.ini";
+            $dest = $profile_dir . "/$val[module_name].php.ini-dist";
+
+            if (file_exists($source)){
+                copy($source, $dest);
+            }
+
+        }
+        
         $templates = $this->getAllTemplates();
         //print_r($templates); die;
         foreach ($templates as $key => $val){

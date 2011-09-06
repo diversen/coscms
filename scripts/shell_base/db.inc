@@ -16,7 +16,7 @@
  *
  * @return  int     the executed commands shell status 0 on success.
  */
-function create_db(){
+function create_db($options = array()){
 
     $db = get_db_info();
     $command = 
@@ -25,7 +25,7 @@ function create_db(){
     
     $command.= "--default-character-set=utf8 ";
     $command.= "CREATE $db[name]";
-    return $ret = cos_exec($command);
+    return $ret = cos_exec($command, $options);
 }
 
 // }}}
@@ -36,14 +36,14 @@ function create_db(){
  *
  * @return  int     the executed commands shell status 0 on success. 
  */
-function drop_db_default(){
+function drop_db_default($options = array()){
     define ('NO_DB', 1);    
     $db = get_db_info();
     $command = 
         "mysqladmin -f -u" . register::$vars['coscms_main']['username'] .
         " -p" . register::$vars['coscms_main']['password'] . " -h$db[host] ";
     $command.= "DROP $db[name]";
-    return $ret = cos_exec($command);
+    return $ret = cos_exec($command, $options);
 }
 
 // }}}
@@ -54,7 +54,8 @@ function drop_db_default(){
  * @return  int     the executed commands shell status 0 on success. 
  */
 function load_db_default(){
-    drop_db_default();
+    // silence when dropping db. 
+    drop_db_default($options = array ('silence' => 1));
     create_db();
     $db = get_db_info();
     $command = 

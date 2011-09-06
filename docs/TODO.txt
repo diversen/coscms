@@ -1,6 +1,3 @@
 [TODO]
-profile recreate should work correct.
-correct update of templates in profiles.
-add ini settings to templates. e.g. markdown editor.
 make a support forum.
 option for attaching modules to main menu.  

@@ -3,7 +3,7 @@
 /**
  * File contains helper functions
  *
- * @package    coslib
+ * @package    common
  */
 
 /**
