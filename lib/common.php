@@ -815,6 +815,20 @@ function send_cache_headers ($expires = null){
 }
 
 // }}}
+/**
+ * function for checking if we need to redirect with 301
+ * if param url is not equal to current url, then 
+ * we redirect to url given
+ * 
+ * @param type $url 
+ */
+function send_301_headers ($url) {
+    if ($_SERVER['REQUEST_URI'] != $url) {
+        header("HTTP/1.1 301 Moved Permanently");
+        header("Location: $url");
+        exit;
+    }
+}
 
 // Mail functions
 

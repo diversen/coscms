@@ -360,6 +360,21 @@ class HTML {
             echo "<!-- / end form_error -->\n";
             return;
     }
+    
+    /**
+     * method for sanitizing a url real simple
+     * remove / ? # - add entites for displaying the url in a link
+     * without any dangers
+     * @param string $url
+     * @return string $url
+     */
+    public static function sanitizeUrlSimple ($string) {
+        $strip = array('/', '?', '#');
+        $sub = array ('', '', '');
+        $clean = trim(str_replace($strip, $sub, htmlentities(strip_tags($string))));
+        return $clean;
+        
+    }
     /*
     public static function getUl ($elements, $value_field, $options = null){
         if ($options) {

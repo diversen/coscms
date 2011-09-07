@@ -219,7 +219,24 @@ abstract class template {
      *                   later.
      */
     public static function setInlineCss($css, $order = null){
+        
         $str = file_get_contents($css);
+        if (isset($order)){
+            self::$inlineCss[$order] = $str;
+        } else {
+            self::$inlineCss[] = $str;
+        }
+    }
+    
+    /**
+     * sets a modules css. 
+     * @param type $module module
+     * @param type $css path to css absolute from module base path
+     * @param type $order loading order of the css
+     */
+    public static function setModuleInlineCss ($module, $css, $order = null){
+        
+        $str = file_get_contents(_COS_PATH . "/modules/$module/" .  $css);
         if (isset($order)){
             self::$inlineCss[$order] = $str;
         } else {
@@ -374,6 +391,8 @@ class templateView {
      *
      * @param string $module
      * @param string $file
+     * @param array  $vars to parse into template
+     * @param boolean return as string (1) or output directly (0) 
      */
     static function includeModuleView ($module, $view, $vars = null, $return = null){
         $filename = _COS_PATH . "/modules/$module/" . self::$viewFolder . "/$view.inc";
