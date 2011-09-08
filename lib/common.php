@@ -279,19 +279,27 @@ function get_file_list($dir, $options = null){
  *
  * found on php.net
  */
-function get_file_list_recursive($start_dir) {
+function get_file_list_recursive($start_dir, $pattern = null) {
 
     $files = array();
     if (is_dir($start_dir)) {
         $fh = opendir($start_dir);
         while (($file = readdir($fh)) !== false) {
-            // loop through the files, skipping . and .., and recursing if necessary
-            if (strcmp($file, '.')==0 || strcmp($file, '..')==0) continue;
+            // skip hidden files and dirs and recursing if necessary
+            if (strpos($file, '.')=== 0) continue;
+            
             $filepath = $start_dir . '/' . $file;
-            if ( is_dir($filepath) )
-                $files = array_merge($files, get_file_list_recursive($filepath));
-            else
-                array_push($files, $filepath);
+            if ( is_dir($filepath) ) {
+                $files = array_merge($files, get_file_list_recursive($filepath, $pattern));
+            } else {
+                if (isset($pattern)) {
+                    if (fnmatch($pattern, $filepath)) {
+                        array_push($files, $filepath);
+                    }
+                } else {
+                    array_push($files, $filepath);
+                }
+            }
         }
         closedir($fh);
     } else {
@@ -747,7 +755,14 @@ function simple_template ($file){
  * @param   array   options
  * @return  string  string showing the profile
  */
-function get_profile_link (&$user, $options = null){
+function get_profile_link ($user, $options = null){
+    
+    
+    if (is_numeric($user)) {
+        $user = get_account($user);
+        print_r($user);
+    }
+    
     static $profile_object;
 
     if (!isset($profile_object)){
@@ -767,6 +782,35 @@ function get_profile_link (&$user, $options = null){
     return $profile_object->createProfileLink($user, $options);
 }
 // }}}
+
+/**
+ * function for getting account
+ * @param int $id
+ * @return array $row from account 
+ */
+function get_account ($id) {   
+    $db = new db();
+    $row = $db->selectOne('account', 'id', $id);
+    return $row;
+}
+
+function get_profile_link_full ($user, $text, $date, $date_format = 'date_format_long') {
+    //public static function articleInfo ($user, $created){
+        //$datetime = date_create($created);
+        //$date = date_format($datetime, register::$vars['coscms_main']['date_format_long']);
+        $unix_stamp = strtotime($date);
+        $date = strftime(get_main_ini($date_format), $unix_stamp);
+        $options = array ();
+        $options['display'] = 'rows';
+        $options['row'] = " $date ";
+        //if (get_module_ini('content_article_hide_written_by')) {
+        $options['before'] = $text;
+        //}
+        
+        $profile_link = get_profile_link($user, $options);
+        return $profile_link;
+    //}
+}
 // {{{ function simple_prg () 
 /**
  * simple function for creating prg pattern. 

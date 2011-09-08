@@ -371,7 +371,7 @@ class HTML {
     public static function sanitizeUrlSimple ($string) {
         $strip = array('/', '?', '#');
         $sub = array ('', '', '');
-        $clean = trim(str_replace($strip, $sub, htmlentities(strip_tags($string))));
+        $clean = trim(str_replace($strip, $sub, strip_tags($string)));
         return $clean;
         
     }
