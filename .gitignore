@@ -6,6 +6,7 @@ scripts/cron.php
 test.php
 htdocs/test.php
 htdocs/test/*
+htdocs/cached_assets
 htdocs/css/*.css*
 htdocs/phpdocs
 config/config.ini

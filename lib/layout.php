@@ -41,7 +41,9 @@ class layout extends db {
 
     public static $options = array();
 
-    public static $module = NULL;
+    public static $blocksContent = array();
+    
+    public static $module = null;
 
 
     /**
@@ -114,6 +116,21 @@ class layout extends db {
         }
     }
 
+    
+    function initBlocks () {
+        $blocks = get_main_ini('blocks_all');
+        if (!isset($blocks)) return;
+        //print_r($blocks); die;
+        $blocks = explode(',', $blocks);
+
+        foreach ($blocks as $val) {
+            self::$blocksContent[$val] = self::parseBlock($val);
+        }        
+    }
+    
+    function getBlock ($block) {
+        return self::$blocksContent[$block];
+    }
     /**
      *
      * @param  string   $module
@@ -367,23 +384,23 @@ class layout extends db {
         $str .= "</ul>\n";
         return $str;
     }
-
+    
     /**
      * method for getting all blocks to be used
      *
      *                  blocks to use
      * @return array    blocks containing strings with html to display
      */
-    public static function getBlocks(){
+    public static function parseBlock($block){
 
         $blocks = array();
 
-        if (isset(register::$vars['coscms_main']['blocks'],register::$vars['coscms_main']['module']['blocks'])){
-            $blocks = array_merge(register::$vars['coscms_main']['blocks'], register::$vars['coscms_main']['module']['blocks']);
-        } else if (isset(register::$vars['coscms_main']['blocks'])) {
-            $blocks = register::$vars['coscms_main']['blocks'];
-        } else if (isset(register::$vars['coscms_main']['module']['blocks'])){
-            $blocks = register::$vars['coscms_main']['module']['blocks'];
+        if (isset(register::$vars['coscms_main'][$block],register::$vars['coscms_main']['module'][$block])){
+            $blocks = array_merge(register::$vars['coscms_main'][$block], register::$vars['coscms_main']['module'][$block]);
+        } else if (isset(register::$vars['coscms_main'][$block])) {
+            $blocks = register::$vars['coscms_main'][$block];
+        } else if (isset(register::$vars['coscms_main']['module'][$block])){
+            $blocks = register::$vars['coscms_main']['module'][$block];
         } else {
             return $blocks;
         }
@@ -400,65 +417,15 @@ class layout extends db {
             $func = 'block_' . $func[0];
             $path_to_function = _COS_PATH . $val;
             include_once $path_to_function;
-            $ret_blocks[] = $func();
+            ob_start();
+            $ret = $func();
+            if ($ret) {
+                $ret_blocks[] = $ret; 
+            } else {
+                $ret_blocks[] = ob_get_contents();
+                ob_end_clean();
+            }
         }
         return $ret_blocks;
-    }
-
-    /**
-     * method for getting all blocks to be used
-     *
-     *                  blocks to use
-     * @return array    blocks containing strings with html to display
-     */
-    public static function getBlocksSec(){
-
-        $blocks = array();
-
-        if (isset(register::$vars['coscms_main']['module']['blocks_sec_module_only'])){
-            $blocks = register::$vars['coscms_main']['module']['blocks_sec'];
-        } else if (isset(register::$vars['coscms_main']['blocks_sec'], register::$vars['coscms_main']['module']['blocks_sec'])){
-            $blocks = array_merge(register::$vars['coscms_main']['blocks_sec'], register::$vars['coscms_main']['module']['blocks_sec']);
-        } else if (isset(register::$vars['coscms_main']['blocks_sec'])) {
-            $blocks = register::$vars['coscms_main']['blocks_sec'];
-        } else if (isset(register::$vars['coscms_main']['module']['blocks_sec'])){
-            $blocks = register::$vars['coscms_main']['module']['blocks_sec'];
-        } else {
-            return $blocks;
-        }
-
-        $ret_blocks = array();
-        foreach ($blocks as $key => $val) {
-            $func = explode('/', $val);
-            $num = count($func) -1;
-            $func = explode ('.', $func[$num]);
-            $func = 'block_' . $func[0];
-            include_once _COS_PATH . $val;
-            $ret_blocks[] = $func();
-        }
-        return $ret_blocks;
-    }
-
-    /**
-     * method for getting top blocks which typicaly will be diplayed in 
-     * a page header
-     *
-     *                  where we can se which top blocks to parse
-     * @return array    array of blocks containing strings with html to display
-     */
-    public static function getTopBlocks(){
-        if (!isset(register::$vars['coscms_main']['blocks_top'])){
-            register::$vars['coscms_main']['blocks_top'] = array();
-        }
-        $blocks = array();
-        foreach (register::$vars['coscms_main']['blocks_top'] as $key => $val) {
-            $func = explode('/', $val);
-            $num = count($func) -1;
-            $func = explode ('.', $func[$num]);
-            $func = 'block_' . $func[0];
-            include_once _COS_PATH . $val;
-            $blocks[] = $func();
-        }
-        return $blocks;
     }
 }

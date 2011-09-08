@@ -124,7 +124,11 @@ abstract class template {
      */
     public static function setCss($css_url, $order = null, $options = null){
         if (isset($order)){
-            self::$css[$order] = $css_url;
+            if (isset(self::$css[$order])) {
+                self::setCss($css_url, $order + 1, $options);
+            } else {
+                self::$css[$order] = $css_url;
+            }
         } else {
             self::$css[] = $css_url;
         }
@@ -136,6 +140,7 @@ abstract class template {
      */
     public static function getCss(){
         $str = "";
+        //print_r(self::$css);
         ksort(self::$css);
         //$str.= "<style type=\"text/css\" title=\"no-style\" media=\"screen\">\n";
 
@@ -186,11 +191,17 @@ abstract class template {
      * @param   int      int. the loading order of javascript 0 is first > 0 is
      *                   later.
      */
-    public static function setInlineJs($js, $order = null, $search = null, $replace = null){
-        $str = file_get_contents($js);
-        if ($search){
-            $str = str_replace($search, $replace, $str);
+    public static function setInlineJs($js, $order = null, $options = array()){
+        
+        if (get_main_ini('cached_assets') && !isset($options['no_cache'])) {
+            self::cacheAsset ($js, $order, 'js');
+            return;
         }
+        
+        $str = file_get_contents($js);
+        //if ($search){
+        //    $str = str_replace($search, $replace, $str);
+        //}
         if (isset($order)){
             self::$inlineJs[$order] = $str;
         } else {
@@ -218,13 +229,42 @@ abstract class template {
      * @param   int      int. the loading order of css 0 is first > 0 is
      *                   later.
      */
-    public static function setInlineCss($css, $order = null){
+    public static function setInlineCss($css, $order = null, $options = array()){
+        
+        if (get_main_ini('cached_assets') && !isset($options['no_cache'])) {
+            self::cacheAsset ($css, $order, 'css');
+            return;
+        }
         
         $str = file_get_contents($css);
         if (isset($order)){
             self::$inlineCss[$order] = $str;
         } else {
             self::$inlineCss[] = $str;
+        }
+    }
+    
+    public static function cacheAsset ($css, $order, $type) {
+        $md5 = md5($css);
+        $cached_asset = _COS_PATH . "/htdocs/cached_assets/$md5.$type";
+        if (file_exists($cached_asset)) {
+            if ($type == 'css') {
+                self::setCss("/cached_assets/$md5.$type", $order);
+            }
+            
+            if ($type == 'js') {
+                self::setJs("/cached_assets/$md5.$type", $order);
+            }          
+        } else {
+            $str = file_get_contents($css);
+            file_put_contents($cached_asset, $str);
+            if ($type == 'css') {
+                self::setCss("/cached_assets/$md5.$type", $order);
+            }
+            
+            if ($type == 'js') {
+                self::setJs("/cached_assets/$md5.$type", $order);
+            } 
         }
     }
     
@@ -349,32 +389,16 @@ abstract class template {
      * 
      * @param string $template
      */
-    public static function setTemplateCss ($template = '', $version = 0){
-        if (empty($template)) {
-            die(debug_print_backtrace());
-        }
-        
-        if (!empty(register::$vars['coscms_main']['css'])){
-            $css = register::$vars['coscms_main']['css'];
-            $css_dir =  _COS_PATH . "/htdocs/templates/$template/$css";
-            if (is_dir($css_dir)){
-                self::setTemplateCssDir ($template, $css);
-                return;
-            }
-            template::setCss("/templates/$template/$css?version=$version");
+    public static function setTemplateCss ($template = '', $order = 0, $version = 0){
+
+        $css = get_main_ini('css');
+        if ($css){
+            $css_url = "/templates/$template/$css/$css.css?version=$version";
+            self::setCss($css_url, $order);
         } else {
-            template::setCss("/templates/$template/default/default.css?version=$version");
+            // use default css
+            self::setCss("/templates/$template/default/default.css?version=$version", $order);
         }
-    }
-
-    public static function setTemplateCssDir ($template, $css){
-        self::setCss("/templates/$template/$css/$css.css");
-
-        // load js connected to css if any
-        $js = "/templates/$template/$css/$css.js";
-        if (file_exists(_COS_PATH . "/htdocs/$js")){
-            self::setJs($js, 1000);
-        } 
     }
 }
 

@@ -116,6 +116,10 @@ if (!defined('_COS_CLI')){
     // inited module. In case of a 404 not found error we don't want
     // to load module menus
     $layout->loadMenus();
+    
+    // init blocks
+    $layout->initBlocks();
+    //die;
 
     // load module
     // means: catch the included controller file with ob functions
