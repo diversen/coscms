@@ -12,3 +12,4 @@ content_view_sub_modules[1] = "tags"
 content_view_sub_modules[2] = "comment"
 content_latest_sub_modules[0] = "rss"
 content_show_latest = 1
+content_block_no_title = 1
