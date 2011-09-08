@@ -161,17 +161,16 @@ abstract class template {
      * @param   int      int. the loading order of javascript 0 is first > 0 is
      *                   later.
      */
-    public static function setJs($js, $order = null){
+    public static function setJs($js_url, $order = null){
         
         if (isset($order)){
             if (isset(self::$js[$order])) {
-                self::setCss($css_url, $order + 1, $options);
+                self::setCss($js_url, $order + 1, $options);
             } else {
-                self::$js[$order] = $css_url;
+                self::$js[$order] = $js_url;
             }
-            self::$js[$order] = $js;
         } else {
-            self::$js[] = $js;
+            self::$js[] = $js_url;
         }
     }
 
