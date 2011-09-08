@@ -164,6 +164,11 @@ abstract class template {
     public static function setJs($js, $order = null){
         
         if (isset($order)){
+            if (isset(self::$js[$order])) {
+                self::setCss($css_url, $order + 1, $options);
+            } else {
+                self::$js[$order] = $css_url;
+            }
             self::$js[$order] = $js;
         } else {
             self::$js[] = $js;
@@ -199,9 +204,9 @@ abstract class template {
         }
         
         $str = file_get_contents($js);
-        //if ($search){
-        //    $str = str_replace($search, $replace, $str);
-        //}
+        if (isset($options['search'])){
+            $str = str_replace($options['search'], $options['replace'], $str);
+        }
         if (isset($order)){
             self::$inlineJs[$order] = $str;
         } else {
