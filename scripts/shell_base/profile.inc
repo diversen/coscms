@@ -103,35 +103,19 @@ function upgrade_config_ini_file ($options){
 
     $ini_file = parse_ini_file($ini_file_path, true);
     $ini_dist = parse_ini_file($ini_dist_path, true);
-
-    // holder for new settings. Used to notice what has been done. 
-    $new_settings = array ();
     
     $ary = array_merge($ini_dist, $ini_file);
-     print array_to_ini_file($ary);
+    
     print_r($ary);
-    die;
-    foreach ($ini_dist as $key => $val){
-        print_r($val);
-        if (!isset($ini_file[$key])){
-            $ini_file[$key] = $val;
-            
-            
-            $new_settings[$key] = $val;
-        }
-    }
+    $ary_diff = array_diff($ary, $ini_file);
 
-    // write it to ini file
-    $content = array_to_ini_file($ini_file);
-    //print_r($content);
-    die;
+    $content = array_to_ini_file($ary);
     file_put_contents($ini_file_path, $content);
 
-    // install profile.
-    if (empty($new_settings)){
+    if (empty($ary_diff)){
         cos_cli_print("No new ini file settings for config.ini");
     } else {
-        $new_settings_str = array_to_ini_file($new_settings);
+        $new_settings_str = array_to_ini_file($ary_diff);
         cos_cli_print("New ini file written to: $ini_file_path");
         cos_cli_print("These are the new ini settings for config.ini");
         cos_cli_print(trim($new_settings_str));
