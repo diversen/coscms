@@ -2,7 +2,8 @@ url = "mysql:dbname=demosite;host=localhost"
 username = "db_user"
 password = "db_pass"
 server_name = "demosite"
-site_email = "demosite"
+server_force_ssl = 0
+site_email = "demo@example.com"
 date_default_timezone = "Europe/Copenhagen"
 date_format_long = "%d-%b-%Y %T"
 date_format_short = "%d-%b-%Y"
@@ -13,17 +14,20 @@ lang = "en"
 session_time = 3600
 session_path = "/"
 session_host = ""
+session_handler = "memcache"
 cookie_time = 30
 frontpage_module = "content"
 profile_module = "account_profile"
 blocks[0] = "/modules/system/blocks/system_admin_menu.inc"
 blocks[1] = "/modules/content/blocks/content_tree_keep_state.inc"
+blocks_all = "blocks"
 [development]
-server_name = "demosite"
+server_name = 'demosite'
 smtp_mail = 1
-smtp_params_host = "demosite"
-smtp_params_sender = "sender"
-smtp_params_port     = "25"
-smtp_params_auth     = "true"
-smtp_params_username = "username"
-smtp_params_password = "password"
+smtp_params_host = "mail1.stofanet.dk"
+smtp_params_sender = "mail@stofanet.dk"
+smtp_params_port = 25
+smtp_params_auth = "true"
+smtp_params_username = "user"
+smtp_params_password = "pass"
+
