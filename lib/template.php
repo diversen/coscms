@@ -278,7 +278,7 @@ abstract class template {
      * @param type $css path to css absolute from module base path
      * @param type $order loading order of the css
      */
-    public static function setModuleInlineCss ($module, $css, $order = null){
+    public static function setModuleInlineCss ($module, $css, $order = 0){
         $css = _COS_PATH . "/modules/$module/$css";
         if (get_main_ini('cached_assets') && !isset($options['no_cache'])) {
             self::cacheAsset ($css, $order, 'css');
