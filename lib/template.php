@@ -279,8 +279,13 @@ abstract class template {
      * @param type $order loading order of the css
      */
     public static function setModuleInlineCss ($module, $css, $order = null){
+        $css = _COS_PATH . "/modules/$module/$css";
+        if (get_main_ini('cached_assets') && !isset($options['no_cache'])) {
+            self::cacheAsset ($css, $order, 'css');
+            return;
+        }
         
-        $str = file_get_contents(_COS_PATH . "/modules/$module/" .  $css);
+        $str = file_get_contents($css);
         if (isset($order)){
             self::$inlineCss[$order] = $str;
         } else {
