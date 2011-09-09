@@ -248,6 +248,19 @@ $_PROFILE_MODULES = array (
     'public_clone_url' => 'git://github.com/diversen/image_captcha.git',
     'private_clone_url' => 'git@github.com:diversen/image_captcha.git',
   ),
+  19 => 
+  array (
+    'id' => '259',
+    'module_name' => 'questions',
+    'module_version' => '1.311',
+    'menu_item' => '1',
+    'run_level' => '0',
+    'load_on' => NULL,
+    'parent' => NULL,
+    'is_shell' => NULL,
+    'public_clone_url' => 'git://github.com/diversen/questions.git',
+    'private_clone_url' => 'git@github.com:diversen/questions.git',
+  ),
 );
 
 $_PROFILE_TEMPLATES = array (
