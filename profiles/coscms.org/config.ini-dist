@@ -21,7 +21,8 @@ captcha_image_module = 1
 blocks[] = "/modules/system/blocks/system_admin_menu.inc"
 blocks[] = "/modules/content/blocks/content_tree_keep_state.inc"
 blocks_all = 'blocks'
-color_shell = 1
+color_shell = "yes"
+cached_assets = "yes"
 [development]
 server_name = "coscms"
 smtp_mail = 1
