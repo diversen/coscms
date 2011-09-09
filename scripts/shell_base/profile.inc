@@ -105,8 +105,6 @@ function upgrade_config_ini_file ($options){
     $ini_dist = parse_ini_file($ini_dist_path, true);
     
     $ary = array_merge($ini_dist, $ini_file);
-    
-    print_r($ary);
     $ary_diff = array_diff($ary, $ini_file);
 
     $content = array_to_ini_file($ary);
