@@ -183,3 +183,30 @@ function cos_is_cli (){
     }
     return true;
 }
+
+/**
+ *
+ * @param   array     ini array read from ini file with parse_ini_file
+ * @return  string    ini file readable by parse_ini_file
+ */
+function array_to_ini_file($ary){
+    $content = '';
+    foreach ($ary as $key => $val){
+        if (is_array($val)){
+            foreach ($val as $k => $v){
+                if(is_numeric($val) || is_bool($val)){
+                    $content.= "{$key}[$k] = {$v}\n";
+                } else {
+                    $content.= "{$key}[$k] = \"{$v}\"\n";
+                }
+            }
+        } else {
+            if(is_numeric($val) || is_bool($val)){
+                $content.= "{$key} = {$val}\n";
+            } else {
+                $content.= "{$key} = \"{$val}\"\n";
+            }
+        }
+    }
+    return $content;
+}
