@@ -126,10 +126,7 @@ class HTML {
         }
 
         if (isset($extra['filter_help'])) {
-            echo $extra['title'] = get_filters_help($extra['filter_help']);
-            
-            //echo lang::translate('filter_markdownExt_help');
-            
+            echo $extra['title'] = get_filters_help($extra['filter_help']);            
         } 
 
         $value = self::setValue($name, $value);

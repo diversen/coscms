@@ -760,7 +760,6 @@ function get_profile_link ($user, $options = null){
     
     if (is_numeric($user)) {
         $user = get_account($user);
-        print_r($user);
     }
     
     static $profile_object;
@@ -782,6 +781,38 @@ function get_profile_link ($user, $options = null){
     return $profile_object->createProfileLink($user, $options);
 }
 // }}}
+// {{{ function get_profile_link (&$user)
+/**
+ * Gets user profile link if a profile system is in place.
+ * Profile systems must be set in main config/config.ini
+ * the option array can be used to setting special options for profile module
+ * 
+ * @param   array   user options
+ * @param   array   options
+ * @return  string  string showing the profile
+ */
+function get_profile_edit_link ($user_id){
+    
+    static $profile_object;
+
+    if (!isset($profile_object)){
+        $profile_system = get_main_ini('profile_module');
+        if (!isset($profile_system)){
+            return '';
+        }
+
+        include_module ($profile_system);
+
+        $profile_object = moduleLoader::modulePathToClassName($profile_system);
+        $profile_object = new $profile_object();      
+        $link = $profile_object->getProfileEditLink($user_id);
+        return $link;
+    }
+
+    return $profile_object->createProfileLink($user, $options);
+}
+// }}}
+
 
 /**
  * function for getting account
