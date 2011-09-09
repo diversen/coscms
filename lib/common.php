@@ -1085,7 +1085,7 @@ class cosValidate {
 function cos_sanitize_url($string, $force_lowercase = true, $remove_special = false) {
     $strip = array("~", "`", "!", "@", "#", "$", "%", "^", "&", "*", "(", ")", "_", "=", "+", "[", "{", "]",
                    "}", "\\", "|", ";", ":", "\"", "'", "&#8216;", "&#8217;", "&#8220;", "&#8221;", "&#8211;", "&#8212;",
-                   "â€”", "â€“", ",", "<", ".", ">", "/", "?");
+                   "â€”", "â€“", "<", ">", "/", "?");
     return $clean = trim(str_replace($strip, "", strip_tags($string)));
     //$clean = preg_replace('/\s+/', "-", $clean);
     //$clean = ($remove_special) ? preg_replace("/[^a-zA-Z0-9]/", "", $clean) : $clean ;
