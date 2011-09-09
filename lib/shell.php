@@ -156,10 +156,14 @@ class mainCli {
                             if (!empty($result->command->args)) {
                                 if (function_exists($key)){
                                     $ret = $key($result->command->args);
+                                } else {
+                                    cos_cli_abort("No such function $key");
                                 }
                             } else {
                                 if (function_exists($key)){
                                     $ret = $key();
+                                } else {
+                                    cos_cli_abort("No such function $key");
                                 }
                             }
                         } else {
