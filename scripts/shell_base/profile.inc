@@ -91,6 +91,54 @@ function upgrade_from_profile ($options){
 }
 
 /**
+ * function for updating a modules .ini file with new settings
+ * from updated ini-dist file.
+ *  
+ * @param array     $options 
+ */
+function upgrade_config_ini_file ($options){
+    
+    $ini_file_path = _COS_PATH . "/config/config.ini";
+    $ini_dist_path = _COS_PATH . "/profiles/$options[profile]/config.ini-dist";
+
+    $ini_file = parse_ini_file($ini_file_path, true);
+    $ini_dist = parse_ini_file($ini_dist_path, true);
+
+    // holder for new settings. Used to notice what has been done. 
+    $new_settings = array ();
+    
+    $ary = array_merge($ini_dist, $ini_file);
+     print array_to_ini_file($ary);
+    print_r($ary);
+    die;
+    foreach ($ini_dist as $key => $val){
+        print_r($val);
+        if (!isset($ini_file[$key])){
+            $ini_file[$key] = $val;
+            
+            
+            $new_settings[$key] = $val;
+        }
+    }
+
+    // write it to ini file
+    $content = array_to_ini_file($ini_file);
+    //print_r($content);
+    die;
+    file_put_contents($ini_file_path, $content);
+
+    // install profile.
+    if (empty($new_settings)){
+        cos_cli_print("No new ini file settings for config.ini");
+    } else {
+        $new_settings_str = array_to_ini_file($new_settings);
+        cos_cli_print("New ini file written to: $ini_file_path");
+        cos_cli_print("These are the new ini settings for config.ini");
+        cos_cli_print(trim($new_settings_str));
+    }
+}
+
+/**
  * wrapper function for creating a profile
  */
 function recreate_profile($options) {
@@ -141,6 +189,12 @@ mainCli::setOption('recreate_profile', array(
 mainCli::setOption('upgrade_from_profile', array(
     'long_name'   => '--all-up',
     'description' => 'Will upgrade from profile',
+    'action'      => 'StoreTrue'
+));
+
+mainCli::setOption('upgrade_config_ini_file', array(
+    'long_name'   => '--config-up',
+    'description' => 'Will upgrade config.ini from profile with any new settings found in profile/{profile}/config.ini-dist',
     'action'      => 'StoreTrue'
 ));
 
