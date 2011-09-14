@@ -272,7 +272,7 @@ class session {
      * checks $_SESSION['id'] and if set it will return 
      * method for getting a users id
      *
-     * @return  boolean true or false
+     * @return  mixed false if no user id or the users id. 
      */
     static public function getUserId(){
         if ( !isset($_SESSION['id']) || empty($_SESSION['id']) ){
