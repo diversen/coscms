@@ -1126,8 +1126,8 @@ function cos_sanitize_url($string, $force_lowercase = true, $remove_special = fa
             mb_strtolower($clean, 'UTF-8') :
             strtolower($clean) :
         $clean;
-     
-     
+      
+    
 }
 
 /**
