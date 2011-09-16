@@ -179,22 +179,38 @@ class layout extends db {
         $menu = array();
 
         $parent = moduleLoader::getParentModule($module);
-        if (isset($parent)) $module = $parent;
-
-        // load parent ini settings
-        moduleLoader::getModuleIniSettings($module);
-
-        // get base menu as file
-        $_MODULE_MENU = self::getMenuFromFile($module);
-
-        $children_menu = self::getChildrenMenus($module);
-
-        if (isset($_MODULE_MENU)){
-            $_MODULE_MENU = array_merge($_MODULE_MENU, $children_menu);
-            return $_MODULE_MENU;
-        } else {
-            return $children_menu;
+        if (isset($parent)) { 
+            $module = $parent;
         }
+
+        moduleLoader::getModuleIniSettings($module);
+        $module_menu = self::getMenuFromFile($module);
+        $children_menu = self::getChildrenMenus($module);
+        $module_menu = array_merge($module_menu, $children_menu);       
+        $db_config_file = _COS_PATH . "/modules/$module/db_config.inc";
+        
+        if (file_exists($db_config_file)) {
+            $module_menu = self::setDbConfigMenuItem ($module_menu, $module);
+        }
+        
+        return $module_menu;
+    }
+    
+    public static function setDbConfigMenuItem($module_menu, $module) {
+        $config_menu_item = array (
+            'url' => "/$module/config/index",
+            'title' => lang::translate('config'));
+        
+        // if e.g. account_allow_db_config is not set we use admin as base setting
+        $allow_config = $module . "_allow_db_config";
+        $allow = get_module_ini($allow_config);
+        if (!$allow) {
+            $allow = 'admin';
+        }
+        
+        $config_menu_item['auth'] = $allow;        
+        $module_menu[] = $config_menu_item;
+        return $module_menu;
     }
 
     /**
