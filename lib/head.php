@@ -24,7 +24,7 @@ ini_set('include_path', $ini_path . PATH_SEPARATOR .
 // parse main config.ini file
 register::$vars['coscms_debug']['include_path'] = ini_get('include_path');
 
-include "lib/common.php";
+include_once "lib/common.php";
 load_config_file ();
 
 
