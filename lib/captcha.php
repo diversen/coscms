@@ -18,8 +18,17 @@ class captcha {
      * @return  string  the catcha to be used in forms
      */
     static public function createCaptcha(){
-        if (isset($_SESSION['cstr'])){
-            if (get_main_ini('captcha_image_module') == '1') {
+        if (!isset($_SESSION['ctries'])) {
+            $_SESSION['ctries'] = 0;
+        }
+        
+        if ($_SESSION['ctries'] == 3) {
+            $_SESSION['ctries'] = 0;
+        }
+        
+        $_SESSION['ctries']++;
+        if (isset($_SESSION['cstr']) && $_SESSION['ctries'] != '3'){
+            if (get_main_ini('captcha_image_module')) {
                 return self::createCaptchaImage();
             }
             return "* " . $_SESSION['cstr'];
@@ -30,7 +39,8 @@ class captcha {
         $res = $num_1 + $num_2;
         $_SESSION['cstr'] = $str;
         $_SESSION['ckey'] = md5($res);
-        if (get_main_ini('captcha_image_module') == '1') {
+        
+        if (get_main_ini('captcha_image_module')) {
             return self::createCaptchaImage();
         }
         return "* " . $str;
@@ -55,6 +65,7 @@ class captcha {
     // }}}
     
     static public function createCaptchaImage () {
+
         $options = array ('align' => 'top');
         $options['title'] = lang::translate('system_captcha_alt_image');
         return "* " . html::createImage('/image_captcha/index', $options);

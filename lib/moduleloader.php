@@ -173,7 +173,9 @@ class moduleLoader {
      *
      */
     public function setHomeModuleFiles(){
+        
         $frontpage_module = register::$vars['coscms_main']['frontpage_module'];//$_COS_MAIN['frontpage_module'];
+        $this->info['module_base_name'] = $frontpage_module;
         $this->info['base'] = $base = _COS_PATH . "/modules";
         $this->info['language_file'] = $base . "/$frontpage_module" . '/lang/' . register::$vars['coscms_main']['language'] . '/language.inc';
         $this->info['ini_file'] =  $base . "/$frontpage_module"  . "/$frontpage_module" . '.ini';
@@ -181,7 +183,6 @@ class moduleLoader {
         $this->info['view_file'] = $base . "/$frontpage_module"  . "/view." . $frontpage_module . ".inc";
 
         $controller_dir = $base . "/$frontpage_module/";
-
         $first = uri::fragment(0);
         
         if (!empty($first)){
@@ -221,7 +222,7 @@ class moduleLoader {
     public function setModuleFiles (){
         $uri = uri::getInstance();
         $info = $uri->getInfo();
-
+       
         if (empty($info['module_base'])){
             $this->setHomeModuleFiles();
             return;
@@ -231,10 +232,11 @@ class moduleLoader {
         $frontpage_module = register::$vars['coscms_main']['frontpage_module'];
 
         if ($uri->numFragments() == 1){
-            $info['module_base_name'] = $frontpage_module ;
+            $this->info['module_base_name'] = $frontpage_module;
             $this->info['base'] = $base = _COS_PATH . "/modules/$frontpage_module";
         } else {
-            // set info so we can load all a modules files
+            
+            $this->info['module_base_name'] = $info['module_base_name'];
             $this->info['base'] = $base = _COS_PATH . "/modules";
         }
        
@@ -276,32 +278,10 @@ class moduleLoader {
      */
     public function initModule(){
 
-        // load ini file if exists
         if (file_exists($this->info['ini_file'])){
-            register::$vars['coscms_main']['module'] = parse_ini_file($this->info['ini_file'], true);
-
-            // check if development settings exists.
-            if (isset(register::$vars['coscms_main']['module']['development'])){
-                // check if we are on a development server. 
-                // Note: Development needs to be set in main config/config.ini
-
-                if (
-                    
-                    register::$vars['coscms_main']['development']['server_name']
-                        ==
-                    @$_SERVER['SERVER_NAME']){
-
-
-                    // we are on development, merge and overwrite normal settings with
-                    // development settings.
-                    register::$vars['coscms_main']['module'] =
-                        array_merge(
-                            register::$vars['coscms_main']['module'],
-                            register::$vars['coscms_main']['module']['development']
-                        );
-                }
-            }
-
+            $module = $this->info['module_base_name'];
+            self::setModuleIniSettings($module);
+            
             // load php ini if exists
             if (isset(register::$vars['coscms_main']['module']['load_php_ini'])){
                 include $this->info['ini_file_php'];
@@ -448,6 +428,7 @@ class moduleLoader {
      * @return  array   array with ini settings of module.
      */
     public static function setModuleIniSettings($module){
+
         static $set = array();
         if (!isset(self::$iniSettings['module'])){
             self::$iniSettings['module'] = array();
@@ -469,27 +450,47 @@ class moduleLoader {
         }
 
         // check if development settings exists.
-            if (isset(self::$iniSettings[$module]['development'])){
-                // check if we are on a development server.
-                // Note: Development needs to be set in main config/config.ini
+        if (isset(self::$iniSettings[$module]['development'])){
+            // check if we are on a development server.
+            // Note: Development needs to be set in main config/config.ini
+            if (
 
-                if (
-
-                    register::$vars['coscms_main']['development']['server_name']
-                        ==
-                    @$_SERVER['SERVER_NAME']){
+                register::$vars['coscms_main']['development']['server_name']
+                    ==
+                @$_SERVER['SERVER_NAME']){
 
 
-                    // we are on development, merge and overwrite normal settings with
-                    // development settings.
-                    register::$vars['coscms_main']['module'] =
-                        array_merge(
-                            register::$vars['coscms_main']['module'],
-                            self::$iniSettings[$module]['development']
-                        );
-                }
+                // we are on development, merge and overwrite normal settings with
+                // development settings.
+                register::$vars['coscms_main']['module'] =
+                    array_merge(
+                        register::$vars['coscms_main']['module'],
+                        self::$iniSettings[$module]['development']
+                    );
             }
+        }
+        
+        // check if development settings exists.
+        if (isset(self::$iniSettings[$module]['stage'])){
+            
+            // check if we are on a development server.
+            // Note: Development needs to be set in main config/config.ini
+            if (
 
+                register::$vars['coscms_main']['stage']['server_name']
+                    ==
+                @$_SERVER['SERVER_NAME']){
+
+
+                // we are on development, merge and overwrite normal settings with
+                // development settings.
+                register::$vars['coscms_main']['module'] =
+                    array_merge(
+                        register::$vars['coscms_main']['module'],
+                        self::$iniSettings[$module]['stage']
+                    );
+            }
+        }
     }
 
     public static function subModuleGetPreContent ($modules, $options) {

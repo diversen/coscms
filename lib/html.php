@@ -80,12 +80,15 @@ class HTML {
 
     }
 
-    public static function text ($name, $value = '', $extra = array()){
+    public static function text ($name, $value = null, $extra = array()){
         if (!isset($extra['size'])){
             $extra['size'] = HTML_FORM_TEXT_SIZE;
         }
 
-        $value = self::setValue($name, $value);
+        if (!isset($value)) {
+            $value = self::setValue($name, $value);
+        }
+        
         $extra = self::parseExtra($extra);
         $str = "<input type=\"text\" name=\"$name\" $extra value=\"$value\" />" . self::$br . "\n";
         self::$formStr.= $str;
@@ -116,7 +119,7 @@ class HTML {
         return $str;
     }
 
-    public static function textarea ($name, $value = '', $extra = array()){
+    public static function textarea ($name, $value = null, $extra = array()){
         if (!isset($extra['rows'])){
             $extra['rows'] = HTML_FORM_TEXTAREA_HT;
         }
@@ -128,8 +131,12 @@ class HTML {
         if (isset($extra['filter_help'])) {
             echo $extra['title'] = get_filters_help($extra['filter_help']);            
         } 
+        
+        if (!isset($value)) {
+            $value = self::setValue($name, $value);
+        } 
 
-        $value = self::setValue($name, $value);
+        //$value = self::setValue($name, $value);
         $extra = self::parseExtra($extra);
         $str =  "<textarea name=\"$name\" $extra>$value</textarea>" . self::$br . "\n";
         self::$formStr.= $str;

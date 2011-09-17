@@ -347,6 +347,7 @@ function include_module($module, $options = null){
     $model_file = $module_path . '/' . "model.$last.inc";  
     $view_file = $module_path . '/' . "view.$last.inc";
     $ary = explode('/', $module);
+
     lang::loadModuleLanguage($ary[0]);
     moduleLoader::setModuleIniSettings($ary[0]);
 
@@ -904,6 +905,39 @@ function send_301_headers ($url) {
         exit;
     }
 }
+
+/**
+ * function for redirecting to a exact serverneme.
+ * e.g. you have www.example.com and example.com as servernames
+ * you want only to allow example.com. 
+ * call server_recirect('example.com')
+ * @param string $server_redirect server_name to redirect to.  
+ */
+function server_redirect($server_redirect) {
+    if($_SERVER['SERVER_NAME'] != $server_redirect){
+        if ($_SERVER['SERVER_PORT'] == 80) {
+            $scheme = "http://";
+        } else {
+            $scheme = "https://";
+        }
+
+        $redirect = $scheme . $server_redirect . $_SERVER['REQUEST_URI'];
+        header("HTTP/1.1 301 Moved Permanently");
+        header("Location: $redirect");
+        die();
+    }
+}
+
+function server_force_ssl () {
+    //if (get_main_ini('server_force_ssl')) {
+    if ($_SERVER['SERVER_PORT'] != 443){
+        $redirect = "https://" . $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI'];
+        header("HTTP/1.1 301 Moved Permanently");
+        header("Location: $redirect");
+    }
+}
+
+
 
 // Mail functions
 

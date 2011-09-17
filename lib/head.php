@@ -24,7 +24,7 @@ ini_set('include_path', $ini_path . PATH_SEPARATOR .
 // parse main config.ini file
 register::$vars['coscms_debug']['include_path'] = ini_get('include_path');
 
-include_once "lib/common.php";
+include "lib/common.php";
 load_config_file ();
 
 
@@ -36,35 +36,17 @@ if (empty(register::$vars['coscms_main']['server_name'])){
 
 if (!defined('_COS_CLI')){
     ob_start();
-    
-    // include common functions
-    // include "common.php";
 
     $server_redirect = get_main_ini('server_redirect');
-    if ($server_redirect){
-        if($_SERVER['SERVER_NAME'] != $server_redirect){
-            if ($_SERVER['SERVER_PORT'] == 80) {
-                $scheme = "http://";
-            } else {
-                $scheme = "https://";
-            }
-
-            $redirect = $scheme . $server_redirect . $_SERVER['REQUEST_URI'];
-            header("HTTP/1.1 301 Moved Permanently");
-            header("Location: $redirect");
-            die();
-        }
+    if (isset($server_redirect)) {
+        server_redirect($server_redirect);
     }
     
-
-    if (get_main_ini('server_force_ssl')) {
-        if ($_SERVER['SERVER_PORT'] != 443){
-            $redirect = "https://" . $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI'];
-            header("HTTP/1.1 301 Moved Permanently");
-            header("Location: $redirect");
-        }
+    $server_force_ssl = get_main_ini('server_force_ssl');
+    if (isset($server_force_ssl)) {
+        server_force_ssl();
     }
-
+    
     include "db.php";
     include "uri.php";
     include "moduleloader.php";
@@ -119,17 +101,16 @@ if (!defined('_COS_CLI')){
     
     // init blocks
     $layout->initBlocks();
-    //die;
 
-    // load module
-    // means: catch the included controller file with ob functions
+
+    // load page module
+    // catch the included controller file with ob functions
     // and return the parsed page as html
     $str = $moduleLoader->loadModule();
 
     mainTemplate::printHeader();
     echo $str;
     
-
     $moduleLoader->runLevel(6);
     mainTemplate::printFooter();   
 
