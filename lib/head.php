@@ -9,6 +9,7 @@
  * @ignore
  */
 register::$vars['coscms_main'] = array();
+register::$vars['coscms_main']['module'] = array();
 register::$vars['coscms_debug'] = array();
 register::$vars['coscms_lang'] = array();
 register::$vars['coscms_debug']['timer']['start'] = microtime(true);
@@ -56,6 +57,8 @@ if (!defined('_COS_CLI')){
     include "template.php";
 
     session::initSession();
+    
+    $preloaded_module = get_main_ini('preloaded_modules');
 
     // init module loader
     $db = new db();
@@ -67,6 +70,7 @@ if (!defined('_COS_CLI')){
 
     register::$vars['coscms_main'] =
         array_merge(register::$vars['coscms_main'] , $db_settings);
+    
     $moduleLoader->runLevel(2);
 
     if (isset(register::$vars['coscms_main']['locale'])){

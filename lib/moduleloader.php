@@ -440,6 +440,7 @@ class moduleLoader {
 
         $set[$module] = $module;
         $ini_file = _COS_PATH . "/modules/$module/$module.ini";
+
         self::$iniSettings[$module] = parse_ini_file($ini_file, true);
 
         if (is_array(self::$iniSettings['module'])){

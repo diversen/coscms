@@ -459,8 +459,12 @@ class db {
         foreach ($_POST as $key => $value){
             // continue if field value is 'submit' or 'captcha'
             if ($key == 'submit') continue;
+            if ($key == 'submitted') continue;
             if ($key == 'captcha') continue;
             if ($key == 'MAX_FILE_SIZE') continue;
+            
+            // remove hidden elements with a method_
+            if (strstr($key, 'method')) continue;
             $ary[$key] = $value;
         }
         return $ary;

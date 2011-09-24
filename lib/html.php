@@ -10,15 +10,24 @@ class HTML {
     public static $br = "<br />";
 
     public static function getStr () {
-        return self::$formStr;
+        
+        $str = self::$formStr;
+        self::$formStr = '';
+        return $str;
     }
 
-    public static function init ($values = array ()) {
-
+    public static function init ($values = array (), $trigger = null) {
+        
+        if (isset($trigger)) {
+            self::$autoLoadTrigger = $trigger;
+        }
+        
         if (!empty(self::$autoLoadTrigger)){
             $trigger = self::$autoLoadTrigger;
             if (isset($_POST[$trigger])) {
                 self::$values = $_POST;
+                
+                //print_r($_SERVER); die;
             } else if (isset($_GET[$trigger])){
                 self::$values = $_GET;
             } else {
@@ -40,22 +49,36 @@ class HTML {
     }
 
     public static function formStart (
-            $name = 'form', $method ='post', $action = '',
-            $enctype = "multipart/form-data") {
-        $str = "<form action=\"$action\" method=\"$method\" name=\"$name\" enctype = \"$enctype\">\n";
+        $name = 'form', $method ='post', $action = '',
+        $enctype = "multipart/form-data") {
+        
+        $str = "";
+        
+        //$str.= '<a class="do_hide collpase">Hide</a>&nbsp;';
+        //$str.= '<a class="do_show">Show</a>';
+        //$str.= "<div class=\"collapse\">\n";      
+        $str.= "<form action=\"$action\" method=\"$method\" name=\"$name\" enctype = \"$enctype\">\n";
         $str.= "<fieldset>\n";
+        
+        
         self::$formStr.= $str;
         return $str;
     }
 
-    public static function legend ($legend){
-        $str = "<legend>$legend</legend>\n";
+    public static function legend ($legend, $extra = null){        
+        $str = "<legend>$legend";
+
+        $str.= "</legend>\n";
         self::$formStr.= $str;
         return $str;
     }
 
     public static function formEnd (){
-        $str = "</fieldset></form>\n";
+        $str = '';
+        $str.= "</fieldset>\n";
+        $str.= "</form>\n";
+        //$str.= "</div>\n";
+
         self::$formStr.= $str;
         return $str;
     }
@@ -78,6 +101,18 @@ class HTML {
             return '';
         }
 
+    }
+    
+    public static function hidden ($name, $value = null, $extra = array()){
+
+        if (!isset($value)) {
+            $value = self::setValue($name, $value);
+        }
+        
+        $extra = self::parseExtra($extra);
+        $str = "<input type=\"hidden\" name=\"$name\" $extra value=\"$value\" />\n";
+        self::$formStr.= $str;
+        return $str;
     }
 
     public static function text ($name, $value = null, $extra = array()){
@@ -174,6 +209,10 @@ class HTML {
         self::$formStr.= $str ;
         return $str;
     }
+    
+    public static function addHtml ($str) {
+        self::$formStr.= $str;
+    }
 
     public static function parseExtra ($extra) {
         $str = '';
@@ -195,16 +234,18 @@ class HTML {
      * @param   int     $selected the element which will be selected
      * @return  string  $extras to be added to a form
      */
-    public static function select($name, $rows, $field, $id, $value=null, $extra = array()){
-        $value = self::setValue($name, $value);
+    public static function select($name, $rows, $field, $id, $value=null, $extra = array(), $init = array()){        
         $extra = self::parseExtra($extra);
+        $dropdown = "<select name=\"$name\" $extra";
 
-        $dropdown = "<select name=\"$name\" ";
-        if (isset($extras)){
-            $dropdown.= $extras;
-
+        if (!isset($value)) {
+            $value = self::setValue($name, $value);
         }
         $dropdown.= ">\n";
+        if (!empty($init)) {
+            $dropdown.= '<option value="'.$init[$id].'"' . '' . '>'.$init[$field].'</option>'."\n";
+        }
+        
         foreach($rows as $row){
             if ($row[$id] == $value){
                 $s = ' selected';

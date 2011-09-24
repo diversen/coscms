@@ -2,5 +2,4 @@
 make a support forum.
 option for attaching modules to main menu. 
 some option for routing path to controllers or object calls. 
-add config module for doing db settings.
- 
+

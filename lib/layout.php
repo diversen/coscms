@@ -199,7 +199,7 @@ class layout extends db {
     public static function setDbConfigMenuItem($module_menu, $module) {
         $config_menu_item = array (
             'url' => "/$module/config/index",
-            'title' => lang::translate('config'));
+            'title' => lang::translate('config_main_menu_edit'));
         
         // if e.g. account_allow_db_config is not set we use admin as base setting
         $allow_config = $module . "_allow_db_config";
@@ -229,7 +229,7 @@ class layout extends db {
      * Admin menu is the menu holding all info about modules in database.
      * Therefore it is also some sort of top level module menu.
      */
-    public static function parseAdminMenuList (){
+    public static function parseAdminMenuList ($options = array()){
 
         $module_base = uri::$info['module_base'];
         $parent = moduleLoader::getParentModule($module_base);
@@ -243,7 +243,7 @@ class layout extends db {
         $str = $css = '';
         foreach($menu as $k => $v){
             if ( !empty($v['auth'])){
-                if (!session::isUser()) continue;
+                if (!session::isUser() && $v['auth'] == 'user') continue;
                 if (!session::isAdmin() && $v['auth'] == 'admin') continue;
                 if (!session::isSuper()  && $v['auth'] == 'super') continue;
             }
@@ -255,8 +255,12 @@ class layout extends db {
                     $css = false;
                 }
             }
+            
+            if (isset($options['li_style'])) {
+                $style = " class = \"$options[li_style]\" ";
+            }
 
-            $str.="<li>";
+            $str.="<li$style>";
             $link = create_link( $v['url'], $v['title'], false, $css);
 
             $str.=  $link;
@@ -287,7 +291,7 @@ class layout extends db {
         $str = $css = '';
         foreach($menu as $k => $v){
             if ( !empty($v['auth'])){
-                if (!session::isUser()) continue;
+                if (!session::isUser() && $v['auth'] == 'user') continue;
                 if (!session::isAdmin() && $v['auth'] == 'admin') continue;
                 if (!session::isSuper()  && $v['auth'] == 'super') continue;
             }
@@ -335,7 +339,7 @@ class layout extends db {
 
         foreach($menu as $k => $v){         
             if ( !empty($v['auth'])){
-                if (!session::isUser()) continue;
+                if (!session::isUser() && $v['auth'] == 'user') continue;
                 if (!session::isAdmin() && $v['auth'] == 'admin') continue;
                 if (!session::isSuper()  && $v['auth'] == 'super') continue;
             }

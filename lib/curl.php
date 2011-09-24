@@ -36,7 +36,7 @@ class mycurl {
        $this->auth_pass = $pass;
      }
  
-     public function __construct($url,$followlocation = true,$timeOut = 30,$maxRedirecs = 4,$binaryTransfer = false,$includeHeader = true,$noBody = false)
+     public function __construct($url,$followlocation = true,$timeOut = 30,$maxRedirecs = 4,$binaryTransfer = false,$includeHeader = false,$noBody = false)
      {
          $this->_url = $url;
          $this->_followlocation = $followlocation;

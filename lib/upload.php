@@ -279,17 +279,22 @@ class uploadBlob {
         $field = 'file',
         $id,
         $image_length = '400',
-        $maxsize = 4000000 ) {
+        $maxsize = null, $options = null) {
         if (isset($_FILES[$post_filename]['tmp_name'])){
 
             $options['filename'] =
                 $_FILES[$post_filename]['tmp_name'] . "-scaled";
-            $options['maxsize'] = $maxsize;
+            if ($maxsize) {
+                $options['maxsize'] = $maxsize;
+            } else {
+                $options['maxsize'] = 4000000;
+            }
 
             $res = self::scaleImage(
                 $_FILES[$post_filename]['tmp_name'],
                 $options['filename'],
-                $image_length
+                $image_length, 
+                $options
             );
             if (!$res)  {
                 // self::$errors[] = 'could not scale image';
@@ -311,11 +316,36 @@ class uploadBlob {
         }
     }
 
-    static function scaleImage ($image, $thumb, $length){
+    /**
+     *
+     * @param type $image
+     * @param type $thumb
+     * @param type $length
+     * @param type $options
+     * $_options = array(
+        'quality'     => 75,
+        'scaleMethod' => 'smooth',
+        'canvasColor' => array(255, 255, 255),
+        'pencilColor' => array(0, 0, 0),
+        'textColor'   => array(0, 0, 0)
+        );
+
+     */
+    
+    static function scaleImage ($image, $thumb, $length, $options = array()){
         require_once 'Image/Transform.php';
 
         //create transform driver object
         $it = Image_Transform::factory('GD');
+        if (isset($options)) {
+            //foreach ($options as $key => $val) {
+            //    $it->setOption
+            //}
+            cos_error_log('log image scale' . $options['quality']);
+            $it->_options = $options;
+            
+         }
+        
         if (PEAR::isError($it)) {
             self::$errors[] = lang::translate('system_upload_image_transform_factory_exception');
             cos_error_log($it->getMessage());
@@ -330,7 +360,7 @@ class uploadBlob {
             return false;
         }
 
-        $ret = $it->scaleByLength($length);
+        $ret = $it->scaleByX($length);
         if (PEAR::isError($ret)) {
             self::$errors[] = lang::translate('system_upload_factory_image_transform_scale_exception');
             cos_error_log($ret->getMessage());
