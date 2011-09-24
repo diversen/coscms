@@ -35,6 +35,7 @@ class cache {
         if ($max_life_time){
             $expire = $row['unix_ts'] + $max_life_time;
             if ($expire < time()){
+                self::delete($module, $id);
                 return null;
             } else {
                 return unserialize($row['data']);
@@ -55,6 +56,7 @@ class cache {
     public static function set ($module, $id, $data) {
         self::delete($module, $id);
 
+        //db::$dbh->tansaction
         $id = self::generateId($module, $id);
         $db = new db();
         
