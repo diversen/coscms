@@ -1,6 +1,11 @@
 <?php
 
-
+/**
+ * class cache. 
+ * 
+ * 3 methods set, get, and delete
+ * 
+ */
 class cache {
 
     /**
