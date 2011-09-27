@@ -34,7 +34,7 @@ include_once "lib/db.php";
 include_once "lib/moduleloader.php";
 include_once "lib/moduleInstaller.php";
 include_once "lib/common.php";
-include_once "scripts/shell_base/common.inc";
+include_once "lib/shell_base/common.inc";
 /**
  * class shell is a wrapper function around PEAR::commandLine
  *
@@ -244,10 +244,10 @@ mainCli::init();
 
 
 // include all base commands from scripts/commands folder
-$command_path = _COS_PATH . "/scripts/shell_base";
+$command_path = _COS_PATH . "/lib/shell_base";
 $file_list = get_file_list($command_path);
 foreach ($file_list as $key => $val){
-    $path =  _COS_PATH . "/scripts/shell_base/$val";
+    $path =  _COS_PATH . "/lib/shell_base/$val";
     include_once $path;
 }
 
