@@ -1251,7 +1251,7 @@ function load_config_file () {
     } else {
         register::$vars['coscms_main'] = parse_ini_file($config_file, true);
         if (
-            (register::$vars['coscms_main']['stage']['server_name'] ==
+            (@register::$vars['coscms_main']['stage']['server_name'] ==
                 @$_SERVER['SERVER_NAME'])
                 AND !defined('_COS_CLI') )
             {
