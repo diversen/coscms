@@ -258,6 +258,8 @@ class layout extends db {
             
             if (isset($options['li_style'])) {
                 $style = " class = \"$options[li_style]\" ";
+            } else {
+                $style = '';
             }
 
             $str.="<li$style>";
