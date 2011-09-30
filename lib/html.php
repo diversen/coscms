@@ -104,6 +104,20 @@ class HTML {
     }
     
     public static function hidden ($name, $value = null, $extra = array()){
+        $str = self::hiddenClean($name, $value, $extra);
+        /*
+        if (!isset($value)) {
+            $value = self::setValue($name, $value);
+        }
+        
+        $extra = self::parseExtra($extra);
+        $str = "<input type=\"hidden\" name=\"$name\" $extra value=\"$value\" />\n";
+        */
+        self::$formStr.= $str; 
+        return $str;
+    }
+    
+    public static function hiddenClean ($name, $value = null, $extra = array()){
 
         if (!isset($value)) {
             $value = self::setValue($name, $value);
@@ -111,9 +125,10 @@ class HTML {
         
         $extra = self::parseExtra($extra);
         $str = "<input type=\"hidden\" name=\"$name\" $extra value=\"$value\" />\n";
-        self::$formStr.= $str;
+        //self::$formStr.= $str;
         return $str;
     }
+    
 
     public static function text ($name, $value = null, $extra = array()){
         if (!isset($extra['size'])){
@@ -235,6 +250,8 @@ class HTML {
      * @return  string  $extras to be added to a form
      */
     public static function select($name, $rows, $field, $id, $value=null, $extra = array(), $init = array()){        
+        $dropdown = self::selectClean($name, $rows, $field, $id, $value, $extra, $init);
+        /*
         $extra = self::parseExtra($extra);
         $dropdown = "<select name=\"$name\" $extra";
 
@@ -255,8 +272,47 @@ class HTML {
 
             $dropdown .= '<option value="'.$row[$id].'"' . $s . '>'.$row[$field].'</option>'."\n";
         }
-        $dropdown .= '</select>'. self::$br . "\n";
-        self::$formStr.= $dropdown ;
+         * 
+         */
+        //$dropdown .= '</select>'. self::$br . "\n";
+        self::$formStr.= $dropdown . self::$br . "\n" ;
+        return $dropdown;
+        //return $dropdown;
+    }
+    
+    /**
+     * method for making a drop down box.
+     * 
+     * @param   string  $name the name of the select field
+     * @param   array   $rows the rows making up the ids and names of the select field
+     * @param   string  $field array field which will be used as name of the select element
+     * @param   int     $id the array field which will be used as id of the select element
+     * @param   int     $selected the element which will be selected
+     * @return  string  $extras to be added to a form
+     */
+    public static function selectClean($name, $rows, $field, $id, $value=null, $extra = array(), $init = array()){        
+        $extra = self::parseExtra($extra);
+        $dropdown = "<select name=\"$name\" $extra";
+
+        if (!isset($value)) {
+            $value = self::setValue($name, $value);
+        }
+        $dropdown.= ">\n";
+        if (!empty($init)) {
+            $dropdown.= '<option value="'.$init[$id].'"' . '' . '>'.$init[$field].'</option>'."\n";
+        }
+        
+        foreach($rows as $row){
+            if ($row[$id] == $value){
+                $s = ' selected';
+            } else {
+                $s = '';
+            }
+
+            $dropdown .= '<option value="'.$row[$id].'"' . $s . '>'.$row[$field].'</option>'."\n";
+        }
+        $dropdown .= "</select>\n";
+        //self::$formStr.= $dropdown ;
         return $dropdown;
         //return $dropdown;
     }
