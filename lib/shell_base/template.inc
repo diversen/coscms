@@ -18,7 +18,7 @@ include_once "lib/profile.php";
  * @param   array   options
  */
 function set_template($options){
-    $template = $options['template'];
+    $template = $options['Template'];
     $pro = new profile();
     $pro->setProfileTemplate($template);
 }
