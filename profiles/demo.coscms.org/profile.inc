@@ -5,7 +5,7 @@ $_PROFILE_MODULES = array (
   array (
     'id' => '1',
     'module_name' => 'system',
-    'module_version' => '1.311',
+    'module_version' => '1.312',
     'menu_item' => '1',
     'run_level' => '0',
     'load_on' => NULL,
@@ -96,7 +96,7 @@ $_PROFILE_MODULES = array (
   array (
     'id' => '8',
     'module_name' => 'account_profile',
-    'module_version' => '1.31',
+    'module_version' => '1.311',
     'menu_item' => '0',
     'run_level' => '0',
     'load_on' => NULL,
@@ -267,6 +267,20 @@ $_PROFILE_TEMPLATES = array (
   ),
   2 => 
   array (
+    'public_clone_url' => 'git://github.com/diversen/1kbgrid.git',
+    'private_clone_url' => 'git@github.com:diversen/1kbgrid.git',
+    'module_version' => '1.31',
+    'module_name' => '1kbgrid',
+  ),
+  3 => 
+  array (
+    'public_clone_url' => 'git://github.com/diversen/jquery-markedit.git',
+    'private_clone_url' => 'git@github.com:diversen/jquery-markedit.git',
+    'module_version' => '1.31',
+    'module_name' => 'bla',
+  ),
+  4 => 
+  array (
     'public_clone_url' => 'git://github.com/diversen/jquery-markedit.git',
     'private_clone_url' => 'git@github.com:diversen/jquery-markedit.git',
     'module_version' => '1.31',
@@ -274,7 +288,7 @@ $_PROFILE_TEMPLATES = array (
   ),
 );
 
-$_PROFILE_TEMPLATE = 'clean';
+$_PROFILE_TEMPLATE = '1kbgrid';
 
 $_PROFILE_USE_HOME = 0;
 
