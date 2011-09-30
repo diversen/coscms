@@ -84,8 +84,8 @@ $_PROFILE_MODULES = array (
     'id' => '7',
     'module_name' => 'google_analytics',
     'module_version' => '1.31',
-    'menu_item' => '0',
-    'run_level' => '5',
+    'menu_item' => '1',
+    'run_level' => '0,5',
     'load_on' => NULL,
     'parent' => NULL,
     'is_shell' => NULL,
@@ -107,7 +107,7 @@ $_PROFILE_MODULES = array (
   ),
   8 => 
   array (
-    'id' => '10',
+    'id' => '9',
     'module_name' => 'gravatar',
     'module_version' => '1.31',
     'menu_item' => '0',
@@ -120,7 +120,7 @@ $_PROFILE_MODULES = array (
   ),
   9 => 
   array (
-    'id' => '11',
+    'id' => '10',
     'module_name' => 'filter_php',
     'module_version' => '1.31',
     'menu_item' => '0',
@@ -133,7 +133,7 @@ $_PROFILE_MODULES = array (
   ),
   10 => 
   array (
-    'id' => '12',
+    'id' => '11',
     'module_name' => 'filter_markdownExt',
     'module_version' => '1.31',
     'menu_item' => '0',
@@ -146,7 +146,7 @@ $_PROFILE_MODULES = array (
   ),
   11 => 
   array (
-    'id' => '13',
+    'id' => '12',
     'module_name' => 'filter_markdown',
     'module_version' => '1.31',
     'menu_item' => '0',
@@ -159,7 +159,7 @@ $_PROFILE_MODULES = array (
   ),
   12 => 
   array (
-    'id' => '14',
+    'id' => '13',
     'module_name' => 'comment',
     'module_version' => '1.31',
     'menu_item' => '1',
@@ -172,7 +172,7 @@ $_PROFILE_MODULES = array (
   ),
   13 => 
   array (
-    'id' => '15',
+    'id' => '14',
     'module_name' => 'tags',
     'module_version' => '1.31',
     'menu_item' => '1',
@@ -185,7 +185,7 @@ $_PROFILE_MODULES = array (
   ),
   14 => 
   array (
-    'id' => '16',
+    'id' => '15',
     'module_name' => 'blog',
     'module_version' => '1.311',
     'menu_item' => '1',
@@ -198,7 +198,7 @@ $_PROFILE_MODULES = array (
   ),
   15 => 
   array (
-    'id' => '17',
+    'id' => '16',
     'module_name' => 'remote',
     'module_version' => '1.31',
     'menu_item' => '0',
@@ -211,7 +211,7 @@ $_PROFILE_MODULES = array (
   ),
   16 => 
   array (
-    'id' => '18',
+    'id' => '17',
     'module_name' => 'rss',
     'module_version' => '1.31',
     'menu_item' => '0',
@@ -224,7 +224,7 @@ $_PROFILE_MODULES = array (
   ),
   17 => 
   array (
-    'id' => '19',
+    'id' => '18',
     'module_name' => 'addthis',
     'module_version' => '1.31',
     'menu_item' => '0',
@@ -237,7 +237,7 @@ $_PROFILE_MODULES = array (
   ),
   18 => 
   array (
-    'id' => '20',
+    'id' => '19',
     'module_name' => 'reload_site',
     'module_version' => '1.31',
     'menu_item' => '0',
@@ -247,6 +247,19 @@ $_PROFILE_MODULES = array (
     'is_shell' => '1',
     'public_clone_url' => 'git://github.com/diversen/reload_site.git',
     'private_clone_url' => 'git@github.com:diversen/reload_site.git',
+  ),
+  19 => 
+  array (
+    'id' => '20',
+    'module_name' => 'config',
+    'module_version' => '1.311',
+    'menu_item' => '0',
+    'run_level' => '2',
+    'load_on' => NULL,
+    'parent' => NULL,
+    'is_shell' => NULL,
+    'public_clone_url' => 'git://github.com/diversen/config.git',
+    'private_clone_url' => 'git@github.com:diversen/config.git',
   ),
 );
 
@@ -273,13 +286,6 @@ $_PROFILE_TEMPLATES = array (
     'module_name' => '1kbgrid',
   ),
   3 => 
-  array (
-    'public_clone_url' => 'git://github.com/diversen/jquery-markedit.git',
-    'private_clone_url' => 'git@github.com:diversen/jquery-markedit.git',
-    'module_version' => '1.31',
-    'module_name' => 'bla',
-  ),
-  4 => 
   array (
     'public_clone_url' => 'git://github.com/diversen/jquery-markedit.git',
     'private_clone_url' => 'git@github.com:diversen/jquery-markedit.git',
