@@ -8,4 +8,4 @@ account_default_url = "/account/login/index"
 account_use_facebook_login = 0
 account_facebook_api_secret = "secret"
 account_facebook_api_appid = "appid"
-account_admin_only = 0
+account_admin_only = 1
