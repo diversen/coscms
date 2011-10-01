@@ -1,9 +1,9 @@
-url = "mysql:dbname=demosite;host=localhost"
+url = "mysql:dbname=db_name;host=localhost"
 username = "user"
 password = "pass"
 server_name = "example.com"
 server_force_ssl = 0
-site_email = "demosite"
+site_email = "test@example.com"
 date_default_timezone = "Europe/Copenhagen"
 date_format_long = "%d-%b-%Y %T"
 date_format_short = "%d-%b-%Y"
