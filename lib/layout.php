@@ -255,14 +255,9 @@ class layout extends db {
                     $css = false;
                 }
             }
-            
-            if (isset($options['li_style'])) {
-                $style = " class = \"$options[li_style]\" ";
-            } else {
-                $style = '';
-            }
 
-            $str.="<li$style>";
+
+            $str.="<li>";
             $link = create_link( $v['url'], $v['title'], false, $css);
 
             $str.=  $link;
