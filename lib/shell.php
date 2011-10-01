@@ -139,7 +139,7 @@ class mainCli {
             $result = self::$parser->parse();
 
             // we need to check domain here
-            $domain = $result->options['domain'];
+            echo $domain = $result->options['domain'];
             register::$vars['domain'] = $domain;
 
             // before loading head.php where ini settings are being read.
@@ -194,11 +194,6 @@ class mainCli {
     public static function loadCliModules (){
         // check if a connection exists.
 
-        //$ini_file = _COS_PATH . "/config/config.ini";
-        //register::$vars['coscms_main'] = @parse_ini_file($ini_file, true);
-
-        load_config_file();
-
         $db = new db();
         $ret = @$db->connect(array('dont_die' => 1));
       
@@ -220,10 +215,7 @@ class mainCli {
 
         foreach ($modules as $key => $val){
             if (isset($val['is_shell']) && $val['is_shell'] == 1){
-                // include all base commands from scripts/commands folder
                 $command_path = _COS_PATH . "/modules/$val[module_name]";
-                //$file_list = get_file_list($command_path);
-                //foreach ($file_list as $key => $val){
                 $path =  _COS_PATH . "/modules/$val[module_name]/$val[module_name].inc";
                 
                 if (file_exists($path)) {
@@ -235,23 +227,18 @@ class mainCli {
             }
         }
     }
-    // }}}
+    
+    static function loadDbModules () {
+        $command_path = _COS_PATH . "/lib/shell_base";
+        $file_list = get_file_list($command_path);
+        foreach ($file_list as $key => $val){
+            $path =  _COS_PATH . "/lib/shell_base/$val";
+            include_once $path;
+        }
+    }
 }
 
 mainCli::init();
-
-
-
-
-// include all base commands from scripts/commands folder
-$command_path = _COS_PATH . "/lib/shell_base";
-$file_list = get_file_list($command_path);
-foreach ($file_list as $key => $val){
-    $path =  _COS_PATH . "/lib/shell_base/$val";
-    include_once $path;
-}
-
+mainCli::loadDbModules();
 mainCli::loadCliModules();
-
-// after adding all commands found we run main program.
 mainCli::run();
