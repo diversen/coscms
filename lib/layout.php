@@ -248,17 +248,15 @@ class layout extends db {
                 if (!session::isSuper()  && $v['auth'] == 'super') continue;
             }
             
-            if (isset($v['url']) && !empty($module_base)){       
+            $options = array();
+            if (isset($v['url']) && !empty($module_base)){
                 if (strstr($v['url'], $module_base)){
-                    $css = 'current';
-                } else {
-                    $css = false;
-                }
+                    $options['class'] = 'current';
+                } 
             }
 
-
             $str.="<li>";
-            $link = create_link( $v['url'], $v['title'], false, $css);
+            $link = html::createLink( $v['url'], $v['title'], $options);
 
             $str.=  $link;
             if (isset($v['sub'])){
@@ -276,34 +274,19 @@ class layout extends db {
      * Therefore it is also some sort of top level module menu.
      */
     public static function parseMainMenuList (){
-
-        $module_base = uri::$info['module_base'];
-        $parent = moduleLoader::getParentModule($module_base);
-        if ($parent){
-            $module_base = "/" . $parent;
-        }
-
         $menu = array();
         $menu = self::$menu['main'];
         $str = $css = '';
         foreach($menu as $k => $v){
             if ( !empty($v['auth'])){
-                if (!session::isUser() && $v['auth'] == 'user') continue;
+                if (!session::isUser()) continue;
                 if (!session::isAdmin() && $v['auth'] == 'admin') continue;
                 if (!session::isSuper()  && $v['auth'] == 'super') continue;
             }
 
-            if (isset($v['url']) && !empty($module_base)){
-                if (strstr($v['url'], $module_base)){
-                    $css = 'current';
-                } else {
-                    $css = false;
-                }
-            }
 
             $str.="<li>";
-            $link = create_link( $v['url'], $v['title'], false, $css);
-
+            $link = html::createLink( $v['url'], $v['title']);
             $str.=  $link;
             if (isset($v['sub'])){
                 $str .= self::parseMainMenuList($v['sub']);
@@ -347,14 +330,12 @@ class layout extends db {
             }
             $num_items--;
 
-            if ( (strstr($v['url'] , $module_base))
-                 ){
-                $css = 'current';
-            } else {
-                $css = false;
-            }
-
-            $str .= create_link($v['url'], $v['title'], false, $css);
+            $options = array();
+            if ( strstr($v['url'] , $module_base)){
+                $options['class'] = 'current';
+            } 
+            
+            $str .= html::createLink($v['url'], $v['title'], $options);
             $str .= MENU_SUBLIST_END;
         }
 

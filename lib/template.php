@@ -134,23 +134,20 @@ abstract class template {
         }
     }
 
+
     /**
      * method for getting css for displaing in user template
      * @return  string  the css as a string
      */
     public static function getCss(){
+        
         $str = "";
-        //print_r(self::$css);
         ksort(self::$css);
-        //$str.= "<style type=\"text/css\" title=\"no-style\" media=\"screen\">\n";
-
+        
         foreach (self::$css as $key => $val){
-            //$str.= "\t@import \"$val\";\n";
             $str.= "<link rel=\"stylesheet\" type=\"text/css\" href=\"$val\" />\n";
-
-            //$str.= "<script src=\"$val\" type=\"text/css\"></script>\n";
         }
-        //$str.= "</style>\n";
+        
         return $str;
     }
 
@@ -241,6 +238,7 @@ abstract class template {
         }
         
         $str = file_get_contents($css);
+                
         if (isset($order)){
             self::$inlineCss[$order] = $str;
         } else {
@@ -248,10 +246,17 @@ abstract class template {
         }
     }
     
-    public static function cacheAsset ($css, $order, $type) {
+    /**
+     * method for caching a asset (js or css)
+     * @param type $css
+     * @param type $order
+     * @param type $type 
+     */
+    private static function cacheAsset ($css, $order, $type) {
         $md5 = md5($css);
         $cached_asset = _COS_PATH . "/htdocs/cached_assets/$md5.$type";
-        if (file_exists($cached_asset)) {
+        if (file_exists($cached_asset && !get_main_ini('cached_assets_reload'))) {
+            
             if ($type == 'css') {
                 self::setCss("/cached_assets/$md5.$type", $order);
             }
@@ -262,6 +267,7 @@ abstract class template {
         } else {
             $str = file_get_contents($css);
             file_put_contents($cached_asset, $str);
+
             if ($type == 'css') {
                 self::setCss("/cached_assets/$md5.$type", $order);
             }
