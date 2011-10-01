@@ -307,14 +307,7 @@ class layout extends db {
      */
     public static function parseModuleMenu($menu, $type){
 
-        $module_base = uri::$info['module_base'];
-        $parent = moduleLoader::getParentModule($module_base);
-        if ($parent){
-            $module_base = "/" . $parent;
-        }
-
-        $str = '';      
-        
+        $str = '';              
         $num_items = $ex = count($menu);
 
         foreach($menu as $k => $v){         
@@ -324,20 +317,16 @@ class layout extends db {
                 if (!session::isSuper()  && $v['auth'] == 'super') continue;
             }
             
-            $str .= MENU_SUBLIST_START;
+            $str.= "<li>";
             if ($num_items && ($num_items != $ex) ){
                 $str .= MENU_SUB_SEPARATOR;
             }
-            $num_items--;
-
-            $options = array();
-            if ( strstr($v['url'] , $module_base)){
-                $options['class'] = 'current';
-            } 
-            
-            $str .= html::createLink($v['url'], $v['title'], $options);
-            $str .= MENU_SUBLIST_END;
+            $num_items--;       
+            $str .= html::createLink($v['url'], $v['title']);
+            $str.= "</li>\n";
         }
+        
+        return "<ul>\n$str</ul>\n";
 
         if (empty($str)){
             return '';
