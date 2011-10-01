@@ -88,7 +88,7 @@ class mainCli {
                 'action'      => 'StoreString',
                 'default'     => 'default',
             )
-        );
+        );        
     }
     // }}}
     // {{{ function setCommand($command, $options)
@@ -136,15 +136,36 @@ class mainCli {
         try {
             $ret = 0;
             
+            // include head - will set same include path as web env
+            include_once "lib/head.php";
+            
+            // load config file
+            // Note: First time loaded we only load it order to load any
+            // base modules which may be set
+            load_config_file();
+            
+            // load all modules
+            mainCli::loadBaseModules();
+            mainCli::loadDbModules();
+                      
+            
             $result = self::$parser->parse();
 
-            // we need to check domain here
-            echo $domain = $result->options['domain'];
+            // we parse the command line given. 
+            // Note: Now we examine the domain, to if the -d switch is given
+            // this is done in order to find out if we operate on another 
+            // database than the default. E.g.: multi domains. 
+            
+            $domain = $result->options['domain'];
             register::$vars['domain'] = $domain;
 
-            // before loading head.php where ini settings are being read.
-            include_once "lib/head.php";
-
+            // if a not standard domain is given - we now need to load
+            // the config file again - in order to tell system which database
+            // we want to use. E.g. such a database may have been set in 
+            // config/multi/example.com/config.ini
+            // Then we know we operate on the correct database. 
+            
+            load_config_file();
            
             if (is_object($result) && isset($result->command_name)){
                 if (isset($result->command->options)){
@@ -191,9 +212,10 @@ class mainCli {
     }
     // }}}
     // {{{ loadCliModules ()
-    public static function loadCliModules (){
+    public static function loadDbModules (){
         // check if a connection exists.
 
+        
         $db = new db();
         $ret = @$db->connect(array('dont_die' => 1));
       
@@ -228,7 +250,7 @@ class mainCli {
         }
     }
     
-    static function loadDbModules () {
+    static function loadBaseModules () {
         $command_path = _COS_PATH . "/lib/shell_base";
         $file_list = get_file_list($command_path);
         foreach ($file_list as $key => $val){
@@ -239,6 +261,5 @@ class mainCli {
 }
 
 mainCli::init();
-mainCli::loadDbModules();
-mainCli::loadCliModules();
+
 mainCli::run();

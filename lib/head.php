@@ -25,17 +25,17 @@ ini_set('include_path', $ini_path . PATH_SEPARATOR .
 // parse main config.ini file
 register::$vars['coscms_debug']['include_path'] = ini_get('include_path');
 
-include_once "lib/common.php";
-load_config_file ();
-
-
-// set a unified server_name
-if (empty(register::$vars['coscms_main']['server_name'])){
-    register::$vars['coscms_main']['server_name'] = @$_SERVER['SERVER_NAME'];
-}
-
-
+// Rest is only for web mode. 
 if (!defined('_COS_CLI')){
+    include_once "lib/common.php";
+    load_config_file ();
+    
+    // set a unified server_name if not set in config file. 
+    if (empty(register::$vars['coscms_main']['server_name'])){
+        register::$vars['coscms_main']['server_name'] = $_SERVER['SERVER_NAME'];
+    }
+    
+    
     ob_start();
 
     $server_redirect = get_main_ini('server_redirect');
