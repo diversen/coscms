@@ -248,6 +248,19 @@ $_PROFILE_MODULES = array (
     'public_clone_url' => 'git://github.com/diversen/reload_site.git',
     'private_clone_url' => 'git@github.com:diversen/reload_site.git',
   ),
+  19 => 
+  array (
+    'id' => '21',
+    'module_name' => 'configdb',
+    'module_version' => '1.311',
+    'menu_item' => '0',
+    'run_level' => '2',
+    'load_on' => NULL,
+    'parent' => NULL,
+    'is_shell' => NULL,
+    'public_clone_url' => 'git://github.com/diversen/configdb.git',
+    'private_clone_url' => 'git@github.com:diversen/configdb.git',
+  ),
 );
 
 $_PROFILE_TEMPLATES = array (
