@@ -1,6 +1,6 @@
 url = "mysql:dbname=demosite;host=localhost"
-username = "root"
-password = "iversen1234"
+username = "user"
+password = "pass"
 server_name = "demosite"
 server_force_ssl = 0
 site_email = "demosite@example.com"
