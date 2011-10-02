@@ -180,12 +180,15 @@ class mainCli {
                                 } else {
                                     cos_cli_abort("No such function $key");
                                 }
+                            
+                            // No args - we leave empty we leave command argument
+                            // empty
                             } else {
                                 if (function_exists($key)){
                                     $ret = $key();
                                 } else {
                                     cos_cli_abort("No such function $key");
-                                }
+                                } 
                             }
                         } else {
                             $no_sub = 1;
@@ -261,5 +264,4 @@ class mainCli {
 }
 
 mainCli::init();
-
 mainCli::run();
