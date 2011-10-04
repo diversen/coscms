@@ -69,7 +69,7 @@ function isset_and_equal ($var, $val) {
     }
     return false;
 }
-//var_dump($fruit);
+
 // {{{ function cos_htmlentites($values)
 
 /**
