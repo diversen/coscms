@@ -420,7 +420,6 @@ function include_view ($module, $view, $vars = null, $return = null){
         return false;
     }    
 }
-// }}}
 
 
 // {{{ function include_controller($controller, $options)

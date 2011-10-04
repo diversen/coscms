@@ -187,7 +187,7 @@ class layout extends db {
         $module_menu = self::getMenuFromFile($module);
         $children_menu = self::getChildrenMenus($module);
         $module_menu = array_merge($module_menu, $children_menu);       
-        $db_config_file = _COS_PATH . "/modules/$module/db_config.inc";
+        $db_config_file = _COS_PATH . "/modules/$module/configdb.inc";
         
         if (file_exists($db_config_file)) {
             $module_menu = self::setDbConfigMenuItem ($module_menu, $module);
@@ -334,6 +334,27 @@ class layout extends db {
         $str = MENU_LIST_START . $str . MENU_LIST_END . "\n";
         return $str;
     }
+    
+    static function setModuleMenuExtra($items) {
+        self::$menu['extra'] = $items;
+    }
+    
+    static function parseModuleMenuExtra () {
+        $str = '';              
+        $num_items = $ex = count(self::$menu['extra']);
+
+        foreach(self::$menu['extra'] as $k => $v){         
+            $str.= "<li>";
+            if ($num_items && ($num_items != $ex) ){
+                $str .= MENU_SUB_SEPARATOR;
+            }
+            $num_items--;       
+            $str .= $v;
+            $str.= "</li>\n";
+        }
+        
+        return "<ul>\n$str</ul>\n";
+    }
 
     /**
      * method for getting module menu in a html form
@@ -349,6 +370,10 @@ class layout extends db {
         }
         if (!empty(self::$menu['sub'])){
             $str.= self::parseModuleMenu(self::$menu['sub'], 'sub');
+        }
+        
+        if (!empty(self::$menu['extra'])) {
+            $str.= self::parseModuleMenuExtra();
         }
         return $str;
     }

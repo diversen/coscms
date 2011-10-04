@@ -29,11 +29,16 @@ class db {
      */
     static $debug = array();
 
+    static public function init(){
+        return new db();
+    }
+
+    
     /**
      * constructor will try to call method connect
      */
     public function __construct(){
-
+        //return self;
     }
 
     /**
@@ -520,6 +525,10 @@ class QBuilder extends db {
 
     public static function setSelect ($table, $fields ='*'){
         self::$query = "SELECT $fields FROM `$table` ";
+    }
+    
+    public static function setDelete ($table){
+        self::$query = "DELETE FROM `$table` ";
     }
 
     public static function filter ($filter, $value, $bind = null) {
