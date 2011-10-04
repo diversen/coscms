@@ -60,6 +60,15 @@ function trim_array ($ary) {
     array_walk($ary, 'trim_value');
     return $ary;
 }
+
+function isset_and_equal ($var, $val) {
+    if (isset($var)) {
+        if ($var == $val) {
+            return true;
+        }
+    }
+    return false;
+}
 //var_dump($fruit);
 // {{{ function cos_htmlentites($values)
 
