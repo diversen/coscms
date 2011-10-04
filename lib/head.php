@@ -106,7 +106,6 @@ if (!defined('_COS_CLI')){
     // init blocks
     $layout->initBlocks();
 
-
     // load page module
     // catch the included controller file with ob functions
     // and return the parsed page as html
@@ -122,28 +121,19 @@ if (!defined('_COS_CLI')){
     $final = ob_get_contents();
     ob_end_clean();
     
-    // Specify configuration
-    //print_r(register::$vars);
-    //echo 
+    // Last divine intervention
+    // tidy / e.g. Dom
+    $moduleLoader->runLevel(7);  
     if (get_main_ini('tidy_parse')) {
-
         $config = array(
                'indent'         => true,
                'output-xhtml'   => true,
                'wrap'           => 200);
-
-        // Tidy
         $tidy = new tidy;
         $tidy->parseString($final, $config, 'utf8');
         $tidy->cleanRepair();
         echo $tidy;
     } else {
-
         echo $final;
-    }
-    
-    //echo $final;
-    
-    //last runlevel. After anything has been written to screen.
-    $moduleLoader->runLevel(7);                
+    }                     
 }
