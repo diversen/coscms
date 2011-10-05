@@ -127,7 +127,7 @@ if (!defined('_COS_CLI')){
     if (get_main_ini('tidy_parse')) {
         $config = array(
                'indent'         => true,
-               'output-xhtml'   => true,
+               'output-xml'   => true,
                'wrap'           => 200);
         $tidy = new tidy;
         $tidy->parseString($final, $config, 'utf8');
