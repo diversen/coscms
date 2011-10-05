@@ -118,22 +118,24 @@ if (!defined('_COS_CLI')){
     
     $moduleLoader->runLevel(6);
     mainTemplate::printFooter();   
-    $final = ob_get_contents();
+    register::$vars['final_output'] = ob_get_contents();
     ob_end_clean();
     
     // Last divine intervention
     // tidy / e.g. Dom
-    $moduleLoader->runLevel(7);  
-    if (get_main_ini('tidy_parse')) {
-        $config = array(
-               'indent'         => true,
-               'output-xml'   => true,
-               'wrap'           => 200);
-        $tidy = new tidy;
-        $tidy->parseString($final, $config, 'utf8');
-        $tidy->cleanRepair();
-        echo $tidy;
-    } else {
-        echo $final;
-    }                     
+     
+    
+    
+    $moduleLoader->runLevel(7); 
+    echo register::$vars['final_output'];
+    
+    //$final = str_replace('&nbsp;', '&#160;', $final);
+    // 
+    /*
+    $doc = new DOMDocument();
+    $doc->loadHTML($final);
+    echo $doc->saveXML();
+    */  
+     
+    //echo $final;
 }
