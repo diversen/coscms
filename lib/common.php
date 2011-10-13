@@ -371,7 +371,6 @@ function include_module($module, $options = null){
     lang::loadModuleLanguage($ary[0]);
     moduleLoader::setModuleIniSettings($ary[0]);
 
-
     if (file_exists($view_file)){
         include_once $view_file;
     }
@@ -1309,4 +1308,18 @@ function load_config_file () {
             }
         }
     }
+}
+
+function get_files_path () {
+    $domain = get_main_ini('domain');
+    if ($domain == 'default') {
+        $files_path = _COS_PATH . "/files";
+    } else {
+        $files_path = _COS_PATH . "/files/$domain";
+    }
+    return $files_path;
+}
+
+function get_domain () {
+    return get_main_ini('domain');
 }

@@ -92,6 +92,16 @@ class upload {
      * @param  array  array of options
      */
     function __construct($options = null, $createDir = false){
+        //$this->uploadDir = get_domain();
+        $domain = get_domain();
+        
+        
+        if ($domain == 'default') {
+            $this->uploadDir = "/files/$domain/content";
+        } else {
+            $this->uploadDir = "/files/content";
+        }
+        
         if (isset($options['upload_dir'])){
             $this->uploadDir = $options['upload_dir'];
         }
@@ -99,7 +109,8 @@ class upload {
             $this->dbTable = $options['db_table'];
         }
         if ($this->useDocRoot){
-            $this->uploadDir = $_SERVER['DOCUMENT_ROOT'] . $this->uploadDir;
+            //$files_path = get_files_path();
+            $this->uploadDir = _COS_PATH . "/htdocs" . $this->uploadDir;
         }
         $this->createDir = $createDir;
 
@@ -115,9 +126,11 @@ class upload {
      */
     public function moveFile($filename = null, $options = null){
 
-            // check if dir exists
+        // check if dir exists
         if (!file_exists($this->uploadDir) && $this->createDir){
             $status['dir_not_exists'] = "Dir: " . $this->uploadDir . " does not exists";
+            //echo $this->uploadDir; die;
+            //die;
             $ret = mkdir ($this->uploadDir, $this->mode, true);
             if ($ret){
                 $this->status[] = lang::translate('Created dir') . ' ' . $this->uploadDir;

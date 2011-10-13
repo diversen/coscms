@@ -200,8 +200,13 @@ class db {
     public function selectAll($table, $fields = null, $search = null, $from = null,
                               $limit = null, $order_by = null, $asc = null){
             if ($fields){
-                $fields = implode(' ,', $fields);
-                $sql = "SELECT " . $fields . " FROM `$table`";
+                if (is_array($fields)) {
+                    $fields = implode(' ,', $fields);
+                    $sql = "SELECT " . $fields . " FROM `$table`";
+                } else if (is_string($fields)) {
+                    $sql = "SELECT " . $fields . " FROM `$table`";
+                }
+                
             } else {
                 $sql = "SELECT * FROM `$table` ";
             }

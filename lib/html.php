@@ -229,8 +229,9 @@ class HTML {
         self::$formStr.= $str;
     }
 
-    public static function parseExtra ($extra) {
+    public static function parseExtra ($extra = array()) {
         $str = '';
+        if (empty($extra)) return '';
         
         foreach ($extra as $key => $val){
             $str.= " $key = \"$val\" ";
