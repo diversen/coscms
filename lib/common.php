@@ -231,6 +231,15 @@ function load_post($id){
     return true;
 }
 // }}}
+
+function get_post($id) {
+    if (!isset($_SESSION[$id])) {
+        return false;
+    }
+    return $_SESSION[$id];
+    //return true;
+}
+
 // {{{ function cos_url_encode($string)
 /**
  * function for url encoding a utf8 string

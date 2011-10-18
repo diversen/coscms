@@ -131,6 +131,12 @@ class HTML {
     
 
     public static function text ($name, $value = null, $extra = array()){
+        $str = self::textClean($name, $value, $extra);
+        self::$formStr.= $str;
+        return $str;
+    }
+    
+    public static function textClean ($name, $value = null, $extra = array()){
         if (!isset($extra['size'])){
             $extra['size'] = HTML_FORM_TEXT_SIZE;
         }
@@ -141,7 +147,6 @@ class HTML {
         
         $extra = self::parseExtra($extra);
         $str = "<input type=\"text\" name=\"$name\" $extra value=\"$value\" />" . self::$br . "\n";
-        self::$formStr.= $str;
         return $str;
     }
 
