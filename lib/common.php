@@ -1332,3 +1332,7 @@ function get_files_path () {
 function get_domain () {
     return get_main_ini('domain');
 }
+
+function disallow_direct_call () {
+    print_r($_SERVER);
+}
