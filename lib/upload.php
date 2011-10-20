@@ -286,11 +286,11 @@ class uploadBlob {
      * @return boolean result of operation
      *                  may throw an exception
      */
-    static function scaleImageToBlob (
+    public static function scaleImageToBlob (
         $post_filename,
         $db_table,
         $field = 'file',
-        $id,
+        $id = 0,
         $image_length = '400',
         $maxsize = null, $options = null) {
         if (isset($_FILES[$post_filename]['tmp_name'])){
@@ -354,7 +354,8 @@ class uploadBlob {
             //foreach ($options as $key => $val) {
             //    $it->setOption
             //}
-            cos_error_log('log image scale' . $options['quality']);
+            // cos_error_log('log image scale' . $options['quality']);
+            
             $it->_options = $options;
             
          }
@@ -389,3 +390,39 @@ class uploadBlob {
         return true;
     }
 }
+
+class scaleBlobSimple {
+    // id of the $_FILE element to move to blob, e.g. 'file'
+    public static $filename = 'file';
+    // the db table which recieve the file
+    public static $dbTable;
+    // the db field which contains the blob to scale into
+    public static $dbField = 'file';
+    // the id of the field to scale image into. 
+    public static $fieldId;    
+    // width (x) of the image
+    public static $scaleWidth = '400';
+    // maxsize of the file in bytes
+    public static $maxsize = 4000000;
+    // extra options
+    public static $options = null;
+    
+    public static function scaleImageToBlob () {
+        return uploadBlob::scaleImageToBlob(
+                self::$filename, 
+                self::$dbTable, 
+                self::$dbField, 
+                self::$fieldId, 
+                self::$scaleWidth, 
+                self::$maxsize, 
+                self::$options);     
+    }
+    
+}
+
+/*
+function test () {
+    scaleBlobSimple::test();
+}
+
+test(); */
