@@ -419,10 +419,3 @@ class scaleBlobSimple {
     }
     
 }
-
-/*
-function test () {
-    scaleBlobSimple::test();
-}
-
-test(); */
