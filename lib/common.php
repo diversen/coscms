@@ -618,7 +618,8 @@ function get_module_path ($module){
 // {{{ function create_seo_title($title)
 /**
  * function for creating a seo friendly title
- *
+ * 
+ * @deprecated use strings::seoTitle
  * @param   string   the title of the url to be created
  * @return  string   the title with _ instead of spaces ' '
  */
@@ -632,7 +633,7 @@ function create_seo_title($title){
 // {{{ function create_link($url, $title, $description)
 /**
  * function for creating a link
- *
+ * @deprecated
  * @param   string  the url to create the link from
  * @param   string  the title of the link
  * @param   boolean if true we only return the url and not the html link
@@ -667,7 +668,7 @@ function create_link($url, $title, $return_url = false, $css = null){
 // {{{ function create_link($url, $title, $description)
 /**
  * function for creating a link
- *
+ * @deprecated
  * @param   string  the url to create the link from
  * @param   string  the title of the link
  * @param   boolean if true we only return the url and not the html link
@@ -681,7 +682,12 @@ function create_image_link($url, $href_image, $options = null){
     if (isset($options['height'])) $alt = $options['height'];
     return "<a href=\"$url\"><img $str src=\"$href_image\" /></a>";
 }
-
+/**
+ * @deprecated
+ * @param type $href_image
+ * @param type $options
+ * @return type 
+ */
 function create_image($href_image, $options = null){
     $str = '';
     if (isset($options['alt'])) $str.= " alt = \"$options[alt]\" ";
@@ -694,7 +700,7 @@ function create_image($href_image, $options = null){
 // {{{ function view_drop_down_db($name, $table, $field, $id, $selected = null))
 /**
  * function for creating a select dropdown from a database table.
- *
+ * @deprecated
  * @param   string  the name of the select filed
  * @param   string  the database table to select from
  * @param   string  the database field which will be used as name of the select element
@@ -732,7 +738,7 @@ function view_drop_down_db($name, $table, $field, $id, $selected=null, $extras =
 // }}}
 // {{{ function view_drop_down($name, $rows, $field, $id, $selected= null)
 /**
- *
+ * @deprecated
  * @param   string  the name of the select field
  * @param   array   the rows making up the ids and names of the select field
  * @param   string  the field which will be used as name of the select element
@@ -763,6 +769,7 @@ function view_drop_down($name, $rows, $field, $id, $selected=null, $behav = null
 // }}}
 // {{{ function simple_template ($file)
 /**
+ * @deprecated
  * simple template method for collecting a string from a file
  */
 function simple_template ($file){
@@ -778,7 +785,7 @@ function simple_template ($file){
  * Gets user profile link if a profile system is in place.
  * Profile systems must be set in main config/config.ini
  * the option array can be used to setting special options for profile module
- * 
+ * @deprecated
  * @param   array   user options
  * @param   array   options
  * @return  string  string showing the profile
@@ -815,6 +822,7 @@ function get_profile_link ($user, $options = null){
  * Profile systems must be set in main config/config.ini
  * the option array can be used to setting special options for profile module
  * 
+ * @deprecated
  * @param   array   user options
  * @param   array   options
  * @return  string  string showing the profile
@@ -844,6 +852,7 @@ function get_profile_edit_link ($user_id){
 
 /**
  * function for getting account
+ * @deprecated
  * @param int $id
  * @return array $row from account 
  */
@@ -853,6 +862,14 @@ function get_account ($id) {
     return $row;
 }
 
+/**
+ * @deprecated
+ * @param type $user
+ * @param type $text
+ * @param type $date
+ * @param type $date_format
+ * @return type 
+ */
 function get_profile_link_full ($user, $text, $date, $date_format = 'date_format_long') {
         $unix_stamp = strtotime($date);
         $date = strftime(get_main_ini($date_format), $unix_stamp);
@@ -1168,6 +1185,7 @@ class cosValidate {
  * function for sanitizing a URL
  * from http://chyrp.net/
  * 
+ * @deprecated
  * @param string $string
  * @param boolean $force_lowercase 
  * @param boolean $remove_special
@@ -1191,7 +1209,7 @@ function cos_sanitize_url($string, $force_lowercase = true, $remove_special = fa
 /**
  * simple sanitize function where only thing removed is /
  * in order to not confuse the url
- * 
+ *  @deprecated
  * @param string $string string to sanitize
  * @return string $string sanitized string
  */
@@ -1331,8 +1349,4 @@ function get_files_path () {
 
 function get_domain () {
     return get_main_ini('domain');
-}
-
-function disallow_direct_call () {
-    print_r($_SERVER);
 }

@@ -366,9 +366,15 @@ class HTML {
     public static function createImage ($src, $options = array()) {
         $options = self::parseExtra($options);
         $str = "<img src=\"$src\" $options />";
-
         return $str;
     }
+    
+    public static function createHrefImage($url, $options = array(), $href = null){
+        $str = self::createImage($src, $options);
+        return "<a href=\"$href\">$str</a>";
+    }
+
+
 
     public static function specialEncode(&$values){
         if (is_array($values)){
