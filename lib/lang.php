@@ -74,7 +74,7 @@ class lang {
      *                  e.g. array ('a name', 'a adresse')
      * @return  string  translated string
      */
-    static function translate($sentence, $substitute = array()){
+    public static function translate($sentence, $substitute = array()){
         if (isset(self::$dict[$sentence])){
             if (!empty($substitute)){
                 $i = 1;
@@ -88,6 +88,21 @@ class lang {
         } else {
             return "NT: '$sentence'";
         }
+    }
+    
+    /**
+     * method for doing translations. The method calls translate. 
+     * and it is an alias. BUT: In order to auto translate modules, 
+     * you should use this function if you call translation found
+     * in the system module. E.g. for default submit buttons.   
+     *
+     * @param   string  $sentence the sentence to translate.
+     * @param   array   array with substitution to perform on sentence.
+     *                  e.g. array ('a name', 'a adresse')
+     * @return  string  translated string
+     */
+    public static function system($sentence, $substitute = array()){
+        return self::translate($sentence, $substitute);
     }
 
     /**
