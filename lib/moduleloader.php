@@ -440,14 +440,14 @@ class moduleLoader {
 
         $set[$module] = $module;
         $ini_file = _COS_PATH . "/modules/$module/$module.ini";
+        
+        // XXX: check Memcache - if found don't read. 
         if (!file_exists($ini_file)) {
             cos_error_log("Notice: Trying to load ini file $ini_file in " . __FILE__ . " " . __LINE__);
             return;
         }
         
-
         self::$iniSettings[$module] = parse_ini_file($ini_file, true);
-
         if (is_array(self::$iniSettings['module'])){
             register::$vars['coscms_main']['module'] = array_merge(
                 register::$vars['coscms_main']['module'],
@@ -499,6 +499,14 @@ class moduleLoader {
         }
     }
 
+    /**
+     * method for getting modules pre content. pre content is content shown
+     * before the real content of a page. E.g. admin options if any. 
+     * 
+     * @param array $modules the modules which we want to get pre content from
+     * @param array $options spseciel options to be send to the sub module
+     * @return string   the parsed modules pre content as a string
+     */
     public static function subModuleGetPreContent ($modules, $options) {
         $str = '';
         $ary = array();
@@ -511,7 +519,15 @@ class moduleLoader {
         }
         return self::parsePreContent($ary);
     }
-
+    
+    /**
+     * method for parsing the pre content. As the can be more modules
+     * we iritate over an array of sub modules content and return this
+     * as a string. 
+     * 
+     * @param array $ary the array of strings
+     * @return string   strings seperated with an hr
+     */
     public static function parsePreContent ($ary = array()){
         $num = count($ary);
         $ret_str = '';
@@ -526,6 +542,12 @@ class moduleLoader {
         return $ret_str;
     }
 
+    /**
+     * method for setting inline content
+     * @param array $modules
+     * @param array $options
+     * @return string 
+     */
     public static function subModuleGetInlineContent ($modules, $options){
         $str = '';
         if (!is_array($modules)) return $str;
@@ -537,6 +559,12 @@ class moduleLoader {
         return $str;
     }
 
+    /**
+     * method for getting post content of some modules
+     * @param type $modules
+     * @param type $options
+     * @return string the post content as a string. 
+     */
     public static function subModuleGetPostContent ($modules, $options){
 
         $str = '';
@@ -550,6 +578,11 @@ class moduleLoader {
         
     }
 
+    /**
+     *method for including modules
+     * @param array $modules
+     * @return false|void   false if no modules where given.  
+     */
     public static function includeModules ($modules) {
         if (!is_array($modules)) return false;
         foreach ($modules as $key => $val) {

@@ -78,9 +78,10 @@ if (!defined('_COS_CLI')){
     } else {
         $locale = register::$vars['coscms_main']['language'].'.UTF8';
     }
-    //echo $locale;
+
     setlocale(LC_TIME, $locale);
     setlocale(LC_MONETARY, $locale);
+    
     // set default timezone
     date_default_timezone_set(register::$vars['coscms_main']['date_default_timezone']);
     $moduleLoader->runLevel(4);
@@ -124,19 +125,7 @@ if (!defined('_COS_CLI')){
     
     // Last divine intervention
     // tidy / e.g. Dom
-     
-    
-    
+
     $moduleLoader->runLevel(7); 
     echo register::$vars['final_output'];
-    
-    //$final = str_replace('&nbsp;', '&#160;', $final);
-    // 
-    /*
-    $doc = new DOMDocument();
-    $doc->loadHTML($final);
-    echo $doc->saveXML();
-    */  
-     
-    //echo $final;
 }

@@ -16,14 +16,9 @@ class session {
     /**
      * method for initing a session
      * set in_session and start_time of session
+     * checks if we use memcached which is a good idea
      */
     static public function initSession(){
-
-        // if system cookie is set user want to reenable his
-        // login
-        
-        
-        
         // figure out session time
         if (isvalue(register::$vars['coscms_main']['session_time'])) {
             ini_set("session.cookie_lifetime", register::$vars['coscms_main']['session_time']);
@@ -39,17 +34,27 @@ class session {
             ini_set("session.cookie_domain", register::$vars['coscms_main']['session_host']);
         }
 
-
         // use memcache if available
-        if (get_main_ini('session_handler') == 'memcache'){
-            $host = 'localhost'; $port = '11211';
-            $session_save_path = "tcp://$host:$port?persistent=0&weight=2&timeout=2&retry_interval=10,  ,tcp://$host:$port  ";
+        $handler = get_main_ini('session_handler');
+        if ($handler == 'memcache'){
+            $host = get_main_ini('memcache_host');
+            if (!$host) {
+                $host = 'localhost';
+            }
+            $port = get_main_ini('memcache_port');
+            if (!$port) {
+                $port = '11211';
+            }
+            $query = get_main_ini('memcache_query');
+            if (!$query) {
+                $query = 'persistent=0&weight=2&timeout=2&retry_interval=10';
+            }
+            $session_save_path = "tcp://$host:$port?$query,  ,tcp://$host:$port  ";
             ini_set('session.save_handler', 'memcache');
             ini_set('session.save_path', $session_save_path);
         }
 
         session_start();
-
         self::checkSystemCookie();
 
         // if 'started' is set for previous request
@@ -85,11 +90,6 @@ class session {
                 return;
             }
 
-            
-
-            // no session id. We check database, and see if we can
-            // find any there
-
             $db = new db();
             $db->connect();
             $row = $db->selectOne ('system_cookie', 'cookie_id', $_COOKIE['system_cookie']);
@@ -108,15 +108,11 @@ class session {
 
     // }}}
     public static function setSystemCookie($account_id){
-
         
         $uniqid = uniqid();
         $uniqid= md5($uniqid);
-        // ended cookie
-        //setcookie ("system_cookie", "", time() - 3600, "/");
 
         // calculate days into seconds
-
         $cookie_time = 3600 * 24 * get_main_ini('cookie_time');
         $timestamp = time() + $cookie_time;
 
@@ -131,7 +127,10 @@ class session {
         $db->insert('system_cookie', $values);
     }
     // }}}
-    //
+    /**
+     * try to get system cookie
+     * @return false|string     retruns cookie md5 or false    
+     */
     public static function getSystemCookie (){
         if (isset($_COOKIE['system_cookie'])){
             return $_COOKIE['system_cookie'];
@@ -140,6 +139,10 @@ class session {
         }
     }
 
+    /**
+     * method for killing a session
+     * unsets the system cookie and unsets session credentials
+     */
     public static function killSession (){
         setcookie ("system_cookie", "", time() - 3600, "/");
         unset($_SESSION['id'], $_SESSION['admin'], $_SESSION['super'], $_SESSION['account_type']);
@@ -148,7 +151,6 @@ class session {
     // {{{ static public function isInSession() (ret: boolean)
     /**
      * method for testing if user is in session or not
-     * 
      * @return  boolean true or false
      */
     static public function isInSession(){
@@ -325,7 +327,6 @@ class session {
         // check other than users. 'admin' and 'super' is set
         // in special session vars when logging in. User is
         // someone how just have a valid $_SESSION['id'] set
-
         if (!isset($_SESSION[$allow]) || $_SESSION[$allow] != 1){
             if ($setErrorModule){
                 moduleLoader::$status[403] = 1;
@@ -336,6 +337,13 @@ class session {
         }
     }
     // }}}
+    /**
+     * method for relocate user to login, and after correct login 
+     * redirect to the page where he was. You can set message to
+     * be shown on login screen.
+     *  
+     * @param string $message 
+     */
     public static function loginThenRedirect ($message){
         unset($_SESSION['redirect_on_login']);
         if (!session::isUser()){

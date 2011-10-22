@@ -238,6 +238,7 @@ abstract class template {
         }
         
         $str = file_get_contents($css);
+        
                 
         if (isset($order)){
             self::$inlineCss[$order] = $str;
