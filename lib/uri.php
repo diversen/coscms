@@ -41,7 +41,7 @@ class uri {
      *
      * @var <array> $info for holding info
      */
-    public static $info = null;
+    public static $info = array();
 
     // }}}
     // {{{ public static function getInstance()
@@ -66,7 +66,16 @@ class uri {
      *
      */
     private function __construct() {
+        self::setInfo();        
+    }
 
+    // }}}
+    public static function setInfo() {
+        static $info_isset = null;
+        if ($info_isset) { 
+            return;
+        }
+        
         $frags = self::getRequestUriAry();
 
         self::$info['frags'] = self::getRequestUriAry();
@@ -80,9 +89,9 @@ class uri {
         self::$info['module_name'] = self::getModuleName($controller_frags);
         self::$info['module_base'] = self::getModuleBase($controller_frags);
         self::$info['module_base_name'] = self::getModuleBaseName($controller_frags);
+        $info_isset = true;
     }
-
-    // }}}
+    
     // {{{ public static function getRequestUriAry()
 
     /**
@@ -91,7 +100,8 @@ class uri {
      * @return array all fragments in uri as an array
      */
     public static function getRequestUriAry(){
-        $uri = explode('?', $_SERVER['REQUEST_URI']);
+        $uri = self::splitRequestAry();
+        //print_r($uri[1]);
         $fragments =  explode('/', $uri[0]);
         // clean url for empty values or null values
         foreach ($fragments as $key => $value) {
@@ -106,6 +116,15 @@ class uri {
     }
 
     // }}}
+    public static function splitRequestAry () {
+        $uri = explode('?', $_SERVER['REQUEST_URI']);
+        if (isset($uri[1])) { 
+            self::$info['get_part'] = $uri[1];
+        } else {
+            self::$info['get_part'] = '';
+        } 
+        return $uri;
+    }
     // {{{ public static function getControllerPathAry($fragments)
 
     /**
@@ -232,7 +251,7 @@ class uri {
      * @param   string          The uri key
      * @return  string|false    return string or false if no such key
      */
-    public function fragment($key) {
+    public static function fragment($key) {
         if(array_key_exists($key, self::$fragments)){
             return self::$fragments[$key];
         }

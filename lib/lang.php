@@ -40,14 +40,12 @@ class lang {
         );
 
         // create system lanugage for all modules
-       if (!empty($system_language)){
+        if (!empty($system_language)){
             foreach($system_language as $key => $val){
                 $module_lang = unserialize($val['translation']);
                 $system_lang = array_merge($system_lang, $module_lang);
             }
         }
-
-
 
         // include main language set in config/config.ini
         $lang_file =

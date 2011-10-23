@@ -888,13 +888,14 @@ function get_profile_link_full ($user, $text, $date, $date_format = 'date_format
 
 function simple_prg (){
     // check to see if we should start prg
+    //print_r($_SERVER); die;
     if ($_SERVER['REQUEST_METHOD'] == 'POST'){
         $uniqid = uniqid();
         $_SESSION['post'][$uniqid] = $_POST;
         $_SESSION['REQUEST_URI'] = $_SERVER['REQUEST_URI'];
 
         header("HTTP/1.1 303 See Other");
-        $header = "Location: " . $_SERVER['REQUEST_URI'] . '?prg=1&uniqid=' . $uniqid;
+        $header = "Location: " . $_SERVER['REDIRECT_URL'] . '?prg=1&uniqid=' . $uniqid;
         header($header);
         die;
     }
