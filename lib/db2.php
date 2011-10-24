@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * @deprecated strage that db2 is deprecated but db is not. I used this to 
+ * play around, but ended up making QBuilder which does the same: Makes easy
+ * querys to db. 
+ * 
+ */
 class db2 {
 
    /**

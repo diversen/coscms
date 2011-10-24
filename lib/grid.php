@@ -4,6 +4,7 @@
 /**
  * File contains contains class for creating forms from a tables schema
  *
+ * @deprecated You can use it but not really used. 
  * @package    coslib
  */
 

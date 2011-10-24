@@ -7,8 +7,7 @@
 
 /**
  * ignore for now.
- * 
- * @ignore
+ * @deprecated use html
  */
 
 define ('FORM_SIZE', 20);

@@ -3,6 +3,7 @@
 /**
  * File contains contains class for creating forms
  *
+ * @deprecated should not be used. Use html class instead.  
  * @package    coslib
  */
 

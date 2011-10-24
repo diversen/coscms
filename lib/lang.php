@@ -20,15 +20,14 @@ class lang {
     static function getLanguage (){
         return self::$language;
     }
+    
     /**
      * method for initing and loading correct language
      * includes translations found in database and translations found in top
      * translation directory (lang),
      * 
      */
-
-
-    static function init(){
+    public static function init(){
         self::$language = register::$vars['coscms_main']['language'];
 
         $system_lang = array();
@@ -46,19 +45,7 @@ class lang {
                 $system_lang = array_merge($system_lang, $module_lang);
             }
         }
-
-        // include main language set in config/config.ini
-        $lang_file =
-            _COS_PATH .
-            '/lang/' .
-            register::$vars['coscms_main']['language'] . 
-            '/language.inc';
         
-        if (file_exists($lang_file)){
-            include $lang_file;
-            self::$dict = array_merge($_COS_LANG, $system_lang);
-            return;
-        } 
         self::$dict = $system_lang;
     }
 

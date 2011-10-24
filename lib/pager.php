@@ -3,6 +3,8 @@
 /**
  * File contains contains class for doing paging
  *
+ * 
+ * @deprecated: Use pearPager instead which is wrapper around PEAR::Pager. 
  * @package    coslib
  */
 
