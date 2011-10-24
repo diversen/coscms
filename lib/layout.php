@@ -279,7 +279,7 @@ class layout {
             }
 
             $str.="<li>";
-            $link = html::createLink( $v['url'], $v['title'], $options);
+            $link = html::createLink( $v['url'], lang::translate($v['title']), $options);
 
             $str.=  $link;
             if (isset($v['sub'])){
@@ -308,7 +308,7 @@ class layout {
 
 
             $str.="<li>";
-            $link = html::createLink( $v['url'], $v['title']);
+            $link = html::createLink( $v['url'], lang::translate($v['title']));
             $str.=  $link;
             if (isset($v['sub'])){
                 $str .= self::parseMainMenuList($v['sub']);
@@ -349,12 +349,6 @@ class layout {
         }
         
         return "<ul>\n$str</ul>\n";
-
-        if (empty($str)){
-            return '';
-        }
-        $str = MENU_LIST_START . $str . MENU_LIST_END . "\n";
-        return $str;
     }
     
     /**
@@ -386,8 +380,8 @@ class layout {
     }
 
     /**
-     * method for getting module menu in a html form
-     * We just parse module menu and sub (module ) menu
+     * method for getting module menu as html
+     * We just parse module menu and sub (if any) and extra (if any)
      * and return it as html.
      *
      * @return  string  containing menu as html
@@ -418,7 +412,6 @@ class layout {
         if (empty($list)){
             return '';
         }
-
         $str = '';
         $str.= '<ul>' . "\n";
         $str.= $list;

@@ -380,14 +380,15 @@ class moduleInstaller extends db {
 
         if (!empty($this->installInfo['MAIN_MENU_ITEM'])){
             $values = $this->installInfo['MAIN_MENU_ITEM'];
-            $values['title'] = lang::translate($values['title']);
+            //$values['title'] = lang::translate($values['title']);
+            $values['title'] = $values['title'];
 
             $res = $this->insert('menus', $values);
         }
 
         if (!empty($this->installInfo['MAIN_MENU_ITEMS'])){
             foreach ($this->installInfo['MAIN_MENU_ITEMS'] as $key => $val){
-                $val['title'] = lang::translate($val['title']);
+                $val['title'] = $val['title'];
                 $res = $this->insert('menus', $val);
             }
         }
