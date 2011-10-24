@@ -395,7 +395,7 @@ class moduleInstaller extends db {
 
         if (!empty($this->installInfo['SUB_MENU_ITEM'])){
             $values = $this->installInfo['SUB_MENU_ITEM'];
-            $values['title'] = lang::translate($values['title']);
+            $values['title'] = $values['title'];
             //$values['parent'] = $this->installInfo['PARENT_MENU_ITEM'];
             $res = $this->insert('menus', $values);
         }
