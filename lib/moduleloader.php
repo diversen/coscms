@@ -447,6 +447,8 @@ class moduleLoader {
             return;
         }
         
+        
+        
         self::$iniSettings[$module] = parse_ini_file($ini_file, true);
         if (is_array(self::$iniSettings[$module])){
             register::$vars['coscms_main']['module'] = array_merge(

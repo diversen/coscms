@@ -25,9 +25,9 @@ class register {
 }
 
 register::$vars['coscms_base'] = _COS_PATH;
-register::$vars['coscms_main'] = array ();
-register::$vars['coscms_main']['module'] = array();
 
+// include head - will set same include path as web env
+include_once "lib/head.php";
 include_once 'Console/CommandLine.php';
 include_once "Console/Color.php";
 include_once "lib/uri.php";
@@ -137,9 +137,6 @@ class mainCli {
     static function run(){
         try {
             $ret = 0;
-            
-            // include head - will set same include path as web env
-            include_once "lib/head.php";
             
             // load config file
             // Note: First time loaded we only load it order to load any
