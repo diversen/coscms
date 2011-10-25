@@ -144,12 +144,15 @@ class layout {
      * @return array    children menus items
      */
     public static function getChildrenMenus ($module){
-        static $children;
-        if (isset($children[$module])) return $children[$module];
-
+        
         $db = new db();
-        $children[$module] = $db->select('menus', null, array('parent' => $module));
-        return $children[$module];
+        $children = $db->selectAll('menus', null, array('parent' => $module));
+        
+        foreach ($children as $key => $val) {
+            $children[$key]['title'] = lang::translate($val['title']);
+        }
+        
+        return $children;
     }
 
     /**
@@ -192,8 +195,10 @@ class layout {
 
         moduleLoader::getModuleIniSettings($module);
         $module_menu = self::getMenuFromFile($module);
+        
         $children_menu = self::getChildrenMenus($module);
-        $module_menu = array_merge($module_menu, $children_menu);       
+        $module_menu = array_merge($module_menu, $children_menu);  
+        
         $db_config_file = _COS_PATH . "/modules/$module/configdb.inc";
         
         if (file_exists($db_config_file)) {
