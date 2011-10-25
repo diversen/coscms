@@ -32,9 +32,6 @@ function chmod_files(){
     // current owner
     $owner = exec('whoami');
     $files_path = _COS_PATH . '/htdocs/files ';
-    $files_path.= _COS_PATH . '/htdocs/logo ';
-    $files_path.= _COS_PATH . '/htdocs/css ';
-    $files_path.= _COS_PATH . '/htdocs/cached_assets ';
     $files_path.= _COS_PATH . '/logs/coscms.log';
     $command = "sudo chown -R $owner:$group $files_path";
     cos_exec($command);
@@ -56,9 +53,6 @@ function chmod_files_to_owner(){
     // current owner
     $owner = exec('whoami');
     $files_path = _COS_PATH . '/htdocs/files ';
-    $files_path.= _COS_PATH . '/htdocs/logo ';
-    $files_path.= _COS_PATH . '/htdocs/css ';
-    $files_path.= _COS_PATH . '/htdocs/cached_assets ';
     $command = "sudo chown -R $owner:$owner $files_path";
     cos_exec($command);
     $command = "sudo chmod -R 770 $files_path";
@@ -75,7 +69,6 @@ function chmod_files_to_owner(){
  */
 function rm_files(){
     $files_path = _COS_PATH . '/htdocs/files/* ';
-    $files_path.= _COS_PATH . '/htdocs/logo/*';
     $command = "sudo rm -Rf $files_path";
     cos_exec($command);
 }
@@ -96,18 +89,6 @@ function create_files(){
     }
 
     $files_path = _COS_PATH . '/htdocs/files';
-    if (!file_exists($files_path)){
-        $command = "mkdir $files_path";
-        cos_exec($command);
-    }
-    
-    $files_path = _COS_PATH . '/htdocs/cached_assets';
-    if (!file_exists($files_path)){
-        $command = "mkdir $files_path";
-        cos_exec($command);
-    }
-
-    $files_path = _COS_PATH . '/htdocs/logo';
     if (!file_exists($files_path)){
         $command = "mkdir $files_path";
         cos_exec($command);
