@@ -31,6 +31,7 @@ function chmod_files(){
 
     // current owner
     $owner = exec('whoami');
+
     $files_path = _COS_PATH . '/htdocs/files ';
     $files_path.= _COS_PATH . '/logs/coscms.log';
     $command = "sudo chown -R $owner:$group $files_path";
@@ -93,6 +94,15 @@ function create_files(){
         $command = "mkdir $files_path";
         cos_exec($command);
     }
+    
+    $domain = get_domain();
+    $files_path = _COS_PATH . "/htdocs/files/$domain";
+    
+    if (!file_exists($files_path)){
+        $command = "mkdir $files_path";
+        cos_exec($command);
+    }
+    
 }
 
 // }}}
