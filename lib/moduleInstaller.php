@@ -90,12 +90,13 @@ class moduleInstaller extends db {
         if (!file_exists($ini_file)){
             if (file_exists($ini_file_dist)){
                 copy ($ini_file_dist, $ini_file);
-                register::$vars['coscms_main']['module'] = parse_ini_file($ini_file);
+                //register::$vars['coscms_main']['module'] = parse_ini_file($ini_file);
             } 
         } else {
-            register::$vars['coscms_main']['module'] = parse_ini_file($ini_file);
+            // register::$vars['coscms_main']['module'] = parse_ini_file($ini_file);
         }
-
+        
+        moduleLoader::setModuleIniSettings($options['Module']);
         if (file_exists($module_dir)){
             $install_file = "$module_dir/install.inc";
             if (!file_exists($install_file)){
