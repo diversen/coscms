@@ -25,6 +25,8 @@ class register {
 }
 
 register::$vars['coscms_base'] = _COS_PATH;
+register::$vars['coscms_main'] = array();
+register::$vars['coscms_main']['module'] = array();
 
 include_once 'Console/CommandLine.php';
 include_once "Console/Color.php";
