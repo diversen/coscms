@@ -393,7 +393,7 @@ class HTML {
         return $str;
     }
     
-    public static function createHrefImage($url, $options = array(), $href = null){
+    public static function createHrefImage($src, $options = array(), $href = null){
         $str = self::createImage($src, $options);
         return "<a href=\"$href\">$str</a>";
     }

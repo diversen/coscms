@@ -1341,13 +1341,18 @@ function load_config_file () {
 function get_files_path () {
     $domain = get_main_ini('domain');
     if ($domain == 'default') {
-        $files_path = _COS_PATH . "/files";
+        $files_path = _COS_PATH . "/htdocs/files/default";
     } else {
-        $files_path = _COS_PATH . "/files/$domain";
+        $files_path = _COS_PATH . "/htdocs/files/$domain";
     }
     return $files_path;
 }
 
+function get_files_web_path ($file) {
+    return "/files/" . get_domain() . '/' . $file; 
+}
+
 function get_domain () {
-    return get_main_ini('domain');
+    $domain = get_main_ini('domain');
+    return $domain;
 }

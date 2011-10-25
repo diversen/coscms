@@ -1,11 +1,16 @@
 <?php
 
 /**
+ * File containing template class. 
+ * 
  * @package coslib
  */
 
 /**
  * simple template class for cos cms
+ * abstract because it will always be extended by mainTemplate
+ * which will be used for display the page
+ * 
  * @package coslib
  */
 abstract class template {
@@ -55,10 +60,24 @@ abstract class template {
      * @var string  $templateName 
      */
     static $templateName = null;
+    
+    /**
+     * 
+     * @var string $cacheDir name of dir where we cache assets 
+     * 
+     */
+    public static $cacheDir = 'cached_assets';
 
     /**
+     * will be set in init
+     * @var string $cacheDir name of dir where we cache assets 
+     * 
+     */
+    public static $cacheDirWeb = '';
+    
+    /**
      * method for setting title of page
-     * @param string $title
+     * @param string $title the title of the document
      */
     public static function setTitle($title){
         self::$title = $title;
@@ -66,15 +85,16 @@ abstract class template {
 
     /**
      * method for getting title of page
-     * @return <type>
+     * @return string   $title title of document
      */
     public static function getTitle(){
         return self::$title;
     }
 
     /**
-     * method for setting meta tags.
-     * @param   array   array of metatags with name => content
+     * method for setting meta tags. The tags will be special encoded
+     * @param   array   $ary of metatags e.g. 
+     *                  array('description' => 'content of description meta tags')
      */
     public static function setMeta($ary){
         foreach($ary as $key => $val){
@@ -84,9 +104,29 @@ abstract class template {
             self::$meta[$key] = html::specialEncode($val);
         }
     }
+    
+    public static function getLogoHTML () {
+        if (empty(register::$vars['coscms_main']['logo'])) {
+            return $str = "<a id=\"logo_title\" href=\"/\">$_SERVER[HTTP_HOST]</a>";
+        } else {
+            $file ="logo/" . register::$vars['coscms_main']['logo'];
+            $src = get_files_web_path($file);
+            $options = array ('alt' => $_SERVER['HTTP_HOST']);
+            $href = html::createHrefImage($src, $options, '/');
+            $str = '<div id="logo_img">' . $href . '</div>' . "\n"; 
+            return $str;
+        }
+    }
 
-    public static function getMeta (){
-        
+    /**
+     * method for getting the meta tags as a string
+     * You can specifiy meta keywords and description global in config.ini
+     * by using the settings, meta_desc and meta_keywords.
+     *  
+     * @return string $str the meta tags as a string. This can be used
+     *                     in your mainTemplate
+     */
+    public static function getMeta (){        
         $str = '';
 
         if (!isset(self::$meta['keywords'])) {
@@ -113,7 +153,6 @@ abstract class template {
         }
 
         return $str;
-
     }
 
     /**
@@ -231,14 +270,16 @@ abstract class template {
      *                   later.
      */
     public static function setInlineCss($css, $order = null, $options = array()){
-        
+
         if (get_main_ini('cached_assets') && !isset($options['no_cache'])) {
             self::cacheAsset ($css, $order, 'css');
             return;
         }
-        
+          
         $str = file_get_contents($css);
-        
+        if (method_exists('mainTemplate', 'assetsReplace')) {
+            $str = mainTemplate::assetsReplace($str);
+        }
                 
         if (isset($order)){
             self::$inlineCss[$order] = $str;
@@ -246,6 +287,7 @@ abstract class template {
             self::$inlineCss[] = $str;
         }
     }
+
     
     /**
      * method for caching a asset (js or css)
@@ -254,52 +296,47 @@ abstract class template {
      * @param type $type 
      */
     private static function cacheAsset ($css, $order, $type) {
-        $md5 = md5($css);
-        $cached_asset = _COS_PATH . "/htdocs/cached_assets/$md5.$type";
+        static $cacheChecked = false;
+        
+        if (!$cacheChecked) {
+            self::$cacheDirWeb = get_files_web_path(self::$cacheDir);
+            self::$cacheDir = get_files_path() . '/' . self::$cacheDir;
+            if (!file_exists(self::$cacheDir)) {
+                mkdir(self::$cacheDir);
+            }  
+            $cacheChecked = true;
+        }
+        
+        $md5 = md5($css);        
+        $cached_asset = get_files_path() . "/cached_assets/$md5.$type";
+        $cache_dir = get_files_web_path('/cached_assets');
         if (file_exists($cached_asset && !get_main_ini('cached_assets_reload'))) {
             
             if ($type == 'css') {
-                self::setCss("/cached_assets/$md5.$type", $order);
+                self::setCss("$cache_dir/$md5.$type", $order);
             }
             
             if ($type == 'js') {
-                self::setJs("/cached_assets/$md5.$type", $order);
+                self::setJs("$cache_dir/$md5.$type", $order);
             }          
         } else {
-            $str = file_get_contents($css);
+            $str = file_get_contents($css); 
+            if (method_exists('mainTemplate', 'assetsReplace')) {
+                $str = mainTemplate::assetsReplace($str);
+            }
+            
             file_put_contents($cached_asset, $str);
 
             if ($type == 'css') {
-                self::setCss("/cached_assets/$md5.$type", $order);
+                self::setCss("$cache_dir/$md5.$type", $order);
             }
             
             if ($type == 'js') {
-                self::setJs("/cached_assets/$md5.$type", $order);
+                self::setJs("$cache_dir/$md5.$type", $order);
             } 
         }
     }
     
-    /**
-     * sets a modules css. 
-     * @param type $module module
-     * @param type $css path to css absolute from module base path
-     * @param type $order loading order of the css
-     */
-    public static function setModuleInlineCss ($module, $css, $order = 0){
-        $css = _COS_PATH . "/modules/$module/$css";
-        if (get_main_ini('cached_assets') && !isset($options['no_cache'])) {
-            self::cacheAsset ($css, $order, 'css');
-            return;
-        }
-        
-        $str = file_get_contents($css);
-        if (isset($order)){
-            self::$inlineCss[$order] = $str;
-        } else {
-            self::$inlineCss[] = $str;
-        }
-    }
-
     /**
      * method for parsing a css file and substituing css var with
      * php defined values
@@ -363,6 +400,8 @@ abstract class template {
     }
     
     public static function init ($template) {
+        
+        
         self::$templateName = $template;
         if (!isset(register::$vars['template'])) {
             register::$vars['template'] = array();

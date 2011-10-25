@@ -49,6 +49,8 @@ class layout {
         
         include_once $template_path . "/common.inc";
         include_once $template_path . "/template.inc";
+        
+        template::init(register::$vars['coscms_main']['template']);
     }
     
     /**

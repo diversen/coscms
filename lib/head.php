@@ -98,6 +98,7 @@ if (!defined('_COS_CLI')){
     $moduleLoader->initModule();
 
     // include template class found in htdocs/templates
+    // only from here we should use template class. 
     $layout = new layout();
 
     // we first load menus here so we can se what happened when we
