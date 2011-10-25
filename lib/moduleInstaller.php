@@ -116,10 +116,7 @@ class moduleInstaller extends db {
 
             if (empty($this->installInfo['RUN_LEVEL'])){
                 $this->installInfo['RUN_LEVEL'] = 0;
-            }
-
-            
-            
+            }          
         } else {
             cos_cli_print ("Notice: No module dir: $module_dir\n");
         }
