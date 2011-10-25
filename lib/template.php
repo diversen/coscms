@@ -109,7 +109,7 @@ abstract class template {
         if (empty(register::$vars['coscms_main']['logo'])) {
             return $str = "<a id=\"logo_title\" href=\"/\">$_SERVER[HTTP_HOST]</a>";
         } else {
-            $file ="logo/" . register::$vars['coscms_main']['logo'];
+            $file ="/logo/" . register::$vars['coscms_main']['logo'];
             $src = get_files_web_path($file);
             $options = array ('alt' => $_SERVER['HTTP_HOST']);
             $href = html::createHrefImage($src, $options, '/');
