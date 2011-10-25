@@ -1349,7 +1349,7 @@ function get_files_path () {
 }
 
 function get_files_web_path ($file) {
-    return "/files/" . get_domain() . '/' . $file; 
+    return "/files/" . get_domain() . $file; 
 }
 
 function get_domain () {
