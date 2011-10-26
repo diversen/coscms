@@ -347,12 +347,17 @@ function include_template_inc ($template){
 
 // System function for including model, modules or controllers. 
 
-function include_reference_module () {
-    if (!isset($_GET['reference'])){
-        return null;
+function include_reference_module ($frag = 3) {    
+    $reference = uri::$fragments[$frag];
+    
+    if (!isset($reference)){
+        return false;
     }
-    return include_module($_GET['reference']);
-
+    $res = include_module($reference);
+    if ($res) {
+        return $reference;
+    }
+    return false;
 }
 
 // {{{ function include_module($module)

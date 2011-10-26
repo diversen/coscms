@@ -333,6 +333,65 @@ class moduleLoader {
             }    
         }
     }
+    
+    public static $reference = null;
+    public static $referenceId = 0;
+    public static $id;
+    public static $referenceLink = null;
+    public static $referenceRedirect = null;
+    
+    public static function includeRefrenceModule (
+            $frag_reference_id = 2, 
+            
+            // reserved. Will be set by the module in reference
+            // e.g. will be set in files when used in content. 
+            
+            $frag_id = 3,
+            $frag_reference_name = 4) {    
+        
+
+        
+        $reference = uri::$fragments[$frag_reference_name];  
+        $extra =  uri::getInstance()->fragment($frag_reference_name +1); 
+        
+        if (isset($extra) && !empty($extra)) {
+            $reference.= "/$extra";
+        }
+        
+        // normal this will not be set. 
+        // because imagine this situation
+        //$id = uri::$fragments[$frag_id];
+        $reference_id = uri::$fragments[$frag_reference_id];
+        
+        // XXX Also Check for int > 0
+        if (!isset($reference)){
+            return false;
+        }
+        
+        $res = include_module($reference);
+        
+        if ($res) {
+            $class = moduleLoader::modulePathToClassName($reference);
+            self::$reference = $reference;
+            
+            //self::$id = $id;
+            self::$referenceId = $reference_id;
+            self::$referenceLink = $class::getLinkFromId(moduleLoader::$referenceId);
+            self::$referenceRedirect = $class::getRedirect(moduleLoader::$referenceId);
+            return true;
+        }
+        return false;
+    }
+    
+    public static function getReferenceInfo () {
+        $ary = array ();
+        $ary['parent_id'] = self::$referenceId;
+        $sry['id'] = self::$id;
+        $ary['reference'] = self::$reference;
+        $ary['link'] = self::$referenceLink;
+        $ary['redirect'] = self::$referenceRedirect;
+        return $ary;
+    }
 
     /**
      * return modules classname from a modules path.
@@ -520,6 +579,17 @@ class moduleLoader {
             }
         }
         return self::parsePreContent($ary);
+    }
+    
+    public static function buildReferenceURL ($base, $params) {
+        if (isset($params['id'])) {
+            $extra = $params['id'];
+        } else {
+            $extra = 0;
+        }
+        
+        $url = $base . "/$params[parent_id]/$extra/$params[reference]";
+        return $url;
     }
     
     /**

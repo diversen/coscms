@@ -105,7 +105,7 @@ class uri {
         $fragments =  explode('/', $uri[0]);
         // clean url for empty values or null values
         foreach ($fragments as $key => $value) {
-            if (is_null($value) || empty($value)) {
+            if (strlen($value) == 0) {
                 unset($fragments[$key]);
             }
         }
