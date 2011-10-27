@@ -105,13 +105,16 @@ abstract class template {
         }
     }
     
-    public static function getLogoHTML () {
+    public static function getLogoHTML ($options = array()) {
+        
         if (empty(register::$vars['coscms_main']['logo'])) {
             return $str = "<a id=\"logo_title\" href=\"/\">$_SERVER[HTTP_HOST]</a>";
         } else {
             $file ="/logo/" . register::$vars['coscms_main']['logo'];
             $src = get_files_web_path($file);
-            $options = array ('alt' => $_SERVER['HTTP_HOST']);
+            if (!isset($options['alt'])){           
+                $options['alt'] = $_SERVER['HTTP_HOST'];
+            }
             $href = html::createHrefImage($src, $options, '/');
             $str = '<div id="logo_img">' . $href . '</div>' . "\n"; 
             return $str;
