@@ -30,6 +30,42 @@ function return_bytes($val) {
     return $val;
 }
 
+/**
+ * found on:
+ * 
+ * http://codeaid.net/php/convert-size-in-bytes-to-a-human-readable-format-%28php%29
+ * 
+ * Convert bytes to human readable format
+ *
+ * @param integer bytes Size in bytes to convert
+ * @return string
+ */
+function bytesToSize($bytes, $precision = 2)
+{	
+	$kilobyte = 1024;
+	$megabyte = $kilobyte * 1024;
+	$gigabyte = $megabyte * 1024;
+	$terabyte = $gigabyte * 1024;
+	
+	if (($bytes >= 0) && ($bytes < $kilobyte)) {
+		return $bytes . ' B';
+
+	} elseif (($bytes >= $kilobyte) && ($bytes < $megabyte)) {
+		return round($bytes / $kilobyte, $precision) . ' KB';
+
+	} elseif (($bytes >= $megabyte) && ($bytes < $gigabyte)) {
+		return round($bytes / $megabyte, $precision) . ' MB';
+
+	} elseif (($bytes >= $gigabyte) && ($bytes < $terabyte)) {
+		return round($bytes / $gigabyte, $precision) . ' GB';
+
+	} elseif ($bytes >= $terabyte) {
+		return round($bytes / $terabyte, $precision) . ' TB';
+	} else {
+		return $bytes . ' B';
+	}
+}
+
 // }}}
 // {{{ string function file_upload_error_message($error_code)
 /**
@@ -67,56 +103,45 @@ function file_upload_error_message($error_code) {
  */
 class upload {
     /** @var array   holding errors */
-    public $error = array();
+    public static $errors = array();
     /** @var array   holding status messages to use elsewhere */
-    public $status = array();
+    public static $status = array();
     /** @var string uploadDir */
-    public $uploadDir = '/files/content';
-    /** @var string table for doing crud operations on */
-    public $dbTable = 'files';
+    public static $uploadDir = '';
+    //** @var string table for doing crud operations on */
+    //public $dbTable = 'files';
     /** @var    boolean     use docroot DOCUMENT_ROOT or not */
-    public $useDocRoot = true;
+    public static $useDocRoot = true;
     /** @var    int  default mode when creating a dir */
-    public $mode = 0775;
+    public static $mode = 0777;
     /** @var    array   types to allow eg <code>array('zip', 'tar.gz');</code> */
-    public $allow = array('tar.gz', 'zip');
+    public static $allow = array('tar.gz', 'zip');
     /** @var    string  name of file saved */
-    public $saveFile = null;
+    public static $saveFile = null;
 
-    public $createDir;
-    // {{{ method __constructor (array $options)
+    public static $createDir;
+    
+    public static $options = null;
+
     /**
      * constructor
      *
      * init and try to set put dir. Try to make it if not exists. sets options
      * @param  array  array of options
      */
-    function __construct($options = null, $createDir = false){
-        //$this->uploadDir = get_domain();
-        $domain = get_domain();
-        
-        
-        if ($domain == 'default') {
-            $this->uploadDir = "/files/$domain/content";
-        } else {
-            $this->uploadDir = "/files/content";
+    function __construct($options = null){
+        if (isset($options)) {
+            self::$options = $options;
         }
-        
+       
         if (isset($options['upload_dir'])){
-            $this->uploadDir = $options['upload_dir'];
+            self::$uploadDir = $options['upload_dir'];
         }
-        if (isset($options['db_table'])){
-            $this->dbTable = $options['db_table'];
-        }
-        if ($this->useDocRoot){
-            //$files_path = get_files_path();
-            $this->uploadDir = _COS_PATH . "/htdocs" . $this->uploadDir;
-        }
-        $this->createDir = $createDir;
-
     }
     // }}}
-    // {{{ method moveFile ($filename = null, $options = null)
+    public static function setOptions ($options) {
+        self::$options = $options;
+    }
 
     /**
      * method for moving uploaded file
@@ -126,32 +151,24 @@ class upload {
      */
     public function moveFile($filename = null, $options = null){
 
-        // check if dir exists
-        if (!file_exists($this->uploadDir) && $this->createDir){
-            $status['dir_not_exists'] = "Dir: " . $this->uploadDir . " does not exists";
-            //echo $this->uploadDir; die;
-            //die;
-            $ret = mkdir ($this->uploadDir, $this->mode, true);
-            if ($ret){
-                $this->status[] = lang::translate('Created dir') . ' ' . $this->uploadDir;
-            } else {
-                $this->error[] = lang::translate("Error. Could not make") . '' . $this->uploadDir . "!";
-            }
+        if (!file_exists(self::$uploadDir)){
+            mkdir (self::$uploadDir, self::$mode, true);
         }
+
         if (isset($_FILES[$filename]) && !empty($_FILES[$filename]['name'])){
-            $this->savefile = $this->uploadDir . '/' . basename($_FILES[$filename]['name']);
-            if (file_exists($this->savefile)){
-                $this->error[] = "There is already a file with that name: " . $this->savefile . " You can only have one filename per directory";
+            self::$saveFile = self::$uploadDir . '/' . basename($_FILES[$filename]['name']);
+            if (file_exists(self::$saveFile)){
+                self::$errors[] = lang::translate('system_file_upload_file_exists') . 
+                        MENU_SUB_SEPARATOR_SEC . self::$saveFile;
                 return false;
             } 
-            $ret = move_uploaded_file($_FILES[$filename]['tmp_name'], $this->savefile);
+            $ret = move_uploaded_file($_FILES[$filename]['tmp_name'], self::$saveFile);
             return $ret;
         } else {
             return false;
         }
     }
-    // }}}
-    // {{{ method unlinkFile (string $filename)
+
     /**
      * method for unlinking a file
      *
@@ -178,7 +195,7 @@ class uploadBlob {
     /**
      * @var string  name of the form element that holds the file 
      */
-    var $options = array();
+    public static $options = array();
     public static $errors = array();
     /**
      * @var array   allowed extensions (the mime type of the allowed extensions)
@@ -204,10 +221,6 @@ class uploadBlob {
         //check if a file was uploaded
         $userfile = $options['filename'];
         $maxsize = $options['maxsize'];
-        /*
-        if (isset($options['scaled_filename'])) {
-            $scaled_filename = $options['scaled_filename'];
-        }*/
 
         if (isset($options['allow_mime'])){
             $allow_mime = $options['allow_mime'];
@@ -221,17 +234,29 @@ class uploadBlob {
 
             //  check the file is less than the maximum file size
             if($_FILES[$userfile]['size'] > $maxsize ){
-                throw new Exception("File to large");
+                $message = lang::translate('system_file_upload_to_large');
+                $message.= lang::translate('system_file_allowed_maxsize');
+                $message.= bytesToSize($maxsize);
+                throw new Exception($message);
             }
             // check for right content
             if (isset($allow_mime)){
                 if (!in_array($type, $allow_mime)) {
-                    throw new Exception("File format not allowed");
+                    $message = lang::translate('system_file_upload_mime_type_not allowed');
+                    $message.= lang::translate('system_file_allowed_mimes');
+                    $message.=self::getMimeAsString($allow_mime);
+                    throw new Exception($message);
                 }
             }
             return $fp;
         }
     }
+    
+    public static function getMimeAsString ($mimes) {
+        return implode(', ', $mimes);
+        
+    }
+    
     // }}}
     // {{{ getFP($options
     /**
@@ -299,9 +324,11 @@ class uploadBlob {
                 $_FILES[$post_filename]['tmp_name'] . "-scaled";
             if ($maxsize) {
                 $options['maxsize'] = $maxsize;
-            } else {
-                $options['maxsize'] = 4000000;
             }
+            /*
+            else {
+                $options['maxsize'] = 4000000;
+            }*/
 
             $res = self::scaleImage(
                 $_FILES[$post_filename]['tmp_name'],
@@ -310,7 +337,6 @@ class uploadBlob {
                 $options
             );
             if (!$res)  {
-                // self::$errors[] = 'could not scale image';
                 return false;
             }
             
@@ -345,49 +371,17 @@ class uploadBlob {
 
      */
     
-    static function scaleImage ($image, $thumb, $length, $options = array()){
-        require_once 'Image/Transform.php';
+    public static function scaleImage ($image, $thumb, $x, $options = array()){
 
-        //create transform driver object
-        $it = Image_Transform::factory('GD');
+        include_once "imagescale.php";
         if (isset($options)) {
-            //foreach ($options as $key => $val) {
-            //    $it->setOption
-            //}
-            // cos_error_log('log image scale' . $options['quality']);
-            
-            $it->_options = $options;
-            
-         }
+            imagescale::$options = $options;           
+        }
+        $res = imagescale::byX($image, $thumb, $x);
+        return $res;
         
-        if (PEAR::isError($it)) {
-            self::$errors[] = lang::translate('system_upload_image_transform_factory_exception');
-            cos_error_log($it->getMessage());
-            return false;
-        }
 
-        //load the original file
-        $ret = $it->load($image);
-        if (PEAR::isError($ret)) {
-            self::$errors[] = lang::translate('system_upload_image_transform_load_exception');
-            cos_error_log($ret->getMessage());
-            return false;
-        }
-
-        $ret = $it->scaleByX($length);
-        if (PEAR::isError($ret)) {
-            self::$errors[] = lang::translate('system_upload_factory_image_transform_scale_exception');
-            cos_error_log($ret->getMessage());
-            return false;
-        }
-
-        $ret = $it->save($thumb);
-        if (PEAR::isError($ret)) {
-            self::$errors[] = lang::translate('system_upload_factory_image_transform_save_exception');
-            cos_error_log($ret->getMessage());
-            return false;
-        }
-        return true;
+        
     }
 }
 
