@@ -203,23 +203,15 @@ class HTML {
             $extra['rows'] = (int)(HTML_FORM_TEXTAREA_HT / 6);
         }
 
-        if (!isset($extra['cols'])){
-            $extra['cols'] = HTML_FORM_TEXTAREA_WT;
+        self::textarea($name, $value, $extra);
+    }
+    
+    public static function textareaMed ($name, $value = null, $extra = array()){
+        if (!isset($extra['rows'])){
+            $extra['rows'] = (int)(HTML_FORM_TEXTAREA_HT / 2);
         }
 
-        if (isset($extra['filter_help'])) {
-            echo $extra['title'] = get_filters_help($extra['filter_help']);            
-        } 
-        
-        if (!isset($value)) {
-            $value = self::setValue($name, $value);
-        } 
-
-        //$value = self::setValue($name, $value);
-        $extra = self::parseExtra($extra);
-        $str =  "<textarea name=\"$name\" $extra>$value</textarea>" . self::$br . "\n";
-        self::$formStr.= $str;
-        return $str;
+        self::textarea($name, $value, $extra);
     }
 
     public static function file ($name, $extra = array()) {

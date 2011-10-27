@@ -277,8 +277,10 @@ class uploadBlob {
 
         //  check the file is less than the maximum file size
         if($size > $options['maxsize'] ){
-            self::$errors[] = lang::translate('system_class_upload_file_too_large') .
-            ": " . $options['filename'];
+            $error = lang::translate('system_file_upload_to_large');
+            $error.= lang::translate('system_file_allowed_maxsize') . bytesToSize($options['maxsize']);
+            error_log($error);
+            self::$errors[] = $error; 
             return false;
         }
 
@@ -317,7 +319,7 @@ class uploadBlob {
         $field = 'file',
         $id = 0,
         $image_length = '400',
-        $maxsize = null, $options = null) {
+        $maxsize = 4000000, $options = null) {
         if (isset($_FILES[$post_filename]['tmp_name'])){
 
             $options['filename'] =
