@@ -10,11 +10,20 @@
  * puts a string in logs/coscms.log
  * @param string $message
  */
-function cos_error_log ($message) {
+function cos_error_log ($message, $write_file = true) {
     $message = strftime('%c', time()) . ": " . $message;
     $message.="\n";
-    $destination = _COS_PATH . "/logs/coscms.log";
-    error_log($message, 3, $destination);
+    
+    if (get_main_ini('debug')) {
+        // print anything when we are in debug mode. 
+        //echo $message;
+        //session::setActionMessage($message);
+    }
+    
+    if ($write_file) {
+        $destination = _COS_PATH . "/logs/coscms.log";
+        error_log($message, 3, $destination);
+    }
 }
 
 // Variable function

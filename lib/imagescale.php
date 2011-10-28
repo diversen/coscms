@@ -43,6 +43,9 @@ class imagescale {
     public static function setOptions($options) {
         self::$options = $options;
     }
+    
+    public static $validMime = 
+        array ('image/gif', 'image/jpeg', 'image/pjpeg', 'image/png');
 
     /**
      *
@@ -60,7 +63,7 @@ class imagescale {
         }
         
         if (PEAR::isError($it)) {
-            self::$errors[] = lang::translate('system_upload_image_transform_factory_exception');
+            self::$errors[] = lang::translate('system_scaleimage_transform_factory_exception');
             cos_error_log($it->getMessage());
             return false;
         }
@@ -68,21 +71,21 @@ class imagescale {
         //load the original file
         $ret = $it->load($image);
         if (PEAR::isError($ret)) {
-            self::$errors[] = lang::translate('system_upload_image_transform_load_exception');
+            self::$errors[] = lang::translate('system_scaleimage_transform_load_exception');
             cos_error_log($ret->getMessage());
             return false;
         }
 
         $ret = $it->scaleByX($x);
         if (PEAR::isError($ret)) {
-            self::$errors[] = lang::translate('system_upload_factory_image_transform_scale_exception');
+            self::$errors[] = lang::translate('system_scaleimage_image_transform_scale_exception');
             cos_error_log($ret->getMessage());
             return false;
         }
 
         $ret = $it->save($thumb);
         if (PEAR::isError($ret)) {
-            self::$errors[] = lang::translate('system_upload_factory_image_transform_save_exception');
+            self::$errors[] = lang::translate('system_scaleimage_factory_transform_save_exception');
             cos_error_log($ret->getMessage());
             return false;
         }

@@ -185,7 +185,7 @@ class session {
      *
      * @param string the action message.
      */
-    static public function setActionMessage($message){
+    public static function setActionMessage($message){
             $_SESSION['system_message'] = $message;
             session_write_close();
     }

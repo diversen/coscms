@@ -102,26 +102,24 @@ function file_upload_error_message($error_code) {
  * @package     coslib
  */
 class upload {
-    /** @var array   holding errors */
-    public static $errors = array();
-    /** @var array   holding status messages to use elsewhere */
-    public static $status = array();
-    /** @var string uploadDir */
-    public static $uploadDir = '';
-    //** @var string table for doing crud operations on */
-    //public $dbTable = 'files';
-    /** @var    boolean     use docroot DOCUMENT_ROOT or not */
-    public static $useDocRoot = true;
-    /** @var    int  default mode when creating a dir */
-    public static $mode = 0777;
-    /** @var    array   types to allow eg <code>array('zip', 'tar.gz');</code> */
-    public static $allow = array('tar.gz', 'zip');
-    /** @var    string  name of file saved */
-    public static $saveFile = null;
-
-    public static $createDir;
     
-    public static $options = null;
+    /**
+     * for holding errors
+     * @var array 
+     */
+    public static $errors = array();
+
+    /**
+     * the mode new directories will be created in. 
+     * @var int
+     */
+    public static $mode = 0777;
+
+    /**
+     * options 
+     * @var array 
+     */
+    public static $options = array();
 
     /**
      * constructor
@@ -130,45 +128,145 @@ class upload {
      * @param  array  array of options
      */
     function __construct($options = null){
+        self::$errors = array();
         if (isset($options)) {
             self::$options = $options;
         }
        
-        if (isset($options['upload_dir'])){
-            self::$uploadDir = $options['upload_dir'];
-        }
+        //if (isset($options['upload_dir'])){
+        //    self::$uploadDir = $options['upload_dir'];
+        //}
     }
     // }}}
     public static function setOptions ($options) {
         self::$options = $options;
     }
+    
+    
 
     /**
      * method for moving uploaded file
      *
-     * @param   name of file in the html forms file field
+     * @param   name of file in the html forms file field, e.g. file
      * @return int  true on success or false on failure
      */
-    public function moveFile($filename = null, $options = null){
-
-        if (!file_exists(self::$uploadDir)){
-            mkdir (self::$uploadDir, self::$mode, true);
+    public static function moveFile($filename = null, $options = null){
+        if (isset($options)) self::$options = $options;
+        
+        // create dir. 
+        if (!file_exists(self::$options['upload_dir'])){
+            mkdir (self::$options['upload_dir'], self::$mode, true);
         }
 
-        if (isset($_FILES[$filename]) && !empty($_FILES[$filename]['name'])){
-            self::$saveFile = self::$uploadDir . '/' . basename($_FILES[$filename]['name']);
-            if (file_exists(self::$saveFile)){
-                self::$errors[] = lang::translate('system_file_upload_file_exists') . 
-                        MENU_SUB_SEPARATOR_SEC . self::$saveFile;
-                return false;
-            } 
-            $ret = move_uploaded_file($_FILES[$filename]['tmp_name'], self::$saveFile);
+        // check if an upload were performed
+        if (isset($_FILES[$filename])){
+                      
+            // check native
+            $res = self::checkUploadNative($filename);
+            if (!$res) return false;
+            
+            // check mime
+            if (isset(self::$options['allow_mime'])) {
+                $res = self::checkAllowedMime($filename);
+                if (!$res) return false;                
+            }
+            
+            // check maxsize. Note: Will overrule php ini settings
+            if (isset(self::$options['maxsize'])) {
+                $res = self::checkMaxSize($filename);
+                if (!$res) return false;
+            }
+            
+            // sets a new filename to save the file as or use the 
+            // name of the uploaded file. 
+            if (isset(self::$options['save_basename'])) {
+                $save_basename = self::$options['save_basename'];
+            } else {
+                $save_basename = basename($_FILES[$filename]['name']);
+            }
+            
+            
+            $savefile = self::$options['upload_dir'] . '/' . $save_basename;
+            
+            // check if file exists. 
+            if (file_exists($savefile)){
+                if (isset(self::$options['only_unique'])) {
+                    self::$errors[] = lang::translate('system_file_upload_file_exists') . 
+                        MENU_SUB_SEPARATOR_SEC . $savefile;
+                    return false;
+                    
+                } else {      
+                   // this call will also set self::$info['save_filename']
+                   $savefile = self::newFileName($savefile);
+                }
+            } else {
+                self::$saveBasename = $save_basename;  
+            }
+                        
+            $ret = move_uploaded_file($_FILES[$filename]['tmp_name'], $savefile);
+            if (!$ret) {
+                self::$errors[] = 'Could not move file. Doh!';
+            }
             return $ret;
-        } else {
+            
+        } 
+        cos_error_log('No file to move in ' . __FILE__ . ' ' . __LINE__, false);        
+        return false;
+    }
+    
+    public static $saveBasename = array();
+    
+    public static function newFilename ($file) {
+        $info = pathinfo($file);
+        $path = $info['dirname'];
+        
+        $new_filename = $info['filename'] . '-' . md5(time()) . '.' . $info['extension'];
+        $full_save_path = $path . '/' . $new_filename;
+        
+        self::$saveBasename = $new_filename;
+        
+        return $full_save_path;
+    }
+    
+    public static function checkAllowedMime ($filename) {
+        // if (isset($allow_mime)){
+        $type = mime_content_type($_FILES[$filename]['tmp_name']);
+        if (!in_array($type, self::$options['allow_mime'])) {
+            $message = lang::translate('system_file_upload_mime_type_not allowed');
+            $message.= lang::translate('system_file_allowed_mimes');
+            $message.=self::getMimeAsString(self::$options['allow_mime']);
+            self::$errors[] = $message;
+            //throw new Exception($message);
             return false;
         }
+        return true;
     }
-
+    
+    public static function checkUploadNative ($filename) {
+        $upload_return_code = $_FILES[$filename]['error'];
+        if ($upload_return_code != 0) {
+            self::$errors[] = file_upload_error_message($upload_return_code);
+            return false;
+        }
+        return true;
+    }
+    
+    public static function checkMaxSize ($filename) {
+        if($_FILES[$userfile]['size'] > self::$options[$maxsize] ){
+            $message = lang::translate('system_file_upload_to_large');
+            $message.= lang::translate('system_file_allowed_maxsize');
+            $message.= bytesToSize($maxsize);
+            self::$errors[] = $message;
+            return false;
+            //throw new Exception($message);
+        }
+    }
+    
+        
+    public static function getMimeAsString ($mimes) {
+        return implode(', ', $mimes);        
+    }
+    
     /**
      * method for unlinking a file
      *
@@ -190,72 +288,40 @@ class upload {
  *
  * @package     coslib
  */
-class uploadBlob {
+class uploadBlob extends upload {
 
-    /**
-     * @var string  name of the form element that holds the file 
-     */
-    public static $options = array();
-    public static $errors = array();
-    /**
-     * @var array   allowed extensions (the mime type of the allowed extensions)
-     *              e.g. "application/x-gzip"
-     */
-
-    /**
-     * constructor
-     */
-    function __construct($options){
-        $this->options = $options;
-    }
-    
-    // {{{ getFP($options
     /**
      * the upload function
      *
      * @param   array   $options
      * @return  void
      */
-    public static function getFP($options = array()){
+    public static function getFP($filename, $options){
 
-        //check if a file was uploaded
-        $userfile = $options['filename'];
-        $maxsize = $options['maxsize'];
-
-        if (isset($options['allow_mime'])){
-            $allow_mime = $options['allow_mime'];
-        }
-        if(is_uploaded_file($_FILES[$userfile]['tmp_name']) &&
-                filesize($_FILES[$userfile]['tmp_name']) != false){
-            $size = filesize($_FILES[$userfile]['tmp_name']);
-            $type = mime_content_type($_FILES[$userfile]['tmp_name']);
-            $fp = fopen($_FILES[$userfile]['tmp_name'], 'rb');
-            $name = $_FILES[$userfile]['name'];
-
-            //  check the file is less than the maximum file size
-            if($_FILES[$userfile]['size'] > $maxsize ){
-                $message = lang::translate('system_file_upload_to_large');
-                $message.= lang::translate('system_file_allowed_maxsize');
-                $message.= bytesToSize($maxsize);
-                throw new Exception($message);
+        if(isset($_FILES[$filename])) {
+            // check native
+            $res = self::checkUploadNative($filename);
+            if (!$res) return false;
+            
+            // check mime
+            if (isset(self::$options['allow_mime'])) {
+                $res = self::checkAllowedMime($filename);
+                if (!$res) return false;                
             }
-            // check for right content
-            if (isset($allow_mime)){
-                if (!in_array($type, $allow_mime)) {
-                    $message = lang::translate('system_file_upload_mime_type_not allowed');
-                    $message.= lang::translate('system_file_allowed_mimes');
-                    $message.=self::getMimeAsString($allow_mime);
-                    throw new Exception($message);
-                }
+            
+            // check maxsize. Note: Will overrule php ini settings
+            if (isset(self::$options['maxsize'])) {
+                $res = self::checkMaxSize($filename);
+                if (!$res) return false;
             }
+
+            $fp = fopen($_FILES[$filename]['tmp_name'], 'rb');
             return $fp;
         }
+        // no files
+        return true;
     }
-    
-    public static function getMimeAsString ($mimes) {
-        return implode(', ', $mimes);
-        
-    }
+
     
     // }}}
     // {{{ getFP($options
@@ -265,23 +331,27 @@ class uploadBlob {
      * @param   array   $options
      * @return  void
      */
-    public static function getFPFromFile($options = array()){
+    public static function getFPFromFile($filename, $options = array()){
 
-        if (!file_exists($options['filename'])) {
+        if (isset($options)) self::$options = $options;
+        if (!file_exists($filename)) {
             self::$errors[] = 
-            lang::translate('system_class_upload_get_fp_file_does_not_exists')
+            lang::translate('system_upload_get_fp_file_does_not_exists')
             . ' : ' . $options['filename'];
             return false;
         }
-        $size = filesize($options['filename']);
+        
+        if (isset($options['maxsize'])) {
+            $size = filesize($options['filename']);
 
-        //  check the file is less than the maximum file size
-        if($size > $options['maxsize'] ){
-            $error = lang::translate('system_file_upload_to_large');
-            $error.= lang::translate('system_file_allowed_maxsize') . bytesToSize($options['maxsize']);
-            error_log($error);
-            self::$errors[] = $error; 
-            return false;
+            //  check the file is less than the maximum file size
+            if($size > $options['maxsize'] ){
+                $error = lang::translate('system_file_upload_to_large');
+                $error.= lang::translate('system_file_allowed_maxsize') . bytesToSize($options['maxsize']);
+                error_log($error);
+                self::$errors[] = $error; 
+                return false;
+            }
         }
 
         // check for right content
