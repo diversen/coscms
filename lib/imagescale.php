@@ -44,8 +44,7 @@ class imagescale {
         self::$options = $options;
     }
     
-    public static $validMime = 
-        array ('image/gif', 'image/jpeg', 'image/pjpeg', 'image/png');
+    
 
     /**
      *

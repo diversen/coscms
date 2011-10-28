@@ -231,12 +231,12 @@ class upload {
     public static function checkAllowedMime ($filename) {
         // if (isset($allow_mime)){
         $type = mime_content_type($_FILES[$filename]['tmp_name']);
+
         if (!in_array($type, self::$options['allow_mime'])) {
             $message = lang::translate('system_file_upload_mime_type_not allowed');
             $message.= lang::translate('system_file_allowed_mimes');
             $message.=self::getMimeAsString(self::$options['allow_mime']);
             self::$errors[] = $message;
-            //throw new Exception($message);
             return false;
         }
         return true;
@@ -252,14 +252,14 @@ class upload {
     }
     
     public static function checkMaxSize ($filename) {
-        if($_FILES[$userfile]['size'] > self::$options[$maxsize] ){
+        if($_FILES[$filename]['size'] > self::$options['maxsize'] ){
             $message = lang::translate('system_file_upload_to_large');
             $message.= lang::translate('system_file_allowed_maxsize');
             $message.= bytesToSize($maxsize);
             self::$errors[] = $message;
             return false;
-            //throw new Exception($message);
         }
+        return true;
     }
     
         
@@ -296,9 +296,14 @@ class uploadBlob extends upload {
      * @param   array   $options
      * @return  void
      */
-    public static function getFP($filename, $options){
+    public static function getFP($filename, $options = array()){
+        if (!empty($options)) {
+            self::$options = $options;
+        }
+        
 
         if(isset($_FILES[$filename])) {
+            
             // check native
             $res = self::checkUploadNative($filename);
             if (!$res) return false;
@@ -308,9 +313,10 @@ class uploadBlob extends upload {
                 $res = self::checkAllowedMime($filename);
                 if (!$res) return false;                
             }
-            
+
             // check maxsize. Note: Will overrule php ini settings
             if (isset(self::$options['maxsize'])) {
+                
                 $res = self::checkMaxSize($filename);
                 if (!$res) return false;
             }
