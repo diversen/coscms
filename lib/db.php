@@ -4,7 +4,7 @@
  * File contains contains class for connecting to a mysql database
  * with PDO and doing basic crud operations and simple search operations. 
  *
- * @package    db
+ * @package    coslib
  */
 
 /**
@@ -12,7 +12,7 @@
  * with PDO and doing basic crud operations and simple search operations. 
  * Almost any build in modules extends this class. 
  * 
- * @package    db
+ * @package    coslib
  */
 class db {
     /**

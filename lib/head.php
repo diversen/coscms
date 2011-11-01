@@ -55,6 +55,9 @@ if (!defined('_COS_CLI')){
     include "html.php";
     include "layout.php";
     include "template.php";
+    include "event.php";
+    
+    event::init();
 
     session::initSession();
     
