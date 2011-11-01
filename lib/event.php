@@ -23,7 +23,6 @@
  * account has been verified:
  * 
  * event::triggerEvent('accountCreate', 'verifyAccount', $row) or
- * event::triggerEvent(__CLASS__, __METHOD__, $row);
  * 
  * 1. param is the class name where the event will be triggered.
  *   or just  __CLASS__ the class were we are
