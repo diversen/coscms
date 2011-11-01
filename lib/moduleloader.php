@@ -395,6 +395,9 @@ class moduleLoader {
 
     /**
      * return modules classname from a modules path.
+     * e.g. account_profile will return accountProfile
+     * e.g. content/article will return contentArticle
+     * 
      * @param  string   $path (e.g. account_profile)
      * @return string   $classname (e.g. accountProfile)
      */
