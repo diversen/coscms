@@ -25,9 +25,7 @@
  * event::triggerEvent('accountCreate', 'verifyAccount', $row) or
  * 
  * 1. param is the class name where the event will be triggered.
- *   or just  __CLASS__ the class were we are
  * 2. param is the method of the class were the event should be triggered
- *    or just the method were we are __METHOD__ were we call triggerEvent
  * 3. last argument is a row (array) which the triggered event method will use
  *    as argument.  
  * 
