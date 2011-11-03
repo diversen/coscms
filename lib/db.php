@@ -29,16 +29,21 @@ class db {
      */
     static $debug = array();
 
+    
     static public function init(){
-        return new db();
+        static $db = null;
+        if (!$db) {
+            $db = new db();
+        } 
+        return $db;
     }
 
     
     /**
      * constructor will try to call method connect
      */
-    public function __construct(){
-        //return self;
+    public function __construct($options = null){
+
     }
 
     /**
@@ -53,20 +58,38 @@ class db {
      * Method for connecting a mysql database
      * if a connection is open we use that connection
      * connection string is read from config/config.ini
+     * 
+     * @param array $options You can prevent the connection from halting on 
+     *              error by setting $options['dont_die'] = true
+     *              
+     *              if you set $options[url] the class will try to connect to
+     *              database with connection string given, e.g. 
+     *              
+     *              $options = array ('url' => 'conn_url',
+     *                                'username => 'username',
+     *                                'password' => 'password);
+     * 
+     * 
+     * 
      *
      */
-    public function connect($options = null){
-        //global $_COS_MAIN;
+    public static function connect($options = null){
         self::$debug[] = "Trying to connect with " . register::$vars['coscms_main']['url'];
+        if (isset($options['url'])) {
+            $url = $options['url'];
+            $username = $options['username'];
+            $password = $options['password'];
+        } else {
+            $url = get_main_ini('url');
+            $username = get_main_ini('username');
+            $password = get_main_ini('password');
+        }
+        
         try {
             self::$dbh = new PDO(
                 get_main_ini('url'),
                 get_main_ini('username'),
                 get_main_ini('password')
-                //register::$vars['coscms_main']['url'],
-                //register::$vars['coscms_main']['username'],
-                //register::$vars['coscms_main']['password']
-
             );
             self::$dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             if(!self::$dbh) $this->connect();
@@ -75,6 +98,7 @@ class db {
                 $this->fatalError ('Connection failed: ' . $e->getMessage());
             } else {
                 if (isset($options['dont_die'])){
+                    self::$debug[] = 'No connection';
                     return "NO_DB_CONN";
                 }
             }
@@ -149,11 +173,15 @@ class db {
     }
     
     /**
-     * Method for deleting from a database table
+     * Method for deleting from a database table. If $fieldname is 
+     * a string e.g. id then $search will be used to find which row to delete 
+     * e.g. '3' which should be set in $search. If $search is an array you can 
+     * add more conditions, e.g. array ('id' => 3, 'title' => 'test');
      *
-     * @param   string  table the database table to delete from .e.g. auth
-     * @param   string  fieldname the where clause e.g. id
-     * @param   string  search which rows should be deleted (3) e.g.
+     * @param   string  $table the database table to delete from .e.g. auth
+     * @param   mixed   $fieldname the where clause e.g. where 'id' =
+     * @param   mixed   $search sets a simple search option. e.g. '3'. It can 
+     *                  also be an array like this: array ('id' => 3) 
      *                  delete from 'auth' Where id = 3
      * @return  boolean true on succes or false on failure
      */
@@ -171,14 +199,12 @@ class db {
             $sql .= " `$fieldname` = $search";
         }
 
-
         self::$debug[]  = "Trying to prepare update sql: $sql";
         $stmt = self::$dbh->prepare($sql);
 
         if (is_array($search)){
             $ret = $stmt->execute($search);
         } else {
-            //$stmt->bindParam(':search', $search);
             $ret = $stmt->execute();
         }
         return $ret;
@@ -187,15 +213,16 @@ class db {
     /**
      * Method for seleting all with the options for adding a limit and a order
      *
-     * @param   string      table the table were we want to select all from
-     * @param   array       fields to select
-     * @param   array       an array with search options e.g. 
-     *                      <code>array ('username' => 'admin', 'email' => 'dennis@coscms.org');</code>
-     * @param   int         from where from do we select
-     * @param   int         limit set per select
-     * @param   string      order_by field to order by
-     * @param   asc         boolean (1 or 0)
-     * @return  array|false rows ASSOC array containing the selected row or false
+     * @param   string      $table the table were we want to select all from
+     * @param   mixed       $fields to select (string or array of fields)
+     *                      if null we the select will be all fields (*)
+     * @param   array       $search array with simple search options e.g. 
+     *                      array ('username' => 'admin', 'email' => 'dennis@coscms.org')
+     * @param   int         $from from where in the resultset e.g. 200
+     * @param   int         $limit max rows to fetch e.g. 10
+     * @param   string      $order_by the field to order by
+     * @param   asc         $asc ASC if true DESC if false
+     * @return  array       $rows ASSOC array containing the selected row or false
      */
     public function selectAll($table, $fields = null, $search = null, $from = null,
                               $limit = null, $order_by = null, $asc = null){
@@ -225,8 +252,6 @@ class db {
             }
 
             if ($order_by){
-                //self::$dbh->quote($order_by);
-                //echo $order_by = self::$dbh->quote($order_by);
                 $sql.= " ORDER BY `$order_by` ";
                 if ($asc == 1){
                     $sql.= "ASC ";
@@ -260,9 +285,14 @@ class db {
     /**
      * Method for inserting values into a table
      *
-     * @param   string  table the table to insert into
-     * @param   array   values to insert, .e.g <code>array ('username' => 'test', 'password' => md5('test'))</code>
-     * @return  boolean true or false
+     * @param   string  $table table the table to insert into
+     * @param   array   $values to insert e.g. 
+     *                  array ('username' => 'test', 
+     *                         'password' => md5('test'))
+     * @param   array   $bind if we want to bind any values specify 
+     *                  the field and type in assoc array. 
+     *                  array ('username' => PDO::STRING)
+     * @return  boolean $res true on success or false on failure
      */
     public function insert($table, $values, $bind = null){
         $fieldnames = array_keys($values);
@@ -290,13 +320,13 @@ class db {
     /**
      * Method for doing a simple full-text mysql search in a database table
      *
-     * @param   string  table the table to search e.g. 'article'
-     * @param   string  match what to match, e.g 'title, content'
-     * @param   string  select what to select e.g. '*'
-     * @param   string  search what to search for e.g 'some search words'
-     * @param   int     from where to start getting the results
-     * @param   int     limit how many results to fetch e.g. 20
-     * @return  array   rows FETCH_ASSOC array of rows
+     * @param   string  $table the table to search e.g. 'article'
+     * @param   string  $match what to match, e.g 'title, content'
+     * @param   string  $select what to select e.g. '*'
+     * @param   string  $search what to search for e.g 'some search words'
+     * @param   int     $from where to start getting the results
+     * @param   int     $limit how many results to fetch e.g. 20
+     * @return  array   $rows array of rows
      */
     public function simpleSearch($table, $match, $search, $select, $from, $limit ){
         $query = "SELECT ";
@@ -326,10 +356,10 @@ class db {
     /**
      * Method for counting rows when searching a mysql table with full-text
      *
-     * @param   string  table the table to search e.g. 'article'
-     * @param   string  match what to match, e.g 'title, content'
-     * @param   string  search what to search for e.g 'some search words'
-     * @return  int     num rows of search results from used full-text search
+     * @param   string  $table the table to search e.g. 'article'
+     * @param   string  $match what to match, e.g 'title, content'
+     * @param   string  $search what to search for e.g 'some search words'
+     * @return  int     $num rows of search results from used full-text search
      */
     public function simpleSearchCount($table, $match, $search ){
         $query = "SELECT COUNT(*) AS num_rows ";
@@ -348,12 +378,14 @@ class db {
     /**
      * Function for updating a row in a table
      * 
-     * @param   string  the table to insert into
-     * @param   array   values to update e.g.:
+     * @param   string  $table the table to update
+     * @param   array   $values which should be updated e.g.:
      *                  array ('username' => 'test', 'password' => md5('test')
-     * @param   mixed   primary id of row (need to have an id in table or
+     * @param   mixed   $search primary id of row (need to have an id in table or
      *                  array ('username' => 'test')
-     * @return  int     value of last updated row
+     * @param   array   $bind array with values and type to bind, e.g. 
+     *                  array ('id' => PDO::INT)
+     * @return  boolena true on success and false on failure
      */
     public function update($table, $values, $search, $bind = null){
         $fieldnames = array_keys($values);
@@ -402,7 +434,7 @@ class db {
      *
      * @param   string  $table to count number of rows in
      * @param   array   $where ('username => 'test')
-     * @return  int     num_rows number of rows
+     * @return  int     $num_rows number of rows
      */
     public function getNumRows($table, $where = null){
         if (!isset($where)) $where = array();
@@ -433,14 +465,14 @@ class db {
      * Method for performing a direct selectQuery, e.g. if we are joinging rows
      *
      * @param   string  The query to execute
-     * @return  array   the rows found
+     * @return  mixed   $rows array the rows found. Or false on failure. 
      *
      */
     public function selectQuery($sql){
         self::$debug[]  = "Trying to prepare selectQuery sql: $sql";
         $stmt = self::$dbh->query($sql);
         $ret = $stmt->execute();
-        //return $ret;
+        if (!$ret) return false;
         $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
         return $rows;
     }
@@ -448,8 +480,8 @@ class db {
     /**
      * Method for doing a raw query. Anything will go
      *
-     * @param   string  the query to execute
-     * @return  object  the stmt object returned from the query
+     * @param   string  $sql to query
+     * @return  object  $stmt the object returned from the query
      */
     public function rawQuery($sql){
         self::$debug[]  = "Trying to prepare rawQuery sql: $sql";
@@ -458,10 +490,12 @@ class db {
     }
 
     /**
-     * Method for preparing raw <code>$_POST vars</code> for execution 
+     * Method for preparing raw $_POST for execution. It just 
+     * removes some common fields from post like e.g. 'submit', 'submitted',
+     * MAX_FILE_SIZE, *method*, and captcha. 
+
      *
-     * @return  array   values to use in update and insert sql commands.
-     *                  we do not use 'submit' button and 'captcha'.
+     * @return  array   $values to use in update and insert sql commands.
      */
     static public function prepareToPost(){
         self::$debug[] = "Trying to prepareToPost";
@@ -490,7 +524,7 @@ class db {
     /**
      * Method for showing errors
      *
-     * @param   string  msg the message to show with the backtrace
+     * @param   string  $msg the message to show with the backtrace
      */
     protected function fatalError($msg) {
         self::$debug[] = "Fatal error encountered";
@@ -505,37 +539,174 @@ class db {
     }
 }
 
-class QBuilder extends db {
+/**
+ * class containg a simpler way for doing more complex queries (yet simple)
+ * you may use the alternative name dbQ
+ * 
+ * @package coslib 
+ */
+
+class QBuilder  {
     /**
-     * @var for holding query
+     * holder for query being built
+     * @var string $query holding query 
      */
     public static $query = null;
 
     /**
-     * @var for holding PDO statement
+     * @var object $stmt holding PDO statement
      */
     public static $stmt = null;
 
     /**
-     *
-     * @var array   holding all statements that will be bound
+     * @var array $bind. holding all statements that will be bound
      */
     public static $bind = array();
 
     /**
      *
-     * @var string|null  indicatin if a WHERE sql sentence has been used
+     * @var string|null  $where indicatin if a WHERE sql sentence has been used
      */
     public static $where = null;
+    
+    /**
+     * 
+     * @var type $dbh object holding db handle
+     */
+    public static $dbh = null;
+    
+    /**
+     * @var type $debug array for holding debug messages
+     */
+    public static $debug = array();
+    
+    /**
+     *
+     * @var type $method inidcation if we are updating or inserting values. 
+     */
+    public static $method = null;
+
+    
+
+    function __construct($options = null) {
+        self::init($options);
+        
+    }
+    
+    public static function init($options = null) {
+        static $db = null;
+        if (!isset($db)) {
+            $db = new db();
+            self::$dbh = db::$dbh;    
+        } 
+    }
+    
+    /**
+     * prepare for a select statement. 
+     * 
+     * @param string $table the table to select from 
+     * @param string $fields the fields from the table to select 
+     *             e.g. * or 'id, title'
+     */
 
     public static function setSelect ($table, $fields ='*'){
         self::$query = "SELECT $fields FROM `$table` ";
     }
     
+    /**
+     * prepare for a delete query
+     * @param string $table the table to delete from
+     */
     public static function setDelete ($table){
         self::$query = "DELETE FROM `$table` ";
     }
+    
+    /**
+     * prepare for an update query statement
+     * @param type $table 
+     */
+    
+    public static function setUpdate ($table) {
+        self::$method = 'UPDATE';
+        self::$query = "UPDATE `$table` SET ";
+    }
+    
+    /**
+     * prepare for insert
+     * @param type $table the table to insert values into
+     */
+    public static function setInsert ($table) {
+        self::$method = 'INSERT';
+        self::$query = "INSERT INTO `$table`";
+    }
+    
+    /**
+     * set values for insert or update. 
+     * @param array $values the values to insert
+     * @param array $bind array with types to bind values to
+     */
+    public static function setValues ($values, $bind = array()) {
+        if (self::$method == 'UPDATE') {
+            self::setUpdateValues($values, $bind);
+        } else {
+            self::setInsertValues($values, $bind);
+        }        
+    }
+    
+    /**
+     * prepare for update values
+     * @param array $values the values to update with
+     * @param array $bind the array with types to bind with 
+     */
+    public static function setUpdateValues ($values, $bind = array ()) {
+        $ary = array();
+        foreach ($values as $field => $value ){
+            $ary[] = " `$field` =" . " ? ";
+            if (isset($bind[$field])) {
+                self::$bind[] = array ('value' => $value, 'bind' => $bind[$field]);
+            } else {
+                self::$bind[] = array ('value' => $value, 'bind' => null);
+            }
+        }
+        
+        self::$query.=  implode (',', $ary);
+    } 
+    
+    /**
+     * set insert values
+     * @param array $values the values to insert into table
+     * @param array $bind the values to bind values with
+     */
+    public static function setInsertValues ($values, $bind = array ()) {
+        
+        $fieldnames = array_keys($values);
+        $fields = '( ' . implode(' ,', $fieldnames) . ' )';
+        //$bound = '(:' . implode(', :', $fieldnames) . ' )';
+        self::$query.= $fields . ' VALUES '; // . $bound;
+        foreach ($fieldnames as $val) {
+            $rest[] = '?';
+        }
+        
+        self::$query.= '(' . implode(', ', $rest) . ')';
+        
+        foreach ($values as $field => $value ){
+            
+            if (isset($bind[$field])) {
+                self::$bind[] = array ('value' => $value, 'bind' => $bind[$field]);
+            } else {
+                self::$bind[] = array ('value' => $value, 'bind' => null);
+            }
+        }
+        
+    } 
 
+    /**
+     * filter for something in a query e.g. filter('id > 2', $value);
+     * the values used will be prepared by class. 
+     * @param string $filter the filter to use e.g. 'id >
+     * @param string $value the value to filter from e.g. '2'
+     * @param string $bind  if we want to bind the value to a type. 
+     */
     public static function filter ($filter, $value, $bind = null) {
         // e.g. id > 3
         static $where = null;
@@ -549,6 +720,12 @@ class QBuilder extends db {
         self::$bind[] = array ('value' => $value, 'bind' => $bind);
     }
 
+    /**
+     * filter for creating IN queries where we use an array of values
+     * to create our filter from. 
+     * @param string $filter waht to filter from, e.g. "ID in"
+     * @param array $values the values which we will use, e.g. array(1, 2, 3) 
+     */
     public static function filterIn ($filter, $values) {
 
         if (!self::$where) {
@@ -570,28 +747,28 @@ class QBuilder extends db {
     }
 
     /**
-     *
-     * @param string $condition (e.g. 'AND' 'OR')
+     * sets a condition between filters
+     * @param string $condition (e.g. 'AND', 'OR')
      */
     public static function condition ($condition){
         self::$query.= " $condition ";
     }
 
     /**
-     *
-     * @param string $column column to order by
-     * @param string $order (ASC or DESC)
+     * set ordering of the values which we tries to fetch
+     * 
+     * @param string $column column to order by, e.g. title
+     * @param string $order (e.g. ASC or DESC)
      */
     public static function order ($column, $order = 'ASC'){
-        //$column = self::$dbh->quote($column);
-        //$order = self::$dbh->quote($order);
         self::$query.= " ORDER BY `$column` $order";
     }
 
     /**
      * method for setting a limit in the query
-     * @param int $from
-     * @param int $limit
+     * 
+     * @param int $from where to start the limit e.g. 200
+     * @param int $limit the limit e.g. 10
      */
     public static function limit ($from, $limit){
         $from = (int)$from;
@@ -602,7 +779,7 @@ class QBuilder extends db {
     /**
      * method for preparing all bound columns and corresponding values
      */
-    private static function prepare (){
+    public static function prepare (){
         if (self::$bind){
             $i = 1;
             foreach (self::$bind as $key => $val){
@@ -615,10 +792,11 @@ class QBuilder extends db {
     }
 
     /**
-     * method for fetching rows from database
-     * @return array    assoc array of rows
+     * method for fetching rows which we created with our query
+     * @return array $rows assoc array of rows
      */
     public static function fetch (){
+        self::init();
         self::$stmt = self::$dbh->prepare(self::$query);
         self::prepare();
 
@@ -630,13 +808,31 @@ class QBuilder extends db {
         self::$query = null;
         return $rows;
     }
+    
+    /**
+     * method to execute a query, insert update or delte. 
+     * @return boolean true on success and false on failure. 
+     */
+    public static function exec() {
+        self::init();
+        self::$debug[] = self::$query;    
+        self::$stmt = self::$dbh->prepare(self::$query);
+        self::prepare();       
+        $res = self::$stmt->execute();
+        self::unsetVars();
+        return $res;
+    }
 
+    /**
+     * fetch a single row, first in line
+     * @return array $row single array
+     */
     public static function fetchSingle (){
         $rows = self::fetch();
         if (isset($rows[0])){
             return $rows[0];
         }
-        return null;
+        return array();
     }
 
     /**
@@ -645,4 +841,11 @@ class QBuilder extends db {
     public static function unsetVars (){
         self::$query = self::$bind = self::$where = self::$stmt = null;
     }
+}
+/**
+ * @package coslib
+ * just a better name for QBuilder
+ */
+class dbQ extends QBuilder {
+    
 }

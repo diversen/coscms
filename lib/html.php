@@ -1,21 +1,62 @@
 <?php
 
+/**
+ * File containing class for building forms and common methods used 
+ * when building forms.
+ * 
+ * @package coslib 
+ */
+
+/**
+ * Class used when building forms and various methods used when creating forms
+ * for escaping in different ways. 
+ * @package coslib
+ */
 
 class HTML {
 
+    /**
+     * array holding values used when creating forms
+     * @var array $values the array of values
+     */
     public static $values = array();
+    
+    /**
+     * string holding a form  being built. 
+     * @var string $formStr the form string
+     */
     public static $formStr = '';
+    
+    /**
+     * string holding a submit action which will trigger form to
+     * use values being submitted
+     * @var string  $autoLoadTrigger the autoLoadTrigger string
+     */
     public static $autoLoadTrigger;
 
+    /**
+     * default string to seperate form fields with
+     * @var string $br break string
+     */
     public static $br = "<br />";
 
+    /**
+     * method for getting form string build. 
+     * @return string $str the form build
+     */
     public static function getStr () {
-        
         $str = self::$formStr;
         self::$formStr = '';
         return $str;
     }
 
+    /**
+     * method for initing a form
+     * @param array $values initial values for the form e.g. 
+     *              array ('name' => 'dennis')
+     * @param string $trigger the trigger value which tells the object to
+     *               stop using the initial set values 
+     */
     public static function init ($values = array (), $trigger = null) {
         
         if (isset($trigger)) {
@@ -36,18 +77,36 @@ class HTML {
         } 
     }
 
+    /**
+     * method for disabling break between form elements
+     */
     public static function disableBr (){
         self::$br = '';
     }
 
+    /**
+     * method for enabling breaks between form elements
+     */
     public static function enableBr (){
         self::$br = "<br />";
     }
-
+    
+    /**
+     * method for setting form values
+     * @param array $values 
+     */
     public static function setValues ($values) {
         self::$values = $values;
     }
 
+    /**
+     * method for starting a html form
+     * @param type $name name of the form
+     * @param type $method method of the form
+     * @param type $action action of the form
+     * @param type $enctype enctype of the form
+     * @return string 
+     */
     public static function formStart (
         $name = 'form', $method ='post', $action = '',
         $enctype = "multipart/form-data") {
@@ -60,11 +119,17 @@ class HTML {
         $str.= "<form action=\"$action\" method=\"$method\" name=\"$name\" enctype = \"$enctype\">\n";
         $str.= "<fieldset>\n";
         
-        
         self::$formStr.= $str;
         return $str;
     }
-
+    
+    /**
+     * method for setting a legend on the form
+     * @param type $legend the title of the legend
+     * @param type $extra extra options to add to the legend e.g. 
+     *             array ('class' => 'table-top and-more')
+     * @return string $str the legend string. 
+     */
     public static function legend ($legend, $extra = null){        
         $str = "<legend>$legend";
 
@@ -73,16 +138,24 @@ class HTML {
         return $str;
     }
 
+    /**
+     * method for ending a form with the </form> tag
+     * @return string $str the form end element
+     */
     public static function formEnd (){
         $str = '';
         $str.= "</fieldset>\n";
         $str.= "</form>\n";
-        //$str.= "</div>\n";
-
         self::$formStr.= $str;
         return $str;
     }
 
+    /**
+     * sets a label for a form element
+     * @param string $label_for the field to set the label for
+     * @param string $label the label text
+     * @return string $str the label
+     */
     public static function label ($label_for, $label = '') {
         if ($label_for == 'captcha') {
             // no label for images
@@ -94,7 +167,14 @@ class HTML {
         return $str;
     }
 
-    public static function setValue ($name, $value){
+    /** 
+     * method for setting a value in a field
+     * @access private
+     * @param string $name the form field
+     * @param string $value the value of the form field
+     * @return string 
+     */
+    private static function setValue ($name, $value){
         if (isset(self::$values[$name])){
             return self::$values[$name];
         } else {
@@ -103,20 +183,29 @@ class HTML {
 
     }
     
+     
+    /**
+     * sets a hidden element in a form. 
+     * @param string $name name of the field
+     * @param string $value value of the field
+     * @param array  $extra elements of the field e.g. 
+     *               array ('class' => 'css-test and-more')
+     * @return string the hidden element (adds the element to the static form str.)  
+     */
     public static function hidden ($name, $value = null, $extra = array()){
         $str = self::hiddenClean($name, $value, $extra);
-        /*
-        if (!isset($value)) {
-            $value = self::setValue($name, $value);
-        }
-        
-        $extra = self::parseExtra($extra);
-        $str = "<input type=\"hidden\" name=\"$name\" $extra value=\"$value\" />\n";
-        */
         self::$formStr.= $str; 
         return $str;
     }
     
+    
+    /**
+     * gets a hidden field
+     * @param string $name name of the field
+     * @param string $value value of the field
+     * @param array $extra
+     * @return string $str the hidden form field 
+     */
     public static function hiddenClean ($name, $value = null, $extra = array()){
 
         if (!isset($value)) {
@@ -125,17 +214,29 @@ class HTML {
         
         $extra = self::parseExtra($extra);
         $str = "<input type=\"hidden\" name=\"$name\" $extra value=\"$value\" />\n";
-        //self::$formStr.= $str;
         return $str;
     }
     
-
+    /**
+     * sets a text field in a form
+     * @param string $name the name
+     * @param string $value the value
+     * @param string $extra extra e.g. array ('class' => 'css and-more')
+     * @return string the text field (sets the text field in static form string)
+     */
     public static function text ($name, $value = null, $extra = array()){
         $str = self::textClean($name, $value, $extra);
         self::$formStr.= $str;
         return $str;
     }
     
+    /**
+     * gets a text field as string without adding to the static form str
+     * @param string $name name of the element
+     * @param string $value value of the element
+     * @param array $extra e.g. array ('class' => 'css-type and-more') 
+     * @return string the tet field 
+     */
     public static function textClean ($name, $value = null, $extra = array()){
         if (!isset($extra['size'])){
             $extra['size'] = HTML_FORM_TEXT_SIZE;
@@ -150,6 +251,14 @@ class HTML {
         return $str;
     }
 
+    /**
+     * creates a simple captcha string (or image) 
+     * @see captcha.php
+     * @param string $name name of the element
+     * @param string $value vlaue of the element
+     * @param array $extra extras e.g. array ('class' => 'css and-more')
+     * @return string 
+     */
     public static function simpleCaptcha ($name, $value = '', $extra = array()){
         if (!isset($extra['size'])){
             $extra['size'] = HTML_FORM_TEXT_SIZE;
@@ -162,6 +271,13 @@ class HTML {
         return $str;
     }
 
+    /**
+     * sets form string with a password field
+     * @param type $name name of the form field
+     * @param type $value value of the form field. 
+     * @param type $extra e.g. array ('class' => 'css and-more');
+     * @return string 
+     */
     public static function password ($name, $value = '', $extra = array()){
         if (!isset($extra['size'])){
             $extra['size'] = HTML_FORM_TEXT_SIZE;
