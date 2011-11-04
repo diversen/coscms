@@ -95,7 +95,7 @@ class db {
             if(!self::$dbh) $this->connect();
         } catch (PDOException $e) {
             if (!$options){
-                $this->fatalError ('Connection failed: ' . $e->getMessage());
+                self::fatalError ('Connection failed: ' . $e->getMessage());
             } else {
                 if (isset($options['dont_die'])){
                     self::$debug[] = 'No connection';
