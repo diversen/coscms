@@ -494,4 +494,17 @@ class templateView {
             return false;
         }
     }
+    
+    /**
+     * shorthand for includeModuleView. Will always return the parsed template 
+     * instead of printing to standard output. 
+     * 
+     * @param string $module the module to include view from
+     * @param string $view the view to use
+     * @param mixed $vars the vars to use in the template
+     * @return string $parsed the parsed template view  
+     */
+    public static function get ($module, $view, $vars = null) {
+        return self::includeModuleView($module, $view, $vars, 1);
+    }
 }

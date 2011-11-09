@@ -761,7 +761,7 @@ class QBuilder  {
      * @param string $order (e.g. ASC or DESC)
      */
     public static function order ($column, $order = 'ASC'){
-        self::$query.= " ORDER BY `$column` $order";
+        self::$query.= " ORDER BY `$column` $order ";
     }
 
     /**
@@ -833,6 +833,13 @@ class QBuilder  {
             return $rows[0];
         }
         return array();
+    }
+    
+    public static function numRows ($table) {
+        $db = new dbQ();
+        $db->setSelect($table, 'count(*) as numrows');
+        $row = $db->fetchSingle();
+        return $row['numrows'];
     }
 
     /**
