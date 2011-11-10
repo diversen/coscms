@@ -42,7 +42,7 @@ mainCli::setCommand('test-access', array(
 
 mainCli::setOption('test_access', array(
     'long_name'   => '--check',
-    'description' => 'Will enable current directory as an apache2 virtual host. Will also add new sitename to your /et/hosts file',
+    'description' => 'Will check all web access points and give return code, e.g. 200 or 403',
     'action'      => 'StoreTrue'
 ));
 
