@@ -84,12 +84,7 @@ class moduleLoader {
     }
 
     public static function moduleExists ($module_name) {
-        $modules = self::getAllModules();
-        foreach ($modules as $val) {
-            $val['module_name'] = $module_name;
-            return true;
-        }
-        return false;
+        return self::isInstalledModule($module_name);
     }
     
     /**
@@ -152,7 +147,7 @@ class moduleLoader {
     /**
      * method for checking if a module is installed.
      */
-    private function isInstalledModule($module){
+    public static function isInstalledModule($module){
         foreach (self::$modules as $key => $val){
             if ($val['module_name'] == $module){
                 return true;
