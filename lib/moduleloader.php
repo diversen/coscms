@@ -74,13 +74,24 @@ class moduleLoader {
         if (!empty(self::$modules)) {
             return self::$modules;
         }
-
+        
+        static $modules = null;
+        if ($modules) return $modules;
         $db = new db();
         $db->connect();
 
-        return $db->selectAll('modules');
+        return $modules = $db->selectAll('modules');
     }
 
+    public static function moduleExists ($module_name) {
+        $modules = self::getAllModules();
+        foreach ($modules as $val) {
+            $val['module_name'] = $module_name;
+            return true;
+        }
+        return false;
+    }
+    
     /**
      *
      *
