@@ -107,6 +107,10 @@ abstract class template {
     
     public static function getLogoHTML ($options = array()) {
         
+        //font-family: 'Rammetto One', cursive;
+        if (isset($options['font'])) {
+            return $str = "<a id=\"logo_title\" href=\"/\">$_SERVER[HTTP_HOST]</a>";
+        }
         if (empty(register::$vars['coscms_main']['logo'])) {
             return $str = "<a id=\"logo_title\" href=\"/\">$_SERVER[HTTP_HOST]</a>";
         } else {
