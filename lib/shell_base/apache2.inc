@@ -27,26 +27,16 @@ function create_a2_conf($SERVER_NAME){
     
     if (isset(register::$vars['a2_use_ssl'])) {
         include "scripts/apache2/apache2-ssl.inc";
+
+        
     } else {
         include "scripts/apache2/apache2.inc";
     }
+    
     return $apache_str;
 }
 // }}}
-// {{{ function create_a2_conf()
-/**
- * create apache2 configuration string
- * @param   string  name of host to enable
- * @return  string  a apache2 configuration string.
- */
-function create_a2_ssl_conf($SERVER_NAME){
-    $current_dir = getcwd();
-    $DOCUMENT_ROOT = $current_dir . '/htdocs';
-    $APACHE_LOG_ROOT = $current_dir . '/logs';
-    include "scripts/apache2-ssl.inc";
-    return $apache_str;
-}
-// }}}
+
 // {{{ a2_enable_site($options)
 /**
  * function for enabling a apche2 site
@@ -123,12 +113,17 @@ function a2_disable_site($options){
 }
 // }}}
 function a2_use_ssl ($options) {
-    echo "argg";
     register::$vars['a2_use_ssl'] = true;
 }
 
 mainCli::setCommand('apache2', array(
     'description' => 'Command for automatic configuration and setup of apache2 as virtual server',
+));
+
+mainCli::setOption('a2_use_ssl', array(
+    'long_name'   => '--ssl',
+    'description' => 'Set this flag and enable SSL mode',
+    'action'      => 'StoreTrue'
 ));
 
 mainCli::setOption('a2_enable_site', array(
@@ -143,11 +138,7 @@ mainCli::setOption('a2_disable_site', array(
     'action'      => 'StoreTrue'
 ));
 
-mainCli::setOption('a2_use_ssl', array(
-    'long_name'   => '--ssl',
-    'description' => 'Set this flag and enable SSL mode',
-    'action'      => 'StoreTrue'
-));
+
 
 mainCli::setArgument(
     'hostname',
