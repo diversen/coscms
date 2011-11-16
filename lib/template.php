@@ -454,8 +454,10 @@ abstract class template {
     public static function setTemplateCss ($template = '', $order = 0, $version = 0){
 
         $css = get_main_ini('css');
-        if ($css){
-            $css_url = "/templates/$template/$css/$css.css?version=$version";
+        $css_path = "/templates/$template/$css/$css.css";
+        $css_url = $css_path . "?version=$version";
+        $css_file = _COS_PATH . '/htdocs' . $css_path;
+        if (file_exists($css_file)){ 
             self::setCss($css_url, $order);
         } else {
             // use default css
