@@ -106,11 +106,7 @@ abstract class template {
     }
     
     public static function getLogoHTML ($options = array()) {
-        
-        //font-family: 'Rammetto One', cursive;
-        if (isset($options['font'])) {
-            return $str = "<a id=\"logo_title\" href=\"/\">$_SERVER[HTTP_HOST]</a>";
-        }
+
         if (empty(register::$vars['coscms_main']['logo'])) {
             return $str = "<a id=\"logo_title\" href=\"/\">$_SERVER[HTTP_HOST]</a>";
         } else {
@@ -406,45 +402,21 @@ abstract class template {
         return self::$endContent;
     }
     
-    public static function init ($template) {
-        
-        
+    /**
+     * inits a template
+     * set template name and load init settings
+     * @param string $template name of the template to init. 
+     */
+    public static function init ($template) {       
         self::$templateName = $template;
         if (!isset(register::$vars['template'])) {
             register::$vars['template'] = array();
         }       
-        self::loadIniSettings($template);
+        moduleLoader::setModuleIniSettings($template, 'template');
+        //self::loadIniSettings($template);
     }
     
-    public static function loadIniSettings ($template) {
-        static $parsed = array();
-       
-        if (isset($parsed[$template])) return;
-        $ini_file = _COS_PATH . "/htdocs/templates/$template/$template.ini";
-        if (file_exists($ini_file)) { 
-            $settings = parse_ini_file($ini_file, true);
-            if (!is_array($settings)) {
-                return;
-            }
-            
-            register::$vars['template'] = 
-                    array_merge(register::$vars['template'], 
-                    $settings);
-            
-            $parsed[$template] = 1;
-        }
-    }
     
-    public static function getIniSetting ($var) {
-        
-        if (isset(register::$vars['template'][$var])){
-            //echo "return";
-            return register::$vars['template'][$var];
-        }   
-        //echo "no $var";
-        return null;
-    }
-
     /**
      * checks if a css style is registered. If not
      * we use common.css in template folder.

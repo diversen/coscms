@@ -495,7 +495,7 @@ class moduleLoader {
      *
      * @return  array   array with ini settings of module.
      */
-    public static function setModuleIniSettings($module){
+    public static function setModuleIniSettings($module, $type = 'module'){
 
         static $set = array();
         if (!isset(self::$iniSettings['module'])){
@@ -507,7 +507,12 @@ class moduleLoader {
         }
 
         $set[$module] = $module;
-        $ini_file = _COS_PATH . "/modules/$module/$module.ini";
+        if ($type == 'module') {
+            $ini_file = _COS_PATH . "/modules/$module/$module.ini";
+        } else {
+            // template
+            $ini_file = _COS_PATH . "/htdocs/templates/$module/$module.ini";
+        }
         
         // XXX: check Memcache - if found don't read. 
         if (!file_exists($ini_file)) {
@@ -515,8 +520,7 @@ class moduleLoader {
             return;
         }
         
-        
-        
+                
         self::$iniSettings[$module] = parse_ini_file($ini_file, true);
         if (is_array(self::$iniSettings[$module])){
             register::$vars['coscms_main']['module'] = array_merge(
