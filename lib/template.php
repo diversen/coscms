@@ -105,10 +105,16 @@ abstract class template {
         }
     }
     
+    /**
+     * method for getting html for front page. If no logo has been 
+     * uploaded. You will get logo as html
+     * @param type $options options to give to html::createHrefImage
+     * @return string $str the html compsoing the logo or main title
+     */
     public static function getLogoHTML ($options = array()) {
-
-        if (empty(register::$vars['coscms_main']['logo'])) {
-            return $str = "<a id=\"logo_title\" href=\"/\">$_SERVER[HTTP_HOST]</a>";
+        $logo = get_main_ini('logo');
+        if (empty($logo)){
+            return $str = "<div id=\"logo_title\"><a href=\"/\">$_SERVER[HTTP_HOST]</a></div>";
         } else {
             $file ="/logo/" . register::$vars['coscms_main']['logo'];
             $src = get_files_web_path($file);
@@ -413,7 +419,6 @@ abstract class template {
             register::$vars['template'] = array();
         }       
         moduleLoader::setModuleIniSettings($template, 'template');
-        //self::loadIniSettings($template);
     }
     
     

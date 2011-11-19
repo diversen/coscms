@@ -453,25 +453,13 @@ class moduleInstaller extends db {
         }
         return true;
     }
-
+    
     /**
-     * method for installing a module.
-     * checks if module already is installed, if not we install it.
-     *
-     * @param   string  name of module to install
-     * @return  boolean true on success or false on failure
+     * checks and creates ini file if not exists. 
+     * @return boolean $res true on success and false on failure. 
      */
-    public function install (){
+    public function createIniFile () {
 
-        $ret = $this->isInstalled();
-        if ($ret){
-            $info = $this->getModuleInfo();
-            $this->error = "Error: Module '" . $this->installInfo['NAME'] . "' version '$info[module_version]'";
-            $this->error.= " already exists in module registry!";
-            return false;
-        }
-
-        // create ini files for module
         $module = $this->installInfo['NAME'];
         $ini_file = _COS_PATH . "/modules/$module/$module.ini";
         $ini_file_php = _COS_PATH . "/modules/$module/$module.php.ini";
@@ -493,18 +481,21 @@ class moduleInstaller extends db {
             }
         }
 
+        return true;
         
-        
+    }
 
-        // if any sql install sql
-        // get a list of sql updates to perform or an empty array if no sql
-        // updates exists
+    /**
+     * create SQL on module install
+     * There is not much error checking, because we can not commit and
+     * rollback on table creation. 
+     */
+    public function createSQL () {
         $updates = $this->getSqlFileListOrdered($this->installInfo['NAME'], 'up');
 
-        // perform sql upgrade
+        // perform sql upgrade. We upgrade only to the version nmber
+        // set in module file install.inc. 
         if (!empty($updates)){            
-            // we install all sql versions up to the version specified in
-            // installInfo['VERSION']
             foreach ($updates as $key => $val){
                 $version = substr($val, 0, -4);
                 if ($this->installInfo['VERSION'] >= $version ) {
@@ -512,13 +503,45 @@ class moduleInstaller extends db {
                                 $this->installInfo['NAME'],
                                 $version,
                                 'up');
+                    
+                    // all sql statements are executed one after one. 
+                    // in your sql file any statement is seperated with \n\n
                     $sql_ary = explode ("\n\n", $sql);
+                    
                     foreach ($sql_ary as $sql_key => $sql_val){
-                        $result = self::$dbh->query($sql_val);
+                        $result = self::$dbh->exec($sql_val);
+                        if ($result === false) {
+                            die("error");
+                        }
                     }
                 }
             }
         }
+        return true;
+    }
+    
+    /**
+     * method for installing a module.
+     * checks if module already is installed, if not we install it.
+     *
+     * @param   string  name of module to install
+     * @return  boolean true on success or false on failure
+     */
+    public function install (){
+
+        $ret = $this->isInstalled();
+        if ($ret){
+            $info = $this->getModuleInfo();
+            $this->error = "Error: Module '" . $this->installInfo['NAME'] . "' version '$info[module_version]'";
+            $this->error.= " already exists in module registry!";
+            return false;
+        }
+
+        $res = $this->createIniFile ();
+        if (!$res) return false;
+
+        $res = $this->createSQL () ;
+        if (!$res) return false;
         
         // insert into registry. Set menu item and insert language.
         $this->insertRegistry();
