@@ -140,7 +140,14 @@ function get_repo_path ($module_name, $type = 'module'){
  * @param array $options
  */
 function git_clone_template($options){
+    
     git_clone($options, 'template');
+    
+    $template = get_module_name_from_repo($options['repo']);
+    $options['template'] = $template;
+    $str = install_template($options, true);
+    cos_cli_print($str);
+    return;
 }
 
 /**

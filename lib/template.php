@@ -123,6 +123,7 @@ abstract class template {
             }
             $href = html::createHrefImage($src, $options, '/');
             $str = '<div id="logo_img">' . $href . '</div>' . "\n"; 
+            //die($str);
             return $str;
         }
     }

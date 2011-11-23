@@ -41,7 +41,7 @@ function get_template_info($template_name){
 
 function install_template ($options, $return_val = null) {
     //print_r($options);
-    $template = $options['Template'];
+    $template = $options['template'];
     
     //$template_path = _COS_PATH . "/htdocs/templates/$template";
 
@@ -106,7 +106,7 @@ mainCli::setOption('install_template', array(
 ));
 
 mainCli::setArgument(
-    'Template',
+    'template',
     array('description'=> 'specify the template to set or purge',
           'optional' => true));
 
