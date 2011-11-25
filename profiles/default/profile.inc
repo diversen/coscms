@@ -290,18 +290,11 @@ $_PROFILE_TEMPLATES = array (
     'public_clone_url' => 'git://github.com/diversen/jquery-markedit.git',
     'private_clone_url' => 'git@github.com:diversen/jquery-markedit.git',
     'module_version' => '1.31',
-    'module_name' => 'bla',
-  ),
-  4 => 
-  array (
-    'public_clone_url' => 'git://github.com/diversen/jquery-markedit.git',
-    'private_clone_url' => 'git@github.com:diversen/jquery-markedit.git',
-    'module_version' => '1.31',
     'module_name' => 'jquery-markedit',
   ),
 );
 
-$_PROFILE_TEMPLATE = '1kbgrid';
+$_PROFILE_TEMPLATE = 'clean';
 
 $_PROFILE_USE_HOME = 0;
 
