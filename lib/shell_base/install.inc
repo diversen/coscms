@@ -48,7 +48,7 @@ function install($options = false) {
     foreach ($pro->profileTemplates as $key => $val){
         $options['repo'] = $val['public_clone_url'];
         $options['version'] = $val['module_version'];
-        $options['Template'] = $val['module_name'];
+        $options['template'] = $val['module_name'];
         git_install($options, 'template');
     }
 
