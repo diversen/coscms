@@ -774,7 +774,7 @@ class templateInstaller extends moduleInstaller {
         $ini_file_dist = $template_dir . "/$template_name.ini-dist";
 
         if (isset($options['profile'])){
-            $ini_file_dist = _COS_PATH . "/profiles/$options[profile]/$module_name.ini-dist";
+            $ini_file_dist = _COS_PATH . "/profiles/$options[profile]/$template_name.ini-dist";
         }
 
         if (!file_exists($ini_file)){
