@@ -1230,7 +1230,7 @@ function cos_sanitize_url($string, $force_lowercase = true, $remove_special = fa
  */
 function cos_sanitize_simple_url($string) {
     $strip = array("/", "?", "#");
-    return $clean = trim(str_replace($strip, "", htmlentities(strip_tags($string))));
+    return $clean = trim(str_replace($strip, "", htmlspecialchars(strip_tags($string))));
 
 }
 
