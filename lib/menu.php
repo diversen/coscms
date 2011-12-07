@@ -144,7 +144,7 @@ class menu {
                 $str.= self::$options['first_ul'];
                 $first_done = 1;
             } else {
-                $str.="<ul id=\"content_tree\">\n";
+                $str.="<ul class=\"content_tree\">\n";
             }
         }
 
