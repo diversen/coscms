@@ -358,6 +358,8 @@ class moduleLoader {
 
         
         $reference = uri::$fragments[$frag_reference_name];  
+        
+        $id = uri::$fragments[$frag_id]; 
         $extra =  uri::getInstance()->fragment($frag_reference_name +1); 
         
         if (isset($extra) && !empty($extra)) {
@@ -380,7 +382,7 @@ class moduleLoader {
             $class = moduleLoader::modulePathToClassName($reference);
             self::$reference = $reference;
             
-            //self::$id = $id;
+            self::$id = $id;
             self::$referenceId = $reference_id;
             self::$referenceLink = $class::getLinkFromId(moduleLoader::$referenceId);
             self::$referenceRedirect = $class::getRedirect(moduleLoader::$referenceId);
@@ -392,7 +394,7 @@ class moduleLoader {
     public static function getReferenceInfo () {
         $ary = array ();
         $ary['parent_id'] = self::$referenceId;
-        $sry['id'] = self::$id;
+        $ary['inline_parent_id'] = self::$id;
         $ary['reference'] = self::$reference;
         $ary['link'] = self::$referenceLink;
         $ary['redirect'] = self::$referenceRedirect;

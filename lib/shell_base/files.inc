@@ -82,7 +82,6 @@ function rm_files(){
  * @return int  value from exec command
  */
 function create_files(){
-
     $files_path = _COS_PATH . '/logs/coscms.log';
     if (!file_exists($files_path)){
         $command = "touch $files_path";

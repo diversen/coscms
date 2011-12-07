@@ -249,6 +249,10 @@ function get_post($id) {
     //return true;
 }
 
+function unset_post ($id) {
+    unset($_SESSION[$id]);
+}
+
 // {{{ function cos_url_encode($string)
 /**
  * function for url encoding a utf8 string
@@ -940,6 +944,20 @@ function send_cache_headers ($expires = null){
     header("Cache-Control: maxage=".$expires);
     header('Expires: ' . gmdate('D, d M Y H:i:s', time()+$expires) . ' GMT');
     
+}
+
+function send_location_header ($location, $message = null, $post_id = null) {
+    if (isset($message)) {
+        session::setActionMessage($message);
+    }
+    
+    if (isset($post_id)) {
+        save_post($post_id);
+    }
+    
+    $header = "Location: $location";
+    header($header);
+    exit;
 }
 
 // }}}

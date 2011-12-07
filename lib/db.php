@@ -125,6 +125,7 @@ class db {
                 return array();
             }
         }
+        return array();
     }
 
     /**
