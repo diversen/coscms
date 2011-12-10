@@ -120,7 +120,7 @@ function git_install ($options, $type = 'module'){
  * function for getting path to a repo.
  * @param string     $module_name
  * @param string     $type (module, profile, template)
- * @return string 
+ * @return string    $repo_path the locale path to the repo.
  */
 
 function get_repo_path ($module_name, $type = 'module'){
@@ -268,7 +268,7 @@ function git_upgrade_all ($options){
         if ( ($tag == 'master') OR  ($tag > $val['module_version'])) {
             
             cos_cli_print("Will upgrade $val[module_name]");
-            _git_upgrade ($val, $tag, 'module');
+            git_upgrade ($val, $tag, 'module');
         }
     }
     
@@ -282,7 +282,7 @@ function git_upgrade_all ($options){
         }
 
         if ( ($tag == 'master') OR  ($tag > $val['module_version'])) {
-            _git_upgrade ($val, $tag, 'template');
+            git_upgrade ($val, $tag, 'template');
         }
     }
 }
@@ -457,9 +457,14 @@ function _git_commit ($val, $type = 'module'){
  * @param string    tag with wersion or 'master'
  * @param string    module, templatee or profile. 
  */
-function _git_upgrade ($val, $tag, $type = 'module'){
+function git_upgrade ($val, $tag = 'master', $type = 'module'){
+    
+    //print_r($val);
+    if (!isset($val['module_name'])) {
+        $val['module_name'] = get_module_name_from_repo($val['repo']);
+    }
     $repo_path = get_repo_path($val['module_name'], $type);
-
+    
     if (!_git_is_repo ($repo_path)){
         cos_cli_print("$repo_path is not a git repo");
         return;

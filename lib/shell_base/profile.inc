@@ -67,7 +67,7 @@ function upgrade_from_profile ($options){
         $module = new moduleInstaller($val);
 
         if ($module->isInstalled($val['module_name'])){
-            _git_upgrade($val, $val['version'], 'module');
+            git_upgrade($val, $val['version'], 'module');
         } else {
             git_install($val, 'module');
         }
