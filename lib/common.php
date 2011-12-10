@@ -803,7 +803,6 @@ function simple_template ($file){
  * Gets user profile link if a profile system is in place.
  * Profile systems must be set in main config/config.ini
  * the option array can be used to setting special options for profile module
- * @deprecated
  * @param   array   user options
  * @param   array   options
  * @return  string  string showing the profile

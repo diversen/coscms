@@ -426,7 +426,9 @@ class HTML {
      * @param   string  $field array field which will be used as name of the select element
      * @param   int     $id the array field which will be used as id of the select element
      * @param   int     $selected the element which will be selected
-     * @return  string  $extras to be added to a form
+     * @param   string  $extras to be added to a form, e.g. javascript
+     * @return  string  $dropdown the dropwdown string.
+     * 
      */
     public static function selectClean($name, $rows, $field, $id, $value=null, $extra = array(), $init = array()){        
         $extra = self::parseExtra($extra);

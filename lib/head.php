@@ -34,20 +34,22 @@ if (!defined('_COS_CLI')){
     if (empty(register::$vars['coscms_main']['server_name'])){
         register::$vars['coscms_main']['server_name'] = $_SERVER['SERVER_NAME'];
     }
-    
-    
+       
     ob_start();
 
+    // redirect to uniform domain name is set in config.ini
     $server_redirect = get_main_ini('server_redirect');
     if (isset($server_redirect)) {
         server_redirect($server_redirect);
     }
     
+    // redirect to https is set in config.ini
     $server_force_ssl = get_main_ini('server_force_ssl');
     if (isset($server_force_ssl)) {
         server_force_ssl();
     }
     
+    // include all common classes
     include "db.php";
     include "uri.php";
     include "moduleloader.php";
@@ -57,8 +59,7 @@ if (!defined('_COS_CLI')){
     include "template.php";
     include "event.php";
     
-    //event::init();
-
+    // start session
     session::initSession();
     
     $preloaded_module = get_main_ini('preloaded_modules');
@@ -82,6 +83,7 @@ if (!defined('_COS_CLI')){
         $locale = register::$vars['coscms_main']['language'].'.UTF8';
     }
 
+    // set locale for time and monetary
     setlocale(LC_TIME, $locale);
     setlocale(LC_MONETARY, $locale);
     

@@ -383,6 +383,23 @@ class session {
 
         return $profile_object->createProfileLink($user, $options);
     }
+    
+    /**
+     * method for getting a profile link in the most simple way
+     * any post will have a date and a user. 
+     * @param int $id user id
+     * @param string $date date of the post. 
+     * @return string profile html.  
+     */
+    public static function getProfileSimple($user_id, $date) {
+        
+        $user_info = session::getUserInfo($user_id);
+        $options = array ();
+        $options['display'] = 'rows';
+        $options['row'] = " $date ";        
+        $profile_link = session::getProfileLink($user_info, $options);
+        return $profile_link;
+    }
 
     /**
      * Gets user profile link if a profile system is in place.
@@ -411,5 +428,18 @@ class session {
         }
 
         return $profile_object->getProfileInfo($user);
+    }
+    
+    /**
+     * method for getting user info
+     * this is only used in the templates as we will see in the next session
+     * 
+     * @param   int     $id
+     * @return  array   account row
+     */
+    public static function getUserInfo ($id){
+        $db = new db();       
+        $row = $db->selectOne('account', 'id', $id);
+        return $row;
     }
 }

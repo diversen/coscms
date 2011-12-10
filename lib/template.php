@@ -237,8 +237,8 @@ abstract class template {
      * Will load the js as file and place and add it to array which can
      * be parsed in user templates.
      * 
-     * @param   string   string file path of the javascript
-     * @param   int      int. the loading order of javascript 0 is first > 0 is
+     * @param   string   $js file path of the javascript
+     * @param   int      $order the loading order of javascript 0 is first > 0 is
      *                   later.
      */
     public static function setInlineJs($js, $order = null, $options = array()){
@@ -252,6 +252,7 @@ abstract class template {
         if (isset($options['search'])){
             $str = str_replace($options['search'], $options['replace'], $str);
         }
+        
         if (isset($order)){
             self::$inlineJs[$order] = $str;
         } else {
@@ -263,10 +264,14 @@ abstract class template {
      * method for getting all inline js as a string
      * @return  string  the css as a string
      */
-    public static function getInlineJs(){
+    public static function getInlineJs($section = null){
         $str = "";
         ksort(self::$inlineJs);
         foreach (self::$inlineJs as $key => $val){
+            if (isset($section)) {
+                
+            }
+            
             $str.= "<script type=\"text/javascript\">$val</script>\n";
         }
         return $str;
@@ -368,7 +373,7 @@ abstract class template {
      * method for getting css used in inline in user templates
      * @return  string  the css as a string
      */
-    public static function getInlineCss(){
+    public static function getInlineCss($section = null){
         $str = "";
         ksort(self::$inlineCss);
         foreach (self::$inlineCss as $key => $val){
