@@ -235,12 +235,6 @@ class Ak33m_OpenId_Consumer extends Zend_OpenId_Consumer
             $this->_setError("Extension::prepareRequest failure");
             return false;
         }
-
-        if ($server == 'https://www.google.com/accounts/o8/ud') {
-          $params['openid.identity'] = 'http://specs.openid.net/auth/2.0/identifier_select';
-          $params['openid.claimed_id'] = 'http://specs.openid.net/auth/2.0/identifier_select';
-        }
-
         Zend_OpenId::redirect($server, $params, $response);
         return true;
     }
