@@ -36,7 +36,8 @@ class event {
      * @param mixed $args any variable can be used. E.g. array, object or void
      * @return mixed anything can be returned object, array. 
      */
-    public static function triggerEvent ($methods, $args = null) {     
+    public static function triggerEvent ($methods, $args = null) {
+        if (!is_array($methods)) return;
         foreach ($methods as $key => $val) {
             $ary = explode('::', $val);
             $module = $class = $ary[0];

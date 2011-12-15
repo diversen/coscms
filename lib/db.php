@@ -107,6 +107,23 @@ class db {
     }
     
     /**
+     * checks if a field exists in a table
+     * @param string $table the db table
+     * @param string $field the table field
+     * @return boolean $res true if the field exists false if not. 
+     */
+    public function fieldExists($table, $field) {
+        $sql = "SHOW COLUMNS FROM `$table` LIKE '$field'";
+
+        $rows = $this->selectQuery($sql);
+        if (!empty($rows)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
+    /**
      * Method for selecting one row for a table. 
      *
      * @param string the tablename to select from (e.g. auth)
@@ -507,9 +524,9 @@ class db {
             if ($key == 'submitted') continue;
             if ($key == 'captcha') continue;
             if ($key == 'MAX_FILE_SIZE') continue;
-            
-            // remove hidden elements with a method_
             if (strstr($key, 'method')) continue;
+            if (strstr($key, 'ignore')) continue;
+                        
             $ary[$key] = $value;
         }
         return $ary;

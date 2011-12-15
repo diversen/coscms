@@ -136,7 +136,10 @@ class layout {
      * @return type 
      */
     public static function getBlock ($block) {
-        return self::$blocksContent[$block];
+        if (isset(self::$blocksContent[$block])){
+            return self::$blocksContent[$block];
+        }
+        return array();
     }
     
     /**
