@@ -24,6 +24,16 @@
  * This method could then send a notification email to site owner about
  * a successfull registration. 
  * 
+ * Normal params to use should be like: 
+ * 
+ * When using commen action for insert update, delete the params should be
+ * something like the following. This will insure that modules easy can 
+ * work with other modules. 
+ * 
+ * You will need an action, an reference, and a parent_id, e.g: 
+ * array ('action' => 'update, 'reference' => 'blog, '59'); 
+ * 
+ * 
  * @package    coslib
  */
 

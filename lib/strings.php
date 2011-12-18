@@ -39,4 +39,11 @@ class strings {
         $title = strtolower(implode($title, $sep));
         return $title;
     }
+    
+        
+    public static function rawurlencodeStripSpaces ($str) {
+        $str = str_replace(' ', '-', $str);
+        return rawurlencode($str);
+
+    }
 }

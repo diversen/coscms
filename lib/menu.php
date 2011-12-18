@@ -65,7 +65,7 @@ class menu {
         $item['id'] = $val['id'];
         $item['pid'] = 0;
         $item['title'] = html::specialEncode($val['title']);
-        $menu[] = $item;
+        $menu[$item['id']] = $item;
     }
 
     /**

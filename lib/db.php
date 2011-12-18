@@ -515,8 +515,12 @@ class db {
      *
      * @return  array   $values to use in update and insert sql commands.
      */
-    static public function prepareToPost(){
+    static public function prepareToPost($values = array()){
         self::$debug[] = "Trying to prepareToPost";
+        if (!empty($values)) {
+            self::prepareToPostArray();
+        }
+        
         $ary = array();
         foreach ($_POST as $key => $value){
             // continue if field value is 'submit' or 'captcha'
@@ -528,6 +532,16 @@ class db {
             if (strstr($key, 'ignore')) continue;
                         
             $ary[$key] = $value;
+        }
+        return $ary;
+    }
+    
+    public static function prepareToPostArray ($keys) {
+        $ary = array ();
+        foreach ($keys as $key => $val) {
+            if (isset($_POST[$val])) {
+                $ary[$val] = $_POST[$val];
+            }
         }
         return $ary;
     }
