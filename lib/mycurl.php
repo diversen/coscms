@@ -1,8 +1,16 @@
 <?php
- 
-// class found on php.net
-// http://php.net/manual/en/book.curl.php
- 
+/**
+ * File contains a wrapper for curl.
+ * class found on php.net
+ * http://php.net/manual/en/book.curl.php
+ * slightly modified from above class.  
+ * @package coslib
+ */
+
+/**
+ * class contains wrappers for curl class. 
+ * @package coslib
+ */
 class mycurl {
      protected $_useragent = 'Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1';
      protected $_url;
@@ -131,6 +139,12 @@ class mycurl {
    }
 }
 
+/**
+ * @param type $url
+ * @param type $status
+ * @param type $wait
+ * @return type 
+ */
 function http_response($url, $status = null, $wait = 3)
 {
     $time = microtime(true);

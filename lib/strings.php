@@ -1,5 +1,14 @@
 <?php
 
+/**
+ * Some methods for manipulating strings
+ * @package coslib
+ */
+
+/**
+ * class for manipulating strings
+ * @package coslib
+ */
 class strings {
     
     /**

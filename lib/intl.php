@@ -1,5 +1,14 @@
 <?php
 
+/**
+ * File containing method for getting lanugage and countries. 
+ * @package coslib
+ */
+
+/**
+ * class for getting lists of countries
+ * @package coslib
+ */
 class intl {
     
     public static function getCountriesWhereKeyIsCountry () {

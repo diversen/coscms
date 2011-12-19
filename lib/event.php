@@ -48,12 +48,14 @@ class event {
      */
     public static function triggerEvent ($methods, $args = null) {
         if (!is_array($methods)) return;
+        $str = '';
         foreach ($methods as $key => $val) {
             $ary = explode('::', $val);
             $module = $class = $ary[0];
             $method = $ary[1];
             include_module($module);
-            return $class::$method($args);
+            $str.= $class::$method($args);
         }
+        return $str;
     }
 }

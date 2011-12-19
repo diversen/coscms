@@ -1,9 +1,16 @@
 <?php
 
 /**
+ * Contains an extension for db 
+ * @deprecated 
+ * @package coslib 
+ */
+
+/**
  * @deprecated strage that db2 is deprecated but db is not. I used this to 
  * play around, but ended up making QBuilder which does the same: Makes easy
- * querys to db. 
+ * querys to db
+ * @package coslib 
  * 
  */
 class db2 {

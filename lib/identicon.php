@@ -1,12 +1,15 @@
 <?php
 
-// sligtly modified from: 
-// http://sourceforge.net/users/bcosca
-// Project: 
-//http://sourceforge.net/projects/identicons/
+/**
+ * @package coslib
+ * found on: http://sourceforge.net/users/bcosca
+ * project: http://sourceforge.net/projects/identicons/
+ */
 
-/* generate sprite for corners and sides */
-
+/**
+ * class contains method for making identicons with PHP
+ * @package coslib 
+ */
 class identicon {
 
     public static $spriteZ = null;
