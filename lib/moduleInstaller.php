@@ -767,8 +767,8 @@ class templateInstaller extends moduleInstaller {
      * @param   array $options
      */
     public function setInstallInfo($options){
-
-        $template_name = $options['template'];
+        
+        $template_name = $options['module_name'];
         $template_dir = _COS_PATH . "/htdocs/templates/$template_name";
         $ini_file = $template_dir . "/$template_name.ini";
         $ini_file_dist = $template_dir . "/$template_name.ini-dist";

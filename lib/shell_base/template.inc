@@ -40,8 +40,12 @@ function get_template_info($template_name){
 }
 
 function install_template ($options, $return_val = null) {
-    //print_r($options);
-    $template = $options['template'];
+    
+    if (!isset($options['template'])) {
+        $template = $options['module_name'];
+    } else {
+        $template = $options['template'];
+    }
     
     //$template_path = _COS_PATH . "/htdocs/templates/$template";
 
