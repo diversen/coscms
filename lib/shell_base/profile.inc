@@ -137,18 +137,16 @@ function profile_use_master ($options){
 }
 
 mainCli::setCommand('profile', array(
-    'description' => 'load or create a profile from current settings',
+    'description' => 'load or create a profile from current settings. A profile is 
+folder located in profiles dir, which consists of ini files for all modules and
+template. The info about where to install from and version are found in e.g. 
+/profiles/default/profile.inc file',
 ));
 
 mainCli::setOption('load_profile', array(
     'long_name'   => '--load',
-    'description' => 'Will load a profile',
-    'action'      => 'StoreTrue'
-));
-
-mainCli::setOption('profile_use_master', array(
-    'long_name'   => '--master',
-    'description' => 'Will create profile with master repos for all modules and templates',
+    'description' => 'Will load a profile. This means that any ini file from a profile 
+will overwrite current ini files',
     'action'      => 'StoreTrue'
 ));
 
@@ -158,9 +156,16 @@ mainCli::setOption('reload_profile', array(
     'action'      => 'StoreTrue'
 ));
 
+mainCli::setOption('profile_use_master', array(
+    'long_name'   => '--master',
+    'description' => 'Use master - else we will use specified versions of modules 
+        and templates found in profile.inc',
+    'action'      => 'StoreTrue'
+));
+
 mainCli::setOption('create_profile', array(
     'long_name'   => '--create',
-    'description' => 'Will create profile with specified name',
+    'description' => 'Will create profile with specified name which will be placed in /profiles/{profile}',
     'action'      => 'StoreTrue'
 ));
 
@@ -172,7 +177,8 @@ mainCli::setOption('recreate_profile', array(
 
 mainCli::setOption('upgrade_from_profile', array(
     'long_name'   => '--all-up',
-    'description' => 'Will upgrade from profile',
+    'description' => 'Will upgrade from specified profile. If new module or templates 
+        exists they will be installed. ',
     'action'      => 'StoreTrue'
 ));
 
