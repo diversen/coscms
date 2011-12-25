@@ -206,7 +206,10 @@ class layout {
         $db_config_file = _COS_PATH . "/modules/$module/configdb.inc";
         
         if (file_exists($db_config_file)) {
-            $module_menu = self::setDbConfigMenuItem ($module_menu, $module);
+            include $db_config_file;
+            if (isset($db_config_menu)) {
+                $module_menu = self::setDbConfigMenuItem ($module_menu, $module);
+            }
         }
         
         return $module_menu;

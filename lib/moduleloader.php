@@ -481,14 +481,9 @@ class moduleLoader {
             if (isset($single)){
                 if (isset(self::$iniSettings[$module][$single])){
                     return self::$iniSettings[$module][$single];
-                } else {
-                    return null;
                 }
             }
-            return self::$iniSettings[$module];
-        } else {
-            return null;
-        }
+        } 
     }
 
 

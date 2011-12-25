@@ -58,6 +58,7 @@ class HTML {
         foreach (self::$fields as $key => $value) {
             $str.= $value['value'];
         }
+        self::$fields = array();
         //die;
         //$str = self::$formStr;
         //self::$formStr = '';
