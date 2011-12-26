@@ -32,11 +32,12 @@ ini_set('include_path',
 // parse main config.ini file
 $_COS_DEBUG['include_path'] = ini_get('include_path');
 
-// $_COS_MAIN is used as a register for holding global settings.
-register::$vars['coscms_main'] = parse_ini_file(_COS_PATH . '/config/config.ini', true);
+include_once "common.php";
+
+// register::$vars['coscms_main'] is used as a register for holding global settings.
+register::$vars['coscms_main'] = parse_ini_file_ext(_COS_PATH . '/config/config.ini', true);
 
 include_once "db.php";
-include_once "common.php";
 include_once "moduleInstaller.php";
 
 /**

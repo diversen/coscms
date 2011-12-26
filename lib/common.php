@@ -1188,6 +1188,14 @@ function cos_sanitize_simple_url($string) {
 
 }
 
+function parse_ini_file_ext ($file, $sections = null) {
+    ob_start();
+    include $file;
+    $str = ob_get_contents();
+   ob_end_clean();
+    return parse_ini_string($str, $sections);
+}
+
 /**
  * function for getting name of main configuration file 
  * config/config.ini. 
@@ -1249,7 +1257,7 @@ function load_config_file () {
         define ("NO_CONFIG_FILE", true);
         return;
     } else {
-        register::$vars['coscms_main'] = parse_ini_file($config_file, true);
+        register::$vars['coscms_main'] = parse_ini_file_ext($config_file, true);
         if (
             (@register::$vars['coscms_main']['stage']['server_name'] ==
                 @$_SERVER['SERVER_NAME'])

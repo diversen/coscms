@@ -101,8 +101,8 @@ function upgrade_config_ini_file ($options){
     $ini_file_path = _COS_PATH . "/config/config.ini";
     $ini_dist_path = _COS_PATH . "/profiles/$options[profile]/config.ini-dist";
 
-    $ini_file = parse_ini_file($ini_file_path, true);
-    $ini_dist = parse_ini_file($ini_dist_path, true);
+    $ini_file = parse_ini_file_ext($ini_file_path, true);
+    $ini_dist = parse_ini_file_ext($ini_dist_path, true);
     
     $ary = array_merge($ini_dist, $ini_file);
     $ary_diff = array_diff($ary, $ini_file);
