@@ -1192,7 +1192,7 @@ function parse_ini_file_ext ($file, $sections = null) {
     ob_start();
     include $file;
     $str = ob_get_contents();
-   ob_end_clean();
+    ob_end_clean();
     return parse_ini_string($str, $sections);
 }
 
