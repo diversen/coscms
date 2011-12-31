@@ -171,7 +171,11 @@ class HTML {
      * @param string $label the label text
      * @return string $str the label
      */
-    public static function label ($label_for, $label = '') {
+    public static function label ($label_for, $label = '', $options = array()) {
+        if (isset($options['required'])) {
+            $label = "* " . $label;
+        }
+        
         if ($label_for == 'captcha') {
             // no label for images
             $str = $label. self::$br;
