@@ -39,14 +39,28 @@ class HTML {
      * @var string $br break string
      */
     public static $br = "<br />";
+    
+    /**
+     * var holding all fields of a form
+     * @var array $fields
+     */
+    public static $fields = array();
+    
+    public static $counter = 0;
 
     /**
      * method for getting form string build. 
      * @return string $str the form build
      */
     public static function getStr () {
-        $str = self::$formStr;
-        self::$formStr = '';
+        //print_r(self::$fields);
+        $str = '';
+        foreach (self::$fields as $key => $value) {
+            $str.= $value['value'];
+        }
+        //die;
+        //$str = self::$formStr;
+        //self::$formStr = '';
         return $str;
     }
 
@@ -119,7 +133,7 @@ class HTML {
         $str.= "<form action=\"$action\" method=\"$method\" name=\"$name\" enctype = \"$enctype\">\n";
         $str.= "<fieldset>\n";
         
-        self::$formStr.= $str;
+        self::$fields[] = array ('value' => $str);
         return $str;
     }
     
@@ -134,7 +148,7 @@ class HTML {
         $str = "<legend>$legend";
 
         $str.= "</legend>\n";
-        self::$formStr.= $str;
+        self::$fields[] = array ('value' => $str);
         return $str;
     }
 
@@ -146,7 +160,7 @@ class HTML {
         $str = '';
         $str.= "</fieldset>\n";
         $str.= "</form>\n";
-        self::$formStr.= $str;
+        self::$fields[] = array('value' => $str);
         return $str;
     }
 
@@ -163,7 +177,7 @@ class HTML {
         } else {
             $str = "<label for=\"$label_for\">$label</label>" . self::$br . "\n";
         }
-        self::$formStr.= $str;
+        self::$fields[] = array('value' => $str);
         return $str;
     }
 
@@ -180,7 +194,6 @@ class HTML {
         } else {
             return '';
         }
-
     }
     
      
@@ -194,7 +207,7 @@ class HTML {
      */
     public static function hidden ($name, $value = null, $extra = array()){
         $str = self::hiddenClean($name, $value, $extra);
-        self::$formStr.= $str; 
+        self::$fields[] = array ('value' => $str);
         return $str;
     }
     
@@ -214,6 +227,7 @@ class HTML {
         
         $extra = self::parseExtra($extra);
         $str = "<input type=\"hidden\" name=\"$name\" $extra value=\"$value\" />\n";
+        
         return $str;
     }
     
@@ -226,7 +240,7 @@ class HTML {
      */
     public static function text ($name, $value = null, $extra = array()){
         $str = self::textClean($name, $value, $extra);
-        self::$formStr.= $str;
+        self::$fields[] = array ('value' => $str);
         return $str;
     }
     
@@ -267,7 +281,7 @@ class HTML {
         $value = self::setValue($name, $value);
         $extra = self::parseExtra($extra);
         $str = "<input type=\"text\" name=\"$name\" $extra value=\"$value\" />" . self::$br . "\n";
-        self::$formStr.= $str;
+        self::$fields[] = array ('value' => $str);
         return $str;
     }
 
@@ -286,7 +300,7 @@ class HTML {
         $value = self::setValue($name, $value);
         $extra = self::parseExtra($extra);
         $str = "<input type=\"password\" name=\"$name\" $extra value=\"$value\" />" . self::$br . "\n";
-        self::$formStr.= $str;
+        self::$fields[] = array ('value' => $str);
         return $str;
     }
 
@@ -310,7 +324,7 @@ class HTML {
         //$value = self::setValue($name, $value);
         $extra = self::parseExtra($extra);
         $str =  "<textarea name=\"$name\" $extra>$value</textarea>" . self::$br . "\n";
-        self::$formStr.= $str;
+        self::$fields[] = array ('value' => $str);
         return $str;
     }
     
@@ -330,6 +344,12 @@ class HTML {
         self::textarea($name, $value, $extra);
     }
 
+    /**
+     * 
+     * @param type $name
+     * @param type $extra
+     * @return string 
+     */
     public static function file ($name, $extra = array()) {
         if (!isset($extra['size'])){
             $extra['size'] = HTML_FORM_TEXT_SIZE;
@@ -338,7 +358,7 @@ class HTML {
         //$value = self::setValue($name, $value);
         $extra = self::parseExtra($extra);
         $str = "<input type=\"file\" name=\"$name\" size=\"30\" $extra />\n"  . self::$br . "\n";
-        self::$formStr.= $str;
+        self::$fields[] = array ('value' => $str);
         return $str;
     }
 
@@ -351,19 +371,19 @@ class HTML {
         }
 
         $str = "<input type=\"checkbox\" name=\"$name\" value=\"$value\" $extra />" . self::$br . "\n";
-        self::$formStr.= $str ;
+        self::$fields[] = array ('value' => $str);
         return $str;
     }
 
     public static function submit ($name, $value, $extra = array ()) {
         $extra = self::parseExtra($extra);
         $str =  "<input type=\"submit\" $extra name=\"$name\" value=\"$value\" />" . self::$br . "";
-        self::$formStr.= $str ;
+        self::$fields[] = array ('value' => $str);
         return $str;
     }
     
     public static function addHtml ($str) {
-        self::$formStr.= $str;
+        self::$fields[]['html'] = $str;
     }
 
     public static function parseExtra ($extra = array()) {
@@ -413,8 +433,9 @@ class HTML {
          * 
          */
         //$dropdown .= '</select>'. self::$br . "\n";
-        self::$formStr.= $dropdown . self::$br . "\n" ;
-        return $dropdown;
+        $str = $dropdown . self::$br . "\n" ;
+        self::$fields[] = array ('value' => $str);
+        return $str;
         //return $dropdown;
     }
     
@@ -503,8 +524,8 @@ class HTML {
         return $str;
     }
     
-    public static function createHrefImage($src, $options = array(), $href = null){
-        $str = self::createImage($src, $options);
+    public static function createHrefImage($href = null, $image_src = null, $options = array()){
+        $str = self::createImage($image_src, $options);
         return "<a href=\"$href\">$str</a>";
     }
 
@@ -583,7 +604,7 @@ class HTML {
         include_module ($class);
         $value = self::setValue($name, $value);
         $str = $class::$method($name, $value);
-        self::$formStr.= $str ;
+        self::$fields[] = array ('value' => $str);
         return $str;
     }
 

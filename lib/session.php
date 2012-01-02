@@ -360,9 +360,9 @@ class session {
      * Profile systems must be set in main config/config.ini
      * the option array can be used to setting special options for profile module
      *
-     * @param   array   user options
-     * @param   array   options
-     * @return  string  string showing the profile
+     * @param   array   $user options
+     * @param   array   $options
+     * @return  string  $str string showing the profile
      */
     public static function getProfileLink (&$user, $options = null){
         static $profile_object;
@@ -389,7 +389,7 @@ class session {
      * any post will have a date and a user. 
      * @param int $id user id
      * @param string $date date of the post. 
-     * @return string profile html.  
+     * @return string $str profile html.  
      */
     public static function getProfileSimple($user_id, $date) {
         

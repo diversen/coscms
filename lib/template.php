@@ -121,7 +121,7 @@ abstract class template {
             if (!isset($options['alt'])){           
                 $options['alt'] = $_SERVER['HTTP_HOST'];
             }
-            $href = html::createHrefImage($src, $options, '/');
+            $href = html::createHrefImage($src, '/', $options);
             $str = '<div id="logo_img">' . $href . '</div>' . "\n"; 
             //die($str);
             return $str;
@@ -448,11 +448,19 @@ abstract class template {
         }
     }
 }
+/**
+ * class with simple template methods
+ * @package coslib
+ */
 
 class templateView {
 
+    /**
+     * default view folder
+     * @var string $viewFolder default view folder in a module folder
+     */
     static $viewFolder = 'views';
-    // {{{ include_view
+
     /**
      * function for including a view file.
      * Maps to module (e.g. 'tags' and 'view file' e.g. 'add')

@@ -1,5 +1,14 @@
 <?php
 
+/**
+ * Some methods for manipulating strings
+ * @package coslib
+ */
+
+/**
+ * class for manipulating strings
+ * @package coslib
+ */
 class strings {
     
     /**
@@ -41,9 +50,29 @@ class strings {
     }
     
         
+    /**
+     * this is used for rawurlencode a string and substitue spaces ' ' with '-'
+     * @param string $str the string to work on
+     * @return string $str the manipulated string
+     */
     public static function rawurlencodeStripSpaces ($str) {
         $str = str_replace(' ', '-', $str);
         return rawurlencode($str);
-
+    }
+    
+    /**
+     * creates a utf8 based slug where ' ' are substituted with '-'
+     * @param string $base the basde of the url, e.g. /content/article/view/1
+     * @param string $title the title of the url e.g. 华语 華語
+     * @return string $str the manipulated string, e.g. 
+     *                     /content/article/view/1/华语-華語
+     */
+    public static function utf8Slug ($base, $title = null) {
+        if (!$title) {
+            return $base;
+        }
+        $title = self::rawurlencodeStripSpaces($title);
+        $slug = $base . '/' . $title;
+        return $slug;        
     }
 }

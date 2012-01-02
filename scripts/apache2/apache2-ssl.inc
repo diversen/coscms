@@ -1,5 +1,14 @@
 <?php
 
+/**
+ * @ignore
+ * @package shell
+ */
+
+/**
+ * @ignore
+ * @package shell
+ */
 $apache_str = <<<EOD
 <VirtualHost *:80>
     ServerAdmin webmaster@example.com

@@ -1,5 +1,16 @@
 <?php
 
+/**
+ * File contains a short extension of layout class
+ * Using this class will keep better state of current link and 
+ * set the current css class
+ * @package coslib
+ */
+
+/**
+ * layout2 extension of layout for keeping better state with current link 
+ * @package coslib
+ */
 class layout2 extends layout {
 
         /**
@@ -29,7 +40,7 @@ class layout2 extends layout {
 
 
 
-            $str .= create_link($v['url'], $v['title']);
+            $str .= html::createLink($v['url'], $v['title']);
             $str .= MENU_SUBLIST_END;
         }
         $str.= MENU_LIST_END . "\n";

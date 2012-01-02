@@ -6,9 +6,12 @@
  * @package     shell
  */
 
-include_once "lib/curl.php";
+/**
+ * @ignore
+ */
+include_once "lib/mycurl.php";
 include_once "lib/moduleloader.php";
-// {{{ check_access($options)
+
 /**
  * function for checking if your are denying people 
  * from e.g. admin areas of your module. 

@@ -1,16 +1,20 @@
 <?php
 
 /**
- * File for class imagescale
+ * File for scaling imagescale class
  * @package coslib
  */
 
+
+/**
+ * @ignore
+ */
+include_once 'Image/Transform.php';
+
 /**
  * class imagescale is a simple wrapper around pear::Image_Transform
- * 
+ * @package coslib
  */
-
-include_once 'Image/Transform.php';
 class imagescale {
     
     /**
@@ -47,7 +51,7 @@ class imagescale {
     
 
     /**
-     *
+     * method for transforming a image by X
      * @param string $image image file to scale
      * @param string $thumb destination file to scale to
      * @param int    $x the x factor of the scaled image. 

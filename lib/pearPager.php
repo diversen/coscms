@@ -81,6 +81,8 @@ class pearPager {
         if (isset($options['add_extra'])){
             $filename.=$options['add_extra'];
         }
+        
+        $filename.= $this->getGetParams();
 
         if (isset($options['pager_per_page'])){
             $this->perPage = $options['pager_per_page'];
@@ -110,6 +112,19 @@ class pearPager {
         echo "<div id =\"pager\">" . $pager->links . "</div>\n" ;
 
     }
+    
+    /**
+     * method for adding $_GET params to final query string
+     */
+    public function getGetParams () {
+        $str= '';
+        foreach ($_GET as $key => $val) {
+            if ($key == 'from') continue;
+            if ($key == 'q') continue;
+            $str.= "$key=$val&";
+        }
+        return $str;
+    }
 
     // {{{ function validate()
 
@@ -119,8 +134,6 @@ class pearPager {
     public function validate(){
         if (!isset($_GET['from'])) $_GET['from'] = 0;
         $this->from = get_zero_or_positive($_GET['from'], $this->total);
-
-        
 
         if ($this->from > 0){
             $this->from = ($this->from - 1) * $this->perPage;

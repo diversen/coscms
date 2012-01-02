@@ -3,12 +3,12 @@
 /**
  * File contains contains class for doing paging
  *
- * 
- * @deprecated: Use pearPager instead which is wrapper around PEAR::Pager. 
+ * @deprecated Use pearPager instead which is wrapper around PEAR::Pager. 
  * @package    coslib
  */
 
 /**
+ * @ignore
  * defining PAGER_PER_PAGE, can be overriden in common.inc in a template dir
  */
 if (!defined('PAGER_PER_PAGE')){
@@ -20,7 +20,7 @@ if (!defined('PAGER_PISPLAY_LINKS')){
 
 /**
  * class for doing paging
- *
+ * @deprecated
  * @package    coslib
  */
 class pager {

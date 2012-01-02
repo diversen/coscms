@@ -1,9 +1,10 @@
 <?php
 
 /**
- * File contains helper functions
+ * File contains helper functions. 
+ * 
  *
- * @package    common
+ * @package    coslib
  */
 
 /**
@@ -14,12 +15,6 @@ function cos_error_log ($message, $write_file = true) {
     $message = strftime('%c', time()) . ": " . $message;
     $message.="\n";
     
-    if (get_main_ini('debug')) {
-        // print anything when we are in debug mode. 
-        //echo $message;
-        //session::setActionMessage($message);
-    }
-    
     if ($write_file) {
         $destination = _COS_PATH . "/logs/coscms.log";
         error_log($message, 3, $destination);
@@ -28,9 +23,9 @@ function cos_error_log ($message, $write_file = true) {
 
 // Variable function
 
-// {{{ function get_zero_or_positive($int, $max = null);
 /**
- * function for checking if var is int larger than zero
+ * function for checking if var is an int larger and than zero
+ * you can also set a max limit for the integer. 
  * 
  * @param   mixed   $int the var to check
  * @param   int     $max max size of integer
@@ -58,18 +53,30 @@ function get_zero_or_positive($int, $max = null){
     }
 }
 
-// }}}
+/**
+ * trims a string
+ * @param string $value 
+ */
 function trim_value(&$value){ 
     $value = trim($value); 
 }
 
+/**
+ * trims an array
+ * @param array $ary the array to be trimmed
+ * @return array $ary the trimmed array 
+ */
 function trim_array ($ary) {
-
-
     array_walk($ary, 'trim_value');
     return $ary;
 }
 
+/**
+ * checks if a var is set and if it is equal to another var
+ * @param mixed $var the var to check
+ * @param mixed $val the value you want to check for
+ * @return boolean $res true on success and false on failure
+ */
 function isset_and_equal ($var, $val) {
     if (isset($var)) {
         if ($var == $val) {
@@ -79,13 +86,11 @@ function isset_and_equal ($var, $val) {
     return false;
 }
 
-// {{{ function cos_htmlentites($values)
-
 /**
- * function for creating rewriting htmlentities for safe display on screen
+ * function for rewriting htmlentities for safe display on screen.
  *
- * @param   array|string    value(s) to transform
- * @return  array|string    value(s) transformed
+ * @param   array|string    $value value(s) to transform
+ * @return  array|string    $value value(s) transformed
  */
 function cos_htmlentities($values){
     if (is_array($values)){
@@ -100,12 +105,11 @@ function cos_htmlentities($values){
     return $values;
 }
 
-
 /**
- * function for creating rewriting htmlentities for safe display on screen
+ * function for decoding htmlentities
  *
- * @param   array|string    value(s) to transform
- * @return  array|string    value(s) transformed
+ * @param   array|string   $values value(s) to transform
+ * @return  array|string   $values value(s) transformed
  */
 function cos_htmlentities_decode($values){
     if (is_array($values)){
@@ -119,15 +123,12 @@ function cos_htmlentities_decode($values){
     }
     return $values;
 }
-//html_entity_decode
-// }}}
-// {{{ function cos_htmlspecialchars($values)
 
 /**
- * function for creating rewriting htmlspecialchars for safe display on screen
+ * function for encoding htmlspecialchars for safe display on screen
  *
- * @param   array|string    value(s) to transform
- * @return  array|string    value(s) transformed
+ * @param   array|string    $values value(s) to encode
+ * @return  array|string    $values value(s) encoded
  */
 function cos_htmlspecialchars($values){
     if (is_array($values)){
@@ -140,25 +141,12 @@ function cos_htmlspecialchars($values){
     return $values;
 }
 
-// }}}
-// {{{ function timestamp_to_days($timestamp)
 /**
- * method for transforming a timestamp to days
- * @param   string  timestamp
- * @return  int     days
- */
-function timestamp_to_days($updated){
-    $diff = time() - strtotime($updated);
-    $diff / 60 / 60 / 24;
-}
-// }}}
-// {{{ function isvalue($var)
-/**
- * method used for checking if something is a value
- * is something is sat and has values
+ * function used for checking if something has isset and at the same 
+ * time is not empty
  *
- * @param   mixed
- * @return  boolean
+ * @param   mixed $var the var to check
+ * @return  boolean $res boolean true on success and false on failure
  */
 function isvalue($var){
     if (isset($var) && !empty($var)){
@@ -167,26 +155,30 @@ function isvalue($var){
     return false;
 }
 
-// }}}
-function print_r_str ($str){
+/**
+ * function for get the value of a print_r statement whithout printing 
+ * to the screen. 
+ * @param mixed $var the var to run print_r on
+ * @return strng $var the vaiable as a string
+ */
+function print_r_str ($var){
     ob_start();
-    print_r($str);
-    $str = ob_get_contents();
+    print_r($var);
+    $var = ob_get_contents();
     ob_end_clean();
-    return $str;
+    return $var;
 }
 
-// {{{ function substr2 ($str, $length, $min)
 /** 
  * Substring without losing word meaning and
  * tiny words (length 3 by default) are included on the result.
  *  "..." is added if result do not reach original string length
  * Found on php.net
  *
- * @param   string  string to operate on
- * @param   int     length to cut at
- * @param   int     size of minimum word
- * @return  string  string transformed
+ * @param   string  $str string to operate on
+ * @param   int     $length the maxsize of the string to return
+ * @param   int     $minword minimum size of word to cut from
+ * @return  string  $str the substringed string
  */
 function substr2($str, $length, $minword = 3, $use_dots = true)
 {
@@ -211,26 +203,30 @@ function substr2($str, $length, $minword = 3, $use_dots = true)
     return $sub;
 }
 
-// }}}
+/**
+ * function for removing extra white space, and only have 'one space' left
+ * @param string $str the string to operate on
+ * @return string $str the transformed string 
+ */
 function cos_remove_extra_ws ($str) {
     $str = preg_replace('/\s\s+/', ' ', $str);
     return $str;
 }
-// {{{ function save_post($id)
+
 /**
  * simple method for saving $_POST vars to session
- *
- * @param   string  id of the post to save
+ * @param   string  $id the id of the saved <code>$_POST</code> 
+ *                  used when retriving the <code>$_POST</code>
  */
 function save_post ($id){
      $_SESSION[$id] = $_POST;
 }
 
-// }}}
-// {{{ function load_post($id)
 /**
- * method for loading $_POST vars from session
- * @param   string  id of the post to load
+ * method for loading <code>$_POST</code> vars from session
+ * @param   string  $id id of the post to load. 
+ * @return  boolean $res true on success and false if no session var was 
+ *                  found with the given id
  */
 function load_post($id){
     if (!isset($_SESSION[$id])) {
@@ -239,53 +235,54 @@ function load_post($id){
     $_POST = $_SESSION[$id];
     return true;
 }
-// }}}
 
+/**
+ * get a session var from id. 
+ * @param mixed $id the id of the session var to fetch
+ * @return mixed $res the var which was set or false 
+ */
 function get_post($id) {
     if (!isset($_SESSION[$id])) {
         return false;
     }
     return $_SESSION[$id];
-    //return true;
 }
 
+/**
+ * function for unsetting a session var
+ * @param type $id the id of the session var
+ */
 function unset_post ($id) {
     unset($_SESSION[$id]);
 }
 
-// {{{ function cos_url_encode($string)
 /**
- * function for url encoding a utf8 string
- * @param   string  the utf8 string to encode
- * @return  string  the utf8 encoded string
+ * function for urlencoding a utf8 encoding a string
+ * @param   string  $string the utf8 string to encode
+ * @return  string  $string the utf8 encoded string
  */
 function cos_url_encode($string){
     return urlencode(utf8_encode($string));
 }
 
-// }}}
-// {{{ function cos_url_decode ($string)
 /**
- * function for decoding a url8 encoded string
- * @param   string  the string to decode
- * @return  string  the decoded utf8 string
+ * function for urldecoding a utf8 decodeding a string
+ * @param   string  $string the string to decode
+ * @return  string  $string the urldecoded and utf8 decoded string
  */
 function cos_url_decode($string){
     return utf8_decode(urldecode($string));
 }
 // }}}
 
-// File functions
-
-// {{{ function get_file_list($dir)
 /**
  * function for getting a file list of a directory (. and .. will not be
- * collected
+ * collected)
  *
  * @param   string  the path to the directory where we want to create a filelist
- * @param   array   if $options['dir_only'] isset only return directories.
- *                  if $options['search'] isset then only dirs containing
- *                      search string will be returned
+ * @param   array   if <code>$options['dir_only']</code> isset only return directories.
+ *                  if <code>$options['search']</code> isset then only files containing
+ *                  search string will be returned
  * @return  array   entries of all files <code>array (0 => 'file.txt', 1 => 'test.php');</code>
  */
 function get_file_list($dir, $options = null){
@@ -315,11 +312,11 @@ function get_file_list($dir, $options = null){
     return $entries;
 }
 
-// }}}
-// {{{ function get_file_list_recursive($start_dir)
 /**
- *
- * found on php.net
+ * function for getting a file list recursive
+ * @param string $start_dir the directory where we start
+ * @param string $pattern a given fnmatch() pattern
+ * return array $ary an array with the files found. 
  */
 function get_file_list_recursive($start_dir, $pattern = null) {
 
@@ -351,36 +348,23 @@ function get_file_list_recursive($start_dir, $pattern = null) {
 
     return $files;
 }
-// }}}
-// {{{
 
+/**
+ * function for including a templates function file, which is always placed in
+ * /templates/template_name/common.inc
+ * @param string $template the template name which we want to load.  
+ */
 function include_template_inc ($template){
     include_once _COS_PATH . "/htdocs/templates/$template/common.inc";
 }
 
-// System function for including model, modules or controllers. 
-
-function include_reference_module ($frag = 3) {    
-    $reference = uri::$fragments[$frag];
-    
-    if (!isset($reference)){
-        return false;
-    }
-    $res = include_module($reference);
-    if ($res) {
-        return $reference;
-    }
-    return false;
-}
-
-// {{{ function include_module($module)
 /**
- * function for including a modules view and model file
+ * function for including a compleate module
+ * with configuration, view, language, and model file
  *
- * @param   string  the name of the module to include
- *                  includes the view and the model file for module.
+ * @param   string  $module the name of the module to include
  */
-function include_module($module, $options = null){
+function include_module($module){
 
     static $modules = array ();
     if (isset($modules[$module])){
@@ -411,11 +395,10 @@ function include_module($module, $options = null){
 
 }
 
-// }}}
-// {{{ function include_model($module)
 /**
- *
- * @param   string   $module module to include e.g. (content/article)
+ * function for including the model file only
+ * @param   string   $module the module where the model file exists 
+ *                   e.g. (content/article)
  */
 function include_model($module){
     $module_path = 'modules/' . $module;
@@ -425,8 +408,6 @@ function include_model($module){
     include_once $model_file;
 }
 
-// }}}
-// {{{ include_view
 /**
  * function for including a view file.
  * Maps to module (e.g. 'tags' and 'view file' e.g. 'add')
@@ -434,8 +415,11 @@ function include_model($module){
  * e.g. tags/views And we presume that views always has a .inc
  * postfix
  *
- * @param string $module
- * @param string $file
+ * @param string $module the module where our view exists
+ * @param string $file the view file we want to use
+ * @param mixed $vars vars to substitue in view
+ * @param boolean $return if true we will return the content of the view
+ *                        if false we echo the view
  */
 function include_view ($module, $view, $vars = null, $return = null){
     $filename = _COS_PATH . "/modules/$module/views/$view.inc";
@@ -456,27 +440,20 @@ function include_view ($module, $view, $vars = null, $return = null){
     }    
 }
 
-
-// {{{ function include_controller($controller, $options)
 /**
- *
- * @param string    controller to include (e.g. content/article/add)
- * @param array     $options
+ * function for including a controller
+ * @param string    $controller the controller to include (e.g. content/article/add)
  */
-function include_controller($controller, $options = null){
+function include_controller($controller){
     $module_path = register::$vars['coscms_base']  . '/modules/' . $controller;
     $controller_file = $module_path . '.php';
     include_once $controller_file;
 }
 
-// }}}
-// {{{ function include_filters($filters)
 /**
- * include filters is used to include filters.
- * this is used if you need to set some settings in the
- * filter before using it.
- *
- * @param   mixed   string or array of filters to include
+ * function for including a filter module
+ * @param   array|string   $filter string or array of string with 
+ *                         filters to include
  *
  */
 function include_filters ($filter){
@@ -485,7 +462,6 @@ function include_filters ($filter){
     if (!is_array($filter)){
         $class_path = _COS_PATH . "/modules/filter_$filter/$filter.inc";
         include_once $class_path;
-        //lang::loadModuleLanguage("filter_$val");
         moduleLoader::setModuleIniSettings("filter_$filter");
         $loaded[$filter] = true;
     }
@@ -493,17 +469,20 @@ function include_filters ($filter){
     if (is_array ($filter)){
         foreach($filter as $key => $val){
             if (isset($loaded[$val])) continue;
-
             $class_path = _COS_PATH . "/modules/filter_$val/$val.inc";
-            //lang::loadModuleLanguage("filter_$val");
             include_once $class_path;
             moduleLoader::setModuleIniSettings("filter_$val");
-
             $loaded[$val] = true;
         }
     }
 }
-// }}}
+
+/**
+ * function for getting filters help string
+ * @param string|array $filters the filter or filters from were we wnat to get
+ *                     help strings
+ * @return string $string the help strings of all filters. 
+ */
 function get_filters_help ($filters) {
     include_filters($filters);
     $str = '<span class="small-font">';
@@ -518,18 +497,15 @@ function get_filters_help ($filters) {
     return $str;
     
 }
-// {{{ function get_filtered_content($filter, $content)
+
 /**
- *
- * @param  mixed    string or array (filters to use)
- * @param  mixed    string or array (to use filters on)
- * @return mixed    string or array
+ * function for filtering content
+ * @param  string|array    $filters the string or array of filters to use
+ * @param  string|array    $content the string or array (to use filters on)
+ * @return string|array    $content the filtered string or array of strings
  */
-function get_filtered_content ($filter, $content){
-    
+function get_filtered_content ($filter, $content){   
     if (!is_array($filter)){
-        //$class_path = _COS_PATH . "/modules/filter_$filter/$filter.inc";
-        //include_once $class_path;
         include_filters($filter);
         $class = 'filter' . ucfirst($filter);
         $filter_class = new $class;
@@ -546,12 +522,7 @@ function get_filtered_content ($filter, $content){
     }
 
     if (is_array ($filter)){
-
         foreach($filter as $key => $val){
-
-            //$class_path = _COS_PATH . "/modules/filter_$val/$val.inc";
-            //include_once $class_path;
-
             include_filters($val);
             $class = 'filter' . ucfirst($val);
             $filter_class = new $class;
@@ -568,43 +539,43 @@ function get_filtered_content ($filter, $content){
     return '';
 }
 
-// }}}
-// {{{ function get_module_ini($values)
 /**
- * method for getting a modules ini settings
+ * method for getting a module ini settings
+ * @param string $key the key of the ini settng to get 
+ * @return mixed $value the value of the setting or null if no value was found
  */
-function get_module_ini($value){
-    if (!isset(register::$vars['coscms_main']['module'][$value])){
+function get_module_ini($key){
+    if (!isset(register::$vars['coscms_main']['module'][$key])){
         return null;
     }
-
-    return register::$vars['coscms_main']['module'][$value];
-    
-}
-// }}}
-// {{{ function get_main_ini($value)
-/**
- * method for getting a main ini setting
- *
- * @param   string  ini setting to get
- * @return  mixed   the setting
- */
-function get_main_ini($value){
-    if (!isset(register::$vars['coscms_main'][$value])){
+    if (register::$vars['coscms_main']['module'][$key] == '0'){
         return null;
     }
-
-    if (register::$vars['coscms_main'][$value] == '0'){
-        return null;
-    }
-    return register::$vars['coscms_main'][$value];
+    return register::$vars['coscms_main']['module'][$key];
 }
 
-// }}}
-// {{{ function get_include_contents ($filename)
+/**
+ * method for getting a main ini setting found in config/config.ini
+ * @param   string  $key the ini setting key to get
+ * @return  mixed   $val the value of the setting or null if not found. 
+ *                       If 0 is found we also reutnr null
+ */
+function get_main_ini($key){
+    if (!isset(register::$vars['coscms_main'][$key])){
+        return null;
+    }
+    if (register::$vars['coscms_main'][$key] == '0'){
+        return null;
+    }
+    return register::$vars['coscms_main'][$key];
+}
+
 /**
  * function for getting content from a file
  * used as a very simple template function
+ * @param string $filename the full path of the file to include
+ * @param mixed  $vars the var to sustitute with
+ * @return string $str the parsed template.
  */
 function get_include_contents($filename, $vars = null) {
     if (is_file($filename)) {
@@ -617,41 +588,22 @@ function get_include_contents($filename, $vars = null) {
     return false;
 }
 
-// }}}
-// {{{ function get_module_path
 /**
  * method for getting a path to a module
  *
- * @param   string  the module
- * @return  string  the module path
+ * @param   string  $module the module
+ * @return  string  $path the module path
  */
 function get_module_path ($module){
     return _COS_PATH . '/modules/' . $module;
 }
 
-// }}}
-
 // HTML and HTTP function
 
-// {{{ function create_seo_title($title)
-/**
- * function for creating a seo friendly title
- * 
- * @deprecated use strings::seoTitle
- * @param   string   the title of the url to be created
- * @return  string   the title with _ instead of spaces ' '
- */
-function create_seo_title($title){
-    $title = explode(' ', ($title));
-    $title = strtolower(implode($title, '-'));
-    return $title;
-}
-
-// }}}
 // {{{ function create_link($url, $title, $description)
 /**
  * function for creating a link
- * @deprecated
+ * @deprecated use html::createLink 
  * @param   string  the url to create the link from
  * @param   string  the title of the link
  * @param   boolean if true we only return the url and not the html link
@@ -686,13 +638,14 @@ function create_link($url, $title, $return_url = false, $css = null){
 // {{{ function create_link($url, $title, $description)
 /**
  * function for creating a link
- * @deprecated
+ * @deprecated see html::createHrefImage()
  * @param   string  the url to create the link from
  * @param   string  the title of the link
  * @param   boolean if true we only return the url and not the html link
  * @return  string  the <code><a href='url'>title</></code> tag
  */
 function create_image_link($url, $href_image, $options = null){
+    
     $str = '';
     if (isset($options['alt'])) $str.= " alt = \"$options[alt]\" ";
     if (isset($options['title'])) $str.= " title = \"$options[title]\" ";
@@ -701,12 +654,12 @@ function create_image_link($url, $href_image, $options = null){
     return "<a href=\"$url\"><img $str src=\"$href_image\" /></a>";
 }
 /**
- * @deprecated
+ * @deprecated see html::createImage($src)
  * @param type $href_image
  * @param type $options
  * @return type 
  */
-function create_image($href_image, $options = null){
+function create_image($href_image, $options = null){  
     $str = '';
     if (isset($options['alt'])) $str.= " alt = \"$options[alt]\" ";
     if (isset($options['width'])) $str.= " width = \"$options[width]\" ";
@@ -714,11 +667,9 @@ function create_image($href_image, $options = null){
     return "<img $str src=\"$href_image\" />";
 }
 
-// }}}
-// {{{ function view_drop_down_db($name, $table, $field, $id, $selected = null))
 /**
  * function for creating a select dropdown from a database table.
- * @deprecated
+ * @deprecated see html::select()
  * @param   string  the name of the select filed
  * @param   string  the database table to select from
  * @param   string  the database field which will be used as name of the select element
@@ -753,10 +704,8 @@ function view_drop_down_db($name, $table, $field, $id, $selected=null, $extras =
     return $dropdown;
 }
 
-// }}}
-// {{{ function view_drop_down($name, $rows, $field, $id, $selected= null)
 /**
- * @deprecated
+ * @deprecated see html::select()
  * @param   string  the name of the select field
  * @param   array   the rows making up the ids and names of the select field
  * @param   string  the field which will be used as name of the select element
@@ -784,8 +733,6 @@ function view_drop_down($name, $rows, $field, $id, $selected=null, $behav = null
     return $dropdown;
 }
 
-// }}}
-// {{{ function simple_template ($file)
 /**
  * @deprecated
  * simple template method for collecting a string from a file
@@ -797,23 +744,20 @@ function simple_template ($file){
     ob_end_clean();
     return $parsed;
 }
-// }}}
-// {{{ function get_profile_link (&$user)
+
 /**
  * Gets user profile link if a profile system is in place.
  * Profile systems must be set in main config/config.ini
  * the option array can be used to setting special options for profile module
- * @param   array   user options
- * @param   array   options
- * @return  string  string showing the profile
+ * @param   array|int   $user user_id or full account row 
+ * @param   array   $options options to use with profile system
+ * @return  string  $str string with html showing the profile
  */
 function get_profile_link ($user, $options = null){
-    
     
     if (is_numeric($user)) {
         $user = get_account($user);
     }
-    
     static $profile_object;
 
     if (!isset($profile_object)){
@@ -823,7 +767,6 @@ function get_profile_link ($user, $options = null){
         }
 
         include_module ($profile_system);
-
         $profile_object = moduleLoader::modulePathToClassName($profile_system);
         $profile_object = new $profile_object();        
         $link = $profile_object->createProfileLink($user, $options);
@@ -832,17 +775,14 @@ function get_profile_link ($user, $options = null){
 
     return $profile_object->createProfileLink($user, $options);
 }
-// }}}
-// {{{ function get_profile_link (&$user)
+
 /**
  * Gets user profile link if a profile system is in place.
  * Profile systems must be set in main config/config.ini
  * the option array can be used to setting special options for profile module
  * 
- * @deprecated
- * @param   array   user options
- * @param   array   options
- * @return  string  string showing the profile
+ * @param   array   $user_id the user in question
+ * @return  string  $string string showing the profile
  */
 function get_profile_edit_link ($user_id){
     
@@ -869,8 +809,7 @@ function get_profile_edit_link ($user_id){
 
 /**
  * function for getting account
- * @deprecated
- * @param int $id
+ * @param int $id user_id 
  * @return array $row from account 
  */
 function get_account ($id) {   
@@ -897,15 +836,12 @@ function get_profile_link_full ($user, $text, $date, $date_format = 'date_format
         $profile_link = get_profile_link($user, $options);
         return $profile_link;
 }
-// {{{ function simple_prg () 
+
 /**
  * simple function for creating prg pattern. 
  * (Keep state when reloading browser and resends forms etc.) 
  */
-
 function simple_prg (){
-    // check to see if we should start prg
-    //print_r($_SERVER); die;
     if ($_SERVER['REQUEST_METHOD'] == 'POST'){
         $uniqid = uniqid();
         $_SESSION['post'][$uniqid] = $_POST;
@@ -928,10 +864,11 @@ function simple_prg (){
         }
     }
 }
-// }}}
-// {{{ function send_cache_headers()
+
 /**
+ * 
  * method for sending cache headers when e.g. sending images from db
+ * @param int $expires the expire time in seconds
  */
 function send_cache_headers ($expires = null){
 
@@ -945,6 +882,12 @@ function send_cache_headers ($expires = null){
     
 }
 
+/**
+ * send a location header
+ * @param type $location the location, e.g. /content/view/article/3
+ * @param type $message an action message 
+ * @param type $post_id if an post id is set we save the post in a session.
+ */
 function send_location_header ($location, $message = null, $post_id = null) {
     if (isset($message)) {
         session::setActionMessage($message);
@@ -959,13 +902,12 @@ function send_location_header ($location, $message = null, $post_id = null) {
     exit;
 }
 
-// }}}
 /**
  * function for checking if we need to redirect with 301
  * if param url is not equal to current url, then 
  * we redirect to url given
  * 
- * @param type $url 
+ * @param string $url the rul to check against and redirect to.  
  */
 function send_301_headers ($url) {
     if ($_SERVER['REQUEST_URI'] != $url) {
@@ -1010,15 +952,14 @@ function server_force_ssl () {
 
 // Mail functions
 
-// {{{ function mail_utf8($to, $subject, $message, $from)
-
 /**
- * function for sending mail
+ * function for sending utf8 mails with native mail function
  *
- * @param   string  to whom are we gonna send the email
- * @param   string  the subject of the email
- * @param   string  the message of the email
- * @param   string  from the sender of the email
+ * @param   string  $recipient to whom are we gonna send the email
+ * @param   string  $subject the subject of the email
+ * @param   string  $message the message of the email
+ * @param   string  $from from the sender of the email
+ * @param   string  $reply_to email to reply to
  * @return  int     1 on success 0 on error
  */
 function mail_utf8($to, $subject, $message, $from, $reply_to=null) {
@@ -1064,7 +1005,7 @@ function mail_utf8($to, $subject, $message, $from, $reply_to=null) {
 
         if (isset(register::$vars['coscms_main']['debug'])){
             $log_file = _COS_PATH . '/logs/coscms.log';
-            error_log($log, 3, $log_file);
+            cos_error_log($log, 3, $log_file);
         }
         return $res;
     } else {
@@ -1073,15 +1014,19 @@ function mail_utf8($to, $subject, $message, $from, $reply_to=null) {
         $log.= "Message: $message\n";
         $log.= "Header: $headers\n";
         $log_file = _COS_PATH . '/logs/coscms.log';
-        error_log($log, 3, $log_file);
+        cos_error_log($log, 3, $log_file);
         return 1;
     }
 }
 
-// }}} 
-// {{{ function mail_smtp($recipient, $subject, $message, $from, $reply_to)
 /**
  * method for sending mails via smtp
+ * @param   string  $recipient to whom are we gonna send the email
+ * @param   string  $subject the subject of the email
+ * @param   string  $message the message of the email
+ * @param   string  $from from the sender of the email
+ * @param   string  $reply_to email to reply to
+ * @return  int     $res 1 on success 0 on error
  */
 function mail_smtp ($recipient, $subject, $message, $from, $reply_to/*$headers = null*/){
     include_once('Mail.php');
@@ -1127,8 +1072,6 @@ function mail_smtp ($recipient, $subject, $message, $from, $reply_to/*$headers =
     $body = $mime->get(array('text_charset' => 'utf-8'));
     $headers = $mime->headers($headers);
 
-
-
     // SMTP authentication params
     $smtp_params = array();
     $smtp_params["host"]     = register::$vars['coscms_main']['smtp_params_host']; //"ssl://smtp.gmail.com";
@@ -1142,7 +1085,6 @@ function mail_smtp ($recipient, $subject, $message, $from, $reply_to/*$headers =
     $result = $mail->send($recipient, $headers, $body);
     return $result;
 }
-// }}}
 
 /**
  * class for validating most common thing: URL's and emails. 
@@ -1151,11 +1093,10 @@ function mail_smtp ($recipient, $subject, $message, $from, $reply_to/*$headers =
  * class for validating email and and emailAndDomain
  */
 class cosValidate {
-    // {{{ public static function email ($email)
     /**
      * method for validating email with php filter_var function
-     * @param   string  email
-     * @return  boolean 
+     * @param   string  $email email
+     * @return  boolean $res true on success and false on failure 
      */
     public static function email ($email){
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)){
@@ -1163,12 +1104,11 @@ class cosValidate {
         }
         return true;
     }
-    // }}}
-    // {{{ public static function urlWithFilter($url)
+
     /**
      * method for validating email with php filter_var function
-     * @param   string  email
-     * @return  boolean 
+     * @param   string  $url the url to validate
+     * @return  boolean $res true on success and false on failure
      */
     public static function urlWithFilter ($url){
         require_once 'Validate.php';
@@ -1177,12 +1117,11 @@ class cosValidate {
         }
         return true;
     }
-    // }}} 
-    // {{{ public static function url ($url)
+
     /**
      * method for validating url with PEAR::Validate filter 
-     * @param   string  email
-     * @return  boolean
+     * @param   string  $url the url to validate
+     * @return  boolean $res true on success and false on failure
      */
     public static function url ($url){
         require_once 'Validate.php';
@@ -1192,12 +1131,12 @@ class cosValidate {
         }
         return true;
     }
-    // }}}
-    // {{{ public static function validateEmailAndDomain ($email
+
     /**
-     * method for vaildating the email the emails domain with PEAR:Validate
-     * @param   string  email
-     * @return  boolean 
+     * method for vaildating email and an emails domain with PEAR:Validate
+     * @param   string  $email the email to validate email
+     * @param array $options set some options
+     * @return  boolean $res true on success and false on failure 
      */
     public static function validateEmailAndDomain ($email, $options = null){
         require_once 'Validate.php';
@@ -1211,7 +1150,6 @@ class cosValidate {
         }
         return false;
     }
-    // }}}
 }
 /**
  * function for sanitizing a URL
@@ -1221,7 +1159,7 @@ class cosValidate {
  * @param string $string
  * @param boolean $force_lowercase 
  * @param boolean $remove_special
- * @return string
+ * @return string $str the sanitized string 
  */
 function cos_sanitize_url($string, $force_lowercase = true, $remove_special = false) {
     $strip = array("~", "`", "!", "@", "#", "$", "%", "^", "&", "*", "(", ")", "_", "=", "+", "[", "{", "]",
@@ -1241,7 +1179,6 @@ function cos_sanitize_url($string, $force_lowercase = true, $remove_special = fa
 /**
  * simple sanitize function where only thing removed is /
  * in order to not confuse the url
- *  @deprecated
  * @param string $string string to sanitize
  * @return string $string sanitized string
  */
@@ -1265,7 +1202,7 @@ function cos_sanitize_simple_url($string) {
  * 
  * If file not set it is the normal config/config.ini which will be included. 
  * 
- * @return string filename of config file.  
+ * @return string $filename the filname of the config file.  
  */
 function get_config_file() {
     // determine host and see if we use virtual hosting
@@ -1285,7 +1222,6 @@ function get_config_file() {
             $config_file = _COS_PATH . "/config/config.ini";
         }
     }
-    
     return $config_file;
 }
 /**
@@ -1304,9 +1240,7 @@ function get_config_file() {
  * 
  * This will be compared to the $_SERVER['SERVER_NAME'] variable
  * and if there is a match the stage settings will override
- * the default settings. Same goes for development
- * 
- * @return void 
+ * the default settings. Same goes for development 
  */
 function load_config_file () {
     $config_file = get_config_file();
@@ -1369,6 +1303,10 @@ function load_config_file () {
     }
 }
 
+/**
+ * function for getting a full path to public files folder when doing e.g. uploads
+ * @return string $files_path the full file path 
+ */
 function get_files_path () {
     $domain = get_main_ini('domain');
     if ($domain == 'default') {
@@ -1379,10 +1317,19 @@ function get_files_path () {
     return $files_path;
 }
 
+/**
+ * method for getting the web path to files folder. 
+ * @param string $file the file to get path from
+ * @return string $path the web path to the file
+ */
 function get_files_web_path ($file) {
     return "/files/" . get_domain() . $file; 
 }
 
+/**
+ * method for getting domain. 
+ * @return string $domain the current domain
+ */
 function get_domain () {
     $domain = get_main_ini('domain');
     return $domain;

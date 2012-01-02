@@ -1,9 +1,15 @@
 <?php
 
 /**
- * class cache. 
+ * File contains a simple class for caching content to database table. 
+ * @package coslib
+ */
+
+/**
  * 
+ * class cache. 
  * 3 methods set, get, and delete
+ * @package coslib
  * 
  */
 class cache {
