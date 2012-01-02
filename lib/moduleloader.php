@@ -481,14 +481,9 @@ class moduleLoader {
             if (isset($single)){
                 if (isset(self::$iniSettings[$module][$single])){
                     return self::$iniSettings[$module][$single];
-                } else {
-                    return null;
                 }
             }
-            return self::$iniSettings[$module];
-        } else {
-            return null;
-        }
+        } 
     }
 
 
@@ -523,7 +518,7 @@ class moduleLoader {
         }
         
                 
-        self::$iniSettings[$module] = parse_ini_file($ini_file, true);
+        self::$iniSettings[$module] = parse_ini_file_ext($ini_file, true);
         if (is_array(self::$iniSettings[$module])){
             register::$vars['coscms_main']['module'] = array_merge(
                 register::$vars['coscms_main']['module'],

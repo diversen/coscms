@@ -11,6 +11,33 @@
  */
 class intl {
     
+    public static function getSystemLocales () {
+        exec ('locale -a', $ary);
+        return $ary;
+    }
+    
+    public static function getSystemLocalesUTF8 () {
+        $all = self::getSystemLocales();
+        $ary = array();
+        foreach ($all as $key => $locale) {
+            if (strstr($locale, 'utf8')) {
+                //$locale = str_replace('utf8', 'UTF-8', $locale);
+                $ary[] = array('id'=> $locale, 'locale' => $locale);
+            }
+        }
+        return $ary;
+    }
+    
+    public static function validLocaleUTF8 ($locale) {
+        $locales = self::getSystemLocalesUTF8();
+        foreach ($locales as $key => $val) {
+            if ($val['id'] == $locale) {
+                return true;
+            }
+        }
+        return false;
+    }
+    
     public static function getCountriesWhereKeyIsCountry () {
         $countries = self::getCountries();
         foreach ($countries as $key => $val) {
@@ -18,6 +45,37 @@ class intl {
             unset($countries[$key]);
         }
         return $countries;
+    }
+    
+    public static function getTimezones () {
+        static $regions = array(
+            'Africa' => DateTimeZone::AFRICA,
+            'America' => DateTimeZone::AMERICA,
+            'Antarctica' => DateTimeZone::ANTARCTICA,
+            'Aisa' => DateTimeZone::ASIA,
+            'Atlantic' => DateTimeZone::ATLANTIC,
+            'Europe' => DateTimeZone::EUROPE,
+            'Indian' => DateTimeZone::INDIAN,
+            'Pacific' => DateTimeZone::PACIFIC
+        );
+        $timezones = array();
+        foreach ($regions as $name => $mask) {
+            $list = DateTimeZone::listIdentifiers($mask);
+            foreach ($list as $key => $val) {
+                $timezones[] = array ('id' => $val, 'zone' => $val);
+            }
+        }
+        return $timezones;
+    }
+    
+    public static function validTimezone ($timezone) {
+        $timezones = self::getTimezones();
+        foreach ($timezones as $key => $val) {
+            if ($val['id'] == $timezone) {
+                return true;
+            }
+        }
+        return false;
     }
     
     public static function getCountriesForDropDown () {

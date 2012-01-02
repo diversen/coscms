@@ -62,6 +62,7 @@ class GTranslate {
      */
     public static function translateSingle ($str) {
         $ary = self::translateString($str);
+        print_r($ary);
         if (isset($ary['data']['translations'][0]['translatedText'])){
             return $ary['data']['translations'][0]['translatedText'];
         }

@@ -40,7 +40,7 @@ function prompt_install(){
     cos_cli_print("Main config file (config/config.ini) for $profile is loaded");
 
     // load profile.
-    register::$vars['coscms_main'] = parse_ini_file(_COS_PATH . '/config/config.ini', true);
+    register::$vars['coscms_main'] = parse_ini_file_ext(_COS_PATH . '/config/config.ini', true);
     
     // get configuration info
     $host = cos_readline('Enter mysql host, and hit return: ');

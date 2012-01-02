@@ -90,12 +90,12 @@ class moduleInstaller extends db {
         if (!file_exists($ini_file)){
             if (file_exists($ini_file_dist)){
                 copy ($ini_file_dist, $ini_file);
-                //register::$vars['coscms_main']['module'] = parse_ini_file($ini_file);
+                clearstatcache();
+                register::$vars['coscms_main']['module'] = parse_ini_file_ext($ini_file);
             } 
         } else {
-            // register::$vars['coscms_main']['module'] = parse_ini_file($ini_file);
+            register::$vars['coscms_main']['module'] = parse_ini_file_ext($ini_file);
         }
-        register::$vars['coscms_main']['module'] = parse_ini_file($ini_file);
         //moduleLoader::setModuleIniSettings($module_name);
         if (file_exists($module_dir)){
             $install_file = "$module_dir/install.inc";
@@ -767,8 +767,12 @@ class templateInstaller extends moduleInstaller {
      * @param   array $options
      */
     public function setInstallInfo($options){
-
-        $template_name = $options['template'];
+        if (isset($options['module_name'])) {
+            $template_name = $options['module_name'];
+        } else {
+            $template_name = $options['template'];
+        }
+        
         $template_dir = _COS_PATH . "/htdocs/templates/$template_name";
         $ini_file = $template_dir . "/$template_name.ini";
         $ini_file_dist = $template_dir . "/$template_name.ini-dist";
@@ -780,10 +784,10 @@ class templateInstaller extends moduleInstaller {
         if (!file_exists($ini_file)){
             if (file_exists($ini_file_dist)){
                 copy ($ini_file_dist, $ini_file);
-                register::$vars['coscms_main']['template'] = parse_ini_file($ini_file);
+                register::$vars['coscms_main']['template'] = parse_ini_file_ext($ini_file);
             } 
         } else {
-            register::$vars['coscms_main']['template'] = parse_ini_file($ini_file);
+            register::$vars['coscms_main']['template'] = parse_ini_file_ext($ini_file);
         }
 
         if (file_exists($template_dir)){

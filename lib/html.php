@@ -53,14 +53,12 @@ class HTML {
      * @return string $str the form build
      */
     public static function getStr () {
-        //print_r(self::$fields);
         $str = '';
         foreach (self::$fields as $key => $value) {
             $str.= $value['value'];
         }
-        //die;
-        //$str = self::$formStr;
-        //self::$formStr = '';
+        self::$fields = array();
+
         return $str;
     }
 
@@ -81,8 +79,6 @@ class HTML {
             $trigger = self::$autoLoadTrigger;
             if (isset($_POST[$trigger])) {
                 self::$values = $_POST;
-                
-                //print_r($_SERVER); die;
             } else if (isset($_GET[$trigger])){
                 self::$values = $_GET;
             } else {
@@ -170,7 +166,11 @@ class HTML {
      * @param string $label the label text
      * @return string $str the label
      */
-    public static function label ($label_for, $label = '') {
+    public static function label ($label_for, $label = '', $options = array()) {
+        if (isset($options['required'])) {
+            $label = "* " . $label;
+        }
+        
         if ($label_for == 'captcha') {
             // no label for images
             $str = $label. self::$br;
