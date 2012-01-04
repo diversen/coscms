@@ -616,13 +616,12 @@ class QBuilder  {
      *
      * @var type $method inidcation if we are updating or inserting values. 
      */
-    public static $method = null;
+    public static $method = '';
 
     
 
     function __construct($options = null) {
-        self::init($options);
-        
+        self::init($options);       
     }
     
     public static function init($options = null) {
@@ -642,7 +641,13 @@ class QBuilder  {
      */
 
     public static function setSelect ($table, $fields ='*'){
+        self::$method = 'select';
         self::$query = "SELECT $fields FROM `$table` ";
+    }
+    
+    public static function setSelectNumRows ($table){
+        self::$method = 'num_rows';
+        self::$query = "SELECT count(*) as num_rows FROM `$table` ";
     }
     
     /**
@@ -650,6 +655,7 @@ class QBuilder  {
      * @param string $table the table to delete from
      */
     public static function setDelete ($table){
+        self::$method == 'delete';
         self::$query = "DELETE FROM `$table` ";
     }
     
@@ -659,7 +665,7 @@ class QBuilder  {
      */
     
     public static function setUpdate ($table) {
-        self::$method = 'UPDATE';
+        self::$method = 'update';
         self::$query = "UPDATE `$table` SET ";
     }
     
@@ -678,7 +684,7 @@ class QBuilder  {
      * @param array $bind array with types to bind values to
      */
     public static function setValues ($values, $bind = array()) {
-        if (self::$method == 'UPDATE') {
+        if (self::$method == 'update') {
             self::setUpdateValues($values, $bind);
         } else {
             self::setInsertValues($values, $bind);
@@ -835,9 +841,15 @@ class QBuilder  {
         self::$stmt->execute();
         $rows = self::$stmt->fetchAll(PDO::FETCH_ASSOC);
 
+        
+        
         self::$debug[] = self::$query;
         self::unsetVars();
         self::$query = null;
+        if (self::$method == 'num_rows') {
+            return $rows[0]['num_rows'];
+        }
+        
         return $rows;
     }
     

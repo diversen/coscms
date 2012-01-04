@@ -909,7 +909,10 @@ function send_location_header ($location, $message = null, $post_id = null) {
  * 
  * @param string $url the rul to check against and redirect to.  
  */
-function send_301_headers ($url) {
+function send_301_headers ($url, $options = array()) {
+    if (isset($options['message'])) {
+        session::setActionMessage($options['message']);
+    }
     if ($_SERVER['REQUEST_URI'] != $url) {
         header("HTTP/1.1 301 Moved Permanently");
         header("Location: $url");
@@ -947,6 +950,7 @@ function server_force_ssl () {
         $redirect = "https://" . $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI'];
         header("HTTP/1.1 301 Moved Permanently");
         header("Location: $redirect");
+        die();
     }
 }
 
