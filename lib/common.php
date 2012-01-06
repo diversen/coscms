@@ -8,6 +8,13 @@
  */
 
 /**
+ * @package shell
+ */
+class register {
+    public static $vars = array();
+}
+
+/**
  * puts a string in logs/coscms.log
  * @param string $message
  */

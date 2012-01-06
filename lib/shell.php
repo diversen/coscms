@@ -20,11 +20,12 @@ define('_COS_CLI', 1);
 /**
  * @package shell
  */
+/*
 class register {
     public static $vars = array();
-}
+}*/
 
-register::$vars['coscms_base'] = _COS_PATH;
+
 
 // include head - will set same include path as web env
 include_once "lib/head.php";
@@ -35,7 +36,7 @@ include_once "lib/lang.php";
 include_once "lib/db.php";
 include_once "lib/moduleloader.php";
 include_once "lib/moduleInstaller.php";
-include_once "lib/common.php";
+//include_once "lib/common.php";
 include_once "lib/shell_base/common.inc";
 /**
  * class shell is a wrapper function around PEAR::commandLine

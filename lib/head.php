@@ -8,12 +8,7 @@
 /**
  * @ignore
  */
-register::$vars['coscms_main'] = array();
-register::$vars['coscms_main']['module'] = array();
-register::$vars['coscms_debug'] = array();
-register::$vars['coscms_lang'] = array();
-register::$vars['coscms_debug']['timer']['start'] = microtime(true);
-register::$vars['coscms_debug']['coscms_base']  = register::$vars['coscms_base'];
+
 
 // set include path
 $ini_path = ini_get('include_path');
@@ -22,12 +17,27 @@ ini_set('include_path', $ini_path . PATH_SEPARATOR .
     _COS_PATH . '/vendor' . PATH_SEPARATOR .
     _COS_PATH . "/lib" . PATH_SEPARATOR . _COS_PATH . '/modules');
 
+/**
+ * @package shell
+ */
+/* class register {
+    public static $vars = array();
+} */
 // parse main config.ini file
+include "lib/common.php";
+
+register::$vars['coscms_base'] = _COS_PATH;
+register::$vars['coscms_main'] = array();
+register::$vars['coscms_main']['module'] = array();
+register::$vars['coscms_debug'] = array();
+register::$vars['coscms_lang'] = array();
+register::$vars['coscms_debug']['timer']['start'] = microtime(true);
+register::$vars['coscms_debug']['coscms_base']  = register::$vars['coscms_base'];
 register::$vars['coscms_debug']['include_path'] = ini_get('include_path');
 
 // Rest is only for web mode. 
 if (!defined('_COS_CLI')){
-    include_once "lib/common.php";
+    
     load_config_file ();
     
     // set a unified server_name if not set in config file. 
