@@ -19,6 +19,10 @@ class register {
  * @param string $message
  */
 function cos_error_log ($message, $write_file = true) {
+    if (!is_string($message)) {
+        $message = var_export($message, true);
+    }
+    
     $message = strftime('%c', time()) . ": " . $message;
     $message.="\n";
     
