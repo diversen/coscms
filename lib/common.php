@@ -1269,7 +1269,7 @@ function load_config_file () {
     $config_file = get_config_file();
     
     if (!file_exists($config_file)){
-        define ("NO_CONFIG_FILE", true);
+        //define ("NO_CONFIG_FILE", true);
         return;
     } else {
         register::$vars['coscms_main'] = parse_ini_file_ext($config_file, true);
