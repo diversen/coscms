@@ -28,7 +28,7 @@ function prompt_install(){
 
     cos_exec("git checkout $tag");
 
-    $profiles = get_file_list('profiles', array('dir_only' => true));
+    $profiles = file::getFileList('profiles', array('dir_only' => true));
     cos_cli_print("List of profiles: ");
     foreach ($profiles as $key => $val){
         cos_cli_print("\t".$val);

@@ -9,8 +9,8 @@
 /**
  * @ignore
  */
-include_once "lib/profile.php";
-include_once "lib/db.php";
+include_once "coslib/profile.php";
+include_once "coslib/db.php";
 
 
 /**

@@ -33,7 +33,7 @@ function translate($options){
     }
 
     // get all files  from modules dir
-    $file_list = get_file_list_recursive($module_dir);
+    $file_list = file::getFileListRecursive($module_dir);
     
     // compose a php file
     $str = $sys_str = "<?php\n\n";
@@ -145,7 +145,7 @@ function translate_update($options){
     }
     
     // get all files  from modules dir
-    $file_list = get_file_list_recursive($module_dir);
+    $file_list = file::getFileListRecursive($module_dir);
 
     // compose a php file
     foreach ($file_list as $key => $val){

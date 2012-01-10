@@ -9,8 +9,8 @@
 /**
  * @ignore
  */
-include_once "lib/mycurl.php";
-include_once "lib/moduleloader.php";
+include_once "coslib/mycurl.php";
+include_once "coslib/moduleloader.php";
 
 /**
  * function for checking if your are denying people 
@@ -19,7 +19,7 @@ include_once "lib/moduleloader.php";
 function test_access($options = null){
     
    $module_dir = _COS_PATH . "/modules";
-   $files = get_file_list_recursive($module_dir, "*.php");
+   $files = file::getFileListRecursive($module_dir, "*.php");
    
    $base_url = "http://" . get_main_ini('server_name');
    foreach ($files as $val) {

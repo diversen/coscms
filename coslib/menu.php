@@ -156,9 +156,6 @@ class menu {
                             $val['id'], $val['title']),
                     $val['title']);
 
-                //create_link(
-                    //"/content/article/view/$val[id]/$val[title]",
-                    //$val['title']) . "";
             if (!empty($val['sub'])){              
                 if ( $element == $val['id']){
                     self::getTreeHTML($val['sub'], $name, $element);

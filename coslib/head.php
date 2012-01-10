@@ -6,25 +6,20 @@
  */
 
 /**
+ * set include path
  * @ignore
  */
-
-
-// set include path
 $ini_path = ini_get('include_path');
 ini_set('include_path', $ini_path . PATH_SEPARATOR .
     _COS_PATH . PATH_SEPARATOR . "." . PATH_SEPARATOR .
     _COS_PATH . '/vendor' . PATH_SEPARATOR .
-    _COS_PATH . "/lib" . PATH_SEPARATOR . _COS_PATH . '/modules');
+    _COS_PATH . "/coslib" . PATH_SEPARATOR . _COS_PATH . '/modules');
 
 /**
  * @package shell
  */
-/* class register {
-    public static $vars = array();
-} */
-// parse main config.ini file
-include "lib/common.php";
+
+include_once "coslib/common.php";
 
 register::$vars['coscms_base'] = _COS_PATH;
 register::$vars['coscms_main'] = array();
@@ -60,14 +55,16 @@ if (!defined('_COS_CLI')){
     }
     
     // include all common classes
-    include "db.php";
-    include "uri.php";
-    include "moduleloader.php";
-    include "session.php";
-    include "html.php";
-    include "layout.php";
-    include "template.php";
-    include "event.php";
+    include_once "coslib/file.php";
+    include_once "coslib/strings.php";
+    include_once "coslib/db.php";
+    include_once "coslib/uri.php";
+    include_once "coslib/moduleloader.php";
+    include_once "coslib/session.php";
+    include_once "coslib/html.php";
+    include_once "coslib/layout.php";
+    include_once "coslib/template.php";
+    include_once "coslib/event.php";
     
     // start session
     session::initSession();
@@ -105,7 +102,7 @@ if (!defined('_COS_CLI')){
     $moduleLoader->runLevel(4);
 
     // include translation class and language specified in config.ini
-    include "lang.php";
+    include_once "coslib/lang.php";
 
     // load languages.
     lang::init();    

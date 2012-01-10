@@ -79,7 +79,7 @@ function restore($options){
  */
 function _get_latest_backup(){
     $dir = _COS_PATH . "/backup/full";
-    $list = get_file_list($dir);
+    $list = file::getFileList($dir);
     $time_stamp = 0;
     foreach ($list as $key => $val){
         $file = explode('.', $val);

@@ -1,2 +1,2 @@
 #!/bin/sh
-php ./lib/shell.php $*
+php ./coslib/shell.php $*

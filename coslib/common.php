@@ -98,61 +98,6 @@ function isset_and_equal ($var, $val) {
 }
 
 /**
- * function for rewriting htmlentities for safe display on screen.
- *
- * @param   array|string    $value value(s) to transform
- * @return  array|string    $value value(s) transformed
- */
-function cos_htmlentities($values){
-    if (is_array($values)){
-        foreach($values as $key => $val){
-            $values[$key] = htmlentities($val, ENT_COMPAT, 'UTF-8');
-        }
-    } else if (is_string($values)) {
-        $values =  htmlentities($values, ENT_COMPAT, 'UTF-8');
-    } else {
-        $values = '';
-    }
-    return $values;
-}
-
-/**
- * function for decoding htmlentities
- *
- * @param   array|string   $values value(s) to transform
- * @return  array|string   $values value(s) transformed
- */
-function cos_htmlentities_decode($values){
-    if (is_array($values)){
-        foreach($values as $key => $val){
-            $values[$key] = html_entity_decode($val, ENT_COMPAT, 'UTF-8');
-        }
-    } else if (is_string($values)) {
-        $values =  html_entity_decode($values, ENT_COMPAT, 'UTF-8');
-    } else {
-        $values = '';
-    }
-    return $values;
-}
-
-/**
- * function for encoding htmlspecialchars for safe display on screen
- *
- * @param   array|string    $values value(s) to encode
- * @return  array|string    $values value(s) encoded
- */
-function cos_htmlspecialchars($values){
-    if (is_array($values)){
-        foreach($values as $key => $val){
-            $values[$key] = htmlspecialchars($val, ENT_COMPAT, 'UTF-8');
-        }
-    } else {
-        $values =  htmlspecialchars($values, ENT_COMPAT, 'UTF-8');
-    }
-    return $values;
-}
-
-/**
  * function used for checking if something has isset and at the same 
  * time is not empty
  *
@@ -180,49 +125,7 @@ function print_r_str ($var){
     return $var;
 }
 
-/** 
- * Substring without losing word meaning and
- * tiny words (length 3 by default) are included on the result.
- *  "..." is added if result do not reach original string length
- * Found on php.net
- *
- * @param   string  $str string to operate on
- * @param   int     $length the maxsize of the string to return
- * @param   int     $minword minimum size of word to cut from
- * @return  string  $str the substringed string
- */
-function substr2($str, $length, $minword = 3, $use_dots = true)
-{
-    $sub = '';
-    $len = 0;
 
-    foreach (explode(' ', $str) as $word)
-    {
-        $part = (($sub != '') ? ' ' : '') . $word;
-        $sub .= $part;
-        $len += strlen($part);
-
-        if (strlen($word) > $minword && strlen($sub) >= $length)
-        {
-            break;
-        }
-    }
-
-    if ($use_dots) {
-        return $sub . (($len < strlen($str)) ? ' ... ' : '');
-    }
-    return $sub;
-}
-
-/**
- * function for removing extra white space, and only have 'one space' left
- * @param string $str the string to operate on
- * @return string $str the transformed string 
- */
-function cos_remove_extra_ws ($str) {
-    $str = preg_replace('/\s\s+/', ' ', $str);
-    return $str;
-}
 
 /**
  * simple method for saving $_POST vars to session
@@ -267,98 +170,12 @@ function unset_post ($id) {
     unset($_SESSION[$id]);
 }
 
-/**
- * function for urlencoding a utf8 encoding a string
- * @param   string  $string the utf8 string to encode
- * @return  string  $string the utf8 encoded string
- */
-function cos_url_encode($string){
-    return urlencode(utf8_encode($string));
-}
 
-/**
- * function for urldecoding a utf8 decodeding a string
- * @param   string  $string the string to decode
- * @return  string  $string the urldecoded and utf8 decoded string
- */
-function cos_url_decode($string){
-    return utf8_decode(urldecode($string));
-}
-// }}}
 
-/**
- * function for getting a file list of a directory (. and .. will not be
- * collected)
- *
- * @param   string  the path to the directory where we want to create a filelist
- * @param   array   if <code>$options['dir_only']</code> isset only return directories.
- *                  if <code>$options['search']</code> isset then only files containing
- *                  search string will be returned
- * @return  array   entries of all files <code>array (0 => 'file.txt', 1 => 'test.php');</code>
- */
-function get_file_list($dir, $options = null){
-    if (!file_exists($dir)){
-        return false;
-    }
-    $d = dir($dir);
-    $entries = array();
-    while (false !== ($entry = $d->read())) {
-        if ($entry == '..') continue;
-        if ($entry == '.') continue;
-        if (isset($options['dir_only'])){
-            if (is_dir($dir . "/$entry")){
-                if (isset($options['search'])){
-                    if (strstr($entry, $options['search'])){
-                       $entries[] = $entry;
-                    }
-                } else {
-                    $entries[] = $entry;
-                }
-            }
-        } else {
-            $entries[] = $entry;
-        }
-    }
-    $d->close();
-    return $entries;
-}
 
-/**
- * function for getting a file list recursive
- * @param string $start_dir the directory where we start
- * @param string $pattern a given fnmatch() pattern
- * return array $ary an array with the files found. 
- */
-function get_file_list_recursive($start_dir, $pattern = null) {
 
-    $files = array();
-    if (is_dir($start_dir)) {
-        $fh = opendir($start_dir);
-        while (($file = readdir($fh)) !== false) {
-            // skip hidden files and dirs and recursing if necessary
-            if (strpos($file, '.')=== 0) continue;
-            
-            $filepath = $start_dir . '/' . $file;
-            if ( is_dir($filepath) ) {
-                $files = array_merge($files, get_file_list_recursive($filepath, $pattern));
-            } else {
-                if (isset($pattern)) {
-                    if (fnmatch($pattern, $filepath)) {
-                        array_push($files, $filepath);
-                    }
-                } else {
-                    array_push($files, $filepath);
-                }
-            }
-        }
-        closedir($fh);
-    } else {
-        // false if the function was called with an invalid non-directory argument
-        $files = false;
-    }
 
-    return $files;
-}
+
 
 /**
  * function for including a templates function file, which is always placed in
@@ -419,37 +236,7 @@ function include_model($module){
     include_once $model_file;
 }
 
-/**
- * function for including a view file.
- * Maps to module (e.g. 'tags' and 'view file' e.g. 'add')
- * we presume that views are placed in modules views folder
- * e.g. tags/views And we presume that views always has a .inc
- * postfix
- *
- * @param string $module the module where our view exists
- * @param string $file the view file we want to use
- * @param mixed $vars vars to substitue in view
- * @param boolean $return if true we will return the content of the view
- *                        if false we echo the view
- */
-function include_view ($module, $view, $vars = null, $return = null){
-    $filename = _COS_PATH . "/modules/$module/views/$view.inc";
 
-    if (is_file($filename)) {
-        ob_start();
-        include $filename;
-        $contents = ob_get_contents();
-        ob_end_clean();
-        if ($return) {
-            return $contents;
-        } else {
-            echo $contents;
-        }
-    } else {
-        echo "View not found";
-        return false;
-    }    
-}
 
 /**
  * function for including a controller
@@ -581,23 +368,7 @@ function get_main_ini($key){
     return register::$vars['coscms_main'][$key];
 }
 
-/**
- * function for getting content from a file
- * used as a very simple template function
- * @param string $filename the full path of the file to include
- * @param mixed  $vars the var to sustitute with
- * @return string $str the parsed template.
- */
-function get_include_contents($filename, $vars = null) {
-    if (is_file($filename)) {
-        ob_start();
-        include $filename;
-        $contents = ob_get_contents();
-        ob_end_clean();
-        return $contents;
-    }
-    return false;
-}
+
 
 /**
  * method for getting a path to a module
@@ -609,152 +380,14 @@ function get_module_path ($module){
     return _COS_PATH . '/modules/' . $module;
 }
 
+
+
+
 // HTML and HTTP function
 
-// {{{ function create_link($url, $title, $description)
-/**
- * function for creating a link
- * @deprecated use html::createLink 
- * @param   string  the url to create the link from
- * @param   string  the title of the link
- * @param   boolean if true we only return the url and not the html link
- * @return  string  the <code><a href='url'>title</></code> tag
- */
-function create_link($url, $title, $return_url = false, $css = null){
-    if (class_exists('rewrite_manip')) {
-        $alt_uri = rewrite_manip::getRowFromRequest($url);
-        if (isset($alt_uri)){
-            $url = $alt_uri; 
-        }
-    } 
-
-    if ($return_url){
-        return $url;
-    }
-    if ($_SERVER['REQUEST_URI'] == $url){
-        return "<a href=\"$url\" class=\"current\">$title</a>";
-    }
-
-    if ($css){
-        $link = "<a href=\"$url\" class=\"$css\">$title</a>";
-        return $link;
-    }
 
 
-    return "<a href=\"$url\">$title</a>";
-    
-}
 
-// }}}
-// {{{ function create_link($url, $title, $description)
-/**
- * function for creating a link
- * @deprecated see html::createHrefImage()
- * @param   string  the url to create the link from
- * @param   string  the title of the link
- * @param   boolean if true we only return the url and not the html link
- * @return  string  the <code><a href='url'>title</></code> tag
- */
-function create_image_link($url, $href_image, $options = null){
-    
-    $str = '';
-    if (isset($options['alt'])) $str.= " alt = \"$options[alt]\" ";
-    if (isset($options['title'])) $str.= " title = \"$options[title]\" ";
-    if (isset($options['width'])) $str.= " width = \"$options[width]\" ";
-    if (isset($options['height'])) $alt = $options['height'];
-    return "<a href=\"$url\"><img $str src=\"$href_image\" /></a>";
-}
-/**
- * @deprecated see html::createImage($src)
- * @param type $href_image
- * @param type $options
- * @return type 
- */
-function create_image($href_image, $options = null){  
-    $str = '';
-    if (isset($options['alt'])) $str.= " alt = \"$options[alt]\" ";
-    if (isset($options['width'])) $str.= " width = \"$options[width]\" ";
-    if (isset($options['height'])) $alt = $options['height'];
-    return "<img $str src=\"$href_image\" />";
-}
-
-/**
- * function for creating a select dropdown from a database table.
- * @deprecated see html::select()
- * @param   string  the name of the select filed
- * @param   string  the database table to select from
- * @param   string  the database field which will be used as name of the select element
- * @param   int     the database field which will be used as id of the select element
- * @param   int     the element which will be selected
- * @param   array   array of other non db options
- * @param   string  behavior e.g. onChange="this.form.submit()"
- * @return  string  the select element to be added to a form
- */
-function view_drop_down_db($name, $table, $field, $id, $selected=null, $extras = null, $behav = null){
-    $db = new db();
-    $dropdown = "<select name=\"$name\" ";
-    if (isset($behav)){
-        $dropdown.= $behav;
-        
-    }
-    $dropdown.= ">\n";
-    $rows = $db->selectAll($table);
-    if (isset($extras)){
-        $rows = array_merge($extras, $rows);
-    }
-    foreach($rows as $row){
-        if ($row[$id] == $selected){
-            $s = ' selected';
-        } else {
-            $s = '';
-        }
-
-        $dropdown.= '<option value="'.$row[$id].'"' . $s . '>'.$row[$field].'</option>'."\n";
-    }
-    $dropdown.= '</select>'."\n";
-    return $dropdown;
-}
-
-/**
- * @deprecated see html::select()
- * @param   string  the name of the select field
- * @param   array   the rows making up the ids and names of the select field
- * @param   string  the field which will be used as name of the select element
- * @param   int     the field which will be used as id of the select element
- * @param   int     the element which will be selected
- * @return  string  the select element to be added to a form
- */
-function view_drop_down($name, $rows, $field, $id, $selected=null, $behav = null){
-    $dropdown = "<select name=\"$name\" ";
-    if (isset($behav)){
-        $dropdown.= $behav;
-
-    }
-    $dropdown.= ">\n";
-    foreach($rows as $row){
-        if ($row[$id] == $selected){
-            $s = ' selected';
-        } else {
-            $s = '';
-        }
-
-        $dropdown .= '<option value="'.$row[$id].'"' . $s . '>'.$row[$field].'</option>'."\n";
-    }
-    $dropdown .= '</select>'."\n";
-    return $dropdown;
-}
-
-/**
- * @deprecated
- * simple template method for collecting a string from a file
- */
-function simple_template ($file){
-    ob_start();
-    include $file;
-    $parsed = ob_get_contents();
-    ob_end_clean();
-    return $parsed;
-}
 
 /**
  * Gets user profile link if a profile system is in place.
@@ -1166,42 +799,7 @@ class cosValidate {
         return false;
     }
 }
-/**
- * function for sanitizing a URL
- * from http://chyrp.net/
- * 
- * @deprecated
- * @param string $string
- * @param boolean $force_lowercase 
- * @param boolean $remove_special
- * @return string $str the sanitized string 
- */
-function cos_sanitize_url($string, $force_lowercase = true, $remove_special = false) {
-    $strip = array("~", "`", "!", "@", "#", "$", "%", "^", "&", "*", "(", ")", "_", "=", "+", "[", "{", "]",
-                   "}", "\\", "|", ";", ":", "\"", "'", "&#8216;", "&#8217;", "&#8220;", "&#8221;", "&#8211;", "&#8212;",
-                   "â€”", "â€“", "<", ">", "/", "?");
-    return $clean = trim(str_replace($strip, "", strip_tags($string)));
-    $clean = preg_replace('/\s+/', "-", $clean);
-    $clean = ($remove_special) ? preg_replace("/[^a-zA-Z0-9]/", "", $clean) : $clean ;
-    
-    return ($force_lowercase) ?
-        (function_exists('mb_strtolower')) ?
-            mb_strtolower($clean, 'UTF-8') :
-            strtolower($clean) :
-        $clean; 
-}
 
-/**
- * simple sanitize function where only thing removed is /
- * in order to not confuse the url
- * @param string $string string to sanitize
- * @return string $string sanitized string
- */
-function cos_sanitize_simple_url($string) {
-    $strip = array("/", "?", "#");
-    return $clean = trim(str_replace($strip, "", htmlspecialchars(strip_tags($string))));
-
-}
 
 function parse_ini_file_ext ($file, $sections = null) {
     ob_start();

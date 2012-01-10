@@ -9,7 +9,7 @@
 /**
  * @ignore
  */
-include_once "lib/profile.php";
+include_once "coslib/profile.php";
 
 
 /**
@@ -17,7 +17,7 @@ include_once "lib/profile.php";
  */
 function load_profile($options) {
     $pro = new profile();
-    $profiles = get_file_list('profiles', array('dir_only' => true));
+    $profiles = file::getFileList('profiles', array('dir_only' => true));
     if (!in_array($options['profile'], $profiles)){
         cos_cli_abort('No such profile');
     }

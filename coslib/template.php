@@ -505,3 +505,53 @@ class templateView {
         return self::includeModuleView($module, $view, $vars, 1);
     }
 }
+
+/**
+ * function for including a view file.
+ * Maps to module (e.g. 'tags' and 'view file' e.g. 'add')
+ * we presume that views are placed in modules views folder
+ * e.g. tags/views And we presume that views always has a .inc
+ * postfix
+ *
+ * @param string $module the module where our view exists
+ * @param string $file the view file we want to use
+ * @param mixed $vars vars to substitue in view
+ * @param boolean $return if true we will return the content of the view
+ *                        if false we echo the view
+ */
+function include_view ($module, $view, $vars = null, $return = null){
+    $filename = _COS_PATH . "/modules/$module/views/$view.inc";
+
+    if (is_file($filename)) {
+        ob_start();
+        include $filename;
+        $contents = ob_get_contents();
+        ob_end_clean();
+        if ($return) {
+            return $contents;
+        } else {
+            echo $contents;
+        }
+    } else {
+        echo "View not found";
+        return false;
+    }    
+}
+
+/**
+ * function for getting content from a file
+ * used as a very simple template function
+ * @param string $filename the full path of the file to include
+ * @param mixed  $vars the var to sustitute with
+ * @return string $str the parsed template.
+ */
+function get_include_contents($filename, $vars = null) {
+    if (is_file($filename)) {
+        ob_start();
+        include $filename;
+        $contents = ob_get_contents();
+        ob_end_clean();
+        return $contents;
+    }
+    return false;
+}

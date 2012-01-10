@@ -131,7 +131,7 @@ class profile  {
      */
     public static function getAllTemplates (){
         $dir = _COS_PATH . "/htdocs/templates";
-        $templates = get_file_list($dir, array('dir_only' => true));
+        $templates = file::getFileList($dir, array('dir_only' => true));
 
         foreach ($templates as $key => $val){
             $install = $dir . "/$val/install.inc";

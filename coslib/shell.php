@@ -15,29 +15,17 @@
 define('_COS_PATH', realpath(dirname($_SERVER['SCRIPT_FILENAME']) . '/..'));
 define('_COS_CLI', 1);
 
-
-
-/**
- * @package shell
- */
-/*
-class register {
-    public static $vars = array();
-}*/
-
-
-
-// include head - will set same include path as web env
-include_once "lib/head.php";
+include_once "coslib/head.php";
+// include all common classes
+include_once "coslib/file.php";
+include_once "coslib/strings.php";
 include_once 'Console/CommandLine.php';
 include_once "Console/Color.php";
-include_once "lib/uri.php";
-include_once "lib/lang.php";
-include_once "lib/db.php";
-include_once "lib/moduleloader.php";
-include_once "lib/moduleInstaller.php";
-//include_once "lib/common.php";
-include_once "lib/shell_base/common.inc";
+include_once "coslib/lang.php";
+include_once "coslib/moduleloader.php";
+include_once "coslib/moduleInstaller.php";
+include_once "coslib/shell_base/common.inc";
+
 /**
  * class shell is a wrapper function around PEAR::commandLine
  *
@@ -142,12 +130,14 @@ class mainCli {
             // load config file
             // Note: First time loaded we only load it order to load any
             // base modules which may be set
+           
             load_config_file();
-            
             // load all modules
             mainCli::loadBaseModules();
+
+
             mainCli::loadDbModules();
-                      
+                     
             
             $result = self::$parser->parse();
 
@@ -254,14 +244,17 @@ class mainCli {
     }
     
     static function loadBaseModules () {
-        $command_path = _COS_PATH . "/lib/shell_base";
-        $file_list = get_file_list($command_path);
+        $command_path = _COS_PATH . "/coslib/shell_base";
+
+        $file_list = file::getFileList($command_path);
+        
         foreach ($file_list as $key => $val){
-            $path =  _COS_PATH . "/lib/shell_base/$val";
+            $path =  _COS_PATH . "/coslib/shell_base/$val";
             include_once $path;
         }
     }
 }
 
 mainCli::init();
+
 mainCli::run();

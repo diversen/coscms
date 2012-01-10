@@ -658,3 +658,100 @@ class HTML {
         return $str;
     }*/
 }
+
+/**
+ * function for creating a link
+ * @deprecated see html::createHrefImage()
+ * @param   string  the url to create the link from
+ * @param   string  the title of the link
+ * @param   boolean if true we only return the url and not the html link
+ * @return  string  the <code><a href='url'>title</></code> tag
+ */
+function create_image_link($url, $href_image, $options = null){
+    
+    $str = '';
+    if (isset($options['alt'])) $str.= " alt = \"$options[alt]\" ";
+    if (isset($options['title'])) $str.= " title = \"$options[title]\" ";
+    if (isset($options['width'])) $str.= " width = \"$options[width]\" ";
+    if (isset($options['height'])) $alt = $options['height'];
+    return "<a href=\"$url\"><img $str src=\"$href_image\" /></a>";
+}
+/**
+ * @deprecated see html::createImage($src)
+ * @param type $href_image
+ * @param type $options
+ * @return type 
+ */
+function create_image($href_image, $options = null){  
+    $str = '';
+    if (isset($options['alt'])) $str.= " alt = \"$options[alt]\" ";
+    if (isset($options['width'])) $str.= " width = \"$options[width]\" ";
+    if (isset($options['height'])) $alt = $options['height'];
+    return "<img $str src=\"$href_image\" />";
+}
+
+/**
+ * function for creating a select dropdown from a database table.
+ * @deprecated see html::select()
+ * @param   string  the name of the select filed
+ * @param   string  the database table to select from
+ * @param   string  the database field which will be used as name of the select element
+ * @param   int     the database field which will be used as id of the select element
+ * @param   int     the element which will be selected
+ * @param   array   array of other non db options
+ * @param   string  behavior e.g. onChange="this.form.submit()"
+ * @return  string  the select element to be added to a form
+ */
+function view_drop_down_db($name, $table, $field, $id, $selected=null, $extras = null, $behav = null){
+    $db = new db();
+    $dropdown = "<select name=\"$name\" ";
+    if (isset($behav)){
+        $dropdown.= $behav;
+        
+    }
+    $dropdown.= ">\n";
+    $rows = $db->selectAll($table);
+    if (isset($extras)){
+        $rows = array_merge($extras, $rows);
+    }
+    foreach($rows as $row){
+        if ($row[$id] == $selected){
+            $s = ' selected';
+        } else {
+            $s = '';
+        }
+
+        $dropdown.= '<option value="'.$row[$id].'"' . $s . '>'.$row[$field].'</option>'."\n";
+    }
+    $dropdown.= '</select>'."\n";
+    return $dropdown;
+}
+
+/**
+ * @deprecated see html::select()
+ * @param   string  the name of the select field
+ * @param   array   the rows making up the ids and names of the select field
+ * @param   string  the field which will be used as name of the select element
+ * @param   int     the field which will be used as id of the select element
+ * @param   int     the element which will be selected
+ * @return  string  the select element to be added to a form
+ */
+function view_drop_down($name, $rows, $field, $id, $selected=null, $behav = null){
+    $dropdown = "<select name=\"$name\" ";
+    if (isset($behav)){
+        $dropdown.= $behav;
+
+    }
+    $dropdown.= ">\n";
+    foreach($rows as $row){
+        if ($row[$id] == $selected){
+            $s = ' selected';
+        } else {
+            $s = '';
+        }
+
+        $dropdown .= '<option value="'.$row[$id].'"' . $s . '>'.$row[$field].'</option>'."\n";
+    }
+    $dropdown .= '</select>'."\n";
+    return $dropdown;
+}

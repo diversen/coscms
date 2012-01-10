@@ -151,7 +151,7 @@ function get_latest_db_dump($dir = null, $num_files = null){
     if (!$dir){
         $dir = _COS_PATH . "/backup/sql";
     }
-    $list = get_file_list($dir);
+    $list = file::getFileList($dir);
     $time_stamp = 0;
     foreach ($list as $key => $val){
         $file = explode('.', $val);

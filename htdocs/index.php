@@ -18,4 +18,4 @@ if (DIRECTORY_SEPARATOR != '/') {
 define('_COS_PATH',  $path);
 
 // include head
-include _COS_PATH . "/lib/head.php";
+include _COS_PATH . "/coslib/head.php";

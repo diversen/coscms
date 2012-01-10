@@ -17,7 +17,7 @@ if (!defined('_COS_CLI')){
  * define new line if not cli
  */
 define('NEW_LINE', $new_line);
-include_once "lib/db.php";
+include_once "coslib/db.php";
 
 /**
  * class for installing a module or upgrading it.
@@ -223,7 +223,7 @@ class moduleInstaller extends db {
             $this->installInfo['NAME'] .
             '/lang';
 
-        $dirs = get_file_list($language_path);
+        $dirs = file::getFileList($language_path);
         if ($dirs == false){
             print "Notice: No language dir in: $language_path " . NEW_LINE;
         }
@@ -288,7 +288,7 @@ class moduleInstaller extends db {
      */
     public function getSqlFileList($module, $action){
         $sql_dir = _COS_PATH . "/modules/$module/mysql/$action";
-        $file_list = get_file_list($sql_dir);
+        $file_list = file::getFileList($sql_dir);
         if (is_array($file_list)){
             return $file_list;
         } else {
