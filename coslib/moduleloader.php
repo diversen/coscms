@@ -673,3 +673,170 @@ class moduleLoader {
         }
     }
 }
+
+
+
+
+
+
+
+
+/**
+ * function for including a templates function file, which is always placed in
+ * /templates/template_name/common.inc
+ * @param string $template the template name which we want to load.  
+ */
+function include_template_inc ($template){
+    include_once _COS_PATH . "/htdocs/templates/$template/common.inc";
+}
+
+/**
+ * function for including a compleate module
+ * with configuration, view, language, and model file
+ *
+ * @param   string  $module the name of the module to include
+ */
+function include_module($module){
+
+    static $modules = array ();
+    if (isset($modules[$module])){
+        // module has been included
+        return true;
+    }
+
+    $module_path = register::$vars['coscms_base'] . '/modules/' . $module;
+    $ary = explode('/', $module);
+    $last = array_pop($ary);
+    $model_file = $module_path . '/' . "model.$last.inc";  
+    $view_file = $module_path . '/' . "view.$last.inc";
+    $ary = explode('/', $module);
+
+    lang::loadModuleLanguage($ary[0]);
+    moduleLoader::setModuleIniSettings($ary[0]);
+
+    if (file_exists($view_file)){
+        include_once $view_file;
+    }
+    if (file_exists($model_file)){
+        include_once $model_file;
+        $modules[$module] = true;
+        return true;
+    } else {
+        return false;
+    }
+
+}
+
+/**
+ * function for including the model file only
+ * @param   string   $module the module where the model file exists 
+ *                   e.g. (content/article)
+ */
+function include_model($module){
+    $module_path = 'modules/' . $module;
+    $ary = explode('/', $module);
+    $last = array_pop($ary);
+    $model_file = $module_path . '/' . "model.$last.inc";
+    include_once $model_file;
+}
+
+
+
+/**
+ * function for including a controller
+ * @param string    $controller the controller to include (e.g. content/article/add)
+ */
+function include_controller($controller){
+    $module_path = register::$vars['coscms_base']  . '/modules/' . $controller;
+    $controller_file = $module_path . '.php';
+    include_once $controller_file;
+}
+
+/**
+ * function for including a filter module
+ * @param   array|string   $filter string or array of string with 
+ *                         filters to include
+ *
+ */
+function include_filters ($filter){
+    static $loaded = array();
+
+    if (!is_array($filter)){
+        $class_path = _COS_PATH . "/modules/filter_$filter/$filter.inc";
+        include_once $class_path;
+        moduleLoader::setModuleIniSettings("filter_$filter");
+        $loaded[$filter] = true;
+    }
+
+    if (is_array ($filter)){
+        foreach($filter as $key => $val){
+            if (isset($loaded[$val])) continue;
+            $class_path = _COS_PATH . "/modules/filter_$val/$val.inc";
+            include_once $class_path;
+            moduleLoader::setModuleIniSettings("filter_$val");
+            $loaded[$val] = true;
+        }
+    }
+}
+
+/**
+ * function for getting filters help string
+ * @param string|array $filters the filter or filters from were we wnat to get
+ *                     help strings
+ * @return string $string the help strings of all filters. 
+ */
+function get_filters_help ($filters) {
+    include_filters($filters);
+    $str = '<span class="small-font">';
+    $i = 1;
+
+    foreach($filters as $key => $val) {
+
+        $str.= $i . ") " .  lang::translate("filter_" . $val . "_help") . "<br />";
+        $i++;
+    }
+    $str.='</span>';
+    return $str;
+    
+}
+
+/**
+ * function for filtering content
+ * @param  string|array    $filters the string or array of filters to use
+ * @param  string|array    $content the string or array (to use filters on)
+ * @return string|array    $content the filtered string or array of strings
+ */
+function get_filtered_content ($filter, $content){   
+    if (!is_array($filter)){
+        include_filters($filter);
+        $class = 'filter' . ucfirst($filter);
+        $filter_class = new $class;
+
+        if (is_array($content)){
+            foreach ($content as $key => $val){
+                $content[$key] = $filter_class->filter($val);
+            }
+        } else {
+            $content = $filter_class->filter($content);
+        }
+        
+        return $content;
+    }
+
+    if (is_array ($filter)){
+        foreach($filter as $key => $val){
+            include_filters($val);
+            $class = 'filter' . ucfirst($val);
+            $filter_class = new $class;
+            if (is_array($content)){
+                foreach ($content as $key => $val){
+                    $content[$key] = $filter_class->filter($val);
+                }
+            } else {
+                $content = $filter_class->filter($content);
+            }
+        }
+        return $content;
+    }
+    return '';
+}

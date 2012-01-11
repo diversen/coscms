@@ -1,32 +1,28 @@
 <?php
 
 /**
- * @package coslib
+ * File contains helper functions. 
+ * 
+ *
+ * @package    coslib
  */
+
+
 
 /**
- * @package coslib
+ * puts a string in logs/coscms.log
+ * @param string $message
  */
-class log {
-
-    /**
-     *
-     * @param   string   $message to append to log file
-     * @param   int      $level how suvere is the message.
-     *
-     *                   0 SYSTEM
-     *                   1 NOTICE
-     *                   2 WARNING
-     *                   3 DEBUG
-     *                   4 ERROR
-     *                   5 DIE
-     */
-    public static function write($message, $level = 0){
-        $file = _COS_PATH . "/logs/coscms.log";
-        $message = $level .": " . $message . "\n";
-        $ret = file_put_contents($file, $message, FILE_APPEND);
-        if (!$ret){
-            die ("Can not append to file $file");
-        }
+function cos_error_log ($message, $write_file = true) {
+    if (!is_string($message)) {
+        $message = var_export($message, true);
+    }
+    
+    $message = strftime('%c', time()) . ": " . $message;
+    $message.="\n";
+    
+    if ($write_file) {
+        $destination = _COS_PATH . "/logs/coscms.log";
+        error_log($message, 3, $destination);
     }
 }

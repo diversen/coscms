@@ -370,7 +370,7 @@ class HTML {
             $extra.= " checked=\"yes\" ";
         }
 
-        $str = "<input type=\"checkbox\" name=\"$name\" value=\"$value\" $extra />" . self::$br . "\n";
+        $str = "<input type=\"checkbox\" name=\"$name\" value=\"1\" $extra />" . self::$br . "\n";
         self::$fields[] = array ('value' => $str);
         return $str;
     }

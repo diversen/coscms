@@ -16,11 +16,29 @@ ini_set('include_path', $ini_path . PATH_SEPARATOR .
     _COS_PATH . "/coslib" . PATH_SEPARATOR . _COS_PATH . '/modules');
 
 /**
- * @package shell
+ * include base classes and functions
+ * @ignore
  */
+include_once "coslib/config.php";
+include_once "coslib/file.php";
+include_once "coslib/strings.php";
+include_once "coslib/db.php";
+include_once "coslib/uri.php";
+include_once "coslib/moduleloader.php";
+include_once "coslib/session.php";
+include_once "coslib/html.php";
+include_once "coslib/layout.php";
+include_once "coslib/template.php";
+include_once "coslib/event.php";
+include_once "coslib/mail.php";
+include_once "coslib/validate.php";
+include_once "coslib/http.php";
+include_once "coslib/user.php";
+include_once "coslib/log.php";
+include_once "coslib/lang.php";
+include_once "coslib/time.php";
 
-include_once "coslib/common.php";
-
+// set some common register vars
 register::$vars['coscms_base'] = _COS_PATH;
 register::$vars['coscms_main'] = array();
 register::$vars['coscms_main']['module'] = array();
@@ -54,22 +72,8 @@ if (!defined('_COS_CLI')){
         server_force_ssl();
     }
     
-    // include all common classes
-    include_once "coslib/file.php";
-    include_once "coslib/strings.php";
-    include_once "coslib/db.php";
-    include_once "coslib/uri.php";
-    include_once "coslib/moduleloader.php";
-    include_once "coslib/session.php";
-    include_once "coslib/html.php";
-    include_once "coslib/layout.php";
-    include_once "coslib/template.php";
-    include_once "coslib/event.php";
-    
     // start session
     session::initSession();
-    
-    $preloaded_module = get_main_ini('preloaded_modules');
 
     // init module loader
     $db = new db();
@@ -100,9 +104,6 @@ if (!defined('_COS_CLI')){
     // set default timezone
     date_default_timezone_set(register::$vars['coscms_main']['date_default_timezone']);
     $moduleLoader->runLevel(4);
-
-    // include translation class and language specified in config.ini
-    include_once "coslib/lang.php";
 
     // load languages.
     lang::init();    

@@ -142,15 +142,29 @@ class uri {
         $base_fragments = array();
         for ($i = 0; $i < $num_frags; $i++ ){
             // if we have an int we break
-            if (get_zero_or_positive($fragments[$i])){
+            if (self::getPositiveInt($fragments[$i])){
                 break;
             }
             $base_fragments[$i] = $fragments[$i];    
         }
         return $base_fragments;
     }
-    // }}}
-    // {{{ public static function getModuleBase($fragments)
+    /**
+     * gets a max int or zero from an int and a max int. 
+     * @param int $val the var to get max int from
+     * @param int $max max int to return
+     * @return int $val
+     */
+    public static function getPositiveInt ($val) {
+        
+        $val = filter_var($val, FILTER_VALIDATE_INT, array(
+            'options' => array('min_range' => 0)
+        ));
+        if (!$val){
+            return false;
+        }
+        return true;
+    }
 
     /**
      * method for getting the base module if any

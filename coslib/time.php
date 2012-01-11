@@ -1,6 +1,6 @@
 <?php
 
-class timeAndDate {
+class time {
 
     /**
      * return number of days, hours, seconds as array from seconds
@@ -44,5 +44,16 @@ class timeAndDate {
         
         $res['seconds'] = $remains_from_minutes;
         return $res;
+    }
+    
+    /**
+     * returns a locale time string from mysql timestamp. 
+     * @param type $date same format as mysql timestamp
+     * @return string $formatted string in ( ... ) according to set locale 
+     */
+    public static function getDateString ($date, $format = 'date_format_long'){        
+        $unix_stamp = strtotime($date);
+        $date_formatted = strftime(get_main_ini($format), $unix_stamp);
+        return $date_formatted;
     }
 }

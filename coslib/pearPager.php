@@ -57,9 +57,11 @@ class pearPager {
 
     }
 
-    // }}}
-    //
-
+    /**
+     * wrapper around the pear pager. 
+     * you can supply your own options
+     * @param array $options 
+     */
     public function pearPage ($options = null){
 
         require_once 'Pager/Pager.php';
@@ -86,12 +88,9 @@ class pearPager {
 
         if (isset($options['pager_per_page'])){
             $this->perPage = $options['pager_per_page'];
-        } else {
-            //$pager_per_page = $this->perPage;
-        }
+        } 
         
-        // set options
-        
+        // set options       
         $pager_options = array(
             'altPrev' => lang::translate('pager_prev_page'),
             'altNext' => lang::translate('pager_next_page'),
@@ -108,9 +107,24 @@ class pearPager {
         );
 
         $pager = Pager::factory($pager_options);
-        //echo "<hr />\n";
         echo "<div id =\"pager\">" . $pager->links . "</div>\n" ;
 
+    }
+    
+    /**
+     * gets a max int or zero from an int and a max int. 
+     * @param int $val the var to get max int from
+     * @param int $max max int to return
+     * @return int $val
+     */
+    public function getPositiveInt ($val, $max) {
+        $val = filter_var($val, FILTER_VALIDATE_INT, array(
+            'options' => array('min_range' => 0, 'max_range' => $max)
+        ));
+        if (!$val){
+            $val = 0;
+        }
+        return $val;
     }
     
     /**
@@ -126,18 +140,15 @@ class pearPager {
         return $str;
     }
 
-    // {{{ function validate()
-
     /**
      * validation of pager data, only zero or positive int is allowed
      */
     public function validate(){
         if (!isset($_GET['from'])) $_GET['from'] = 0;
-        $this->from = get_zero_or_positive($_GET['from'], $this->total);
+        $this->from = $this->getPositiveInt($_GET['from'], $this->total);
 
         if ($this->from > 0){
             $this->from = ($this->from - 1) * $this->perPage;
         }
     }
-    // }}}
 }

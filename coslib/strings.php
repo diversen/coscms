@@ -168,3 +168,21 @@ function cos_url_decode($string){
     return utf8_decode(urldecode($string));
 }
 // }}}
+
+/**
+ * trims a string
+ * @param string $value 
+ */
+function trim_value(&$value){ 
+    $value = trim($value); 
+}
+
+/**
+ * trims an array of strings
+ * @param array $ary the array to be trimmed
+ * @return array $ary the trimmed array 
+ */
+function trim_array ($ary) {
+    array_walk($ary, 'trim_value');
+    return $ary;
+}

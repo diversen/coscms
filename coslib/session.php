@@ -20,18 +20,19 @@ class session {
      */
     static public function initSession(){
         // figure out session time
-        if (isvalue(register::$vars['coscms_main']['session_time'])) {
-            ini_set("session.cookie_lifetime", register::$vars['coscms_main']['session_time']);
+        $session_time = get_main_ini('session_time');
+        if ($session_time) {
+            ini_set("session.cookie_lifetime", $session_time);
         }
 
-        // figure out session time
-        if (isvalue(register::$vars['coscms_main']['session_path'])) {
-            ini_set("session.cookie_path", register::$vars['coscms_main']['session_path']);
+        $session_path = get_main_ini('session_path');
+        if ($session_path) {
+            ini_set("session.cookie_path", $session_path);
         }
 
-        // figure out session host
-        if (isvalue(register::$vars['coscms_main']['session_host'])){
-            ini_set("session.cookie_domain", register::$vars['coscms_main']['session_host']);
+        $session_host = get_main_ini('session_host');
+        if ($session_host){
+            ini_set("session.cookie_domain", $session_host);
         }
 
         // use memcache if available
@@ -354,92 +355,49 @@ class session {
             die;
         }
     }
+}
 
-    /**
-     * Gets user profile link if a profile system is in place.
-     * Profile systems must be set in main config/config.ini
-     * the option array can be used to setting special options for profile module
-     *
-     * @param   array   $user options
-     * @param   array   $options
-     * @return  string  $str string showing the profile
-     */
-    public static function getProfileLink (&$user, $options = null){
-        static $profile_object;
 
-        if (!isset($profile_object)){
-            $profile_system = get_main_ini('profile_module');
-            if (!isset($profile_system)){
-                return '';
-            }
 
-            include_module ($profile_system);
+/**
+ * simple method for saving $_POST vars to session
+ * @param   string  $id the id of the saved <code>$_POST</code> 
+ *                  used when retriving the <code>$_POST</code>
+ */
+function save_post ($id){
+     $_SESSION[$id] = $_POST;
+}
 
-            $profile_object = moduleLoader::modulePathToClassName($profile_system);
-            $profile_object = new $profile_object();
-            $link = $profile_object->createProfileLink($user, $options);
-            return $link;
-        }
-
-        return $profile_object->createProfileLink($user, $options);
+/**
+ * method for loading <code>$_POST</code> vars from session
+ * @param   string  $id id of the post to load. 
+ * @return  boolean $res true on success and false if no session var was 
+ *                  found with the given id
+ */
+function load_post($id){
+    if (!isset($_SESSION[$id])) {
+        return false;
     }
-    
-    /**
-     * method for getting a profile link in the most simple way
-     * any post will have a date and a user. 
-     * @param int $id user id
-     * @param string $date date of the post. 
-     * @return string $str profile html.  
-     */
-    public static function getProfileSimple($user_id, $date) {
-        
-        $user_info = session::getUserInfo($user_id);
-        $options = array ();
-        $options['display'] = 'rows';
-        $options['row'] = " $date ";        
-        $profile_link = session::getProfileLink($user_info, $options);
-        return $profile_link;
+    $_POST = $_SESSION[$id];
+    return true;
+}
+
+/**
+ * get a session var from id. 
+ * @param mixed $id the id of the session var to fetch
+ * @return mixed $res the var which was set or false 
+ */
+function get_post($id) {
+    if (!isset($_SESSION[$id])) {
+        return false;
     }
+    return $_SESSION[$id];
+}
 
-    /**
-     * Gets user profile link if a profile system is in place.
-     * Profile systems must be set in main config/config.ini
-     * the option array can be used to setting special options for profile module
-     *
-     * @param   array   user options
-     * @param   array   options
-     * @return  string  string showing the profile
-     */
-    public static function getProfileInfo (&$user){
-        static $profile_object;
-
-        if (!isset($profile_object)){
-            $profile_system = get_main_ini('profile_module');
-            if (!isset($profile_system)){
-                return false;
-            }
-
-            include_module ($profile_system);
-
-            $profile_object = moduleLoader::modulePathToClassName($profile_system);
-            $profile_object = new $profile_object();
-            return $profile_object->getProfileInfo($user);
-
-        }
-
-        return $profile_object->getProfileInfo($user);
-    }
-    
-    /**
-     * method for getting user info
-     * this is only used in the templates as we will see in the next session
-     * 
-     * @param   int     $id
-     * @return  array   account row
-     */
-    public static function getUserInfo ($id){
-        $db = new db();       
-        $row = $db->selectOne('account', 'id', $id);
-        return $row;
-    }
+/**
+ * function for unsetting a session var
+ * @param type $id the id of the session var
+ */
+function unset_post ($id) {
+    unset($_SESSION[$id]);
 }
