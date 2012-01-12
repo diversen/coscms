@@ -26,7 +26,7 @@ function create_docs(){
     }
 
     $command = "phpdoc -p -o HTML:frames:DOM/default ";
-    $command.= "-d lib,scripts ";
+    $command.= "-d coslib,scripts ";
     $command.= "-t " . _COS_PATH . "/htdocs/phpdocs ";
     cos_system($command);
 }
