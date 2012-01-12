@@ -20,8 +20,8 @@ function create_db($options = array()){
 
     $db = get_db_info();
     $command = 
-        "mysqladmin -u" . register::$vars['coscms_main']['username'] .
-        " -p" . register::$vars['coscms_main']['password'] . " -h$db[host] ";
+        "mysqladmin -u" . config::$vars['coscms_main']['username'] .
+        " -p" . config::$vars['coscms_main']['password'] . " -h$db[host] ";
     
     $command.= "--default-character-set=utf8 ";
     $command.= "CREATE $db[name]";
@@ -40,8 +40,8 @@ function drop_db_default($options = array()){
     define ('NO_DB', 1);    
     $db = get_db_info();
     $command = 
-        "mysqladmin -f -u" . register::$vars['coscms_main']['username'] .
-        " -p" . register::$vars['coscms_main']['password'] . " -h$db[host] ";
+        "mysqladmin -f -u" . config::$vars['coscms_main']['username'] .
+        " -p" . config::$vars['coscms_main']['password'] . " -h$db[host] ";
     $command.= "DROP $db[name]";
     return $ret = cos_exec($command, $options);
 }
@@ -59,8 +59,8 @@ function load_db_default(){
     create_db();
     $db = get_db_info();
     $command = 
-        "mysql -u" . register::$vars['coscms_main']['username'] .
-        " -p" . register::$vars['coscms_main']['password'] ." $db[name] < scripts/default.sql";
+        "mysql -u" . config::$vars['coscms_main']['username'] .
+        " -p" . config::$vars['coscms_main']['password'] ." $db[name] < scripts/default.sql";
     $ret = cos_exec($command);
 }
 // }}} 
@@ -76,8 +76,8 @@ function load_db_default(){
 function connect_db(){
     $db = get_db_info();
     $command = 
-        "mysql -u" . register::$vars['coscms_main']['username'] .
-        " -p" . register::$vars['coscms_main']['password'] . " $db[name]";
+        "mysql -u" . config::$vars['coscms_main']['username'] .
+        " -p" . config::$vars['coscms_main']['password'] . " $db[name]";
 
     $ret = array();
     proc_close(proc_open($command, array(0 => STDIN, 1 => STDOUT, 2 => STDERR), $pipes));
@@ -105,8 +105,8 @@ function dump_db_file ($options = null){
     
     $db = get_db_info();
     $command = 
-        "mysqldump --opt -u" . register::$vars['coscms_main']['username'] .
-        " -p" . register::$vars['coscms_main']['password'];
+        "mysqldump --opt -u" . config::$vars['coscms_main']['username'] .
+        " -p" . config::$vars['coscms_main']['password'];
     $command.= " $db[name] > $dump_name";
     cos_exec($command);
 }
@@ -134,8 +134,8 @@ function load_db_file($options){
     }
     $db = get_db_info();
     $command = 
-        "mysql -u" . register::$vars['coscms_main']['username'] .
-        " -p" . register::$vars['coscms_main']['password'] . " $db[name] < $file";
+        "mysql -u" . config::$vars['coscms_main']['username'] .
+        " -p" . config::$vars['coscms_main']['password'] . " $db[name] < $file";
     return $ret = cos_exec($command);
 
 }

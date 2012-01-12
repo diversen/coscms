@@ -21,7 +21,7 @@ class user {
         static $profile_object;
 
         if (!isset($profile_object)){
-            $profile_system = get_main_ini('profile_module');
+            $profile_system = config::getMainIni('profile_module');
             if (!isset($profile_system)){
                 return false;
             }
@@ -69,7 +69,7 @@ class user {
         static $profile_object;
 
         if (!isset($profile_object)){
-            $profile_system = get_main_ini('profile_module');
+            $profile_system = config::getMainIni('profile_module');
             if (!isset($profile_system)){
                 return '';
             }
@@ -103,7 +103,7 @@ function get_profile_link ($user, $options = null){
     static $profile_object;
 
     if (!isset($profile_object)){
-        $profile_system = get_main_ini('profile_module');
+        $profile_system = config::getMainIni('profile_module');
         if (!isset($profile_system)){
             return '';
         }
@@ -131,7 +131,7 @@ function get_profile_edit_link ($user_id){
     static $profile_object;
 
     if (!isset($profile_object)){
-        $profile_system = get_main_ini('profile_module');
+        $profile_system = config::getMainIni('profile_module');
         if (!isset($profile_system)){
             return '';
         }

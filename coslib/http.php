@@ -1,8 +1,41 @@
 <?php
 
 /**
+ * File containg methods for doing http work
  * @package coslib
  */
+
+/**
+ * class http
+ * @package coslib
+ */
+class http {
+    public static function prg () {
+        simple_prg();
+    }
+    
+    public static function cacheHeaders ($expires = null) {
+        send_cache_headers($expires);
+    }
+    
+    public static function locationHeader ($location, $message = null, $post_id = null) {
+        send_location_header($location, $message, $post_id);      
+    }
+    
+    public static function sslHeaders () {
+        server_force_ssl();
+    }
+    
+    public static function redirectHeaders ($server_redirect) {
+        server_redirect($server_redirect);
+    }
+    
+    public static function permMovedHeader ($url, $options = array()) {
+        send_301_headers($url, $options);
+    }
+
+}
+
 
 /**
  * simple function for creating prg pattern. 

@@ -17,7 +17,7 @@ function install_menu($options){
     
 
     // check if module exists in modules dir
-    $module_path = get_module_path($options['Module']);
+    $module_path = config::getModulePath($options['Module']);
     if (!file_exists($module_path)){
         cos_cli_print("Module $options[Module] does not exists in modules dir. ");
         //cos_cli_abort();

@@ -82,7 +82,7 @@ function cos_cli_abort($str = null){
  * @return <array> $database containing array('name' => database, 'host' => 'host')
  */
 function get_db_info(){
-    $url = parse_url(register::$vars['coscms_main']['url']);
+    $url = parse_url(config::$vars['coscms_main']['url']);
     $ary = explode (';', $url['path']);
     $db = explode ("=", $ary[0]);
     $database['name'] = $db[1];
@@ -125,7 +125,7 @@ function cos_exec($command, $options = array()){
 // }}}
 
 function color_output ($output, $color_code = 'g') {
-    if (isset(register::$vars['coscms_main']['color_shell'])) {
+    if (isset(config::$vars['coscms_main']['color_shell'])) {
         return Console_Color::convert("%$color_code$output%n");    
     } 
     return $output;

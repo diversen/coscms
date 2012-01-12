@@ -9,8 +9,46 @@
  * one linier register class. 
  * @package coslib
  */
+/*
 class register {
     public static $vars = array();
+}*/
+
+class config {
+    public static $vars = array ();
+    public static function getModuleIni($key) {
+        return get_module_ini($key);
+    }
+    
+    public static function getMainIni($key) {
+        return get_main_ini($key);       
+    }
+    
+    public static function setMainIni ($key, $value) {
+        config::$vars['coscms_main'][$key] = $value;
+    }
+    public static function getIniFileArray ($file, $sections = null) {
+        return parse_ini_file_ext($file, $sections);
+     
+    }
+    public static function getConfigFileName () {
+        return get_config_file();
+    }
+    
+    public static function loadMain () {
+        return load_config_file();
+    }
+    public static function getModulePath ($module) {
+        return get_module_path($module);
+    }
+
+    public static function getDomain () {
+        return get_domain();
+        
+    }
+    public static function getWebFilesPath ($file) {
+        return get_files_web_path($file);
+    }
 }
 
 /**
@@ -19,13 +57,13 @@ class register {
  * @return mixed $value the value of the setting or null if no value was found
  */
 function get_module_ini($key){
-    if (!isset(register::$vars['coscms_main']['module'][$key])){
+    if (!isset(config::$vars['coscms_main']['module'][$key])){
         return null;
     }
-    if (register::$vars['coscms_main']['module'][$key] == '0'){
+    if (config::$vars['coscms_main']['module'][$key] == '0'){
         return null;
     }
-    return register::$vars['coscms_main']['module'][$key];
+    return config::$vars['coscms_main']['module'][$key];
 }
 
 /**
@@ -35,13 +73,13 @@ function get_module_ini($key){
  *                       If 0 is found we also reutnr null
  */
 function get_main_ini($key){
-    if (!isset(register::$vars['coscms_main'][$key])){
+    if (!isset(config::$vars['coscms_main'][$key])){
         return null;
     }
-    if (register::$vars['coscms_main'][$key] == '0'){
+    if (config::$vars['coscms_main'][$key] == '0'){
         return null;
     }
-    return register::$vars['coscms_main'][$key];
+    return config::$vars['coscms_main'][$key];
 }
 
 /**
@@ -90,8 +128,8 @@ function get_config_file() {
     // where one code base can be used for more virtual hosts.
     // this is set with the domain flag in ./coscli.sh
     if (defined('_COS_CLI')){
-        if (isset(register::$vars['domain']) && register::$vars['domain'] != 'default'){
-            $config_file = _COS_PATH . "/config/multi/". register::$vars['domain'] . "/config.ini";
+        if (isset(config::$vars['domain']) && config::$vars['domain'] != 'default'){
+            $config_file = _COS_PATH . "/config/multi/". config::$vars['domain'] . "/config.ini";
         } else {
             $config_file = _COS_PATH . "/config/config.ini";
         }
@@ -130,9 +168,9 @@ function load_config_file () {
         //define ("NO_CONFIG_FILE", true);
         return;
     } else {
-        register::$vars['coscms_main'] = parse_ini_file_ext($config_file, true);
+        config::$vars['coscms_main'] = config::getIniFileArray($config_file, true);
         if (
-            (@register::$vars['coscms_main']['stage']['server_name'] ==
+            (@config::$vars['coscms_main']['stage']['server_name'] ==
                 @$_SERVER['SERVER_NAME'])
                 AND !defined('_COS_CLI') )
             {
@@ -146,19 +184,19 @@ function load_config_file () {
         // Overwrite register settings with stage settings
         // Note that ini settings for development will
         // NOT take effect on CLI ini settings
-        if (isset(register::$vars['coscms_main']['stage'])){
+        if (isset(config::$vars['coscms_main']['stage'])){
             if (
-                (register::$vars['coscms_main']['stage']['server_name'] ==
+                (config::$vars['coscms_main']['stage']['server_name'] ==
                     @$_SERVER['SERVER_NAME'])
                     AND !defined('_COS_CLI') )
                 {
                 
                 // we are on development, merge and overwrite normal settings with
                 // development settings.
-                register::$vars['coscms_main'] =
+                config::$vars['coscms_main'] =
                 array_merge(
-                    register::$vars['coscms_main'],
-                    register::$vars['coscms_main']['stage']
+                    config::$vars['coscms_main'],
+                    config::$vars['coscms_main']['stage']
                 );
                 return;
             }
@@ -167,17 +205,17 @@ function load_config_file () {
         // Overwrite register settings with development settings
         // Development settings will ALSO be added to CLI
         // ini settings
-        if (isset(register::$vars['coscms_main']['development'])){
+        if (isset(config::$vars['coscms_main']['development'])){
             if (
-                (register::$vars['coscms_main']['development']['server_name'] ==
+                (config::$vars['coscms_main']['development']['server_name'] ==
                     @$_SERVER['SERVER_NAME'])
                     OR defined('_COS_CLI') )
                 {
                 
-                register::$vars['coscms_main'] =
+                config::$vars['coscms_main'] =
                 array_merge(
-                    register::$vars['coscms_main'],
-                    register::$vars['coscms_main']['development']
+                    config::$vars['coscms_main'],
+                    config::$vars['coscms_main']['development']
                 );
             }
         }
@@ -189,7 +227,7 @@ function load_config_file () {
  * @return string $files_path the full file path 
  */
 function get_files_path () {
-    $domain = get_main_ini('domain');
+    $domain = config::getMainIni('domain');
     if ($domain == 'default') {
         $files_path = _COS_PATH . "/htdocs/files/default";
     } else {
@@ -212,6 +250,6 @@ function get_files_web_path ($file) {
  * @return string $domain the current domain
  */
 function get_domain () {
-    $domain = get_main_ini('domain');
+    $domain = config::getMainIni('domain');
     return $domain;
 }

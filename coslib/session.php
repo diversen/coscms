@@ -20,33 +20,33 @@ class session {
      */
     static public function initSession(){
         // figure out session time
-        $session_time = get_main_ini('session_time');
+        $session_time = config::getMainIni('session_time');
         if ($session_time) {
             ini_set("session.cookie_lifetime", $session_time);
         }
 
-        $session_path = get_main_ini('session_path');
+        $session_path = config::getMainIni('session_path');
         if ($session_path) {
             ini_set("session.cookie_path", $session_path);
         }
 
-        $session_host = get_main_ini('session_host');
+        $session_host = config::getMainIni('session_host');
         if ($session_host){
             ini_set("session.cookie_domain", $session_host);
         }
 
         // use memcache if available
-        $handler = get_main_ini('session_handler');
+        $handler = config::getMainIni('session_handler');
         if ($handler == 'memcache'){
-            $host = get_main_ini('memcache_host');
+            $host = config::getMainIni('memcache_host');
             if (!$host) {
                 $host = 'localhost';
             }
-            $port = get_main_ini('memcache_port');
+            $port = config::getMainIni('memcache_port');
             if (!$port) {
                 $port = '11211';
             }
-            $query = get_main_ini('memcache_query');
+            $query = config::getMainIni('memcache_query');
             if (!$query) {
                 $query = 'persistent=0&weight=2&timeout=2&retry_interval=10';
             }
@@ -114,7 +114,7 @@ class session {
         $uniqid= md5($uniqid);
 
         // calculate days into seconds
-        $cookie_time = 3600 * 24 * get_main_ini('cookie_time');
+        $cookie_time = 3600 * 24 * config::getMainIni('cookie_time');
         $timestamp = time() + $cookie_time;
 
         setcookie('system_cookie', $uniqid, $timestamp, '/');
@@ -304,7 +304,7 @@ class session {
         // we check to see if we have a ini setting for 
         // the type to be allowed to an action
         // allow_edit_article = super
-        $allow = get_module_ini($allow);
+        $allow = config::getModuleIni($allow);
 
         // is allow is empty means the access control
         // is not set and we grant access

@@ -56,8 +56,8 @@ class moduleLoader {
         //print_r($this->modules);
         $this->setLevels();
 
-        if (!isset(register::$vars['coscms_main']['module'])){
-            register::$vars['coscms_main']['module'] = array();
+        if (!isset(config::$vars['coscms_main']['module'])){
+            config::$vars['coscms_main']['module'] = array();
         }
     }
 
@@ -180,10 +180,10 @@ class moduleLoader {
      */
     public function setHomeModuleFiles(){
         
-        $frontpage_module = register::$vars['coscms_main']['frontpage_module'];//$_COS_MAIN['frontpage_module'];
+        $frontpage_module = config::$vars['coscms_main']['frontpage_module'];//$_COS_MAIN['frontpage_module'];
         $this->info['module_base_name'] = $frontpage_module;
         $this->info['base'] = $base = _COS_PATH . "/modules";
-        $this->info['language_file'] = $base . "/$frontpage_module" . '/lang/' . register::$vars['coscms_main']['language'] . '/language.inc';
+        $this->info['language_file'] = $base . "/$frontpage_module" . '/lang/' . config::$vars['coscms_main']['language'] . '/language.inc';
         $this->info['ini_file'] =  $base . "/$frontpage_module"  . "/$frontpage_module" . '.ini';
         $this->info['model_file'] = $base . "/$frontpage_module"  . "/model." . $frontpage_module  . ".inc";
         $this->info['view_file'] = $base . "/$frontpage_module"  . "/view." . $frontpage_module . ".inc";
@@ -206,7 +206,7 @@ class moduleLoader {
     public function setErrorModuleFiles(){     
         $error_module = 'error';
         $this->info['base'] = $base = _COS_PATH . "/modules";
-        $this->info['language_file'] = $base . "/$error_module" . '/lang/' . register::$vars['coscms_main']['language'] . '/language.inc';
+        $this->info['language_file'] = $base . "/$error_module" . '/lang/' . config::$vars['coscms_main']['language'] . '/language.inc';
         $this->info['ini_file'] =  $base . "/$error_module"  . "/$error_module" . '.ini';
         $this->info['model_file'] = $base . "/$error_module"  . "/model." . $error_module  . ".inc";
         $this->info['view_file'] = $base . "/$error_module"  . "/view." . $error_module . ".inc";
@@ -235,7 +235,7 @@ class moduleLoader {
         }
 
         // if we only have on fragment means we are in frontpage module
-        $frontpage_module = register::$vars['coscms_main']['frontpage_module'];
+        $frontpage_module = config::$vars['coscms_main']['frontpage_module'];
 
         if ($uri->numFragments() == 1){
             $this->info['module_base_name'] = $frontpage_module;
@@ -246,7 +246,7 @@ class moduleLoader {
             $this->info['base'] = $base = _COS_PATH . "/modules";
         }
        
-        $this->info['language_file'] = $base . $info['module_base'] . '/lang/' . register::$vars['coscms_main']['language'] . '/language.inc';
+        $this->info['language_file'] = $base . $info['module_base'] . '/lang/' . config::$vars['coscms_main']['language'] . '/language.inc';
         $this->info['ini_file'] =  $base . $info['module_base'] . $info['module_base'] . '.ini';
         $this->info['ini_file_php'] =  $base . $info['module_base'] . $info['module_base'] . '.php.ini';
         $this->info['model_file'] = $base . $info['controller_path_str'] . "/model." . $info['module_frag'] . ".inc";
@@ -289,21 +289,21 @@ class moduleLoader {
             self::setModuleIniSettings($module);
             
             // load php ini if exists
-            if (isset(register::$vars['coscms_main']['module']['load_php_ini'])){
+            if (isset(config::$vars['coscms_main']['module']['load_php_ini'])){
                 include $this->info['ini_file_php'];
-                register::$vars['coscms_main']['module'] = array_merge(register::$vars['coscms_main']['module'], $_MODULE_SETTINGS);
+                config::$vars['coscms_main']['module'] = array_merge(config::$vars['coscms_main']['module'], $_MODULE_SETTINGS);
             }
 
             // load moule template if specified
-            if (isset(register::$vars['coscms_main']['module']['template'])){
-                register::$vars['coscms_main']['template'] = register::$vars['coscms_main']['module']['template'];
+            if (isset(config::$vars['coscms_main']['module']['template'])){
+                config::$vars['coscms_main']['template'] = config::$vars['coscms_main']['module']['template'];
             }
 
             // load controller specific template if specified
-            if (isset(register::$vars['coscms_main']['module']['page_template'])){
-                $page_template = explode (':', register::$vars['coscms_main']['module']['page_template']);
+            if (isset(config::$vars['coscms_main']['module']['page_template'])){
+                $page_template = explode (':', config::$vars['coscms_main']['module']['page_template']);
                 if ($this->info['controller'] == $page_template[0]){
-                    register::$vars['coscms_main']['template'] = $page_template[1];
+                    config::$vars['coscms_main']['template'] = $page_template[1];
                 }
             }
         }
@@ -518,10 +518,10 @@ class moduleLoader {
         }
         
                 
-        self::$iniSettings[$module] = parse_ini_file_ext($ini_file, true);
+        self::$iniSettings[$module] = config::getIniFileArray($ini_file, true);
         if (is_array(self::$iniSettings[$module])){
-            register::$vars['coscms_main']['module'] = array_merge(
-                register::$vars['coscms_main']['module'],
+            config::$vars['coscms_main']['module'] = array_merge(
+                config::$vars['coscms_main']['module'],
                 self::$iniSettings[$module]
             );
         }
@@ -532,16 +532,16 @@ class moduleLoader {
             // Note: Development needs to be set in main config/config.ini
             if (
 
-                register::$vars['coscms_main']['development']['server_name']
+                config::$vars['coscms_main']['development']['server_name']
                     ==
                 @$_SERVER['SERVER_NAME']){
 
 
                 // we are on development, merge and overwrite normal settings with
                 // development settings.
-                register::$vars['coscms_main']['module'] =
+                config::$vars['coscms_main']['module'] =
                     array_merge(
-                        register::$vars['coscms_main']['module'],
+                        config::$vars['coscms_main']['module'],
                         self::$iniSettings[$module]['development']
                     );
             }
@@ -554,16 +554,16 @@ class moduleLoader {
             // Note: Development needs to be set in main config/config.ini
             if (
 
-                register::$vars['coscms_main']['stage']['server_name']
+                config::$vars['coscms_main']['stage']['server_name']
                     ==
                 @$_SERVER['SERVER_NAME']){
 
 
                 // we are on development, merge and overwrite normal settings with
                 // development settings.
-                register::$vars['coscms_main']['module'] =
+                config::$vars['coscms_main']['module'] =
                     array_merge(
-                        register::$vars['coscms_main']['module'],
+                        config::$vars['coscms_main']['module'],
                         self::$iniSettings[$module]['stage']
                     );
             }
@@ -704,7 +704,7 @@ function include_module($module){
         return true;
     }
 
-    $module_path = register::$vars['coscms_base'] . '/modules/' . $module;
+    $module_path = config::$vars['coscms_base'] . '/modules/' . $module;
     $ary = explode('/', $module);
     $last = array_pop($ary);
     $model_file = $module_path . '/' . "model.$last.inc";  
@@ -747,7 +747,7 @@ function include_model($module){
  * @param string    $controller the controller to include (e.g. content/article/add)
  */
 function include_controller($controller){
-    $module_path = register::$vars['coscms_base']  . '/modules/' . $controller;
+    $module_path = config::$vars['coscms_base']  . '/modules/' . $controller;
     $controller_file = $module_path . '.php';
     include_once $controller_file;
 }

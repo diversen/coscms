@@ -53,7 +53,7 @@ class time {
      */
     public static function getDateString ($date, $format = 'date_format_long'){        
         $unix_stamp = strtotime($date);
-        $date_formatted = strftime(get_main_ini($format), $unix_stamp);
+        $date_formatted = strftime(config::getMainIni($format), $unix_stamp);
         return $date_formatted;
     }
 }

@@ -3,6 +3,7 @@ htdocs/logo/*
 htdocs/web_sitemap_*
 scripts/cron.php
 *.ini
+test/*
 test.php
 htdocs/test.php
 htdocs/test/*

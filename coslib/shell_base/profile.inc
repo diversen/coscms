@@ -57,7 +57,7 @@ function upgrade_from_profile ($options){
               
         $val['repo'] = $val['public_clone_url'];
         $val['version'] = $val['module_version'];
-        if (isset(register::$vars['profile_use_master'])) {
+        if (isset(config::$vars['profile_use_master'])) {
             $val['version'] = 'master';
             //$val['module_version'] = 'master';
         }
@@ -80,7 +80,7 @@ function upgrade_from_profile ($options){
         $val['repo'] = $val['public_clone_url'];
         $val['version'] = $val['module_version'];
 
-        if (isset(register::$vars['profile_use_master'])) {
+        if (isset(config::$vars['profile_use_master'])) {
             $val['version'] = 'master';
             //$val['module_version'] = 'master';
         }
@@ -101,8 +101,8 @@ function upgrade_config_ini_file ($options){
     $ini_file_path = _COS_PATH . "/config/config.ini";
     $ini_dist_path = _COS_PATH . "/profiles/$options[profile]/config.ini-dist";
 
-    $ini_file = parse_ini_file_ext($ini_file_path, true);
-    $ini_dist = parse_ini_file_ext($ini_dist_path, true);
+    $ini_file = config::getIniFileArray($ini_file_path, true);
+    $ini_dist = config::getIniFileArray($ini_dist_path, true);
     
     $ary = array_merge($ini_dist, $ini_file);
     $ary_diff = array_diff($ary, $ini_file);
@@ -131,7 +131,7 @@ function recreate_profile($options) {
 }
 
 function profile_use_master ($options){
-    register::$vars['profile_use_master'] = 1;
+    config::$vars['profile_use_master'] = 1;
     $pro = new profile();
     $pro->setMaster();
 }

@@ -142,8 +142,8 @@ function update_ini_file ($options){
     $ini_file_path = _COS_PATH . "/modules/$options[Module]/$options[Module].ini";
     $ini_dist_path = $ini_file_path . "-dist";
 
-    $ini_file = parse_ini_file_ext($ini_file_path);
-    $ini_dist = parse_ini_file_ext($ini_dist_path);
+    $ini_file = config::getIniFileArray($ini_file_path);
+    $ini_dist = config::getIniFileArray($ini_dist_path);
 
     $new_settings = array ();
     foreach ($ini_dist as $key => $val){

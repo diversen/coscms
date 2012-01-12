@@ -1,10 +1,10 @@
 <?php
 
-class register {
+class config {
     public static $vars = array();
 }
 
-register::$vars['coscms_main'] = array();
+config::$vars['coscms_main'] = array();
 
 $path = realpath('..');
 if (DIRECTORY_SEPARATOR != '/') {	
@@ -35,7 +35,7 @@ $_COS_DEBUG['include_path'] = ini_get('include_path');
 include_once "common.php";
 
 // register::$vars['coscms_main'] is used as a register for holding global settings.
-register::$vars['coscms_main'] = parse_ini_file_ext(_COS_PATH . '/config/config.ini', true);
+config::$vars['coscms_main'] = config::getIniFileArray(_COS_PATH . '/config/config.ini', true);
 
 include_once "db.php";
 include_once "moduleInstaller.php";

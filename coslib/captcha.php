@@ -22,7 +22,7 @@ class captcha {
             include_module('image_captcha');
         }
         
-        $method = get_module_ini ('image_captcha_method');
+        $method = config::getModuleIni ('image_captcha_method');
         if ($method) {
             return self::$method ();
         } else {
@@ -48,7 +48,7 @@ class captcha {
         
         $_SESSION['ctries']++;
         if (isset($_SESSION['cstr']) && $_SESSION['ctries'] != '3'){
-            if (get_main_ini('captcha_image_module')) {
+            if (config::getMainIni('captcha_image_module')) {
                 return self::createCaptchaImage();
             }
             return "* " . $_SESSION['cstr'];
@@ -60,7 +60,7 @@ class captcha {
         $_SESSION['cstr'] = $str;
         $_SESSION['ckey'] = md5($res);
         
-        if (get_main_ini('captcha_image_module')) {
+        if (config::getMainIni('captcha_image_module')) {
             return self::createCaptchaImage();
         }
         return "* " . $str;
@@ -83,7 +83,7 @@ class captcha {
         
         $_SESSION['ctries']++;
         if (isset($_SESSION['cstr']) && $_SESSION['ctries'] != '3'){
-            if (get_main_ini('captcha_image_module')) {
+            if (config::getMainIni('captcha_image_module')) {
                 return self::createCaptchaImage();
             }
             return "* " . $_SESSION['cstr'];
@@ -92,7 +92,7 @@ class captcha {
         $_SESSION['cstr'] = $str = self::genRandomString();
         $_SESSION['ckey'] = md5($str);
         
-        if (get_main_ini('captcha_image_module')) {
+        if (config::getMainIni('captcha_image_module')) {
             return self::createCaptchaImage();
         }
         return "* " . $str;

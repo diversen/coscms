@@ -31,7 +31,7 @@ function mail_utf8($to, $subject, $message, $from, $reply_to=null) {
 
     $headers.= "Reply-To: $reply_to" . "\r\n";
 
-    $bounce = get_main_ini('site_email_bounce');
+    $bounce = config::getMainIni('site_email_bounce');
     if ($bounce){
         $headers.= "Return-Path: $bounce\r\n";
     }
@@ -39,8 +39,8 @@ function mail_utf8($to, $subject, $message, $from, $reply_to=null) {
     $subject = '=?UTF-8?B?'.base64_encode($subject).'?=';
     $message = wordwrap($message, 70);
     
-    if (get_main_ini('send_mail')){
-        if (isset(register::$vars['coscms_main']['smtp_mail'])){
+    if (config::getMainIni('send_mail')){
+        if (isset(config::$vars['coscms_main']['smtp_mail'])){
             $res = mail_smtp ($to, $subject, $message, $from, $reply_to);
         } else {
             if ($bounce){
@@ -56,7 +56,7 @@ function mail_utf8($to, $subject, $message, $from, $reply_to=null) {
         $log.= "HEADERS: $headers\n";
         $log.= "RESULT $res\n";
 
-        if (isset(register::$vars['coscms_main']['debug'])){
+        if (isset(config::$vars['coscms_main']['debug'])){
             $log_file = _COS_PATH . '/logs/coscms.log';
             cos_error_log($log, 3, $log_file);
         }
@@ -88,7 +88,7 @@ function mail_smtp ($recipient, $subject, $message, $from, $reply_to/*$headers =
     include_once('Mail.php');
     include_once('Mail/mime.php');
     
-    $from = register::$vars['coscms_main']['smtp_params_sender'];                                            // Your email address
+    $from = config::$vars['coscms_main']['smtp_params_sender'];                                            // Your email address
     $recipient = "<$recipient>";                               // The Recipients name and email address
     //$subject = "Another test Email";                                                // Subject for the email
     //$text = 'This is a text message.';                                      // Text version of the email
@@ -105,7 +105,7 @@ function mail_smtp ($recipient, $subject, $message, $from, $reply_to/*$headers =
         'Content-type' => 'text/plain; charset=UTF-8'
     );
 
-    $bounce = get_main_ini('site_email_bounce');
+    $bounce = config::getMainIni('site_email_bounce');
     if ($bounce){
         $headers['Return-Path'] = $bounce;
     }
@@ -130,11 +130,11 @@ function mail_smtp ($recipient, $subject, $message, $from, $reply_to/*$headers =
 
     // SMTP authentication params
     $smtp_params = array();
-    $smtp_params["host"]     = register::$vars['coscms_main']['smtp_params_host']; //"ssl://smtp.gmail.com";
-    $smtp_params["port"]     = register::$vars['coscms_main']['smtp_params_port'];
+    $smtp_params["host"]     = config::$vars['coscms_main']['smtp_params_host']; //"ssl://smtp.gmail.com";
+    $smtp_params["port"]     = config::$vars['coscms_main']['smtp_params_port'];
     $smtp_params["auth"]     = true; //register::$vars['coscms_main']['smtp_params_auth'];
-    $smtp_params["username"] = register::$vars['coscms_main']['smtp_params_username'];
-    $smtp_params["password"] = register::$vars['coscms_main']['smtp_params_password'];
+    $smtp_params["username"] = config::$vars['coscms_main']['smtp_params_username'];
+    $smtp_params["password"] = config::$vars['coscms_main']['smtp_params_password'];
 
 // Sending the email using smtp
     $mail =& Mail::factory("smtp", $smtp_params);

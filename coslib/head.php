@@ -15,16 +15,19 @@ ini_set('include_path', $ini_path . PATH_SEPARATOR .
     _COS_PATH . '/vendor' . PATH_SEPARATOR .
     _COS_PATH . "/coslib" . PATH_SEPARATOR . _COS_PATH . '/modules');
 
+
+
 /**
  * include base classes and functions
  * @ignore
  */
+
 include_once "coslib/config.php";
 include_once "coslib/file.php";
 include_once "coslib/strings.php";
 include_once "coslib/db.php";
 include_once "coslib/uri.php";
-include_once "coslib/moduleloader.php";
+include_once "coslib/moduleLoader.php";
 include_once "coslib/session.php";
 include_once "coslib/html.php";
 include_once "coslib/layout.php";
@@ -39,37 +42,39 @@ include_once "coslib/lang.php";
 include_once "coslib/time.php";
 
 // set some common register vars
-register::$vars['coscms_base'] = _COS_PATH;
-register::$vars['coscms_main'] = array();
-register::$vars['coscms_main']['module'] = array();
-register::$vars['coscms_debug'] = array();
-register::$vars['coscms_lang'] = array();
-register::$vars['coscms_debug']['timer']['start'] = microtime(true);
-register::$vars['coscms_debug']['coscms_base']  = register::$vars['coscms_base'];
-register::$vars['coscms_debug']['include_path'] = ini_get('include_path');
+config::$vars['coscms_base'] = _COS_PATH;
+config::$vars['coscms_main'] = array();
+config::$vars['coscms_main']['module'] = array();
+config::$vars['coscms_debug'] = array();
+config::$vars['coscms_lang'] = array();
+config::$vars['coscms_debug']['timer']['start'] = microtime(true);
+config::$vars['coscms_debug']['coscms_base']  = config::$vars['coscms_base'];
+config::$vars['coscms_debug']['include_path'] = ini_get('include_path');
 
 // Rest is only for web mode. 
 if (!defined('_COS_CLI')){
     
-    load_config_file ();
+    config::loadMain();
+    //load_config_file ();
     
     // set a unified server_name if not set in config file. 
-    if (empty(register::$vars['coscms_main']['server_name'])){
-        register::$vars['coscms_main']['server_name'] = $_SERVER['SERVER_NAME'];
+    $server_name = config::getMainIni('server_name');
+    if (!$server_name){
+        config::setMainIni('server_name', $_SERVER['SERVER_NAME']);
     }
        
     ob_start();
 
     // redirect to uniform domain name is set in config.ini
-    $server_redirect = get_main_ini('server_redirect');
+    $server_redirect = config::getMainIni('server_redirect');
     if (isset($server_redirect)) {
-        server_redirect($server_redirect);
+        http::redirectHeaders($server_redirect);
     }
     
     // redirect to https is set in config.ini
-    $server_force_ssl = get_main_ini('server_force_ssl');
+    $server_force_ssl = config::getMainIni('server_force_ssl');
     if (isset($server_force_ssl)) {
-        server_force_ssl();
+        http::sslHeaders();
     }
     
     // start session
@@ -83,18 +88,18 @@ if (!defined('_COS_CLI')){
     // select all db settings and merge them with ini file settings
     $db_settings = $db->selectOne('settings', 'id', 1);
 
-    register::$vars['coscms_main'] =
-        array_merge(register::$vars['coscms_main'] , $db_settings);
+    config::$vars['coscms_main'] =
+        array_merge(config::$vars['coscms_main'] , $db_settings);
     
     // run level 2: Just after configuration from file have been set
     // in order to change e.g. file settings you can change the now.
     // See module configdb for example. 
     $moduleLoader->runLevel(2);
 
-    if (isset(register::$vars['coscms_main']['locale'])){
-        $locale = register::$vars['coscms_main']['locale'];
+    if (isset(config::$vars['coscms_main']['locale'])){
+        $locale = config::$vars['coscms_main']['locale'];
     } else {
-        $locale = register::$vars['coscms_main']['language'].'.UTF8';
+        $locale = config::$vars['coscms_main']['language'].'.UTF8';
     }
 
     // set locale for time and monetary
@@ -102,7 +107,7 @@ if (!defined('_COS_CLI')){
     setlocale(LC_MONETARY, $locale);
     
     // set default timezone
-    date_default_timezone_set(register::$vars['coscms_main']['date_default_timezone']);
+    date_default_timezone_set(config::$vars['coscms_main']['date_default_timezone']);
     $moduleLoader->runLevel(4);
 
     // load languages.
@@ -137,12 +142,12 @@ if (!defined('_COS_CLI')){
     
     $moduleLoader->runLevel(6);
     mainTemplate::printFooter();   
-    register::$vars['final_output'] = ob_get_contents();
+    config::$vars['final_output'] = ob_get_contents();
     ob_end_clean();
     
     // Last divine intervention
     // tidy / e.g. Dom
 
     $moduleLoader->runLevel(7); 
-    echo register::$vars['final_output'];
+    echo config::$vars['final_output'];
 }

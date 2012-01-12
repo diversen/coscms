@@ -21,8 +21,8 @@ include_once "coslib/file.php";
 include_once "coslib/strings.php";
 include_once 'Console/CommandLine.php';
 include_once "Console/Color.php";
-include_once "coslib/lang.php";
-include_once "coslib/moduleloader.php";
+//include_once "coslib/lang.php";
+//include_once "coslib/moduleloader.php";
 include_once "coslib/moduleInstaller.php";
 include_once "coslib/shell_base/common.inc";
 
@@ -131,7 +131,7 @@ class mainCli {
             // Note: First time loaded we only load it order to load any
             // base modules which may be set
            
-            load_config_file();
+            config::loadMain();
             // load all modules
             mainCli::loadBaseModules();
 
@@ -147,7 +147,7 @@ class mainCli {
             // database than the default. E.g.: multi domains. 
             
             $domain = $result->options['domain'];
-            register::$vars['domain'] = $domain;
+            config::$vars['domain'] = $domain;
 
             // if a not standard domain is given - we now need to load
             // the config file again - in order to tell system which database
@@ -155,7 +155,7 @@ class mainCli {
             // config/multi/example.com/config.ini
             // Then we know we operate on the correct database. 
             
-            load_config_file();
+            config::loadMain();
            
             if (is_object($result) && isset($result->command_name)){
                 if (isset($result->command->options)){
@@ -238,7 +238,7 @@ class mainCli {
                 }
 
                 $ini = _COS_PATH . "/modules/$val[module_name]/$val[module_name].ini";
-                self::$ini[$val['module_name']] = parse_ini_file_ext($ini);
+                self::$ini[$val['module_name']] = config::getIniFileArray($ini);
             }
         }
     }

@@ -25,7 +25,7 @@ function create_a2_conf($SERVER_NAME){
     $DOCUMENT_ROOT = $current_dir . '/htdocs';
     $APACHE_LOG_ROOT = $current_dir . '/logs';
     
-    if (isset(register::$vars['a2_use_ssl'])) {
+    if (isset(config::$vars['a2_use_ssl'])) {
         include "scripts/apache2/apache2-ssl.inc";
 
         
@@ -113,7 +113,7 @@ function a2_disable_site($options){
 }
 // }}}
 function a2_use_ssl ($options) {
-    register::$vars['a2_use_ssl'] = true;
+    config::$vars['a2_use_ssl'] = true;
 }
 
 mainCli::setCommand('apache2', array(

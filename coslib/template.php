@@ -112,12 +112,12 @@ abstract class template {
      * @return string $str the html compsoing the logo or main title
      */
     public static function getLogoHTML ($options = array()) {
-        $logo = get_main_ini('logo');
+        $logo = config::getMainIni('logo');
         if (empty($logo)){
             return $str = "<div id=\"logo_title\"><a href=\"/\">$_SERVER[HTTP_HOST]</a></div>";
         } else {
-            $file ="/logo/" . register::$vars['coscms_main']['logo'];
-            $src = get_files_web_path($file);
+            $file ="/logo/" . config::$vars['coscms_main']['logo'];
+            $src = config::getWebFilesPath($file);
             if (!isset($options['alt'])){           
                 $options['alt'] = $_SERVER['HTTP_HOST'];
             }
@@ -141,7 +141,7 @@ abstract class template {
 
         if (!isset(self::$meta['keywords'])) {
             $str = '';
-            $str = get_main_ini('meta_keywords');
+            $str = config::getMainIni('meta_keywords');
             $str = trim($str);
             if (!empty($str)) {
                 self::$meta['keywords'] = $str;
@@ -150,7 +150,7 @@ abstract class template {
 
         if (empty(self::$meta['description'])) {
             $str = '';
-            $str = get_main_ini('meta_desc');
+            $str = config::getMainIni('meta_desc');
             $str = trim($str);
             if (!empty($str)) {
                 self::$meta['description'] = $str;
@@ -243,7 +243,7 @@ abstract class template {
      */
     public static function setInlineJs($js, $order = null, $options = array()){
         
-        if (get_main_ini('cached_assets') && !isset($options['no_cache'])) {
+        if (config::getMainIni('cached_assets') && !isset($options['no_cache'])) {
             self::cacheAsset ($js, $order, 'js');
             return;
         }
@@ -286,7 +286,7 @@ abstract class template {
      */
     public static function setInlineCss($css, $order = null, $options = array()){
 
-        if (get_main_ini('cached_assets') && !isset($options['no_cache'])) {
+        if (config::getMainIni('cached_assets') && !isset($options['no_cache'])) {
             self::cacheAsset ($css, $order, 'css');
             return;
         }
@@ -314,7 +314,7 @@ abstract class template {
         static $cacheChecked = false;
         
         if (!$cacheChecked) {
-            self::$cacheDirWeb = get_files_web_path(self::$cacheDir);
+            self::$cacheDirWeb = config::getWebFilesPath(self::$cacheDir);
             self::$cacheDir = get_files_path() . '/' . self::$cacheDir;
             if (!file_exists(self::$cacheDir)) {
                 mkdir(self::$cacheDir);
@@ -324,8 +324,8 @@ abstract class template {
         
         $md5 = md5($css);        
         $cached_asset = get_files_path() . "/cached_assets/$md5.$type";
-        $cache_dir = get_files_web_path('/cached_assets');
-        if (file_exists($cached_asset && !get_main_ini('cached_assets_reload'))) {
+        $cache_dir = config::getWebFilesPath('/cached_assets');
+        if (file_exists($cached_asset && !config::getMainIni('cached_assets_reload'))) {
             
             if ($type == 'css') {
                 self::setCss("$cache_dir/$md5.$type", $order);
@@ -421,8 +421,8 @@ abstract class template {
      */
     public static function init ($template) {       
         self::$templateName = $template;
-        if (!isset(register::$vars['template'])) {
-            register::$vars['template'] = array();
+        if (!isset(config::$vars['template'])) {
+            config::$vars['template'] = array();
         }       
         moduleLoader::setModuleIniSettings($template, 'template');
     }
@@ -436,7 +436,7 @@ abstract class template {
      */
     public static function setTemplateCss ($template = '', $order = 0, $version = 0){
 
-        $css = get_main_ini('css');
+        $css = config::getMainIni('css');
         $css_path = "/templates/$template/$css/$css.css";
         $css_url = $css_path . "?version=$version";
         $css_file = _COS_PATH . '/htdocs' . $css_path;

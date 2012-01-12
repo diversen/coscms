@@ -74,22 +74,22 @@ class db {
      *
      */
     public static function connect($options = null){
-        self::$debug[] = "Trying to connect with " . register::$vars['coscms_main']['url'];
+        self::$debug[] = "Trying to connect with " . config::$vars['coscms_main']['url'];
         if (isset($options['url'])) {
             $url = $options['url'];
             $username = $options['username'];
             $password = $options['password'];
         } else {
-            $url = get_main_ini('url');
-            $username = get_main_ini('username');
-            $password = get_main_ini('password');
+            $url = config::getMainIni('url');
+            $username = config::getMainIni('username');
+            $password = config::getMainIni('password');
         }
         
         try {
             self::$dbh = new PDO(
-                get_main_ini('url'),
-                get_main_ini('username'),
-                get_main_ini('password')
+                config::getMainIni('url'),
+                config::getMainIni('username'),
+                config::getMainIni('password')
             );
             self::$dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             if(!self::$dbh) $this->connect();

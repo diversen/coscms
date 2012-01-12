@@ -36,8 +36,8 @@ class layout {
     function __construct(){
         
         // check is a admin template is being used. 
-        if (session::isAdmin() && isset(register::$vars['coscms_main']['admin_template'])){
-            register::$vars['coscms_main']['template'] = register::$vars['coscms_main']['admin_template'];
+        if (session::isAdmin() && isset(config::$vars['coscms_main']['admin_template'])){
+            config::$vars['coscms_main']['template'] = config::$vars['coscms_main']['admin_template'];
         }
         
         // load template. This is done before parsing the modules. Then the 
@@ -45,12 +45,12 @@ class layout {
         $template_path = 
             _COS_PATH .
             "/htdocs/templates/" .
-            register::$vars['coscms_main']['template'];
+            config::$vars['coscms_main']['template'];
         
         include_once $template_path . "/common.inc";
         include_once $template_path . "/template.inc";
         
-        template::init(register::$vars['coscms_main']['template']);
+        template::init(config::$vars['coscms_main']['template']);
     }
     
     /**
@@ -119,7 +119,7 @@ class layout {
      * using these names. 
      */
     public static function initBlocks () {
-        $blocks = get_main_ini('blocks_all');
+        $blocks = config::getMainIni('blocks_all');
         if (!isset($blocks)) return;
         //print_r($blocks); die;
         $blocks = explode(',', $blocks);
@@ -231,7 +231,7 @@ class layout {
         
         // if e.g. account_allow_db_config is not set we use admin as base setting
         $allow_config = $module . "_allow_db_config";
-        $allow = get_module_ini($allow_config);
+        $allow = config::getModuleIni($allow_config);
         if (!$allow) {
             $allow = 'admin';
         }
@@ -443,12 +443,12 @@ class layout {
 
         $blocks = array();
 
-        if (isset(register::$vars['coscms_main'][$block],register::$vars['coscms_main']['module'][$block])){
-            $blocks = array_merge(register::$vars['coscms_main'][$block], register::$vars['coscms_main']['module'][$block]);
-        } else if (isset(register::$vars['coscms_main'][$block])) {
-            $blocks = register::$vars['coscms_main'][$block];
-        } else if (isset(register::$vars['coscms_main']['module'][$block])){
-            $blocks = register::$vars['coscms_main']['module'][$block];
+        if (isset(config::$vars['coscms_main'][$block],config::$vars['coscms_main']['module'][$block])){
+            $blocks = array_merge(config::$vars['coscms_main'][$block], config::$vars['coscms_main']['module'][$block]);
+        } else if (isset(config::$vars['coscms_main'][$block])) {
+            $blocks = config::$vars['coscms_main'][$block];
+        } else if (isset(config::$vars['coscms_main']['module'][$block])){
+            $blocks = config::$vars['coscms_main']['module'][$block];
         } else {
             return $blocks;
         }

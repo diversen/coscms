@@ -18,7 +18,7 @@
  * @return int  value from exec command
  */
 function chmod_files(){
-    $url = 'http://' . register::$vars['coscms_main']['server_name'] . '/whoami.php';
+    $url = 'http://' . config::$vars['coscms_main']['server_name'] . '/whoami.php';
     $handle = fopen($url, "r");
     if ($handle) {
         while (!feof($handle)) {
@@ -94,7 +94,7 @@ function create_files(){
         cos_exec($command);
     }
     
-    $domain = get_domain();
+    $domain = config::getDomain();
     $files_path = _COS_PATH . "/htdocs/files/$domain";
     
     if (!file_exists($files_path)){

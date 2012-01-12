@@ -183,7 +183,7 @@ function git_clone($options, $type){
         $checkout = 'master';
     }
     
-    if (isset(register::$vars['git_use_master'])){
+    if (isset(config::$vars['git_use_master'])){
         $checkout = 'master';
     }
 
@@ -247,7 +247,7 @@ function git_clone($options, $type){
  * @param array $options
  */
 function git_use_master ($options){
-    register::$vars['git_use_master'] = 1;
+    config::$vars['git_use_master'] = 1;
 }
 
 /**
@@ -259,7 +259,7 @@ function git_upgrade_all ($options){
 
     $modules = profile::getModules();
     foreach ($modules as $key => $val){
-        if (isset(register::$vars['git_use_master'])){
+        if (isset(config::$vars['git_use_master'])){
             $tag = 'master';
         } else {
             $tag = latest_tag($val['public_clone_url'], true);
@@ -275,7 +275,7 @@ function git_upgrade_all ($options){
     $templates = profile::getAllTemplates();
 
     foreach ($templates as $key => $val){
-        if (isset(register::$vars['git_use_master'])){
+        if (isset(config::$vars['git_use_master'])){
             $tag = 'master';
         } else {
             $tag = latest_tag($val['public_clone_url'], true);

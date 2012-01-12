@@ -39,14 +39,14 @@ class lang {
      * 
      */
     public static function init(){
-        self::$language = register::$vars['coscms_main']['language'];
+        self::$language = config::$vars['coscms_main']['language'];
 
         $system_lang = array();
         $db = new db();
         $system_language = $db->select(
             'language',
             'language',
-            register::$vars['coscms_main']['language']
+            config::$vars['coscms_main']['language']
         );
 
         // create system lanugage for all modules
@@ -125,7 +125,7 @@ class lang {
         $base = _COS_PATH . "/modules";
         $language_file =
             $base . "/$module" . '/lang/' .
-            register::$vars['coscms_main']['language'] .
+            config::$vars['coscms_main']['language'] .
             '/language.inc';
 
         if (file_exists($language_file)){
@@ -148,7 +148,7 @@ class lang {
 
         $language_file =
             $base . "/$module" . '/lang/' .
-            register::$vars['coscms_main']['language'] .
+            config::$vars['coscms_main']['language'] .
             '/system.inc';
 
         if (file_exists($language_file)){

@@ -40,7 +40,7 @@ function prompt_install(){
     cos_cli_print("Main config file (config/config.ini) for $profile is loaded");
 
     // load profile.
-    register::$vars['coscms_main'] = parse_ini_file_ext(_COS_PATH . '/config/config.ini', true);
+    config::$vars['coscms_main'] = config::getIniFileArray(_COS_PATH . '/config/config.ini', true);
     
     // get configuration info
     $host = cos_readline('Enter mysql host, and hit return: ');
@@ -56,14 +56,14 @@ function prompt_install(){
     //$super_email = cos_readline('Enter superuser email, and hit return: ');
 
     // assemble configuration info
-    register::$vars['coscms_main']['url'] = "mysql:dbname=$database;host=$host";
-    register::$vars['coscms_main']['username'] = $username;
-    register::$vars['coscms_main']['password'] = $password;
-    register::$vars['coscms_main']['server_name'] = $server_name;
-    register::$vars['coscms_main']['site_email'] = $server_name;
+    config::$vars['coscms_main']['url'] = "mysql:dbname=$database;host=$host";
+    config::$vars['coscms_main']['username'] = $username;
+    config::$vars['coscms_main']['password'] = $password;
+    config::$vars['coscms_main']['server_name'] = $server_name;
+    config::$vars['coscms_main']['site_email'] = $server_name;
 
     // write it to ini file
-    $content = array_to_ini_file(register::$vars['coscms_main']);
+    $content = array_to_ini_file(config::$vars['coscms_main']);
     $path = _COS_PATH . "/config/config.ini";
     file_put_contents($path, $content);
 
