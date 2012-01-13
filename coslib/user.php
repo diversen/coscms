@@ -64,15 +64,15 @@ class user {
      * @param string $text string to add to user e.g. date of the post. 
      * @return string $str profile html.  
      */
-    public static function getProfileSimple($user, $text) {
+    public static function getProfileSimple($user, $text = '') {
         if (!is_array($user)) {
             $user = user::getAccount($user);
         }
-        
+        //print_r($text);
         $options = array ();
-        $options['display'] = 'rows';
-        $options['row'] = " $text ";      
-        $profile_link = self::getProfileLink($user, $options);
+        //$options['display'] = 'rows';
+        //$options['row'] = " $text ";      
+        $profile_link = self::getProfileLink($user, $text);
         return $profile_link;
     }
     
@@ -85,9 +85,8 @@ class user {
      * @param   array   $options
      * @return  string  $str string showing the profile
      */
-    public static function getProfileLink (&$user, $options = null){
+    public static function getProfileLink ($user, $text){
         static $profile_object;
-
         if (!isset($profile_object)){
             $profile_system = config::getMainIni('profile_module');
             if (!isset($profile_system)){
@@ -98,11 +97,12 @@ class user {
 
             $profile_object = moduleLoader::modulePathToClassName($profile_system);
             $profile_object = new $profile_object();
-            $link = $profile_object->createProfileLink($user, $options);
+            $link = $profile_object->getProfileExt($user, $text);
+
             return $link;
         }
 
-        return $profile_object->createProfileLink($user, $options);
+        return $profile_object->getProfileExt($user, $text);
     }
     
     /**

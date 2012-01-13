@@ -56,4 +56,22 @@ class time {
         $date_formatted = strftime(config::getMainIni($format), $unix_stamp);
         return $date_formatted;
     }
+    
+    /**
+     * will check a submitted date to see if it is valid
+     * 
+     * @param string $date format is: yyyy-mm-dd
+     * @return boolean $res true on success and false on failure
+     */
+    public static function checkDate ($date) {
+        $date = substr($date, 0, 10);
+        $date_ary = explode('-', $date);
+        if (!isset($date_ary[0]) || !isset($date_ary[1]) || !isset($date_ary[2])) {
+            return false;
+        }
+        if  ($date_ary['0'] < 1910 ){
+            return false;
+        }
+        return checkdate ($date_ary['1'] , $date_ary['2'] , $date_ary['0']);
+    }
 }
