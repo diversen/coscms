@@ -332,7 +332,7 @@ class moduleLoader {
         foreach (self::$modules as $key => $val){
             if (!isset($val['load_on'])) continue;
             if ($val['load_on'] === $module_name){
-                include_module($val['module_name']);
+                moduleLoader::includeModule($val['module_name']);
                 $class_name = self::modulePathToClassName($val['module_name']);
                 $class_object = new $class_name(); 
                 $class_object->init();
@@ -376,7 +376,7 @@ class moduleLoader {
             return false;
         }
         
-        $res = include_module($reference);
+        $res = moduleLoader::includeModule($reference);
         
         if ($res) {
             $class = moduleLoader::modulePathToClassName($reference);
@@ -669,8 +669,36 @@ class moduleLoader {
         if (!is_array($modules)) return false;
         foreach ($modules as $key => $val) {
             lang::loadModuleLanguage($val);
-            include_module ($val);
+            moduleLoader::includeModule ($val);
         }
+    }
+    
+    public static function includeModule ($module) {
+        return include_module($module);
+    }
+    
+    public static function includeTemplateCommon ($template) {
+        include_template_inc($template);
+    }
+    
+    public static function includeModel ($model) {
+        include_model($model);
+    }
+    
+    public static function includeController ($controller) {
+        include_controller($controller);
+    }
+    
+    public static function includeFilters ($filters) {
+        include_filters($filters);
+    }
+    
+    public static function getFiltersHelp ($filters) {
+        return get_filters_help($filters);
+    }
+    
+    public static function getFilteredContent ($filters, $content) {
+        return get_filtered_content($filters, $content);
     }
 }
 
@@ -786,7 +814,7 @@ function include_filters ($filter){
  * @return string $string the help strings of all filters. 
  */
 function get_filters_help ($filters) {
-    include_filters($filters);
+    moduleLoader::includeFilters($filters);
     $str = '<span class="small-font">';
     $i = 1;
 
@@ -808,7 +836,7 @@ function get_filters_help ($filters) {
  */
 function get_filtered_content ($filter, $content){   
     if (!is_array($filter)){
-        include_filters($filter);
+        moduleLoader::includeFilters($filter);
         $class = 'filter' . ucfirst($filter);
         $filter_class = new $class;
 
@@ -825,7 +853,7 @@ function get_filtered_content ($filter, $content){
 
     if (is_array ($filter)){
         foreach($filter as $key => $val){
-            include_filters($val);
+            moduleLoader::includeFilters($val);
             $class = 'filter' . ucfirst($val);
             $filter_class = new $class;
             if (is_array($content)){

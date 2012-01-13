@@ -315,7 +315,7 @@ abstract class template {
         
         if (!$cacheChecked) {
             self::$cacheDirWeb = config::getWebFilesPath(self::$cacheDir);
-            self::$cacheDir = get_files_path() . '/' . self::$cacheDir;
+            self::$cacheDir = config::getFullFilesPath() . '/' . self::$cacheDir;
             if (!file_exists(self::$cacheDir)) {
                 mkdir(self::$cacheDir);
             }  
@@ -323,7 +323,7 @@ abstract class template {
         }
         
         $md5 = md5($css);        
-        $cached_asset = get_files_path() . "/cached_assets/$md5.$type";
+        $cached_asset = config::getFullFilesPath() . "/cached_assets/$md5.$type";
         $cache_dir = config::getWebFilesPath('/cached_assets');
         if (file_exists($cached_asset && !config::getMainIni('cached_assets_reload'))) {
             
@@ -520,27 +520,13 @@ class templateView {
  *                        if false we echo the view
  */
 function include_view ($module, $view, $vars = null, $return = null){
-    $filename = _COS_PATH . "/modules/$module/views/$view.inc";
-
-    if (is_file($filename)) {
-        ob_start();
-        include $filename;
-        $contents = ob_get_contents();
-        ob_end_clean();
-        if ($return) {
-            return $contents;
-        } else {
-            echo $contents;
-        }
-    } else {
-        echo "View not found";
-        return false;
-    }    
+    return templateView::includeModuleView($module, $view, $vars, 1); 
 }
 
 /**
  * function for getting content from a file
  * used as a very simple template function
+ * @deprecated
  * @param string $filename the full path of the file to include
  * @param mixed  $vars the var to sustitute with
  * @return string $str the parsed template.

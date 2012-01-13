@@ -348,7 +348,7 @@ class session {
     public static function loginThenRedirect ($message){
         unset($_SESSION['redirect_on_login']);
         if (!session::isUser()){
-            include_module('account');
+            moduleLoader::includeModule('account');
             $_SESSION['redirect_on_login'] = $_SERVER['REQUEST_URI'];
             session::setActionMessage($message);
             account::redirectDefault();

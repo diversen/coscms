@@ -55,7 +55,6 @@ config::$vars['coscms_debug']['include_path'] = ini_get('include_path');
 if (!defined('_COS_CLI')){
     
     config::loadMain();
-    //load_config_file ();
     
     // set a unified server_name if not set in config file. 
     $server_name = config::getMainIni('server_name');
@@ -66,12 +65,14 @@ if (!defined('_COS_CLI')){
     ob_start();
 
     // redirect to uniform domain name is set in config.ini
+    // e.g. www.testsite.com => testsite.com
     $server_redirect = config::getMainIni('server_redirect');
     if (isset($server_redirect)) {
         http::redirectHeaders($server_redirect);
     }
     
-    // redirect to https is set in config.ini
+    // redirect to https is set in config.in
+    // force anything into ssl mode
     $server_force_ssl = config::getMainIni('server_force_ssl');
     if (isset($server_force_ssl)) {
         http::sslHeaders();

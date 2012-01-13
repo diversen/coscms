@@ -9,7 +9,7 @@
  */
 
 
-include_model ('content/article');
+moduleLoader::includeModel ('content/article');
 
 class menu {
 

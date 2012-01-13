@@ -1,6 +1,13 @@
 <?php
 
 /**
+ * File containing wrappers around user class
+ * Get account info. 
+ * And get profile info, 
+ * @package coslib
+ */
+
+/**
  * contains methods for getting account and profile info
  * depending on the profile system. 
  * 
@@ -8,6 +15,19 @@
  */
 
 class user {
+    
+    
+    /**
+     * function for getting an account
+     * @param int $id user_id 
+     * @return array $row from account 
+     */
+    public static function getAccount ($id) {   
+        $db = new db();
+        $row = $db->selectOne('account', 'id', $id);
+        return $row;
+    }
+    
     /**
      * Gets user profile user info if a profile system is in place.
      * Profile systems must be set in main config/config.ini
@@ -26,7 +46,7 @@ class user {
                 return false;
             }
 
-            include_module ($profile_system);
+            moduleLoader::includeModule ($profile_system);
 
             $profile_object = moduleLoader::modulePathToClassName($profile_system);
             $profile_object = new $profile_object();
@@ -46,12 +66,12 @@ class user {
      */
     public static function getProfileSimple($user, $text) {
         if (!is_array($user)) {
-            $user = get_account($user);
+            $user = user::getAccount($user);
         }
         
         $options = array ();
         $options['display'] = 'rows';
-        $options['row'] = " $text ";        
+        $options['row'] = " $text ";      
         $profile_link = self::getProfileLink($user, $options);
         return $profile_link;
     }
@@ -74,7 +94,7 @@ class user {
                 return '';
             }
 
-            include_module ($profile_system);
+            moduleLoader::includeModule ($profile_system);
 
             $profile_object = moduleLoader::modulePathToClassName($profile_system);
             $profile_object = new $profile_object();
@@ -85,75 +105,51 @@ class user {
         return $profile_object->createProfileLink($user, $options);
     }
     
+    /**
+     * Gets user profile link if a profile system is in place.
+     * Profile systems must be set in main config/config.ini
+     * the option array can be used to setting special options for profile module
+     * 
+     * @param   array   $user_id the user in question
+     * @return  string  $string string showing the profile
+     */
+    public static function getProfileEditLink ($user_id){
+
+        static $profile_object;
+
+        if (!isset($profile_object)){
+            $profile_system = config::getMainIni('profile_module');
+            if (!isset($profile_system)){
+                return '';
+            }
+
+            moduleLoader::includeModule ($profile_system);
+
+            $profile_object = moduleLoader::modulePathToClassName($profile_system);
+            $profile_object = new $profile_object();      
+            return $profile_object->getProfileEditLink($user_id);
+
+        }
+
+        return $profile_object->getProfileEditLink($user_id);
+    }
+    
 }
 
 /**
- * Gets user profile link if a profile system is in place.
- * Profile systems must be set in main config/config.ini
- * the option array can be used to setting special options for profile module
- * @param   array|int   $user user_id or full account row 
- * @param   array   $options options to use with profile system
- * @return  string  $str string with html showing the profile
+ * @deprecated
+ * @param type $user
+ * @param type $options
+ * @return type 
  */
 function get_profile_link ($user, $options = null){
-    
-    if (is_numeric($user)) {
-        $user = get_account($user);
-    }
-    static $profile_object;
-
-    if (!isset($profile_object)){
-        $profile_system = config::getMainIni('profile_module');
-        if (!isset($profile_system)){
-            return '';
-        }
-
-        include_module ($profile_system);
-        $profile_object = moduleLoader::modulePathToClassName($profile_system);
-        $profile_object = new $profile_object();        
-        $link = $profile_object->createProfileLink($user, $options);
-        return $link;
-    }
-
-    return $profile_object->createProfileLink($user, $options);
+    return user::getProfileLink($user);
 }
-
 /**
- * Gets user profile link if a profile system is in place.
- * Profile systems must be set in main config/config.ini
- * the option array can be used to setting special options for profile module
- * 
- * @param   array   $user_id the user in question
- * @return  string  $string string showing the profile
+ * @deprecated
+ * @param type $user_id
+ * @return type 
  */
 function get_profile_edit_link ($user_id){
-    
-    static $profile_object;
-
-    if (!isset($profile_object)){
-        $profile_system = config::getMainIni('profile_module');
-        if (!isset($profile_system)){
-            return '';
-        }
-
-        include_module ($profile_system);
-
-        $profile_object = moduleLoader::modulePathToClassName($profile_system);
-        $profile_object = new $profile_object();      
-        $link = $profile_object->getProfileEditLink($user_id);
-        return $link;
-    }
-
-    return $profile_object->createProfileLink($user, $options);
-}
-
-/**
- * function for getting an account
- * @param int $id user_id 
- * @return array $row from account 
- */
-function get_account ($id) {   
-    $db = new db();
-    $row = $db->selectOne('account', 'id', $id);
-    return $row;
+    return user::getProfileEditLink($user_id);
 }

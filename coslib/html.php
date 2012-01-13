@@ -314,7 +314,7 @@ class HTML {
         }
 
         if (isset($extra['filter_help'])) {
-            echo $extra['title'] = get_filters_help($extra['filter_help']);            
+            echo $extra['title'] = moduleLoader::getFiltersHelp($extra['filter_help']);            
         } 
         
         if (!isset($value)) {
@@ -601,7 +601,7 @@ class HTML {
     }
 
     public static function widget ($class, $method, $name = null, $value = null){
-        include_module ($class);
+        moduleLoader::includeModule ($class);
         $value = self::setValue($name, $value);
         $str = $class::$method($name, $value);
         self::$fields[] = array ('value' => $str);

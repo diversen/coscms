@@ -104,85 +104,52 @@ class strings {
         $strip = array("/", "?", "#");
         return $clean = trim(str_replace($strip, "", htmlspecialchars(strip_tags($string))));
     }   
-}
-
-/** 
- * Substring without losing word meaning and
- * tiny words (length 3 by default) are included on the result.
- *  "..." is added if result do not reach original string length
- * Found on php.net
- *
- * @param   string  $str string to operate on
- * @param   int     $length the maxsize of the string to return
- * @param   int     $minword minimum size of word to cut from
- * @return  string  $str the substringed string
- */
-function substr2($str, $length, $minword = 3, $use_dots = true)
-{
-    $sub = '';
-    $len = 0;
-
-    foreach (explode(' ', $str) as $word)
+    
+    /** 
+     * Substring without losing word meaning and
+     * tiny words (length 3 by default) are included on the result.
+     *  "..." is added if result do not reach original string length
+     * Found on php.net
+     *
+     * @param   string  $str string to operate on
+     * @param   int     $length the maxsize of the string to return
+     * @param   int     $minword minimum size of word to cut from
+     * @return  string  $str the substringed string
+     */
+    public static function substr2($str, $length, $minword = 3, $use_dots = true)
     {
-        $part = (($sub != '') ? ' ' : '') . $word;
-        $sub .= $part;
-        $len += strlen($part);
+        $sub = '';
+        $len = 0;
 
-        if (strlen($word) > $minword && strlen($sub) >= $length)
+        foreach (explode(' ', $str) as $word)
         {
-            break;
+            $part = (($sub != '') ? ' ' : '') . $word;
+            $sub .= $part;
+            $len += strlen($part);
+
+            if (strlen($word) > $minword && strlen($sub) >= $length)
+            {
+                break;
+            }
         }
+
+        if ($use_dots) {
+            return $sub . (($len < strlen($str)) ? ' ... ' : '');
+        }
+        return $sub;
     }
-
-    if ($use_dots) {
-        return $sub . (($len < strlen($str)) ? ' ... ' : '');
+    
+    /**
+     * function for removing extra white space, and only have 'one space' left
+     * @param string $str the string to operate on
+     * @return string $str the transformed string 
+     */
+    public static function removeExtraWs ($str) {
+        $str = preg_replace('/\s\s+/', ' ', $str);
+        return $str;
     }
-    return $sub;
-}
-
-/**
- * function for removing extra white space, and only have 'one space' left
- * @param string $str the string to operate on
- * @return string $str the transformed string 
- */
-function cos_remove_extra_ws ($str) {
-    $str = preg_replace('/\s\s+/', ' ', $str);
-    return $str;
-}
-
-/**
- * function for urlencoding a utf8 encoding a string
- * @param   string  $string the utf8 string to encode
- * @return  string  $string the utf8 encoded string
- */
-function cos_url_encode($string){
-    return urlencode(utf8_encode($string));
-}
-
-/**
- * function for urldecoding a utf8 decodeding a string
- * @param   string  $string the string to decode
- * @return  string  $string the urldecoded and utf8 decoded string
- */
-function cos_url_decode($string){
-    return utf8_decode(urldecode($string));
-}
-// }}}
-
-/**
- * trims a string
- * @param string $value 
- */
-function trim_value(&$value){ 
-    $value = trim($value); 
-}
-
-/**
- * trims an array of strings
- * @param array $ary the array to be trimmed
- * @return array $ary the trimmed array 
- */
-function trim_array ($ary) {
-    array_walk($ary, 'trim_value');
-    return $ary;
+    
+    public static function trimArray () {
+        
+    }
 }

@@ -19,7 +19,7 @@ class captcha {
      */
     static public function createCaptcha($method = 'stringrandom'){
         if (moduleLoader::moduleExists('image_captcha')){
-            include_module('image_captcha');
+            moduleLoader::includeModule('image_captcha');
         }
         
         $method = config::getModuleIni ('image_captcha_method');

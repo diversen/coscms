@@ -53,7 +53,7 @@ class event {
             $ary = explode('::', $val);
             $module = $class = $ary[0];
             $method = $ary[1];
-            include_module($module);
+            moduleLoader::includeModule($module);
             $str.= $class::$method($args);
         }
         return $str;
