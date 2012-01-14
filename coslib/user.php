@@ -1,20 +1,27 @@
 <?php
 
 /**
- * File containing wrappers around user class
- * Get account info. 
- * And get profile info, 
+ * File containing methods for getting a user profile connected to the 
+ * account system. This is made in order to make it possible to switch
+ * profile system for websites. 
+ * 
  * @package coslib
  */
 
 /**
- * contains methods for getting account and profile info
+ * Class contains methods for getting account and profile info
  * depending on the profile system. 
  * 
  * @package coslib
  */
 
 class user {
+    
+    /**
+     * var holding the profile object. 
+     * @var object 
+     */
+    public static $profile_object = null;
     
     
     /**
@@ -29,18 +36,15 @@ class user {
     }
     
     /**
-     * Gets user profile user info if a profile system is in place.
-     * Profile systems must be set in main config/config.ini
-     * the option array can be used to setting special options for profile module
+     * Gets user profile info if a profile system is in place.
+     * E.g. to be showed on login page when logged in. 
      *
-     * @param   array   user options
-     * @param   array   options
-     * @return  string  string showing the profile
+     * @param   array   $user options
+     * @return  string  $str html or text showing info about the profile
      */
-    public static function getProfileInfo (&$user){
-        static $profile_object;
+    public static function getProfileInfo ($user){
 
-        if (!isset($profile_object)){
+        if (!isset(self::$profile_object)){
             $profile_system = config::getMainIni('profile_module');
             if (!isset($profile_system)){
                 return false;
@@ -49,45 +53,36 @@ class user {
             moduleLoader::includeModule ($profile_system);
 
             $profile_object = moduleLoader::modulePathToClassName($profile_system);
-            $profile_object = new $profile_object();
-            return $profile_object->getProfileInfo($user);
+            self::$profile_object = new $profile_object();
+            return self::$profile_object->getProfileInfo($user);
 
         }
 
-        return $profile_object->getProfileInfo($user);
+        return self::$profile_object->getProfileInfo($user);
     }
     
     /**
      * method for getting a profile link in the most simple way
-     * any post will have a text and a user. 
-     * @param int|array $user the user id or an annon user in an array
+     * e.g. any blog post will have a text (the post date) and a user 
+     * profile link or box. 
+     * 
+     * @param array $user the user array or an annon user in an array
+     *                    can be an array from account table or
+     *                    it can be an anoo user comment. 
+     *                    if the user is anon then the user_id = '0'
+     *                    and supplied can be homepage and email. 
+     *                    e.g. in comment.  
+     * 
+     * 
      * @param string $text string to add to user e.g. date of the post. 
      * @return string $str profile html.  
      */
-    public static function getProfileSimple($user, $text = '') {
+    public static function getProfile($user, $text = '') {
         if (!is_array($user)) {
             $user = user::getAccount($user);
         }
-        //print_r($text);
-        $options = array ();
-        //$options['display'] = 'rows';
-        //$options['row'] = " $text ";      
-        $profile_link = self::getProfileLink($user, $text);
-        return $profile_link;
-    }
-    
-        /**
-     * Gets user profile link if a profile system is in place.
-     * Profile systems must be set in main config/config.ini
-     * the option array can be used to setting special options for profile module
-     *
-     * @param   array   $user options
-     * @param   array   $options
-     * @return  string  $str string showing the profile
-     */
-    public static function getProfileLink ($user, $text){
-        static $profile_object;
-        if (!isset($profile_object)){
+
+        if (!isset(self::$profile_object)){
             $profile_system = config::getMainIni('profile_module');
             if (!isset($profile_system)){
                 return '';
@@ -96,14 +91,54 @@ class user {
             moduleLoader::includeModule ($profile_system);
 
             $profile_object = moduleLoader::modulePathToClassName($profile_system);
-            $profile_object = new $profile_object();
-            $link = $profile_object->getProfileExt($user, $text);
+            self::$profile_object = new $profile_object();
+            $link = self::$profile_object->getProfile($user, $text);
 
             return $link;
         }
 
-        return $profile_object->getProfileExt($user, $text);
+        return self::$profile_object->getProfile($user, $text);       
     }
+    
+    /**
+     * method for getting a profile link in the most simple way
+     * e.g. any blog post will have a text (the post date) and a user 
+     * profile link or box. 
+     * 
+     * @param array $user the user array or an annon user in an array
+     *                    can be an array from account table or
+     *                    it can be an anoo user comment. 
+     *                    if the user is anon then the user_id = '0'
+     *                    and supplied can be homepage and email. 
+     *                    e.g. in comment.  
+     * 
+     * 
+     * @param string $text string to add to user e.g. date of the post. 
+     * @return string $str profile html.  
+     */
+    public static function getProfileSimple($user, $text = '') {
+        if (!is_array($user)) {
+            $user = user::getAccount($user);
+        }
+
+        if (!isset(self::$profile_object)){
+            $profile_system = config::getMainIni('profile_module');
+            if (!isset($profile_system)){
+                return '';
+            }
+
+            moduleLoader::includeModule ($profile_system);
+
+            $profile_object = moduleLoader::modulePathToClassName($profile_system);
+            self::$profile_object = new $profile_object();
+            $link = self::$profile_object->getProfileSimple($user, $text);
+
+            return $link;
+        }
+
+        return self::$profile_object->getProfileSimple($user, $text);       
+    }
+
     
     /**
      * Gets user profile link if a profile system is in place.
