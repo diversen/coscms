@@ -100,7 +100,7 @@ class strings {
      * @param string $string string to sanitize
      * @return string $string sanitized string
      */
-    public static function sanitizeUrlSimple () {
+    public static function sanitizeUrlSimple ($string) {
         $strip = array("/", "?", "#");
         return $clean = trim(str_replace($strip, "", htmlspecialchars(strip_tags($string))));
     }   

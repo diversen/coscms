@@ -158,6 +158,6 @@ function server_force_ssl () {
     http::sslHeaders();
 }
 
-function send_301_headers ($url, $options) {
+function send_301_headers ($url, $options = null) {
     http::permMovedHeader($url, $options);
 }
