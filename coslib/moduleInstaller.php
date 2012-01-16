@@ -697,9 +697,16 @@ class moduleInstaller extends db {
                                     $version,
                                     'up');
                         $sql_ary = explode ("\n\n", $sql);
-                        foreach ($sql_ary as $sql_key => $sql_val){
-                            $result = self::$dbh->query($sql_val);
+                        foreach ($sql_ary as $sql_key => $sql_val) {
+                            try {
+                                $result = self::$dbh->query($sql_val);
+                            } catch (Exception $e) {
+                                 echo 'Caught exception: ',  $e->getMessage(), "\n";
+                                 echo "Version of sql: $version";
+                                 die;;
+                            }
                         }
+                        
                     //} catch (PDOException $e) {
                       //  $this->fatalError($e->getMessage());
                     //}
