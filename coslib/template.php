@@ -121,7 +121,7 @@ abstract class template {
             if (!isset($options['alt'])){           
                 $options['alt'] = $_SERVER['HTTP_HOST'];
             }
-            $href = html::createHrefImage($src, '/', $options);
+            $href = html::createHrefImage('/', $src, $options);
             $str = '<div id="logo_img">' . $href . '</div>' . "\n"; 
             //die($str);
             return $str;
