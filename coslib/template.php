@@ -199,6 +199,36 @@ abstract class template {
         
         return $str;
     }
+    
+    /**
+     * Will load the js as file and place and add it to array which can
+     * be parsed in user templates.
+     * 
+     * @param   string   $js file path of the javascript
+     * @param   int      $order the loading order of javascript 0 is first > 0 is
+     *                   later.
+     */
+    public static function setStringJs($js, $order = null, $options = array()){
+        
+        /*
+        if (config::getMainIni('cached_assets') && !isset($options['no_cache'])) {
+            self::cacheAsset ($js, $order, 'js');
+            return;
+        }*/
+        
+        //$str = file_get_contents($js);
+        if (isset($options['search'])){
+            $js = str_replace($options['search'], $options['replace'], $str);
+        }
+        
+        //$js = "<script>$js</script>\n";
+        //var myvar = <?php echo json_encode($myVarValue); 
+        if (isset($order)){
+            self::$inlineJs[$order] = $js;
+        } else {
+            self::$inlineJs[] = $js;
+        }
+    }
 
 
     /**
