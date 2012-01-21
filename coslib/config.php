@@ -26,6 +26,10 @@ class config {
         if (config::$vars['coscms_main']['module'][$key] == '0'){
             return null;
         }
+        
+        if (empty(config::$vars['coscms_main']['module'][$key])){
+            return null;
+        }
         return config::$vars['coscms_main']['module'][$key];
     }
     

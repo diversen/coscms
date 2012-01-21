@@ -46,8 +46,6 @@ class HTML {
      */
     public static $fields = array();
     
-    public static $counter = 0;
-
     /**
      * method for getting form string build. 
      * @return string $str the form build
@@ -58,7 +56,6 @@ class HTML {
             $str.= $value['value'];
         }
         self::$fields = array();
-
         return $str;
     }
 
@@ -111,16 +108,15 @@ class HTML {
 
     /**
      * method for starting a html form
-     * @param type $name name of the form
-     * @param type $method method of the form
-     * @param type $action action of the form
-     * @param type $enctype enctype of the form
-     * @return string 
+     * @param string $name name of the form
+     * @param string $method method of the form
+     * @param string $action action of the form
+     * @param string $enctype enctype of the form
+     * @return string $str the form start 
      */
     public static function formStart (
         $name = 'form', $method ='post', $action = '',
         $enctype = "multipart/form-data") {
-        
         $str = "";
         
         //$str.= '<a class="do_hide collpase">Hide</a>&nbsp;';
@@ -135,14 +131,13 @@ class HTML {
     
     /**
      * method for setting a legend on the form
-     * @param type $legend the title of the legend
-     * @param type $extra extra options to add to the legend e.g. 
+     * @param string $legend the title of the legend
+     * @param array $extra extra options to add to the legend e.g. 
      *             array ('class' => 'table-top and-more')
      * @return string $str the legend string. 
      */
     public static function legend ($legend, $extra = null){        
         $str = "<legend>$legend";
-
         $str.= "</legend>\n";
         self::$fields[] = array ('value' => $str);
         return $str;
@@ -188,7 +183,7 @@ class HTML {
      * @param string $value the value of the form field
      * @return string 
      */
-    private static function setValue ($name, $value){
+    public static function setValue ($name, $value){
         if (isset(self::$values[$name])){
             return self::$values[$name];
         } else {
@@ -271,7 +266,7 @@ class HTML {
      * @param string $name name of the element
      * @param string $value vlaue of the element
      * @param array $extra extras e.g. array ('class' => 'css and-more')
-     * @return string 
+     * @return string $str the simple captcha input string
      */
     public static function simpleCaptcha ($name, $value = '', $extra = array()){
         if (!isset($extra['size'])){
@@ -290,7 +285,7 @@ class HTML {
      * @param type $name name of the form field
      * @param type $value value of the form field. 
      * @param type $extra e.g. array ('class' => 'css and-more');
-     * @return string 
+     * @return string $str the password input string
      */
     public static function password ($name, $value = '', $extra = array()){
         if (!isset($extra['size'])){
@@ -304,6 +299,13 @@ class HTML {
         return $str;
     }
 
+    /**
+     * method for getting a textarea 
+     * @param string $name the name of the textarea
+     * @param string $value the initial value of the textarea
+     * @param array $extra, e.g. css array ('class' => 'required'); 
+     * @return string $str the textarea 
+     */
     public static function textarea ($name, $value = null, $extra = array()){
         if (!isset($extra['rows'])){
             $extra['rows'] = HTML_FORM_TEXTAREA_HT;
@@ -328,6 +330,13 @@ class HTML {
         return $str;
     }
     
+    /**
+     * method for getting a small textarea (~1/6 of normal textarea) 
+     * @param string $name the name of the textarea
+     * @param string $value the initial value of the textarea
+     * @param array $extra, e.g. css array ('class' => 'required'); 
+     * @return string $str the textarea 
+     */
     public static function textareaSmall ($name, $value = null, $extra = array()){
         if (!isset($extra['rows'])){
             $extra['rows'] = (int)(HTML_FORM_TEXTAREA_HT / 6);
@@ -336,6 +345,13 @@ class HTML {
         self::textarea($name, $value, $extra);
     }
     
+    /**
+     * method for getting a medium textarea ~1/2 of normal textarea size 
+     * @param string $name the name of the textarea
+     * @param string $value the initial value of the textarea
+     * @param array $extra, e.g. css array ('class' => 'required'); 
+     * @return string $str the textarea 
+     */
     public static function textareaMed ($name, $value = null, $extra = array()){
         if (!isset($extra['rows'])){
             $extra['rows'] = (int)(HTML_FORM_TEXTAREA_HT / 2);
@@ -345,10 +361,10 @@ class HTML {
     }
 
     /**
-     * 
-     * @param type $name
-     * @param type $extra
-     * @return string 
+     * method for getting a file input field
+     * @param string $name the name of the file field
+     * @param array $extra, e.g. css array ('class' => 'popup'); 
+     * @return string $str the file input field 
      */
     public static function file ($name, $extra = array()) {
         if (!isset($extra['size'])){
@@ -362,6 +378,13 @@ class HTML {
         return $str;
     }
 
+    /**
+     * method for getting a checkbox
+     * @param string $name the name of the input
+     * @param string $value the value of the input
+     * @param array $extra set extras e.g. array ('class' => 'action')
+     * @return string 
+     */
     public static function checkbox ($name, $value = '1', $extra = array ()) {
         $extra = self::parseExtra($extra);
         
@@ -375,6 +398,13 @@ class HTML {
         return $str;
     }
 
+    /** 
+     * method for getting a submit button
+     * @param string $name the name of the button
+     * @param string $value the value of the button
+     * @param array $extra e.g. for setting css array ('class' => 'onPress')
+     * @return string $str the submit button 
+     */
     public static function submit ($name, $value, $extra = array ()) {
         $extra = self::parseExtra($extra);
         $str =  "<input type=\"submit\" $extra name=\"$name\" value=\"$value\" />" . self::$br . "";
@@ -382,10 +412,19 @@ class HTML {
         return $str;
     }
     
+    /**
+     * add html as a field inside the form
+     * @param string $str the string to add 
+     */
     public static function addHtml ($str) {
-        self::$fields[]['html'] = $str;
+        self::$fields[] = array('value'=> $str);
     }
 
+    /**
+     * method for passing extras to all form fields
+     * @param array $extra e.g. array ('class' => 'required')
+     * @return string $the extras parsed to a string e.g. class = "required"  
+     */
     public static function parseExtra ($extra = array()) {
         $str = '';
         if (empty($extra)) return '';
@@ -398,8 +437,8 @@ class HTML {
 
 
     /**
-     * method for making a drop down box.
-     * 
+     * method for making a drop down box. This will be colleted in the HTML::fields[]
+     * If you just want a select box use selectClean
      * @param   string  $name the name of the select field
      * @param   array   $rows the rows making up the ids and names of the select field
      * @param   string  $field array field which will be used as name of the select element
@@ -409,55 +448,31 @@ class HTML {
      */
     public static function select($name, $rows, $field, $id, $value=null, $extra = array(), $init = array()){        
         $dropdown = self::selectClean($name, $rows, $field, $id, $value, $extra, $init);
-        /*
-        $extra = self::parseExtra($extra);
-        $dropdown = "<select name=\"$name\" $extra";
-
-        if (!isset($value)) {
-            $value = self::setValue($name, $value);
-        }
-        $dropdown.= ">\n";
-        if (!empty($init)) {
-            $dropdown.= '<option value="'.$init[$id].'"' . '' . '>'.$init[$field].'</option>'."\n";
-        }
-        
-        foreach($rows as $row){
-            if ($row[$id] == $value){
-                $s = ' selected';
-            } else {
-                $s = '';
-            }
-
-            $dropdown .= '<option value="'.$row[$id].'"' . $s . '>'.$row[$field].'</option>'."\n";
-        }
-         * 
-         */
-        //$dropdown .= '</select>'. self::$br . "\n";
         $str = $dropdown . self::$br . "\n" ;
         self::$fields[] = array ('value' => $str);
         return $str;
-        //return $dropdown;
     }
     
     /**
-     * method for making a drop down box.
+     * method for adding a drop down box to the form.
      * 
      * @param   string  $name the name of the select field
      * @param   array   $rows the rows making up the ids and names of the select field
      * @param   string  $field array field which will be used as name of the select element
      * @param   int     $id the array field which will be used as id of the select element
      * @param   int     $selected the element which will be selected
-     * @param   string  $extras to be added to a form, e.g. javascript
+     * @param   string  $extras to be added to this form field, e.g. css (array ('class' => 'required'));
      * @return  string  $dropdown the dropwdown string.
      * 
      */
-    public static function selectClean($name, $rows, $field, $id, $value=null, $extra = array(), $init = array()){        
+    public static function selectClean($name, $rows, $field, $id, $value = null, $extra = array(), $init = array()){        
         $extra = self::parseExtra($extra);
         $dropdown = "<select name=\"$name\" $extra";
 
         if (!isset($value)) {
             $value = self::setValue($name, $value);
         }
+        
         $dropdown.= ">\n";
         if (!empty($init)) {
             $dropdown.= '<option value="'.$init[$id].'"' . '' . '>'.$init[$field].'</option>'."\n";
@@ -473,11 +488,16 @@ class HTML {
             $dropdown .= '<option value="'.$row[$id].'"' . $s . '>'.$row[$field].'</option>'."\n";
         }
         $dropdown .= "</select>\n";
-        //self::$formStr.= $dropdown ;
         return $dropdown;
-        //return $dropdown;
     }
 
+    /**
+     * method for creating a html link
+     * @param string $url the a href attribute
+     * @param string $title the value of the link
+     * @param array  $options, e.g. css class or javascript actions, e.g. ('class' => 'error')
+     * @return string $link the html link
+     */
     public static function createLink ($url, $title, $options = array()) {
         $rewritten_url = self::getUrl($url);
 
@@ -504,9 +524,10 @@ class HTML {
     }
 
     /**
-     *
+     * method for getting url fro e.g. creating a link. If rewrite manip is enabled
+     * we will fetch the rewritten link from database
      * @param  string $url
-     * @return string $url rewritten is rewrite url exists
+     * @return string $url rewritten if rewrite url entered url exists
      */
     public static function getUrl ($url) {
        if (class_exists('rewrite_manip')) {
@@ -518,19 +539,36 @@ class HTML {
         return $url;
     }
 
+    /**
+     * method for creating an image html tag
+     * @param string $src the source of the image
+     * @param array  $options, for setting e.g. css class array ('class' => 'popup')
+     * @return string $str the image tag 
+     */
     public static function createImage ($src, $options = array()) {
         $options = self::parseExtra($options);
         $str = "<img src=\"$src\" $options />";
         return $str;
     }
     
+    /**
+     * creates an image working as a html link
+     * @param string $href the href part of the link
+     * @param string $image_src the image source
+     * @param array $options for setting e.g. css class array ('class' => 'popup')
+     * @return string $str the a href displaying an image
+     */
     public static function createHrefImage($href = null, $image_src = null, $options = array()){
         $str = self::createImage($image_src, $options);
         return "<a href=\"$href\">$str</a>";
     }
 
 
-
+    /**
+     * special encodes an array or string 
+     * @param mixed $values
+     * @return mixed $values special encoded
+     */
     public static function specialEncode(&$values){
         if (is_array($values)){
             foreach($values as $key => $val){
@@ -548,6 +586,11 @@ class HTML {
         return $values;
     }
 
+    /**
+     * special decodes array or string 
+     * @param mixed $values the values to be decoded
+     * @return mixed $values the values decoded 
+     */
     public static function specialDecode(&$values){
         if (is_array($values)){
             foreach($values as $key => $val){
@@ -565,7 +608,11 @@ class HTML {
         return $values;
     }
 
-
+    /**
+     * encodes entites in array or string for secure display
+     * @param mixed $values the var to entity encode
+     * @return mixed $values the encoded var
+     */
     public static function entitiesEncode(&$values){
         if (is_array($values)){
             foreach($values as $key => $val){
@@ -583,6 +630,11 @@ class HTML {
         return $values;
     }
 
+    /**
+     * decodes entites in array or string
+     * @param mixed $values the vars to decode
+     * @return mixed $values the decoded vars 
+     */
     public static function entitiesDecode(&$values){
         if (is_array($values)){
             foreach($values as $key => $val){
@@ -600,6 +652,14 @@ class HTML {
         return $values;
     }
 
+    /**
+     * method for creating a form widget, e.g. a tag dropdown
+     * @param string $class the class to generate the widget
+     * @param string $method the method to use for the widget
+     * @param string $name the name of the form field
+     * @param string $value the init value of the form field
+     * @return string $str the widget string 
+     */
     public static function widget ($class, $method, $name = null, $value = null){
         moduleLoader::includeModule ($class);
         $value = self::setValue($name, $value);
@@ -608,9 +668,16 @@ class HTML {
         return $str;
     }
 
+    /**
+     * generic method for displaying errors on form submission
+     * If template method for displaying errors (view_form_errors) 
+     * exists we use this 
+     * @param array $errors the errors to display
+     * @return string $str html with errors 
+     */
     public static function errors ($errors) {
             if (function_exists('template_view_errors')) {
-                template_view_errors($errors);
+                view_form_errors($errors);
                 return;
             }
             if (is_string($errors)){
@@ -643,20 +710,6 @@ class HTML {
         return $clean;
         
     }
-    /*
-    public static function getUl ($elements, $value_field, $options = null){
-        if ($options) {
-            $options = self::parseExtra($options);
-        } else {
-            $options = '';
-        }
-        $str = "<ul" . $options . ">\n";
-        foreach ($elements as $key => $val) {
-            $str.="<li>$val[$value_field]</li>\n";
-        }
-        $str.= "</ul>\n";
-        return $str;
-    }*/
 }
 
 /**

@@ -48,8 +48,10 @@ class event {
      */
     public static function triggerEvent ($methods, $args = null) {
         if (!is_array($methods)) return;
+        $methods = self::prepareMethods($methods);
         $str = '';
         foreach ($methods as $key => $val) {
+           
             $ary = explode('::', $val);
             $module = $class = $ary[0];
             $method = $ary[1];
@@ -57,5 +59,14 @@ class event {
             $str.= $class::$method($args);
         }
         return $str;
+    }
+    
+    public static function prepareMethods ($methods) {
+        foreach ($methods as $key => $val) {
+            if (empty($val)) {
+                unset($methods[$key]);
+            }
+        }
+        return $methods;
     }
 }
