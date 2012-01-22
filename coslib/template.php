@@ -80,7 +80,7 @@ abstract class template {
      * @param string $title the title of the document
      */
     public static function setTitle($title){
-        self::$title = $title;
+        self::$title = html::specialEncode($title);
     }
 
     /**
