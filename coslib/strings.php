@@ -149,6 +149,17 @@ class strings {
         return $str;
     }
     
+    /** 
+     * slightly modified from: 
+     * http://stackoverflow.com/a/816102/464549
+     * removes all newlines except one
+     * @param string $str
+     * @return string $srr 
+     */
+    public static function removeExtraNL ($str) {
+        return preg_replace('/(?:(?:\r\n|\r|\n)\s*){2}/s', PHP_EOL, $str);
+    }
+    
     public static function trimArray () {
         
     }
