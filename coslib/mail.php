@@ -15,7 +15,7 @@
  * @param   string  $reply_to email to reply to
  * @return  int     1 on success 0 on error
  */
-function mail_utf8($to, $subject, $message, $from, $reply_to=null) {
+function mail_utf8($to, $subject, $message, $from = null, $reply_to=null) {
 
     // prevent injection of other headers by trimming emails
     $reply_to = trim($reply_to); $from = trim ($from);
@@ -24,6 +24,10 @@ function mail_utf8($to, $subject, $message, $from, $reply_to=null) {
     $headers = 'MIME-Version: 1.0' . "\r\n";
     $headers.= 'Content-type: text/plain; charset=UTF-8' . "\r\n";
 
+    if (!$from) {
+        $from = config::getMainIni('site_email');
+    }
+    
     $headers.= "From: $from\r\n";
     if (!$reply_to){
         $reply_to = $from;

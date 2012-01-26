@@ -49,9 +49,15 @@ class config {
         return config::$vars['coscms_main'][$key];      
     }
     
+    /**
+     * sets a main ini setting, e.g. override from database
+     * @param string $key the key to set
+     * @param string $value the value to set the key with
+     */
     public static function setMainIni ($key, $value) {
         config::$vars['coscms_main'][$key] = $value;
     }
+    
     
     /**
      * parse ini with this and they will be cached with APC
