@@ -134,7 +134,6 @@ class config {
         $config_file = config::getConfigFileName();
     
         if (!file_exists($config_file)){
-            //define ("NO_CONFIG_FILE", true);
             return;
         } else {
             config::$vars['coscms_main'] = config::getIniFileArray($config_file, true);
@@ -190,6 +189,21 @@ class config {
             }
         }
         //return load_config_file();
+    }
+    
+    /**
+     * loads a config file were there is a PHP array
+     * the file needs to have a variable called $config e.g.
+     * $config = array ('my_setting' => true')
+     * @param string $filename
+     */
+    public static function loadPHPConfigFile($file) {
+        include $file;
+        if (isset(config::$vars['coscms_main'])) {
+            config::$vars['coscms_main']+= $config;
+        } else {
+            config::$vars['coscms_main'] = $config;
+        }
     }
     
     

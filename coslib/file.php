@@ -1,18 +1,55 @@
 <?php
 
+/**
+ * package contains file class for doing common file tasks
+ * @package coslib
+ * 
+ */
+
+/**
+ * class for doing common file tasks
+ * @package coslib
+ */
 class file {
+    
+    /**
+     * function for getting a file list of a directory (. and .. will not be
+     * collected)
+     *
+     * @param   string  the path to the directory where we want to create a filelist
+     * @param   array   if <code>$options['dir_only']</code> isset only return directories.
+     *                  if <code>$options['search']</code> isset then only files containing
+     *                  search string will be returned
+     * @return  array   entries of all files <code>array (0 => 'file.txt', 1 => 'test.php');</code>
+     */
     public static function getFileList ($dir, $options = null) {
         return get_file_list($dir, $options);
     }
     
+    /**
+     * function for getting a file list recursive
+     * @param string $start_dir the directory where we start
+     * @param string $pattern a given fnmatch() pattern
+     * return array $ary an array with the files found. 
+     */
     public static function getFileListRecursive ($start_dir, $pattern = null) {
         return get_file_list_recursive($start_dir, $pattern);
     }
     
+    /**
+     * method for getting extension of a file
+     * @param string $filename
+     * @return string $extension
+     */
     public static function getExtension ($filename) {
         return $ext = substr($filename, strrpos($filename, '.') + 1);
     }
 
+    /**
+     * method for getting mime type of a file
+     * @param string $path
+     * @return string $mime_type 
+     */
     public static function getMime($path) {
         $result = false;
         if (is_file($path) === true) {
@@ -30,18 +67,26 @@ class file {
         }
         return $result;
     }
+    
+    /**
+     * method for getting first path were coslib exists
+     * @return string $path the full coslib path
+     */
+    public static function getFirstCoslibPath() {
+        $ps = explode(":", ini_get('include_path'));
+        foreach($ps as $path) {
+            $coslib = $path . "/coslib";
+            if(file_exists($coslib)) {
+                return $coslib;
+            }
+        }
+    }
 }
-
-/**
- * function for getting a file list of a directory (. and .. will not be
- * collected)
- *
- * @param   string  the path to the directory where we want to create a filelist
- * @param   array   if <code>$options['dir_only']</code> isset only return directories.
- *                  if <code>$options['search']</code> isset then only files containing
- *                  search string will be returned
- * @return  array   entries of all files <code>array (0 => 'file.txt', 1 => 'test.php');</code>
+/*
+ * @deprecated
+ * @see file::getFileList
  */
+
 function get_file_list($dir, $options = null){
     if (!file_exists($dir)){
         return false;
@@ -70,10 +115,8 @@ function get_file_list($dir, $options = null){
 }
 
 /**
- * function for getting a file list recursive
- * @param string $start_dir the directory where we start
- * @param string $pattern a given fnmatch() pattern
- * return array $ary an array with the files found. 
+ * @deprecated use file::getFileListRecursive($start_dir)
+ * 
  */
 function get_file_list_recursive($start_dir, $pattern = null) {
 

@@ -1,4 +1,3 @@
-#!/usr/bin/php
 <?php
 
 /**
@@ -7,22 +6,11 @@
  * @package     shell
  */
 
-
-
-/**
- * @ignore
- */
-define('_COS_PATH', realpath(dirname($_SERVER['SCRIPT_FILENAME']) . '/..'));
-define('_COS_CLI', 1);
-
 include_once "coslib/head.php";
-// include all common classes
 include_once "coslib/file.php";
 include_once "coslib/strings.php";
 include_once 'Console/CommandLine.php';
 include_once "Console/Color.php";
-//include_once "coslib/lang.php";
-//include_once "coslib/moduleloader.php";
 include_once "coslib/moduleInstaller.php";
 include_once "coslib/shell_base/common.inc";
 
@@ -81,8 +69,7 @@ class mainCli {
             )
         );        
     }
-    // }}}
-    // {{{ function setCommand($command, $options)
+
     /**
      * method for setting a command
      *
@@ -93,8 +80,6 @@ class mainCli {
         self::$command = self::$parser->addCommand($command, $options);
     }
 
-    // }}}
-    // {{{ setOptions ($command, $options)
     /**
      * method for setting an option
      *
@@ -105,8 +90,7 @@ class mainCli {
     static function setOption ($command, $options){
         self::$command->addOption($command, $options);
     }
-    // }}}
-    // {{{ function setArgument($argument, $options){
+
     /**
      * method for setting an argument
      *
@@ -116,14 +100,18 @@ class mainCli {
     static function setArgument($argument, $options){
         self::$command->addArgument($argument, $options);
     }
-    // }}}
-    // {{{ function run ()
+
     /**
-     * method for running the parser
-     *
+     * method for running the commandline parser
+     * @param  array    $options array ('disable_base_modules' => true, 
+     *                                  'disable_db_modules => true) 
+     * 
+     *                  If we only use the coslib as a lib we may 
+     *                  disable loading of base or db modules
+     *                              
      * @return  int     0 on success any other int is failure
      */
-    static function run(){
+    static function run($options = array ()){
         try {
             $ret = 0;
             
@@ -132,11 +120,15 @@ class mainCli {
             // base modules which may be set
            
             config::loadMain();
+            
             // load all modules
-            mainCli::loadBaseModules();
-
-
-            mainCli::loadDbModules();
+            if (!isset($options['disable_base_modules'])) {
+                mainCli::loadBaseModules();
+            }
+            if (!isset($options['disable_db_modules'])) {
+                mainCli::loadDbModules();
+            }
+            
                      
             
             $result = self::$parser->parse();
@@ -203,12 +195,11 @@ class mainCli {
             self::$parser->displayError($e->getMessage());
         }        
     }
-    // }}}
-    // {{{ loadCliModules ()
-    public static function loadDbModules (){
-        // check if a connection exists.
 
-        
+    /**
+     * loads all modules in database
+     */
+    public static function loadDbModules (){        
         $db = new db();
         $ret = @$db->connect(array('dont_die' => 1));
       
@@ -243,18 +234,18 @@ class mainCli {
         }
     }
     
-    static function loadBaseModules () {
-        $command_path = _COS_PATH . "/coslib/shell_base";
-
+    /**
+     * loads all base modules
+     * base modules are placed in coslib/shell_base
+     */
+    public static function loadBaseModules () {
+        $coslib_path = file::getFirstCoslibPath();
+        $command_path = $coslib_path . '/shell_base';
         $file_list = file::getFileList($command_path);
-        
+
         foreach ($file_list as $key => $val){
-            $path =  _COS_PATH . "/coslib/shell_base/$val";
+            $path =  $command_path . "/$val";
             include_once $path;
         }
     }
 }
-
-mainCli::init();
-
-mainCli::run();
