@@ -24,7 +24,7 @@ mainCli::setOption( 'force_confirm_readline', array(
 ));
 
 mainCli::setArgument(
-    'Version',
+    'version',
     array('description'=> 'Specify the version to upgrade or downgrade to',
         'optional' => true,
 ));

@@ -17,16 +17,16 @@ function install_menu($options){
     
 
     // check if module exists in modules dir
-    $module_path = config::getModulePath($options['Module']);
+    $module_path = config::getModulePath($options['module']);
     if (!file_exists($module_path)){
-        cos_cli_print("Module $options[Module] does not exists in modules dir. ");
+        cos_cli_print("module $options[module] does not exists in modules dir. ");
         //cos_cli_abort();
     }
 
     $mod = new moduleInstaller($options);
     $res = $mod->insertMenuItem();
     if ($res) {
-        cos_cli_print("Main menu item for $options[Module] inserted");
+        cos_cli_print("Main menu item for $options[module] inserted");
     }  
 }
 
@@ -34,7 +34,7 @@ function install_all (){
 
     $mods = moduleInstaller::getModules();
     foreach ($mods as $key => $val){
-        $options = array('Module' => $val['module_name']);
+        $options = array('module' => $val['module_name']);
         //$mod = new moduleInstaller($options);
         //$mod->insertMenuItem();
         install_menu($options);
@@ -46,7 +46,7 @@ function uninstall_all (){
 
     $mods = moduleInstaller::getModules();
     foreach ($mods as $key => $val){
-        $options = array('Module' => $val['module_name']);
+        $options = array('module' => $val['module_name']);
         //$mod = new moduleInstaller($options);
         //$mod->deleteMenuItem();
         uninstall_menu($options);
@@ -62,16 +62,16 @@ function uninstall_all (){
  */
 function uninstall_menu($options){
     // check if module exists in modules dir
-    $module_path = _COS_PATH . '/modules/' . $options['Module'];
+    $module_path = _COS_PATH . '/modules/' . $options['module'];
     if (!file_exists($module_path)){
-        cos_cli_print("Module $options[Module] does not exists in modules dir. ");
+        cos_cli_print("module $options[module] does not exists in modules dir. ");
         //cos_cli_abort();
     }
 
     $menu = new moduleInstaller($options);
-    $res = $menu->deleteMenuItem($options['Module']);
+    $res = $menu->deleteMenuItem($options['module']);
     if ($res) {
-        cos_cli_print("Main menu item for $options[Module] deleted");
+        cos_cli_print("Main menu item for $options[module] deleted");
     }
 
 }
@@ -110,7 +110,7 @@ mainCli::setOption('uninstall_menu', array(
 
 
 mainCli::setArgument(
-    'Module',
+    'module',
     array('description'=> 'Specify the module to install or upgrade or package',
         'optional' => true,
 ));

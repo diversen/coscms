@@ -89,7 +89,7 @@ class profile  {
 
         include_once "moduleInstaller.php";
         foreach ($modules as $key => $val){
-            $options['Module'] = $val['module_name'];
+            $options['module'] = $val['module_name'];
             $mi = new moduleInstaller($options);
 
             $modules[$key]['public_clone_url'] = $mi->installInfo['PUBLIC_CLONE_URL'];

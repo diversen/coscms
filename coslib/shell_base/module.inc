@@ -13,7 +13,7 @@
  */
 function install_module($options, $return_output = null){
 
-    $str = "Proceeding with install of module '$options[Module]'\n";
+    $str = "Proceeding with install of module '$options[module]'\n";
     $install = new moduleInstaller();
     $install->setInstallInfo($options);
     $ret = $install->install();
@@ -38,9 +38,9 @@ function upgrade_all(){
     //$upgrade->upgradeAll();
     $modules = $upgrade->getModules();
 
-    foreach($modules as $key => $val){
+    foreach($modules as $val){
         // testing if this is working
-        $options = array ('Module' => $val['module_name']);
+        $options = array ('module' => $val['module_name']);
         $upgrade = new moduleInstaller($options);
         $upgrade->upgrade();
 
@@ -72,15 +72,15 @@ function uninstall_module($options){
  */
 function purge_module($options){
     // check if module is set
-    if ( strlen($options['Module']) == 0 ){
-        cos_cli_print("No such module: $options[Module]");
+    if ( strlen($options['module']) == 0 ){
+        cos_cli_print("No such module: $options[module]");
         cos_cli_abort();
     }
 
     // check if module exists
-    $module_path = _COS_PATH . '/modules/' . $options['Module'];
+    $module_path = _COS_PATH . '/modules/' . $options['module'];
     if (!file_exists($module_path)){
-        cos_cli_print("Module already purged: No such module path: $module_path");
+        cos_cli_print("module already purged: No such module path: $module_path");
         cos_cli_abort();
     }
 
@@ -100,19 +100,19 @@ function purge_module($options){
  */
 function upgrade_module($options){
     // check if module exists in modules dir
-    $module_path = _COS_PATH . '/modules/' . $options['Module'];
+    $module_path = _COS_PATH . '/modules/' . $options['module'];
     if (!file_exists($module_path)){
-        cos_cli_print("Module $options[Module] does not exists in modules dir. Try to install first.");
+        cos_cli_print("module $options[module] does not exists in modules dir. Try to install first.");
         cos_cli_print("This means that module exists in modules table. Try uninstall");
         return;
     }
 
     // module exists, compare with remote server
     $upgrade = new moduleInstaller($options);
-    $current_version = $upgrade->installInfo['VERSION'];
+    //$current_version = $upgrade->installInfo['VERSION'];
     
     // upgrade
-    $ret = $upgrade->upgrade($options['Version']);
+    $ret = $upgrade->upgrade($options['version']);
     if (!$ret) {
         print $upgrade->error . "\n";
     } else {
@@ -139,7 +139,7 @@ function force_confirm_readline(){
  * @param array     $options 
  */
 function update_ini_file ($options){
-    $ini_file_path = _COS_PATH . "/modules/$options[Module]/$options[Module].ini";
+    $ini_file_path = _COS_PATH . "/modules/$options[module]/$options[module].ini";
     $ini_dist_path = $ini_file_path . "-dist";
 
     $ini_file = config::getIniFileArray($ini_file_path);
@@ -162,11 +162,11 @@ function update_ini_file ($options){
 
     // install profile.
     if (empty($new_settings)){
-        //cos_cli_print("No new ini file settings for module $options[Module]");
+        //cos_cli_print("No new ini file settings for module $options[module]");
     } else {
         $new_settings_str = array_to_ini_file($new_settings);
         cos_cli_print("New ini file written with updated settings: $ini_file_path");
-        cos_cli_print("These are the new ini settings for module $options[Module]:");
+        cos_cli_print("These are the new ini settings for module $options[module]:");
         cos_cli_print(trim($new_settings_str));
     }
 }
@@ -216,13 +216,13 @@ mainCli::setOption('update_ini_file', array(
 ));
 
 mainCli::setArgument(
-    'Module',
+    'module',
     array('description'=> 'Specify the module to install or upgrade or package',
         'optional' => true,
 ));
 
 mainCli::setArgument(
-    'Version',
+    'version',
     array('description'=> 'Specify the version to upgrade or downgrade to',
         'optional' => true,
 ));

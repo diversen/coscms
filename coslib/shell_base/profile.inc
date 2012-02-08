@@ -46,7 +46,10 @@ function create_profile($options) {
     $pro->createProfile($options['profile']);
 }
 
-
+/**
+ * 
+ * @param type $options 
+ */
 function upgrade_from_profile ($options){
     // use profile object
     $pro = new profile();
@@ -62,7 +65,7 @@ function upgrade_from_profile ($options){
             //$val['module_version'] = 'master';
         }
                
-        $val['Module'] = $val['module_name'];
+        $val['module'] = $val['module_name'];
 
         $module = new moduleInstaller($val);
 
@@ -87,6 +90,41 @@ function upgrade_from_profile ($options){
 
         // no db operations. Just clone version.
         git_install($val, 'template');
+    }
+}
+
+
+function install_from_profile ($options){
+    // use profile object
+    $pro = new profile();
+    $pro->setProfileInfo($options['profile']);
+
+    foreach ($pro->profileModules as $key => $val){
+        $val['module'] = $val['module_name'];
+        $val['version'] = $val['module_version'];
+
+        $module = new moduleInstaller($val);
+        if ($module->isInstalled($val['module_name'])){
+            upgrade_module($val);
+        } else {
+            install_module($val);
+        }
+    }
+
+    // install templates
+    foreach ($pro->profileTemplates as $key => $val){
+        // TODO: check if template is installed.
+        // e.g. : $template = new templateInstaller($template);
+        //$val['repo'] = $val['public_clone_url'];
+        //$val['version'] = $val['module_version'];
+
+        //if (isset(config::$vars['profile_use_master'])) {
+        //    $val['version'] = 'master';
+            //$val['module_version'] = 'master';
+        //}
+
+        // no db operations. Just clone version.
+        //git_install($val, 'template');
     }
 }
 
@@ -179,6 +217,12 @@ mainCli::setOption('upgrade_from_profile', array(
     'long_name'   => '--all-up',
     'description' => 'Will upgrade from specified profile. If new module or templates 
         exists they will be installed. ',
+    'action'      => 'StoreTrue'
+));
+
+mainCli::setOption('install_from_profile', array(
+    'long_name'   => '--all-in',
+    'description' => 'Will install all modules from specified profile',
     'action'      => 'StoreTrue'
 ));
 

@@ -100,7 +100,7 @@ function git_install ($options, $type = 'module'){
         cos_cli_abort('Install command need a valid repo name');
     }
 
-    $options['Module'] = $module_name;
+    $options['module'] = $module_name;
 
     $ret = git_clone ($options, $type);
     if ($type == 'module'){
@@ -369,14 +369,14 @@ function git_tag_all_files ($options){
 
     $modules = profile::getModules();
     foreach ($modules as $key => $val){
-        $val['Module'] = $val['module_name'];
+        $val['module'] = $val['module_name'];
         $val['new_version'] = $version;
         _git_tag_install_file($val, 'module');
     }
 
     $templates = profile::getAllTemplates();
     foreach ($templates as $key => $val){
-        $val['Module'] = $val['module_name'];
+        $val['module'] = $val['module_name'];
         $val['new_version'] = $version;
         _git_tag_install_file($val, 'template');
     }
@@ -476,19 +476,19 @@ function git_upgrade ($val, $tag = 'master', $type = 'module'){
     if ($type == 'module'){
         // sorry - but it is called with a diffrent name in the upgrade_module
         // function ...
-        $val['Module'] = $val['module_name'];
+        $val['module'] = $val['module_name'];
 
         // when version is set to null we upgrade to latest possible
-        $val['Version'] = null;
+        $val['version'] = null;
         upgrade_module($val);
     }
     
     if ($type == 'template'){
         // TODO: What to do on template upgrade. 
-        //$val['Module'] = $val['module_name'];
+        //$val['module'] = $val['module_name'];
 
         // when version is set to null we upgrade to latest possible
-        //$val['Version'] = null;
+        //$val['version'] = null;
         //upgrade_module($val);
     }
 

@@ -20,7 +20,7 @@ function translate($options){
     $strings_all = array();
     $strings_all[] = '';
 
-    $module_dir = _COS_PATH . "/modules/$options[Module]";
+    $module_dir = _COS_PATH . "/modules/$options[module]";
     
     // don't translate if we don't have a module dir.
     if (!file_exists($module_dir)){
@@ -79,7 +79,7 @@ function translate($options){
 
     }
 
-    $lang_dir = _COS_PATH . "/modules/$options[Module]/lang/$options[Language]";
+    $lang_dir = _COS_PATH . "/modules/$options[module]/lang/$options[Language]";
     if (!file_exists($lang_dir)){
         $res = mkdir($lang_dir);
         if ($res){
@@ -118,7 +118,7 @@ function translate($options){
  */
 function translate_update($options){
 
-    $module_dir = _COS_PATH . "/modules/$options[Module]";
+    $module_dir = _COS_PATH . "/modules/$options[module]";
     if (!file_exists($module_dir)){
         cos_cli_abort('No such module dir: ' . $module_dir);
     }
@@ -179,7 +179,7 @@ function translate_update($options){
     }
 
 
-    $lang_dir = _COS_PATH . "/modules/$options[Module]/lang/$options[Language]";
+    $lang_dir = _COS_PATH . "/modules/$options[module]/lang/$options[Language]";
     if (!file_exists($lang_dir)){
         $res = mkdir($lang_dir);
         if ($res){
@@ -215,7 +215,7 @@ mainCli::setOption('translate_update', array(
     'action'      => 'StoreTrue'
 ));
 
-mainCli::setArgument('Module',
+mainCli::setArgument('module',
     array('description'=> 'Specicify the module for which you will make a translation',
           'optional' => false));
 

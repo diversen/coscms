@@ -78,7 +78,7 @@ class moduleInstaller extends db {
      */
     public function setInstallInfo($options){
 
-        $module_name = $options['Module'];
+        $module_name = $options['module'];
         $module_dir = _COS_PATH . "/modules/$module_name";
         $ini_file = $module_dir . "/$module_name.ini";
         $ini_file_dist = $module_dir . "/$module_name.ini-dist";
@@ -532,7 +532,7 @@ class moduleInstaller extends db {
         $ret = $this->isInstalled();
         if ($ret){
             $info = $this->getModuleInfo();
-            $this->error = "Error: Module '" . $this->installInfo['NAME'] . "' version '$info[module_version]'";
+            $this->error = "Error: module '" . $this->installInfo['NAME'] . "' version '$info[module_version]'";
             $this->error.= " already exists in module registry!";
             return false;
         }
@@ -548,7 +548,7 @@ class moduleInstaller extends db {
         $this->insertLanguage();
         $this->insertMenuItem();
 
-        $this->confirm = "Module '" . $this->installInfo['NAME'] . "' ";
+        $this->confirm = "module '" . $this->installInfo['NAME'] . "' ";
         $this->confirm.= "version '"  . $this->installInfo['VERSION'] . "' ";
         $this->confirm.= "installed";
         return true;  
@@ -565,7 +565,7 @@ class moduleInstaller extends db {
         $specific = 0;
 
         if (!$this->isInstalled()){
-            $this->error = "Module '" . $this->installInfo['NAME'];
+            $this->error = "module '" . $this->installInfo['NAME'];
             $this->error .= "' does not exists in module registry!";
             return false;
         }
@@ -603,7 +603,7 @@ class moduleInstaller extends db {
 
         // set a confirm message
         if (isset($commit)){
-            $this->confirm = "Module '" . $this->installInfo['NAME'] . "' ";
+            $this->confirm = "module '" . $this->installInfo['NAME'] . "' ";
             $this->confirm.= "version '" . $this->installInfo['VERSION'] . "' ";
             $this->confirm.= "uninstalled";
             return true;
@@ -635,7 +635,7 @@ class moduleInstaller extends db {
      *          it means we upgrade. We also upgrade modules table in database
      *          so we know at which version we are.
      *
-     *          Therefore: Current Version is the version found in the database.
+     *          Therefore: Current version is the version found in the database.
      *          If we have downloadéd a more recent version of module then specified
      *          in modules table we will examine list of up files. And upgrade to
      *          latest.
@@ -681,7 +681,7 @@ class moduleInstaller extends db {
             }
 
             if (!isset($version_exists)){
-                $this->error = 'Module SQL ' . $this->installInfo['NAME'] . " ";
+                $this->error = 'module SQL ' . $this->installInfo['NAME'] . " ";
                 $this->error.= 'does not have such a version. Possible version are: ';
                 $this->error.= $possible_versions;
                 //return false;
@@ -702,7 +702,7 @@ class moduleInstaller extends db {
                                 $result = self::$dbh->query($sql_val);
                             } catch (Exception $e) {
                                  echo 'Caught exception: ',  $e->getMessage(), "\n";
-                                 echo "Version of sql: $version";
+                                 echo "version of sql: $version";
                                  die;;
                             }
                         }
@@ -721,12 +721,12 @@ class moduleInstaller extends db {
         $this->updateRegistry($specific, $row['id']);
         if ( $specific > $current_version ){
             //self::$dbh->commit();
-            $this->confirm = "Module: '" . $this->installInfo['NAME'] . "' ";
-            $this->confirm.= "Version: '" . $specific . " Installed. " . "' ";
+            $this->confirm = "module: '" . $this->installInfo['NAME'] . "' ";
+            $this->confirm.= "version: '" . $specific . " Installed. " . "' ";
             $this->confirm.= "Upgraded from $current_version";
             return true;
         } else {
-            $this->confirm = "Module: " . $this->installInfo['NAME'] . " Nothing to upgrade. Module version is still $current_version";
+            $this->confirm = "module: " . $this->installInfo['NAME'] . " Nothing to upgrade. module version is still $current_version";
             return true;
         }
     }

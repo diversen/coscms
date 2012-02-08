@@ -268,7 +268,7 @@ class moduleLoader {
 
         if (!$this->isInstalledModule($info['module_base_name'])){
             self::$status[404] = 1;
-            $mes = "Module not installed: ";
+            $mes = "module not installed: ";
             $mes.= $info['module_base_name'];
             error_log($mes);
             //session::setActionMessage($mes);

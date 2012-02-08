@@ -40,7 +40,7 @@ function install($options = false) {
     foreach ($pro->profileModules as $key => $val){
         $options['repo'] = $val['public_clone_url'];
         $options['version'] = $val['module_version'];
-        $options['Module'] = $val['module_name'];
+        $options['module'] = $val['module_name'];
         git_install($options, 'module');
     }
     

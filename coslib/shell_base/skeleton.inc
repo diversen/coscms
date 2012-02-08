@@ -10,13 +10,13 @@
  * function for creating a skeleton for a module. We are just
  * using shell command touch for creating the files.
  *
- * @param   array   e.g: <code>array('Module' => 'test')</code> This will create
+ * @param   array   e.g: <code>array('module' => 'test')</code> This will create
  *                  the following folder /modules/test containing base files
  *                  used when writing a module
  * @return  int     result from shell operation 0 is success
  */
 function create_module_skeleton($args){
-    $module_name = $args['Module'];
+    $module_name = $args['module'];
     $ary = explode('/', $module_name);
     $module_path = _COS_PATH . '/modules/' . $module_name;
     
@@ -89,7 +89,7 @@ mainCli::setOption('create_module_skeleton', array(
     'action'      => 'StoreTrue'
 ));
 
-mainCli::setArgument('Module', array('description'=> 'Specify the module to create skeleton for'));
+mainCli::setArgument('module', array('description'=> 'Specify the module to create skeleton for'));
 
 
 ?>
