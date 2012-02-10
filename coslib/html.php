@@ -105,6 +105,45 @@ class HTML {
     public static function setValues ($values) {
         self::$values = $values;
     }
+    
+    /**
+     * method for starting a html form with options as an array
+     * @param array $options array ('name' => 'test_fomr', 'enctype'=> ...
+     *                              'class => 'this form', 'id => 'bla');
+     * @return string $str the form start 
+     */
+    public static function formStartAry (
+        $options = array ()) {
+        if (!isset($options['enctype'])) {
+            $options['enctype'] = 'multipart/form-data';
+        } 
+        
+        if (!isset($options['name'])) {
+            $options['name'] = 'form';
+        }
+
+        if (!isset($options['method'])) {
+            $options['method'] = 'post';
+        }
+        
+        
+        
+        $extra = self::parseExtra($options);
+        if (!isset($options['action'])) {
+            $extra.= "action =\"\"";
+        }
+        
+        $str = '';
+        
+        //$str.= '<a class="do_hide collpase">Hide</a>&nbsp;';
+        //$str.= '<a class="do_show">Show</a>';
+        //$str.= "<div class=\"collapse\">\n";      
+        $str.= "<form $extra>\n";
+        $str.= "<fieldset>\n";
+        
+        self::$fields[] = array ('value' => $str);
+        return $str;
+    }
 
     /**
      * method for starting a html form
@@ -117,6 +156,8 @@ class HTML {
     public static function formStart (
         $name = 'form', $method ='post', $action = '',
         $enctype = "multipart/form-data") {
+        
+        
         $str = "";
         
         //$str.= '<a class="do_hide collpase">Hide</a>&nbsp;';

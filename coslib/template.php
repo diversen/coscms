@@ -232,10 +232,12 @@ abstract class template {
 
 
     /**
-     * method for setting css files to be used by user templates
-     * @param   string   string pointing to the path of the javascript
-     * @param   int      int. the loading order of javascript 0 is first > 0 is
+     * method for setting js files to be used by user templates. This is
+     * used with javascripts which are placed in web space.
+     * @param   string   $url pointing to the path of the javascript
+     * @param   int      $order. the loading order of javascript 0 is first > 0 is
      *                   later.
+     * $param   array    $options
      */
     public static function setJs($js_url, $order = null, $options = null){
         
@@ -265,7 +267,8 @@ abstract class template {
     
     /**
      * Will load the js as file and place and add it to array which can
-     * be parsed in user templates.
+     * be parsed in user templates. This is used with js files that exists
+     * outside webspace, e.g. in modules
      * 
      * @param   string   $js file path of the javascript
      * @param   int      $order the loading order of javascript 0 is first > 0 is
@@ -292,7 +295,7 @@ abstract class template {
 
     /**
      * method for getting all inline js as a string
-     * @return  string  the css as a string
+     * @return  string  $str the js as a string
      */
     public static function getInlineJs($section = null){
         $str = "";
@@ -310,8 +313,8 @@ abstract class template {
     /**
      * method for setting user css used inline in user templates.
      *
-     * @param   string   string file path of the css
-     * @param   int      int. the loading order of css 0 is first > 0 is
+     * @param   string   $str string file path of the css
+     * @param   int      $order. the loading order of css 0 is first > 0 is
      *                   later.
      */
     public static function setInlineCss($css, $order = null, $options = array()){
