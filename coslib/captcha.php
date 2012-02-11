@@ -101,7 +101,8 @@ class captcha {
     // }}}
     public static function genRandomString() {
         $length = 8;
-        $characters = '0123456789abcdefghijklmnopqrstuvwxyz';
+        //$characters = '0123456789abcdefghijklmnopqrstuvwxyz';
+        $characters = '0123456789';
         $string ='';    
 
         for ($p = 0; $p < $length; $p++) {
@@ -131,6 +132,6 @@ class captcha {
 
         $options = array ('align' => 'top');
         $options['title'] = lang::translate('system_captcha_alt_image');
-        return "* " . html::createImage('/image_captcha/index', $options);
+        return lang::system('captcha_numbers') . ' ' . html::createImage('/image_captcha/index', $options);
     }
 }
