@@ -61,8 +61,7 @@ function mail_utf8($to, $subject, $message, $from = null, $reply_to=null) {
         $log.= "RESULT $res\n";
 
         if (isset(config::$vars['coscms_main']['debug'])){
-            $log_file = _COS_PATH . '/logs/coscms.log';
-            cos_error_log($log, 3, $log_file);
+            cos_error_log($log);
         }
         return $res;
     } else {
@@ -70,8 +69,7 @@ function mail_utf8($to, $subject, $message, $from = null, $reply_to=null) {
         $log.= "Subject: $subject\n";
         $log.= "Message: $message\n";
         $log.= "Header: $headers\n";
-        $log_file = _COS_PATH . '/logs/coscms.log';
-        cos_error_log($log, 3, $log_file);
+        cos_error_log($log);
         return 1;
     }
 }

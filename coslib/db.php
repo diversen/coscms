@@ -526,6 +526,7 @@ class db {
             // continue if field value is 'submit' or 'captcha'
             if ($key == 'submit') continue;
             if ($key == 'submitted') continue;
+            if ($key == 'password2') continue;
             if ($key == 'captcha') continue;
             if ($key == 'MAX_FILE_SIZE') continue;
             if (strstr($key, 'method')) continue;
