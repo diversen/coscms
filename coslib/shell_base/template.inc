@@ -20,7 +20,7 @@ include_once "coslib/profile.php";
 function set_template($options){
     $template = $options['template'];
     $pro = new profile();
-    $pro->setProfileTemplate($template);
+    return $pro->setProfileTemplate($template);
 }
 
 

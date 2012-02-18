@@ -10,6 +10,21 @@
  * @package     shell
  */
 
+/*
+ *
+ * @return array $database containing array('name' => database, 'host' => 'host')
+ */
+function get_db_info(){
+    $url = parse_url(config::$vars['coscms_main']['url']);
+    $ary = explode (';', $url['path']);
+    $db = explode ("=", $ary[0]);
+    $database = array();
+    $database['name'] = $db[1];
+    $host = explode ("=", $ary[1]);
+    $database['host'] = $host[1];
+    return $database;
+}
+
 // {{{ create_db() 
 /**
  * function for creating a database for creds in config.ini
@@ -153,7 +168,7 @@ function get_latest_db_dump($dir = null, $num_files = null){
     }
     $list = file::getFileList($dir);
     $time_stamp = 0;
-    foreach ($list as $key => $val){
+    foreach ($list as $val){
         $file = explode('.', $val);
         if (is_numeric($file[0])){
             if ($file[0] > $time_stamp){

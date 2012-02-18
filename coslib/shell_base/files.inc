@@ -33,7 +33,8 @@ function chmod_files(){
     $owner = exec('whoami');
 
     $files_path = _COS_PATH . '/htdocs/files ';
-    $files_path.= _COS_PATH . '/logs/coscms.log';
+    $files_path.= _COS_PATH . '/logs/coscms.log ';
+    $files_path.= _COS_PATH . '/config/multi';
     $command = "sudo chown -R $owner:$group $files_path";
     cos_exec($command);
     $command = "sudo chmod -R 770 $files_path";

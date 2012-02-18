@@ -30,6 +30,13 @@ function install_module($options, $return_output = null){
     }
 }
 
+function install_module_silent ($options) {
+    //$str = "Proceeding with install of module '$options[module]'\n";
+    $install = new moduleInstaller();
+    $install->setInstallInfo($options);
+    return $install->install();
+}
+
 /**
  * function for upgrading all modules
  */
@@ -156,7 +163,7 @@ function update_ini_file ($options){
     }
 
     // write it to ini file
-    $content = array_to_ini_file($ini_file);
+    $content = config::arrayToIniFile($ini_file);
 
     file_put_contents($ini_file_path, $content);
 
@@ -164,7 +171,7 @@ function update_ini_file ($options){
     if (empty($new_settings)){
         //cos_cli_print("No new ini file settings for module $options[module]");
     } else {
-        $new_settings_str = array_to_ini_file($new_settings);
+        $new_settings_str = config::arrayToIniFile($new_settings);
         cos_cli_print("New ini file written with updated settings: $ini_file_path");
         cos_cli_print("These are the new ini settings for module $options[module]:");
         cos_cli_print(trim($new_settings_str));

@@ -144,6 +144,14 @@ class db {
         }
         return array();
     }
+    
+    public function createDB ($db) {
+        $sql = '';
+        $sql.= "CREATE DATABASE IF NOT EXISTS  `$db` ";
+        $sql.= "DEFAULT CHARACTER SET utf8";
+        $stmt = $this->rawQuery($sql);
+        return $stmt->execute();
+    }
 
     /**
      * Method for easy selecting from one table

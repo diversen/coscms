@@ -76,22 +76,9 @@ function cos_cli_abort($str = null){
     exit(16);
 }
 // }}}
-// {{{ get_db_info()
-/*
- *
- * @return <array> $database containing array('name' => database, 'host' => 'host')
- */
-function get_db_info(){
-    $url = parse_url(config::$vars['coscms_main']['url']);
-    $ary = explode (';', $url['path']);
-    $db = explode ("=", $ary[0]);
-    $database['name'] = $db[1];
-    $host = explode ("=", $ary[1]);
-    $database['host'] = $host[1];
-    return $database;
-}
 
-// }}}
+
+
 // {{{ cos_exec($command)
 /**
  * function for executing commands with php built-in command exec
@@ -182,31 +169,4 @@ function cos_is_cli (){
         return false;
     }
     return true;
-}
-
-/**
- *
- * @param   array     ini array read from ini file with parse_ini_file
- * @return  string    ini file readable by parse_ini_file
- */
-function array_to_ini_file($ary){
-    $content = '';
-    foreach ($ary as $key => $val){
-        if (is_array($val)){
-            foreach ($val as $k => $v){
-                if(is_numeric($val) || is_bool($val)){
-                    $content.= "{$key}[$k] = {$v}\n";
-                } else {
-                    $content.= "{$key}[$k] = \"{$v}\"\n";
-                }
-            }
-        } else {
-            if(is_numeric($val) || is_bool($val)){
-                $content.= "{$key} = {$val}\n";
-            } else {
-                $content.= "{$key} = \"{$val}\"\n";
-            }
-        }
-    }
-    return $content;
 }

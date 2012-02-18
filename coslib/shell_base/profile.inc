@@ -99,32 +99,25 @@ function install_from_profile ($options){
     $pro = new profile();
     $pro->setProfileInfo($options['profile']);
 
+    $final = true;
     foreach ($pro->profileModules as $key => $val){
         $val['module'] = $val['module_name'];
         $val['version'] = $val['module_version'];
 
+        
         $module = new moduleInstaller($val);
         if ($module->isInstalled($val['module_name'])){
             upgrade_module($val);
         } else {
-            install_module($val);
+            $ret = install_module_silent($val);
+            if (!$ret) $final = false;
         }
     }
 
+    return $final;
     // install templates
     foreach ($pro->profileTemplates as $key => $val){
-        // TODO: check if template is installed.
-        // e.g. : $template = new templateInstaller($template);
-        //$val['repo'] = $val['public_clone_url'];
-        //$val['version'] = $val['module_version'];
-
-        //if (isset(config::$vars['profile_use_master'])) {
-        //    $val['version'] = 'master';
-            //$val['module_version'] = 'master';
-        //}
-
-        // no db operations. Just clone version.
-        //git_install($val, 'template');
+        
     }
 }
 
@@ -147,13 +140,13 @@ function upgrade_config_ini_file ($options){
 
 
     //print_r($ary); die;
-    $content = array_to_ini_file($ary);
+    $content = config::arrayToIniFile($ary);
     file_put_contents($ini_file_path, $content);
 
     if (empty($ary_diff)){
         cos_cli_print("No new ini file settings for config.ini");
     } else {
-        $new_settings_str = array_to_ini_file($ary_diff);
+        $new_settings_str = config::arrayToIniFile($ary_diff);
         cos_cli_print("New ini file written to: $ini_file_path");
         cos_cli_print("These are the new ini settings for config.ini");
         cos_cli_print(trim($new_settings_str));
@@ -174,6 +167,7 @@ function profile_use_master ($options){
     $pro->setMaster();
 }
 
+if (cos_is_cli()){
 mainCli::setCommand('profile', array(
     'description' => 'load or create a profile from current settings. A profile is 
 folder located in profiles dir, which consists of ini files for all modules and
@@ -236,3 +230,5 @@ mainCli::setOption('upgrade_config_ini_file', array(
 mainCli::setArgument('profile',
     array('description'=> 'specify the profile to create or install',
           'optional' => false));
+
+}

@@ -141,6 +141,7 @@ class mainCli {
             $domain = $result->options['domain'];
             config::$vars['domain'] = $domain;
 
+            
             // if a not standard domain is given - we now need to load
             // the config file again - in order to tell system which database
             // we want to use. E.g. such a database may have been set in 
@@ -149,6 +150,10 @@ class mainCli {
             
             config::loadMain();
            
+            // and connect
+            $db = new db();
+            $ret = @$db->connect(array('dont_die' => 1));
+            
             if (is_object($result) && isset($result->command_name)){
                 if (isset($result->command->options)){
                     foreach ($result->command->options as $key => $val){
@@ -219,9 +224,9 @@ class mainCli {
 
         $modules = moduleLoader::getAllModules();
 
-        foreach ($modules as $key => $val){
+        foreach ($modules as $val){
             if (isset($val['is_shell']) && $val['is_shell'] == 1){
-                $command_path = _COS_PATH . "/modules/$val[module_name]";
+                //$command_path = _COS_PATH . "/modules/$val[module_name]";
                 $path =  _COS_PATH . "/modules/$val[module_name]/$val[module_name].inc";
                 
                 if (file_exists($path)) {
@@ -232,6 +237,8 @@ class mainCli {
                 self::$ini[$val['module_name']] = config::getIniFileArray($ini);
             }
         }
+        
+        //db::$dbh = null;
     }
     
     /**
@@ -243,7 +250,7 @@ class mainCli {
         $command_path = $coslib_path . '/shell_base';
         $file_list = file::getFileList($command_path);
 
-        foreach ($file_list as $key => $val){
+        foreach ($file_list as $val){
             $path =  $command_path . "/$val";
             include_once $path;
         }
