@@ -386,6 +386,8 @@ class moduleLoader {
             self::$referenceId = $reference_id;
             self::$referenceLink = $class::getLinkFromId(moduleLoader::$referenceId);
             self::$referenceRedirect = $class::getRedirect(moduleLoader::$referenceId);
+            self::$referenceRedirect = html::getUrl(self::$referenceRedirect);
+            
             return true;
         }
         return false;
