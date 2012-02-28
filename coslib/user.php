@@ -90,7 +90,7 @@ class user {
 
             moduleLoader::includeModule ($profile_system);
 
-            $profile_object = moduleLoader::modulePathToClassName($profile_system);
+            $profile_object = $profile_system;
             self::$profile_object = new $profile_object();
             $link = self::$profile_object->getProfile($user, $text);
 

@@ -51,9 +51,7 @@ class moduleLoader {
      * @param array $modules all enabled modules
      */
     public function __construct(){
-        //$this->connect();
         self::$modules = self::getAllModules(); //$this->selectAll('modules');
-        //print_r($this->modules);
         $this->setLevels();
 
         if (!isset(config::$vars['coscms_main']['module'])){
@@ -799,7 +797,7 @@ function include_filters ($filter){
     }
 
     if (is_array ($filter)){
-        foreach($filter as $key => $val){
+        foreach($filter as  $val){
             if (isset($loaded[$val])) continue;
             $class_path = _COS_PATH . "/modules/filter_$val/$val.inc";
             include_once $class_path;
@@ -839,7 +837,7 @@ function get_filters_help ($filters) {
 function get_filtered_content ($filter, $content){   
     if (!is_array($filter)){
         moduleLoader::includeFilters($filter);
-        $class = 'filter' . ucfirst($filter);
+        $class = 'filter_' . $filter;
         $filter_class = new $class;
 
         if (is_array($content)){
@@ -856,7 +854,7 @@ function get_filtered_content ($filter, $content){
     if (is_array ($filter)){
         foreach($filter as $key => $val){
             moduleLoader::includeFilters($val);
-            $class = 'filter' . ucfirst($val);
+            $class = 'filter_' .$val; 
             $filter_class = new $class;
             if (is_array($content)){
                 foreach ($content as $key => $val){
