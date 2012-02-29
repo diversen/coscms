@@ -58,9 +58,6 @@ class layout {
      * database, while all module or submodule menus are generated from
      * files (menu.inc).
      * 
-     * XXX: The translation of the menu item is loaded. We should change this
-     * so only the untranslated string is loaded. Will make it easier to 
-     * make the site compleate multi lingual
      */
     public function loadMenus(){
         $num = uri::getInstance()->numFragments();

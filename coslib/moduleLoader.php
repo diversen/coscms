@@ -370,8 +370,7 @@ class moduleLoader {
         // because imagine this situation
         //$id = uri::$fragments[$frag_id];
         $reference_id = uri::$fragments[$frag_reference_id];
-        
-        // XXX Also Check for int > 0
+
         if (!isset($reference)){
             return false;
         }
@@ -513,7 +512,6 @@ class moduleLoader {
             $ini_file = _COS_PATH . "/htdocs/templates/$module/$module.ini";
         }
         
-        // XXX: check Memcache - if found don't read. 
         if (!file_exists($ini_file)) {
             cos_error_log("Notice: Trying to load ini file $ini_file in " . __FILE__ . " " . __LINE__);
             return;

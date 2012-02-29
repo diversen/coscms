@@ -81,7 +81,8 @@ class HTML {
             } else {
                 self::$values = $values;
             }
-        } 
+        }
+        self::$values = html::specialEncode(self::$values);
     }
 
     /**

@@ -93,18 +93,6 @@ function disable_cron_line(){
  */
 function enable_cron_line(){
     
-    // check for configuation file
-    //$conf = _COS_PATH . '/scripts/cron.php';
-    //if (!file_exists($conf)){
-        //@TODO: Add create file.
-        //print "No configuration file for cron was found: $conf";
-        //print "Do you want me to create it for you";
-    //    die('No config file was found');
-        //$readline_str = "Do you want to enable cron job for the site [Y/n]? ";
-        
-        
-    //}
-    
     $readline_str = "Do you want to enable cron job for the site [Y/n]? ";
     $y_or_n = strtoupper(cos_readline($readline_str));
     if ($y_or_n == 'Y' || empty($y_or_n)){
