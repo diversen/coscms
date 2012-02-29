@@ -287,7 +287,11 @@ abstract class template {
         }
         
         if (isset($order)){
-            self::$inlineJs[$order] = $str;
+            if (isset(self::$inlineJs[$order])) {
+                self::$inlineJs[] = $str;
+            } else {
+                self::$inlineJs[$order] = $str;
+            }
         } else {
             self::$inlineJs[] = $str;
         }

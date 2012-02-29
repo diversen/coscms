@@ -52,8 +52,8 @@ class user {
 
             moduleLoader::includeModule ($profile_system);
 
-            $profile_object = moduleLoader::modulePathToClassName($profile_system);
-            self::$profile_object = new $profile_object();
+            //$profile_object = moduleLoader::modulePathToClassName($profile_system);
+            self::$profile_object = new $profile_system();
             return self::$profile_object->getProfileInfo($user);
 
         }
@@ -90,7 +90,7 @@ class user {
 
             moduleLoader::includeModule ($profile_system);
 
-            $profile_object = moduleLoader::modulePathToClassName($profile_system);
+            $profile_object = $profile_system;
             self::$profile_object = new $profile_object();
             $link = self::$profile_object->getProfile($user, $text);
 
@@ -160,8 +160,8 @@ class user {
 
             moduleLoader::includeModule ($profile_system);
 
-            $profile_object = moduleLoader::modulePathToClassName($profile_system);
-            $profile_object = new $profile_object();      
+            //$profile_object = moduleLoader::modulePathToClassName($profile_system);
+            $profile_object = new $profile_system();      
             return $profile_object->getProfileEditLink($user_id);
 
         }
