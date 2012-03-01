@@ -329,9 +329,10 @@ abstract class template {
         }
           
         $str = file_get_contents($css);
+        /*
         if (method_exists('mainTemplate', 'assetsReplace')) {
             $str = mainTemplate::assetsReplace($str);
-        }
+        }*/
                 
         if (isset($order)){
             self::$inlineCss[$order] = $str;
@@ -373,9 +374,10 @@ abstract class template {
             }          
         } else {
             $str = file_get_contents($css); 
+            /*
             if (method_exists('mainTemplate', 'assetsReplace')) {
                 $str = mainTemplate::assetsReplace($str);
-            }
+            }*/
             
             file_put_contents($cached_asset, $str);
 
