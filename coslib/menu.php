@@ -64,7 +64,7 @@ class menu {
         $item = array ();
         $item['id'] = $val['id'];
         $item['pid'] = 0;
-        $item['title'] = html::specialEncode($val['title']);
+        $item['title'] = $val['title'];
         $menu[$item['id']] = $item;
     }
 
@@ -76,7 +76,7 @@ class menu {
      */
     public static function menuItemHasChildren ($ary, $id){
         static $ret = 0;
-        foreach ($ary as $key => $val){
+        foreach ($ary as $val){
             if ($val['id'] == $id){
                 if (!empty($val['sub'])){
                     $ret = 1;
@@ -112,10 +112,11 @@ class menu {
      * @param int   item id to update
      */
     public static function updateMenuItem(&$menu, $values, $id){
-        foreach ($menu as $key => &$val) {
+        foreach ($menu as &$val) {
             if (empty($val)) continue;
             if ($val['id'] == $id){
-                $val['title'] = html::specialEncode($values['title']);
+                //strings::utf8Slug($base);
+                $val['title'] = $values['title'];
             }
             if (isset($val['sub'])){
                 self::updateMenuItem($val['sub'], $values, $id);
@@ -130,7 +131,8 @@ class menu {
      * @return      array   str with html displaying the tree
      */
     public static function getTreeHTML($menu, $name, $id){
-        static $stack, $first_done;
+        static $stack = null;
+        static $first_done = null;
 
         if (!isset($stack)){
             $stack = self::getStack($name, $id);
@@ -149,13 +151,15 @@ class menu {
         }
 
         $element = array_shift($stack);
-        foreach ($menu as $key => $val){
+        foreach ($menu as $val){
+
             $str.="<li>" .
             html::createLink(
                     contentArticle::getArticleUrl(
                             $val['id'], $val['title']),
-                    $val['title']);
+                    html::specialEncode($val['title']));
 
+            //echo $val['title'];
             if (!empty($val['sub'])){              
                 if ( $element == $val['id']){
                     self::getTreeHTML($val['sub'], $name, $element);
@@ -196,7 +200,6 @@ class menu {
      * @return      array   str with html displaying the tree
      */
     public static function getManipTreeHTML($ary, $start = null){
-
         static $str = '';
 
         if ($start) {
@@ -205,14 +208,14 @@ class menu {
             $str.= "<ol>\n";
         }
 
-        foreach ($ary as $key => $val){
+        foreach ($ary as $val){
             // no title - item has been deleted.
             if (empty($val['title'])) continue;
             $str.="<li id=\"list_$val[id]\"><div>";
             $str.= html::createLink(
                     contentArticle::getArticleUrl(
                             $val['id'], $val['title']),
-                    $val['title']);
+                    html::specialEncode($val['title']));
             $str.= "</div>";
             if (!empty($val['sub'])){
                 self::getManipTreeHTML($val['sub']);
@@ -244,12 +247,12 @@ class menu {
                 $list[] = array (
                     'id' => $key,
                     'pid' => 0,
-                    'title' => html::specialEncode($art['title']));
+                    'title' => $art['title']);
             } else {
                 $list[] = array (
                     'id' => $key,
                     'pid' => $val,
-                    'title' => html::specialEncode($art['title']));
+                    'title' => $art['title']);
             }
         }
 

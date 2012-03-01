@@ -71,10 +71,15 @@ class strings {
         if (!$title) {
             return $base;
         }
-        $title = self::sanitizeUrlRigid($title);
-        $title = self::rawurlencodeStripSpaces($title);
+        $title = self::utf8SlugString($title);
         $slug = $base . '/' . $title;
         return $slug;        
+    }
+    
+    public static function utf8SlugString ($title) {
+        $title = self::sanitizeUrlRigid($title);
+        $title = self::rawurlencodeStripSpaces($title);
+        return $title;
     }
     
     /**

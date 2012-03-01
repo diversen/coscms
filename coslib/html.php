@@ -428,15 +428,14 @@ class HTML {
      * @return string 
      */
     public static function checkbox ($name, $value = '1', $extra = array ()) {
-        $extra = self::parseExtra($extra);
-        
         $value = self::setValue($name, $value);
         if ($value){
-            $extra.= " checked=\"yes\" ";
-        }
-
+            $extra['checked'] = "yes";
+        } 
+        
+        $extra = self::parseExtra($extra);
         $str = "<input type=\"checkbox\" name=\"$name\" value=\"1\" $extra />" . self::$br . "\n";
-        self::$fields[] = array ('value' => $str);
+        self::$fields[] = array ('value' => $str, 'type' => 'checkbox');
         return $str;
     }
 
