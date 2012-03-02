@@ -82,7 +82,6 @@ class HTML {
                 self::$values = $values;
             }
         }
-        self::$values = html::specialEncode(self::$values);
     }
 
     /**

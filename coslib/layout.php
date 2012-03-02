@@ -452,6 +452,19 @@ class layout {
 
         $ret_blocks = array();
         foreach ($blocks as $key => $val) {
+            
+            // numeric is custom block
+            if (is_numeric($val)) {
+                include_module('block_manip');
+                $row = block_manip::getOne($val); 
+                $row['content'] = get_filtered_content(
+                    get_module_ini('block_manip_filters'), $row['content']
+                );
+                $row['title'] = htmlspecialchars($row['title']);
+                $content = templateView::get('block_manip', 'block_html', $row);
+                $ret_blocks[] = $content;
+                continue;
+            }
             if ($val == 'module_menu'){
                 $ret_blocks[] = self::getMainMenu();
                 continue; 
