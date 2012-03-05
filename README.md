@@ -29,3 +29,4 @@ Login with admin / admin. A simple demo with a blog (blog module) and a CMS (con
 [Shell Module Guide](http://www.coscms.org/content/article/view/60/Shell%20Module%20Guide)
 
 Enjoy!
+
