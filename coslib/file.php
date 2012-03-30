@@ -81,6 +81,17 @@ class file {
             }
         }
     }
+    
+    public static function mkdir ($dir) {
+        $full_path = config::getFullFilesPath();
+        $dir = $full_path . "$dir";
+        
+        if (file_exists($dir)) {
+            return false;
+        }
+        $res = @mkdir($dir, 0777, true);
+        return $res;
+    }
 }
 /*
  * @deprecated

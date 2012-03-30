@@ -24,6 +24,8 @@ abstract class template {
      * @var array   holding js files
      */
     static $js = array();
+    
+    static $jsHead = array ();
 
     /**
      * @var array   holding inline js strings
@@ -240,6 +242,10 @@ abstract class template {
      * $param   array    $options
      */
     public static function setJs($js_url, $order = null, $options = null){
+        if (isset($options['head'])) {
+            self::$jsHead[] = $js_url;
+            return;
+        }
         
         if (isset($order)){
             if (isset(self::$js[$order])) {
@@ -260,6 +266,16 @@ abstract class template {
         $str = "";
         ksort(self::$js);
         foreach (self::$js as $key => $val){
+            $str.= "<script src=\"$val\" type=\"text/javascript\"></script>\n";
+        }
+        return $str;
+    }
+    
+    public static function getJsHead(){
+        $str = "";
+        ksort(self::$jsHead);
+        //print_t()
+        foreach (self::$jsHead as $key => $val){
             $str.= "<script src=\"$val\" type=\"text/javascript\"></script>\n";
         }
         return $str;

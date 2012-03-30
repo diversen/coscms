@@ -94,4 +94,14 @@ class imagescale {
         }
         return true;
     }
+    
+    public static function loadImgFromString ($str) {
+    
+        $im = imagecreatefromstring($str);
+        if ($im !== false) {
+            header('Content-Type: image/png');
+            imagepng($im);
+            imagedestroy($im);
+        }
+    }
 }
