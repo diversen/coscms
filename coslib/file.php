@@ -44,6 +44,13 @@ class file {
     public static function getExtension ($filename) {
         return $ext = substr($filename, strrpos($filename, '.') + 1);
     }
+    
+    public static function getFilename ($file)  {
+        $info = pathinfo($file);
+        //$file_name =  basename($file,'.'.$info['extension']);
+        return $info['filename'];
+        //return $file_name;
+    }
 
     /**
      * method for getting mime type of a file

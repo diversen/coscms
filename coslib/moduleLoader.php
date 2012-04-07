@@ -343,20 +343,18 @@ class moduleLoader {
     public static $id;
     public static $referenceLink = null;
     public static $referenceRedirect = null;
+    public static $referenceOptions = null;
     
     public static function includeRefrenceModule (
             $frag_reference_id = 2, 
             
             // reserved. Will be set by the module in reference
-            // e.g. will be set in files when used in content. 
+            // e.g. will be set in files when used in content.
             
             $frag_id = 3,
             $frag_reference_name = 4) {    
         
-
-        
         $reference = uri::$fragments[$frag_reference_name];  
-        
         $id = uri::$fragments[$frag_id]; 
         $extra =  uri::getInstance()->fragment($frag_reference_name +1); 
         
@@ -366,7 +364,7 @@ class moduleLoader {
         
         // normal this will not be set. 
         // because imagine this situation
-        //$id = uri::$fragments[$frag_id];
+        // $id = uri::$fragments[$frag_id];
         $reference_id = uri::$fragments[$frag_reference_id];
 
         if (!isset($reference)){
@@ -374,15 +372,18 @@ class moduleLoader {
         }
         
         $res = moduleLoader::includeModule($reference);
+        //$options = array ('reference_type' => self::$referenceType);
+        
         
         if ($res) {
             $class = moduleLoader::modulePathToClassName($reference);
             self::$reference = $reference;
-            
             self::$id = $id;
             self::$referenceId = $reference_id;
-            self::$referenceLink = $class::getLinkFromId(moduleLoader::$referenceId);
-            self::$referenceRedirect = $class::getRedirect(moduleLoader::$referenceId);
+            self::$referenceLink = $class::getLinkFromId(
+                    moduleLoader::$referenceId, moduleLoader::$referenceOptions);
+            self::$referenceRedirect = $class::getRedirect(
+                    moduleLoader::$referenceId, moduleLoader::$referenceOptions);
             self::$referenceRedirect = html::getUrl(self::$referenceRedirect);
             
             return true;
@@ -589,6 +590,27 @@ class moduleLoader {
         return self::parsePreContent($ary);
     }
     
+    /**
+     * method for getting modules pre content. pre content is content shown
+     * before the real content of a page. E.g. admin options if any. 
+     * 
+     * @param array $modules the modules which we want to get pre content from
+     * @param array $options spseciel options to be send to the sub module
+     * @return string   the parsed modules pre content as a string
+     */
+    public static function subModuleGetAdminOptions ($modules, $options) {
+        $str = '';
+        $ary = array();
+        if (!is_array($modules)) return;
+        foreach ($modules as $key => $val){
+            if (method_exists($val, 'subModuleAdminOption')){
+                $str = $val::subModuleAdminOption($options);
+                if (!empty($str)) $ary[] = $str;
+            }
+        }
+        return self::parseAdminOptions($ary);
+    }
+    
     public static function buildReferenceURL ($base, $params) {
         if (isset($params['id'])) {
             $extra = $params['id'];
@@ -599,15 +621,15 @@ class moduleLoader {
         $url = $base . "/$params[parent_id]/$extra/$params[reference]";
         return $url;
     }
-    
-    /**
-     * method for parsing the pre content. As the can be more modules
-     * we iritate over an array of sub modules content and return this
-     * as a string. 
-     * 
-     * @param array $ary the array of strings
-     * @return string   strings seperated with an hr
-     */
+   
+   /**
+    * method for parsing the pre content. As the can be more modules
+    * we iritate over an array of sub modules content and return this
+    * as a string.
+    *
+    * @param array $ary the array of strings
+    * @return string strings seperated with an hr
+    */
     public static function parsePreContent ($ary = array()){
         $num = count($ary);
         $ret_str = '';
@@ -620,6 +642,31 @@ class moduleLoader {
             }
         }
         return $ret_str;
+    }
+    
+    /**
+     * method for parsing the admin options. As there can be more modules
+     * we iritate over an array of sub modules and return the admin menu
+     * as a string. 
+     * 
+     * @param array $ary the array of strings
+     * @return string $str string
+     */
+    public static function parseAdminOptions ($ary = array()){
+        $num = count($ary);
+        $str = "<div id =\"content_menu\">\n";
+        $str.= "<ul>\n";
+        foreach ($ary as $val){
+            $num--;
+            if ($num) {
+                $str.= "<li>" . $val . MENU_SUB_SEPARATOR .  "</li>\n";
+            } else {
+                $str.= "<li>" . $val . "</li>\n";
+            }
+        }
+        $str.= "</ul>\n";
+        $str.= "</div>\n";
+        return $str;
     }
 
     /**
