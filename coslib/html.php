@@ -414,7 +414,7 @@ class HTML {
 
         //$value = self::setValue($name, $value);
         $extra = self::parseExtra($extra);
-        $str = "<input type=\"file\" name=\"$name\" size=\"30\" $extra />\n"  . self::$br . "\n";
+        $str = "<input type=\"file\" name=\"$name\" $extra />\n"  . self::$br . "\n";
         self::$fields[] = array ('value' => $str);
         return $str;
     }

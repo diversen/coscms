@@ -185,6 +185,7 @@ class upload {
                 $save_basename = basename($_FILES[$filename]['name']);
             }
             
+            self::$confirm['save_basename'] = $save_basename;
             
             $savefile = self::$options['upload_dir'] . '/' . $save_basename;
             
@@ -206,6 +207,7 @@ class upload {
             $ret = move_uploaded_file($_FILES[$filename]['tmp_name'], $savefile);
             if (!$ret) {
                 self::$errors[] = 'Could not move file. Doh!';
+                return false;
             }
             return $ret;
             
@@ -215,6 +217,7 @@ class upload {
     }
     
     public static $saveBasename = array();
+    public static $confirm = array ();
     
     public static function newFilename ($file) {
         $info = pathinfo($file);
@@ -224,7 +227,6 @@ class upload {
         $full_save_path = $path . '/' . $new_filename;
         
         self::$saveBasename = $new_filename;
-        
         return $full_save_path;
     }
     

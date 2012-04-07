@@ -45,6 +45,38 @@ class db {
     public function __construct($options = null){
 
     }
+    
+    /**
+     * begin transaction
+     * @return boolean $res
+     */
+    public static function begin () {
+        return db::$dbh->beginTransaction();
+    }
+    
+    /**
+     * commit transaction
+     * @return boolean $res 
+     */
+    public static function commit () {
+        return db::$dbh->commit();
+    }
+
+    /**
+     * roolback transaction
+     * @returres boolean $res 
+     */
+    public static function rollback () {
+        return db::$dbh->rollBack();
+    }
+    
+    /**
+     * return last insert id. 
+     * @return int $lastinsertid last insert id
+     */
+    public static function lastInsertId () {
+        return db::$dbh->lastInsertId();
+    }
 
     /**
      *
