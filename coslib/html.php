@@ -650,7 +650,12 @@ EOF;
             if (!isset($options['class'])){
                 $options['class'] = 'current';
             }
-        } 
+        }
+        
+        if (isset($options['anchor_part'])) {
+            $url.= $options['anchor_part'];
+            unset($options['anchor_part']);
+        }
 
         $options = self::parseExtra($options);
         $str = "<a href=\"$url\" $options>$title</a>";
