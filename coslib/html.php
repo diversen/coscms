@@ -132,7 +132,7 @@ class HTML {
             $options['id'] = 'form';
         }
         
-        self::$internal['form_id'] = $options['form_id'];
+        self::$internal['form_id'] = $options['id'];
 
         if (!isset($options['method'])) {
             $options['method'] = 'post';
