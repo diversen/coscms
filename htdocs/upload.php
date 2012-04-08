@@ -3,7 +3,7 @@
 // Simple progress bar taken from:
 // http://www.johnboy.com/php-upload-progress-bar/
 $url = basename($_SERVER['SCRIPT_FILENAME']);
-$_GET['up_id'] = htmlspecialchars($_GET['up_id']);
+//$_GET['up_id'] = htmlspecialchars($_GET['up_id']);
 //Get file upload progress information.
 if(isset($_GET['progress_key'])) {
 	$status = apc_fetch('upload_'.$_GET['progress_key']);
