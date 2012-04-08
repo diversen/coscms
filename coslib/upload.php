@@ -76,23 +76,23 @@ function bytesToSize($bytes, $precision = 2)
 function file_upload_error_message($error_code) {
     switch ($error_code) {
         case UPLOAD_ERR_INI_SIZE:
-            return 'The uploaded file exceeds the upload_max_filesize directive in php.ini';
+            return lang::system('system_file_exceeds_php_ini');
         case UPLOAD_ERR_FORM_SIZE:
-            return 'The uploaded file exceeds the MAX_FILE_SIZE directive that was specified in the HTML form';
+            return lang::system('system_file_exceeds_max_file_size');
         case UPLOAD_ERR_PARTIAL:
-            return 'The uploaded file was only partially uploaded';
+            return lang::system('system_file_partially_uploaded');
         case UPLOAD_ERR_NO_FILE:
-            return 'No file was uploaded';
+            return lang::system('system_file_no_file_uploaded');
         case UPLOAD_ERR_NO_TMP_DIR:
-            return 'Missing a temporary folder';
+            return lang::system('system_file_missing_tmp_folder');
         case UPLOAD_ERR_CANT_WRITE:
-            return 'Failed to write file to disk';
+            return lang::system('system_file_no_write_to_disk');
         case UPLOAD_ERR_EXTENSION:
-            return 'File upload stopped by extension';
+            return lang::system ('system_file_wrong_ext');
         case UPLOAD_ERR_OK;
             return 0;
         default:
-            return 'Unknown upload error';
+            return lang::system('system_file_unknown_error');
     }
 }
 // }}}

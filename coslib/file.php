@@ -167,6 +167,7 @@ function get_file_list_recursive($start_dir, $pattern = null) {
     return $files;
 }
 
+// Found on stackoverflow. From kohana. 
 function transform_bytes($bytes, $force_unit = NULL, $format = NULL, $si = TRUE)
 {
     // Format string

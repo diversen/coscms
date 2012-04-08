@@ -555,7 +555,7 @@ class db {
      *
      * @return  array   $values to use in update and insert sql commands.
      */
-    static public function prepareToPost($values = array()){
+    public static function prepareToPost($values = array()){
         self::$debug[] = "Trying to prepareToPost";
         if (!empty($values)) {
             self::prepareToPostArray();
@@ -569,6 +569,7 @@ class db {
             if ($key == 'password2') continue;
             if ($key == 'captcha') continue;
             if ($key == 'MAX_FILE_SIZE') continue;
+            if ($key == 'APC_UPLOAD_PROGRESS') continue;
             if (strstr($key, 'method')) continue;
             if (strstr($key, 'ignore')) continue;
                         
