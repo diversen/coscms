@@ -45,12 +45,16 @@ class file {
         return $ext = substr($filename, strrpos($filename, '.') + 1);
     }
     
-    public static function getFilename ($file)  {
-        $info = pathinfo($file);
-        //$file_name =  basename($file,'.'.$info['extension']);
+    public static function getFilename ($file, $options = array())  {
+        if (isset($options['utf8'])) {
+            include_once "coslib/file/pathinfo_utf8.php";
+            $info = pathinfo_utf8($file);
+        } else {
+            $info = pathinfo($file);
+        }
         return $info['filename'];
-        //return $file_name;
     }
+    
 
     /**
      * method for getting mime type of a file
@@ -194,3 +198,4 @@ function transform_bytes($bytes, $force_unit = NULL, $format = NULL, $si = TRUE)
 
     return sprintf($format, $bytes / pow($mod, $power), $units[$power]);
 }
+

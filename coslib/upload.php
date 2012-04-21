@@ -244,14 +244,8 @@ class upload {
         return true;
     }
     
-    public static function checkUploadNative ($filename) {
-        //$post_max_size = ini_get('post_max_size');
-        //$size = return_bytes($post_max_size);
-        
+    public static function checkUploadNative ($filename) {        
         $upload_return_code = $_FILES[$filename]['error'];
-        
-        
-        
         if ($upload_return_code != 0) {
             self::$errors[] = file_upload_error_message($upload_return_code);
             return false;
@@ -259,11 +253,14 @@ class upload {
         return true;
     }
     
-    public static function checkMaxSize ($filename) {
-        if($_FILES[$filename]['size'] > self::$options['maxsize'] ){
+    public static function checkMaxSize ($filename, $maxsize = null) {
+        if (!$maxsize) {
+            $maxsize = self::$options['maxsize'];
+        }
+        if($_FILES[$filename]['size'] > $maxsize ){
             $message = lang::translate('system_file_upload_to_large');
             $message.= lang::translate('system_file_allowed_maxsize');
-            $message.= bytesToSize(self::$options['maxsize']);
+            $message.= bytesToSize($maxsize);
             self::$errors[] = $message;
             return false;
         }
