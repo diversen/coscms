@@ -624,6 +624,48 @@ EOF;
         $dropdown .= "</select>\n";
         return $dropdown;
     }
+    
+        /**
+     * method for adding a drop down box to the form.
+     * 
+     * @param   string  $name the name of the select field
+     * @param   array   $rows the rows making up the ids and names of the select field
+     * @param   string  $field array field which will be used as name of the select element
+     * @param   int     $id the array field which will be used as id of the select element
+     * @param   int     $selected the element which will be selected
+     * @param   string  $extras to be added to this form field, e.g. css (array ('class' => 'required'));
+     * @return  string  $dropdown the dropwdown string.
+     * 
+     */
+    public static function selectMultipleClean($name, $rows, $field, $id, $value = null, $extra = array(), $init = array()){        
+        $extra = self::parseExtra($extra);
+        $name = $name . "[]";
+        $dropdown = "<select multiple=\"multiple\" name=\"$name\" $extra";
+
+        if (!isset($value)) {
+            $value = self::setValue($name, $value);
+            if (!is_array($value)) {
+                $value = array ();
+            }
+        }
+        
+        $dropdown.= ">\n";
+        if (!empty($init)) {
+            $dropdown.= '<option value="'.$init[$id].'"' . '' . '>'.$init[$field].'</option>'."\n";
+        }
+        
+        foreach($rows as $row){
+            if (in_array($row[$id], $value)){
+                $s = ' selected';
+            } else {
+                $s = '';
+            }
+
+            $dropdown .= '<option value="'.$row[$id].'"' . $s . '>'.$row[$field].'</option>'."\n";
+        }
+        $dropdown .= "</select>\n";
+        return $dropdown;
+    }
 
     /**
      * method for creating a html link

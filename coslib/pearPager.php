@@ -135,6 +135,12 @@ class pearPager {
         foreach ($_GET as $key => $val) {
             if ($key == 'from') continue;
             if ($key == 'q') continue;
+            if (is_array($val)) {
+                foreach ($val as $k => $v) {
+                    $str.= $key . '[]='. $v . '&';
+                }
+                continue;
+            }
             $str.= "$key=$val&";
         }
         return $str;
