@@ -81,9 +81,9 @@ class HTML {
         if (!empty(self::$autoLoadTrigger)){
             $trigger = self::$autoLoadTrigger;
             if (isset($_POST[$trigger])) {
-                self::$values = $_POST;
+                self::$values = html::specialEncode($_POST);
             } else if (isset($_GET[$trigger])){
-                self::$values = $_GET;
+                self::$values = html::specialEncode($_GET);
             } else {
                 self::$values = $values;
             }
