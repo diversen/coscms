@@ -52,6 +52,8 @@ class HTML {
      */
     public static $internal = array();
     
+    public static $autoEncode = false;
+    
     /**
      * method for getting form string build. 
      * @return string $str the form build
@@ -81,12 +83,15 @@ class HTML {
         if (!empty(self::$autoLoadTrigger)){
             $trigger = self::$autoLoadTrigger;
             if (isset($_POST[$trigger])) {
-                self::$values = html::specialEncode($_POST);
+                self::$values = $_POST;
             } else if (isset($_GET[$trigger])){
-                self::$values = html::specialEncode($_GET);
+                self::$values = $_GET;
             } else {
                 self::$values = $values;
             }
+        }
+        if (self::$autoEncode) {
+            self::$values = html::specialEncode($values);
         }
     }
 
