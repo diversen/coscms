@@ -206,6 +206,15 @@ class config {
         }
     }
     
+    public static function loadPHPModuleConfig($file) {
+        include $file;
+        if (isset(config::$vars['coscms_main']['module'])) {
+            config::$vars['coscms_main']['module']+= $config;
+        } else {
+            config::$vars['coscms_main']['module'] = $config;
+        }
+    }
+    
     
     /**
      * method for getting a path to a module
