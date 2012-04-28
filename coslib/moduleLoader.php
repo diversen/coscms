@@ -671,6 +671,12 @@ class moduleLoader {
         }
     }
     
+    public static function includeModuleFromStaticCall ($call){
+        $call = explode ('::', $call);
+        $module = $call[0];
+        return include_module($module);
+    }
+     
     public static function includeModule ($module) {
         return include_module($module);
     }

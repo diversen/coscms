@@ -113,8 +113,22 @@ abstract class template {
      */
     public static function getLogoHTML ($options = array()) {
         $logo = config::getMainIni('logo');
-        if (empty($logo)){
-            return $str = "<div id=\"logo_title\"><a href=\"/\">$_SERVER[HTTP_HOST]</a></div>";
+        if (!$logo){
+            $logo_method = config::getMainIni('logo_method');
+            if (!$logo_method) {
+                $title = $_SERVER['HTTP_HOST'];
+                $link = html::createLink('/', $title);
+                return $str = "<div id=\"logo_title\">$link</div>";
+            } else {
+                include_module ($logo_method);
+                //if (function_exists($logo_method)) die ('exists');
+                //moduleLoader::includeModuleFromStaticCall($logo_method);
+                $str =  $logo_method::logo();
+                
+                
+                return $str = "<div id=\"logo_title\">$str</div>";
+            }
+                
         } else {
             $file ="/logo/" . config::$vars['coscms_main']['logo'];
             $src = config::getWebFilesPath($file);
