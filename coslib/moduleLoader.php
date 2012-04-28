@@ -581,7 +581,7 @@ class moduleLoader {
         $str = '';
         $ary = array();
         if (!is_array($modules)) return;
-        foreach ($modules as $key => $val){
+        foreach ($modules as $val){
             $str = '';
             if (method_exists($val, 'subModulePreContent')){
                 $str = $val::subModulePreContent($options);
@@ -606,15 +606,14 @@ class moduleLoader {
     public static function subModuleGetAdminOptions ($modules, $options) {
         $str = '';
         $ary = array();
-        if (!is_array($modules)) return;
-        foreach ($modules as $key => $val){
+        if (!is_array($modules)) return array ();
+        foreach ($modules as $val){
             if (method_exists($val, 'subModuleAdminOption')){
                 $str = $val::subModuleAdminOption($options);
                 if (!empty($str)) $ary[] = $str;
             }
         }
         return $ary;
-        return self::parseAdminOptions($ary);
     }
     
     public static function buildReferenceURL ($base, $params) {
@@ -685,7 +684,7 @@ class moduleLoader {
     public static function subModuleGetInlineContent ($modules, $options){
         $ary = array ();
         if (!is_array($modules)) return $ary;
-        foreach ($modules as $key => $val){
+        foreach ($modules as $val){
             if (method_exists($val, 'subModuleInlineContent')){
                 $str = $val::subModuleInlineContent($options);
                 if (!empty($str)) $ary[] = $str;
@@ -704,7 +703,7 @@ class moduleLoader {
 
         $ary = array ();
         if (!is_array($modules)) return $ary;
-        foreach ($modules as $key => $val){
+        foreach ($modules as $val){
             if (method_exists($val, 'subModulePostContent')){
                 $str = $val::subModulePostContent($options);
                 if (!empty($str)) $ary[] = $str;
