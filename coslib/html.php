@@ -47,6 +47,14 @@ class HTML {
     public static $fields = array();
     
     /**
+     * var holding internal setting, e.g. about MAX_FILE_SIZE
+     * to be used across fields
+     */
+    public static $internal = array();
+    
+    public static $autoEncode = false;
+    
+    /**
      * method for getting form string build. 
      * @return string $str the form build
      */
@@ -81,6 +89,9 @@ class HTML {
             } else {
                 self::$values = $values;
             }
+        }
+        if (self::$autoEncode) {
+            self::$values = html::specialEncode($values);
         }
     }
 
@@ -121,12 +132,16 @@ class HTML {
         if (!isset($options['name'])) {
             $options['name'] = 'form';
         }
+        
+        if (!isset($options['id'])) {
+            $options['id'] = 'form';
+        }
+        
+        self::$internal['form_id'] = $options['id'];
 
         if (!isset($options['method'])) {
             $options['method'] = 'post';
         }
-        
-        
         
         $extra = self::parseExtra($options);
         if (!isset($options['action'])) {
@@ -155,15 +170,20 @@ class HTML {
      */
     public static function formStart (
         $name = 'form', $method ='post', $action = '',
-        $enctype = "multipart/form-data") {
+        $enctype = "multipart/form-data", $options = array()) {
         
+        if (!isset($options['id'])) {
+            $options['id'] = 'form';
+        }
+        self::$internal['form_id'] = $options['id'];
+        $extra = self::parseExtra($options);
         
         $str = "";
         
         //$str.= '<a class="do_hide collpase">Hide</a>&nbsp;';
         //$str.= '<a class="do_show">Show</a>';
         //$str.= "<div class=\"collapse\">\n";      
-        $str.= "<form action=\"$action\" method=\"$method\" name=\"$name\" enctype = \"$enctype\">\n";
+        $str.= "<form action=\"$action\" method=\"$method\" name=\"$name\" $extra enctype = \"$enctype\">\n";
         $str.= "<fieldset>\n";
         
         self::$fields[] = array ('value' => $str);
@@ -242,6 +262,11 @@ class HTML {
      * @return string the hidden element (adds the element to the static form str.)  
      */
     public static function hidden ($name, $value = null, $extra = array()){
+        
+        if ($name == 'MAX_FILE_SIZE') {
+            self::$internal['max_file_size'] = $value;
+        }
+        
         $str = self::hiddenClean($name, $value, $extra);
         self::$fields[] = array ('value' => $str);
         return $str;
@@ -408,14 +433,88 @@ class HTML {
      * @return string $str the file input field 
      */
     public static function file ($name, $extra = array()) {
+        //get unique id
+        $up_id = uniqid();
+        
+        //$form_name = self::$internal['form_name'];
+        $js = self::apcJs($up_id);
+        
+        template::setStringJs($js);
         if (!isset($extra['size'])){
             $extra['size'] = HTML_FORM_TEXT_SIZE;
         }
 
         //$value = self::setValue($name, $value);
         $extra = self::parseExtra($extra);
-        $str = "<input type=\"file\" name=\"$name\" size=\"30\" $extra />\n"  . self::$br . "\n";
+        // Progress bar from: 
+        // http://www.johnboy.com/php-upload-progress-bar/
+        $str = <<<EOF
+<!--APC hidden field-->
+    <input type="hidden" name="APC_UPLOAD_PROGRESS" id="progress_key" value="$up_id"/>
+<!---->
+EOF;
+        
+        
+        $str.= "<input type=\"file\" name=\"$name\" $extra />\n"  . self::$br . "\n";
+        
+        
+        $str.= <<<EOF
+<!--Include the iframe-->
+    
+    <iframe id="upload_frame" height = 40 name="upload_frame" frameborder="0" border="0" src="" scrolling="no" scrollbar="no" > </iframe>
+    <br />
+<!---->
+EOF;
         self::$fields[] = array ('value' => $str);
+        return $str;
+    }
+    
+    public static function fileWithLabel ($filename, $max_bytes, $options = array()) {        
+        html::hidden('MAX_FILE_SIZE', $max_bytes);
+        
+        $label = lang::system('system_form_label_file') . ". ";
+        $label.= lang::system('system_file_allowed_maxsize');
+        $size = bytesToSize($max_bytes);
+        $label.= $size;
+        
+        html::label($filename, $label );
+        html::file($filename, $options);
+    }
+    
+    // Progress bar from: 
+    // http://www.johnboy.com/php-upload-progress-bar/
+    public static function apcJs ($apc_id) {
+        
+        
+        $form_id = self::$internal['form_id'];
+        $str = <<<EOF
+<!--display bar only if file is chosen-->
+
+$(document).ready(function() { 
+//
+
+//show the progress bar only if a file field was clicked
+	var show_bar = 0;
+    $('input[type="file"]').click(function(){
+		show_bar = 1;
+    });
+
+//show iframe on form submit
+    $("#$form_id").submit(function(){
+
+		if (show_bar === 1) { 
+			$('#upload_frame').show();
+			function set () {
+				$('#upload_frame').attr('src','/upload.php?up_id=$apc_id');
+			}
+			setTimeout(set);
+		}
+    });
+//
+
+});
+
+EOF;
         return $str;
     }
 
@@ -530,6 +629,48 @@ class HTML {
         $dropdown .= "</select>\n";
         return $dropdown;
     }
+    
+        /**
+     * method for adding a drop down box to the form.
+     * 
+     * @param   string  $name the name of the select field
+     * @param   array   $rows the rows making up the ids and names of the select field
+     * @param   string  $field array field which will be used as name of the select element
+     * @param   int     $id the array field which will be used as id of the select element
+     * @param   int     $selected the element which will be selected
+     * @param   string  $extras to be added to this form field, e.g. css (array ('class' => 'required'));
+     * @return  string  $dropdown the dropwdown string.
+     * 
+     */
+    public static function selectMultipleClean($name, $rows, $field, $id, $value = null, $extra = array(), $init = array()){        
+        $extra = self::parseExtra($extra);
+        $name = $name . "[]";
+        $dropdown = "<select multiple=\"multiple\" name=\"$name\" $extra";
+
+        if (!isset($value)) {
+            $value = self::setValue($name, $value);
+            if (!is_array($value)) {
+                $value = array ();
+            }
+        }
+        
+        $dropdown.= ">\n";
+        if (!empty($init)) {
+            $dropdown.= '<option value="'.$init[$id].'"' . '' . '>'.$init[$field].'</option>'."\n";
+        }
+        
+        foreach($rows as $row){
+            if (in_array($row[$id], $value)){
+                $s = ' selected';
+            } else {
+                $s = '';
+            }
+
+            $dropdown .= '<option value="'.$row[$id].'"' . $s . '>'.$row[$field].'</option>'."\n";
+        }
+        $dropdown .= "</select>\n";
+        return $dropdown;
+    }
 
     /**
      * method for creating a html link
@@ -556,7 +697,12 @@ class HTML {
             if (!isset($options['class'])){
                 $options['class'] = 'current';
             }
-        } 
+        }
+        
+        if (isset($options['anchor_part'])) {
+            $url.= $options['anchor_part'];
+            unset($options['anchor_part']);
+        }
 
         $options = self::parseExtra($options);
         $str = "<a href=\"$url\" $options>$title</a>";

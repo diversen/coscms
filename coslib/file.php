@@ -44,6 +44,17 @@ class file {
     public static function getExtension ($filename) {
         return $ext = substr($filename, strrpos($filename, '.') + 1);
     }
+    
+    public static function getFilename ($file, $options = array())  {
+        if (isset($options['utf8'])) {
+            include_once "coslib/file/pathinfo_utf8.php";
+            $info = pathinfo_utf8($file);
+        } else {
+            $info = pathinfo($file);
+        }
+        return $info['filename'];
+    }
+    
 
     /**
      * method for getting mime type of a file
@@ -80,6 +91,17 @@ class file {
                 return $coslib;
             }
         }
+    }
+    
+    public static function mkdir ($dir) {
+        $full_path = config::getFullFilesPath();
+        $dir = $full_path . "$dir";
+        
+        if (file_exists($dir)) {
+            return false;
+        }
+        $res = @mkdir($dir, 0777, true);
+        return $res;
     }
 }
 /*
@@ -148,3 +170,32 @@ function get_file_list_recursive($start_dir, $pattern = null) {
 
     return $files;
 }
+
+// Found on stackoverflow. From kohana. 
+function transform_bytes($bytes, $force_unit = NULL, $format = NULL, $si = TRUE)
+{
+    // Format string
+    $format = ($format === NULL) ? '%01.2f %s' : (string) $format;
+
+    // IEC prefixes (binary)
+    if ($si == FALSE OR strpos($force_unit, 'i') !== FALSE)
+    {
+        $units = array('B', 'KiB', 'MiB', 'GiB', 'TiB', 'PiB');
+        $mod   = 1024;
+    }
+    // SI prefixes (decimal)
+    else
+    {
+        $units = array('B', 'kB', 'MB', 'GB', 'TB', 'PB');
+        $mod   = 1000;
+    }
+
+    // Determine unit to use
+    if (($power = array_search((string) $force_unit, $units)) === FALSE)
+    {
+        $power = ($bytes > 0) ? floor(log($bytes, $mod)) : 0;
+    }
+
+    return sprintf($format, $bytes / pow($mod, $power), $units[$power]);
+}
+

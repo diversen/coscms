@@ -39,7 +39,31 @@
 
 class event {
     
+    //public static $ret = array();
     
+    /**
+     *
+     * @param array $methods e.g. array ('fb::post', 'twitter::post');
+     * @param mixed $args any variable can be used. E.g. array, object or void
+     * @return mixed anything can be returned object, array. 
+     */
+    public static function getTriggerEvent ($methods, $args = null) {
+        if (!is_array($methods)) return;
+        //if (isset(event::$ret)) unset(event::$ret);
+        $methods = self::prepareMethods($methods);
+        $str = '';
+        $ret = array();
+        foreach ($methods as $key => $val) {
+           
+            $ary = explode('::', $val);
+            $module = $class = $ary[0];
+            $method = $ary[1];
+            moduleLoader::includeModule($module);
+            $ret[] = $class::$method($args);
+            //$ret[] = $ret;
+        }
+        return $ret;
+    }
     /**
      *
      * @param array $methods e.g. array ('fb::post', 'twitter::post');
@@ -48,15 +72,29 @@ class event {
      */
     public static function triggerEvent ($methods, $args = null) {
         if (!is_array($methods)) return;
+
+        
         $methods = self::prepareMethods($methods);
+       
         $str = '';
+        $i = count($methods);
+        
+        $ary_ret = array ();
+        
         foreach ($methods as $key => $val) {
-           
             $ary = explode('::', $val);
             $module = $class = $ary[0];
             $method = $ary[1];
             moduleLoader::includeModule($module);
-            $str.= $class::$method($args);
+            $ret = $class::$method($args);
+            if (!empty($ret)) {
+                $ary_ret[] =  $ret;
+                $str.= $ret;
+            }
+        }      
+
+        if (isset($args['return']) && $args['return'] == 'array') {   
+            return $ary_ret;
         }
         return $str;
     }

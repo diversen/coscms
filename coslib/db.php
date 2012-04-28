@@ -45,6 +45,38 @@ class db {
     public function __construct($options = null){
 
     }
+    
+    /**
+     * begin transaction
+     * @return boolean $res
+     */
+    public static function begin () {
+        return db::$dbh->beginTransaction();
+    }
+    
+    /**
+     * commit transaction
+     * @return boolean $res 
+     */
+    public static function commit () {
+        return db::$dbh->commit();
+    }
+
+    /**
+     * roolback transaction
+     * @returres boolean $res 
+     */
+    public static function rollback () {
+        return db::$dbh->rollBack();
+    }
+    
+    /**
+     * return last insert id. 
+     * @return int $lastinsertid last insert id
+     */
+    public static function lastInsertId () {
+        return db::$dbh->lastInsertId();
+    }
 
     /**
      *
@@ -523,7 +555,7 @@ class db {
      *
      * @return  array   $values to use in update and insert sql commands.
      */
-    static public function prepareToPost($values = array()){
+    public static function prepareToPost($values = array()){
         self::$debug[] = "Trying to prepareToPost";
         if (!empty($values)) {
             self::prepareToPostArray();
@@ -537,6 +569,7 @@ class db {
             if ($key == 'password2') continue;
             if ($key == 'captcha') continue;
             if ($key == 'MAX_FILE_SIZE') continue;
+            if ($key == 'APC_UPLOAD_PROGRESS') continue;
             if (strstr($key, 'method')) continue;
             if (strstr($key, 'ignore')) continue;
                         
@@ -910,3 +943,74 @@ class dbQ extends QBuilder {
     
 }
 
+class RB {
+    public static function connect () {
+        include_once "coslib/rb.php";
+        $url = config::getMainIni('url');
+        $username = config::getMainIni('username');
+        $password = config::getMainIni('password');
+        R::setup($url, $username,$password); //mysql
+    }
+    
+    /**
+     * method for transforming an array into a bean
+     * @param object $bean
+     * @param array $ary
+     * @return object $bean 
+     */
+    public static function arrayToBean ($bean, $ary) {
+        foreach ($ary as $key => $val) {
+            $bean->{$key} = trim($val);
+        }
+        return $bean;
+    }
+    
+    /**
+     * helper function for getting a bean. It searches for an existing bean
+     * if not found it create a new bean
+     * @param string $table
+     * @param string $field
+     * @param mixed $search
+     * @return object $bean 
+     */
+    public static function getBean ($table, $field, $search) {
+        $needle = R::findOne($table," 1 AND $field  = ?", array( $search ));
+        if (empty($needle)) {
+            //log::file ("NOTICE: DISPENSE: table {$table} field {$field} search {$search}");
+            $bean = R::dispense( $table );
+        } else {
+            //log::file ("NOTICE: LOADING: table {$table} field {$field} search {$search}");
+            $bean = R::load($table, $needle->id);
+        }
+        return $bean;
+    }
+
+    /**
+     * deletes beans with transactions
+     * @param object $beans 
+     */
+    public static function deleteBeans ($beans) {
+        R::begin();
+        try{
+            R::trashAll($beans);   
+            R::commit();
+        } catch(Exception $e) {
+            R::rollback();
+        }
+    }
+
+    /**
+     * commit a bean with transactions
+     * @param object $bean 
+     */
+    public static function commitBean ($bean) {
+
+        R::begin();
+        try{
+            R::store($bean);
+            R::commit();
+        } catch(Exception $e) {
+            R::rollback();
+        }
+    }
+}
