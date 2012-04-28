@@ -60,7 +60,9 @@ class imagescale {
      */
     public static function byX ($image, $thumb, $x){
         //create transform driver object
-        $it = Image_Transform::factory('GD');
+        $driver = get_main_ini('image_driver');
+        if (!$driver) $driver = 'GD';
+        $it = Image_Transform::factory($driver);
         if (isset(self::$options)) {
             $it->_options = self::$options;           
         }
