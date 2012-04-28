@@ -584,10 +584,14 @@ class moduleLoader {
         foreach ($modules as $key => $val){
             if (method_exists($val, 'subModulePreContent')){
                 $str = $val::subModulePreContent($options);
-                if (!empty($str)) $ary[] = $str;
+                if (!empty($str)) {
+                    $ary[] = $str;
+                }
             }
         }
-        return self::parsePreContent($ary);
+        
+        return $ary;
+        //return self::parsePreContent($ary);
     }
     
     /**
@@ -608,6 +612,7 @@ class moduleLoader {
                 if (!empty($str)) $ary[] = $str;
             }
         }
+        return $ary;
         return self::parseAdminOptions($ary);
     }
     
@@ -630,6 +635,7 @@ class moduleLoader {
     * @param array $ary the array of strings
     * @return string strings seperated with an hr
     */
+    /*
     public static function parsePreContent ($ary = array()){
         $num = count($ary);
         $ret_str = '';
@@ -642,7 +648,7 @@ class moduleLoader {
             }
         }
         return $ret_str;
-    }
+    }*/
     
     /**
      * method for parsing the admin options. As there can be more modules
@@ -676,14 +682,15 @@ class moduleLoader {
      * @return string 
      */
     public static function subModuleGetInlineContent ($modules, $options){
-        $str = '';
-        if (!is_array($modules)) return $str;
+        $ary = array ();
+        if (!is_array($modules)) return $ary;
         foreach ($modules as $key => $val){
             if (method_exists($val, 'subModuleInlineContent')){
-                $str.=$val::subModuleInlineContent($options);
+                $str = $val::subModuleInlineContent($options);
+                if (!empty($str)) $ary[] = $str;
             }
         }
-        return $str;
+        return $ary;
     }
 
     /**
@@ -694,14 +701,15 @@ class moduleLoader {
      */
     public static function subModuleGetPostContent ($modules, $options){
 
-        $str = '';
-        if (!is_array($modules)) return $str;
+        $ary = array ();
+        if (!is_array($modules)) return $ary;
         foreach ($modules as $key => $val){
             if (method_exists($val, 'subModulePostContent')){
-                $str.=$val::subModulePostContent($options);
+                $str = $val::subModulePostContent($options);
+                if (!empty($str)) $ary[] = $str;
             }
         }
-        return $str;
+        return $ary;
         
     }
 

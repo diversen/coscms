@@ -91,11 +91,10 @@ class event {
                 $ary_ret[] =  $ret;
                 $str.= $ret;
             }
-        }        
-        if (isset($args['return'])) {
-            if ($args['return'] == 'array') {
-                return $ary_ret;
-            }
+        }      
+
+        if (isset($args['return']) && $args['return'] == 'array') {   
+            return $ary_ret;
         }
         return $str;
     }
