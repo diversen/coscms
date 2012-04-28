@@ -582,6 +582,7 @@ class moduleLoader {
         $ary = array();
         if (!is_array($modules)) return;
         foreach ($modules as $key => $val){
+            $str = '';
             if (method_exists($val, 'subModulePreContent')){
                 $str = $val::subModulePreContent($options);
                 if (!empty($str)) {
