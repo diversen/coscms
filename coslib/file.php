@@ -199,3 +199,21 @@ function transform_bytes($bytes, $force_unit = NULL, $format = NULL, $si = TRUE)
     return sprintf($format, $bytes / pow($mod, $power), $units[$power]);
 }
 
+function rrmdir($dir) {
+    $fp = opendir($dir);
+    if ( $fp ) {
+        while ($f = readdir($fp)) {
+            $file = $dir . "/" . $f;
+            if ($f == "." || $f == "..") {
+                continue;
+            } else if (is_dir($file) && !is_link($file)) {
+                rrmdir($file);
+            } else {
+                unlink($file);
+            }
+        }
+        closedir($fp);
+        rmdir($dir);
+   }
+}
+       
