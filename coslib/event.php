@@ -51,7 +51,6 @@ class event {
         if (!is_array($methods)) return;
         //if (isset(event::$ret)) unset(event::$ret);
         $methods = self::prepareMethods($methods);
-        $str = '';
         $ret = array();
         foreach ($methods as $key => $val) {
            

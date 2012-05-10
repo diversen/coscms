@@ -245,10 +245,14 @@ class HTML {
      * @return string 
      */
     public static function setValue ($name, $value){
-        if (isset(self::$values[$name])){
-            return self::$values[$name];
+        if (!empty($_POST)) {
+            if (isset(self::$values[$name])){
+                return self::$values[$name];
+            } else {
+                return '';
+            }
         } else {
-            return '';
+            return $value;
         }
     }
     
