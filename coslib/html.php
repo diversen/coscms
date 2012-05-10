@@ -536,12 +536,8 @@ EOF;
      * @param array $extra set extras e.g. array ('class' => 'action')
      * @return string 
      */
-    public static function checkbox ($name, $value = '1', $extra = array ()) {
-        //$trigger = self::$autoLoadTrigger;
-        //if (isset($_POST[$trigger])) {
-        
+    public static function checkbox ($name, $value = '1', $extra = array ()) {        
         $value = self::setValue($name, $value);
-        //}
         if ($value){
             $extra['checked'] = "yes";
         } 
@@ -550,6 +546,28 @@ EOF;
         $str = "<input type=\"checkbox\" name=\"$name\" value=\"1\" $extra />" . self::$br . "\n";
         self::$fields[] = array ('value' => $str, 'type' => 'checkbox');
         return $str;
+    }
+    
+    public static function radio ($name, $options, $checked, $extra = array()) {
+        
+    }
+    
+    
+    public static function radioClean ($name, $options, $checked, $extra = array()) {
+        $str = '';
+        if (isset($extra['seperator'])) {
+            $sep = $extra['seperator'];
+            unset ($extra['seperator']);
+        } else {
+            $sep = "<br />\n";
+        }
+        $extra = self::parseExtra($extra);
+        
+        foreach ($options as $key => $value) {
+            if ($checked == $value) $extra.= " checked ";
+            $str.= "<input type=\"radio\" name= \"$name\" value=\"$value\" $extra> $value />\n";
+            
+        }
     }
 
     /** 
