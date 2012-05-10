@@ -245,15 +245,22 @@ class HTML {
      * @return string 
      */
     public static function setValue ($name, $value){
-        if (!empty($_POST)) {
-            if (isset(self::$values[$name])){
-                return self::$values[$name];
-            } else {
-                return '';
-            }
-        } else {
-            return $value;
+        // submission. Use submitted vlaue
+        if (isset(self::$values[$name]) ){
+            return self::$values[$name];
+        }    
+        
+        // checkboxes. 
+        $trigger = self::$autoLoadTrigger;
+        if (!isset(self::$values[$name]) && isset($_POST[$trigger])) {
+            return null;
         }
+        if (!isset(self::$values[$name]) && isset($_GET[$trigger])) {
+            return null;
+        }
+        
+        // return initial
+        return $value;
     }
     
      
@@ -530,7 +537,11 @@ EOF;
      * @return string 
      */
     public static function checkbox ($name, $value = '1', $extra = array ()) {
+        //$trigger = self::$autoLoadTrigger;
+        //if (isset($_POST[$trigger])) {
+        
         $value = self::setValue($name, $value);
+        //}
         if ($value){
             $extra['checked'] = "yes";
         } 
