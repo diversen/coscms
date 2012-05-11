@@ -215,6 +215,17 @@ class config {
         }
     }
     
+    public static function isCli () {
+        if (isset($_SERVER['SERVER_NAME'])){
+            return false;
+        }
+        return true;
+    }
+    
+    public static function getHostnameFromCli () {
+        return trim(shell_exec('hostname'));
+    }
+    
     
     /**
      * method for getting a path to a module
