@@ -549,11 +549,26 @@ EOF;
     }
     
     public static function radio ($name, $options, $checked, $extra = array()) {
-        
+        $radio = self::radioClean($name, $options, $checked, $extra = array ());
+        $str = $radio . self::$br . "\n" ;
+        self::$fields[] = array ('value' => $str);
+        return $str;
     }
     
-    
-    public static function radioClean ($name, $options, $checked, $extra = array()) {
+    /**
+     * returns a radio button set
+     * @param string $name 
+     * @param array $selects assoc array of key and values. 
+     *                      key is the value of the element and value is
+     *                      the human name e.g. 
+     *                      array (0 => 'Female', 1 => 'Male');
+     *                      If female is checked then the value 0 
+     *                      is submitted
+     * @param string $checked the value to be pre set
+     * @param array $extra to add to the field. 
+     * @return string 
+     */
+    public static function radioClean ($name, $selects, $checked, $extra = array()) {
         $str = '';
         if (isset($extra['seperator'])) {
             $sep = $extra['seperator'];
@@ -561,13 +576,18 @@ EOF;
         } else {
             $sep = "<br />\n";
         }
+        
+        $checked = self::setValue($name, $checked);
         $extra = self::parseExtra($extra);
         
-        foreach ($options as $key => $value) {
-            if ($checked == $value) $extra.= " checked ";
-            $str.= "<input type=\"radio\" name= \"$name\" value=\"$value\" $extra> $value />\n";
+        foreach ($selects as $key => $select) {
+            $add_checked = '';
+            if ($key == $checked) $add_checked = " checked ";
+            $str.= "<input type=\"radio\" name= \"$name\" value=\"$key\" $extra $add_checked />$select\n";
+           
             
         }
+        return $str;
     }
 
     /** 
@@ -663,7 +683,7 @@ EOF;
         return $dropdown;
     }
     
-        /**
+    /**
      * method for adding a drop down box to the form.
      * 
      * @param   string  $name the name of the select field

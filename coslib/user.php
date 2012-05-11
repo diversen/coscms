@@ -35,6 +35,18 @@ class user {
         return $row;
     }
     
+    public static function initProfile () {
+        if (!isset(self::$profile_object)){
+            $profile_system = config::getMainIni('profile_module');
+            if (!isset($profile_system)){
+                return false;
+            }
+
+            moduleLoader::includeModule ($profile_system);
+            self::$profile_object = new $profile_system();
+        }
+    }
+    
     /**
      * Gets user profile info if a profile system is in place.
      * E.g. to be showed on login page when logged in. 
@@ -43,22 +55,23 @@ class user {
      * @return  string  $str html or text showing info about the profile
      */
     public static function getProfileInfo ($user){
-
-        if (!isset(self::$profile_object)){
-            $profile_system = config::getMainIni('profile_module');
-            if (!isset($profile_system)){
-                return false;
-            }
-
-            moduleLoader::includeModule ($profile_system);
-
-            //$profile_object = moduleLoader::modulePathToClassName($profile_system);
-            self::$profile_object = new $profile_system();
-            return self::$profile_object->getProfileInfo($user);
-
-        }
+        $res = self::initProfile();
+        //if (!$res) return false;
 
         return self::$profile_object->getProfileInfo($user);
+    }
+    
+    public static function getLogoutHTML ($row) {
+        //$str = '';
+        
+
+        self::initProfile();
+        //if (!$res) return false;
+        
+        return self::$profile_object->getLogoutHTML($row);
+        
+        
+        // view_confirm($str);
     }
     
     /**
