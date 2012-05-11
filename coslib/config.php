@@ -137,10 +137,60 @@ class config {
             return;
         } else {
             config::$vars['coscms_main'] = config::getIniFileArray($config_file, true);
-            if (
-                (@config::$vars['coscms_main']['stage']['server_name'] ==
-                    @$_SERVER['SERVER_NAME'])
-                    AND !defined('_COS_CLI') )
+            if ( @config::$vars['coscms_main']['server_name'] ==
+                    @$_SERVER['SERVER_NAME'] ) {
+                    // We are on REAL server and exists without
+                    // adding additional settings for stage or development
+                    // or CLI mode. 
+                    return; 
+            }
+
+            // Test if we are on stage server. 
+            // Overwrite register settings with stage settings
+            // Note that ini settings for development will
+            // NOT take effect on CLI ini settings
+            if (isset(config::$vars['coscms_main']['stage'])){
+                if ( config::$vars['coscms_main']['stage']['server_name'] ==
+                        @$_SERVER['SERVER_NAME']) {
+
+                    // we are on development, merge and overwrite normal settings with
+                    // development settings.
+                    config::$vars['coscms_main'] =
+                    array_merge(
+                        config::$vars['coscms_main'],
+                        config::$vars['coscms_main']['stage']
+                    );
+                    return;
+                }
+            }
+            // We are on development server. 
+            // Overwrite register settings with development settings
+            // Development settings will ALSO be added to CLI
+            // ini settings
+            if (isset(config::$vars['coscms_main']['development'])){
+                if ( config::$vars['coscms_main']['development']['server_name'] ==
+                        @$_SERVER['SERVER_NAME']) {
+
+                    config::$vars['coscms_main'] =
+                    array_merge(
+                        config::$vars['coscms_main'],
+                        config::$vars['coscms_main']['development']
+                    );
+                }
+            }
+        }
+        //return load_config_file();
+    }
+    
+    public static function loadMainCli () {
+        $config_file = config::getConfigFileName();
+    
+        if (!file_exists($config_file)){
+            return;
+        } else {
+            config::$vars['coscms_main'] = config::getIniFileArray($config_file, true);
+            if ( @config::$vars['coscms_main']['hostname'] ==
+                    config::getHostnameFromCli() )
                 {
                     // We are on REAL server and exists without
                     // adding additional settings for stage or development
@@ -154,9 +204,9 @@ class config {
             // NOT take effect on CLI ini settings
             if (isset(config::$vars['coscms_main']['stage'])){
                 if (
-                    (config::$vars['coscms_main']['stage']['server_name'] ==
-                        @$_SERVER['SERVER_NAME'])
-                        AND !defined('_COS_CLI') )
+                    config::$vars['coscms_main']['stage']['hostname'] ==
+                       config::getHostnameFromCli() )
+ 
                     {
 
                     // we are on development, merge and overwrite normal settings with
@@ -174,10 +224,9 @@ class config {
             // Development settings will ALSO be added to CLI
             // ini settings
             if (isset(config::$vars['coscms_main']['development'])){
-                if (
-                    (config::$vars['coscms_main']['development']['server_name'] ==
-                        @$_SERVER['SERVER_NAME'])
-                        OR defined('_COS_CLI') )
+                if (config::$vars['coscms_main']['development']['hostname'] ==
+                        config::getHostnameFromCli() )
+
                     {
 
                     config::$vars['coscms_main'] =

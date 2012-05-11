@@ -119,7 +119,7 @@ class mainCli {
             // Note: First time loaded we only load it order to load any
             // base modules which may be set
            
-            config::loadMain();
+            config::loadMainCli();
             
             // load all modules
             if (!isset($options['disable_base_modules'])) {
@@ -148,7 +148,7 @@ class mainCli {
             // config/multi/example.com/config.ini
             // Then we know we operate on the correct database. 
             
-            config::loadMain();
+            config::loadMainCli();
            
             // and connect
             $db = new db();
