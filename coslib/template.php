@@ -19,6 +19,7 @@ abstract class template {
      * @var array   holding css files
      */
     static $css = array();
+    
 
     /**
      * @var array   holding js files
@@ -27,6 +28,7 @@ abstract class template {
     
     static $jsHead = array ();
 
+    static $rel = array ();
     /**
      * @var array   holding inline js strings
      */
@@ -104,6 +106,26 @@ abstract class template {
                 continue;
             }
             self::$meta[$key] = html::specialEncode($val);
+        }
+    }
+    
+    public static function getRelAssets () {
+        $str = '';
+        foreach (self::$rel as $val) {
+            $str.=$val;
+        }
+        return $str;
+    }
+    
+    /**
+     * method for adding css or js in top of document.  
+     */
+    public static function setRelAsset ($type, $link) {
+        if ($type == 'css') {
+            self::$rel[] = "<link rel=\"stylesheet\" type=\"text/css\" href=\"$link\" />\n";
+        }
+        if ($type == 'js') {
+            self::$rel[] = "<script type=\"text/javascript\" src=\"$link\"></script>\n";
         }
     }
     
@@ -506,7 +528,17 @@ abstract class template {
     public static function setTemplateCss ($template = '', $order = 0, $version = 0){
 
         $css = config::getMainIni('css');
-        $css_path = "/templates/$template/$css/$css.css";
+        
+        $base_path = "/templates/$template/$css";
+        $css_path = _COS_PATH . "/htdocs" .  $base_path;
+        $css_web_path = $base_path . "/$css.css";
+        if (file_exists($css_path)) {
+
+            self::setCss($css_web_path, $order);
+        } else {
+            self::setCss("/templates/$template/default/default.css?version=$version", $order);
+        }
+        /*
         $css_url = $css_path . "?version=$version";
         $css_file = _COS_PATH . '/htdocs' . $css_path;
         if (file_exists($css_file)){ 
@@ -514,7 +546,7 @@ abstract class template {
         } else {
             // use default css
             self::setCss("/templates/$template/default/default.css?version=$version", $order);
-        }
+        }*/
     }
 }
 /**
