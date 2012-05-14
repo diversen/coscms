@@ -432,6 +432,7 @@ class db {
             return $val['num_rows'];
         }
     }
+    
 
     /**
      * Function for updating a row in a table
@@ -443,18 +444,17 @@ class db {
      *                  array ('username' => 'test')
      * @param   array   $bind array with values and type to bind, e.g. 
      *                  array ('id' => PDO::INT)
-     * @return  boolena true on success and false on failure
+     * @return  boolean $res true on success and false on failure
      */
     public function update($table, $values, $search, $bind = null){
-        $fieldnames = array_keys($values);
         $sql = "Update `$table` SET ";
 
         foreach ($values as $field => $value ){
             $ary[] = " `$field`=" . ":$field ";
         }
         
-        $sql .= implode (',', $ary);
-        $sql .= " WHERE ";
+        $sql.= implode (',', $ary);
+        $sql.= " WHERE ";
 
         if (is_array($search)){
             foreach ($search as $key => $val){
@@ -465,7 +465,7 @@ class db {
             $sql .= $params;
         } else {
             $search = self::$dbh->quote($search);
-            $sql .= " `id` = $search";
+            $sql.= " `id` = $search";
         }
 
         self::$debug[]  = "Trying to prepare update sql: $sql";
@@ -973,8 +973,13 @@ class RB {
      * @param mixed $search
      * @return object $bean 
      */
-    public static function getBean ($table, $field, $search) {
-        $needle = R::findOne($table," 1 AND $field  = ?", array( $search ));
+    public static function getBean ($table, $field = null, $search = null) {
+        if (isset($field) && isset($search)) {
+            $needle = R::findOne($table," 1 AND $field  = ?", array( $search ));
+        } else {
+            $needle = null;
+        }
+        
         if (empty($needle)) {
             //log::file ("NOTICE: DISPENSE: table {$table} field {$field} search {$search}");
             $bean = R::dispense( $table );

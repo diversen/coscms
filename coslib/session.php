@@ -78,7 +78,7 @@ class session {
     }
 
     public static function checkSystemCookie(){
-
+        
         if (isset($_COOKIE['system_cookie'])){
 
             // user is in session. Can only be this after first request. 
@@ -101,6 +101,14 @@ class session {
                     $_SESSION['id'] = $account['id'];
                     $_SESSION['admin'] = $account['admin'];
                     $_SESSION['super'] = $account['super'];
+                    
+                    $args = array (
+                        'action' => 'session_login_persistent'
+                    );die;
+                    
+                    event::getTriggerEvent(
+                        config::getMainIni('session_events'), $args);
+                    
                     return;
                 }
             }
@@ -113,21 +121,33 @@ class session {
         $uniqid = uniqid();
         $uniqid= md5($uniqid);
 
+        $days = config::getMainIni('cookie_time');
+        
         // calculate days into seconds
-        $cookie_time = 3600 * 24 * config::getMainIni('cookie_time');
+        if ($days == -1) {
+            // ten years
+            $cookie_time = 3600 * 24 * 365 * 10;
+        }
+        
+        else if ($days >= 1) {
+            $cookie_time = 3600 * 24 * $days;
+        }
+        
+        else {
+            $cookie_time = 0;
+        }
+            
         $timestamp = time() + $cookie_time;
-
         setcookie('system_cookie', $uniqid, $timestamp, '/');
         
         $db = new db();
 
         // only keep one system cookie (e.g. if user clears his cookies)
         $db->delete('system_cookie', 'account_id', $account_id);
-
         $values = array ('account_id' => $account_id , 'cookie_id' => $uniqid, 'timestamp' => $timestamp);
-        $db->insert('system_cookie', $values);
+        return $db->insert('system_cookie', $values);
     }
-    // }}}
+    
     /**
      * try to get system cookie
      * @return false|string     retruns cookie md5 or false    
@@ -178,11 +198,9 @@ class session {
         }
     }
 
-    // }}}
-    // {{{ setActionMessage($message)
     /**
      * method for setting an action message. Used when we want to tell a
-     * user what happened if she is redirected
+     * user what happened if he is redirected
      *
      * @param string the action message.
      */
@@ -190,9 +208,6 @@ class session {
             $_SESSION['system_message'] = $message;
             session_write_close();
     }
-
-    // }}}
-    // {{{ static public function getActionMessage()
 
     /**
      * method for reading an action message

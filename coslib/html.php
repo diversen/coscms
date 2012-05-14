@@ -537,6 +537,28 @@ EOF;
      * @return string 
      */
     public static function checkbox ($name, $value = '1', $extra = array ()) {        
+        /*
+        $value = self::setValue($name, $value);
+        if ($value){
+            $extra['checked'] = "yes";
+        } 
+        
+        $extra = self::parseExtra($extra);*/
+        $str = self::checkboxClean($name, $value, $extra) ;
+        
+        /*"<input type=\"checkbox\" name=\"$name\" value=\"1\" $extra />" . self::$br . "\n";*/
+        self::$fields[] = array ('value' => $str, 'type' => 'checkbox');
+        return $str;
+    }
+    
+        /**
+     * method for getting a checkbox
+     * @param string $name the name of the input
+     * @param string $value the value of the input
+     * @param array $extra set extras e.g. array ('class' => 'action')
+     * @return string 
+     */
+    public static function checkboxClean ($name, $value = '1', $extra = array ()) {        
         $value = self::setValue($name, $value);
         if ($value){
             $extra['checked'] = "yes";
@@ -544,7 +566,7 @@ EOF;
         
         $extra = self::parseExtra($extra);
         $str = "<input type=\"checkbox\" name=\"$name\" value=\"1\" $extra />" . self::$br . "\n";
-        self::$fields[] = array ('value' => $str, 'type' => 'checkbox');
+        //self::$fields[] = array ('value' => $str, 'type' => 'checkbox');
         return $str;
     }
     

@@ -36,8 +36,13 @@ function dateGetDatesAry ($from, $to) {
     return array_reverse($ary);
 }
 
-function dateGetDateNow () {
-    $date = date("Y-m-d" );
+function dateGetDateNow ($options = array ()) {
+    if (isset($options['hms'])) {
+        $format = 'Y-m-d G:i:s';
+    } else {
+        $format = 'Y-m-d';
+    }
+    $date = date($format );
     return $date;
 }
 
