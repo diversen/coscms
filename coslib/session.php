@@ -118,6 +118,7 @@ class session {
     // }}}
     public static function setSystemCookie($account_id){
         
+        cos_debug("Notice: Settings system cookie");
         $uniqid = uniqid();
         $uniqid= md5($uniqid);
 

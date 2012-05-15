@@ -26,3 +26,9 @@ function cos_error_log ($message, $write_file = true) {
         error_log($message, 3, $destination);
     }
 }
+
+function cos_debug ($message) {
+    static $debug = null;
+    if (!$debug) $debug = config::getMainIni('debug');
+    if ($debug) cos_error_log($message);
+}

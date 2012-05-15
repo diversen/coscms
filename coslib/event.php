@@ -45,24 +45,28 @@ class event {
      *
      * @param array $methods e.g. array ('fb::post', 'twitter::post');
      * @param mixed $args any variable can be used. E.g. array, object or void
-     * @return mixed anything can be returned object, array. 
+     * @return array $ary array with every triggered events result. 
+     *               If false, we exit and returns false.  
+     *         
      */
     public static function getTriggerEvent ($methods, $args = null) {
         if (!is_array($methods)) return;
-        //if (isset(event::$ret)) unset(event::$ret);
         $methods = self::prepareMethods($methods);
         $ret = array();
-        foreach ($methods as $key => $val) {
+        foreach ($methods as $val) {
            
             $ary = explode('::', $val);
             $module = $class = $ary[0];
             $method = $ary[1];
             moduleLoader::includeModule($module);
-            $ret[] = $class::$method($args);
-            //$ret[] = $ret;
+            $ret_val = $class::$method($args);
+            if (!$ret_val) return false;
+            $ret[] = $ret_val; 
+
         }
         return $ret;
     }
+
     /**
      *
      * @param array $methods e.g. array ('fb::post', 'twitter::post');
