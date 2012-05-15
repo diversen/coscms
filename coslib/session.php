@@ -19,6 +19,7 @@ class session {
      * checks if we use memcached which is a good idea
      */
     static public function initSession(){
+        //return;
         // figure out session time
         $session_time = config::getMainIni('session_time');
         if ($session_time) {
@@ -56,7 +57,7 @@ class session {
         }
 
         session_start();
-        self::checkSystemCookie();
+        session::checkSystemCookie();
 
         // if 'started' is set for previous request
         // we truely know we are in 'in_session'
@@ -90,11 +91,15 @@ class session {
                 // user is logged in we return
                 return;
             }
+            
+            
 
             $db = new db();
+            //print_r($db); die;
             $db->connect();
             $row = $db->selectOne ('system_cookie', 'cookie_id', $_COOKIE['system_cookie']);
 
+            
             if (!empty($row)){
                 $account = $db->selectOne('account', 'id', $row['account_id']);
                 if ($account){
@@ -104,14 +109,15 @@ class session {
                     
                     $args = array (
                         'action' => 'session_login_persistent'
-                    );die;
+                    );
                     
                     event::getTriggerEvent(
                         config::getMainIni('session_events'), $args);
                     
-                    return;
+                    //return;
                 }
-            }
+            } 
+            //return;
         }
     }
 
