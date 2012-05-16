@@ -214,7 +214,9 @@ class session {
      * @param string the action message.
      */
     public static function setActionMessage($message){
+            cos_debug($message . "insession");
             $_SESSION['system_message'] = $message;
+            
             session_write_close();
     }
 
