@@ -23,7 +23,7 @@ class mycurl {
      protected $_referer ="http://www.google.com";
  
      protected $_session;
-     protected $_webpage;
+     public $_webpage;
      protected $_includeHeader;
      protected $_noBody;
      protected $_status;
@@ -136,6 +136,10 @@ class mycurl {
  
    public function __tostring(){
       return $this->_webpage;
+   }
+   
+   public function getWebPage () {
+       return $this->_webpage;
    }
 }
 

@@ -7,7 +7,33 @@
  * @package    coslib
  */
 
-
+class log {
+    public static function error ($message, $write_file = true) {
+        cos_error_log($message, $write_file);
+    }
+    
+    public static function message ($message, $write_file = true) {
+        cos_error_log($message, $write_file);
+    }
+    
+    public static function debug ($message) {
+        cos_debug($message);
+    }
+    
+    public static function createLog () {
+        if (!defined('_COS_PATH')) {
+            die('No _COS_PATH defined');
+        }
+        
+        $file = _COS_PATH . "/logs/coscms.log";
+        if (!file_exists($file)) {
+            $res = @file_put_contents($file, '');
+            if ($res === false) {
+                die("Can not create log file: $file");
+            }
+        }
+    }
+}
 
 /**
  * puts a string in logs/coscms.log
