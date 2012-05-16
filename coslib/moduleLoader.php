@@ -498,6 +498,10 @@ class moduleLoader {
         if (!isset(self::$iniSettings['module'])){
             self::$iniSettings['module'] = array();
         }
+        
+        if (!isset(config::$vars['coscms_main']['module'])){
+            config::$vars['coscms_main']['module'] = array ();
+        }
 
         if (isset($set[$module])) {
             return;

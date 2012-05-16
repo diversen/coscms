@@ -223,6 +223,12 @@ class HTML {
      * @return string $str the label
      */
     public static function label ($label_for, $label = '', $options = array()) {
+        $str = self::labelClean($label_for, $label, $options);
+        self::$fields[] = array('value' => $str);
+        return $str;
+    }
+    
+    public static function labelClean ($label_for, $label = '', $options = array()) {
         if (isset($options['required'])) {
             $label = "* " . $label;
         }
@@ -233,7 +239,6 @@ class HTML {
         } else {
             $str = "<label for=\"$label_for\">$label</label>" . self::$br . "\n";
         }
-        self::$fields[] = array('value' => $str);
         return $str;
     }
 

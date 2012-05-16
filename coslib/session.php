@@ -108,9 +108,11 @@ class session {
                     $_SESSION['super'] = $account['super'];
                     
                     $args = array (
-                        'action' => 'session_login_persistent'
+                        'action' => 'account_login',
+                        'user_id' => $account['id']
                     );
                     
+                    cos_debug("Notice: Fireing session events");
                     event::getTriggerEvent(
                         config::getMainIni('session_events'), $args);
                     
