@@ -213,11 +213,20 @@ class session {
      *
      * @param string the action message.
      */
-    public static function setActionMessage($message){
-            cos_debug($message . "insession");
-            $_SESSION['system_message'] = $message;
+    public static function setActionMessage($message, $close = true){
             
-            session_write_close();
+            
+            if (!isset($_SESSION['system_message'])) {
+                $_SESSION['system_message'] = array ();
+            } //else {
+               // $_SESSION['system_message'] = array ();
+            //}
+            
+            $_SESSION['system_message'][] = $message;
+            
+            if ($close) {
+                session_write_close();
+            }
     }
 
     /**
@@ -225,11 +234,17 @@ class session {
      *
      * @return string current set actionMessage
      */
-    static public function getActionMessage(){
+    public static function getActionMessage(){
         if (isset($_SESSION['system_message'])){
-            $message = $_SESSION['system_message'];
+            $messages = $_SESSION['system_message'];
+            $ret = '';
+            if (is_array ($messages)){
+                foreach ($messages as $message) {
+                    $ret.= $message;
+                }
+            }
             unset($_SESSION['system_message']);
-            return $message;
+            return $ret;
         }
         return null;
     }
