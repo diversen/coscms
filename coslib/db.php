@@ -944,12 +944,18 @@ class dbQ extends QBuilder {
 }
 
 class RB {
+    
     public static function connect () {
-        include_once "coslib/rb.php";
-        $url = config::getMainIni('url');
-        $username = config::getMainIni('username');
-        $password = config::getMainIni('password');
-        R::setup($url, $username,$password); //mysql
+        static $connected = null;
+        
+        if (!$connected){
+            include_once "coslib/rb.php";
+            $url = config::getMainIni('url');
+            $username = config::getMainIni('username');
+            $password = config::getMainIni('password');
+            R::setup($url, $username,$password); //mysql
+            $connected = true;
+        } 
     }
     
     /**

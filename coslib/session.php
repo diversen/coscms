@@ -114,9 +114,8 @@ class session {
                     
                     cos_debug("Notice: Fireing session events");
                     event::getTriggerEvent(
-                        config::getMainIni('session_events'), $args);
-                    
-                    //return;
+                        config::getMainIni('session_events'), $args
+                    );
                 }
             } 
             //return;
@@ -218,9 +217,7 @@ class session {
             
             if (!isset($_SESSION['system_message'])) {
                 $_SESSION['system_message'] = array ();
-            } //else {
-               // $_SESSION['system_message'] = array ();
-            //}
+            } 
             
             $_SESSION['system_message'][] = $message;
             
@@ -239,8 +236,13 @@ class session {
             $messages = $_SESSION['system_message'];
             $ret = '';
             if (is_array ($messages)){
-                foreach ($messages as $message) {
-                    $ret.= $message;
+                if (function_exists('template_get_action_message')) {
+                    $ret = template_geT_action_message ($messages);
+                } else {
+                
+                    foreach ($messages as $message) {
+                        $ret.= $message;
+                    }
                 }
             }
             unset($_SESSION['system_message']);

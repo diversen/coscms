@@ -55,7 +55,10 @@ class user {
      * @return  string  $str html or text showing info about the profile
      */
     public static function getProfileInfo ($user){
-        $res = self::initProfile();
+        self::initProfile();
+        if (!is_array($user)) {
+            $user = user::getAccount($user);
+        }
         //if (!$res) return false;
 
         return self::$profile_object->getProfileInfo($user);
