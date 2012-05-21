@@ -169,7 +169,7 @@ class HTML {
      * @return string $str the form start 
      */
     public static function formStart (
-        $name = 'form', $method ='post', $action = '#canvas',
+        $name = 'form', $method ='post', $action = '#!',
         $enctype = "multipart/form-data", $options = array()) {
         
         if (!isset($options['id'])) {
