@@ -169,7 +169,7 @@ class HTML {
      * @return string $str the form start 
      */
     public static function formStart (
-        $name = 'form', $method ='post', $action = '',
+        $name = 'form', $method ='post', $action = '#canvas',
         $enctype = "multipart/form-data", $options = array()) {
         
         if (!isset($options['id'])) {
@@ -338,7 +338,7 @@ class HTML {
         }
         
         $extra = self::parseExtra($extra);
-        $str = "<input type=\"text\" name=\"$name\" $extra value=\"$value\" />" . self::$br . "\n";
+        $str = "<input type=\"text\" name=\"$name\" id=\"$name\" $extra value=\"$value\" />" . self::$br . "\n";
         return $str;
     }
 
@@ -376,7 +376,7 @@ class HTML {
 
         $value = self::setValue($name, $value);
         $extra = self::parseExtra($extra);
-        $str = "<input type=\"password\" name=\"$name\" $extra value=\"$value\" />" . self::$br . "\n";
+        $str = "<input type=\"password\" name=\"$name\" id=\"$name\" $extra value=\"$value\" />" . self::$br . "\n";
         self::$fields[] = array ('value' => $str);
         return $str;
     }
@@ -407,7 +407,7 @@ class HTML {
 
         //$value = self::setValue($name, $value);
         $extra = self::parseExtra($extra);
-        $str =  "<textarea name=\"$name\" $extra>$value</textarea>" . self::$br . "\n";
+        $str =  "<textarea name=\"$name\" id=\"$name\" $extra>$value</textarea>" . self::$br . "\n";
         self::$fields[] = array ('value' => $str);
         return $str;
     }
@@ -471,7 +471,7 @@ class HTML {
 EOF;
         
         
-        $str.= "<input type=\"file\" name=\"$name\" $extra />\n"  . self::$br . "\n";
+        $str.= "<input type=\"file\" name=\"$name\" id=\"$name\" $extra />\n"  . self::$br . "\n";
         
         
         $str.= <<<EOF
@@ -570,7 +570,7 @@ EOF;
         } 
         
         $extra = self::parseExtra($extra);
-        $str = "<input type=\"checkbox\" name=\"$name\" value=\"1\" $extra />" . self::$br . "\n";
+        $str = "<input type=\"checkbox\" name=\"$name\" id=\"$name\" value=\"1\" $extra />" . self::$br . "\n";
         //self::$fields[] = array ('value' => $str, 'type' => 'checkbox');
         return $str;
     }
@@ -626,7 +626,7 @@ EOF;
      */
     public static function submit ($name, $value, $extra = array ()) {
         $extra = self::parseExtra($extra);
-        $str =  "<input type=\"submit\" $extra name=\"$name\" value=\"$value\" />" . self::$br . "";
+        $str =  "<input type=\"submit\" $extra name=\"$name\" id=\"$name\" value=\"$value\" />" . self::$br . "";
         self::$fields[] = array ('value' => $str);
         return $str;
     }
@@ -649,6 +649,10 @@ EOF;
         if (empty($extra)) return '';
         
         foreach ($extra as $key => $val){
+            if ($key == 'checked') {
+                $str = ' checked ';
+                continue;
+            }
             $str.= " $key = \"$val\" ";
         }
         return $str;
