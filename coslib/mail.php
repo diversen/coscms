@@ -74,6 +74,17 @@ function mail_utf8($to, $subject, $message, $from = null, $reply_to=null) {
     }
 }
 
+function mail_system_user ($subject, $message, $from = null, $reply_to = null) {
+    $to = config::getMainIni('mail_address_primary');
+    return mail_utf8(
+            $to, 
+            $subject, 
+            $message, 
+            $from, 
+            $reply_to);
+    
+}
+
 
 
 

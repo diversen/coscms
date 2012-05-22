@@ -138,3 +138,5 @@ function dateYearsOld ($birthday) {
     elseif (($month_diff==0) && ($day_diff < 0)) $year_diff--;
     return $year_diff;
 }
+
+
