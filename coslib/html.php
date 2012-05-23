@@ -52,6 +52,10 @@ class HTML {
      */
     public static $internal = array();
     
+    /**
+     * flag to indicate if we auto encode special chars
+     * @var boolean  
+     */
     public static $autoEncode = false;
     
     /**
