@@ -391,6 +391,11 @@ class moduleLoader {
         return false;
     }
     
+    /** 
+     * return all set reference info as an array 
+     * @return array $ary array 
+     *                      (parent_id, inline_parent_id, reference, link, redirect)
+     */
     public static function getReferenceInfo () {
         $ary = array ();
         $ary['parent_id'] = self::$referenceId;
@@ -406,7 +411,7 @@ class moduleLoader {
      * e.g. account_profile will return accountProfile
      * e.g. content/article will return contentArticle
      * 
-     * @param  string   $path (e.g. account_profile)
+     * @param  string   $path (e.g. account/profile)
      * @return string   $classname (e.g. accountProfile)
      */
     public static function modulePathToClassName ($path){

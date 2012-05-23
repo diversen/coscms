@@ -90,9 +90,14 @@ class HTML {
                 self::$values = $values;
             }
         }
+        
         if (self::$autoEncode) {
-            self::$values = html::specialEncode($values);
+            self::$values = html::specialEncode(self::$values);
         }
+    }
+    
+    public function setAutoEncode($val) {
+        self::$autoEncode = $val;
     }
 
     /**
