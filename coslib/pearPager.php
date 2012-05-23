@@ -62,7 +62,7 @@ class pearPager {
      * you can supply your own options
      * @param array $options 
      */
-    public function pearPage ($options = null){
+    public function getPagerHTML ($options = null){
 
         require_once 'Pager/Pager.php';
      
@@ -107,8 +107,17 @@ class pearPager {
         );
 
         $pager = Pager::factory($pager_options);
-        echo "<div id =\"pager\">" . $pager->links . "</div>\n" ;
+        return "<div id =\"pager\">" . $pager->links . "</div>\n" ;
 
+    }
+    
+    /**
+     * wrapper around the pear pager. 
+     * you can supply your own options
+     * @param array $options 
+     */
+    public function pearPage ($options = null){
+        echo $this->getPagerHTML($options);
     }
     
     /**

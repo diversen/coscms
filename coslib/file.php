@@ -103,6 +103,20 @@ class file {
         $res = @mkdir($dir, 0777, true);
         return $res;
     }
+    
+    /**
+     * parse ini with this and they will be cached with APC
+     * @param string $file
+     * @param boolean $sections
+     * @return array $ini settings 
+     */
+    public static function getCachedFile ($file) {
+        ob_start();
+        include $file;
+        $str = ob_get_contents();
+        ob_end_clean();
+        return $str;
+    }
 }
 /*
  * @deprecated

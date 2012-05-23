@@ -55,6 +55,11 @@ abstract class template {
     static $endHTML = '';
 
     /**
+     * @var string   holding last html strings
+     */
+    static $startHTML = '';
+    
+    /**
      * @var string   holding end of content string
      */
     static $endContent = '';
@@ -473,6 +478,22 @@ abstract class template {
         return $str;
     }
 
+    /**
+     * method for adding string to end of html
+     * @param   string  string to add to end of html
+     */
+    public static function setStartHTML($str){
+        self::$startHTML.=$str;
+    }
+
+    /**
+     * method for getting end of html
+     * @return  string  end of html
+     */
+    public static function geStartHTML(){
+        return self::$startHTML;
+    }
+    
     /**
      * method for adding string to end of html
      * @param   string  string to add to end of html
