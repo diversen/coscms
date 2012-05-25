@@ -151,6 +151,6 @@ function mail_smtp ($recipient, $subject, $message, $from, $reply_to/*$headers =
 
 // Sending the email using smtp
     $mail =& Mail::factory("smtp", $smtp_params);
-    $result = $mail->send($recipient, $headers, $body);
+    $result = $mail->insert($recipient, $headers, $body);
     return $result;
 }

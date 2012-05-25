@@ -15,23 +15,28 @@ class moduleLoader {
 
     /**
      *
-     * @var array all enabled modules
+     * @var array $modules all enabled modules
      */
     public static $modules = array();
 
     /**
      *
-     * @var array holding different run levels
+     * @var array $lvels holding different run levels
      */
-    private $levels = array();
+    public $levels = array();
 
     /**
      *
-     * @var array $info holding info about files to load.
+     * @var array $info 
+     *                  
+     * holding info about files to load when loaidng module.
      */
     public $info = array();
+    
     /**
-     * @var     array   static variable which can be set in case we don't
+     * @var     array   $status 
+     *                  
+     *                  static variable which can be set in case we don't
      *                  want to load called module. Used for enablingloading
      *                  of error module when an error code has been set.
      *                  self::$status[403] or self::$status[404]
@@ -40,18 +45,22 @@ class moduleLoader {
 
     /**
      *
-     * @var array   var holding modules ini settings. Used if we want to
-     *              load ini settings from other modules than current
+     * @var array   $iniSettings 
+     *              
+     *              holding module ini settings.
      */
     public static $iniSettings = array();
+    
+    
     /**
      * constructer recieves module list and places them in $this->levels where
-     * we can see at which run level a module should be used.
-     *
-     * @param array $modules all enabled modules
+     * we can see at which run level modules should be run.
+     * 
+     * ModuleLoader will call self::getAllModules which in turn will
+     * connect first time to database. 
      */
     public function __construct(){
-        self::$modules = self::getAllModules(); //$this->selectAll('modules');
+        self::$modules = self::getAllModules(); 
         $this->setLevels();
 
         if (!isset(config::$vars['coscms_main']['module'])){
@@ -60,14 +69,12 @@ class moduleLoader {
     }
 
     /**
-     * method for getting all modules from db
-     *
-     * @return array    array with all rows from modules table
+     * method for getting all modules from db. This is the first time we 
+     * connect to database. 
+     * 
+     * @return array $ary array with all rows from modules table
      */
     public static function getAllModules (){
-
-        // we connect here because this is the first time we use database
-        // in the system
 
         if (!empty(self::$modules)) {
             return self::$modules;
@@ -75,27 +82,37 @@ class moduleLoader {
         
         static $modules = null;
         if ($modules) return $modules;
+        
+        // we connect here because this should be 
+        // the first time we use the database
+        // in the system
+        
         $db = new db();
         $db->connect();
 
         return $modules = $db->selectAll('modules');
     }
 
+    /**
+     * moduleExists alias of isInstalledModule
+     * @param string $module_name
+     * @return boolean $res true if module exists else false.  
+     */
     public static function moduleExists ($module_name) {
         return self::isInstalledModule($module_name);
     }
     
     /**
      *
-     *
-     * @param string $parent
-     * @return array array containing child modules.
+     * get child modules to a parent module
+     * @param string $parent name of parent module
+     * @return array $ary containing child modules.
      */
     public static function getChildModules ($parent){
         static $children = array();
         if (isset($children[$parent])) return $children[$parent];
 
-        foreach (self::$modules as $key => $val){
+        foreach (self::$modules as $val){
             if ($val['parent'] == $parent){
                 $children[$parent][] = $val['module_name'];
             }
@@ -109,15 +126,16 @@ class moduleLoader {
     }
 
     /**
-     * method for getting parent module name.
+     * method for getting a modules parent name.
      * 
-     * @param string    module
-     * @return string   parent module
+     * @param string    $module the module to examine for a parent
+     * @return mixed    $res if a parent module is found we return the parent module name
+     *                       else we return null
      */
     public static function getParentModule ($module){        
-        static $parent;
+        static $parent = null;
         if (isset($parent)) return $parent;
-        foreach (self::$modules as $key => $val){
+        foreach (self::$modules as $val){
             if ($val['module_name'] != $module) { 
                 continue;
             } else {
@@ -131,9 +149,11 @@ class moduleLoader {
     }
 
     /**
-     * method for placeing all modules in $this->levels according to run_level
+     * 
+     * method for placeing all modules in $this->levels 
+     * according the modules run_levels
      */
-    private function setLevels(){
+    public function setLevels(){
         foreach (self::$modules as $key => $val){
             $module_levels = explode(',', $val['run_level']);
             foreach ($module_levels as $k => $v){
@@ -143,10 +163,12 @@ class moduleLoader {
     }
 
     /**
-     * method for checking if a module is installed.
+     * check if a module is installed / exists
+     * @param string $module the module we examine
+     * @return boolean $res boolean
      */
     public static function isInstalledModule($module){
-        foreach (self::$modules as $key => $val){
+        foreach (self::$modules as $val){
             if ($val['module_name'] == $module){
                 return true;
             }
@@ -157,13 +179,14 @@ class moduleLoader {
 
     /**
      * method for running a module at a exact runlevel.
+     * This is used in coslib/head.php (bootstrap file)
      *
-     * @param int run a runlevel of the system.
+     * @param int $level the runlevel to run [1- 7]
      */
     public function runLevel($level){
 
         if (!isset($this->levels[$level])) return;
-        foreach($this->levels[$level] as $key => $val){
+        foreach($this->levels[$level] as $val){
             moduleLoader::setModuleIniSettings($val);
             $class_path = _COS_PATH . "/modules/$val/model.$val.inc";
             include_once $class_path;
@@ -173,12 +196,13 @@ class moduleLoader {
     }
 
     /**
-     * method for setting info for homepage controller /
-     *
+     * method for setting info for home module info
+     * home module is set in config/config.ini with frontpage_module
+     * home module deals with requests to /
      */
-    public function setHomeModuleFiles(){
+    public function setHomeModuleInfo(){
         
-        $frontpage_module = config::$vars['coscms_main']['frontpage_module'];//$_COS_MAIN['frontpage_module'];
+        $frontpage_module = config::$vars['coscms_main']['frontpage_module'];
         $this->info['module_base_name'] = $frontpage_module;
         $this->info['base'] = $base = _COS_PATH . "/modules";
         $this->info['language_file'] = $base . "/$frontpage_module" . '/lang/' . config::$vars['coscms_main']['language'] . '/language.inc';
@@ -199,9 +223,15 @@ class moduleLoader {
     }
     
     /**
-     * method for setting info for homepage controller /
+     * method for setting info for error module. E.g. we recieve
+     * a 404 or 403 from a module, and we want to let the error module
+     * take care
+     * 
+     * Notice: At the moment you can not have your own error module. 
+     * But it wil lbe easy to implement at some point. 
+     * 
      */
-    public function setErrorModuleFiles(){     
+    public function setErrorModuleInfo(){     
         $error_module = 'error';
         $this->info['base'] = $base = _COS_PATH . "/modules";
         $this->info['language_file'] = $base . "/$error_module" . '/lang/' . config::$vars['coscms_main']['language'] . '/language.inc';
@@ -221,18 +251,22 @@ class moduleLoader {
     }
 
     /**
-     * method for setting a parsing modules info
+     * method for setting the requested module info
+     * 
      */
-    public function setModuleFiles (){
+    public function setModuleInfo (){
         $uri = uri::getInstance();
         $info = $uri->getInfo();
        
+        // if no module_base is set in the URI::info we can will use
+        // the home module
         if (empty($info['module_base'])){
-            $this->setHomeModuleFiles();
+            $this->setHomeModuleInfo();
             return;
         }
 
-        // if we only have on fragment means we are in frontpage module
+        // if we only have one fragment 
+        // means we are in frontpage module
         $frontpage_module = config::$vars['coscms_main']['frontpage_module'];
 
         if ($uri->numFragments() == 1){
@@ -261,7 +295,7 @@ class moduleLoader {
             $mes.= $this->info['controller_file'];
             error_log($mes);
             self::$status[404] = 1;
-            $this->setErrorModuleFiles();    
+            $this->setErrorModuleInfo();    
         }
 
         if (!$this->isInstalledModule($info['module_base_name'])){
@@ -269,19 +303,28 @@ class moduleLoader {
             $mes = "module not installed: ";
             $mes.= $info['module_base_name'];
             error_log($mes);
-            //session::setActionMessage($mes);
-            $this->setErrorModuleFiles(); 
+            $this->setErrorModuleInfo(); 
         }
     }
 
-
-
     /**
      * method for initing a module
-     *
+     * Loads ini file if exists. If ini file exists. 
+     * Check for PHP ini PHP config exists. 
+     * Sets module template if specified. 
+     * Sets controller specific template if specified. 
+     * 
+     * Then loads the model file model.module_name.inc if exists
+     * Then loads the view file view.module_name.inc if exists
+     * Then load language if exists
+     * 
+     * If any module then have to be called. We init any modules
+     * from information found in the module table. These modules
+     * has the flag load_on set 
      */
     public function initModule(){
 
+        // set ini file
         if (file_exists($this->info['ini_file'])){
             $module = $this->info['module_base_name'];
             self::setModuleIniSettings($module);
@@ -289,10 +332,12 @@ class moduleLoader {
             // load php ini if exists
             if (isset(config::$vars['coscms_main']['module']['load_php_ini'])){
                 include $this->info['ini_file_php'];
-                config::$vars['coscms_main']['module'] = array_merge(config::$vars['coscms_main']['module'], $_MODULE_SETTINGS);
+                config::$vars['coscms_main']['module'] = 
+                        array_merge(config::$vars['coscms_main']['module'], 
+                        $_MODULE_SETTINGS);
             }
 
-            // load moule template if specified
+            // set module template if specified
             if (isset(config::$vars['coscms_main']['module']['template'])){
                 config::$vars['coscms_main']['template'] = config::$vars['coscms_main']['module']['template'];
             }
@@ -327,7 +372,7 @@ class moduleLoader {
         // load any modules connected to this module
         // we can see this is 'load_on' is set in module table
         $module_name = uri::$info['module_name'];
-        foreach (self::$modules as $key => $val){
+        foreach (self::$modules as $val){
             if (!isset($val['load_on'])) continue;
             if ($val['load_on'] === $module_name){
                 moduleLoader::includeModule($val['module_name']);
@@ -338,8 +383,22 @@ class moduleLoader {
         }
     }
     
+    /**
+     * var holding a reference name
+     * @var mixed $reference 
+     */
     public static $reference = null;
+    
+    /**
+     * var holding a referenceId
+     * @var int $referenceId 
+     */
     public static $referenceId = 0;
+    
+    /**
+     * 
+     * @var int 
+     */
     public static $id;
     public static $referenceLink = null;
     public static $referenceRedirect = null;
@@ -450,20 +509,20 @@ class moduleLoader {
     }
     
     /**
-     * method for loading a parsing module (runlevel 0)
+     * method for loading a parsing module
      *
      * @return string the parsed modules html
      */
     public function loadModule(){
         include_once $this->info['controller_file'];        
         if (isset(self::$status[403])){
-            $this->setErrorModuleFiles();
+            $this->setErrorModuleInfo();
             $this->initModule();
             include_once $this->info['controller_file'];  
         }
 
         if (isset(self::$status[404])){
-            $this->setErrorModuleFiles();
+            $this->setErrorModuleInfo();
             $this->initModule();
             include_once $this->info['controller_file'];
         }
@@ -635,29 +694,6 @@ class moduleLoader {
         $url = $base . "/$params[parent_id]/$extra/$params[reference]";
         return $url;
     }
-   
-   /**
-    * method for parsing the pre content. As the can be more modules
-    * we iritate over an array of sub modules content and return this
-    * as a string.
-    *
-    * @param array $ary the array of strings
-    * @return string strings seperated with an hr
-    */
-    /*
-    public static function parsePreContent ($ary = array()){
-        $num = count($ary);
-        $ret_str = '';
-        foreach ($ary as $val){
-            $num--;
-            if ($num) {
-                $ret_str.= $val . "<hr />\n";
-            } else {
-                $ret_str.= $val;
-            }
-        }
-        return $ret_str;
-    }*/
     
     /**
      * method for parsing the admin options. As there can be more modules

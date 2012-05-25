@@ -117,7 +117,7 @@ if (!defined('_COS_CLI')){
     $moduleLoader->runLevel(5);
 
     // set files to load and init module.
-    $moduleLoader->setModuleFiles();
+    $moduleLoader->setModuleInfo();
     $moduleLoader->initModule();
 
     // include template class found in htdocs/templates

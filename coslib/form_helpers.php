@@ -1,7 +1,7 @@
 <?php
 
 class formHelpers {
-    function getAdminOptions ($url, $id, $options = null) {
+    public static function getAdminOptions ($url, $id, $options = null) {
 
         $str = '';
         if (session::isAdmin()) {
