@@ -687,11 +687,13 @@ class QBuilder  {
     public static function setSelect ($table, $fields ='*'){
         self::$method = 'select';
         self::$query = "SELECT $fields FROM `$table` ";
+        return new QBuilder;
     }
     
     public static function setSelectNumRows ($table){
         self::$method = 'num_rows';
         self::$query = "SELECT count(*) as num_rows FROM `$table` ";
+        return new QBuilder;
     }
     
     /**
@@ -701,6 +703,7 @@ class QBuilder  {
     public static function setDelete ($table){
         self::$method == 'delete';
         self::$query = "DELETE FROM `$table` ";
+        return new QBuilder;
     }
     
     /**
@@ -711,6 +714,7 @@ class QBuilder  {
     public static function setUpdate ($table) {
         self::$method = 'update';
         self::$query = "UPDATE `$table` SET ";
+        return new QBuilder;
     }
     
     /**
@@ -720,6 +724,7 @@ class QBuilder  {
     public static function setInsert ($table) {
         self::$method = 'INSERT';
         self::$query = "INSERT INTO `$table`";
+        return new QBuilder;
     }
     
     /**
@@ -732,7 +737,8 @@ class QBuilder  {
             self::setUpdateValues($values, $bind);
         } else {
             self::setInsertValues($values, $bind);
-        }        
+        }
+        return new QBuilder;
     }
     
     /**
@@ -752,6 +758,7 @@ class QBuilder  {
         }
         
         self::$query.=  implode (',', $ary);
+        return new QBuilder;
     } 
     
     /**
@@ -779,6 +786,7 @@ class QBuilder  {
                 self::$bind[] = array ('value' => $value, 'bind' => null);
             }
         }
+        return new QBuilder;
         
     } 
 
@@ -800,6 +808,7 @@ class QBuilder  {
 
         self::$query.= " $filter ? ";
         self::$bind[] = array ('value' => $value, 'bind' => $bind);
+        return new QBuilder();
     }
 
     /**
@@ -826,6 +835,7 @@ class QBuilder  {
             if ($num_val) self::$query.=",";
         }
         self::$query.=")";
+        return $this;
     }
 
     /**
@@ -834,6 +844,7 @@ class QBuilder  {
      */
     public static function condition ($condition){
         self::$query.= " $condition ";
+        return new QBuilder;
     }
 
     /**
@@ -844,6 +855,7 @@ class QBuilder  {
      */
     public static function order ($column, $order = 'ASC'){
         self::$query.= " ORDER BY `$column` $order ";
+        return new QBuilder;
     }
 
     /**
@@ -856,6 +868,7 @@ class QBuilder  {
         $from = (int)$from;
         $limit = (int)$limit;
         self::$query.= " LIMIT $from, $limit";
+        return new QBuilder;
     }
 
     /**
@@ -902,7 +915,7 @@ class QBuilder  {
      * @return boolean true on success and false on failure. 
      */
     public static function exec() {
-        self::init();
+        //self::init();
         self::$debug[] = self::$query;    
         self::$stmt = self::$dbh->prepare(self::$query);
         self::prepare();       
@@ -944,5 +957,3 @@ class QBuilder  {
 class dbQ extends QBuilder {
     
 }
-
-
