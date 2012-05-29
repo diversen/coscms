@@ -152,7 +152,7 @@ function run_cron (){
     $mods = $mi->getAllModules();
     $module_path = _COS_PATH . "/modules";
 
-    foreach($mods as $key => $val){
+    foreach($mods as $val){
          $cron_file = $module_path . "/$val[module_name]/cron.inc";
          if (file_exists($cron_file)){
             include_once $cron_file;

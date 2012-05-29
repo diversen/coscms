@@ -5,9 +5,14 @@ class formHelpers {
 
         $str = '';
         if (session::isAdmin()) {
-            $str.= html::createLink("$url/edit/$id", lang::translate('edit'));
+            $str.= html::createLink("$url/edit/$id", lang::system('edit'));
             $str.= MENU_SUB_SEPARATOR;
-            $str.= html::createLink("$url/delete/$id",  lang::translate('delete'));
+            $str.= html::createLink("$url/delete/$id",  lang::system('delete'));
+        }
+        
+        if (isset($options['view'])) {
+            $str.= MENU_SUB_SEPARATOR;
+            $str.= html::createLink("$url/view/$id",  lang::system('view'));
         }
         return $str;
     }

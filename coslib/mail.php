@@ -101,7 +101,19 @@ function mail_smtp ($recipient, $subject, $message, $from, $reply_to/*$headers =
     include_once('Mail.php');
     include_once('Mail/mime.php');
     
-    $from = config::$vars['coscms_main']['smtp_params_sender'];                                            // Your email address
+    
+    
+    if (!$from) {
+        $from = config::$vars['coscms_main']['smtp_params_sender'];  
+        //$from = config::getMainIni('site_email');
+    }
+    
+    //$headers.= "From: $from\r\n";
+    if (!$reply_to){
+        $reply_to = $from;
+    }
+
+    // Your email address
     $recipient = "<$recipient>";                               // The Recipients name and email address
     //$subject = "Another test Email";                                                // Subject for the email
     //$text = 'This is a text message.';                                      // Text version of the email
@@ -151,6 +163,6 @@ function mail_smtp ($recipient, $subject, $message, $from, $reply_to/*$headers =
 
 // Sending the email using smtp
     $mail =& Mail::factory("smtp", $smtp_params);
-    $result = $mail->insert($recipient, $headers, $body);
+    $result = $mail->send($recipient, $headers, $body);
     return $result;
 }
