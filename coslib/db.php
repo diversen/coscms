@@ -555,7 +555,7 @@ class db {
      *
      * @return  array   $values to use in update and insert sql commands.
      */
-    public static function prepareToPost($values = array()){
+    public static function prepareToPost($values = array(), $options = array ()){
         self::$debug[] = "Trying to prepareToPost";
         if (!empty($values)) {
             self::prepareToPostArray();
@@ -578,10 +578,11 @@ class db {
         return $ary;
     }
     
-    public static function prepareToPostArray ($keys) {
+    public static function prepareToPostArray ($keys, $options = array ()) {
         $ary = array ();
         foreach ($keys as $key => $val) {
             if (isset($_POST[$val])) {
+
                 $ary[$val] = $_POST[$val];
             } else {
                 $ary[$val] = 0;
