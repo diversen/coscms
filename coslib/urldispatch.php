@@ -1,5 +1,15 @@
 <?php
 
+/**
+ * simple dispatch class
+ * @package urldispatch 
+ */
+
+/**
+ * simple class for dispatching url patterns to a controller file or class
+ * call. 
+ * @package urldispatch 
+ */
 class urldispatch {
     
     public static $pathInfo = array(); 
@@ -8,6 +18,7 @@ class urldispatch {
     }
    
     /**
+     * method for calling function or static method
      * @param type $call
      * @param type $matches
      * @return boolean $res if no function or method is found return false. 

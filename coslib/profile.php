@@ -92,8 +92,18 @@ class profile  {
             $options['module'] = $val['module_name'];
             $mi = new moduleInstaller($options);
 
-            $modules[$key]['public_clone_url'] = $mi->installInfo['PUBLIC_CLONE_URL'];
-            $modules[$key]['private_clone_url'] = $mi->installInfo['PRIVATE_CLONE_URL'];
+            if (isset($mi->installInfo['PUBLIC_CLONE_URL'])) {
+                $modules[$key]['public_clone_url'] = $mi->installInfo['PUBLIC_CLONE_URL'];
+            } else {
+                cos_cli_print("Notice: No public clone url is set for module $val[module_name]");
+            }
+            
+            if (isset($mi->installInfo['PRIVATE_CLONE_URL'])) {
+                $modules[$key]['private_clone_url'] = $mi->installInfo['PRIVATE_CLONE_URL'];
+            } else {
+                cos_cli_print("Notice: No private clone url is set for module $val[module_name]");
+            }
+            
             if (self::$master){
                 $modules[$key]['module_version'] = 'master';
             }
@@ -125,6 +135,8 @@ class profile  {
         $this->createProfileScript($profile);
     }
 
+    
+    
     /**
      * method for getting all templates located in htdocs/template
      * used for settings current templates in profiles/profile/profile.inc file
@@ -149,10 +161,11 @@ class profile  {
             } else {
                 unset($templates[$key]);
             }
-
         }
         return $templates;
     }
+    
+    
 
     /**
      * method for creating a profile script
@@ -250,17 +263,19 @@ class profile  {
     private function createProfileFiles($profile){
         $modules = $this->getModules();
         $profile_dir = _COS_PATH . "/profiles/$profile";
-        if (mkdir($profile_dir)){
-            $this->confirm[] = "Created dir $profile_dir"; 
-        } else {
-            // non fatal - we move on
-            $this->error[] = "Could not create dir $profile_dir";
+        
+        if (!file_exists($profile_dir) || !is_dir($profile_dir)) {
+            $mkdir = @mkdir($profile_dir);
+            if ($mkdir){
+                $this->confirm[] = "Created dir $profile_dir"; 
+            } else {
+                // non fatal - we move on
+                $this->error[] = "Could not create dir $profile_dir";
+            }
         }
         
         $modules = $this->getModules();
-        clearstatcache();
         foreach ($modules as $key => $val){
-            //print_r($val);
             $module_ini_file = _COS_PATH . "/modules/$val[module_name]/$val[module_name].ini";
             $source = _COS_PATH . "/modules/$val[module_name]/$val[module_name].ini";
             $dest = $profile_dir . "/$val[module_name].ini-dist";
@@ -281,7 +296,6 @@ class profile  {
         }
         
         $templates = $this->getAllTemplates();
-        //print_r($templates); die;
         foreach ($templates as $key => $val){
             $template_ini_file = _COS_PATH . "/htdocs/templates/$val[module_name]/$val[module_name].ini";
             $source = _COS_PATH . "/htdocs/templates/$val[module_name]/$val[module_name].ini";
@@ -290,9 +304,9 @@ class profile  {
             // templates does not need to have an ini file
             if (file_exists($source)) {
                 if (copy($source, $dest)){
-                    $this->confirm[] = "Copy $template_ini_file to $template_dir";
+                    $this->confirm[] = "Copied $source to $dest";
                 } else {
-                    $this->error[] = "Could not copy $template_ini_file to $template_dir";
+                    $this->error[] = "Could not copy $source to $dest";
                 }
             }
         }

@@ -1,93 +1,6 @@
 <?php
 
-/**
- * @package shell
- */
-
-/**
- *
- * @param   string    $repo
- * @return  string    module name
- */
-function get_module_name_from_repo ($repo){
-    $url = parse_url($repo);
-    $parts = explode('/', $url['path']);
-
-    if (count($parts) == 1) {
-        return false;
-    }
-    $last = array_pop($parts);
-    $module_name = substr($last, 0, -4);
-    return $module_name;
-}
-
-function get_coscms_tags_local (){
-    $command = "git tag -l";
-    $ret = exec($command, $output);
-    return cos_parse_shell_output($output);
-}
-
-/**
- * following function are sligtly modified from:
- * https://github.com/troelskn/pearhub
- *
- * @param   string  a git url url
- * @param   mixed   set this and tags will not be cached in static var
- * @return  array   array of remote tags
- */
-function get_tags($url = null, $clear = null) {
-    static $tags;
-
-    // clear tags if operation will be used more than once.
-    if ($clear){
-        $tags = null;
-    }
-    
-    if ($tags == null) {
-        $tags = array();
-        $output = array();
-        $ret = 0;
-
-        $command = "git ls-remote --tags $url";
-        exec($command.' 2>&1', $output, $ret);
-
-        foreach ($output as $line) {
-            trim($line);
-            if (preg_match('~^[0-9a-f]{40}\s+refs/tags/(([a-zA-Z_-]+)?([0-9]+)(\.([0-9]+))?(\.([0-9]+))?([A-Za-z]+[0-9A-Za-z-]*)?)$~', $line, $reg)) {
-                $tags[] = $reg[1];
-            }
-        }
-    }
-    return $tags;
-}
-
-/**
- * following function are sligtly modified from:
- * https://github.com/troelskn/pearhub
- *
- * @param   string  a git url url
- * @param   mixed   set clear and tags will not be cached in static var
- * @return  array   array of remote tags
- */
-function latest_tag($repo, $clear = null) {
-    $tags = get_tags($repo, $clear);
-    if (count($tags) > 0) {
-        sort($tags);
-        return $tags[count($tags) - 1];
-    }
-    return null;
-}
-
-/**
- * function for showing git tags (just for testing)
- * @param array $options
- */
-function remote_tags ($options){
-    $tags = get_tags($options['repo']);
-    print_r($tags);
-    $latest = latest_tag();
-    print_r($latest);
-}
+include_once "coslib/git.php";
 
 /**
  * funtion for installing a module
@@ -298,14 +211,14 @@ function git_commit_all ($options){
 
     $modules = profile::getModules();
     foreach ($modules as $key => $val){
-        _git_commit($val, 'module');
+        git_commit($val, 'module');
 
     }
 
     $templates = profile::getAllTemplates();
 
     foreach ($templates as $key => $val){
-        _git_commit($val, 'template');
+        git_commit($val, 'template');
     }
 }
 
@@ -320,7 +233,7 @@ function git_tag_all ($options){
     $modules = profile::getModules();
     foreach ($modules as $key => $val){
         $val['new_version'] = $version;
-        _git_tag($val, 'module');
+        git_tag($val, 'module');
 
     }
 
@@ -328,7 +241,7 @@ function git_tag_all ($options){
 
     foreach ($templates as $key => $val){
         $val['new_version'] = $version;
-        _git_tag($val, 'template');
+        git_tag($val, 'template');
     }
 }
 
@@ -338,10 +251,10 @@ function git_tag_all ($options){
  * @param string $typ (template or module)
  * @return type 
  */
-function _git_tag ($val, $type = 'module'){
+function git_tag ($val, $type = 'module'){
     $repo_path = get_repo_path($val['module_name'], $type);
 
-    if (!_git_is_repo ($repo_path)){
+    if (!git_is_repo ($repo_path)){
         cos_cli_print("$repo_path is not a git repo");
         return;
     }
@@ -371,21 +284,21 @@ function git_tag_all_files ($options){
     foreach ($modules as $key => $val){
         $val['module'] = $val['module_name'];
         $val['new_version'] = $version;
-        _git_tag_install_file($val, 'module');
+        git_tag_install_file($val, 'module');
     }
 
     $templates = profile::getAllTemplates();
     foreach ($templates as $key => $val){
         $val['module'] = $val['module_name'];
         $val['new_version'] = $version;
-        _git_tag_install_file($val, 'template');
+        git_tag_install_file($val, 'template');
     }
 }
 
-function _git_tag_install_file ($val, $type = 'module'){
+function git_tag_install_file ($val, $type = 'module'){
     $repo_path = get_repo_path($val['module_name'], $type);
 
-    if (!_git_is_repo ($repo_path)){
+    if (!git_is_repo ($repo_path)){
         cos_cli_print("$repo_path is not a git repo");
         return;
     }
@@ -418,10 +331,10 @@ function _git_tag_install_file ($val, $type = 'module'){
  * @param string    tag with wersion or 'master'
  * @param string    module, templatee or profile.
  */
-function _git_commit ($val, $type = 'module'){
+function git_commit ($val, $type = 'module'){
     $repo_path = get_repo_path($val['module_name'], $type);
 
-    if (!_git_is_repo ($repo_path)){
+    if (!git_is_repo ($repo_path)){
         cos_cli_print("$repo_path is not a git repo");
         return;
     }
@@ -465,7 +378,7 @@ function git_upgrade ($val, $tag = 'master', $type = 'module'){
     }
     $repo_path = get_repo_path($val['module_name'], $type);
     
-    if (!_git_is_repo ($repo_path)){
+    if (!git_is_repo ($repo_path)){
         cos_cli_print("$repo_path is not a git repo");
         return;
     }
@@ -496,7 +409,7 @@ function git_upgrade ($val, $tag = 'master', $type = 'module'){
     // print "\n---\n";
 }
 
-function _git_is_repo($path){
+function git_is_repo($path){
     $repo = $path . "/.git";
     if (!file_exists($repo)){
         return false;
