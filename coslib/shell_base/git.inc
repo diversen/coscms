@@ -8,7 +8,7 @@ include_once "coslib/git.php";
  * @param string    $type (module, profile or template)
  */
 function git_install ($options, $type = 'module'){
-    $module_name = get_module_name_from_repo($options['repo']);
+    $module_name = git_module_name_from_repo($options['repo']);
     if (!$module_name){
         cos_cli_abort('Install command need a valid repo name');
     }
@@ -56,7 +56,7 @@ function git_clone_template($options){
     
     git_clone($options, 'template');
     
-    $template = get_module_name_from_repo($options['repo']);
+    $template = git_module_name_from_repo($options['repo']);
     $options['template'] = $template;
     $str = install_template($options, true);
     cos_cli_print($str);
@@ -81,7 +81,7 @@ function git_clone_profile($options){
 
 function git_clone($options, $type){
     // get latest repo tag
-    $latest = latest_tag($options['repo']);
+    $latest = git_get_latest_tag($options['repo']);
     
     // if version is set we will use this version.
     // or we will use latest tag.
@@ -119,7 +119,7 @@ function git_clone($options, $type){
     }
 
     
-    $module_name = get_module_name_from_repo($options['repo']);
+    $module_name = git_module_name_from_repo($options['repo']);
     $module_path = "$clone_path/$module_name";
 
     // if dir exists we check if it is a git repo
@@ -175,7 +175,7 @@ function git_upgrade_all ($options){
         if (isset(config::$vars['git_use_master'])){
             $tag = 'master';
         } else {
-            $tag = latest_tag($val['public_clone_url'], true);
+            $tag = git_get_latest_tag($val['public_clone_url'], true);
         }
 
         if ( ($tag == 'master') OR  ($tag > $val['module_version'])) {
@@ -191,7 +191,7 @@ function git_upgrade_all ($options){
         if (isset(config::$vars['git_use_master'])){
             $tag = 'master';
         } else {
-            $tag = latest_tag($val['public_clone_url'], true);
+            $tag = git_get_latest_tag($val['public_clone_url'], true);
         }
 
         if ( ($tag == 'master') OR  ($tag > $val['module_version'])) {
@@ -371,27 +371,30 @@ function git_commit ($val, $type = 'module'){
  * @param string    module, templatee or profile. 
  */
 function git_upgrade ($val, $tag = 'master', $type = 'module'){
-    
-    //print_r($val);
+
     if (!isset($val['module_name'])) {
-        $val['module_name'] = get_module_name_from_repo($val['repo']);
+        $val['module_name'] = git_module_name_from_repo($val['repo']);
     }
     $repo_path = get_repo_path($val['module_name'], $type);
     
     if (!git_is_repo ($repo_path)){
-        cos_cli_print("$repo_path is not a git repo");
+        cos_cli_print("$repo_path is not a git repo - will not upgrade");
         return;
     }
 
-    $git_command = "cd $repo_path && git checkout master && git pull && git fetch --tags && git checkout $tag";
-    $ret = cos_system($git_command);
+    $git_command = "cd $repo_path && ";
+    $git_command.= "git checkout master && ";
+    $git_command.= "git pull && git fetch --tags && ";
+    $git_command.= "git checkout $tag";
+    
+    cos_system($git_command);
     
     if ($type == 'module'){
-        // sorry - but it is called with a diffrent name in the upgrade_module
+        // sorry - but it is called with a different name in the upgrade_module
         // function ...
         $val['module'] = $val['module_name'];
 
-        // when version is set to null we upgrade to latest possible
+        // upgrade to latest set in $_INSTALL['VERSION']
         $val['version'] = null;
         upgrade_module($val);
     }
@@ -419,6 +422,23 @@ function git_is_repo($path){
 
 function git_no_questions (){
     cos_confirm_readline(null, 1);
+}
+
+/**
+ * function for showing git tags (just for testing)
+ * @param array $options
+ */
+function git_echo_remote_tags ($options){
+    if (empty($options['repo']))  {
+        cos_cli_abort('You need to specify a repo');
+    }
+    $tags = git_get_remote_repo_tags($options['repo']);
+    print_r($tags);
+    if (empty($tags)) {
+        cos_cli_abort('No tags');
+    }
+    $latest = git_get_latest_tag($options['repo']);
+    cos_cli_print("Latest is: $latest");
 }
 
 
@@ -495,8 +515,8 @@ mainCli::setOption('git_tag_all_files', array(
     'action'      => 'StoreTrue'
 ));
 
-mainCli::setOption('remote_tags', array(
-    'long_name'   => '--remote-tags',
+mainCli::setOption('git_echo_remote_tags', array(
+    'long_name'   => '--echo-remote-tags',
     'description' => 'Will list remote tags',
     'action'      => 'StoreTrue'
 ));

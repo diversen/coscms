@@ -20,7 +20,7 @@ function prompt_install(){
     cos_cli_print('The following tags can be used:');
 
     $tags = '';
-    $tags.= get_coscms_tags_local ();
+    $tags.= git_coscms_tags_local ();
     $tags.= "master";
 
     cos_cli_print ($tags);

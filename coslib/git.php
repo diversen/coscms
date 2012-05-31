@@ -9,7 +9,7 @@
  * @param   string    $repo
  * @return  string    module name
  */
-function get_module_name_from_repo ($repo){
+function git_module_name_from_repo ($repo){
     $url = parse_url($repo);
     $parts = explode('/', $url['path']);
 
@@ -25,7 +25,7 @@ function get_module_name_from_repo ($repo){
  * get tags local
  * @return type 
  */
-function get_coscms_tags_local (){
+function git_coscms_tags_local (){
     $command = "git tag -l";
     $ret = exec($command, $output);
     return cos_parse_shell_output($output);
@@ -39,7 +39,7 @@ function get_coscms_tags_local (){
  * @param   mixed   $clear set this and tags will not be cached in static var
  * @return  array   $ary array of remote tags
  */
-function get_tags($url = null, $clear = null) {
+function git_get_remote_repo_tags($url = null, $clear = null) {
     static $tags = null;
 
     // clear tags if operation will be used more than once.
@@ -73,8 +73,8 @@ function get_tags($url = null, $clear = null) {
  * @param   mixed   set clear and tags will not be cached in static var
  * @return  array   array of remote tags
  */
-function latest_tag($repo, $clear = null) {
-    $tags = get_tags($repo, $clear);
+function git_get_latest_tag($repo, $clear = null) {
+    $tags = git_get_remote_repo_tags($repo, $clear);
     if (count($tags) > 0) {
         sort($tags);
         return $tags[count($tags) - 1];
@@ -82,13 +82,12 @@ function latest_tag($repo, $clear = null) {
     return null;
 }
 
-/**
- * function for showing git tags (just for testing)
- * @param array $options
+/** 
+ * gets contents of .git/config file as array
+ * @param string $repo_path path to repo. 
+ * @return array $ary contents of config as array 
  */
-function remote_tags ($options){
-    $tags = get_tags($options['repo']);
-    print_r($tags);
-    $latest = latest_tag();
-    print_r($latest);
+function git_get_local_config ($repo_path) {
+    $conf = parse_ini_file($repo_path . "/.git/config");
+    print_r($conf);
 }

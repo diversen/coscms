@@ -286,6 +286,16 @@ class config {
         return _COS_PATH . '/modules/' . $module;
     }
     
+    /**
+     * method for getting a path to a template
+     *
+     * @param   string  $template the template
+     * @return  string  $path the template path
+     */
+    public static function getTemplatePath ($template) {
+        return _COS_PATH . '/htdocs/templates/' . $template;
+    }
+    
    /**
     * function for getting a full path to public files folder when doing e.g. uploads
     * @return string $files_path the full file path 

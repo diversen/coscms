@@ -340,7 +340,7 @@ class moduleInstaller extends db {
      *
      * @return  boolean true on success false on failure
      */
-    private function insertRegistry (){
+    public function insertRegistry (){
         $values = array (
             'module_version' => $this->installInfo['VERSION'],
             'module_name' => $this->installInfo['NAME'],
@@ -358,7 +358,7 @@ class moduleInstaller extends db {
             $values['parent'] = $this->installInfo['PARENT'];
         }
         try {
-            $result = $this->insert('modules', $values);
+            $this->insert('modules', $values);
         } catch (PDOException $e) {
             $this->fatalError($e->getMessage());
         }
@@ -488,9 +488,12 @@ class moduleInstaller extends db {
     /**
      * create SQL on module install
      * There is not much error checking, because we can not commit and
-     * rollback on table creation. 
+     * rollback on table creation (at leat on mysql which we most likely 
+     * are using. 
      */
     public function createSQL () {
+        
+        
         $updates = $this->getSqlFileListOrdered($this->installInfo['NAME'], 'up');
 
         // perform sql upgrade. We upgrade only to the version nmber
