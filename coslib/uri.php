@@ -16,7 +16,6 @@
  */
 class uri {
     
-    // {{{ public static $fragments
     /**
      * fragements in a uri string
      *
@@ -24,8 +23,6 @@ class uri {
      */
     public static $fragments = array();
 
-    // }}}
-    // {{{ public static $instance = null
 
    /**
     * object holding an instance of the uri class (singleton pattern)
@@ -33,9 +30,7 @@ class uri {
     * @var object $instance
     */
     private static $instance = null;
-    
-    // }}}
-    // {{{ public static $info = null
+
     /**
      * array for holding info about the uri string
      *
@@ -43,8 +38,6 @@ class uri {
      */
     public static $info = array();
 
-    // }}}
-    // {{{ public static function getInstance()
 
     /**
      * method for returning an URI instance
@@ -58,18 +51,18 @@ class uri {
          return self::$instance;
     }
 
-    // }}}
-    // {{{ __construct
     /**
-     * constructor which sets all info needed for getting all info
-     * about the uri string
-     *
+     * info about the url is set when creating the object. 
+     * only set once. 
      */
     private function __construct() {
         self::setInfo();        
     }
 
-    // }}}
+    /**
+     * info is set when we construct the object first time. 
+     * @return void
+     */
     public static function setInfo() {
         static $info_isset = null;
         if ($info_isset) { 
@@ -91,8 +84,6 @@ class uri {
         self::$info['module_base_name'] = self::getModuleBaseName($controller_frags);
         $info_isset = true;
     }
-    
-    // {{{ public static function getRequestUriAry()
 
     /**
      * method for getting the request uri
@@ -100,10 +91,8 @@ class uri {
      * @return array all fragments in uri as an array
      */
     public static function getRequestUriAry(){
-        $uri = self::splitRequestAry();
-        //print_r($uri[1]);
-        $fragments =  explode('/', $uri[0]);
-        // clean url for empty values or null values
+        self::splitRequestAry();
+        $fragments =  explode('/', self::$info['path']);
         foreach ($fragments as $key => $value) {
             if (strlen($value) == 0) {
                 unset($fragments[$key]);
@@ -115,17 +104,20 @@ class uri {
         return $fragments;
     }
 
-    // }}}
+    /**
+     * 
+     * @return type 
+     */
     public static function splitRequestAry () {
-        $uri = explode('?', $_SERVER['REQUEST_URI']);
-        if (isset($uri[1])) { 
-            self::$info['get_part'] = $uri[1];
+
+        $parsed = parse_url($_SERVER['REQUEST_URI']);
+        if (!empty($parsed['query'])) { 
+            self::$info['query'] = $parsed['query'];
         } else {
-            self::$info['get_part'] = '';
-        } 
-        return $uri;
+            self::$info['query'] = '';
+        }
+        self::$info['path'] = $parsed['path'];
     }
-    // {{{ public static function getControllerPathAry($fragments)
 
     /**
      * Method for getting fragments that makes up the controller
@@ -149,6 +141,7 @@ class uri {
         }
         return $base_fragments;
     }
+    
     /**
      * gets a max int or zero from an int and a max int. 
      * @param int $val the var to get max int from
@@ -179,7 +172,7 @@ class uri {
         return '/' . $fragments[0];
     }
 
-/**
+    /**
      * method for getting the base module if any
      *
      * @param   array   fragments from which we find the base module
@@ -192,11 +185,6 @@ class uri {
         return $fragments[0];
     }
 
-    
-
-    // }}}
-    // {{{ public static function getControllerFrag($base_fragment)
-
     /**
      * method for getting the controllers fragement
      *
@@ -207,8 +195,6 @@ class uri {
         return array_pop($base_fragments);
     }
 
-    // }}}
-    // {{{ getModuleFrag($base_fragment)
     /**
      * method for getting the module fragement
      *
@@ -219,10 +205,6 @@ class uri {
         array_pop($base_fragments);
         return array_pop($base_fragments);
     }
-
-    // }}}
-    // {{{ public static function getControllerPathStr($base_fragments)
-
     /**
      * method for getting controllers path string
      *
@@ -239,9 +221,6 @@ class uri {
         return $base_str;
     }
 
-    // }}}
-    // {{{ public static function getControllerPathStr($base_fragments)
-
     /**
      * method for getting controllers path string
      *
@@ -257,7 +236,6 @@ class uri {
         }
         return rtrim($base_str, '/');
     }
-    // {{{ public function fragement($key)
 
     /**
      * method for getting a exact uri fragment
@@ -272,8 +250,6 @@ class uri {
         return false;
     }
 
-    // }}}
-    // {{{ function numFragements()
     /**
      * method for getting number of fragements
      * 
@@ -285,8 +261,6 @@ class uri {
         return $frags;
     }
 
-    // }}}
-    // {{{ getAllFragements()
     /**
      * method for getting all fragments as array
      * @return array    of fragements
@@ -296,8 +270,6 @@ class uri {
 
     }
 
-    // }}}
-    // {{{ public function getInfo()
     /**
      * method for getting all info about an URI instance
      *
@@ -307,8 +279,6 @@ class uri {
         return self::$info;
     }
 
-    // }}}
-    // {{{ private function __clone()
     /**
      * method for preventing cloning
      */

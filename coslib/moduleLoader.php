@@ -67,6 +67,10 @@ class moduleLoader {
             config::$vars['coscms_main']['module'] = array();
         }
     }
+    
+    public static function setStatus ($code) {
+        moduleLoader::$status[$code] = 1;
+    }
 
     /**
      * method for getting all modules from db. This is the first time we 
