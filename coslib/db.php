@@ -663,18 +663,39 @@ class QBuilder  {
      */
     public static $method = '';
 
-    
-
+    /**
+     * constructor inits object
+     * @param array $options 
+     */
     function __construct($options = null) {
         self::init($options);       
     }
     
+    /**
+     * inits object
+     * @param array $options 
+     */
     public static function init($options = null) {
         static $db = null;
         if (!isset($db)) {
             $db = new db();
             self::$dbh = db::$dbh;    
         } 
+    }
+    
+
+    /**
+     * escapes fields to select, e.g. 'id, date, test'
+     * @param string $fields string of fields
+     * @return string  escaped string of fields
+     */
+    public static function escapeFields ($fields) {
+        $fields = explode(',', $fields);
+        $ary = array ();
+        foreach ($fields as $field) {
+            $ary[] = " `$field` "; 
+        }
+        return implode(",", $ary);
     }
     
     /**
@@ -684,13 +705,25 @@ class QBuilder  {
      * @param string $fields the fields from the table to select 
      *             e.g. * or 'id, title'
      */
-
-    public static function setSelect ($table, $fields ='*'){
+    
+    public static function setSelect ($table, $fields = null){
         self::$method = 'select';
+        
+        if (!$fields) {
+            $fields = '*';
+        } else {
+            $fields = self::escapeFields($fields);
+        }
+        
         self::$query = "SELECT $fields FROM `$table` ";
         return new QBuilder;
     }
     
+    /**
+     * sets select statement for numrows
+     * @param type $table
+     * @return \QBuilder 
+     */
     public static function setSelectNumRows ($table){
         self::$method = 'num_rows';
         self::$query = "SELECT count(*) as num_rows FROM `$table` ";
@@ -855,9 +888,16 @@ class QBuilder  {
      * @param string $order (e.g. ASC or DESC)
      */
     public static function order ($column, $order = 'ASC'){
-        self::$query.= " ORDER BY `$column` $order ";
+        static $isset = null;
+        if (!$isset) { 
+            self::$query.= " ORDER BY `$column` $order ";
+        } else {
+            self::$query.= ", `$column` $order ";
+        }   
+        $isset = true;
         return new QBuilder;
     }
+    
 
     /**
      * method for setting a limit in the query
@@ -899,15 +939,13 @@ class QBuilder  {
         self::$stmt->execute();
         $rows = self::$stmt->fetchAll(PDO::FETCH_ASSOC);
 
-        
-        
         self::$debug[] = self::$query;
         self::unsetVars();
         self::$query = null;
+
         if (self::$method == 'num_rows') {
             return $rows[0]['num_rows'];
-        }
-        
+        }       
         return $rows;
     }
     
@@ -916,7 +954,6 @@ class QBuilder  {
      * @return boolean true on success and false on failure. 
      */
     public static function exec() {
-        //self::init();
         self::$debug[] = self::$query;    
         self::$stmt = self::$dbh->prepare(self::$query);
         self::prepare();       
@@ -930,6 +967,7 @@ class QBuilder  {
      * @return array $row single array
      */
     public static function fetchSingle (){
+        self::limit(1, 0);
         $rows = self::fetch();
         if (isset($rows[0])){
             return $rows[0];
@@ -937,17 +975,13 @@ class QBuilder  {
         return array();
     }
     
-    public static function numRows ($table) {
-        $db = new dbQ();
-        $db->setSelect($table, 'count(*) as numrows');
-        $row = $db->fetchSingle();
-        return $row['numrows'];
-    }
-
     /**
      * method for unsetting static vars when an operation is compleate.
      */
     public static function unsetVars (){
+        if (isset(config::$vars['coscms_main']['debug'])) {
+            cos_debug(self::$query);
+        }
         self::$query = self::$bind = self::$where = self::$stmt = null;
     }
 }
