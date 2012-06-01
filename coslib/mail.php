@@ -83,8 +83,8 @@ function mail_utf8_direct($to, $subject, $message, $from = null, $reply_to=null)
 
 function mail_utf8($to, $subject, $message, $from = null, $reply_to=null) {
 
-    $reply_to = trim($reply_to); 
-    $from = trim ($from);
+    //$reply_to = trim($reply_to); 
+    //$from = trim ($from);
     
     $message = wordwrap($message, 70);
     $res = null;
@@ -92,7 +92,6 @@ function mail_utf8($to, $subject, $message, $from = null, $reply_to=null) {
     $log = "Mail to: $to\n";
     $log.= "Subject: $subject\n";
     $log.= "Message: $message\n";
-    $log.= "Headers: $headers\n";
     
     if (config::getMainIni('send_mail')){
         if (isset(config::$vars['coscms_main']['smtp_mail'])){
@@ -153,8 +152,13 @@ function mail_php ($recipient, $subject, $message, $from = null, $reply_to = nul
                 'head_charset' => "UTF-8"));
     $headers = $mime->headers($headers);
     $mail =& Mail::factory("smtp", $smtp_params);
-    $result = $mail->send($recipient, $headers, $body);
-    return $result;
+    try { 
+        $mail->send($recipient, $headers, $body);
+    } catch (Exception $e) {
+        cos_debug($e->getMessage());
+        return 0;
+    }
+    return 1;
 }
 
 
@@ -168,8 +172,15 @@ function mail_php ($recipient, $subject, $message, $from = null, $reply_to = nul
  * @return  int     $res 1 on success 0 on error
  */
 function mail_smtp ($recipient, $subject, $message, $from = null, $reply_to = null) {
-    include_once "Mail.php";
-    include_once "Mail/mime.php";
+
+    
+    if (!$from) {
+        $from = config::getMainIni('site_email');
+    }
+    
+    if (!$reply_to){
+        $reply_to = $from;
+    }
     
     $recipient = "<$recipient>"; 
 
@@ -201,13 +212,18 @@ function mail_smtp ($recipient, $subject, $message, $from = null, $reply_to = nu
     $smtp_params = array();
     $smtp_params["host"]     = config::$vars['coscms_main']['smtp_params_host']; //"ssl://smtp.gmail.com";
     $smtp_params["port"]     = config::$vars['coscms_main']['smtp_params_port'];
-    $smtp_params["auth"]     = config::$vars['coscms_main']['smtp_params_auth'];
+    $smtp_params["auth"]     = true; //config::$vars['coscms_main']['smtp_params_auth'];
     $smtp_params["username"] = config::$vars['coscms_main']['smtp_params_username'];
     $smtp_params["password"] = config::$vars['coscms_main']['smtp_params_password'];
 
     $mail =& Mail::factory("smtp", $smtp_params);
-    $result = $mail->send($recipient, $headers, $body);
-    return $result;
+    try { 
+        $mail->send($recipient, $headers, $body);
+    } catch (Exception $e) {
+        cos_debug($e->getMessage());
+        return 0;
+    }
+    return 1;
 }
 
 /**
@@ -244,6 +260,7 @@ function mail_html ($recipient, $subject, $html, $from = null, $reply_to = null)
         $headers['Return-Path'] = $bounce;
     }
 
+    $crlf = "\n";
     $mime = new Mail_mime($crlf);
     $mime->setHTMLBody($html);
     $body = $mime->get(
@@ -261,7 +278,12 @@ function mail_html ($recipient, $subject, $html, $from = null, $reply_to = null)
     $smtp_params["password"] = config::$vars['coscms_main']['smtp_params_password'];
 
     $mail =& Mail::factory("smtp", $smtp_params);
-    $result = $mail->send($recipient, $headers, $body);
+    try { 
+        $mail->send($recipient, $headers, $body);
+    } catch (Exception $e) {
+        cos_debug($e->getMessage());
+        return 0;
+    }
     return $result;
 }
 
