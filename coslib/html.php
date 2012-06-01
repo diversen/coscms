@@ -100,6 +100,10 @@ class HTML {
         }
     }
     
+    /**
+     * sets auto encode to a value
+     * @param boolean $val true or false 
+     */
     public function setAutoEncode($val) {
         self::$autoEncode = $val;
     }

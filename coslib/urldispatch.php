@@ -64,4 +64,36 @@ class urldispatch {
             }
         }
     }
+    
+    /**
+     * returns false if no matches are found. Return true
+     * if a match is found and called. 
+     * @param array $routes array of routes
+     * @return boolean $res true on success and false on failure.  
+     */
+    public static function includeFile ($routes) {
+        self::parse();        
+        $matches = array();
+        foreach ($routes as $pattern => $call) { 
+            //echo $call;
+            if (preg_match($pattern, self::$pathInfo['path'] , $matches)) {
+                echo $call;
+                $res = self::call($call, $matches);
+                print_r($matches);
+                return $res;
+            } else {
+                // no pattern match
+                return false;
+            }
+        }
+    }
+    
+    public static function setDbRoutes () {
+        $routes = dbQ::setSelect('system_route')->fetch();
+        foreach ($routes as $route) {
+            config::$vars['coscms_main']['routes'][$route['route']] = unserialize($route['value']); 
+ 
+        }
+        //print_r(config::$vars['routes']);
+    }
 }

@@ -804,16 +804,13 @@ class QBuilder  {
         
         $fieldnames = array_keys($values);
         $fields = '( ' . implode(' ,', $fieldnames) . ' )';
-        //$bound = '(:' . implode(', :', $fieldnames) . ' )';
-        self::$query.= $fields . ' VALUES '; // . $bound;
+        self::$query.= $fields . ' VALUES ';
         foreach ($fieldnames as $val) {
             $rest[] = '?';
         }
         
         self::$query.= '(' . implode(', ', $rest) . ')';
-        
-        foreach ($values as $field => $value ){
-            
+        foreach ($values as $field => $value ){           
             if (isset($bind[$field])) {
                 self::$bind[] = array ('value' => $value, 'bind' => $bind[$field]);
             } else {
@@ -832,7 +829,7 @@ class QBuilder  {
      * @param string $bind  if we want to bind the value to a type. 
      */
     public static function filter ($filter, $value, $bind = null) {
-        // e.g. id > 3
+
         static $where = null;
 
         if (!self::$where) {

@@ -25,7 +25,7 @@ class uri {
 
 
    /**
-    * object holding an instance of the uri class (singleton pattern)
+    * object holding an instance of the uri class. singleton
     *
     * @var object $instance
     */
@@ -34,44 +34,47 @@ class uri {
     /**
      * array for holding info about the uri string
      *
-     * @var <array> $info for holding info
+     * @var array $info for holding info
      */
     public static $info = array();
 
 
     /**
      * method for returning an URI instance
-     * @return object uri instance
+     * @return object $uri an instance of the uri class
      *
      */
     public static function getInstance() {
          if(is_null(self::$instance)){
              self::$instance = new uri;
+             self::setInfo();
          }
          return self::$instance;
     }
 
     /**
      * info about the url is set when creating the object. 
-     * only set once. 
+     * This is private as we want users to only use the getInstance
+     * method and only create the object once.  
      */
     private function __construct() {
         self::setInfo();        
     }
 
     /**
+     * method for setting all info we need when loading a module
      * info is set when we construct the object first time. 
-     * @return void
+     * info is placed in self::$info
      */
-    public static function setInfo() {
+    public static function setInfo($path = null) {
         static $info_isset = null;
         if ($info_isset) { 
             return;
         }
         
-        $frags = self::getRequestUriAry();
+        $frags = self::getRequestUriAry($path);
 
-        self::$info['frags'] = self::getRequestUriAry();
+        self::$info['frags'] = $frags;
         self::$fragments = $frags;
 
         $controller_frags = self::getControllerPathAry($frags);
@@ -86,12 +89,11 @@ class uri {
     }
 
     /**
-     * method for getting the request uri
-     *
-     * @return array all fragments in uri as an array
+     * method for getting the base path as an array
+     * @return array $fragments the URL base parts an array
      */
-    public static function getRequestUriAry(){
-        self::splitRequestAry();
+    public static function getRequestUriAry($path){
+        self::splitRequestAry($path);
         $fragments =  explode('/', self::$info['path']);
         foreach ($fragments as $key => $value) {
             if (strlen($value) == 0) {
@@ -99,18 +101,21 @@ class uri {
             }
         }
 
-        // set fragments
         $fragments = array_values($fragments);
         return $fragments;
     }
 
     /**
-     * 
-     * @return type 
+     * splits the url into query and path parts
+     * place the values in self::$info
+     * @param string $path the path to split
+     * @return void 
      */
-    public static function splitRequestAry () {
-
-        $parsed = parse_url($_SERVER['REQUEST_URI']);
+    public static function splitRequestAry ($path) {
+        if (!$path) {
+            $path = $_SERVER['REQUEST_URI'];
+        }
+        $parsed = parse_url($path);
         if (!empty($parsed['query'])) { 
             self::$info['query'] = $parsed['query'];
         } else {
@@ -125,9 +130,9 @@ class uri {
      * This is how we recognice a controller.
      * It is the part of the url string before any numeric values!
      *
-     * @todo a little weird that we tell what is a controller with an int!
-     * @param array     fragements to examine
-     * @return array    base fragments that makes up the controller.
+     * @param array     $fragements fragments to examine
+     * @return array    $fragments controller fragements 
+     *                  e.g. array ('account', 'login')
      */
     public static function getControllerPathAry($fragments){
         $num_frags = count($fragments);

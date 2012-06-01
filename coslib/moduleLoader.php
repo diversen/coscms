@@ -256,11 +256,17 @@ class moduleLoader {
 
     /**
      * method for setting the requested module info
-     * 
+     * According to the layout of the coscms project there it has not
+     * been possible to create routes and route a specific url to 
+     * a specific controller. 
      */
     public function setModuleInfo (){
+        
+        //$routes = config::getMainIni('routes');
+        //urldispatch::includeFile($routes);
+
         $uri = uri::getInstance();
-        $info = $uri->getInfo();
+        $info = uri::getInfo();
        
         // if no module_base is set in the URI::info we can will use
         // the home module

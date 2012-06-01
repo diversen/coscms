@@ -20,6 +20,7 @@ ini_set('include_path',
 
 /**
  * include base classes and functions
+ * the names specifify what the classes or function collections do. 
  * @ignore
  */
 
@@ -41,6 +42,7 @@ include_once "coslib/user.php";
 include_once "coslib/log.php";
 include_once "coslib/lang.php";
 include_once "coslib/time.php";
+include_once "coslib/urldispatch.php";
 
 // set some common register vars
 config::$vars['coscms_base'] = _COS_PATH;
@@ -52,9 +54,10 @@ config::$vars['coscms_debug']['timer']['start'] = microtime(true);
 config::$vars['coscms_debug']['coscms_base']  = config::$vars['coscms_base'];
 config::$vars['coscms_debug']['include_path'] = ini_get('include_path');
 
-// Rest is only for web mode. 
+// This is only if commandline mode is not specified  
 if (!defined('_COS_CLI')){
     
+    // load config/config.ini
     config::loadMain();
     
     // set a unified server_name if not set in config file. 
@@ -62,8 +65,6 @@ if (!defined('_COS_CLI')){
     if (!$server_name){
         config::setMainIni('server_name', $_SERVER['SERVER_NAME']);
     }
-       
-    ob_start();
 
     // redirect to uniform domain name is set in config.ini
     // e.g. www.testsite.com => testsite.com
@@ -78,6 +79,10 @@ if (!defined('_COS_CLI')){
     if (isset($server_force_ssl)) {
         http::sslHeaders();
     }
+
+           
+    // catch all output
+    ob_start();
     
     // start session
     session::initSession();
@@ -90,6 +95,7 @@ if (!defined('_COS_CLI')){
     // select all db settings and merge them with ini file settings
     $db_settings = $db->selectOne('settings', 'id', 1);
 
+    // merge db settings with config/config.ini settings
     config::$vars['coscms_main'] =
         array_merge(config::$vars['coscms_main'] , $db_settings);
     
@@ -98,6 +104,7 @@ if (!defined('_COS_CLI')){
     // See module configdb for example. 
     $moduleLoader->runLevel(2);
 
+    // find out what locales we are using
     if (isset(config::$vars['coscms_main']['locale'])){
         $locale = config::$vars['coscms_main']['locale'];
     } else {
@@ -105,6 +112,8 @@ if (!defined('_COS_CLI')){
     }
 
     // set locale for time and monetary
+    // if the array locale is not sepcified we set time and money
+    // according to locales
     setlocale(LC_TIME, $locale);
     setlocale(LC_MONETARY, $locale);
     
@@ -115,6 +124,9 @@ if (!defined('_COS_CLI')){
     // load languages.
     lang::init();    
     $moduleLoader->runLevel(5);
+    
+    // load url routes if any
+    urldispatch::setDbRoutes();
 
     // set files to load and init module.
     $moduleLoader->setModuleInfo();
@@ -136,9 +148,7 @@ if (!defined('_COS_CLI')){
     // catch the included controller file with ob functions
     // and return the parsed page as html
     $str = $moduleLoader->loadModule();
-    
-    // collect final out put
-    ob_start();    
+   
     mainTemplate::printHeader();
     echo $str;
     
@@ -148,7 +158,7 @@ if (!defined('_COS_CLI')){
     ob_end_clean();
     
     // Last divine intervention
-    // tidy / e.g. Dom
+    // e.g. Dom or Tidy
 
     $moduleLoader->runLevel(7); 
     echo config::$vars['final_output'];

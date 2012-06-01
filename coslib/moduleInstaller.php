@@ -208,6 +208,28 @@ class moduleInstaller extends db {
             $upgrade->upgrade();
         }
     }
+    
+    public function deleteRoutes () {
+        $this->delete('system_route', 'module_name', $this->installInfo['NAME']);
+    }
+    
+    public function insertRoutes () {
+        
+        if (isset($this->installInfo['ROUTES'])) {
+            $this->delete('system_route', 'module_name', $this->installInfo['NAME']);
+            $routes = $this->installInfo['ROUTES'];
+            foreach ($routes as $val) {
+                foreach ($val as $route => $value) {
+                    $insert = array (
+                        'module_name' => $this->installInfo['NAME'],
+                        'route' => $route,
+                        'value' => serialize($value));
+                    
+                    $this->insert('system_route', $insert);
+                }
+            }  
+        }
+    }
 
     /**
      * method for inserting a language into the system language table
@@ -225,12 +247,12 @@ class moduleInstaller extends db {
 
         $dirs = file::getFileList($language_path);
         if ($dirs == false){
-            print "Notice: No language dir in: $language_path " . NEW_LINE;
+            echo "Notice: No language dir in: $language_path " . NEW_LINE;
         }
 
         $this->delete('language', 'module_name', $this->installInfo['NAME']);
         if (is_array($dirs)){
-            foreach($dirs as $key => $val){
+            foreach($dirs as $val){
                 $language_file = $language_path . "/$val" . '/system.inc';
                 if (file_exists($language_file)){
                     include $language_file;
@@ -385,7 +407,7 @@ class moduleInstaller extends db {
         }
 
         if (!empty($this->installInfo['MAIN_MENU_ITEMS'])){
-            foreach ($this->installInfo['MAIN_MENU_ITEMS'] as $key => $val){
+            foreach ($this->installInfo['MAIN_MENU_ITEMS'] as $val){
                 $val['title'] = $val['title'];
                 $res = $this->insert('menus', $val);
             }
@@ -550,6 +572,7 @@ class moduleInstaller extends db {
         $this->insertRegistry();
         $this->insertLanguage();
         $this->insertMenuItem();
+        $this->insertRoutes();
 
         $this->confirm = "module '" . $this->installInfo['NAME'] . "' ";
         $this->confirm.= "version '"  . $this->installInfo['VERSION'] . "' ";
@@ -581,7 +604,9 @@ class moduleInstaller extends db {
 
         $this->deleteRegistry();
         $this->deleteMenuItem();
+        $this->deleteRoutes();
         $this->delete('language', 'module_name', $this->installInfo['NAME']);
+        
 
         if (!empty($downgrades)) {
             foreach ($downgrades as $key => $val){
@@ -654,6 +679,7 @@ class moduleInstaller extends db {
      *          You will see if there is any new configuration which needs 
      *          to be set.
      *
+     *          @TODO update menus, registry, routes
      *          @see    scripts/commands/module.php
      *
      *
@@ -733,8 +759,6 @@ class moduleInstaller extends db {
             return true;
         }
     }
-
-
 }
 /**
  * class for installing a templates or upgrading it.
