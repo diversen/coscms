@@ -6,7 +6,6 @@
  * @package     shell
  */
 
-// {{{ chmod_files()
 /**
  * function for changing owner and group to correct and safe settings.
  *
@@ -41,8 +40,6 @@ function chmod_files(){
     cos_exec($command);
 }
 
-// }}}
-// {{{ chmod_files_to_owner()
 /**
  * function for changing all files to be onwed by user.
  *
@@ -61,8 +58,6 @@ function chmod_files_to_owner(){
     cos_exec($command);
 }
 
-// }}}
-// {{{ rm_files()
 /**
  * function for removing all files in htdocs/files/*, htdocs/logo/*
  * when doing an install
@@ -74,8 +69,7 @@ function rm_files(){
     $command = "sudo rm -Rf $files_path";
     cos_exec($command);
 }
-// }}}
-// {{{ function create_files()
+
 /**
  * function for removing all files in htdocs/files/*, htdocs/logo/*
  * when doing an install
@@ -101,11 +95,8 @@ function create_files(){
     if (!file_exists($files_path)){
         $command = "mkdir $files_path";
         cos_exec($command);
-    }
-    
+    }    
 }
-
-// }}}
 
 mainCli::setCommand('file', array(
     'description' => 'Basic files commands',
@@ -134,4 +125,3 @@ mainCli::setOption('create_files', array(
     'description' => 'Will create log file: log/coscms.log',
     'action'      => 'StoreTrue'
 ));
-
