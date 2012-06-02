@@ -12,8 +12,6 @@
  * @package     shell
  */
 
-
-// {{{ backup_files()
 /**
  * function for generaing tar archives
  *
@@ -29,7 +27,7 @@
  *                  your achive.
  * @return  int     the executed commands shell status 0 on success. 
  */
-function backup($options){
+function backup_backup($options){
     // default backup dir
     if (isset($options['File'])){
         // we use full path when specifing a file
@@ -40,8 +38,34 @@ function backup($options){
     $command = "sudo tar -Pcf $backup_file --exclude=backup* -v . ";
     $ret = cos_exec($command);
 }
-// }}}
-// {{{ backup_files()
+
+/**
+ * function for generaing tar archives
+ *
+ * All file settings are preserved. Archive will be placed in /backup/full dir.
+ * You can specifiy an exact filename in options. If you don't use a filename
+ * in the options array, the archive will be named after current timestamp, e.g.
+ * backup/full/1264168904.tar
+ *
+ * @param   array   options to parser, e.g.
+ *                  <code>array('File' => 'backup/full/latest.tar')</code> This will create
+ *                  the backup file backup/full/latest.tar
+ *                  Leave options empty if you want to use current timestamp for 
+ *                  your achive.
+ * @return  int     the executed commands shell status 0 on success. 
+ */
+function backup_files_backup($options){
+    // default backup dir
+    if (isset($options['File'])){
+        // we use full path when specifing a file
+        $backup_file = $options['File'];
+    } else {
+        $backup_file = "backup/files/" . time() . ".tar";
+    }
+    $command = "sudo tar -Pcf $backup_file -v ./htdocs/files ";
+    $ret = cos_exec($command);
+}
+
 /**
  * function for restoring tar archive
  *
@@ -56,9 +80,9 @@ function backup($options){
  *                  backup/full/1264168904.tar
  * @return  int     the executed commands shell status 0 on success. 
  */
-function restore($options){
+function backup_restore($options){
     if (!isset($options['File'])){
-        $latest = _get_latest_backup();
+        $latest = backup_get_latest_backup();
         if ($latest == 0) die ("Yet no backups\n");
         $backup_file = $latest = "backup/full/" . $latest . ".tar";
     } else {
@@ -70,15 +94,45 @@ function restore($options){
     $ret = cos_exec($command);
 }
 
-// }}}
-// {{{ _get_latest_backup
+/**
+ * function for restoring tar archive
+ *
+ * All file settings are restored (if user is the owner of all files)
+ *
+ * @param   array   options to parser, e.g.
+ *                  <code>array('File' => '/backup/full/latest.tar')</code> This will restore
+ *                  the tar achive /backup/full/latest.tar
+ *
+ *                  Leave options empty if you
+ *                  want to restore latest archive with highest timestamp, .e.g
+ *                  backup/full/1264168904.tar
+ * @return  int     the executed commands shell status 0 on success. 
+ */
+function backup_files_restore($options){
+    if (!isset($options['File'])){
+        $latest = backup_get_latest_backup('files');
+        if ($latest == 0) die ("Yet no backups\n");
+        $backup_file = $latest = "backup/files/" . $latest . ".tar";
+    } else {
+        $backup_file = $options['File'];
+    }
+
+    // in order to easily preserve ownership we use sudo mode
+    $command = "sudo tar -Pxf $backup_file -v ./htdocs/files ";
+    $ret = cos_exec($command);
+}
+
 /**
  * function for getting latest timestamp from /backup/full dir
  *
  * @return int   backup with most recent timestamp
  */
-function _get_latest_backup(){
-    $dir = _COS_PATH . "/backup/full";
+function backup_get_latest_backup($type = null){
+    if ($type == 'files') {
+        $dir = _COS_PATH . "/backup/files";
+    } else {
+        $dir = _COS_PATH . "/backup/full";
+    }
     $list = file::getFileList($dir);
     $time_stamp = 0;
     foreach ($list as $key => $val){
@@ -98,15 +152,27 @@ mainCli::setCommand('backup', array(
     'description' => "Command for making file based tar archive backups of system. ",
 ));
 
-mainCli::setOption('backup', array(
+mainCli::setOption('backup_backup', array(
     'long_name'   => '--backup',
     'description' => "Will backup all files and preserve ownership, e.g. --backup test.tar. If you don't specify a file then the script will use current timestamp." ,
     'action'      => 'StoreTrue'
 ));
 
-mainCli::setOption('restore', array(
+mainCli::setOption('backup_files_backup', array(
+    'long_name'   => '--files-backup',
+    'description' => "Will backup public html files in htdocs/files  and preserve ownership, e.g. --backup test.tar." ,
+    'action'      => 'StoreTrue'
+));
+
+mainCli::setOption('backup_restore', array(
     'long_name'   => '--restore',
     'description' => 'Will restore all files from a backup and preserve ownership, e.g. --restore test.tar. If no file is given when restoring backup, then file with latest timestamp will be used',
+    'action'      => 'StoreTrue'
+));
+
+mainCli::setOption('backup_files_restore', array(
+    'long_name'   => '--files-restore',
+    'description' => 'Will restore public htdocs/files from a backup and preserve ownership, e.g. --files-restore test.tar. I',
     'action'      => 'StoreTrue'
 ));
 
