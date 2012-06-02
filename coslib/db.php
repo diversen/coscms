@@ -866,7 +866,7 @@ class QBuilder  {
             if ($num_val) self::$query.=",";
         }
         self::$query.=")";
-        return $this;
+        return new QBuilder();
     }
 
     /**
