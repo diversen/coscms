@@ -128,9 +128,10 @@ class video {
     public static function subModuleInlineContent($options){
         moduleLoader::includeTemplateCommon('flowplayer');
         flowplayer_include();
-        $info = video::getAllvideoInfo($options);
+        $info = video::getAllVideoInfo($options);
+
         $str = '';
-        foreach ($info as $video) {
+        foreach ($info as $video) {            
             $str.= flowplayer_get_html($video['web_path']);
         }
         return $str;
@@ -249,7 +250,7 @@ class video {
      * @param array $options
      * @return string 
      */
-    public static function displayvideo($rows, $options){
+    public static function displayAllVideo($rows, $options){
         $str = '';
        
         foreach ($rows as $key => $val){
@@ -286,7 +287,7 @@ class video {
      *
      * @return array assoc rows of modules belonging to user
      */
-    public static function getAllvideoInfo($options){
+    public static function getAllVideoInfo($options){
         $db = new db();
         $search = array (
             'parent_id' => $options['parent_id'],
@@ -338,7 +339,7 @@ class video {
         $bind = array();
         $values['abstract'] = html::specialDecode($_POST['abstract']);
 
-        //print_r($_video); die;
+        $db = new db();
         if (!empty($_video['file']['name']) ){
             
             $options = array ();
@@ -356,7 +357,7 @@ class video {
 
             $bind = array('file' => PDO::PARAM_LOB);
         }
-        $res = $this->update(self::$fileTable, $values, self::$fileId, $bind);
+        $res = $db->update(self::$fileTable, $values, self::$fileId, $bind);
         return $res;
     }
     

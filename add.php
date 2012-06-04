@@ -27,5 +27,5 @@ $video->viewFileFormInsert();
 
 $options['admin'] = true;
 $rows = $video->getAllvideoInfo($options);
-echo $video->displayvideo($rows, $options);
+echo $video->displayAllVideo($rows, $options);
 //print_r($rows);

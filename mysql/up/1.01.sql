@@ -12,4 +12,4 @@ CREATE TABLE IF NOT EXISTS `video` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=UTF8;
 
-CREATE INDEX `reference_index` ON `video` (parent_id, reference);
+CREATE INDEX `idx_video_reference` ON `video` (parent_id, reference);
