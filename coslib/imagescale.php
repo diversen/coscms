@@ -49,6 +49,54 @@ class imagescale {
     }
     
     
+        /**
+     * method for transforming a image by X
+     * @param string $image image file to scale
+     * @param string $thumb destination file to scale to
+     * @param int    $x the x factor of the scaled image. 
+     * @return boolean true on success and false on failure
+     *                 human errors will be set in self::$errors 
+     */
+    public static function resize ($image, $thumb, $x, $y){
+        //create transform driver object
+        $driver = get_main_ini('image_driver');
+        if (!$driver) $driver = 'GD';
+        $it = Image_Transform::factory($driver);
+        if (isset(self::$options)) {
+            $it->_options = self::$options;           
+        }
+        
+        if (PEAR::isError($it)) {
+            self::$errors[] = lang::translate('system_scaleimage_transform_factory_exception');
+            cos_error_log($it->getMessage());
+            return false;
+        }
+
+        //load the original file
+        $ret = $it->load($image);
+        if (PEAR::isError($ret)) {
+            self::$errors[] = lang::translate('system_scaleimage_transform_load_exception');
+            cos_error_log($ret->getMessage());
+            return false;
+        }
+
+        $ret = $it->resize($x, $y);
+        if (PEAR::isError($ret)) {
+            self::$errors[] = lang::translate('system_scaleimage_image_transform_scale_exception');
+            cos_error_log($ret->getMessage());
+            return false;
+        }
+
+        $ret = $it->save($thumb);
+        if (PEAR::isError($ret)) {
+            self::$errors[] = lang::translate('system_scaleimage_factory_transform_save_exception');
+            cos_error_log($ret->getMessage());
+            return false;
+        }
+        return true;
+    }
+    
+    
 
     /**
      * method for transforming a image by X

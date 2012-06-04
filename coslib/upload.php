@@ -66,8 +66,6 @@ function bytesToSize($bytes, $precision = 2)
 	}
 }
 
-// }}}
-// {{{ string function file_upload_error_message($error_code)
 /**
  *
  * @param  constant   error code returned by bad file upload
@@ -95,7 +93,7 @@ function file_upload_error_message($error_code) {
             return lang::system('system_file_unknown_error');
     }
 }
-// }}}
+
 /**
  * class for doing uploads
  *
@@ -121,6 +119,9 @@ class upload {
      */
     public static $options = array();
 
+    public static $saveBasename = array();
+    public static $confirm = array ();
+    
     /**
      * constructor
      *
@@ -155,6 +156,9 @@ class upload {
         
         // create dir. 
         if (!file_exists(self::$options['upload_dir'])){
+            if (!strstr(self::$options['upload_dir'], _COS_PATH)) {
+                self::$options ['upload_dir'] = _COS_PATH . self::$options['upload_dir'];
+            } 
             mkdir (self::$options['upload_dir'], self::$mode, true);
         }
 
@@ -209,15 +213,15 @@ class upload {
                 self::$errors[] = 'Could not move file. Doh!';
                 return false;
             }
-            return $ret;
+            $savefile = str_replace(_COS_PATH . "/htdocs", '', $savefile);
+            return $savefile;
             
         } 
         cos_error_log('No file to move in ' . __FILE__ . ' ' . __LINE__, false);        
         return false;
     }
     
-    public static $saveBasename = array();
-    public static $confirm = array ();
+    
     
     public static function newFilename ($file) {
         $info = pathinfo($file);

@@ -74,11 +74,25 @@ class HTML {
     /**
      * method for initing a form
      * @param array $values initial values for the form e.g. 
-     *              array ('name' => 'dennis')
+     *              array ('name' => 'test')
      * @param string $trigger the trigger value which tells the object to
      *               stop using the initial set values 
      */
     public static function init ($values = array (), $trigger = null) {
+        /*
+        //echo $_SESSION['csrf_age'];
+        if(!empty($_POST) && isset($_SESSION['csrf_age'])) {
+        //Here we parse the form
+            if(!isset( $_SESSION['csrf']) || 
+                    ($_SESSION['csrf'] != $_POST['csrf']) || 
+                    ($_SESSION['csrf_age'] < time() ) )
+                throw new RuntimeException('CSRF attack');
+ 
+            //Do the rest of the processing here
+        } else {
+            echo "ok";
+        } */
+        
         
         if (isset($trigger)) {
             self::$autoLoadTrigger = $trigger;
@@ -98,6 +112,8 @@ class HTML {
         if (self::$autoEncode) {
             self::$values = html::specialEncode(self::$values);
         }
+        
+        
     }
     
     /**
@@ -222,6 +238,7 @@ class HTML {
      * @return string $str the form end element
      */
     public static function formEnd (){
+        self::csrf();
         $str = '';
         $str.= "</fieldset>\n";
         $str.= "</form>\n";
@@ -299,6 +316,13 @@ class HTML {
         $str = self::hiddenClean($name, $value, $extra);
         self::$fields[] = array ('value' => $str);
         return $str;
+    }
+    
+    public static function csrf () {
+        $key = sha1(microtime());
+        $_SESSION['csrf'] = $key;
+        $_SESSION['csrf_age'] = time();
+        self::hidden('csrf', $key);
     }
     
     
@@ -629,7 +653,7 @@ EOF;
      */
     public static function submit ($name, $value, $extra = array ()) {
         $extra = self::parseExtra($extra);
-        $str =  "<input type=\"submit\" $extra name=\"$name\" id=\"$name\" value=\"$value\" />" . self::$br . "";
+        $str =  "<input type=\"submit\" $extra name=\"$name\" id=\"$name\" value=\"$value\" />" . self::$br . "\n";
         self::$fields[] = array ('value' => $str);
         return $str;
     }
