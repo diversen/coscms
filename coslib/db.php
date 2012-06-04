@@ -662,6 +662,8 @@ class QBuilder  {
      * @var type $method inidcation if we are updating or inserting values. 
      */
     public static $method = '';
+    
+    public static $isset = null;
 
     /**
      * constructor inits object
@@ -885,13 +887,13 @@ class QBuilder  {
      * @param string $order (e.g. ASC or DESC)
      */
     public static function order ($column, $order = 'ASC'){
-        static $isset = null;
-        if (!$isset) { 
+        //static $isset = null;
+        if (!self::$isset) { 
             self::$query.= " ORDER BY `$column` $order ";
         } else {
             self::$query.= ", `$column` $order ";
         }   
-        $isset = true;
+        self::$isset = true;
         return new QBuilder;
     }
     
@@ -979,7 +981,7 @@ class QBuilder  {
         if (isset(config::$vars['coscms_main']['debug'])) {
             cos_debug(self::$query);
         }
-        self::$query = self::$bind = self::$where = self::$stmt = null;
+        self::$query = self::$isset = self::$bind = self::$where = self::$stmt = null;
     }
 }
 /**
