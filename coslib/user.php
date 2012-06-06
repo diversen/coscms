@@ -64,17 +64,14 @@ class user {
         return self::$profile_object->getProfileInfo($user);
     }
     
+    /**
+     * method for getting html for logging out a user. 
+     * @param param $row
+     * @return string $html
+     */
     public static function getLogoutHTML ($row) {
-        //$str = '';
-        
-
         self::initProfile();
-        //if (!$res) return false;
-        
         return self::$profile_object->getLogoutHTML($row);
-        
-        
-        // view_confirm($str);
     }
     
     /**
