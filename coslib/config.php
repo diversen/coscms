@@ -46,6 +46,14 @@ class config {
         if (config::$vars['coscms_main'][$key] == '0'){
             return null;
         }
+        
+        if (config::$vars['coscms_main'][$key] == 'true') {
+            return true;
+        }
+        
+        if (config::$vars['coscms_main'][$key] == 'false') {
+            return false;
+        }
         return config::$vars['coscms_main'][$key];      
     }
     
