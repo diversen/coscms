@@ -33,11 +33,15 @@ class layout {
      * credentials (admin / user) thus generating
      * accurate menus for each group. Loading of template
      */
-    function __construct(){
+    function __construct($template = null){
         
         // check is a admin template is being used. 
         if (session::isAdmin() && isset(config::$vars['coscms_main']['admin_template'])){
             config::$vars['coscms_main']['template'] = config::$vars['coscms_main']['admin_template'];
+        }
+        
+        if (!isset($template)) {
+            $template = config::$vars['coscms_main']['template'];
         }
         
         // load template. This is done before parsing the modules. Then the 
@@ -45,12 +49,16 @@ class layout {
         $template_path = 
             _COS_PATH .
             "/htdocs/templates/" .
-            config::$vars['coscms_main']['template'];
+            $template;
         
         include_once $template_path . "/common.inc";
         include_once $template_path . "/template.inc";
         
         template::init(config::$vars['coscms_main']['template']);
+    }
+    
+    public static function setTemplate ($template) {
+        config::$vars['coscms_main']['template'] = $template;
     }
     
     /**
