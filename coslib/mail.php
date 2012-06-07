@@ -152,11 +152,11 @@ function mail_php ($recipient, $subject, $message, $from = null, $reply_to = nul
                 'head_charset' => "UTF-8"));
     $headers = $mime->headers($headers);
     $mail =& Mail::factory("smtp", $smtp_params);
-    try { 
-        $mail->send($recipient, $headers, $body);
-    } catch (Exception $e) {
-        cos_debug($e->getMessage());
-        return 0;
+    $res = $mail->send($recipient, $headers, $body);
+    if (PEAR::isError($res)) {
+        //print_r($res);
+        cos_error_log($res->getMessage());
+        return false;
     }
     return 1;
 }
@@ -212,18 +212,19 @@ function mail_smtp ($recipient, $subject, $message, $from = null, $reply_to = nu
     $smtp_params = array();
     $smtp_params["host"]     = config::$vars['coscms_main']['smtp_params_host']; //"ssl://smtp.gmail.com";
     $smtp_params["port"]     = config::$vars['coscms_main']['smtp_params_port'];
-    $smtp_params["auth"]     = true; //config::$vars['coscms_main']['smtp_params_auth'];
+    $smtp_params["auth"]     = true;//config::$vars['coscms_main']['smtp_params_auth'];
     $smtp_params["username"] = config::$vars['coscms_main']['smtp_params_username'];
     $smtp_params["password"] = config::$vars['coscms_main']['smtp_params_password'];
+    $smtp_params['debug'] = true;
 
     $mail =& Mail::factory("smtp", $smtp_params);
-    try { 
-        $mail->send($recipient, $headers, $body);
-    } catch (Exception $e) {
-        cos_debug($e->getMessage());
-        return 0;
+    $res = $mail->send($recipient, $headers, $body);
+    if (PEAR::isError($res)) {
+        //print_r($res);
+        cos_error_log($res->getMessage());
+        return false;
     }
-    return 1;
+    return true;
 }
 
 /**
@@ -278,11 +279,11 @@ function mail_html ($recipient, $subject, $html, $from = null, $reply_to = null)
     $smtp_params["password"] = config::$vars['coscms_main']['smtp_params_password'];
 
     $mail =& Mail::factory("smtp", $smtp_params);
-    try { 
-        $mail->send($recipient, $headers, $body);
-    } catch (Exception $e) {
-        cos_debug($e->getMessage());
-        return 0;
+    $res = $mail->send($recipient, $headers, $body);
+    if (PEAR::isError($res)) {
+        //print_r($res);
+        cos_error_log($res->getMessage());
+        return false;
     }
     return $result;
 }
