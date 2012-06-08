@@ -57,8 +57,11 @@ class layout {
         template::init(config::$vars['coscms_main']['template']);
     }
     
-    public static function setTemplate ($template) {
-        config::$vars['coscms_main']['template'] = $template;
+    
+    
+    public static function setLayout ($template) {
+        $layout = null;
+        $layout = new layout($template);
     }
     
     /**
