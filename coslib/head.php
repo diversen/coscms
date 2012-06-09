@@ -18,6 +18,7 @@ ini_set('include_path',
 
 
 
+
 /**
  * include base classes and functions
  * the names specifify what the classes or function collections do. 
@@ -43,6 +44,10 @@ include_once "coslib/log.php";
 include_once "coslib/lang.php";
 include_once "coslib/time.php";
 include_once "coslib/urldispatch.php";
+
+if (config::getMainIni('debug')) {
+    ini_set('display_errors', 1);
+}
 
 // set some common register vars
 config::$vars['coscms_base'] = _COS_PATH;
