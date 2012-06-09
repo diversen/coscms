@@ -238,7 +238,7 @@ class HTML {
      * @return string $str the form end element
      */
     public static function formEnd (){
-        self::csrf();
+        //self::csrf();
         $str = '';
         $str.= "</fieldset>\n";
         $str.= "</form>\n";
@@ -319,10 +319,11 @@ class HTML {
     }
     
     public static function csrf () {
+        /*
         $key = sha1(microtime());
         $_SESSION['csrf'] = $key;
         $_SESSION['csrf_age'] = time();
-        self::hidden('csrf', $key);
+        self::hidden('csrf', $key); */
     }
     
     
