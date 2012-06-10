@@ -173,7 +173,6 @@ function mail_php ($recipient, $subject, $message, $from = null, $reply_to = nul
  */
 function mail_smtp ($recipient, $subject, $message, $from = null, $reply_to = null) {
 
-    
     if (!$from) {
         $from = config::getMainIni('site_email');
     }
@@ -208,6 +207,7 @@ function mail_smtp ($recipient, $subject, $message, $from = null, $reply_to = nu
                 'head_charset' => "UTF-8"));
     $headers = $mime->headers($headers);
 
+
     // SMTP authentication params
     $smtp_params = array();
     $smtp_params["host"]     = config::$vars['coscms_main']['smtp_params_host']; //"ssl://smtp.gmail.com";
@@ -215,7 +215,7 @@ function mail_smtp ($recipient, $subject, $message, $from = null, $reply_to = nu
     $smtp_params["auth"]     = config::getMainIni('smtp_params_auth');
     $smtp_params["username"] = config::$vars['coscms_main']['smtp_params_username'];
     $smtp_params["password"] = config::$vars['coscms_main']['smtp_params_password'];
-    //$smtp_params['debug'] = true;
+    $smtp_params['debug'] = true;
     //var_dump($smtp_params); die;
     $mail = Mail::factory("smtp", $smtp_params);
     
@@ -225,8 +225,6 @@ function mail_smtp ($recipient, $subject, $message, $from = null, $reply_to = nu
         cos_error_log($res->getMessage());
         return false;
     }
-    //var_dump($res);
-    //die;
     return true;
 }
 
@@ -281,7 +279,7 @@ function mail_html ($recipient, $subject, $html, $from = null, $reply_to = null)
     $smtp_params["username"] = config::$vars['coscms_main']['smtp_params_username'];
     $smtp_params["password"] = config::$vars['coscms_main']['smtp_params_password'];
 
-    $mail =& Mail::factory("smtp", $smtp_params);
+    $mail = Mail::factory("smtp", $smtp_params);
     $res = $mail->send($recipient, $headers, $body);
     if (PEAR::isError($res)) {
         //print_r($res);
