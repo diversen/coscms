@@ -215,7 +215,7 @@ function mail_smtp ($recipient, $subject, $message, $from = null, $reply_to = nu
     $smtp_params["auth"]     = config::getMainIni('smtp_params_auth');
     $smtp_params["username"] = config::$vars['coscms_main']['smtp_params_username'];
     $smtp_params["password"] = config::$vars['coscms_main']['smtp_params_password'];
-    $smtp_params['debug'] = true;
+    //$smtp_params['debug'] = true;
     //var_dump($smtp_params); die;
     $mail = Mail::factory("smtp", $smtp_params);
     
