@@ -50,19 +50,20 @@ class event {
      *         
      */
     public static function getTriggerEvent ($methods, $args = null) {
-        if (!is_array($methods)) return;
+        if (!is_array($methods)) return array ();
         $methods = self::prepareMethods($methods);
         $ret = array();
         foreach ($methods as $val) {
-           
             $ary = explode('::', $val);
             $module = $class = $ary[0];
             $method = $ary[1];
-            moduleLoader::includeModule($module);
-            $ret_val = $class::$method($args);
-            if (!$ret_val) return false;
-            $ret[] = $ret_val; 
-
+            if (moduleLoader::isInstalledModule($module)) {
+                moduleLoader::includeModule($module);
+                $ret_val = $class::$method($args);
+                if ($ret_val) {
+                    $ret[] = $ret_val; 
+                }
+            }
         }
         return $ret;
     }
@@ -88,11 +89,13 @@ class event {
             $ary = explode('::', $val);
             $module = $class = $ary[0];
             $method = $ary[1];
-            moduleLoader::includeModule($module);
-            $ret = $class::$method($args);
-            if (!empty($ret)) {
-                $ary_ret[] =  $ret;
-                $str.= $ret;
+            if (moduleLoader::isInstalledModule($module)) {
+                moduleLoader::includeModule($module);
+                $ret = $class::$method($args);
+                if (!empty($ret)) {
+                    $ary_ret[] =  $ret;
+                    $str.= $ret;
+                }
             }
         }      
 

@@ -37,11 +37,13 @@ class user {
     
     public static function initProfile () {
         if (!isset(self::$profile_object)){
+            
             $profile_system = config::getMainIni('profile_module');
-            if (!isset($profile_system)){
-                return false;
+            if (!isset($profile_system) || !moduleLoader::isInstalledModule($profile_system)){
+                include_once "coslib/default_profile.php";
+                $profile_system = 'default_profile';
             }
-
+            
             moduleLoader::includeModule ($profile_system);
             self::$profile_object = new $profile_system();
         }
@@ -59,7 +61,6 @@ class user {
         if (!is_array($user)) {
             $user = user::getAccount($user);
         }
-        //if (!$res) return false;
 
         return self::$profile_object->getProfileInfo($user);
     }
@@ -70,6 +71,7 @@ class user {
      * @return string $html
      */
     public static function getLogoutHTML ($row) {
+        
         self::initProfile();
         return self::$profile_object->getLogoutHTML($row);
     }
@@ -91,23 +93,10 @@ class user {
      * @return string $str profile html.  
      */
     public static function getProfile($user, $text = '') {
+        
+        self::initProfile();
         if (!is_array($user)) {
             $user = user::getAccount($user);
-        }
-
-        if (!isset(self::$profile_object)){
-            $profile_system = config::getMainIni('profile_module');
-            if (!isset($profile_system)){
-                return '';
-            }
-
-            moduleLoader::includeModule ($profile_system);
-
-            $profile_object = $profile_system;
-            self::$profile_object = new $profile_object();
-            $link = self::$profile_object->getProfile($user, $text);
-
-            return $link;
         }
 
         return self::$profile_object->getProfile($user, $text);       
@@ -130,24 +119,11 @@ class user {
      * @return string $str profile html.  
      */
     public static function getProfileSimple($user, $text = '') {
+        
+        self::initProfile();
         if (!is_array($user)) {
             $user = user::getAccount($user);
         }
-
-        if (!isset(self::$profile_object)){
-            $profile_system = config::getMainIni('profile_module');
-            if (!isset($profile_system)){
-                return '';
-            }
-
-            moduleLoader::includeModule ($profile_system);
-
-            $profile_object = $profile_system;
-            self::$profile_object = new $profile_object();
-            $link = self::$profile_object->getProfileSimple($user, $text);
-            return $link;
-        }
-
         return self::$profile_object->getProfileSimple($user, $text);       
     }
 
@@ -161,24 +137,8 @@ class user {
      * @return  string  $string string showing the profile
      */
     public static function getProfileEditLink ($user_id){
-
-        static $profile_object;
-
-        if (!isset($profile_object)){
-            $profile_system = config::getMainIni('profile_module');
-            if (!isset($profile_system)){
-                return '';
-            }
-
-            moduleLoader::includeModule ($profile_system);
-
-            //$profile_object = moduleLoader::modulePathToClassName($profile_system);
-            $profile_object = new $profile_system();      
-            return $profile_object->getProfileEditLink($user_id);
-
-        }
-
-        return $profile_object->getProfileEditLink($user_id);
+        self::initProfile();
+        return self::$profile_object->getProfileEditLink($user_id);
     }
     
 }
