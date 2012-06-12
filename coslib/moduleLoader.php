@@ -661,7 +661,7 @@ class moduleLoader {
         if (!is_array($modules)) return;
         foreach ($modules as $val){
             $str = '';
-            if (method_exists($val, 'subModulePreContent')){
+            if (method_exists($val, 'subModulePreContent') && moduleLoader::isInstalledModule($val)){
                 $str = $val::subModulePreContent($options);
                 if (!empty($str)) {
                     $ary[] = $str;
@@ -686,7 +686,7 @@ class moduleLoader {
         $ary = array();
         if (!is_array($modules)) return array ();
         foreach ($modules as $val){
-            if (method_exists($val, 'subModuleAdminOption')){
+            if (method_exists($val, 'subModuleAdminOption') && moduleLoader::isInstalledModule($val)){
                 $str = $val::subModuleAdminOption($options);
                 if (!empty($str)) $ary[] = $str;
             }
@@ -740,7 +740,7 @@ class moduleLoader {
         $ary = array ();
         if (!is_array($modules)) return $ary;
         foreach ($modules as $val){
-            if (method_exists($val, 'subModuleInlineContent')){
+            if (method_exists($val, 'subModuleInlineContent') && moduleLoader::isInstalledModule($val)){
                 $str = $val::subModuleInlineContent($options);
                 if (!empty($str)) $ary[] = $str;
             }
@@ -759,7 +759,7 @@ class moduleLoader {
         $ary = array ();
         if (!is_array($modules)) return $ary;
         foreach ($modules as $val){
-            if (method_exists($val, 'subModulePostContent')){
+            if (method_exists($val, 'subModulePostContent') && moduleLoader::isInstalledModule($val)){
                 $str = $val::subModulePostContent($options);
                 if (!empty($str)) $ary[] = $str;
             }
