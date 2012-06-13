@@ -29,7 +29,8 @@ class user {
      * @param int $id user_id 
      * @return array $row from account 
      */
-    public static function getAccount ($id) {   
+    public static function getAccount ($id = null) {
+        if (!$id) $id = session::getUserId ();
         $db = new db();
         $row = $db->selectOne('account', 'id', $id);
         return $row;
