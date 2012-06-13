@@ -603,13 +603,71 @@ abstract class template {
  */
 
 class templateView {
-
+    
+    public static $override = false;
     /**
-     * default view folder
-     * @var string $viewFolder default view folder in a module folder
+     * 
      */
-    static $viewFolder = 'views';
-
+    public static $options = array (
+        'folder' => 'views'
+    );
+    
+    public static $view = null;
+    /**
+     * method for setting override of normal views
+     * @param string $view view to override, e.g. account_login_email
+     * @param array $ary options 
+     */
+    public static function setOverride ($view, $options = array ()) {
+        
+        self::$override = true;
+        self::$view = $view;
+        if (isset($options['module'])) {
+            self::$options['module'] = $options['module'];
+        }
+        if (isset($options['view'])) {
+            self::$options['view'] = $options['view'];
+        }
+        if (isset($options['template'])) {
+            self::$options['template'] = $options['template'];
+        }
+        if (isset($options['folder'])) {
+            self::$options['folder'] = $options['folder'];
+        }
+        if (isset($options['ext'])) {
+            self::$options['ext'] = $options['ext'];
+        }
+    }
+    
+    /**
+     * get override view name
+     * @return string $str filename of the view 
+     */
+    public static function getOverrideFilename () {
+        
+        if (isset(self::$options['template'])) {
+            $filename = _COS_PATH . "/htdocs/template/" . self::$options[template];
+        } 
+        
+        if (isset(self::$options['module'])) {
+            $filename = _COS_PATH . "/modules/" . self::$options['module'];
+        }
+        
+        $filename.= '/' . self::$options['folder'];
+        if (isset(self::$options['view'])) {
+            $filename.= '/' . self::$options['view'];
+        } else {
+            $filename.= '/' . self::$view; 
+        }
+        
+        if (isset(self::$options['ext'])) {
+            $filename.= '.' . self::$options['view'];
+        } else {
+            $filename.= '.' . 'inc'; 
+        }
+        return $filename;
+    }
+    
     /**
      * function for including a view file.
      * Maps to module (e.g. 'tags' and 'view file' e.g. 'add')
@@ -623,8 +681,14 @@ class templateView {
      * @param boolean return as string (1) or output directly (0) 
      */
     static function includeModuleView ($module, $view, $vars = null, $return = null){
-        $filename = _COS_PATH . "/modules/$module/" . self::$viewFolder . "/$view.inc";
 
+        $base_path = _COS_PATH . "/modules";
+        if (self::$override) {
+            $filename = self::getOverrideFilename();
+        } else {
+            $filename = $base_path . "/$module/" . self::$options['folder'] . "/$view.inc";
+        }
+        
         if (is_file($filename)) {
             ob_start();
             include $filename;
@@ -656,6 +720,13 @@ class templateView {
 }
 
 /**
+ * alias for templateView 
+ */
+class view extends templateView {
+    
+}
+
+/**
  * function for including a view file.
  * Maps to module (e.g. 'tags' and 'view file' e.g. 'add')
  * we presume that views are placed in modules views folder
@@ -668,7 +739,7 @@ class templateView {
  * @param boolean $return if true we will return the content of the view
  *                        if false we echo the view
  */
-function include_view ($module, $view, $vars = null, $return = null){
+function include_view ($module, $view, $vars = null){
     return templateView::includeModuleView($module, $view, $vars, 1); 
 }
 

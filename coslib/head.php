@@ -45,9 +45,6 @@ include_once "coslib/lang.php";
 include_once "coslib/time.php";
 include_once "coslib/urldispatch.php";
 
-if (config::getMainIni('debug')) {
-    ini_set('display_errors', 1);
-}
 
 // set some common register vars
 config::$vars['coscms_base'] = _COS_PATH;
@@ -64,6 +61,11 @@ if (!defined('_COS_CLI')){
     
     // load config/config.ini
     config::loadMain();
+
+    
+    if (config::getMainIni('debug')) {
+        ini_set('display_errors', 1);
+    }
     
     // set a unified server_name if not set in config file. 
     $server_name = config::getMainIni('server_name');

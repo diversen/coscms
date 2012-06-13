@@ -353,6 +353,11 @@ class session {
         if (empty($allow)) {
             return true;
         }
+        
+        // anon is anonymous user. Anyone if allowed
+        if ($allow == 'anon') {
+            return true;
+        }
 
         // check if we have a user
         if ($allow == 'user'){
@@ -369,7 +374,7 @@ class session {
 
         // check other than users. 'admin' and 'super' is set
         // in special session vars when logging in. User is
-        // someone how just have a valid $_SESSION['id'] set
+        // someone who just have a valid $_SESSION['id'] set
         if (!isset($_SESSION[$allow]) || $_SESSION[$allow] != 1){
             if ($setErrorModule){
                 moduleLoader::$status[403] = 1;
