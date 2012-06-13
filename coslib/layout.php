@@ -468,8 +468,8 @@ class layout {
             if (is_numeric($val)) {
                 include_module('block_manip');
                 $row = block_manip::getOne($val); 
-                $row['content'] = get_filtered_content(
-                    get_module_ini('block_manip_filters'), $row['content']
+                $row['content_block'] = get_filtered_content(
+                    get_module_ini('block_manip_filters'), $row['content_block']
                 );
                 $row['title'] = htmlspecialchars($row['title']);
                 $content = templateView::get('block_manip', 'block_html', $row);

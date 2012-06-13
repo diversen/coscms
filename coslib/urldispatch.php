@@ -1,7 +1,7 @@
 <?php
 
 /**
- * simple dispatch class
+ * simple url dispatch class
  * @package urldispatch 
  */
 
@@ -94,6 +94,5 @@ class urldispatch {
             config::$vars['coscms_main']['routes'][$route['route']] = unserialize($route['value']); 
  
         }
-        //print_r(config::$vars['routes']);
     }
 }
