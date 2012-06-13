@@ -97,7 +97,11 @@ class moduleLoader {
         return $modules = $db->selectAll('modules');
     }
     
-    static function getInstalledModuleNames () {
+    /**
+     * get all installed module name only
+     * @return array $ary array of module names 
+     */
+    public static function getInstalledModuleNames () {
         $mods = self::getAllModules();
         $ins = array ();
         foreach ($mods as $val) {
