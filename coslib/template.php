@@ -323,6 +323,17 @@ abstract class template {
     }
     
     /**
+     * returns favicon
+     * @param string $path
+     * @return string $html 
+     */
+    public static function getFaviconHTML ($path = null) {
+        if (!$path) $path = '/favicon.ico';
+        $str = "<link rel=\"shortcut icon\" href=\"$path\" type=\"image/x-icon\" />";
+        return $str;
+    }
+    
+    /**
      * Will load the js as file and place and add it to array which can
      * be parsed in user templates. This is used with js files that exists
      * outside webspace, e.g. in modules
