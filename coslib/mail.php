@@ -83,8 +83,8 @@ function mail_utf8_direct($to, $subject, $message, $from = null, $reply_to=null)
 
 function mail_utf8($to, $subject, $message, $from = null, $reply_to=null) {
 
-    //$reply_to = trim($reply_to); 
-    //$from = trim ($from);
+    $reply_to = trim($reply_to); 
+    $from = trim ($from);
     
     $message = wordwrap($message, 70);
     $res = null;
@@ -164,14 +164,14 @@ function mail_php ($recipient, $subject, $message, $from = null, $reply_to = nul
 
 /**
  * method for sending mails via smtp
- * @param   string  $recipient to whom are we gonna send the email
+ * @param   string  $to to whom are we gonna send the email
  * @param   string  $subject the subject of the email
  * @param   string  $message the message of the email
  * @param   string  $from from the sender of the email
  * @param   string  $reply_to email to reply to
  * @return  int     $res 1 on success 0 on error
  */
-function mail_smtp ($recipient, $subject, $message, $from = null, $reply_to = null) {
+function mail_smtp ($to, $subject, $message, $from = null, $reply_to = null) {
 
     if (!$from) {
         $from = config::getMainIni('site_email');
@@ -181,7 +181,7 @@ function mail_smtp ($recipient, $subject, $message, $from = null, $reply_to = nu
         $reply_to = $from;
     }
     
-    $recipient = "<$recipient>"; 
+    //$recipient = "<$recipient>"; 
 
     $headers = array(
         'From'          => $from,
@@ -207,7 +207,6 @@ function mail_smtp ($recipient, $subject, $message, $from = null, $reply_to = nu
                 'head_charset' => "UTF-8"));
     $headers = $mime->headers($headers);
 
-
     // SMTP authentication params
     $smtp_params = array();
     $smtp_params["host"]     = config::$vars['coscms_main']['smtp_params_host']; //"ssl://smtp.gmail.com";
@@ -215,17 +214,50 @@ function mail_smtp ($recipient, $subject, $message, $from = null, $reply_to = nu
     $smtp_params["auth"]     = config::getMainIni('smtp_params_auth');
     $smtp_params["username"] = config::$vars['coscms_main']['smtp_params_username'];
     $smtp_params["password"] = config::$vars['coscms_main']['smtp_params_password'];
-    //$smtp_params['debug'] = true;
+    $smtp_params['debug'] = config::getMainIni('smtp_params_debug');
     //var_dump($smtp_params); die;
     $mail = Mail::factory("smtp", $smtp_params);
     
-    $res = $mail->send($recipient, $headers, $body);
+    $res = $mail->send($to, $headers, $body);
     if (PEAR::isError($res)) {
         //print_r($res);
         cos_error_log($res->getMessage());
         return false;
     }
     return true;
+}
+
+function mail_smtp_zend ($to, $subject, $message, $from = null, $reply_to = null) {
+
+    include_once "Zend/Mail.php";
+    include_once "Zend/Mail/Transport/Smtp.php";
+    $config = array('auth' => config::getMainIni('smtp_params_auth'),
+                    'username' => config::getMainIni('smtp_params_username'),
+                    'password' => config::getMainIni('smtp_params_password'),
+                    'port' => config::getMainIni('smtp_params_port')
+     );
+     
+    
+    $transport = new Zend_Mail_Transport_Smtp(
+            config::getMainIni('smtp_params_host'), 
+            $config);
+     
+    $mail = new Zend_Mail();
+    $mail->setBodyText($message);
+    if (!$from) {
+        $from = config::getMainIni('site_email');
+    }
+    $mail->setFrom($from);
+    $mail->addTo($to);
+    $mail->setSubject($subject);
+    try {
+        $res = $mail->send($transport);
+    } catch (Exception $e) {
+        cos_error_log($e->getTraceAsString());
+        return false;
+    } 
+    return true;
+    
 }
 
 /**
