@@ -175,9 +175,9 @@ class session {
     public static function killSession (){
         setcookie ("system_cookie", "", time() - 3600, "/");
         unset($_SESSION['id'], $_SESSION['admin'], $_SESSION['super'], $_SESSION['account_type']);
-
+        session_destroy();
     }
-    // {{{ static public function isInSession() (ret: boolean)
+
     /**
      * method for testing if user is in session or not
      * @return  boolean true or false
@@ -189,9 +189,6 @@ class session {
             return false;
         }
     }
-
-    // }}}
-    // {{{ static public function getSessionTime()
 
     /**
      * method for getting how long user has been in session
