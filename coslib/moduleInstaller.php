@@ -46,9 +46,15 @@ class moduleInstaller extends db {
 
     /**
      *
-     * @var array holding errors
+     * @var string holding error
      */
-    public $error;
+    public $error = null;
+    
+    /**
+     * var holding notices
+     * @var string 
+     */
+    public $notice = null;
 
     /**
      *
@@ -247,7 +253,7 @@ class moduleInstaller extends db {
 
         $dirs = file::getFileList($language_path);
         if ($dirs == false){
-            echo "Notice: No language dir in: $language_path " . NEW_LINE;
+            $this->notice = "Notice: No language dir in: $language_path " . NEW_LINE;
         }
 
         $this->delete('language', 'module_name', $this->installInfo['NAME']);
@@ -265,7 +271,7 @@ class moduleInstaller extends db {
                         $this->insert('language', $values);
                     }
                 } else {
-                    echo "Notice: " . $language_file . " not found" . NEW_LINE;
+                    $this->notice = "Notice: " . $language_file . " not found" . NEW_LINE;
                 }
             }
         }
@@ -607,6 +613,10 @@ class moduleInstaller extends db {
         $this->deleteRoutes();
         $this->delete('language', 'module_name', $this->installInfo['NAME']);
         
+        $unin_func = $this->installInfo['NAME'] . "_uninstall";
+        if(function_exists($unin_func)) {
+            $unin_func();
+        }
 
         if (!empty($downgrades)) {
             foreach ($downgrades as $key => $val){

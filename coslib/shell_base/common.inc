@@ -151,19 +151,19 @@ function cos_system($command){
     return $ret;
 }
 
-// }}}
-// {{{ cos_cli_print($mes)
-
 /**
  * simple function for printing a message
- * @param <string> $mes
+ * @param  string $mes the message to echo
  */
 function cos_cli_print($mes){
-    print $mes . "\n";
+    echo $mes . "\n";
 }
 
-// }}}
 
+/**
+ * checks if we are on command line 
+ * @return boolean $res true if yes else false
+ */
 function cos_is_cli (){
     if (isset($_SERVER['SERVER_NAME'])){
         return false;
