@@ -327,9 +327,16 @@ abstract class template {
      * @param string $path
      * @return string $html 
      */
-    public static function getFaviconHTML ($path = null) {
-        if (!$path) $path = '/favicon.ico';
-        $str = "<link rel=\"shortcut icon\" href=\"$path\" type=\"image/x-icon\" />";
+    public static function getFaviconHTML () {
+        $favicon = config::getMainIni('favicon');
+        $domain = config::getDomain();
+        $rel_path = "/files/$domain/favicon/$favicon";
+        $full_path = _COS_PATH . "/htdocs" . $rel_path; 
+        if (!is_file($full_path)) {
+            $rel_path = '/favicon.ico';
+        }
+        
+        $str = "<link rel=\"shortcut icon\" href=\"$rel_path\" type=\"image/x-icon\" />\n";
         return $str;
     }
     
