@@ -613,10 +613,16 @@ class moduleInstaller extends db {
         $this->deleteRoutes();
         $this->delete('language', 'module_name', $this->installInfo['NAME']);
         
-        $unin_func = $this->installInfo['NAME'] . "_uninstall";
-        if(function_exists($unin_func)) {
-            $unin_func();
+        // check for uninstall.inc file
+        $file = _COS_PATH . "/modules/" . $this->installInfo['NAME'] . "/uninstall.inc";
+        if (file_exists($unin_file)) {
+            include_once $unin_file;
+            $unin_func = $this->installInfo['NAME'] . "_uninstall";
+            if(function_exists($unin_func)) {
+                $unin_func();
+            }
         }
+        
 
         if (!empty($downgrades)) {
             foreach ($downgrades as $key => $val){

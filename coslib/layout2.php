@@ -79,7 +79,7 @@ class layout2 extends layout {
 
             
             $str.="<li>";
-            $link = html::createLink( $v['url'], lang::translate($v['title']), $options);
+            $link = html::createLink( $v['url'], $v['title'], $options);
             $str.=  $link;
             if (isset($v['sub'])){
                 $str .= self::parseMainMenuList($v['sub']);

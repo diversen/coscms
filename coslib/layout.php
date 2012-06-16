@@ -77,6 +77,8 @@ class layout {
         // always a module menu in web mode
         self::$menu['main'] = $db->selectQuery("SELECT * FROM `menus` WHERE  ( `parent` = '0') AND `admin_only` = 0 ORDER BY `weight` ASC");
 
+        self::setMainMenuTitles();
+        
         // admin item are special
         if (session::isAdmin()){
             self::$menu['admin'] = $db->selectQuery("SELECT * FROM `menus` WHERE `admin_only` = 1 OR `section` != '' ORDER BY `weight` ASC");
@@ -111,6 +113,13 @@ class layout {
         $parent = moduleLoader::getParentModule($module);
         if (isset($parent)) {
             self::$menu['sub'] = self::getMenuFromFile($module);
+        }
+    }
+    
+    public static function setMainMenuTitles () {
+        foreach (self::$menu['main'] as &$val) {
+            $val['title'] = lang::translate($val['title']);
+            if (!empty($val['title_human'])) $val['title'] = $val['title_human'];
         }
     }
 
@@ -330,7 +339,7 @@ class layout {
 
 
             $str.="<li>";
-            $link = html::createLink( $v['url'], lang::translate($v['title']));
+            $link = html::createLink( $v['url'], $v['title']);
             $str.=  $link;
             if (isset($v['sub'])){
                 $str .= self::parseMainMenuList($v['sub']);

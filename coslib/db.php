@@ -979,7 +979,7 @@ class QBuilder  {
      */
     public static function unsetVars (){
         if (isset(config::$vars['coscms_main']['debug'])) {
-            cos_debug(self::$query);
+            //cos_debug(self::$query);
         }
         self::$query = self::$isset = self::$bind = self::$where = self::$stmt = null;
     }
