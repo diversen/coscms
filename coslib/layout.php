@@ -77,7 +77,7 @@ class layout {
         // always a module menu in web mode
         self::$menu['main'] = $db->selectQuery("SELECT * FROM `menus` WHERE  ( `parent` = '0') AND `admin_only` = 0 ORDER BY `weight` ASC");
 
-        self::setMainMenuTitles();
+        //self::setMainMenuTitles();
         
         // admin item are special
         if (session::isAdmin()){
@@ -85,6 +85,8 @@ class layout {
 
         }
 
+        self::setMainMenuTitles();
+        
         // if status is set we don't load module menus. Must be 404 or 403.
         // we then return empty array. module loader will know what to do when
         // including correct error pages. No menus from normal main module 
@@ -116,10 +118,21 @@ class layout {
         }
     }
     
+    /**
+     * translate all menu items. 
+     * With main menu items we look for human translation.
+     */
     public static function setMainMenuTitles () {
         foreach (self::$menu['main'] as &$val) {
             $val['title'] = lang::translate($val['title']);
             if (!empty($val['title_human'])) $val['title'] = $val['title_human'];
+        }
+        
+        if (session::isAdmin()) {
+            foreach (self::$menu['admin'] as &$val) {
+                $val['title'] = lang::translate($val['title']);
+                //if (!empty($val['title_human'])) $val['title'] = $val['title_human'];
+            }    
         }
     }
 
@@ -310,7 +323,7 @@ class layout {
             }
 
             $str.="<li>";
-            $link = html::createLink( $v['url'], lang::translate($v['title']), $options);
+            $link = html::createLink( $v['url'], $v['title'], $options);
 
             $str.=  $link;
             if (isset($v['sub'])){

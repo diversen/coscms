@@ -27,4 +27,18 @@ class formHelpers {
         $html->formEnd(); 
         return $html->getStr();
     }
+    
+   public static function confirmForm ($legend, $submit = null) {
+        
+        $html = new HTML ();
+        $html->setAutoEncode(true);
+        $html->formStart('custom_delete_form');
+        $html->legend($legend);
+        if (!$submit) {
+            $submit = lang::translate('submit');
+        }
+        $html->submit('submit', $submit);
+        $html->formEnd(); 
+        return $html->getStr();
+    }
 }

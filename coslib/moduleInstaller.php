@@ -614,7 +614,7 @@ class moduleInstaller extends db {
         $this->delete('language', 'module_name', $this->installInfo['NAME']);
         
         // check for uninstall.inc file
-        $file = _COS_PATH . "/modules/" . $this->installInfo['NAME'] . "/uninstall.inc";
+        $unin_file = _COS_PATH . "/modules/" . $this->installInfo['NAME'] . "/uninstall.inc";
         if (file_exists($unin_file)) {
             include_once $unin_file;
             $unin_func = $this->installInfo['NAME'] . "_uninstall";
