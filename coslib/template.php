@@ -574,6 +574,13 @@ abstract class template {
                 self::setRelAsset('css', $val);
             }
         }
+        
+        $js = config::getModuleIni('template_js');
+        if ($js) {
+            foreach ($js as $val) {
+                self::setJs($val);
+            }
+        }
     }
     
     
