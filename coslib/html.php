@@ -202,7 +202,7 @@ class HTML {
         $enctype = "multipart/form-data", $options = array()) {
         
         if (!isset($options['id'])) {
-            $options['id'] = 'form';
+            $options['id'] = $name;
         }
         self::$internal['form_id'] = $options['id'];
         $extra = self::parseExtra($options);

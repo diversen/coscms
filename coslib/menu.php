@@ -21,7 +21,7 @@ class menu {
 
     /**
      * get system menu array from name
-     * @param string    name of the system menu to get
+     * @param string    $str name of the system menu to get
      */
     public static function getSystemMenuArray ($name){
         $db = new db();
@@ -56,7 +56,7 @@ class menu {
      * Notice: Works on reference to the menu
      *
      * @param array $menu
-     * @param <type> $val
+     * @param array $val
      */
     public static function createSystemMenuItem(&$menu, $val){
 
@@ -72,7 +72,7 @@ class menu {
      *
      * @param   array   $ary tree array
      * @param   int     $id id to search for
-     * @return  int     1 on success 0 on failure.
+     * @return  int     $res 1 on success 0 on failure.
      */
     public static function menuItemHasChildren ($ary, $id){
         static $ret = 0;
@@ -145,6 +145,9 @@ class menu {
             if (isset(self::$options['first_ul'])  && !isset($first_done)){
                 $str.= self::$options['first_ul'];
                 $first_done = 1;
+            } else if (!isset($first_done)) {
+                $str.="<ul class=\"content_tree\">\n";
+             
             } else {
                 $str.="<ul class=\"content_tree\">\n";
             }
