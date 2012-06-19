@@ -247,8 +247,6 @@ class session {
         return null;
     }
 
-    // }}}
-    // {{{ isSuper
     /**
      * method for testing if user is in super or not
      *
@@ -261,8 +259,7 @@ class session {
             return false;
         }
     }
-    // }}}
-    // {{{ isAdmin
+
     /**
      * method for testing if user is admin or not
      *
@@ -275,8 +272,7 @@ class session {
             return false;
         }
     }
-    // }}}
-    // {{{ getUserLevel()
+
     /**
      * method for getting users level (null, user, admin, super)
      * return   mixed   null or string if null then user is not logged in
@@ -294,8 +290,7 @@ class session {
         }
         return null;
     }
-    // }}}
-    // {{{ function isUser()
+    
     /**
      * method for testing if user is loged in or not
      *
@@ -308,8 +303,7 @@ class session {
             return false;
         }
     }
-    // }}}
-    // {{{ getUserId() 
+
     /**
      * checks $_SESSION['id'] and if set it will return 
      * method for getting a users id
@@ -323,8 +317,7 @@ class session {
             return $_SESSION['id'];
         }
     }
-    // }}}
-    // {{{ checkAccessControl($allow)
+
     /**
      * checkAccessControl($allow)
      * checks user level:
@@ -381,7 +374,7 @@ class session {
             return true;
         }
     }
-    // }}}
+
     /**
      * method for relocate user to login, and after correct login 
      * redirect to the page where he was. You can set message to
