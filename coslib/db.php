@@ -931,17 +931,27 @@ class QBuilder  {
      * @return array $rows assoc array of rows
      */
     public static function fetch (){
-        self::init();
-        self::$stmt = self::$dbh->prepare(self::$query);
-        self::prepare();
+        
+        try {
+            self::$debug[] = self::$query;
+            self::init();
+            self::$stmt = self::$dbh->prepare(self::$query);
+            self::prepare();
 
-        self::$stmt->execute();
-        $rows = self::$stmt->fetchAll(PDO::FETCH_ASSOC);
+            self::$stmt->execute();
+            $rows = self::$stmt->fetchAll(PDO::FETCH_ASSOC);
 
-        self::$debug[] = self::$query;
-        self::unsetVars();
-        self::$query = null;
-
+            
+            self::unsetVars();
+            //self::$query = null;
+        } catch (Exception $e) {
+            echo $message = $e->getMessage();
+            cos_error_log($message);
+            $development = config::getMainIni('development');
+            if ($development == 'development') {
+                print_r(self::$debug);
+            }
+        }
         if (self::$method == 'num_rows') {
             return $rows[0]['num_rows'];
         }       

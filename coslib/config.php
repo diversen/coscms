@@ -147,6 +147,7 @@ class config {
             config::$vars['coscms_main'] = config::getIniFileArray($config_file, true);
             if ( @config::$vars['coscms_main']['server_name'] ==
                     @$_SERVER['SERVER_NAME'] ) {
+                    self::$vars['coscms_main']['development'] = 'real';
                     // We are on REAL server and exists without
                     // adding additional settings for stage or development
                     // or CLI mode. 
@@ -168,6 +169,7 @@ class config {
                         config::$vars['coscms_main'],
                         config::$vars['coscms_main']['stage']
                     );
+                    self::$vars['coscms_main']['development'] = 'stage';
                     return;
                 }
             }
@@ -184,6 +186,7 @@ class config {
                         config::$vars['coscms_main'],
                         config::$vars['coscms_main']['development']
                     );
+                    self::$vars['coscms_main']['development'] = 'development';
                 }
             }
         }
