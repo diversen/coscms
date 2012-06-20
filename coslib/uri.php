@@ -115,7 +115,13 @@ class uri {
         if (!$path) {
             $path = $_SERVER['REQUEST_URI'];
         }
-        $parsed = parse_url($path);
+
+        $parsed = @parse_url($path);
+        if ($parsed === false) {
+            // malformed url
+            self::splitRequestAryFallback($path);
+            moduleLoader::setStatus(404);
+        }
         if (!empty($parsed['query'])) { 
             self::$info['query'] = $parsed['query'];
         } else {
@@ -123,6 +129,22 @@ class uri {
         }
         self::$info['path'] = $parsed['path'];
     }
+    
+    /**
+     * parse a malformed url path in a primitive way
+     * @param string $path 
+     */
+    public static function splitRequestAryFallback ($path) {
+        $uri = explode('?', $path);
+        if (isset($uri[1])) { 
+            self::$info['query'] = $uri[1];
+        } else {
+            self::$info['query'] = '';
+        } 
+        //return $uri;
+        self::$info['path'] = $uri[0];
+    // }
+    } 
 
     /**
      * Method for getting fragments that makes up the controller
