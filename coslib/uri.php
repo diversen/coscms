@@ -118,9 +118,9 @@ class uri {
 
         $parsed = @parse_url($path);
         if ($parsed === false) {
-            // malformed url
-            self::splitRequestAryFallback($path);
+            // malformed url        
             moduleLoader::setStatus(404);
+            self::splitRequestAryFallback($path);
         }
         if (!empty($parsed['query'])) { 
             self::$info['query'] = $parsed['query'];

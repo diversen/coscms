@@ -190,6 +190,15 @@ abstract class template {
                 self::$meta['keywords'] = $str;
             }
         }
+        
+        if (!isset(self::$meta['robots'])) {
+            $str = '';
+            $str = config::getMainIni('meta_robots');
+            $str = trim($str);
+            if (!empty($str)) {
+                self::$meta['robots'] = $str;
+            }
+        }
 
         if (empty(self::$meta['description'])) {
             $str = '';
