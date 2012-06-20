@@ -177,11 +177,7 @@ class HTML {
             $extra.= "action =\"\"";
         }
         
-        $str = '';
-        
-        //$str.= '<a class="do_hide collpase">Hide</a>&nbsp;';
-        //$str.= '<a class="do_show">Show</a>';
-        //$str.= "<div class=\"collapse\">\n";      
+        $str = '';  
         $str.= "<form $extra>\n";
         $str.= "<fieldset>\n";
         
@@ -201,21 +197,39 @@ class HTML {
         $name = 'form', $method ='post', $action = '#!',
         $enctype = "multipart/form-data", $options = array()) {
         
+        $str = self::formStartClean(
+                $name, 
+                $method, 
+                $action, 
+                $enctype, 
+                $options);
+        
+        self::$fields[] = array ('value' => $str);
+        //return $str;
+    }
+    
+        /**
+     * method for starting a html form
+     * @param string $name name of the form
+     * @param string $method method of the form
+     * @param string $action action of the form
+     * @param string $enctype enctype of the form
+     * @return string $str the form start 
+     */
+    public static function formStartClean (
+        $name = 'form', $method ='post', $action = '#!',
+        $enctype = "multipart/form-data", $options = array()) {
+        
         if (!isset($options['id'])) {
             $options['id'] = $name;
         }
         self::$internal['form_id'] = $options['id'];
         $extra = self::parseExtra($options);
         
-        $str = "";
-        
-        //$str.= '<a class="do_hide collpase">Hide</a>&nbsp;';
-        //$str.= '<a class="do_show">Show</a>';
-        //$str.= "<div class=\"collapse\">\n";      
+        $str = "";   
         $str.= "<form action=\"$action\" method=\"$method\" name=\"$name\" $extra enctype = \"$enctype\">\n";
         $str.= "<fieldset>\n";
-        
-        self::$fields[] = array ('value' => $str);
+
         return $str;
     }
     
@@ -227,10 +241,23 @@ class HTML {
      * @return string $str the legend string. 
      */
     public static function legend ($legend, $extra = null){        
+        $str = self::legendClean($legend, $extra);
+        self::$fields[] = array ('value' => $str);
+        //return $str;
+    }
+    
+    /**
+     * method for setting a legend on the form
+     * @param string $legend the title of the legend
+     * @param array $extra extra options to add to the legend e.g. 
+     *             array ('class' => 'table-top and-more')
+     * @return string $str the legend string. 
+     */
+    public static function legendClean ($legend, $extra = null){        
         $str = "<legend>$legend";
         $str.= "</legend>\n";
         self::$fields[] = array ('value' => $str);
-        return $str;
+        //return $str;
     }
 
     /**
@@ -238,11 +265,18 @@ class HTML {
      * @return string $str the form end element
      */
     public static function formEnd (){
-        //self::csrf();
+        $str = self::formEndClean();
+        self::$fields[] = array('value' => $str);
+    }
+    
+    /**
+     * method for ending a form with the </form> tag
+     * @return string $str the form end element
+     */
+    public static function formEndClean (){
         $str = '';
         $str.= "</fieldset>\n";
         $str.= "</form>\n";
-        self::$fields[] = array('value' => $str);
         return $str;
     }
 
@@ -255,9 +289,15 @@ class HTML {
     public static function label ($label_for, $label = '', $options = array()) {
         $str = self::labelClean($label_for, $label, $options);
         self::$fields[] = array('value' => $str);
-        return $str;
     }
     
+    /**
+     * method for getting label as a string
+     * @param type $label_for
+     * @param string $label
+     * @param type $options
+     * @return string 
+     */
     public static function labelClean ($label_for, $label = '', $options = array()) {
         if (isset($options['required'])) {
             $label = "* " . $label;
@@ -307,25 +347,10 @@ class HTML {
      *               array ('class' => 'css-test and-more')
      * @return string the hidden element (adds the element to the static form str.)  
      */
-    public static function hidden ($name, $value = null, $extra = array()){
-        
-        if ($name == 'MAX_FILE_SIZE') {
-            self::$internal['max_file_size'] = $value;
-        }
-        
+    public static function hidden ($name, $value = null, $extra = array()){        
         $str = self::hiddenClean($name, $value, $extra);
         self::$fields[] = array ('value' => $str);
-        return $str;
     }
-    
-    public static function csrf () {
-        /*
-        $key = sha1(microtime());
-        $_SESSION['csrf'] = $key;
-        $_SESSION['csrf_age'] = time();
-        self::hidden('csrf', $key); */
-    }
-    
     
     /**
      * gets a hidden field
@@ -338,6 +363,10 @@ class HTML {
 
         if (!isset($value)) {
             $value = self::setValue($name, $value);
+        }
+        
+        if ($name == 'MAX_FILE_SIZE') {
+            self::$internal['max_file_size'] = $value;
         }
         
         $extra = self::parseExtra($extra);
@@ -356,7 +385,6 @@ class HTML {
     public static function text ($name, $value = null, $extra = array()){
         $str = self::textClean($name, $value, $extra);
         self::$fields[] = array ('value' => $str);
-        return $str;
     }
     
     /**
@@ -389,6 +417,19 @@ class HTML {
      * @return string $str the simple captcha input string
      */
     public static function simpleCaptcha ($name, $value = '', $extra = array()){
+        $str = self::simpleCaptchaClean($name, $value, $extra);
+        self::$fields[] = array ('value' => $str);
+    }
+    
+    /**
+     * creates a simple captcha string (or image) 
+     * @see captcha.php
+     * @param string $name name of the element
+     * @param string $value vlaue of the element
+     * @param array $extra extras e.g. array ('class' => 'css and-more')
+     * @return string $str the simple captcha input string
+     */
+    public static function simpleCaptchaClean ($name, $value = '', $extra = array()){
         if (!isset($extra['size'])){
             $extra['size'] = HTML_FORM_TEXT_SIZE;
         }
@@ -396,7 +437,6 @@ class HTML {
         $value = self::setValue($name, $value);
         $extra = self::parseExtra($extra);
         $str = "<input type=\"text\" name=\"$name\" $extra value=\"$value\" />" . self::$br . "\n";
-        self::$fields[] = array ('value' => $str);
         return $str;
     }
 
@@ -416,6 +456,23 @@ class HTML {
         $extra = self::parseExtra($extra);
         $str = "<input type=\"password\" name=\"$name\" id=\"$name\" $extra value=\"$value\" />" . self::$br . "\n";
         self::$fields[] = array ('value' => $str);
+    }
+    
+        /**
+     * sets form string with a password field
+     * @param type $name name of the form field
+     * @param type $value value of the form field. 
+     * @param type $extra e.g. array ('class' => 'css and-more');
+     * @return string $str the password input string
+     */
+    public static function passwordClean ($name, $value = '', $extra = array()){
+        if (!isset($extra['size'])){
+            $extra['size'] = HTML_FORM_TEXT_SIZE;
+        }
+
+        $value = self::setValue($name, $value);
+        $extra = self::parseExtra($extra);
+        $str = "<input type=\"password\" name=\"$name\" id=\"$name\" $extra value=\"$value\" />" . self::$br . "\n";
         return $str;
     }
 
@@ -427,6 +484,18 @@ class HTML {
      * @return string $str the textarea 
      */
     public static function textarea ($name, $value = null, $extra = array()){
+        $str = self::textareaClean($name, $value, $extra);
+        self::$fields[] = array ('value' => $str);
+    }
+    
+    /**
+     * method for getting a textarea 
+     * @param string $name the name of the textarea
+     * @param string $value the initial value of the textarea
+     * @param array $extra, e.g. css array ('class' => 'required'); 
+     * @return string $str the textarea 
+     */
+    public static function textareaClean ($name, $value = null, $extra = array()){
         if (!isset($extra['rows'])){
             $extra['rows'] = HTML_FORM_TEXTAREA_HT;
         }
@@ -443,10 +512,8 @@ class HTML {
             $value = self::setValue($name, $value);
         } 
 
-        //$value = self::setValue($name, $value);
         $extra = self::parseExtra($extra);
         $str =  "<textarea name=\"$name\" id=\"$name\" $extra>$value</textarea>" . self::$br . "\n";
-        self::$fields[] = array ('value' => $str);
         return $str;
     }
     
@@ -458,12 +525,11 @@ class HTML {
      * @return string $str the textarea 
      */
     public static function textareaSmall ($name, $value = null, $extra = array()){
-        if (!isset($extra['rows'])){
-            $extra['rows'] = (int)(HTML_FORM_TEXTAREA_HT / 6);
-        }
-
-        self::textarea($name, $value, $extra);
+        $str = self::textareaSmallClean($name, $value, $extra);
+        self::$fields[] = array ('value' => $str);
     }
+    
+
     
     /**
      * method for getting a medium textarea ~1/2 of normal textarea size 
@@ -473,11 +539,38 @@ class HTML {
      * @return string $str the textarea 
      */
     public static function textareaMed ($name, $value = null, $extra = array()){
+        $str = self::textareaMedClean($name, $value, $extra);
+        self::$values[] = $str;
+    }
+    
+    /**
+     * method for getting a small textarea (~1/6 of normal textarea) 
+     * @param string $name the name of the textarea
+     * @param string $value the initial value of the textarea
+     * @param array $extra, e.g. css array ('class' => 'required'); 
+     * @return string $str the textarea 
+     */
+    public static function textareaSmallClean ($name, $value = null, $extra = array()){
+        if (!isset($extra['rows'])){
+            $extra['rows'] = (int)(HTML_FORM_TEXTAREA_HT / 6);
+        }
+
+        return self::textareaClean($name, $value, $extra);
+    }
+    
+        /**
+     * method for getting a medium textarea ~1/2 of normal textarea size 
+     * @param string $name the name of the textarea
+     * @param string $value the initial value of the textarea
+     * @param array $extra, e.g. css array ('class' => 'required'); 
+     * @return string $str the textarea 
+     */
+    public static function textareaMedClean ($name, $value = null, $extra = array()){
         if (!isset($extra['rows'])){
             $extra['rows'] = (int)(HTML_FORM_TEXTAREA_HT / 2);
         }
 
-        self::textarea($name, $value, $extra);
+        return self::textareaClean($name, $value, $extra);
     }
 
     /**
@@ -489,8 +582,6 @@ class HTML {
     public static function file ($name, $extra = array()) {
         //get unique id
         $up_id = uniqid();
-        
-        //$form_name = self::$internal['form_name'];
         $js = self::apcJs($up_id);
         
         template::setStringJs($js);
@@ -503,21 +594,18 @@ class HTML {
         // Progress bar from: 
         // http://www.johnboy.com/php-upload-progress-bar/
         $str = <<<EOF
-<!--APC hidden field-->
+    <!--APC hidden field-->
     <input type="hidden" name="APC_UPLOAD_PROGRESS" id="progress_key" value="$up_id"/>
-<!---->
+    <!---->
 EOF;
         
         
-        $str.= "<input type=\"file\" name=\"$name\" id=\"$name\" $extra />\n"  . self::$br . "\n";
-        
-        
+        $str.= "<input type=\"file\" name=\"$name\" id=\"$name\" $extra />\n"  . self::$br . "\n";      
         $str.= <<<EOF
-<!--Include the iframe-->
-    
+    <!--Include the iframe-->
     <iframe id="upload_frame" height = 40 name="upload_frame" frameborder="0" border="0" src="" scrolling="no" scrollbar="no" > </iframe>
     <br />
-<!---->
+    <!---->
 EOF;
         self::$fields[] = array ('value' => $str);
         return $str;
@@ -538,8 +626,7 @@ EOF;
     // Progress bar from: 
     // http://www.johnboy.com/php-upload-progress-bar/
     public static function apcJs ($apc_id) {
-        
-        
+            
         $form_id = self::$internal['form_id'];
         $str = <<<EOF
 <!--display bar only if file is chosen-->
