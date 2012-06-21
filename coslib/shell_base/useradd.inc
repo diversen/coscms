@@ -19,6 +19,8 @@ function useradd_add ($options = null){
     $values['verified'] = 1;
     $values['admin'] = 1;
     $values['super'] = 1;
+    
+    $values['type'] = 'email';
     $res = useradd_db_insert($values);
     if ($res) { 
         return 0;

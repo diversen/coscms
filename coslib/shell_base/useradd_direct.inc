@@ -18,7 +18,8 @@ function useradd_direct_add ($options = null){
     $values['verified'] = 1;
     $values['admin'] = 1;
     $values['super'] = 1;
-    //print_r($values);
+    $values['type'] = 'email';
+    
     $res = useradd_db_insert($values);
     if ($res) { 
         return 0;
@@ -40,7 +41,8 @@ function useradd_direct_add_admin ($options = null){
     $values['verified'] = 1;
     $values['admin'] = 1;
     $values['super'] = 0;
-    //print_r($values);
+    $values['email'] = 1;
+    
     $res = useradd_db_insert($values);
     if ($res) { 
         return 0;
