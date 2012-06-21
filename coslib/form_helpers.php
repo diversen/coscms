@@ -1,6 +1,18 @@
 <?php
 
+/**
+ * 
+ * @package formHelpers 
+ */
 class formHelpers {
+    
+    /**
+     * method for getting admin options
+     * @param string $url base url
+     * @param string $id id of the item
+     * @param string $options
+     * @return string $str menu options
+     */
     public static function getAdminOptions ($url, $id, $options = null) {
 
         $str = '';
@@ -17,6 +29,11 @@ class formHelpers {
         return $str;
     }
     
+    /**
+     * method for generating a delete confirmform
+     * @param string $legend the legend to display with the form
+     * @return string $form the html form.
+     */
     public static function confirmDeleteForm ($legend) {
         
         $html = new HTML ();
@@ -27,8 +44,14 @@ class formHelpers {
         $html->formEnd(); 
         return $html->getStr();
     }
-    
-   public static function confirmForm ($legend, $submit = null) {
+   
+    /**
+     * method for creating a confirm form
+     * @param string $legend text of the legend
+     * @param string $submit text of the submit
+     * @return string $form the confirm form.
+     */
+    public static function confirmForm ($legend, $submit = null) {
         
         $html = new HTML ();
         $html->setAutoEncode(true);
@@ -42,15 +65,21 @@ class formHelpers {
         return $html->getStr();
     }   
     
-    public static function birthdayDropdown () {
+    /**
+     * method that creates birthday dropdown
+     * access of the submitted data can be found in the _POST['birth_day'],
+     * $_POST['birth_month'], $_POST['birth_year']
+     * @return type 
+     */
+    public static function birthdayDropdown ($name = 'birth', $init = array ()) {
         for ($i = 1; $i <= 31; $i++) {
             $days[$i] = array ('id' => $i, 'value' => $i);
         }
         
         for ($i= 1; $i <= 12; $i++) {
             $months[$i] = array (
-                'id' => $i, 
-                'value' => dateGetMonthName($i)
+                'id' => dateGetMonthName($i), 
+                'value' =>  $i
             );
         }
         $currentYear = dateGetCurrentYear();
@@ -65,17 +94,19 @@ class formHelpers {
             $goBack--;
         }  
         
+
+        
         $day = html::selectClean(
                 'birth_day', 
-                $days, 'id', 'value', null);
+                $days, 'id', 'value');
         
         $month = html::selectClean(
                 'birth_month', 
-                $months, 'id', 'value', null);
+                $months, 'id', 'value');
         
         $year = html::selectClean(
                 'birth_year',
-                $years, 'id', 'value', null);
+                $years, 'id', 'value');
         
         $ret = array ('day' => $day, 'month' => $month, 'year' => $year);
         return $ret;

@@ -835,7 +835,8 @@ EOF;
         $date = formHelpers::birthdayDropdown();
         self::$fields[] = array ('value' => $date['day']);
         self::$fields[] = array ('value' => $date['month']);
-        self::$fields[] = array ('value' => $date['year']);
+        $year = $date['year'] . self::$br . "\n";
+        self::$fields[] = array ('value' => $year);
     }
     
     /**
