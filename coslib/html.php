@@ -111,10 +111,10 @@ class HTML {
         
         if (self::$autoEncode) {
             self::$values = html::specialEncode(self::$values);
-        }
-        
-        
+        }       
     }
+    
+
     
     /**
      * sets auto encode to a value
@@ -829,6 +829,15 @@ EOF;
         return $dropdown;
     }
     
+    public static function selectBirthday () {
+        include_once "coslib/form_helpers.php";
+        
+        $date = formHelpers::birthdayDropdown();
+        self::$fields[] = array ('value' => $date['day']);
+        self::$fields[] = array ('value' => $date['month']);
+        self::$fields[] = array ('value' => $date['year']);
+    }
+    
     /**
      * method for adding a drop down box to the form.
      * 
@@ -947,6 +956,7 @@ EOF;
         $str = self::createImage($image_src, $options);
         return "<a href=\"$href\">$str</a>";
     }
+
 
 
     /**

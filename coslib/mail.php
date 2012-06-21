@@ -318,7 +318,7 @@ function mail_html ($recipient, $subject, $html, $from = null, $reply_to = null)
         cos_error_log($res->getMessage());
         return false;
     }
-    return $result;
+    return true;
 }
 
 function mail_system_user ($subject, $message, $from = null, $reply_to = null) {

@@ -20,6 +20,19 @@ function dateGetDatesTimeDiff ($from, $to) {
     return floor($diff/(60*60*24));
 }
 
+
+
+function dateGetMonthName($month_int, $format = 'F') {
+    $month_int = (int)$month_int;
+    $timestamp = mktime(0, 0, 0, $month_int);
+    return strftime('%B', $timestamp);
+}
+
+function dateGetCurrentYear () {
+    return strftime("%Y");
+}
+
+
 function dateGetDatesAry ($from, $to) {
     $ary = array();    
     $i = dateGetDatesTimeDiff($from, $to);
