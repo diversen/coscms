@@ -148,7 +148,7 @@ class config {
             if ( @config::$vars['coscms_main']['server_name'] ==
                     @$_SERVER['SERVER_NAME'] ) {
                     self::$vars['coscms_main']['development'] = 'real';
-                    // We are on REAL server and exists without
+                    // We are on REAL server and exits without
                     // adding additional settings for stage or development
                     // or CLI mode. 
                     return; 
