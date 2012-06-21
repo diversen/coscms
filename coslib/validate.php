@@ -68,4 +68,13 @@ class cosValidate {
         }
         return false;
     }
+    
+    public static function hostname ($host) {
+        
+        // from stackoverflow
+        //$regex = "/^(([a-zA-Z]|[a-zA-Z][a-zA-Z0-9\-]*[a-zA-Z0-9])\.)*([A-Za-z]|[A-Za-z][A-Za-z0-9\-]*[A-Za-z0-9])$/";
+        $regex = "/^(([a-zA-Z]|[a-zA-Z][a-zA-Z0-9\-]*[a-zA-Z0-9])\.)*([A-Za-z]|[A-Za-z][A-Za-z0-9\-]*[A-Za-z0-9])$/";
+        
+        return preg_match($regex, $host); 
+    }
 }
