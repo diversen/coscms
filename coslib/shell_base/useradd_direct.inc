@@ -34,14 +34,14 @@ function useradd_direct_add ($options = null){
  * @return int
  */
 function useradd_direct_add_admin ($options = null){
-//print_r($options);
+
     $values['email'] = $options['email'];
     $values['password'] = $options['password']; // MD5
     $values['username'] = $values['email'];
     $values['verified'] = 1;
     $values['admin'] = 1;
     $values['super'] = 0;
-    $values['type'] = 1;
+    $values['type'] = 'email';
     
     $res = useradd_db_insert($values);
     if ($res) { 
