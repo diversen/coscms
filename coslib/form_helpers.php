@@ -111,4 +111,15 @@ class formHelpers {
         $ret = array ('day' => $day, 'month' => $month, 'year' => $year);
         return $ret;
     }
+    
+    public static function getBirthdayAsDate () {
+        if (isset($_REQUEST['birth_day'])) {
+            $date = $_REQUEST['birth_year'] . '-' .
+                    $_REQUEST['birth_month'] . '-' .
+                    $_REQUEST['birth_day'];
+            return $date;
+        }
+        return null;
+        
+    }
 }
