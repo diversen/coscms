@@ -34,13 +34,13 @@ class formHelpers {
      * @param string $legend the legend to display with the form
      * @return string $form the html form.
      */
-    public static function confirmDeleteForm ($legend) {
+    public static function confirmDeleteForm ($name = 'submit', $legend = 'delete') {
         
         $html = new HTML ();
         $html->setAutoEncode(true);
         $html->formStart('custom_delete_form');
         $html->legend($legend);
-        $html->submit('submit', lang::translate('delete'));
+        $html->submit($name, lang::translate('delete'));
         $html->formEnd(); 
         return $html->getStr();
     }

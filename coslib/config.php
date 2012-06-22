@@ -11,6 +11,11 @@
  */
 
 class config {
+    
+    /**
+     * var holding all config values
+     * @var array $vars
+     */
     public static $vars = array ();
     
     
