@@ -82,6 +82,19 @@ class config {
     }
     
     /**
+     * get http or https depending on configuration.
+     * @return string $str https|http
+     */
+    public static function getHttpScheme () {
+        $server_force_ssl = config::getMainIni('server_force_ssl');
+        if ($server_force_ssl) {
+            return "https";
+        } else {
+            return "http";
+        }
+    }
+    
+    /**
      * function for getting name of main configuration file 
      * config/config.ini. 
      * 
