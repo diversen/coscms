@@ -220,7 +220,6 @@ function mail_smtp ($to, $subject, $message, $from = null, $reply_to = null) {
     
     $res = $mail->send($to, $headers, $body);
     if (PEAR::isError($res)) {
-        //print_r($res);
         cos_error_log($res->getMessage());
         return false;
     }
