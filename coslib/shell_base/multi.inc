@@ -19,11 +19,9 @@ function multi_all_up ($options = null) {
     foreach ($dirs as $domain) {
         $command = "./coscli.sh --domain=$domain module --all-up";
         passthru($command, $return_var);
-        echo "RETURN = $return_var\n";
-    }
-
-    
+    }   
 }
+
 /*
 mainCli::setArgument(
     'hostname',
