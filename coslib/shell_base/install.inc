@@ -103,7 +103,7 @@ mainCli::setOption('install', array(
     'action'      => 'StoreTrue'
 ));
 
-mainCli::setOption('reload_language', array(
+mainCli::setOption('install_reload_language', array(
     'long_name'   => '--reload-language',
     'description' => 'Will reinstall system language files according to language set in config/config.ini',
     'action'      => 'StoreTrue'
