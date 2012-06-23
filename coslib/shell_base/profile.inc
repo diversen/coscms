@@ -169,10 +169,7 @@ function profile_use_master ($options){
 
 if (cos_is_cli()){
 mainCli::setCommand('profile', array(
-    'description' => 'load or create a profile from current settings. A profile is 
-folder located in profiles dir, which consists of ini files for all modules and
-template. The info about where to install from and version are found in e.g. 
-/profiles/default/profile.inc file',
+    'description' => 'Profile commands. Profiles are configuration for complete sites',
 ));
 
 mainCli::setOption('load_profile', array(

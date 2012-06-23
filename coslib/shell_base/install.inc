@@ -86,8 +86,8 @@ function install_reload_language(){
     $reload->reloadLanguages();
 }
 
-function install_reset_system(){
-    reload_language();
+function install_menu_lang_reload(){
+    install_reload_language();
     menu_uninstall_all();
     menu_install_all();
 }
@@ -109,8 +109,8 @@ mainCli::setOption('install_reload_language', array(
     'action'      => 'StoreTrue'
 ));
 
-mainCli::setOption('install_reset_system', array(
-    'long_name'   => '--reset-system',
+mainCli::setOption('install_menu_lang_reload', array(
+    'long_name'   => '--menu-lang-reload',
     'description' => 'Reinstall language according to config/config.ini, and reset all custom module menus',
     'action'      => 'StoreTrue'
 ));

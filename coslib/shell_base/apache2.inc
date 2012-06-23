@@ -117,7 +117,7 @@ function a2_use_ssl ($options) {
 }
 
 mainCli::setCommand('apache2', array(
-    'description' => 'Command for automatic configuration and setup of apache2 as virtual server',
+    'description' => 'apache2 commands. Install, remove hosts.',
 ));
 
 mainCli::setOption('a2_use_ssl', array(

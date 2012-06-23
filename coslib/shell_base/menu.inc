@@ -20,7 +20,6 @@ function menu_install_menu($options){
     $module_path = config::getModulePath($options['module']);
     if (!file_exists($module_path)){
         cos_cli_print("module $options[module] does not exists in modules dir. ");
-        //cos_cli_abort();
     }
 
     $mod = new moduleInstaller($options);
