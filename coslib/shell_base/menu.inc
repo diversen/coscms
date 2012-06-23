@@ -13,7 +13,7 @@
  *
  * @param  array   options the module to be upgraded
  */
-function install_menu($options){
+function menu_install_menu($options){
     
 
     // check if module exists in modules dir
@@ -37,7 +37,7 @@ function menu_install_all (){
         $options = array('module' => $val['module_name']);
         //$mod = new moduleInstaller($options);
         //$mod->insertMenuItem();
-        install_menu($options);
+        menu_install_menu($options);
     }
     return 1;
 }
@@ -47,9 +47,7 @@ function menu_uninstall_all (){
     $mods = moduleInstaller::getModules();
     foreach ($mods as $key => $val){
         $options = array('module' => $val['module_name']);
-        //$mod = new moduleInstaller($options);
-        //$mod->deleteMenuItem();
-        uninstall_menu($options);
+        menu_uninstall_menu($options);
     }
     return 1;
 }
@@ -60,12 +58,11 @@ function menu_uninstall_all (){
  *
  * @param  array   options the module to be upgraded
  */
-function uninstall_menu($options){
+function menu_uninstall_menu($options){
     // check if module exists in modules dir
     $module_path = _COS_PATH . '/modules/' . $options['module'];
     if (!file_exists($module_path)){
         cos_cli_print("module $options[module] does not exists in modules dir. ");
-        //cos_cli_abort();
     }
 
     $menu = new moduleInstaller($options);
@@ -77,41 +74,41 @@ function uninstall_menu($options){
 }
 
 mainCli::setCommand('menu', array(
-    'description' => 'Commands for doing operations on menu items',
+    'description' => 'Install or uninstall menu items',
 ));
 
 // create commandline parser
-mainCli::setOption('install_menu', array(
+mainCli::setOption('menu_install_menu', array(
     'long_name'   => '--install-menu',
-    'description' => 'Will install specified modules main menu item',
+    'description' => 'Install specified modules main menu item(s)',
     'action'      => 'StoreTrue'
 ));
 
 // create commandline parser
-mainCli::setOption('install_all', array(
+mainCli::setOption('menu_install_all', array(
     'long_name'   => '--install-all',
-    'description' => 'Will install all module main menu items',
+    'description' => 'Install all module main menu items',
     'action'      => 'StoreTrue'
 ));
 
 // create commandline parser
-mainCli::setOption('uninstall_all', array(
+mainCli::setOption('menu_uninstall_all', array(
     'long_name'   => '--uninstall-all',
-    'description' => 'Will uninstall all module main menu items',
+    'description' => 'Uninstall all module main menu items',
     'action'      => 'StoreTrue'
 ));
 
 // create commandline parser
-mainCli::setOption('uninstall_menu', array(
+mainCli::setOption('menu_uninstall_menu', array(
     'long_name'   => '--uninstall-menu',
-    'description' => 'Will install specified modules main menu item',
+    'description' => 'uninstall specified modules main menu item(s)',
     'action'      => 'StoreTrue'
 ));
 
 
 mainCli::setArgument(
     'module',
-    array('description'=> 'Specify the module to install or upgrade or package',
+    array('description'=> 'Module',
         'optional' => true,
 ));
 

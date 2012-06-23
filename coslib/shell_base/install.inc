@@ -104,14 +104,14 @@ mainCli::setOption('install', array(
 ));
 
 mainCli::setOption('install_reload_language', array(
-    'long_name'   => '--reload-language',
-    'description' => 'Will reinstall system language files according to language set in config/config.ini',
+    'long_name'   => '--lang-reload',
+    'description' => 'Reinstall system language files according to language set in config/config.ini',
     'action'      => 'StoreTrue'
 ));
 
 mainCli::setOption('install_reset_system', array(
     'long_name'   => '--reset-system',
-    'description' => 'Will reinstall language according to config/config.ini, and reload menus according to menu.inc files',
+    'description' => 'Reinstall language according to config/config.ini, and reset all custom module menus',
     'action'      => 'StoreTrue'
 ));
 
