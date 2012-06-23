@@ -140,7 +140,15 @@ class mainCli {
             
             $domain = $result->options['domain'];
             config::$vars['domain'] = $domain;
-
+            
+            if ($domain != 'default' || empty($domain)) {
+                $domain_ini = _COS_PATH . "/config/multi/$domain/config.ini";
+                if (!file_exists($domain_ini)) {
+                    echo $domain_ini;
+                    cos_cli_abort('No such domain - no configuration found');
+                }
+            }
+            
             
             // if a not standard domain is given - we now need to load
             // the config file again - in order to tell system which database
