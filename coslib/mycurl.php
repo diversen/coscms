@@ -144,6 +144,8 @@ class mycurl {
 }
 
 /**
+ * 
+ * // From: http://www.php.net/manual/de/book.curl.php#102885
  * @param type $url
  * @param type $status
  * @param type $wait

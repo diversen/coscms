@@ -30,10 +30,10 @@ class db {
     static $debug = array();
 
     
-    static public function init(){
+    static public function init($options = array ()){
         static $db = null;
         if (!$db) {
-            $db = new db();
+            $db = new db($options);
         } 
         return $db;
     }
@@ -92,7 +92,8 @@ class db {
      * connection string is read from config/config.ini
      * 
      * @param array $options You can prevent the connection from halting on 
-     *              error by setting $options['dont_die'] = true
+     *              error by setting $options['dont_die'] = true. If there
+     *              is no connection NO_DB_CONN will be returned
      *              
      *              if you set $options[url] the class will try to connect to
      *              database with connection string given, e.g. 
@@ -116,15 +117,14 @@ class db {
             $username = config::getMainIni('username');
             $password = config::getMainIni('password');
         }
-        
+
         try {
             self::$dbh = new PDO(
-                config::getMainIni('url'),
-                config::getMainIni('username'),
-                config::getMainIni('password')
+                $url,
+                $username,
+                $password
             );
             self::$dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            if(!self::$dbh) $this->connect();
         } catch (PDOException $e) {
             if (!$options){
                 self::fatalError ('Connection failed: ' . $e->getMessage());
@@ -578,7 +578,12 @@ class db {
         return $ary;
     }
     
-    public static function prepareToPostArray ($keys, $options = array ()) {
+    /**
+     *
+     * @param array $keys keys to get from request
+     * @return array $ary with keys from param 
+     */
+    public static function prepareToPostArray ($keys) {
         $ary = array ();
         foreach ($keys as $key => $val) {
             if (isset($_POST[$val])) {
