@@ -17,11 +17,15 @@ function multi_all_up ($options = null) {
     $dirs = file::getDirsGlob($path, array ('basename' => 1));
     
     foreach ($dirs as $domain) {
+        
         $command = "./coscli.sh --domain=$domain module --all-up";
+        cos_cli_print("Updating: $domain");
         passthru($command, $return_var);
-    }   
-}
+        echo "RETURN = $return_var\n";
+    }
 
+    
+}
 /*
 mainCli::setArgument(
     'hostname',

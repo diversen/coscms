@@ -62,9 +62,11 @@ function install($options = false) {
 }
 
 /**
+ * @deprecated not used anywhere
  * wrapper function for reseting install to default one
  * all data will be lost
  */
+
 function reset_install (){
     rm_files();
     drop_db_default();
@@ -79,15 +81,15 @@ function reset_install (){
  * wrapper function for reloading all languages
  * change language settings in config/config.ini to load another language. 
  */
-function reload_language(){
+function install_reload_language(){
     $reload = new moduleInstaller();
     $reload->reloadLanguages();
 }
 
-function reset_system(){
+function install_reset_system(){
     reload_language();
-    uninstall_all();
-    install_all();
+    menu_uninstall_all();
+    menu_install_all();
 }
 
 
@@ -107,7 +109,7 @@ mainCli::setOption('reload_language', array(
     'action'      => 'StoreTrue'
 ));
 
-mainCli::setOption('reset_system', array(
+mainCli::setOption('install_reset_system', array(
     'long_name'   => '--reset-system',
     'description' => 'Will reinstall language according to config/config.ini, and reload menus according to menu.inc files',
     'action'      => 'StoreTrue'

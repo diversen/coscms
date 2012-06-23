@@ -30,7 +30,7 @@ function install_menu($options){
     }  
 }
 
-function install_all (){
+function menu_install_all (){
 
     $mods = moduleInstaller::getModules();
     foreach ($mods as $key => $val){
@@ -42,7 +42,7 @@ function install_all (){
     return 1;
 }
 
-function uninstall_all (){
+function menu_uninstall_all (){
 
     $mods = moduleInstaller::getModules();
     foreach ($mods as $key => $val){
