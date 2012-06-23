@@ -117,6 +117,29 @@ class file {
         ob_end_clean();
         return $str;
     }
+    
+    /**
+     * get dirs in path
+     * @param string $path
+     * @return array $ary paths 
+     */
+    public static function getDirsGlob ($path, $options = array()) {
+        $dirs = glob($path.'*', GLOB_ONLYDIR); 
+        if (isset($options['basename'])) {
+            foreach ($dirs as $key => $dir) {
+                $dirs[$key] = basename($dir);
+            }
+        }
+        return $dirs;              
+    }
+    
+    /**
+     * remove directory recursively
+     * @param string $path 
+     */
+    public static function rrmdir ($path) {
+        rrmdir($dir);
+    }
 }
 /*
  * @deprecated
