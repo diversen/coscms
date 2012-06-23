@@ -21,7 +21,11 @@ function multi_all_up ($options = null) {
         $command = "./coscli.sh --domain=$domain module --all-up";
         cos_cli_print("Updating: $domain");
         passthru($command, $return_var);
-        echo "RETURN = $return_var\n";
+        
+        $command = "./coscli.sh --domain=$domain install --lang";
+        cos_cli_print("Updating system language: $domain");
+        passthru($command, $return_var);
+        //echo "RETURN = $return_var\n";
     }
 
     
