@@ -293,6 +293,10 @@ class config {
         }
     }
     
+    /**
+     * checks if we are in cli env
+     * @return boolean $res true if we are and false
+     */
     public static function isCli () {
         if (isset($_SERVER['SERVER_NAME'])){
             return false;
@@ -300,6 +304,10 @@ class config {
         return true;
     }
     
+    /**
+     * get computers hostname from command line
+     * @return  string $hostname
+     */
     public static function getHostnameFromCli () {
         return trim(shell_exec('hostname'));
     }
@@ -359,7 +367,7 @@ class config {
     }
     
    /**
-    *
+    * transform an array into a ini file string
     * @param   array     $ary array read from ini file with parse_ini_file
     * @return  string    $str ini string readable by parse_ini_file
     */
