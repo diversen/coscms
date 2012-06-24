@@ -395,9 +395,8 @@ class config {
 }
 
 /**
- *
- * @param   array     ini array read from ini file with parse_ini_file
- * @return  string    ini file readable by parse_ini_file
+ * function methods of the above static class methods
+ * mostly for backward issues
  */
 function array_to_ini_file($ary){
     return config::arrayToIniFile($ary);
@@ -406,7 +405,6 @@ function array_to_ini_file($ary){
 function get_module_ini($key){
     return config::getModuleIni($key);
 }
-
 
 function get_main_ini($key){
     return config::getMainIni($key);
@@ -419,7 +417,6 @@ function get_module_path ($module){
 function parse_ini_file_ext ($file, $sections = null) {
     return config::getIniFileArray($file, $sections);
 }
-
 
 function get_config_file() {
     return config::getConfigFileName();
@@ -437,7 +434,6 @@ function get_files_path () {
 function get_files_web_path ($file) {
     return config::getWebFilesPath($file);
 }
-
 
 function get_domain () {
     return config::getDomain();
