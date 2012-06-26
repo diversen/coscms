@@ -107,7 +107,7 @@ class pearPager {
         );
 
         $pager = Pager::factory($pager_options);
-        return "<div id =\"pager\">" . $pager->links . "</div>\n" ;
+        return "<div class =\"pager\">" . $pager->links . "</div>\n" ;
 
     }
     
