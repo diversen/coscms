@@ -122,8 +122,13 @@ class session {
         }
     }
 
-    // }}}
-    public static function setSystemCookie($account_id){
+
+    /**
+     * sets a system cookie. 
+     * @param int $user_id
+     * @return boolean $res true on success and false on failure. 
+     */
+    public static function setSystemCookie($user_id){
         
         cos_debug("Notice: Settings system cookie");
         $uniqid = uniqid();
@@ -151,8 +156,8 @@ class session {
         $db = new db();
 
         // only keep one system cookie (e.g. if user clears his cookies)
-        $db->delete('system_cookie', 'account_id', $account_id);
-        $values = array ('account_id' => $account_id , 'cookie_id' => $uniqid, 'timestamp' => $timestamp);
+        $db->delete('system_cookie', 'account_id', $user_id);
+        $values = array ('account_id' => $user_id , 'cookie_id' => $uniqid, 'timestamp' => $timestamp);
         return $db->insert('system_cookie', $values);
     }
     
