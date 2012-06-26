@@ -614,7 +614,7 @@ abstract class template {
         $css_web_path = $base_path . "/$css.css";
         if (file_exists($css_path)) {
 
-            self::setCss($css_web_path, $order);
+            self::setCss("$css_web_path?version=$version", $order);
             
         } else {
             self::setCss("/templates/$template/default/default.css?version=$version", $order);
