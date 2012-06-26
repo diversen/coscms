@@ -214,7 +214,7 @@ class session {
      *
      * @param string the action message.
      */
-    public static function setActionMessage($message, $close = true){
+    public static function setActionMessage($message, $close = false){
             cos_debug($message);
             if (!isset($_SESSION['system_message'])) {
                 $_SESSION['system_message'] = array ();
