@@ -192,6 +192,8 @@ abstract class template {
         }
         
         if (!isset(self::$meta['robots'])) {
+            $db = new db();
+            
             $str = '';
             $str = config::getMainIni('meta_robots');
             $str = trim($str);

@@ -25,7 +25,7 @@ class log {
             die('No _COS_PATH defined');
         }
         
-        $file = _COS_PATH . "/logs/coscms.log";
+        $file = _COS_PATH . "/logs/error.log";
         if (!file_exists($file)) {
             $res = @file_put_contents($file, '');
             if ($res === false) {
@@ -48,8 +48,9 @@ function cos_error_log ($message, $write_file = true) {
     $message.="\n";
     
     if ($write_file) {
-        $destination = _COS_PATH . "/logs/coscms.log";
-        error_log($message, 3, $destination);
+        //$destination = _COS_PATH . "/logs/error.log";
+        error_log($message);
+        //error_log($message, 3, $destination);
     }
 }
 
