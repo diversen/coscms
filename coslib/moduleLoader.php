@@ -603,10 +603,8 @@ class moduleLoader {
         }
         
         if (!file_exists($ini_file)) {
-            cos_error_log("Notice: Trying to load ini file $ini_file in " . __FILE__ . " " . __LINE__);
             return;
         }
-        
                 
         self::$iniSettings[$module] = config::getIniFileArray($ini_file, true);
         if (is_array(self::$iniSettings[$module])){
