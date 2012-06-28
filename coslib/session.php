@@ -131,7 +131,7 @@ class session {
         cos_debug("Notice: Settings system cookie");
         $uniqid = uniqid();
         $uniqid= md5($uniqid);
-
+  
         $days = config::getMainIni('cookie_time');
         
         // calculate days into seconds
