@@ -104,6 +104,9 @@ function install_from_profile ($options){
         $val['module'] = $val['module_name'];
         $val['version'] = $val['module_version'];
 
+        if ($val['module'] == 'siteclone') {
+            continue;
+        }
         
         $module = new moduleInstaller($val);
         if ($module->isInstalled($val['module_name'])){
