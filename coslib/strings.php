@@ -189,6 +189,31 @@ class strings {
     public static function removeExtraNL ($str) {
         return preg_replace('/(?:(?:\r\n|\r|\n)\s*){2}/s', PHP_EOL, $str);
     }
+
+    /**
+     * @url http://stackoverflow.com/a/4244629
+     * encrypt a string
+     * @param string $text
+     * @param string $salt
+     * @return string $str encrypted 
+     */
+    public static function encrypt($text, $salt) { 
+        return trim(base64_encode(mcrypt_encrypt(MCRYPT_RIJNDAEL_256, $salt, $text, MCRYPT_MODE_ECB, mcrypt_create_iv(mcrypt_get_iv_size(MCRYPT_RIJNDAEL_256, MCRYPT_MODE_ECB), MCRYPT_RAND)))); 
+    } 
+
+    /**
+     * @url http://stackoverflow.com/a/4244629
+     * returns a decrypted string
+     * @param string $text
+     * @param string $salt
+     * @return string $str decrypted 
+     */
+    public static function decrypt($text, $salt) { 
+        return trim(mcrypt_decrypt(MCRYPT_RIJNDAEL_256, $salt, base64_decode($text), MCRYPT_MODE_ECB, mcrypt_create_iv(mcrypt_get_iv_size(MCRYPT_RIJNDAEL_256, MCRYPT_MODE_ECB), MCRYPT_RAND))); 
+    } 
+
+//$encryptedmessage = encrypt("your message"); 
+//echo decrypt($encryptedmessage); 
     
     public static function trimArray () {
         

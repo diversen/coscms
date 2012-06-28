@@ -47,11 +47,11 @@ function cos_error_log ($message, $write_file = true) {
     $message = strftime('%c', time()) . ": " . $message;
     $message.="\n";
     
-    if ($write_file) {
-        //$destination = _COS_PATH . "/logs/error.log";
+    //if ($write_file) {
+    //    error_log($message, 3);
+    //} else {
         error_log($message);
-        //error_log($message, 3, $destination);
-    }
+    //}
 }
 
 function cos_debug ($message) {

@@ -92,10 +92,7 @@ class session {
                 return;
             }
             
-            
-
             $db = new db();
-            //print_r($db); die;
             $db->connect();
             $row = $db->selectOne ('system_cookie', 'cookie_id', $_COOKIE['system_cookie']);
 
@@ -106,6 +103,7 @@ class session {
                     $_SESSION['id'] = $account['id'];
                     $_SESSION['admin'] = $account['admin'];
                     $_SESSION['super'] = $account['super'];
+                    $_SESSION['type'] = $account['type'];
                     
                     $args = array (
                         'action' => 'account_login',
