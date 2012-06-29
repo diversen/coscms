@@ -185,12 +185,10 @@ class moduleLoader {
      * @return boolean $res boolean
      */
     public static function isInstalledModule($module){
-        //print_r(self::$modules); die;
         foreach (self::$modules as $val){
             if ($val['module_name'] == $module){
                 return true;
             }
-
         }
         return false;
     }
