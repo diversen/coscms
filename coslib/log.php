@@ -36,8 +36,9 @@ class log {
 }
 
 /**
- * puts a string in logs/coscms.log
- * @param string $message
+ * puts a string in logs/error.log
+ * You can log objects and arrays. They will be exported to a string
+ * @param mixed $message
  */
 function cos_error_log ($message, $write_file = true) {
     if (!is_string($message)) {
@@ -46,16 +47,26 @@ function cos_error_log ($message, $write_file = true) {
     
     $message = strftime('%c', time()) . ": " . $message;
     $message.="\n";
-    
-    //if ($write_file) {
-    //    error_log($message, 3);
-    //} else {
+    if (isset($write_file)) {
+        error_log($message, 3, $write_file);
+    } else {
         error_log($message);
-    //}
+    }
 }
 
+/**
+ * simple debug which write to error log if 'debug' is set in main config.ini
+ * @param mixed $message
+ * @return void 
+ */
 function cos_debug ($message) {
     static $debug = null;
-    if (!$debug) $debug = config::getMainIni('debug');
-    if ($debug) cos_error_log($message);
+    if ($debug) {
+        cos_error_log($message);
+        return;
+    }
+    
+    if (config::getMainIni('debug')) {
+        $debug = 1;
+    }
 }

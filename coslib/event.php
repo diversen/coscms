@@ -50,8 +50,12 @@ class event {
      *         
      */
     public static function getTriggerEvent ($methods, $args = null) {
+        
+        //die;
         if (!is_array($methods)) return array ();
         $methods = self::prepareMethods($methods);
+        //print_r($methods) ;die;
+        
         $ret = array();
         foreach ($methods as $val) {
             $ary = explode('::', $val);
@@ -63,6 +67,8 @@ class event {
                 if ($ret_val) {
                     $ret[] = $ret_val; 
                 }
+            } else {
+                cos_debug("No such static method: $class::$method");
             }
         }
         return $ret;

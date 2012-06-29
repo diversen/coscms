@@ -91,14 +91,18 @@ if (!defined('_COS_CLI')){
     // catch all output
     ob_start();
     
-    // start session
-    session::initSession();
+    
 
-    // init module loader
+    // init module loader. 
+    // after this point we can check if module exists and fire events connected to
+    // installed modules
     $db = new db();
     $moduleLoader = new moduleLoader();
     $moduleLoader->runLevel(1);
 
+    // start session
+    session::initSession();
+    
     // select all db settings and merge them with ini file settings
     $db_settings = $db->selectOne('settings', 'id', 1);
 

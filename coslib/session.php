@@ -93,13 +93,17 @@ class session {
             }
             
             $db = new db();
+
             $db->connect();
             $row = $db->selectOne ('system_cookie', 'cookie_id', $_COOKIE['system_cookie']);
-
+            
+            //print_r($row); 
             
             if (!empty($row)){
                 $account = $db->selectOne('account', 'id', $row['account_id']);
+
                 if ($account){
+                    
                     $_SESSION['id'] = $account['id'];
                     $_SESSION['admin'] = $account['admin'];
                     $_SESSION['super'] = $account['super'];
@@ -109,10 +113,13 @@ class session {
                         'action' => 'account_login',
                         'user_id' => $account['id']
                     );
-                    
-                    cos_debug("Notice: Fireing session events");
+
+                    $login_events = config::getMainIni('session_events');
+
+                    $debug = "Notice: Fireing session events";
+                    cos_debug($debug); 
                     event::getTriggerEvent(
-                        config::getMainIni('session_events'), $args
+                        $login_events, $args
                     );
                 }
             } 
