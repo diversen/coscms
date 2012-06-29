@@ -40,14 +40,14 @@ class log {
  * You can log objects and arrays. They will be exported to a string
  * @param mixed $message
  */
-function cos_error_log ($message, $write_file = true) {
+function cos_error_log ($message, $write_file = null) {
     if (!is_string($message)) {
         $message = var_export($message, true);
     }
     
     $message = strftime('%c', time()) . ": " . $message;
     $message.="\n";
-    if (isset($write_file)) {
+    if ($write_file) {
         error_log($message, 3, $write_file);
     } else {
         error_log($message);
