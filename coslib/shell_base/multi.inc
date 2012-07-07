@@ -38,8 +38,26 @@ function multi_mod_in ($options = null) {
         cos_cli_print("Installing module: $module");
         cos_cli_print($command);
         passthru($command, $return_var);
+    }  
+}
+
+function multi_exec_command ($options = null) {
+    
+    $path = _COS_PATH . "/config/multi/*";  
+    if (!isset($options['module'])) {
+        cos_cli_abort('Specify a module');
+        return 1;
     }
     
+    $module = $options['module'];
+    
+    $dirs = file::getDirsGlob($path, array ('basename' => 1));
+    foreach ($dirs as $domain) {
+        $command = "./coscli.sh --domain=$domain $module";
+        //cos_cli_print("Executing command: $module");
+        cos_cli_print($command);
+        passthru($command, $return_var);
+    }  
 }
 
 mainCli::setCommand('multi', array(
@@ -52,14 +70,21 @@ mainCli::setOption('multi_all_up', array(
     'action'      => 'StoreTrue'
 ));
 
+mainCli::setOption('multi_exec_command', array(
+    'long_name'   => '--exec',
+    'description' => 'Will execute given command on all multi sites. E.g: ./coscli.sh multi --exec \'module --mod-down meta\'',
+    'action'      => 'StoreTrue'
+));
+
+/*
 mainCli::setOption('multi_mod_in', array(
     'long_name'   => '--mod-in',
     'description' => 'Will install module for all multi sites',
     'action'      => 'StoreTrue'
 ));
-
+*/
 mainCli::setArgument(
-    'module',
-    array('description'=> 'Specify the module to install',
+    'command',
+    array('description'=> 'Specify a command to execute on all sites',
         'optional' => true,
 )); 
