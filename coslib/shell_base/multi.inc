@@ -55,7 +55,7 @@ function multi_exec_command ($options = null) {
     $dirs = file::getDirsGlob($path, array ('basename' => 1));
     foreach ($dirs as $domain) {
         $exec_command = "./coscli.sh --domain=$domain $command";
-        cos_cli_print("Executing command: $command");
+        cos_cli_print("Executing command: $exec_command");
 
         passthru($exec_command, $return_var);
     }  
