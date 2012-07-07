@@ -1,2 +1,5 @@
-image_scale_width = 250
+image_scale_width = 600
+image_scale_width_thumb = 200
 image_allow_edit = "admin"
+image_submodule_disable_insert = 1
+image_max_size = 6000000

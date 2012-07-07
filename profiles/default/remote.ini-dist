@@ -1,4 +1,4 @@
-ssh_port = 12312
+ssh_port = 123
 ssh_host = "123.123.123.123"
-prod_path = "/home/dennis/www/www.coscms.org"
-locale_path = "/home/dennis/www/coscms"
+prod_path = "/home/dennis/www/os-cms.net"
+locale_path = "/home/dennis/www/os-cms.net"
