@@ -22,6 +22,7 @@ function multi_all_up ($options = null) {
     }
 }
 
+/*
 function multi_mod_in ($options = null) {
     
     $path = _COS_PATH . "/config/multi/*";  
@@ -40,22 +41,22 @@ function multi_mod_in ($options = null) {
         passthru($command, $return_var);
     }  
 }
-
+*/
 function multi_exec_command ($options = null) {
     
     $path = _COS_PATH . "/config/multi/*";  
-    if (!isset($options['module'])) {
-        cos_cli_abort('Specify a module');
+    if (!isset($options['command'])) {
+        cos_cli_abort('Specify a command');
         return 1;
     }
     
-    $module = $options['module'];
+    $command = $options['command'];
     
     $dirs = file::getDirsGlob($path, array ('basename' => 1));
     foreach ($dirs as $domain) {
-        $command = "./coscli.sh --domain=$domain $module";
-        //cos_cli_print("Executing command: $module");
-        cos_cli_print($command);
+        $command = "./coscli.sh --domain=$domain $command";
+        //cos_cli_print("Executing command: $command");
+        //cos_cli_print($command);
         passthru($command, $return_var);
     }  
 }
