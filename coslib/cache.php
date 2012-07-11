@@ -35,10 +35,8 @@ class cache {
      */
     public static function get ($module, $id, $max_life_time = null) {
         $id = self::generateId($module, $id);
-
-        QBuilder::setSelect('system_cache');
-        QBuilder::filter('id =', $id);
-        $row = QBuilder::fetchSingle();
+        
+        $row = dbQ::setSelect('system_cache')->filter('id =', $id)->fetchSingle();
 
         if (!$row) {
             return null;

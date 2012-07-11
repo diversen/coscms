@@ -981,7 +981,7 @@ class QBuilder  {
      * @return array $row single array
      */
     public static function fetchSingle (){
-        self::limit(1, 0);
+        self::limit(0, 1);
         $rows = self::fetch();
         if (isset($rows[0])){
             return $rows[0];
