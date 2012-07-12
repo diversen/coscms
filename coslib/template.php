@@ -194,7 +194,6 @@ abstract class template {
         // master domains are allow visible for robots
         $master = config::getMainIni('master');
         if (!isset(self::$meta['robots']) && $master) {
-            $db = new db();
             
             $str = '';
             $str = config::getMainIni('meta_robots');
