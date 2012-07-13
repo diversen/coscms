@@ -113,13 +113,13 @@ class strings {
             $content = mb_convert_encoding($content, 'UTF-8');
 
             if (mb_check_encoding($content, 'UTF-8')) {
-                print('Converted to UTF-8');
+                //print('Converted to UTF-8');
             } else {
-                print('Could not converted to UTF-8');
-                die;
+                cos_debug('Could not converted to UTF-8');
+                //die;
             }
         } else {
-            echo "is utf8";
+            //echo "is utf8";
         }
         return $content;
     } 

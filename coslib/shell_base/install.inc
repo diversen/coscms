@@ -92,6 +92,11 @@ function install_menu_lang_reload(){
     menu_install_all();
 }
 
+function install_install_reload(){
+    $reload = new moduleInstaller();
+    $reload->reloadConfig();
+}
+
 
 mainCli::setCommand('install', array(
     'description' => 'install cos cms system',
@@ -112,6 +117,12 @@ mainCli::setOption('install_reload_language', array(
 mainCli::setOption('install_menu_lang_reload', array(
     'long_name'   => '--menu-lang-reload',
     'description' => 'Reinstall language according to config/config.ini, and reset all custom module menus',
+    'action'      => 'StoreTrue'
+));
+
+mainCli::setOption('install_install_reload', array(
+    'long_name'   => '--config-reload',
+    'description' => 'Reloads the module table. E.g. you have made a CLI part of a module',
     'action'      => 'StoreTrue'
 ));
 

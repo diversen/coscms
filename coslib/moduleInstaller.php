@@ -193,6 +193,28 @@ class moduleInstaller extends db {
             $this->insertLanguage($val['module_name']);
         }
     }
+    
+    public function reloadConfig () {
+        $modules = $this->getModules();
+        foreach ($modules as $key => $val){
+            @include config::getModulePath($val['module_name']) . "/install.inc";
+            if (isset($_INSTALL['IS_SHELL']) && $_INSTALL['IS_SHELL'] == '1') {
+                $this->update(
+                        'modules', 
+                        array('is_shell' => 1), 
+                        array ('module_name' => $val['module_name'])
+                        );
+            } else {
+                $this->update(
+                        'modules', 
+                        array('is_shell' => 1), 
+                        array ('module_name' => NULL)
+                        );
+            }
+            //$this->installInfo['NAME'] = $val['module_name'];
+            //$this->insertLanguage($val['module_name']);
+        }
+    }
 
     /**
      * @return  array   assoc row with language installed
