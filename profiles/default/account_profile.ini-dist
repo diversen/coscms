@@ -1,8 +1,10 @@
 account_profile_filters[0] = "markdown"
 account_profile_use_identicon = 1
 account_profile_cache_identicon = 1
-account_profile_image_size_small = 42
-account_profile_image_size_large = 150
+account_profile_image_size_small = 60
+account_profile_image_size_large = 160
 account_profile_use_gravatar = 1
+account_profile_only_desc = 0
 account_profile_fields = "screenname,firstname,lastname,email,website,birthday,description"
 account_profile_jquery_markdown = 1
+account_profile_simple = 0
