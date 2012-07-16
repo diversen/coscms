@@ -114,10 +114,21 @@ abstract class template {
         }
     }
     
+    /**
+     * gets rel assets. assure that we only get every asset once.
+     * @staticvar array $set
+     * @return string $assets 
+     */
     public static function getRelAssets () {
         $str = '';
+        static $set = array ();
         foreach (self::$rel as $val) {
-            $str.=$val;
+            if (isset($set[$val])) { 
+                continue;
+            } else {
+                $set[$val] = 1;
+                $str.=$val;
+            }
         }
         return $str;
     }
