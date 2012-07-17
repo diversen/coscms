@@ -9,6 +9,7 @@
  *
  * @package     shell
  */
+
 include_once "coslib/shell_base/common.inc";
 /*
  *
