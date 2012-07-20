@@ -106,7 +106,7 @@ class strings {
      * @return string $str
      */
     public static function toUTF8($content) {
-        
+
         if(!mb_check_encoding($content, 'UTF-8')
             OR !($content === mb_convert_encoding(mb_convert_encoding($content, 'UTF-32', 'UTF-8' ), 'UTF-8', 'UTF-32'))) {
 
@@ -115,7 +115,8 @@ class strings {
             if (mb_check_encoding($content, 'UTF-8')) {
                 //print('Converted to UTF-8');
             } else {
-                cos_debug('Could not converted to UTF-8');
+                //print "could not convert";
+                //cos_debug('Could not converted to UTF-8');
                 //die;
             }
         } else {
