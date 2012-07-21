@@ -22,26 +22,26 @@ include_once "coslib/shell_base/common.inc";
 class mainCli {
 
     /**
-     *
-     * @var array   holding commands
+     * var holding commands
+     * @var array $commands
      */
     static $commands = array();
 
     /**
-     *
-     * @var object  holding parser
+     * var holding parser
+     * @var object $parser
      */
     static $parser;
 
     /**
-     *
-     * @var string  holding command
+     * var holding command
+     * @var string  $command
      */
     static $command;
 
     /**
-     *
-     * @var array   used for holding ini settings for shell modules.
+     * var holding ini settings for modules
+     * @var array $ini
      */
     public static $ini = array();
 

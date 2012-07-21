@@ -43,7 +43,7 @@ deny from all
 deny from all
 </Files>
    
-#    ErrorLog  {$APACHE_LOG_ROOT}/error.log
-#    CustomLog {$APACHE_LOG_ROOT}/access.log combined
+    ErrorLog  {$APACHE_LOG_ROOT}/error.log
+    CustomLog {$APACHE_LOG_ROOT}/access.log combined
 </VirtualHost>
 EOD;

@@ -16,7 +16,7 @@
  */
 function create_docs(){
     // check if command exists
-    $command = "command phpdoc";
+    $command = "whereis phpdoc";
     $ret = cos_exec($command);
     if ($ret){
         cos_cli_print("Could not find command phpdoc on your system");
@@ -25,8 +25,8 @@ function create_docs(){
         exit(127);
     }
 
-    $command = "phpdoc -p -o HTML:frames:DOM/default ";
-    $command.= "-d coslib,scripts ";
+    $command = "phpdoc run ";
+    $command.= "-d coslib ";
     $command.= "-t " . _COS_PATH . "/htdocs/phpdocs ";
     cos_system($command);
 }

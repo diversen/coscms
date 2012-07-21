@@ -10,6 +10,7 @@
  * @package     shell
  */
 
+include_once "coslib/shell_base/common.inc";
 /*
  *
  * @return array $database containing array('name' => database, 'host' => 'host')

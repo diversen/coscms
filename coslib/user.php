@@ -36,6 +36,22 @@ class user {
         return $row;
     }
     
+    /**
+     * gets account from email
+     * @param string $email
+     * @return array $row
+     */
+    public static function getAccountFromEmail ($email = null) {
+        //if (!$id) $id = session::getUserId ();
+        $db = new db();
+        $row = $db->selectOne('account', 'email', $email);
+        return $row;
+    }
+    
+    
+    /**
+     * inits profile system. Include profile module
+     */
     public static function initProfile () {
         if (!isset(self::$profile_object)){
             
@@ -104,6 +120,47 @@ class user {
     }
     
     /**
+     * gets a anon profile
+     * @param array $user anon user info. At least we should have array ('email'  => 'email');
+     * @param string $text string to add to user e.g. date of the post. 
+     * @return string $str profile html.  
+     */
+    public static function getProfileAnon($user, $text = '') {
+        self::initProfile();
+        return self::$profile_object->getProfile($user, $text);       
+    }
+    
+    /**
+     * same as getProfile. But we add a date to be formatted
+     * @param mixed $user array with user info or a user id
+     * @param string $date mysql timestamp
+     * @param string $format timestamp format
+     * @return string $str simple table with user profile
+     */
+    public static function getProfileWithDate ($user, $date, $format = 'date_format_long') {
+        $date_str = time::getDateString($date, $format);
+        self::initProfile();
+        if (!is_array($user)) {
+            $user = user::getAccount($user);
+            
+        }
+        return self::$profile_object->getProfile($user, $date_str);  
+    }
+    
+    /**
+     * same as getProfile. But we add a date to be formatted
+     * @param array $user anon user info (at least we should have an email)
+     * @param string $date mysql timestamp
+     * @param string $format timestamp format
+     * @return string $str simple table with user profile
+     */
+    public static function getProfileWithDateAnon ($user, $date, $format = 'date_format_long') {
+        $date_str = time::getDateString($date, $format);
+        self::initProfile();
+        return self::$profile_object->getProfileAnon($user, $date_str);  
+    }
+    
+    /**
      * method for getting a profile link in the most simple way
      * e.g. any blog post will have a text (the post date) and a user 
      * profile link or box. 
@@ -145,18 +202,17 @@ class user {
 }
 
 /**
- * @deprecated
- * @param type $user
- * @param type $options
- * @return type 
+ * gets a user profile link same as user::getProfileLink
+ * @param mixed $user array or user id
+ * @return string $str html string with profile link 
  */
-function get_profile_link ($user, $options = null){
+function get_profile_link ($user){
     return user::getProfileLink($user);
 }
 /**
- * @deprecated
- * @param type $user_id
- * @return type 
+ * gets a users edit link
+ * @param int $user_id
+ * @return string $html link 
  */
 function get_profile_edit_link ($user_id){
     return user::getProfileEditLink($user_id);

@@ -30,7 +30,7 @@ function prompt_install(){
 
     $profiles = file::getFileList('profiles', array('dir_only' => true));
     cos_cli_print("List of profiles: ");
-    foreach ($profiles as $key => $val){
+    foreach ($profiles as $val){
         cos_cli_print("\t".$val);
     }
 
@@ -48,7 +48,7 @@ function prompt_install(){
     $username = cos_readline('Enter database user, and hit return: ');
     $password = cos_readline('Enter database users password, and hit return: ');
     $server_name = cos_readline('Enter server host name (e.g. www.coscms.org), and hit return: ');
-    $site_email = cos_readline('Enter email (site wide) to send messages from, and hit return: ');
+    //$site_email = cos_readline('Enter email (site wide) to send messages from, and hit return: ');
     
     // questions for creating a super user
     //$super_user = cos_readline('Enter superuser username, and hit return: ');
@@ -60,7 +60,7 @@ function prompt_install(){
     config::$vars['coscms_main']['username'] = $username;
     config::$vars['coscms_main']['password'] = $password;
     config::$vars['coscms_main']['server_name'] = $server_name;
-    config::$vars['coscms_main']['site_email'] = $server_name;
+    //config::$vars['coscms_main']['site_email'] = $server_name;
 
     // write it to ini file
     $content = config::arrayToIniFile(config::$vars['coscms_main']);

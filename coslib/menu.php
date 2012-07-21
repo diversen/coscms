@@ -1,27 +1,38 @@
 <?php
 
 /**
+ * file contains class for main menu manipulation
  * @package     coslib
  */
-
-/**
- * @package     coslib
- */
-
 
 moduleLoader::includeModel ('content/article');
+/**
+ * class menu contains methods for manipulating main menu
+ * @package     coslib
+ */
+
+
 
 class menu {
-
+    
+    /**
+     * var holding options
+     * @var aray $options 
+     */
     public static $options = array();
 
+    /**
+     * method for setting options
+     * @param type $extra 
+     */
     public static function setOptions ($extra){
         self::$options = $extra;
     }
 
     /**
-     * get system menu array from name
-     * @param string    $str name of the system menu to get
+     * get system menu array from a name
+     * @param string  $name name of the system menu to get
+     * @return array $ary returns menu as a array
      */
     public static function getSystemMenuArray ($name){
         $db = new db();
@@ -33,10 +44,9 @@ class menu {
 
 
     /**
-     * update system menu array
-     *
-     * @param array  $values to insert into menu
-     * @param string $name of menu to manipulate
+     * updates system menu array
+     * @param array  $menu the menu to insert into db
+     * @param string $name of menu to update
      */
     public static function updateSystemMenuArray($menu, $name){
 
@@ -54,13 +64,11 @@ class menu {
     /**
      * method for attaching a new menu item to a system menu
      * Notice: Works on reference to the menu
-     *
-     * @param array $menu
-     * @param array $val
+     * @param array $menu menu to alter
+     * @param array $val new menu item
      */
     public static function createSystemMenuItem(&$menu, $val){
 
-        // create item to insert
         $item = array ();
         $item['id'] = $val['id'];
         $item['pid'] = 0;
@@ -69,9 +77,9 @@ class menu {
     }
 
     /**
-     *
-     * @param   array   $ary tree array
-     * @param   int     $id id to search for
+     * examine if a menu has children
+     * @param   array   $ary menu
+     * @param   int     $id parent_id from where we look for children
      * @return  int     $res 1 on success 0 on failure.
      */
     public static function menuItemHasChildren ($ary, $id){
@@ -88,7 +96,8 @@ class menu {
     }
 
     /**
-     *
+     * delete a menu item
+     * works on a reference to a menu
      * @param array     $menu
      * @param array     $values
      * @param int       $id
@@ -106,16 +115,16 @@ class menu {
     }
 
     /**
-     *
-     * @param array menu as array. Notice it works on the reference
-     * @param array item to update
-     * @param int   item id to update
+     * updates a menu item
+     * Notice it works on the reference
+     * @param array $menu menu array
+     * @param array $values new value of a menu item
+     * @param int   $id id of menu item to update
      */
     public static function updateMenuItem(&$menu, $values, $id){
         foreach ($menu as &$val) {
             if (empty($val)) continue;
             if ($val['id'] == $id){
-                //strings::utf8Slug($base);
                 $val['title'] = $values['title'];
             }
             if (isset($val['sub'])){
@@ -125,10 +134,11 @@ class menu {
     }
 
     /**
-     * recursive method for getting article tree.
-     *
-     * @param       int     id of article. Then we find parent_id and id of that ... etc
-     * @return      array   str with html displaying the tree
+     * recursive method for getting article tree as HTML
+     * @param array $menu menu array
+     * @param string $name name of menu
+     * @param int  $id id of starting menu element
+     * @return array $str html string
      */
     public static function getTreeHTML($menu, $name, $id){
         static $stack = null;
@@ -183,9 +193,9 @@ class menu {
 
 
     /**
-     *
-     * @param string $name of menu to get
-     * @return array|null   returns an array if any or null
+     * gets a menu
+     * @param string $name name of menu to get
+     * @return array   $row gets raw menu as db table row
      */
     public static function getMenu ($name){
         $db = new db();
@@ -197,10 +207,12 @@ class menu {
     }
 
     /**
-     * recursive method for getting article tree.
+     * recursive method for getting article tree for javascript 
+     * manipulation
      *
-     * @param       int     id of article. Then we find parent_id and id of that ... etc
-     * @return      array   str with html displaying the tree
+     * @param array $ary menu array
+     * @param boolean $start indicating if we have started on creating the menu
+     * @return string  $str string with html displaying the tree
      */
     public static function getManipTreeHTML($ary, $start = null){
         static $str = '';
@@ -236,8 +248,9 @@ class menu {
      * 
      * http://old.nabble.com/Creating-Tree-Structure-from-associative-array-td6897320.html
      * 
+     * genrates tree from ajax
      * @param  array $input_ary recieved from jquery sortable
-     * @return array a menu array
+     * @return array $ary a menu array
      */
 
     public static function generateTreeFromAjax ($input_ary){
@@ -284,7 +297,7 @@ class menu {
     }
 
     /**
-     *
+     * gets a menu stack
      * @param   string $name of menu to get
      * @param   int    $id the id of element to get 'stack' to
      * @return  array  $stack
@@ -305,7 +318,7 @@ class menu {
  *
  * @param string $child
  * @param array  $stack
- * @return array parent stack
+ * @return mixed $stack array or false
  */
 
 function get_parent_stack($child, $stack) {
@@ -336,9 +349,9 @@ function get_parent_stack($child, $stack) {
  * found on php.net
  *
  * @param array     $array to flatten
- * @param boolean   preserve keys or not
+ * @param boolean   $preserve preserve keys or not
  * @param array     $r
- * @return array
+ * @return array    $r
  */
 function array_flatten($array, $preserve = FALSE, $r = array()){
 

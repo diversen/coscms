@@ -2,6 +2,8 @@
 
 
 /**
+ * file contains functions for sending mail 
+ * in various ways. With  PHP or SMTP using UTF-8
  * @package coslib
  */
 
@@ -10,10 +12,10 @@ include_once "Mail/mime.php";
 /**
  * function for sending utf8 mails with native mail function
  *
- * @param   string  $recipient to whom are we gonna send the email
+ * @param   string  $to to whom are we gonna send the email
  * @param   string  $subject the subject of the email
  * @param   string  $message the message of the email
- * @param   string  $from from the sender of the email
+ * @param   string  $from the sender of the email
  * @param   string  $reply_to email to reply to
  * @return  int     1 on success 0 on error
  */
@@ -73,7 +75,7 @@ function mail_utf8_direct($to, $subject, $message, $from = null, $reply_to=null)
 /**
  * function for sending utf8 mails with native mail function
  *
- * @param   string  $recipient to whom are we gonna send the email
+ * @param   string  $to to whom are we gonna send the email
  * @param   string  $subject the subject of the email
  * @param   string  $message the message of the email
  * @param   string  $from from the sender of the email
@@ -163,7 +165,7 @@ function mail_php ($recipient, $subject, $message, $from = null, $reply_to = nul
 
 
 /**
- * method for sending mails via smtp
+ * method for sending mails via smtp using PEAR::SMTP
  * @param   string  $to to whom are we gonna send the email
  * @param   string  $subject the subject of the email
  * @param   string  $message the message of the email
@@ -226,6 +228,16 @@ function mail_smtp ($to, $subject, $message, $from = null, $reply_to = null) {
     return true;
 }
 
+/**
+ *
+ * method for sending email with the Zend frameworks SMTP agent
+ * @param   string  $to to whom are we gonna send the email
+ * @param   string  $subject the subject of the email
+ * @param   string  $message the message of the email
+ * @param   string  $from from the sender of the email
+ * @param   string  $reply_to email to reply to
+ * @return  int     $res 1 on success 0 on error
+ */
 function mail_smtp_zend ($to, $subject, $message, $from = null, $reply_to = null) {
 
     include_once "Zend/Mail.php";
@@ -320,6 +332,7 @@ function mail_html ($recipient, $subject, $html, $from = null, $reply_to = null)
     return true;
 }
 
+/*
 function mail_system_user ($subject, $message, $from = null, $reply_to = null) {
     $to = config::getMainIni('mail_address_primary');
     return mail_utf8(
@@ -328,4 +341,4 @@ function mail_system_user ($subject, $message, $from = null, $reply_to = null) {
             $message, 
             $from, 
             $reply_to);
-}
+}*/

@@ -132,6 +132,7 @@ class captcha {
 
         $options = array ('align' => 'top');
         $options['title'] = lang::translate('system_captcha_alt_image');
-        return lang::system('captcha_numbers') . ' ' . html::createImage('/image_captcha/index', $options);
+        $options['required'] = true;
+        return "* " . lang::system('captcha_numbers') . ' ' . html::createImage('/image_captcha/index', $options);
     }
 }
