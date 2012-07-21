@@ -66,32 +66,6 @@ $_PROFILE_MODULES = array (
     'public_clone_url' => 'git://github.com/diversen/files.git',
     'private_clone_url' => 'git@github.com:diversen/files.git',
   ),
-  5 => 
-  array (
-    'id' => '44',
-    'module_name' => 'rewrite',
-    'module_version' => '1.41',
-    'menu_item' => '0',
-    'run_level' => '0',
-    'load_on' => NULL,
-    'parent' => NULL,
-    'is_shell' => NULL,
-    'public_clone_url' => 'git://github.com/diversen/rewrite.git',
-    'private_clone_url' => 'git@github.com:diversen/rewrite.git',
-  ),
-  6 => 
-  array (
-    'id' => '45',
-    'module_name' => 'rewrite_manip',
-    'module_version' => '1.41',
-    'menu_item' => '0',
-    'run_level' => '0,1',
-    'load_on' => NULL,
-    'parent' => NULL,
-    'is_shell' => NULL,
-    'public_clone_url' => 'git://github.com/diversen/rewrite_manip.git',
-    'private_clone_url' => 'git@github.com:diversen/rewrite_manip.git',
-  ),
   7 => 
   array (
     'id' => '46',
