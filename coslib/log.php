@@ -1,25 +1,47 @@
 <?php
 
 /**
- * File contains helper functions. 
- * 
- *
+ * File contains methods for logging
  * @package    coslib
  */
 
+/**
+ * class log contains methods for doing 
+ * logging
+ * @package coslib
+ */
+
 class log {
+    
+    /**
+     * logs an error
+     * @param string $message
+     * @param boolean $write_file
+     */
     public static function error ($message, $write_file = true) {
         cos_error_log($message, $write_file);
     }
     
+    /**
+     * logs an error message
+     * @param string $message
+     * @param boolean $write_file 
+     */
     public static function message ($message, $write_file = true) {
         cos_error_log($message, $write_file);
     }
     
+    /**
+     * debug a message
+     * @param string $message 
+     */
     public static function debug ($message) {
         cos_debug($message);
     }
     
+    /**
+     * create log file 
+     */
     public static function createLog () {
         if (!defined('_COS_PATH')) {
             die('No _COS_PATH defined');

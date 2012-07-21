@@ -202,18 +202,17 @@ class user {
 }
 
 /**
- * @deprecated
- * @param type $user
- * @param type $options
- * @return type 
+ * gets a user profile link same as user::getProfileLink
+ * @param mixed $user array or user id
+ * @return string $str html string with profile link 
  */
-function get_profile_link ($user, $options = null){
+function get_profile_link ($user){
     return user::getProfileLink($user);
 }
 /**
- * @deprecated
- * @param type $user_id
- * @return type 
+ * gets a users edit link
+ * @param int $user_id
+ * @return string $html link 
  */
 function get_profile_edit_link ($user_id){
     return user::getProfileEditLink($user_id);

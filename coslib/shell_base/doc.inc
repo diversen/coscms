@@ -16,7 +16,7 @@
  */
 function create_docs(){
     // check if command exists
-    $command = "command phpdoc";
+    $command = "whereis phpdoc";
     $ret = cos_exec($command);
     if ($ret){
         cos_cli_print("Could not find command phpdoc on your system");

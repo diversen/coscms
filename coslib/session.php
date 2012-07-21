@@ -78,6 +78,11 @@ class session {
         }
     }
 
+    /**
+     * checks if there is a cookie we can use for 
+     * log in. If cookie exists we will login the user
+     * @return void
+     */
     public static function checkSystemCookie(){
         
         if (isset($_COOKIE['system_cookie'])){
@@ -194,8 +199,7 @@ class session {
 
     /**
      * method for getting how long user has been in session
-     *
-     * @return int secs in session
+     * @return int $secs time in session measured in secs
      */
     static public function getSessionTime(){
         if (!isset($_SESSION['start_time'])){
@@ -209,7 +213,8 @@ class session {
      * method for setting an action message. Used when we want to tell a
      * user what happened if he is redirected
      *
-     * @param string the action message.
+     * @param string $message the action message.
+     * @param boolean $close to close session writing or not
      */
     public static function setActionMessage($message, $close = false){
             if (!isset($_SESSION['system_message'])) {
@@ -327,7 +332,8 @@ class session {
      *      user has access to less
      *      null has access to least
      *
-     * @param   string  user or admin or super
+     * @param   string  $allow user or admin or super
+     * @param   boolean $setErrorModule set error module or not
      * @return  boolean true if user has required accessLevel.
      *                  false if not. 
      * 
