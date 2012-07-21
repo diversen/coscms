@@ -7,8 +7,7 @@
 
 /**
  * 
- * class cache. 
- * 3 methods set, get, and delete
+ * class cache. 3 methods set, get, and delete
  * @package coslib
  * 
  */
@@ -30,7 +29,7 @@ class cache {
      * get a cached string
      * @param   string    $module
      * @param   int       $id
-     * @param   int       $lifetime in secs
+     * @param   int       $max_life_time in secs
      * @return  string    $str
      */
     public static function get ($module, $id, $max_life_time = null) {

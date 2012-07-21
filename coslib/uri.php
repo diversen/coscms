@@ -65,6 +65,8 @@ class uri {
      * method for setting all info we need when loading a module
      * info is set when we construct the object first time. 
      * info is placed in self::$info
+     * @param string $path
+     * @return void
      */
     public static function setInfo($path = null) {
         static $info_isset = null;
@@ -90,6 +92,7 @@ class uri {
 
     /**
      * method for getting the base path as an array
+     * @param string $path
      * @return array $fragments the URL base parts an array
      */
     public static function getRequestUriAry($path){
@@ -141,18 +144,16 @@ class uri {
         } else {
             self::$info['query'] = '';
         } 
-        //return $uri;
         self::$info['path'] = $uri[0];
-    // }
     } 
 
     /**
      * Method for getting fragments that makes up the controller
      * We will only use char values, if an int is set we break the loop
      * This is how we recognice a controller.
-     * It is the part of the url string before any numeric values!
+     * It is the part of the url string before any numeric values
      *
-     * @param array     $fragements fragments to examine
+     * @param array     $fragments fragments to examine
      * @return array    $fragments controller fragements 
      *                  e.g. array ('account', 'login')
      */
@@ -172,7 +173,6 @@ class uri {
     /**
      * gets a max int or zero from an int and a max int. 
      * @param int $val the var to get max int from
-     * @param int $max max int to return
      * @return int $val
      */
     public static function getPositiveInt ($val) {

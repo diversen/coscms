@@ -61,6 +61,7 @@ class log {
  * puts a string in logs/error.log
  * You can log objects and arrays. They will be exported to a string
  * @param mixed $message
+ * @param boolean $write_file
  */
 function cos_error_log ($message, $write_file = null) {
     if (!is_string($message)) {
