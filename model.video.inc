@@ -79,8 +79,10 @@ class video {
         html::legend($legend);
         html::label('abstract', lang::translate('file_abstract_label'));
         html::textareaSmall('abstract');
-        html::label('file', lang::translate('file_file_label'));
-        html::file('file');
+        
+        $bytes = config::getModuleIni('video_max_size');
+        html::fileWithLabel('file', $bytes);
+
         html::submit('submit', $submit);
         html::formEnd();
         echo html::getStr();
