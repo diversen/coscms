@@ -325,7 +325,7 @@ class upload {
 
 /**
  * class for doing a upload of a blob to db
- * @package     coslib
+ * @package     upload
  */
 class uploadBlob extends upload {
 
