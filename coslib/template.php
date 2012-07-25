@@ -3,7 +3,7 @@
 /**
  * File containing template class. 
  * 
- * @package coslib
+ * @package template
  */
 
 /**
@@ -11,75 +11,92 @@
  * abstract because it will always be extended by mainTemplate
  * which will be used for display the page
  * 
- * @package coslib
+ * @package template
  */
 abstract class template {
     
     /**
-     * @var array   holding css files
+     * holding css files
+     * @var array   $css
      */
     static $css = array();
     
 
     /**
-     * @var array   holding js files
+     *  holding js files
+     * @var array $js
      */
     static $js = array();
     
+    /**
+     * holding head js
+     * @var array $jsHead
+     */
     static $jsHead = array ();
 
-    static $rel = array ();
     /**
-     * @var array   holding inline js strings
+     * holding rel elements
+     * @var array $rel
+     */
+    static $rel = array ();
+    
+    /**
+     * holding inline js strings
+     * @var array $inlineJs
      */
     static $inlineJs = array();
 
     /**
-     * @var array   holding inline css strings
+     * holding inline css strings
+     * @var array $inlineCss 
      */
     static $inlineCss = array();
 
     /**
-     * @var string  holding meta tags
+     * holding meta tags
+     * @var array $meta  
      */
     static $meta = array();
 
     /**
-     * @var string  holding title of page being parsed
+     * holding title of page being parsed
+     * @var string $title
      */
     static $title = '';
 
     /**
-     * @var string   holding last html strings
+     * holding end html string
+     * @var string $endHTML
      */
     static $endHTML = '';
 
     /**
-     * @var string   holding last html strings
+     * holding start html string
+     * @var string $startHTML
      */
     static $startHTML = '';
     
     /**
-     * @var string   holding end of content string
+     * holding end of content string
+     * @var string $endContent  
      */
     static $endContent = '';
     
     /**
-     *
+     * holding templateName
      * @var string  $templateName 
      */
     static $templateName = null;
     
     /**
-     * 
-     * @var string $cacheDir name of dir where we cache assets 
-     * 
+     * name of dir where we cache assets
+     * @var string $cacheDir 
      */
     public static $cacheDir = 'cached_assets';
 
     /**
-     * will be set in init
-     * @var string $cacheDir name of dir where we cache assets 
+     * name of cache dir web where we cache assets
+     * @var string $cacheDirWeb  
      * 
      */
     public static $cacheDirWeb = '';
@@ -134,7 +151,9 @@ abstract class template {
     }
     
     /**
-     * method for adding css or js in top of document.  
+     * method for adding css or js in top of document. 
+     * @param string $type 'css' or 'js'
+     * @param string $link 'src' link of the asset 
      */
     public static function setRelAsset ($type, $link) {
         if ($type == 'css') {
@@ -234,8 +253,9 @@ abstract class template {
     /**
      * method for setting css files to be used on page
      *
-     * @param string    string css_url pointing to the css on your server e.g. /templates/module/good.css
-     * @param int       loading order. 0 is loaded first and > 0 is loaded later
+     * @param string $css_url pointing to the css on your server e.g. /templates/module/good.css
+     * @param int  $order loading order. 0 is loaded first and > 0 is loaded later
+     * @param array $options
      */
     public static function setCss($css_url, $order = null, $options = null){
         if (isset($order)){
@@ -271,8 +291,9 @@ abstract class template {
      * be parsed in user templates.
      * 
      * @param   string   $js file path of the javascript
-     * @param   int      $order the loading order of javascript 0 is first > 0 is
+     * @param   int $order the loading order of javascript 0 is first > 0 is
      *                   later.
+     * @param array $options
      */
     public static function setStringJs($js, $order = null, $options = array()){
         
@@ -300,10 +321,10 @@ abstract class template {
     /**
      * method for setting js files to be used by user templates. This is
      * used with javascripts which are placed in web space.
-     * @param   string   $url pointing to the path of the javascript
-     * @param   int      $order. the loading order of javascript 0 is first > 0 is
+     * @param   string   $js_url pointing to the path of the javascript
+     * @param   int      $order the loading order of javascript 0 is first > 0 is
      *                   later.
-     * $param   array    $options
+     * @param   array    $options
      */
     public static function setJs($js_url, $order = null, $options = null){
         if (isset($options['head'])) {
@@ -335,10 +356,12 @@ abstract class template {
         return $str;
     }
     
+    /**
+     * gets js for head as a string
+     */
     public static function getJsHead(){
         $str = "";
         ksort(self::$jsHead);
-        //print_t()
         foreach (self::$jsHead as $key => $val){
             $str.= "<script src=\"$val\" type=\"text/javascript\"></script>\n";
         }
@@ -346,8 +369,7 @@ abstract class template {
     }
     
     /**
-     * returns favicon
-     * @param string $path
+     * returns favicon html
      * @return string $html 
      */
     public static function getFaviconHTML () {
@@ -371,6 +393,7 @@ abstract class template {
      * @param   string   $js file path of the javascript
      * @param   int      $order the loading order of javascript 0 is first > 0 is
      *                   later.
+     * @param array $options
      */
     public static function setInlineJs($js, $order = null, $options = array()){
         
@@ -399,14 +422,10 @@ abstract class template {
      * method for getting all inline js as a string
      * @return  string  $str the js as a string
      */
-    public static function getInlineJs($section = null){
+    public static function getInlineJs(){
         $str = "";
         ksort(self::$inlineJs);
-        foreach (self::$inlineJs as $key => $val){
-            if (isset($section)) {
-                
-            }
-            
+        foreach (self::$inlineJs as $val){            
             $str.= "<script type=\"text/javascript\">$val</script>\n";
         }
         return $str;
@@ -415,9 +434,10 @@ abstract class template {
     /**
      * method for setting user css used inline in user templates.
      *
-     * @param   string   $str string file path of the css
-     * @param   int      $order. the loading order of css 0 is first > 0 is
+     * @param   string   $css string file path of the css
+     * @param   int      $order the loading order of css 0 is first > 0 is
      *                   later.
+     * @param array $options
      */
     public static function setInlineCss($css, $order = null, $options = array()){
 
@@ -510,7 +530,7 @@ abstract class template {
      * method for getting css used in inline in user templates
      * @return  string  the css as a string
      */
-    public static function getInlineCss($section = null){
+    public static function getInlineCss(){
         $str = "";
         ksort(self::$inlineCss);
         foreach (self::$inlineCss as $key => $val){
@@ -612,6 +632,8 @@ abstract class template {
      * we use common.css in template folder.
      * 
      * @param string $template
+     * @param int $order
+     * @param string $version
      */
     public static function setTemplateCss ($template = '', $order = 0, $version = 0){
 
@@ -635,6 +657,11 @@ abstract class template {
 
     }
     
+    /**
+     * sets template css from template css ini files
+     * @param string $template
+     * @param string $css
+     */
     public static function setTemplateCssIni ($template, $css) {
         $ini_file = _COS_PATH . "/htdocs/templates/$template/$css/$css.ini";
         if (file_exists($ini_file)) {
@@ -645,26 +672,37 @@ abstract class template {
         }        
     }
 }
-/**
- * class with simple template methods
- * @package coslib
- */
 
+/**
+ * class with simple view methods
+ * @package template
+ */
 class templateView {
-    
-    public static $override = false;
+   
     /**
-     * 
+     * indicate if we will override a view
+     * @var boolean $override
+     */
+    public static $override = false;
+    
+    /**
+     * var holding options for views
+     * @var array $options
      */
     public static $options = array (
         'folder' => 'views'
     );
     
+    /**
+     * currenct view
+     * @var string $view
+     */
     public static $view = null;
+    
     /**
      * method for setting override of normal views
-     * @param string $view view to override, e.g. account_login_email
-     * @param array $ary options 
+     * @param string $view the view to override, e.g. account_login_email
+     * @param array $options options array ('module', 'view', 'template', 'folder') 
      */
     public static function setOverride ($view, $options = array ()) {
         
@@ -724,9 +762,10 @@ class templateView {
      * postfix
      *
      * @param string $module
-     * @param string $file
+     * @param string $view
      * @param array  $vars to parse into template
-     * @param boolean return as string (1) or output directly (0) 
+     * @param boolean return as string (1) or output directly (0)
+     * @return string|void $str 
      */
     static function includeModuleView ($module, $view, $vars = null, $return = null){
 
@@ -780,9 +819,9 @@ class view extends templateView {
  * we presume that views are placed in modules views folder
  * e.g. tags/views And we presume that views always has a .inc
  * postfix
- *
+ * @ignore
  * @param string $module the module where our view exists
- * @param string $file the view file we want to use
+ * @param string $view the view file we want to use
  * @param mixed $vars vars to substitue in view
  * @param boolean $return if true we will return the content of the view
  *                        if false we echo the view
