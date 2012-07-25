@@ -2,13 +2,13 @@
 
 /**
  * package contains file class for doing common file tasks
- * @package coslib
+ * @package file
  * 
  */
 
 /**
  * class for doing common file tasks
- * @package coslib
+ * @package file
  */
 class file {
     
@@ -17,10 +17,10 @@ class file {
      * collected)
      *
      * @param   string  the path to the directory where we want to create a filelist
-     * @param   array   if <code>$options['dir_only']</code> isset only return directories.
-     *                  if <code>$options['search']</code> isset then only files containing
+     * @param   array   if $options['dir_only'] isset only return directories.
+     *                  if $options['search'] isset then only files containing
      *                  search string will be returned
-     * @return  array   entries of all files <code>array (0 => 'file.txt', 1 => 'test.php');</code>
+     * @return  array   entries of all files array (0 => 'file.txt', 1 => 'test.php')
      */
     public static function getFileList ($dir, $options = null) {
         return get_file_list($dir, $options);
@@ -45,6 +45,13 @@ class file {
         return $ext = substr($filename, strrpos($filename, '.') + 1);
     }
     
+    /**
+     * gets a filename from a path string
+     * @param string $file full path of file
+     * @param array $options you can set 'utf8' => true and the filename will
+     *              be utf8
+     * @return string $filename the filename     
+     */
     public static function getFilename ($file, $options = array())  {
         if (isset($options['utf8'])) {
             include_once "coslib/file/pathinfo_utf8.php";
@@ -55,7 +62,6 @@ class file {
         return $info['filename'];
     }
     
-
     /**
      * method for getting mime type of a file
      * @param string $path
@@ -93,6 +99,11 @@ class file {
         }
     }
     
+    /**
+     * method for creating a directory in the htdocs/files directory
+     * It will know if we are using a multi domain setup
+     * @param string $dir
+     */
     public static function mkdir ($dir) {
         $full_path = config::getFullFilesPath();
         $dir = $full_path . "$dir";
@@ -105,10 +116,9 @@ class file {
     }
     
     /**
-     * parse ini with this and they will be cached with APC
+     * get a cached file using APC
      * @param string $file
-     * @param boolean $sections
-     * @return array $ini settings 
+     * @return string $content content of the file 
      */
     public static function getCachedFile ($file) {
         ob_start();
@@ -119,9 +129,11 @@ class file {
     }
     
     /**
-     * get dirs in path
+     * get dirs in path using glob function
      * @param string $path
-     * @return array $ary paths 
+     * @param array $options you can set a basename which has to be correct
+     *              'basename' => '/path/to/exists'
+     * @return array $dirs 
      */
     public static function getDirsGlob ($path, $options = array()) {
         $dirs = glob($path.'*', GLOB_ONLYDIR); 
@@ -138,11 +150,11 @@ class file {
      * @param string $path 
      */
     public static function rrmdir ($path) {
-        rrmdir($dir);
+        rrmdir($path);
     }
 }
 /*
- * @deprecated
+ * @ignore
  * @see file::getFileList
  */
 
@@ -174,8 +186,8 @@ function get_file_list($dir, $options = null){
 }
 
 /**
+ * @ignore
  * @deprecated use file::getFileListRecursive($start_dir)
- * 
  */
 function get_file_list_recursive($start_dir, $pattern = null) {
 
@@ -208,7 +220,14 @@ function get_file_list_recursive($start_dir, $pattern = null) {
     return $files;
 }
 
-// Found on stackoverflow. From kohana. 
+// Found on stackoverflow. From kohana.
+/**
+ * @param int $bytes
+ * @param boolean $force_unit
+ * @param boolean $format
+ * @param type $si
+ * @return type 
+ */
 function transform_bytes($bytes, $force_unit = NULL, $format = NULL, $si = TRUE)
 {
     // Format string
@@ -236,6 +255,10 @@ function transform_bytes($bytes, $force_unit = NULL, $format = NULL, $si = TRUE)
     return sprintf($format, $bytes / pow($mod, $power), $units[$power]);
 }
 
+/**
+ * rm dir recursively
+ * @param string $dir 
+ */
 function rrmdir($dir) {
     $fp = opendir($dir);
     if ( $fp ) {
@@ -253,4 +276,3 @@ function rrmdir($dir) {
         rmdir($dir);
    }
 }
-       

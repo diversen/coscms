@@ -4,12 +4,12 @@
  * File contains a short extension of layout class
  * Using this class will keep better state of current link and 
  * set the current css class
- * @package coslib
+ * @package layout
  */
 
 /**
  * layout2 extension of layout for keeping better state with current link 
- * @package coslib
+ * @package layout
  */
 class layout2 extends layout {
 

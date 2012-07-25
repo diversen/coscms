@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * File contains single function for getting utf8 about a path. 
+ * works in the same way as the native function pathinfo
+ * @package file 
+ */
+
 //////////////////////////////////////////////////////
 //
 // http://xszhuchao.blogbus.com/logs/130081187.html
@@ -12,6 +18,11 @@
 // My Blog
 // http://samwphp.blogspot.com/2012/04/pathinfo-function.html
 //////////////////////////////////////////////////////
+/**
+ * function returns utf8 pathinfo as the native pathinfo returns pathinfo
+ * @param string $path
+ * @return array $pathinfo
+ */
     function pathinfo_utf8($path)
     {
 

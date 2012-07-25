@@ -2,12 +2,12 @@
 
 /**
  * contains methods for getting config settings. 
- * @package coslib
+ * @package config
  */
 
 /**
  * one linier register class. 
- * @package coslib
+ * @package config
  */
 
 class config {

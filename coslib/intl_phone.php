@@ -1,6 +1,19 @@
 <?php
 
-// http://ninetwozero.com/2011/12/04/php-country-array-with-dial-codes/
+/**
+ * file contains function for getting dial code info from 
+ * country filter
+ * @package intl phone 
+ */
+
+/**
+ * function for getting country information about dial code used
+ * 
+ * http://ninetwozero.com/2011/12/04/php-country-array-with-dial-codes/
+ * 
+ * @param type $filter short country name or country name
+ * @return array $dial_code info
+ */
 function getCountryInformation($filter = '') {
  
             //Let's define the array

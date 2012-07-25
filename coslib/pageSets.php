@@ -1,17 +1,44 @@
 <?php
 
+/**
+ * file contains class for creating simple paging 
+ * for e.g. images with prev next
+ * @package coslib 
+ */
+
+/**
+ * class for creating simple paging 
+ * for e.g. images with prev next
+ * @package coslib 
+ */
 class pageSets {
     
+    /**
+     * var holding options
+     * @var array $options
+     */
     public $options = array ();
+    
+    /**
+     * constructor
+     * @param array $options
+     */
     public function __construct($options = array ()) {
         $this->options = $options;
     }
+    
+    /**
+     * get prev next from db table rows
+     * @param array $rows
+     * @param array $options
+     * @return string $html string
+     */
     public function getPrevNext (&$rows, $options = null) {
 
         $i = 0;
         $current = $_SERVER['REQUEST_URI'];
         $num_rows = count($rows);
-        $ary = array();
+        //$ary = array();
         $str = '';
         $next_text = $this->getNextText();
         $prev_text = $this->getPrevText();
@@ -47,6 +74,10 @@ class pageSets {
         }
     }
     
+    /**
+     * gets title
+     * @return string $title 
+     */
     public function getTitle () {
         $str = '';
         if (isset($this->options['current_title'])) {
@@ -57,6 +88,12 @@ class pageSets {
         return $str;
     }
     
+    /**
+     * gets link
+     * @param string $url
+     * @param string $text
+     * @return string $str html 
+     */
     public function getLink ($url, $text) {
         if (isset($this->options['attach'])) {
             $url.= $this->options['attach'];
@@ -65,6 +102,10 @@ class pageSets {
         return $str;
     }
     
+    /**
+     * get prev text
+     * @return string $prev text 
+     */
     public function getPrevText ()  {
         if (isset($this->options['prev_text'])) {
             return $this->options['prev_text'];
@@ -73,6 +114,10 @@ class pageSets {
         }
     }
     
+    /**
+     * get next text
+     * @return string $next text 
+     */
     public function getNextText () {
         if (isset($this->options['next_text'])) {
             return $this->options['next_text'];

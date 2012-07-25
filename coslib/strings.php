@@ -2,12 +2,12 @@
 
 /**
  * Some methods for manipulating strings
- * @package coslib
+ * @package strings
  */
 
 /**
  * class for manipulating strings
- * @package coslib
+ * @package strings
  */
 class strings {
     
@@ -76,6 +76,11 @@ class strings {
         return $slug;        
     }
     
+    /**
+     * get a utf8 slug from a string
+     * @param string $title 
+     * @return string $str stripped utf8 string 
+     */
     public static function utf8SlugString ($title) {
         $title = self::sanitizeUrlRigid($title);
         $title = self::rawurlencodeStripSpaces($title);
@@ -145,7 +150,9 @@ class strings {
      * @param   string  $str string to operate on
      * @param   int     $length the maxsize of the string to return
      * @param   int     $minword minimum size of word to cut from
+     * @param   boolean $use_dots
      * @return  string  $str the substringed string
+     * 
      */
     public static function substr2($str, $length, $minword = 3, $use_dots = true)
     {
@@ -192,8 +199,9 @@ class strings {
     }
 
     /**
+     * 
+     * encrypts a string
      * @url http://stackoverflow.com/a/4244629
-     * encrypt a string
      * @param string $text
      * @param string $salt
      * @return string $str encrypted 
@@ -203,8 +211,8 @@ class strings {
     } 
 
     /**
-     * @url http://stackoverflow.com/a/4244629
      * returns a decrypted string
+     * @url http://stackoverflow.com/a/4244629
      * @param string $text
      * @param string $salt
      * @return string $str decrypted 
@@ -213,9 +221,9 @@ class strings {
         return trim(mcrypt_decrypt(MCRYPT_RIJNDAEL_256, $salt, base64_decode($text), MCRYPT_MODE_ECB, mcrypt_create_iv(mcrypt_get_iv_size(MCRYPT_RIJNDAEL_256, MCRYPT_MODE_ECB), MCRYPT_RAND))); 
     } 
 
-//$encryptedmessage = encrypt("your message"); 
-//echo decrypt($encryptedmessage); 
-    
+    /**
+     * @ignore
+     */
     public static function trimArray () {
         
     }

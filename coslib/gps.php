@@ -1,8 +1,18 @@
 <?php
 
-// Found on stackoverflow
-// Sligtly modified
-// http://stackoverflow.com/a/4178862/464549
+/**
+ * File contains GPS function and casses
+ * @package gps 
+ */
+
+/**
+ * Found on stackoverflow
+ * Sligtly modified
+ * http://stackoverflow.com/a/4178862/464549
+ * @param type $exif
+ * @param type $assoc
+ * @return type 
+ */
 function getGPS($exif, $assoc = false)
 {
     //get the EXIF

@@ -1,7 +1,8 @@
 <?php
 
 /**
- * @package shell
+ * file contians functions used with git.
+ * @package coslib
  */
 
 /**

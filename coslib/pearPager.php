@@ -3,7 +3,7 @@
 /**
  * File contains contains class for doing paging
  *
- * @package    coslib
+ * @package    pager
  */
 
 /**
@@ -17,33 +17,33 @@ if (!defined('PAGER_PER_PAGE')){
 
 
 /**
- * class for doing paging
+ * class for doing paging. It is a wrapper around PEAR::Pager
  *
- * @package    coslib
+ * @package    pager
  */
 class pearPager {
-    // {{{ public $total
     /**
-     *
-     * @var int total number of links to be paged.
+     * var holding total number of links to be paged.
+     * @var int $total
      */
     public $total;
 
-    // }}}
-    // {{{ public $from = 0
     /**
-     *
-     * @var int where from do we start paging
+     * var holding from where we start paging
+     * @var int $from
      */
     public $from = 0;
+    
+    /**
+     * var holding who many items per page
+     * @var int $perPage
+     */
     public $perPage = null;
 
-    // }}}
-    
-    // {{{ function __construct($total)
     /**
-     *
-     * @param int  sum of all links to be paged.
+     * constructor
+     * @param int $total sum of all items to be paged.
+     * @param int $per_page
      */
     public function __construct($total, $per_page = null){
         

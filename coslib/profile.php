@@ -2,8 +2,9 @@
 
 /**
  * *
- * File which contains class for installing modules
- * @package    coslib
+ * File which contains class for creating profiles which is complete systems
+ * with modules and templates
+ * @package    profile
  */
 
 /**
@@ -12,66 +13,71 @@
 include_once "moduleInstaller.php";
 
 /**
- * class for installing a profile or creating one.
+ * class for installing a profile or creating one from current install
  *
- * install: install the profile
- * create: creates a profile based on current site
- *
- * @package    coslib
+ * @package    profile
  */
 class profile  {
 
     /**
-     *
-     * @var array holding errors
+     * holding errors
+     * @var array $errors
      */
     public $error = array();
 
     /**
-     *
-     * @var string holding confirm message
+     * holding confirm message
+     * @var string $confirm
      */
     public $confirm = array();
 
     /**
-     * @var array   holding modules for profile
+     * holding modules for profile
+     * @var array  $profileModules
      */
     public $profileModules = array();
     
     /**
-     * @var string  holding profiles template as string
+     * holding default profile template as string
+     * @var string $profileTemplates
      */
     public $profileTemplate;
 
     /**
-     * @var string  holding profiles template as string
+     * holding all profiles templates as array
+     * @var string  
      */
     public $profileTemplates;
     
     /**
-     * @var boolean  if true we use home if false we don't.
+     * if true we use home if false we don't.
+     * @var boolean  $profileUseHome
      */
     public $profileUseHome;
 
     /**
-     * we use a var for db
-     *
-     * @var object  holding db. 
+     * var holding db 
+     * @var object $db
      */
     public $db = null;
 
+    /**
+     * are we using git master
+     * @var boolean $master
+     */
     public static $master = null;
 
     /**
-     * constructor which will take the module to install, upgrade or delete
-     * as param
-     *
-     * @param string name of module to do operations on
+     * @ignore
+     * constructor 
      */
     function __construct(){
         
     }
 
+    /**
+     * method for setting master
+     */
     function setMaster (){
         self::$master = 1;
     }
@@ -113,7 +119,8 @@ class profile  {
     }
 
     /**
-     * method for creating a profile
+     * method for creating a profile from profile name
+     * @param string $profile
      */
     public function createProfile($profile){
         // create all files
@@ -127,6 +134,7 @@ class profile  {
     /**
      * method for recreating a profile
      * just means that we recreate all except config.ini
+     * @param string $profile
      */
     public function recreateProfile($profile){
         // create all files
@@ -168,7 +176,10 @@ class profile  {
     
 
     /**
-     * method for creating a profile script
+     * method for creating a profile script. The profile script
+     * is a php array of all modules, versions, git repos, templates,
+     * set template etc. 
+     * @param string $profile
      */
     public function createProfileScript($profile){
         $modules = $this->getModules();
@@ -223,8 +234,8 @@ class profile  {
 
     /**
      * method for setting a profiles template
-     * @return  boolean   result from database update 
-     *                    (true on success and false on failure)
+     * @param string $template
+     * @return  boolean $res true on success and false on failure
      */
     public function setProfileTemplate ($template = null){
         $db = new db();

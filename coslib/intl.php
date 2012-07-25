@@ -2,35 +2,48 @@
 
 /**
  * File containing method for getting lanugage and countries. 
- * @package coslib
+ * @package intl
  */
 
 /**
  * class for getting lists of countries
- * @package coslib
+ * @package intl
  */
 class intl {
     
+    /**
+     * get unix system locales
+     * @return array $ary array of system locales
+     */
     public static function getSystemLocales () {
+        $ary = array ();
         exec ('locale -a', $ary);
         return $ary;
     }
     
+    /**
+     * get unix utf8 sysem locales 
+     * @return array $ary array of utf8 system locales
+     */
     public static function getSystemLocalesUTF8 () {
         $all = self::getSystemLocales();
         $ary = array();
-        foreach ($all as $key => $locale) {
+        foreach ($all as $locale) {
             if (strstr($locale, 'utf8')) {
-                //$locale = str_replace('utf8', 'UTF-8', $locale);
                 $ary[] = array('id'=> $locale, 'locale' => $locale);
             }
         }
         return $ary;
     }
     
+    /**
+     * checks if a locale is valid (used when checking web forms)
+     * @param string $locale
+     * @return boolean $res  
+     */
     public static function validLocaleUTF8 ($locale) {
         $locales = self::getSystemLocalesUTF8();
-        foreach ($locales as $key => $val) {
+        foreach ($locales as $val) {
             if ($val['id'] == $locale) {
                 return true;
             }
@@ -38,6 +51,10 @@ class intl {
         return false;
     }
     
+    /**
+     * get countries as array where key is country
+     * @return array $ary array with countries as key 
+     */
     public static function getCountriesWhereKeyIsCountry () {
         $countries = self::getCountries();
         foreach ($countries as $key => $val) {
@@ -47,6 +64,11 @@ class intl {
         return $countries;
     }
     
+    /**
+     * get all timezones as array
+     * @return array $ary array with multiple arrays with both key and value
+     *                    set to timezone e.g. Africa/Bissau 
+     */
     public static function getTimezones () {
         static $regions = array(
             'Africa' => DateTimeZone::AFRICA,
@@ -59,15 +81,20 @@ class intl {
             'Pacific' => DateTimeZone::PACIFIC
         );
         $timezones = array();
-        foreach ($regions as $name => $mask) {
+        foreach ($regions as $mask) {
             $list = DateTimeZone::listIdentifiers($mask);
-            foreach ($list as $key => $val) {
+            foreach ($list as $val) {
                 $timezones[] = array ('id' => $val, 'zone' => $val);
             }
         }
         return $timezones;
     }
     
+    /**
+     * can check if a given timezone is valid 
+     * @param string $timezone
+     * @return boolean $res 
+     */
     public static function validTimezone ($timezone) {
         $timezones = self::getTimezones();
         foreach ($timezones as $key => $val) {
@@ -78,6 +105,11 @@ class intl {
         return false;
     }
     
+    /**
+     * prepares countries for a dropdown list
+     * @return array $ary array of arrays whereboth key and value is 
+     *                    country 
+     */
     public static function getCountriesForDropDown () {
         $countries = self::getCountriesWhereKeyIsCountry();
         $ary = array();
@@ -87,6 +119,11 @@ class intl {
         }
         return $ary;
     }
+    
+    /**
+     * get a country list
+     * @return array $ary array where contries is value
+     */
     public static function getCountries () {
         return $country_list = array(
 		"Afghanistan",

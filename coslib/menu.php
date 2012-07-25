@@ -2,13 +2,14 @@
 
 /**
  * file contains class for main menu manipulation
- * @package     coslib
+ * @package     menu
  */
 
 moduleLoader::includeModel ('content/article');
 /**
- * class menu contains methods for manipulating main menu
- * @package     coslib
+ * class menu contains methods for manipulating main menu. Default menu system
+ * is used with content/article
+ * @package     menu
  */
 
 

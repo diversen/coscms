@@ -3,19 +3,20 @@
 /**
  * File contains very simple captcha class
  *
- * @package    coslib
+ * @package    captcha
  */
 
 /**
  * Class contains contains simple methods for doing captcha
  *
- * @package    coslib
+ * @package    captcha
  */
 class captcha {
-    // {{{ static pulbic function createCaptcha()
+
     /**
-     * very simple captcha function doing a multiplication
-     * @return  string  the catcha to be used in forms
+     * create the captcha. 
+     * @param string $method
+     * @return  string  $str the catcha to be used in forms
      */
     static public function createCaptcha($method = 'stringrandom'){
         if (moduleLoader::moduleExists('image_captcha')){
@@ -30,11 +31,9 @@ class captcha {
         }
     }
 
-    // }}}
-    // {{{ static pulbic function createCaptcha()
     /**
-     * very simple captcha function doing a multiplication
-     * @return  string  the catcha to be used in forms
+     * captcha method which creates a simple modification
+     * @return  string  $str the catcha to be used in forms
      */
     static public function simpleadd(){
         
@@ -66,8 +65,6 @@ class captcha {
         return "* " . $str;
     }
 
-    // }}}
-    // {{{ static pulbic function createCaptcha()
     /**
      * very simple captcha function doing a multiplication
      * @return  string  the catcha to be used in forms
@@ -98,10 +95,12 @@ class captcha {
         return "* " . $str;
     }
 
-    // }}}
+    /**
+     * gets a random string of numbers to use with captcha
+     * @return string $str
+     */
     public static function genRandomString() {
         $length = 8;
-        //$characters = '0123456789abcdefghijklmnopqrstuvwxyz';
         $characters = '0123456789';
         $string ='';    
 
@@ -111,7 +110,6 @@ class captcha {
 
         return $string;
     }
-    // {{{ static public function checkCaptcha($res)
 
     /**
      * Method for checking if entered answer to captcha is correct
@@ -126,10 +124,12 @@ class captcha {
             return 0;
         }
     }
-    // }}}
     
+    /**
+     * create captcha element with captcha image
+     * @return string $html string with captcha
+     */
     static public function createCaptchaImage () {
-
         $options = array ('align' => 'top');
         $options['title'] = lang::translate('system_captcha_alt_image');
         $options['required'] = true;
