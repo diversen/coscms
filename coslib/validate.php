@@ -69,6 +69,10 @@ class cosValidate {
         return false;
     }
     
+    /**
+     * validates a hostname
+     * @param string $host
+     */
     public static function hostname ($host) {
         
         // from stackoverflow

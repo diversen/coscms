@@ -2,7 +2,7 @@
 
 /**
  * file contians functions used with git.
- * @package coslib
+ * @package git
  */
 
 /**

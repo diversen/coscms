@@ -14,8 +14,8 @@
 class default_profile {
     
     /**
-     * 
-     * @return string $ret empty string 
+     * return empty string 
+     * @return string $ret 
      */
     public static function getProfileInfo () {
         return '';

@@ -5,14 +5,14 @@
  * account system. This is made in order to make it possible to switch
  * profile system for websites. 
  * 
- * @package coslib
+ * @package user
  */
 
 /**
  * Class contains methods for getting account and profile info
  * depending on the profile system. 
  * 
- * @package coslib
+ * @package user
  */
 
 class user {

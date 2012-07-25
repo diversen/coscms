@@ -3,51 +3,48 @@
 /**
  * File contains class for loading modules
  *
- * @package    coslib
+ * @package    moduleloader
  */
 
 /**
  * Class for loading modules
  *
- * @package    coslib
+ * @package    moduleloader
  */
 class moduleLoader {
 
     /**
-     *
-     * @var array $modules all enabled modules
+     * all enabled modules
+     * @var array $modules 
      */
     public static $modules = array();
 
     /**
-     *
-     * @var array $lvels holding different run levels
+     * holding different run leve
+     * @var array $lvelsls
      */
     public $levels = array();
 
     /**
-     *
-     * @var array $info 
-     *                  
      * holding info about files to load when loaidng module.
+     * @var array $info 
      */
     public $info = array();
     
     /**
-     * @var     array   $status 
      *                  
      *                  static variable which can be set in case we don't
      *                  want to load called module. Used for enablingloading
      *                  of error module when an error code has been set.
      *                  self::$status[403] or self::$status[404]
+     * @var     array   $status 
+
      */
     public static $status = array();
 
     /**
-     *
-     * @var array   $iniSettings 
-     *              
-     *              holding module ini settings.
+     * holding module ini settings.
+     * @var array $iniSettings 
      */
     public static $iniSettings = array();
     
@@ -68,6 +65,10 @@ class moduleLoader {
         }
     }
     
+    /**
+     * method for setting a status code 403 or 404
+     * @param int $code
+     */
     public static function setStatus ($code) {
         moduleLoader::$status[$code] = 1;
     }
@@ -418,14 +419,35 @@ class moduleLoader {
     public static $referenceId = 0;
     
     /**
-     * 
-     * @var int 
+     * var id holding inline parent id
+     * @var int $id
      */
     public static $id;
+    
+    /**
+     * var holding referenceLink
+     * @var string $referenceLink
+     */
     public static $referenceLink = null;
+    
+    /**
+     * var holding redirect reference 
+     * @var string $referenceRedirect
+     */
     public static $referenceRedirect = null;
+    
+    /**
+     * var holding reference options
+     * @var array $referenceOptions
+     */
     public static $referenceOptions = null;
     
+    /**
+     * method for including a reference module
+     * @param int $frag_reference_id
+     * @param int $frag_id
+     * @param string $frag_reference_name
+     */
     public static function includeRefrenceModule (
             $frag_reference_id = 2, 
             
@@ -453,9 +475,6 @@ class moduleLoader {
         }
         
         $res = moduleLoader::includeModule($reference);
-        //$options = array ('reference_type' => self::$referenceType);
-        
-        
         if ($res) {
             $class = moduleLoader::modulePathToClassName($reference);
             self::$reference = $reference;
@@ -556,7 +575,8 @@ class moduleLoader {
     
     /**
      * method for getting a modules ini settings.
-     *
+     * @param string $module
+     * @param string $single used if we just want a single ini setting
      * @return  array   array with ini settings of module.
      */
     public static function getModuleIniSettings($module, $single = null){
@@ -574,9 +594,10 @@ class moduleLoader {
 
 
     /**
-     * method for getting a modules ini settings.
-     *
-     * @return  array   array with ini settings of module.
+     * method for setting a modules ini settings.
+     * @param string $module
+     * @param string $type module or template
+     * @return void
      */
     public static function setModuleIniSettings($module, $type = 'module'){
 
@@ -704,6 +725,12 @@ class moduleLoader {
         return $ary;
     }
     
+    /**
+     * method for building a reference url
+     * @param string $base
+     * @param array $params
+     * @return string $url 
+     */
     public static function buildReferenceURL ($base, $params) {
         if (isset($params['id'])) {
             $extra = $params['id'];
@@ -791,46 +818,76 @@ class moduleLoader {
         }
     }
     
+    /**
+     * include a module from a static call e.g. account::create will include 
+     * module account
+     * @param string $call the static call
+     */
     public static function includeModuleFromStaticCall ($call){
         $call = explode ('::', $call);
         $module = $call[0];
         return include_module($module);
     }
      
+    /**
+     * include a module
+     * @param string $module
+     */
     public static function includeModule ($module) {
         return include_module($module);
     }
     
+    /**
+     * include template common.inc
+     * @param string $template
+     */
     public static function includeTemplateCommon ($template) {
         include_template_inc($template);
     }
     
+    /**
+     * include a model file
+     * @param string $model e.g. accuount/create
+     */
     public static function includeModel ($model) {
         include_model($model);
     }
     
+    /**
+     * method for including a controller
+     * @param string $controller
+     */
     public static function includeController ($controller) {
         include_controller($controller);
     }
     
+    /**
+     * method for including filters
+     * @param array|string $filters
+     */
     public static function includeFilters ($filters) {
         include_filters($filters);
     }
     
+    /**
+     * getting filter help from filters
+     * @param array $filters
+     * @return string $filters_help
+     */
     public static function getFiltersHelp ($filters) {
         return get_filters_help($filters);
     }
     
+    /**
+     * get filtered content
+     * @param array $filters
+     * @param string $content
+     * @return string $content
+     */
     public static function getFilteredContent ($filters, $content) {
         return get_filtered_content($filters, $content);
     }
 }
-
-
-
-
-
-
 
 
 /**
@@ -953,8 +1010,8 @@ function get_filters_help ($filters) {
 }
 
 /**
- * function for filtering content
- * @param  string|array    $filters the string or array of filters to use
+ * function for getting filtering content
+ * @param  string|array    $filter the string or array of filters to use
  * @param  string|array    $content the string or array (to use filters on)
  * @return string|array    $content the filtered string or array of strings
  */

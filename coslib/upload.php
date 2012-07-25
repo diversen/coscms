@@ -3,7 +3,7 @@
 /**
  * file with class for doing uploads and a couple of helper functions
  *
- * @package     coslib
+ * @package     upload
  */
 
 /**
@@ -95,7 +95,7 @@ function file_upload_error_message($error_code) {
 
 /**
  * class for doing uploads
- * @package coslib
+ * @package upload
  */
 class upload {
     

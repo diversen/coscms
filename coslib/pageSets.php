@@ -3,13 +3,13 @@
 /**
  * file contains class for creating simple paging 
  * for e.g. images with prev next
- * @package coslib 
+ * @package pager
  */
 
 /**
  * class for creating simple paging 
  * for e.g. images with prev next
- * @package coslib 
+ * @package pager 
  */
 class pageSets {
     

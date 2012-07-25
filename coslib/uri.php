@@ -6,13 +6,13 @@
  * with good tutorials about php programming.
  *
  * @link   http://www.phpro.org
- * @package    coslib
+ * @package    uri
  */
 
 /**
  * Class contains method for getting info about the uri string
  *
- * @package    coslib
+ * @package    uri
  */
 class uri {
     

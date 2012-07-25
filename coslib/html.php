@@ -4,13 +4,13 @@
  * File containing class for building forms and common methods used 
  * when building forms.
  * 
- * @package coslib 
+ * @package html 
  */
 
 /**
  * Class used when building forms and various methods used when creating forms
  * for escaping in different ways. 
- * @package coslib
+ * @package html
  */
 
 class HTML {

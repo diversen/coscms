@@ -1,5 +1,14 @@
 <?php
 
+/**
+ * file contains time functions
+ * @package time 
+ */
+
+/**
+ * class with time methods
+ * @package time
+ */
 class time {
 
     /**
@@ -47,9 +56,10 @@ class time {
     }
     
     /**
-     * returns a locale time string from mysql timestamp. 
+     * returns a locale date string from mysql timestamp. 
      * @param type $date same format as mysql timestamp
-     * @return string $formatted string in ( ... ) according to set locale 
+     * @param string $format ini settings format e.g. date_format_long
+     * @return string $format in ( ... ) according to set locale 
      */
     public static function getDateString ($date, $format = 'date_format_long'){        
         $unix_stamp = strtotime($date);

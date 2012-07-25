@@ -3,25 +3,25 @@
 /**
  * File contains contains class creating simple translation
  *
- * @package    coslib
+ * @package    lang
  */
 
 /**
  * Class for doing simple translations
  *
- * @package    coslib
+ * @package    lang
  */
 class lang {
 
     /**
-     *
-     * @var string $language var holding the language to use for a site
+     * var holding the language to use for a site
+     * @var string $language 
      */
     static public $language = '';
 
     /**
-     *
-     * @var array $dict var holding the translation table
+     * var holding the translation table
+     * @var array $dict
      */
     static public $dict = array ();
 
@@ -65,7 +65,7 @@ class lang {
      * prepend the untranslated string with 'NT' (needs translation)
      *
      * @param   string  $sentence the sentence to translate.
-     * @param   array   $substitue array with substitution to perform on sentence.
+     * @param   array   $substitute array with substitution to perform on sentence.
      *                  e.g. array ('100$', 'username')
      *                  in the string to be translated you will then have e.g.
      *                  $_COS_LANG_MODULE['module_string'] = 

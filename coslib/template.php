@@ -808,6 +808,7 @@ class templateView {
 
 /**
  * alias for templateView 
+ * @package template
  */
 class view extends templateView {
     

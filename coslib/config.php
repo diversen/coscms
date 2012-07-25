@@ -208,9 +208,11 @@ class config {
                 }
             }
         }
-        //return load_config_file();
     }
     
+    /**
+     * load main cli configuration
+     */
     public static function loadMainCli () {
         $config_file = config::getConfigFileName();
     
@@ -266,14 +268,13 @@ class config {
                 }
             }
         }
-        //return load_config_file();
     }
     
     /**
      * loads a config file were there is a PHP array
      * the file needs to have a variable called $config e.g.
      * $config = array ('my_setting' => true')
-     * @param string $filename
+     * @param string $file
      */
     public static function loadPHPConfigFile($file) {
         include $file;
@@ -284,6 +285,11 @@ class config {
         }
     }
     
+    /**
+     * load config from a php file. 
+     * in the php file the configuration has to be set in: $config = array();
+     * @param string $file
+     */
     public static function loadPHPModuleConfig($file) {
         include $file;
         if (isset(config::$vars['coscms_main']['module'])) {
@@ -395,46 +401,74 @@ class config {
 }
 
 /**
+ * @ignore
  * function methods of the above static class methods
  * mostly for backward issues
+ * 
  */
 function array_to_ini_file($ary){
     return config::arrayToIniFile($ary);
 }
 
+/**
+ * @ignore
+ */
 function get_module_ini($key){
     return config::getModuleIni($key);
 }
 
+/**
+ * @ignore
+ */
 function get_main_ini($key){
     return config::getMainIni($key);
 }
 
+/**
+ * @ignore
+ */
 function get_module_path ($module){
     return config::getModulePath($module);
 }
 
+/**
+ * @ignore
+ */
 function parse_ini_file_ext ($file, $sections = null) {
     return config::getIniFileArray($file, $sections);
 }
 
+/**
+ * @ignore
+ */
 function get_config_file() {
     return config::getConfigFileName();
 }
 
+/**
+ * @ignore
+ */
 function load_config_file () {
     config::loadMain();
 }
 
+/**
+ * @ignore
+ */
 function get_files_path () {
     return config::getFullFilesPath();
 }
 
-
+/**
+ * @ignore
+ */
 function get_files_web_path ($file) {
     return config::getWebFilesPath($file);
 }
 
+/**
+ * @ignore
+ */
 function get_domain () {
     return config::getDomain();
 }

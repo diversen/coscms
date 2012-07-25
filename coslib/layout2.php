@@ -13,14 +13,14 @@
  */
 class layout2 extends layout {
 
-        /**
+    /**
      * method for parsing a module menu.
      * A module menu is a menu connected to a main menu item.
      *
-     * @param   array   menu to parse
+     * @param   array   $menu menu to parse
      * @return  string  containing menu in html form ul li
      */
-    public static function parseModuleMenu($menu, $type){
+    public static function parseModuleMenu($menu){
         $str = '';
         $str.= MENU_LIST_START . "\n";
         $num_items = $ex = count($menu);

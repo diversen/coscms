@@ -4,7 +4,7 @@
  * class found on php.net
  * http://php.net/manual/en/book.curl.php
  * slightly modified from above class.  
- * @package mucurl
+ * @package mycurl
  */
 
 /**

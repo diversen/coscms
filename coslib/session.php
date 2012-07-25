@@ -3,13 +3,13 @@
 /**
  * File contains contains class for doing checks on seesions
  *
- * @package    coslib
+ * @package    session
  */
 
 /**
  * Class contains contains methods for setting sessions
  *
- * @package    coslib
+ * @package    session
  */
 class session {
     // {{{ static public function initSession()

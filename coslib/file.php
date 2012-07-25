@@ -153,7 +153,8 @@ class file {
         rrmdir($path);
     }
 }
-/*
+
+/**
  * @ignore
  * @see file::getFileList
  */
@@ -220,13 +221,14 @@ function get_file_list_recursive($start_dir, $pattern = null) {
     return $files;
 }
 
-// Found on stackoverflow. From kohana.
 /**
+ * transforms bytes into human readable
+ * Found on stackoverflow. From kohana.
  * @param int $bytes
  * @param boolean $force_unit
  * @param boolean $format
  * @param type $si
- * @return type 
+ * @return string $str human readable
  */
 function transform_bytes($bytes, $force_unit = NULL, $format = NULL, $si = TRUE)
 {
