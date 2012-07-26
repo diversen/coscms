@@ -8,8 +8,8 @@ uses ffmpeg for decoding and compressing into flv (flash player) format
 
 ffmpeg is therefor required
 
-aptitude install ffmpeg
-aptitude install ffmpeg2theora
+    aptitude install ffmpeg
+    aptitude install ffmpeg2theora
  
 ### Flowplayer
 
