@@ -541,7 +541,7 @@ class HTML {
      */
     public static function textareaMed ($name, $value = null, $extra = array()){
         $str = self::textareaMedClean($name, $value, $extra);
-        self::$values[] = $str;
+        self::$fields[] = array ('value' => $str);
     }
     
     /**
