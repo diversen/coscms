@@ -166,4 +166,22 @@ class pearPager {
             $this->from = ($this->from - 1) * $this->perPage;
         }
     }
+    
+    /**
+     * return pagination page
+     * @return int $from 
+     */
+    public static function getPageNum () {
+        if (!isset($_GET['from'])) { 
+            $from = 1;
+        } else if ($_GET['from'] == 0) {
+            $from = 1;
+        } else if ($_GET['from'] > 0) {
+            $from = $_GET['from'];
+        } else {
+            $from = 0;
+        }
+        return (int)$from;
+        
+    }
 }
