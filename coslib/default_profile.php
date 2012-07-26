@@ -1,22 +1,28 @@
 <?php
 
 /**
- * if no profile is in place this is the default profile
- * which does not do much. It generates a logout link if you are logged out
- * And it returns empty profile links.  
+ * File contains methods when no user profile system is in place
+ * @package default profile
  */
+
+/**
+ * class for generating default_profile html and info when no user profile
+ * system is specified. 
+ * @package default profile
+ */
+
 class default_profile {
     
     /**
-     * 
-     * @return string $ret empty string 
+     * return empty string 
+     * @return string $ret 
      */
     public static function getProfileInfo () {
         return '';
     }
     
     /**
-     * gets loout string
+     * gets default logout string
      * @param array $row
      * @return string $str html logout link 
      */

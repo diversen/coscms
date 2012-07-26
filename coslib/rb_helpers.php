@@ -1,7 +1,23 @@
 <?php
 
+/**
+ * File contains RB (Redbeans) helpers for easy connecting to CosCMS 
+ * DB using Redbeans
+ * @package rb helpers 
+ */
+
+/**
+ * class contains class RB with a connect method, which creates a Redbean
+ * connection from a CosCMS string. Also a a couple of methods used for
+ * helping creating beans from arrays  
+ * @package rb helpers
+ */
+
 class RB {
     
+    /**
+     * setup a Redbean instance from CosCMS
+     */
     public static function connect () {
         static $connected = null;
         

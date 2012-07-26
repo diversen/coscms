@@ -2,13 +2,13 @@
 
 /**
  * File contains methods for logging
- * @package    coslib
+ * @package    log
  */
 
 /**
  * class log contains methods for doing 
  * logging
- * @package coslib
+ * @package log
  */
 
 class log {

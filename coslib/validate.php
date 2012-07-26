@@ -1,14 +1,14 @@
 <?php
 
 /**
- * @package coslib
+ * file contains validating class
+ * @package validate
  */
 
 /**
  * class for validating most common thing: URL's and emails. 
  * 
- * @package coslib
- * class for validating email and and emailAndDomain
+ * @package validate
  */
 class cosValidate {
     /**
@@ -69,6 +69,10 @@ class cosValidate {
         return false;
     }
     
+    /**
+     * validates a hostname
+     * @param string $host
+     */
     public static function hostname ($host) {
         
         // from stackoverflow

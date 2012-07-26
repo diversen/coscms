@@ -1,19 +1,26 @@
 <?php
 
 /**
- * @package coslib
+ * File for class used for creating identicons
  * found on: http://sourceforge.net/users/bcosca
  * project: http://sourceforge.net/projects/identicons/
+ * @package identicon
  */
 
 /**
  * class contains method for making identicons with PHP
- * @package coslib 
+ * @package identicon
  */
 class identicon {
 
+    /**
+     * @ignore
+     */
     public static $spriteZ = null;
 
+    /**
+     * @ignore
+     */
 function getsprite($shape,$R,$G,$B,$rotation) {
 	$spriteZ = self::$spriteZ;
 	$sprite=imagecreatetruecolor($spriteZ,$spriteZ);
@@ -199,7 +206,10 @@ function getsprite($shape,$R,$G,$B,$rotation) {
 	return $sprite;
 }
 
-/* generate sprite for center block */
+/**
+ * @ignore
+ * generate sprite for center block 
+ */
 function getcenter($shape,$fR,$fG,$fB,$bR,$bG,$bB,$usebg) {
 	$spriteZ = self::$spriteZ;
 	$sprite=imagecreatetruecolor($spriteZ,$spriteZ);
@@ -313,7 +323,10 @@ function getcenter($shape,$fR,$fG,$fB,$bR,$bG,$bB,$usebg) {
 	return $sprite;
 }
 
-/* parse hash string */
+/**
+ * parse hash string 
+ * @ignore
+ */
 function save_identicon ($hash, $size, $filename) {
     $csh=hexdec(substr($hash,0,1)); // corner sprite shape
     $ssh=hexdec(substr($hash,1,1)); // side sprite shape

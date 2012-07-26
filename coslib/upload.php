@@ -3,11 +3,9 @@
 /**
  * file with class for doing uploads and a couple of helper functions
  *
- * @package     coslib
+ * @package     upload
  */
 
-
-// {{{ int of bytes function return_bytes ($2M)
 /**
  * return php.ini ini file size in bytes.
  *
@@ -37,8 +35,9 @@ function return_bytes($val) {
  * 
  * Convert bytes to human readable format
  *
- * @param integer bytes Size in bytes to convert
- * @return string
+ * @param int $bytes Size in bytes to convert
+ * @param int $precision 
+ * @return string $bytes as string
  */
 function bytesToSize($bytes, $precision = 2)
 {	
@@ -67,9 +66,9 @@ function bytesToSize($bytes, $precision = 2)
 }
 
 /**
- *
- * @param  constant   error code returned by bad file upload
- * @return  string    translations of the error codes.
+ * get a human error message on failed upload
+ * @param int $error_code error code returned by bad file upload
+ * @return string $message translations of the error codes.
  */
 function file_upload_error_message($error_code) {
     switch ($error_code) {
@@ -96,49 +95,56 @@ function file_upload_error_message($error_code) {
 
 /**
  * class for doing uploads
- *
- * @package     coslib
+ * @package upload
  */
 class upload {
     
     /**
-     * for holding errors
+     * var for holding errors
      * @var array 
      */
     public static $errors = array();
 
     /**
-     * the mode new directories will be created in. 
-     * @var int
+     * var for the mode new directories will be created in. 
+     * @var int $mode
      */
     public static $mode = 0777;
 
     /**
-     * options 
-     * @var array 
+     * var options 
+     * @var array $options 
      */
     public static $options = array();
 
+    /**
+     * var saveBasename
+     * @var string $saveBasename 
+     */
     public static $saveBasename = array();
+    
+    /**
+     * var holding confirm messages
+     * @var array $confirm
+     */
     public static $confirm = array ();
     
     /**
      * constructor
-     *
      * init and try to set put dir. Try to make it if not exists. sets options
-     * @param  array  array of options
+     * @param array $options array of options
      */
     function __construct($options = null){
         self::$errors = array();
         if (isset($options)) {
             self::$options = $options;
         }
-       
-        //if (isset($options['upload_dir'])){
-        //    self::$uploadDir = $options['upload_dir'];
-        //}
     }
-    // }}}
+
+    /**
+     * method for setting options
+     * @param array $options 
+     */
     public static function setOptions ($options) {
         self::$options = $options;
     }
@@ -147,9 +153,10 @@ class upload {
 
     /**
      * method for moving uploaded file
-     *
-     * @param   name of file in the html forms file field, e.g. file
-     * @return int  true on success or false on failure
+     * @param  string $filename name of file in the html forms file field
+     *                 e.g. 'file'
+     * @param array  $options
+     * @return boolean $res true on success or false on failure
      */
     public static function moveFile($filename = null, $options = null){
         if (isset($options)) self::$options = $options;
@@ -222,7 +229,12 @@ class upload {
     }
     
     
-    
+    /**
+     *
+     * create a new filename from a file
+     * @param string $file the file to give a new filename
+     * @return string $filename the new filename 
+     */
     public static function newFilename ($file) {
         $info = pathinfo($file);
         $path = $info['dirname'];
@@ -234,6 +246,11 @@ class upload {
         return $full_save_path;
     }
     
+    /**
+     * method for checking allowed mime types
+     * @param string $filename the filename to check
+     * @return boolean $res
+     */
     public static function checkAllowedMime ($filename) {
         // if (isset($allow_mime)){
         $type = mime_content_type($_FILES[$filename]['tmp_name']);
@@ -248,6 +265,11 @@ class upload {
         return true;
     }
     
+    /**
+     * checks php internal upload error codes
+     * @param string $filename
+     * @return boolean $res 
+     */
     public static function checkUploadNative ($filename) {        
         $upload_return_code = $_FILES[$filename]['error'];
         if ($upload_return_code != 0) {
@@ -257,6 +279,12 @@ class upload {
         return true;
     }
     
+    /**
+     * checks if if size is allowed
+     * @param string $filename the name of the file
+     * @param int $maxsize bytes
+     * @return boolean $res
+     */
     public static function checkMaxSize ($filename, $maxsize = null) {
         if (!$maxsize) {
             $maxsize = self::$options['maxsize'];
@@ -271,15 +299,19 @@ class upload {
         return true;
     }
     
-        
+    /**
+     * get mime type as a string
+     * @param array $mimes
+     * @return string $mime types as a string 
+     */
     public static function getMimeAsString ($mimes) {
         return implode(', ', $mimes);        
     }
     
     /**
      * method for unlinking a file
-     *
-     * @return boolean  true on success or false on failure
+     * @param string $filename the file to unlink
+     * @return boolean  $res true on success or false on failure
      */
     public function unlinkFile($filename){
 
@@ -289,21 +321,20 @@ class upload {
             return false;
         }
     }
-    // }}}
 }
 
 /**
  * class for doing a upload of a blob to db
- *
- * @package     coslib
+ * @package     upload
  */
 class uploadBlob extends upload {
 
     /**
-     * the upload function
-     *
-     * @param   array   $options
-     * @return  void
+     * 
+     *gets file pointer
+     * @param array $filename
+     * @param array $options
+     * @return mixed $fp file pointer | true | false
      */
     public static function getFP($filename, $options = array()){
         if (!empty($options)) {
@@ -337,14 +368,11 @@ class uploadBlob extends upload {
         return true;
     }
 
-    
-    // }}}
-    // {{{ getFP($options
     /**
-     * the upload function
-     *
-     * @param   array   $options
-     * @return  void
+     * gets a file pointer from a specified file
+     * @param   string $filename
+     * @param array $options
+     * @return  mixed $res file pointer | true | false
      */
     public static function getFPFromFile($filename, $options = array()){
 

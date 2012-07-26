@@ -2,12 +2,12 @@
 
 /**
  * File containg methods for doing http work
- * @package coslib
+ * @package http
  */
 
 /**
  * class http
- * @package coslib
+ * @package http
  */
 class http {
     
@@ -77,12 +77,7 @@ class http {
     }
     
     /**
-     * function for redirecting to a exact serverneme.
-     * e.g. you have www.example.com and example.com as servernames
-     * you want only to allow example.com. 
-     * call server_recirect('example.com')
-     * 
-     * @param string $server_redirect server_name to redirect to.  
+     * function for redirecting to ssl
      */
     public static function sslHeaders () {
         if ($_SERVER['SERVER_PORT'] != 443){
@@ -122,7 +117,8 @@ class http {
      * if param url is not equal to current url, then 
      * we redirect to url given
      * 
-     * @param string $url the rul to check against and redirect to.  
+     * @param string $url the rul to check against and redirect to.
+     * @param array $options set a action message with array ('message' => 'message');  
      */
     public static function permMovedHeader ($url, $options = array()) {
         if (isset($options['message'])) {
@@ -137,27 +133,44 @@ class http {
 
 }
 
+/**
+ * @ignore
+ */
 function simple_prg (){
     http::prg();
 }
 
-
+/**
+ * @ignore
+ */
 function send_cache_headers ($expires = null) {
     http::cacheHeaders($expires);
 }
 
+/**
+ * @ignore
+ */
 function send_location_header ($location, $message = null, $post_id = null) {
     http::locationHeader($location, $message, $post_id);
 }
 
+/**
+ * @ignore
+ */
 function server_redirect($server_redirect) {
     http::redirectHeaders($server_redirect);
 }
 
+/**
+ * @ignore
+ */
 function server_force_ssl () {
     http::sslHeaders();
 }
 
+/**
+ * @ignore
+ */
 function send_301_headers ($url, $options = null) {
     http::permMovedHeader($url, $options);
 }

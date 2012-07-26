@@ -2,7 +2,7 @@
 
 /**
  * File for scaling imagescale class
- * @package coslib
+ * @package imagescale
  */
 
 
@@ -13,18 +13,19 @@ include_once 'Image/Transform.php';
 
 /**
  * class imagescale is a simple wrapper around pear::Image_Transform
- * @package coslib
+ * @package imagescale
  */
 class imagescale {
     
     /**
-     * 
-     * @var array   $options options given to pear::Image_Transform 
+     * options given to pear::Image_Transform
+     * @see setOptions
+     * @var array   $options 
      */
     public static $options = null;
     
     /**
-     * var for holding errors. In must cases they are just uaed
+     * var for holding errors. In must cases they are just used
      * to give end users info about what was done wrong. 
      * All errors are logged
      * @var array   $errors the array holding the errors
@@ -34,7 +35,7 @@ class imagescale {
     /**
      * 
      * method for settings options
-     * @param type $_options can be a array like this: $options = array(
+     * @param array $options can be a array like this: $options = array(
      *  'quality'     => 75,
      *  'scaleMethod' => 'smooth',
      *  'canvasColor' => array(255, 255, 255),
@@ -49,11 +50,12 @@ class imagescale {
     }
     
     
-        /**
-     * method for transforming a image by X
+    /**
+     * method for transforming a image by X and Y
      * @param string $image image file to scale
      * @param string $thumb destination file to scale to
      * @param int    $x the x factor of the scaled image. 
+     * @param int    $y the y factor of the scaled image. 
      * @return boolean true on success and false on failure
      *                 human errors will be set in self::$errors 
      */
@@ -145,6 +147,10 @@ class imagescale {
         return true;
     }
     
+    /**
+     * create image from a string
+     * @param string $str
+     */
     public static function loadImgFromString ($str) {
     
         $im = imagecreatefromstring($str);

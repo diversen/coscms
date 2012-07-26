@@ -4,7 +4,7 @@
 /**
  * file contains functions for sending mail 
  * in various ways. With  PHP or SMTP using UTF-8
- * @package coslib
+ * @package mail
  */
 
 include_once "Mail.php";

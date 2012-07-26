@@ -2,12 +2,12 @@
 
 /**
  * file contains class for creating random strings
- * @package coslib 
+ * @package random 
  */
 
 /**
  *class random contains methods for getting random strings
- * @package coslib 
+ * @package random 
  */
 
 class random {

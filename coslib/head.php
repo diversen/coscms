@@ -4,7 +4,7 @@
 /**
  * initialize base system. 
  * Runs both web system and commandline system.
- * @package  coslib
+ * @package  head
  */
 
 /**

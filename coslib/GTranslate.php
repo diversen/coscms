@@ -3,18 +3,24 @@
 /**
  * File contains a simple class for doing translations with google 
  * translate API
- * @package coslib
+ * @package gtranslate
  */
 
 /**
  * class for doing translation with the goolge API
- * @package coslib
+ * @package gtranslate
  */
 class GTranslate {
+    
+    /**
+     * var holding options
+     * @var array $options
+     */
     public static $options;
 
     /**
-     * @var Gtranslate_URL
+     * Gtranslate URL
+     * @var string $Gtranslate_URL
      */
     const GTranslate_URL = 'https://www.googleapis.com/language/translate/v2';
 

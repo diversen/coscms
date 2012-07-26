@@ -2,13 +2,13 @@
 
 /**
  * File contains a simple class for caching content to database table. 
- * @package coslib
+ * @package cache
  */
 
 /**
  * 
  * class cache. 3 methods set, get, and delete
- * @package coslib
+ * @package cache
  * 
  */
 class cache {

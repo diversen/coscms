@@ -5,7 +5,7 @@
  * *
  * File which contains class for installing modules
  *
- * @package    coslib
+ * @package    moduleinstaller
  */
 if (!defined('_COS_CLI')){
     $new_line = "<br />";
@@ -32,21 +32,21 @@ include_once "coslib/db.php";
  *
  * remove: removes the module from the modules table
  * and also tables connected to module.
- * @package    coslib
+ * @package    moduleinstaller
  */
 class moduleInstaller extends db {
 
     /**
-     *
-     * @var array holding array of info for the install
-     *            this is loaded from install.inc file and will read
-     *            the $_INSTALL var
+     * holding array of info for the install
+     * this is loaded from install.inc file and will read
+     * the $_INSTALL var
+     * @var array $installInfo 
      */
     public $installInfo = null;
 
     /**
-     *
-     * @var string holding error
+     * holding error
+     * @var string $error
      */
     public $error = null;
     
@@ -57,8 +57,8 @@ class moduleInstaller extends db {
     public $notice = null;
 
     /**
-     *
-     * @var string holding confirm message
+     * holding confirm message
+     * @var string $confirm
      */
     public $confirm;
 
@@ -131,7 +131,7 @@ class moduleInstaller extends db {
     /**
      * method for checking if a module is installed or not
      * checking is just done by looking into the modules table of database
-     *
+     * @param string $module 
      * @return  boolean true or false
      */
     public function isInstalled($module = null){
@@ -171,8 +171,8 @@ class moduleInstaller extends db {
     }
 
     /**
-     *
-     * @return array    assoc array of all modules
+     * get array of all modules
+     * @return array  $modules assoc array of all modules
      */
     public static function getModules(){
         $db = new db();
@@ -194,6 +194,9 @@ class moduleInstaller extends db {
         }
     }
     
+    /**
+     * reloads config for all modules
+     */
     public function reloadConfig () {
         $modules = $this->getModules();
         foreach ($modules as $key => $val){
@@ -211,22 +214,12 @@ class moduleInstaller extends db {
                         array ('module_name' => NULL)
                         );
             }
-            //$this->installInfo['NAME'] = $val['module_name'];
-            //$this->insertLanguage($val['module_name']);
         }
     }
 
-    /**
-     * @return  array   assoc row with language installed
-     */
-    public function getLanguagesInstalled(){
-        $query = 'select distinct language from language';
-        $langs = $this->selectQuery($query);
-    }
 
     /**
      * method for upgrading all modules.
-     * Not used for now. 
      */
     public function upgradeAll(){
         $modules = $this->getModules();
@@ -237,10 +230,16 @@ class moduleInstaller extends db {
         }
     }
     
+    /**
+     * method for deleting routes for a module
+     */
     public function deleteRoutes () {
         $this->delete('system_route', 'module_name', $this->installInfo['NAME']);
     }
     
+    /**
+     * method for inserting routes for modules
+     */
     public function insertRoutes () {
         
         if (isset($this->installInfo['ROUTES'])) {
@@ -263,8 +262,8 @@ class moduleInstaller extends db {
      * method for inserting a language into the system language table
      * system language is messages which is needed outside of the module scope,
      * e.g. menu items.
-     *
-     * @return  boolean false if no language file exists. Else return true.
+     * @param string $module
+     * @return  boolean $res false if no language file exists. Else return true.
      */
     public function insertLanguage($module = null){
         $language_path =
@@ -304,7 +303,7 @@ class moduleInstaller extends db {
     }
 
     /**
-     *
+     * get single sql file name from module, version, and action
      * @param  string   $module
      * @param  float    $version
      * @param  string   $action (up or down)
@@ -316,7 +315,7 @@ class moduleInstaller extends db {
     }
 
     /**
-     *
+     * get a sql file string from module, version, action
      * @param   string   $module
      * @param   float    $version
      * @param   string   $action (up or down)
@@ -331,7 +330,7 @@ class moduleInstaller extends db {
     }
 
     /**
-     *
+     * get a sql file list from module, action
      * @param   string   $module
      * @param   string   $action (up or down)
      * @return  array    array with file list
@@ -347,7 +346,7 @@ class moduleInstaller extends db {
     }
 
     /**
-     *
+     * get sql file list ordered by floats
      * @param   string   $module
      * @param   string   $action
      * @param   float    specific version
@@ -577,8 +576,7 @@ class moduleInstaller extends db {
      * method for installing a module.
      * checks if module already is installed, if not we install it.
      *
-     * @param   string  name of module to install
-     * @return  boolean true on success or false on failure
+     * @return  boolean $res true on success or false on failure
      */
     public function install (){
 
@@ -809,15 +807,15 @@ class moduleInstaller extends db {
  *
  * If more upgrades exist. Upgrade all one after one.
  * 
- * @package    coslib
+ * @package    moduleinstaller
  */
 
 class templateInstaller extends moduleInstaller {
     /**
-     *
-     * @var array holding array of info for the install
-     *            this is loaded from install.inc file and will read
-     *            the $_INSTALL var
+     * holding array of info for the install
+     * this is loaded from install.inc file and will read
+     * the $_INSTALL var
+     * @var array $installInfo
      */
     public $installInfo = null;
 
@@ -890,6 +888,10 @@ class templateInstaller extends moduleInstaller {
         }
     }
     
+    /**
+     * installs a template
+     * @return boolean $res 
+     */
     public function install () {
 
         // create ini files for template

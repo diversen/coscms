@@ -4,7 +4,7 @@
  * File contains a very simple of an implementation of an idea which we 
  * call event. 
  *
- * @package    coslib
+ * @package    event
  */
 
 /**
@@ -34,27 +34,22 @@
  * array ('action' => 'update, 'reference' => 'blog, '59'); 
  * 
  * 
- * @package    coslib
+ * @package    event
  */
 
 class event {
     
-    //public static $ret = array();
-    
     /**
-     *
+     * gets results from triggered event as an array, where each
+     * methods results are placed in the next key => value pair
      * @param array $methods e.g. array ('fb::post', 'twitter::post');
      * @param mixed $args any variable can be used. E.g. array, object or void
      * @return array $ary array with every triggered events result. 
-     *               If false, we exit and returns false.  
-     *         
      */
     public static function getTriggerEvent ($methods, $args = null) {
         
-        //die;
         if (!is_array($methods)) return array ();
         $methods = self::prepareMethods($methods);
-        //print_r($methods) ;die;
         
         $ret = array();
         foreach ($methods as $val) {
@@ -75,17 +70,17 @@ class event {
     }
 
     /**
-     *
+     * triggerEvent
      * @param array $methods e.g. array ('fb::post', 'twitter::post');
-     * @param mixed $args any variable can be used. E.g. array, object or void
-     * @return mixed anything can be returned object, array. 
+     * @param mixed $args any variable can be used. E.g. array, object or void. 
+     *              if args['return'] => array an array will be returned. Else
+     *              a string with all return values concatenated will be returned
+     * @return string|array anything can be returned object, array. 
      */
     public static function triggerEvent ($methods, $args = null) {
         if (!is_array($methods)) return;
 
-        
-        $methods = self::prepareMethods($methods);
-       
+        $methods = self::prepareMethods($methods);       
         $str = '';
         $i = count($methods);
         
@@ -111,6 +106,11 @@ class event {
         return $str;
     }
     
+    /**
+     * prepare methods if a method is empty it will be removed
+     * @param array $methods
+     * @return array $methods
+     */
     public static function prepareMethods ($methods) {
         foreach ($methods as $key => $val) {
             if (empty($val)) {

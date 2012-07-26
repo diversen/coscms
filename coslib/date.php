@@ -1,5 +1,18 @@
 <?php
 
+/**
+ * File contains common function for doing date math
+ * @package date   
+ */
+
+/**
+ * checks if a date is in a range between start and end date
+ * @param string $start_date
+ * @param string $end_date
+ * @param string $date_from_user
+ * @return boolean $res 
+ */
+
 function dateInRange ($start_date, $end_date, $date_from_user) {
   $start_ts = strtotime($start_date);
   $end_ts = strtotime($end_date);
@@ -7,12 +20,23 @@ function dateInRange ($start_date, $end_date, $date_from_user) {
   return (($user_ts >= $start_ts) && ($user_ts <= $end_ts));
 }
 
+/**
+ * gets locale day as 'weekday' from timestamp
+ * @param string $stamp stamp to be used with strtotime
+ * @return string $weekday
+ */
 function dateTimestampToLocaleDay ($stamp) {
     $time = strtotime($stamp);
     $datearray = getdate($time);
     return $datearray["weekday"];
 }
 
+/**
+ * gets diff between two dates as an int
+ * @param string $from date to be parsed with strtotime
+ * @param string $to date
+ * @return int $days
+ */
 function dateGetDatesTimeDiff ($from, $to) {
     $from_t = strtotime($from);
     $to_t = strtotime($to);
@@ -21,18 +45,32 @@ function dateGetDatesTimeDiff ($from, $to) {
 }
 
 
-
+/**
+ * gets a month name from month as int
+ * @param int $month_int
+ * @param string $format
+ * @return string $month_name 
+ * 
+ */
 function dateGetMonthName($month_int, $format = 'F') {
     $month_int = (int)$month_int;
     $timestamp = mktime(0, 0, 0, $month_int);
     return strftime('%B', $timestamp);
 }
 
+/**
+ * get current year
+ */
 function dateGetCurrentYear () {
     return strftime("%Y");
 }
 
-
+/**
+ * get dates as array 
+ * @param string $from date
+ * @param string $to date
+ * @return array $dates
+ */
 function dateGetDatesAry ($from, $to) {
     $ary = array();    
     $i = dateGetDatesTimeDiff($from, $to);
@@ -49,6 +87,11 @@ function dateGetDatesAry ($from, $to) {
     return array_reverse($ary);
 }
 
+/**
+ * get currenct date
+ * @param array $options if we need hms then set hms => 1
+ * @return string $date
+ */
 function dateGetDateNow ($options = array ()) {
     if (isset($options['hms'])) {
         $format = 'Y-m-d G:i:s';
@@ -59,18 +102,35 @@ function dateGetDateNow ($options = array ()) {
     return $date;
 }
 
+/**
+ * add days to a timestamp
+ * @param string $from start date
+ * @param int $days days to add
+ * @return string $date 
+ */
 function dateAddDaysToTimestamp ($from, $days) {
     $date = strtotime("$from +$days days");
     $date = date("Y-m-d", $date );
     return $date;
 }
 
+/**
+ * subtract days from date
+ * @param string $from date
+ * @param int $days to subtract
+ * @return string date 
+ */
 function dateSubstractDaysFromTimestamp ($from, $days) {
     $date = strtotime("$from -$days days");
     $date = date("Y-m-d", $date );
     return $date;
 }
 
+/**
+ * checks if a date is valid
+ * @param string $date
+ * @return boolean $res
+ */
 function dateIsValid ($date) {
     if (!is_string($date)) return false;
     $ary = explode('-', $date);
@@ -80,25 +140,45 @@ function dateIsValid ($date) {
     return false;
 }
 
+/**
+ * gets a week as number from a date
+ * @param string $date
+ * @return string $week 'W' 
+ */
 function dateGetWeekNumber ($date) {
     $week = date('W', strtotime($date));
     return $week;
 }
 
+/**
+ * get a date as a day number 'N'
+ * @param string $date
+ * @return string $weekday 'N'
+ */
 function dateGetDayNumber ($date) {
     $weekday = date('N', strtotime($date)); // 1-7
     return $weekday;    
 }
 
+/**
+ * gets day from date as string 'D'
+ * @param string $date
+ * @return string $weekday 'D'
+ */
 function dateGetDayStr($date) {
     $weekday = strtoupper(date('D', strtotime($date))); // 1-7
     return $weekday;    
 }
 
+/**
+ * gets range of weeks between two dates
+ * @param string $from date
+ * @param string $to date
+ * @return array $weeks array of weeks
+ */
 function dateGetWeekInRange ($from, $to) {
     $diff = dateGetDatesTimeDiff($from, $to);
     $weeks = array (); 
-    $i = 0;
     while($diff) {
         $from = dateAddDaysToTimestamp($from, 1) ;
         $week = dateGetWeekNumber($from); 
@@ -108,9 +188,13 @@ function dateGetWeekInRange ($from, $to) {
     return $weeks;
 }
 
-
+/**
+ * @ignore 
+ * @param type $from
+ * @param type $to
+ * @return type 
+ */
 function dateGetWeeksInRange ($from, $to) {
-    
     $from = dateAddDaysToTimestamp($from, 2);
     $to = dateAddDaysToTimestamp($to, 1);
     
@@ -133,6 +217,11 @@ function dateGetWeeksInRange ($from, $to) {
     return $weeks;
 }
 
+/**
+ * gets week from date as array with startdate and enddate
+ * @param string $date 
+ * @return array $ary ('startdate' => 'date', 'enddate' => 'enddate');
+ */
 function dateGetWeek($date) {
         $start = strtotime($date) - strftime('%w', $date) * 24 * 60 * 60;
         $end = $start + 6 * 24 * 60 * 60;
@@ -142,6 +231,11 @@ function dateGetWeek($date) {
 
 // found on
 // http://snippets.dzone.com/posts/show/1310
+/**
+ * gets years old from birthday
+ * @param string $birthday
+ * @return int $years 
+ */
 function dateYearsOld ($birthday) {
     list($year,$month,$day) = explode("-",$birthday);
     $year_diff  = date("Y") - $year;
@@ -151,5 +245,3 @@ function dateYearsOld ($birthday) {
     elseif (($month_diff==0) && ($day_diff < 0)) $year_diff--;
     return $year_diff;
 }
-
-

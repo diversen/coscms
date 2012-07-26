@@ -12,7 +12,15 @@
  */
 class urldispatch {
     
-    public static $pathInfo = array(); 
+    /**
+     * var holding pathInfo
+     * @var array $pathInfo
+     */
+    public static $pathInfo = array();
+    
+    /**
+     * parses pathinfo with parse_url
+     */
     public function parse () {       
         self::$pathInfo = parse_url($_SERVER['REQUEST_URI']);
     }
@@ -88,6 +96,9 @@ class urldispatch {
         }
     }
     
+    /**
+     * sets db routes
+     */
     public static function setDbRoutes () {
         $routes = dbQ::setSelect('system_route')->fetch();
         foreach ($routes as $route) {

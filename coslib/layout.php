@@ -5,33 +5,35 @@
  * blocks. It operates closely with template. It loads template. In normal
  * loading mode it is almost only used in head.
  *
- * @package    coslib
+ * @package    layout
  */
 
 /**
  * class for creating layout, which means menus and blocks
  * class also loads template in its constructor.
  *
- * @package    coslib
+ * @package    layout
  */
 class layout {
 
     /**
-     *
-     * @var array $menu for holding different menus (main / module / sub)
+     * var holding menus
+     * @var array $menu
      */
     public static $menu = array();
 
     /**
      * var holding all blocks content. 
-     * @var array $blocksContent holds all blocks being loaded.  
+     * @var array $blocksContent  
      */
     public static $blocksContent = array();
 
     /**
-     * constructer method and checks users
-     * credentials (admin / user) thus generating
-     * accurate menus for each group. Loading of template
+     * construtor method
+     * checks for a admin template. 
+     * loads a template from htdocs/templates
+     * loads a template's common file htdocs/templates/template/common.inc
+     * @param string $template
      */
     function __construct($template = null){
         
@@ -57,8 +59,9 @@ class layout {
         template::init(config::$vars['coscms_main']['template']);
     }
     
-    
-    
+    /**
+     * @ignore
+     */
     public static function setLayout ($template) {
         $layout = null;
         $layout = new layout($template);
@@ -272,9 +275,9 @@ class layout {
     }
 
     /**
-     * gets a module menu from file. 
-     * @param  string  $module the name of the module to get menu from
-     * @return array $module_menu the module menu. 
+     * gets a modules sub menu from file. 
+     * @param  string  $sub the name of the module to get menu from
+     * @return array $ary the module menu. 
      */
     public static function getSubMenu ($sub) {
         return (self::getMenuFromFile($sub));
@@ -368,15 +371,16 @@ class layout {
      * method for parsing a module menu.
      * A module menu is a menu connected to a main menu item.
      *
-     * @param   array   menu to parse
-     * @return  string  containing menu in html form <li> ... </li>
+     * @param array $menu array to parse
+     * @param array $options
+     * @return string $str containing menu in html form, an ul with li elements
      */
-    public static function parseModuleMenu($menu, $type){
+    public static function parseModuleMenu($menu, $options = null){
 
         $str = '';              
         $num_items = $ex = count($menu);
 
-        foreach($menu as $k => $v){         
+        foreach($menu as $v){         
             if ( !empty($v['auth'])){
                 if (!session::isUser() && $v['auth'] == 'user') continue;
                 if (!session::isAdmin() && $v['auth'] == 'admin') continue;
@@ -396,7 +400,7 @@ class layout {
     }
     
     /**
-     * method for adding extra menu items. 
+     * method for adding extra menu items to a menu
      * @param array $items menu items to add.  
      */
     public static function setModuleMenuExtra($items) {
@@ -404,8 +408,8 @@ class layout {
     }
     
     /**
-     *
-     * @return type 
+     * attach $menu['extra'] to a menu
+     * @return string $str the html menu 
      */
     static function parseModuleMenuExtra () {
         $str = '';              
@@ -464,15 +468,14 @@ class layout {
     }
     
     /**
-     * method for getting all blocks to be used
-     *
-     *                  blocks to use
-     * @return array    blocks containing strings with html to display
+     * method for getting all parsed blocks
+     * @todo clearify what is going on
+     * @param string $block
+     * @return array blocks containing strings with html to display
      */
     public static function parseBlock($block){
 
         $blocks = array();
-
         if (isset(config::$vars['coscms_main'][$block],config::$vars['coscms_main']['module'][$block])){
             $blocks = array_merge(config::$vars['coscms_main'][$block], config::$vars['coscms_main']['module'][$block]);
         } else if (isset(config::$vars['coscms_main'][$block])) {
@@ -484,20 +487,21 @@ class layout {
         }
 
         $ret_blocks = array();
-        foreach ($blocks as $key => $val) {
+        foreach ($blocks as $val) {
             
-            // numeric is custom block
+            // numeric is custom block added to database
             if (is_numeric($val)) {
                 include_module('block_manip');
                 $row = block_manip::getOne($val); 
                 $row['content_block'] = get_filtered_content(
                     get_module_ini('block_manip_filters'), $row['content_block']
                 );
-                $row['title'] = htmlspecialchars($row['title']);
+                $row['title'] = htmlentities_encode($row['title']);
                 $content = templateView::get('block_manip', 'block_html', $row);
                 $ret_blocks[] = $content;
                 continue;
             }
+            
             if ($val == 'module_menu'){
                 $ret_blocks[] = self::getMainMenu();
                 continue; 

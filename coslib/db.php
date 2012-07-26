@@ -4,7 +4,7 @@
  * File contains contains class for connecting to a mysql database
  * with PDO and doing basic crud operations and simple search operations. 
  *
- * @package    coslib
+ * @package    db
  */
 
 /**
@@ -12,7 +12,7 @@
  * with PDO and doing basic crud operations and simple search operations. 
  * Almost any build in modules extends this class. 
  * 
- * @package    coslib
+ * @package    db
  */
 class db {
     /**
@@ -24,12 +24,17 @@ class db {
     static $dbh = false;
 
     /**
-     *
-     * @var  array  holds all sqlstatements when in debug mode.
+     * holds all sqlstatements
+     * @var  array  $debug
      */
     static $debug = array();
 
-    
+    /**
+     * gets a db object. Mostly so that we can use the db class in the static 
+     * short hand way: db::init()->selectAll(self::$dbTable) 
+     * @param array $options options to give constructor
+     * @return object $db
+     */
     static public function init($options = array ()){
         static $db = null;
         if (!$db) {
@@ -41,6 +46,7 @@ class db {
     
     /**
      * constructor will try to call method connect
+     * @param array $options
      */
     public function __construct($options = null){
 
@@ -79,8 +85,8 @@ class db {
     }
 
     /**
-     *
-     * @return array    all sql statements as an array
+     * return all sql statements as an array
+     * @return array $debug
      */
     static function getDebug() {
         return self::$debug;
@@ -177,6 +183,11 @@ class db {
         return array();
     }
     
+    /**
+     * method for creating a mysql database
+     * @param string $db
+     * @return boolean $res 
+     */
     public function createDB ($db) {
         $sql = '';
         $sql.= "CREATE DATABASE IF NOT EXISTS  `$db` ";
@@ -380,8 +391,8 @@ class db {
      *
      * @param   string  $table the table to search e.g. 'article'
      * @param   string  $match what to match, e.g 'title, content'
-     * @param   string  $select what to select e.g. '*'
-     * @param   string  $search what to search for e.g 'some search words'
+     * @param   string  $search what to select e.g. '*'
+     * @param   string  $select what to search for e.g 'some search words'
      * @param   int     $from where to start getting the results
      * @param   int     $limit how many results to fetch e.g. 20
      * @return  array   $rows array of rows
@@ -551,9 +562,9 @@ class db {
      * Method for preparing raw $_POST for execution. It just 
      * removes some common fields from post like e.g. 'submit', 'submitted',
      * MAX_FILE_SIZE, *method*, and captcha. 
-
-     *
-     * @return  array   $values to use in update and insert sql commands.
+     * @param array $values the values to prepare
+     * @param array $options none so far
+     * @return array  $values to use in update and insert sql commands.
      */
     public static function prepareToPost($values = array(), $options = array ()){
         self::$debug[] = "Trying to prepareToPost";
@@ -579,15 +590,14 @@ class db {
     }
     
     /**
-     *
-     * @param array $keys keys to get from request
-     * @return array $ary with keys from param 
+     * prepares an array for db post where we specify keys to use 
+     * @param array $keys keys to use from request
+     * @return array $ary array with post array we will use 
      */
     public static function prepareToPostArray ($keys) {
         $ary = array ();
-        foreach ($keys as $key => $val) {
+        foreach ($keys as $val) {
             if (isset($_POST[$val])) {
-
                 $ary[$val] = $_POST[$val];
             } else {
                 $ary[$val] = 0;
@@ -605,7 +615,6 @@ class db {
 
     /**
      * Method for showing errors
-     *
      * @param   string  $msg the message to show with the backtrace
      */
     protected function fatalError($msg) {
@@ -625,9 +634,8 @@ class db {
  * class containg a simpler way for doing more complex queries (yet simple)
  * you may use the alternative name dbQ
  * 
- * @package coslib 
+ * @package db
  */
-
 class QBuilder  {
     /**
      * holder for query being built
@@ -636,38 +644,45 @@ class QBuilder  {
     public static $query = null;
 
     /**
-     * @var object $stmt holding PDO statement
+     * var holding PDO statement
+     * @var object $stmt 
      */
     public static $stmt = null;
 
     /**
-     * @var array $bind. holding all statements that will be bound
+     * holding all statements that will be bound
+     * @var array $bind.
      */
     public static $bind = array();
 
     /**
-     *
-     * @var string|null  $where indicatin if a WHERE sql sentence has been used
+     * indicate if a WHERE sql sentence has been used
+     * @var string|null  $where 
      */
     public static $where = null;
     
     /**
-     * 
-     * @var type $dbh object holding db handle
+     * object holding db handle
+     * @var object $dbh
      */
     public static $dbh = null;
     
     /**
-     * @var type $debug array for holding debug messages
+     * array holding debug messages
+     * @var array $debug
      */
     public static $debug = array();
     
     /**
-     *
-     * @var type $method inidcation if we are updating or inserting values. 
+     * var holding method (SELECT, UPDATE, INSERT, DELETE) 
+     * @var type $method 
      */
     public static $method = '';
     
+    /**
+     * flag indicating if a sql method has been set
+     * var $isset
+     */
     public static $isset = null;
 
     /**
@@ -946,9 +961,7 @@ class QBuilder  {
             self::$stmt->execute();
             $rows = self::$stmt->fetchAll(PDO::FETCH_ASSOC);
 
-            
             self::unsetVars();
-            //self::$query = null;
         } catch (Exception $e) {
             echo $message = $e->getMessage();
             cos_error_log($message);
@@ -1000,8 +1013,9 @@ class QBuilder  {
     }
 }
 /**
- * @package coslib
- * just a better name for QBuilder
+ * 
+ * short name for QBuilder
+ * @package db
  */
 class dbQ extends QBuilder {
     

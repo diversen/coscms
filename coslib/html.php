@@ -4,13 +4,13 @@
  * File containing class for building forms and common methods used 
  * when building forms.
  * 
- * @package coslib 
+ * @package html 
  */
 
 /**
  * Class used when building forms and various methods used when creating forms
  * for escaping in different ways. 
- * @package coslib
+ * @package html
  */
 
 class HTML {
@@ -191,6 +191,7 @@ class HTML {
      * @param string $method method of the form
      * @param string $action action of the form
      * @param string $enctype enctype of the form
+     * @param array $options
      * @return string $str the form start 
      */
     public static function formStart (
@@ -205,15 +206,15 @@ class HTML {
                 $options);
         
         self::$fields[] = array ('value' => $str);
-        //return $str;
     }
     
-        /**
-     * method for starting a html form
+    /**
+     * method for starting a clean html form where we get the string
      * @param string $name name of the form
      * @param string $method method of the form
      * @param string $action action of the form
      * @param string $enctype enctype of the form
+     * @param array $options
      * @return string $str the form start 
      */
     public static function formStartClean (
@@ -284,6 +285,7 @@ class HTML {
      * sets a label for a form element
      * @param string $label_for the field to set the label for
      * @param string $label the label text
+     * @param array $options
      * @return string $str the label
      */
     public static function label ($label_for, $label = '', $options = array()) {
@@ -477,11 +479,10 @@ class HTML {
     }
 
     /**
-     * method for getting a textarea 
+     * method for setting textarea
      * @param string $name the name of the textarea
      * @param string $value the initial value of the textarea
-     * @param array $extra, e.g. css array ('class' => 'required'); 
-     * @return string $str the textarea 
+     * @param array $extra e.g. css array ('class' => 'required');  
      */
     public static function textarea ($name, $value = null, $extra = array()){
         $str = self::textareaClean($name, $value, $extra);
@@ -492,7 +493,7 @@ class HTML {
      * method for getting a textarea 
      * @param string $name the name of the textarea
      * @param string $value the initial value of the textarea
-     * @param array $extra, e.g. css array ('class' => 'required'); 
+     * @param array $extra e.g. css array ('class' => 'required'); 
      * @return string $str the textarea 
      */
     public static function textareaClean ($name, $value = null, $extra = array()){
@@ -521,7 +522,7 @@ class HTML {
      * method for getting a small textarea (~1/6 of normal textarea) 
      * @param string $name the name of the textarea
      * @param string $value the initial value of the textarea
-     * @param array $extra, e.g. css array ('class' => 'required'); 
+     * @param array $extra e.g. css array ('class' => 'required'); 
      * @return string $str the textarea 
      */
     public static function textareaSmall ($name, $value = null, $extra = array()){
@@ -535,7 +536,7 @@ class HTML {
      * method for getting a medium textarea ~1/2 of normal textarea size 
      * @param string $name the name of the textarea
      * @param string $value the initial value of the textarea
-     * @param array $extra, e.g. css array ('class' => 'required'); 
+     * @param array $extra e.g. css array ('class' => 'required'); 
      * @return string $str the textarea 
      */
     public static function textareaMed ($name, $value = null, $extra = array()){
@@ -547,7 +548,7 @@ class HTML {
      * method for getting a small textarea (~1/6 of normal textarea) 
      * @param string $name the name of the textarea
      * @param string $value the initial value of the textarea
-     * @param array $extra, e.g. css array ('class' => 'required'); 
+     * @param array $extra e.g. css array ('class' => 'required'); 
      * @return string $str the textarea 
      */
     public static function textareaSmallClean ($name, $value = null, $extra = array()){
@@ -562,7 +563,7 @@ class HTML {
      * method for getting a medium textarea ~1/2 of normal textarea size 
      * @param string $name the name of the textarea
      * @param string $value the initial value of the textarea
-     * @param array $extra, e.g. css array ('class' => 'required'); 
+     * @param array $extra e.g. css array ('class' => 'required'); 
      * @return string $str the textarea 
      */
     public static function textareaMedClean ($name, $value = null, $extra = array()){
@@ -576,7 +577,7 @@ class HTML {
     /**
      * method for getting a file input field
      * @param string $name the name of the file field
-     * @param array $extra, e.g. css array ('class' => 'popup'); 
+     * @param array $extra e.g. css array ('class' => 'popup'); 
      * @return string $str the file input field 
      */
     public static function file ($name, $extra = array()) {
@@ -611,6 +612,12 @@ EOF;
         return $str;
     }
     
+    /**
+     * sets a file field with info about max size
+     * @param string $filename 
+     * @param int $max_bytes
+     * @param array $options
+     */
     public static function fileWithLabel ($filename, $max_bytes, $options = array()) {        
         html::hidden('MAX_FILE_SIZE', $max_bytes);
         
@@ -625,6 +632,11 @@ EOF;
     
     // Progress bar from: 
     // http://www.johnboy.com/php-upload-progress-bar/
+    /**
+     * sets a apc js string
+     * @param string $apc_id
+     * @return string $apc_string
+     */
     public static function apcJs ($apc_id) {
             
         $form_id = self::$internal['form_id'];
@@ -690,6 +702,13 @@ EOF;
         return $str;
     }
     
+    /**
+     * sets a radio button
+     * @param string $name
+     * @param array $options
+     * @param int $checked
+     * @param array $extra
+     */
     public static function radio ($name, $options, $checked, $extra = array()) {
         $radio = self::radioClean($name, $options, $checked, $extra = array ());
         $str = $radio . self::$br . "\n" ;
@@ -775,16 +794,24 @@ EOF;
 
 
     /**
-     * method for making a drop down box. This will be colleted in the HTML::fields[]
+     * method for setting a drop down box. This will be colleted in the HTML::fields[]
      * If you just want a select box use selectClean
      * @param   string  $name the name of the select field
      * @param   array   $rows the rows making up the ids and names of the select field
      * @param   string  $field array field which will be used as name of the select element
-     * @param   int     $id the array field which will be used as id of the select element
-     * @param   int     $selected the element which will be selected
-     * @return  string  $extras to be added to a form
+     * @param   string  $id the array field which will be used as id of the select element
+     * @param   string  $value inital value
+     * @param   array   $extra extra elements to be added
+     * @param  array   $init inital array
      */
-    public static function select($name, $rows, $field, $id, $value=null, $extra = array(), $init = array()){        
+    public static function select(
+            $name, 
+            $rows, 
+            $field, 
+            $id, 
+            $value=null, 
+            $extra = array(), 
+            $init = array()){        
         $dropdown = self::selectClean($name, $rows, $field, $id, $value, $extra, $init);
         $str = $dropdown . self::$br . "\n" ;
         self::$fields[] = array ('value' => $str);
@@ -792,15 +819,16 @@ EOF;
     }
     
     /**
-     * method for adding a drop down box to the form.
-     * 
+     * method for getting a drop down box. This will be colleted in the HTML::fields[]
+     * If you just want a select box use selectClean
      * @param   string  $name the name of the select field
      * @param   array   $rows the rows making up the ids and names of the select field
      * @param   string  $field array field which will be used as name of the select element
-     * @param   int     $id the array field which will be used as id of the select element
-     * @param   int     $selected the element which will be selected
-     * @param   string  $extras to be added to this form field, e.g. css (array ('class' => 'required'));
-     * @return  string  $dropdown the dropwdown string.
+     * @param   string  $id the array field which will be used as id of the select element
+     * @param   string  $value inital value
+     * @param   array   $extra extra elements to be added
+     * @param  array  $init inital array
+     * @return string $str select as a string
      * 
      */
     public static function selectClean($name, $rows, $field, $id, $value = null, $extra = array(), $init = array()){        
@@ -829,6 +857,10 @@ EOF;
         return $dropdown;
     }
     
+    /**
+     * method for setting drop down for birthday
+     * with element for day, month and year
+     */
     public static function selectBirthday () {
         include_once "coslib/form_helpers.php";
         
@@ -840,18 +872,26 @@ EOF;
     }
     
     /**
-     * method for adding a drop down box to the form.
+     * method for adding a drop down box to the form with multiple selects.
      * 
      * @param   string  $name the name of the select field
      * @param   array   $rows the rows making up the ids and names of the select field
      * @param   string  $field array field which will be used as name of the select element
-     * @param   int     $id the array field which will be used as id of the select element
-     * @param   int     $selected the element which will be selected
-     * @param   string  $extras to be added to this form field, e.g. css (array ('class' => 'required'));
-     * @return  string  $dropdown the dropwdown string.
+     * @param   string  $id the array field which will be used as id of the select element
+     * @param   array   $value to be selected
+     * @param   string  $extra to be added to this form field, e.g. css (array ('class' => 'required'));
+     * @param   array   $init 
+     * @return  string  $select the multiple select string.
      * 
      */
-    public static function selectMultipleClean($name, $rows, $field, $id, $value = null, $extra = array(), $init = array()){        
+    public static function selectMultipleClean(
+            $name, 
+            $rows, 
+            $field, 
+            $id, 
+            $value = null, 
+            $extra = array(), 
+            $init = array()){        
         $extra = self::parseExtra($extra);
         $name = $name . "[]";
         $dropdown = "<select multiple=\"multiple\" name=\"$name\" $extra";
@@ -885,7 +925,7 @@ EOF;
      * method for creating a html link
      * @param string $url the a href attribute
      * @param string $title the value of the link
-     * @param array  $options, e.g. css class or javascript actions, e.g. ('class' => 'error')
+     * @param array  $options e.g. css class or javascript actions, e.g. ('class' => 'error')
      * @return string $link the html link
      */
     public static function createLink ($url, $title, $options = array()) {
@@ -937,7 +977,7 @@ EOF;
     /**
      * method for creating an image html tag
      * @param string $src the source of the image
-     * @param array  $options, for setting e.g. css class array ('class' => 'popup')
+     * @param array  $options for setting e.g. css class array ('class' => 'popup')
      * @return string $str the image tag 
      */
     public static function createImage ($src, $options = array()) {
@@ -1096,6 +1136,8 @@ EOF;
      * method for sanitizing a url real simple
      * remove / ? # - add entites for displaying the url in a link
      * without any dangers
+     * @ignore
+     * @deprecated
      * @param string $url
      * @return string $url
      */
@@ -1110,6 +1152,7 @@ EOF;
 
 /**
  * function for creating a link
+ * @ignore
  * @deprecated see html::createHrefImage()
  * @param   string  the url to create the link from
  * @param   string  the title of the link
@@ -1126,6 +1169,7 @@ function create_image_link($url, $href_image, $options = null){
     return "<a href=\"$url\"><img $str src=\"$href_image\" /></a>";
 }
 /**
+ * @ignore
  * @deprecated see html::createImage($src)
  * @param type $href_image
  * @param type $options
@@ -1141,6 +1185,7 @@ function create_image($href_image, $options = null){
 
 /**
  * function for creating a select dropdown from a database table.
+ * @ignore
  * @deprecated see html::select()
  * @param   string  the name of the select filed
  * @param   string  the database table to select from
@@ -1177,6 +1222,7 @@ function view_drop_down_db($name, $table, $field, $id, $selected=null, $extras =
 }
 
 /**
+ * @ignore
  * @deprecated see html::select()
  * @param   string  the name of the select field
  * @param   array   the rows making up the ids and names of the select field

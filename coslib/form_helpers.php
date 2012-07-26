@@ -1,15 +1,21 @@
 <?php
 
 /**
+ * file containing some simple common html forms
+ * @package form helpers 
+ */
+
+/**
  * 
- * @package formHelpers 
+ * class containing some simple common html forms
+ * @package form helpers
  */
 class formHelpers {
     
     /**
      * method for getting admin options
      * @param string $url base url
-     * @param string $id id of the item
+     * @param string $id the item
      * @param string $options
      * @return string $str menu options
      */
@@ -31,7 +37,8 @@ class formHelpers {
     
     /**
      * method for generating a delete confirmform
-     * @param string $legend the legend to display with the form
+     * @param string $name the name of the submit button
+     * @param string $legend the legend of the form
      * @return string $form the html form.
      */
     public static function confirmDeleteForm ($name = 'submit', $legend = 'delete') {
@@ -69,7 +76,9 @@ class formHelpers {
      * method that creates birthday dropdown
      * access of the submitted data can be found in the _POST['birth_day'],
      * $_POST['birth_month'], $_POST['birth_year']
-     * @return type 
+     * @param string $name name of the form element
+     * @param array $init the init array 
+     * @return array $ary array with select elements in array ('day', 'month', 'year')
      */
     public static function birthdayDropdown ($name = 'birth', $init = array ()) {
         for ($i = 1; $i <= 31; $i++) {
@@ -112,6 +121,10 @@ class formHelpers {
         return $ret;
     }
     
+    /**
+     * get birthday form _REQUEST
+     * @return string $date
+     */
     public static function getBirthdayAsDate () {
         if (isset($_REQUEST['birth_day'])) {
             $date = $_REQUEST['birth_year'] . '-' .
