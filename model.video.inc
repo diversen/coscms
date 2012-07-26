@@ -102,7 +102,6 @@ class video {
         $db = new db();
         $res = $this->uploadVideo();
         if ($res) {
-            echo "trans";
             try {
                 $db->begin();
            
@@ -167,7 +166,7 @@ class video {
             if (!$res) {
                 self::$errors[] = lang::translate('video_could_not_transform_to_flv');
                 return false;
-            }
+            } 
         }
         
         $web_dir = "/video/" . self::$options['reference'] . "/" . self::$options['parent_id'];        
@@ -178,12 +177,13 @@ class video {
         }
         
         $flv_web_path = $web_dir . "/" . $flv_file;
-        
         $flv_full_path = $full_path . "/" . $flv_file;
         
         $res = copy($tmp_flv, $flv_full_path);
         self::$options['flv_file_path'] = $flv_full_path;
         self::$options['flv_web_path'] = $flv_web_path;
+        
+        unlink ($tmp_flv);
         return $res;
     }
     
@@ -195,9 +195,10 @@ class video {
         $output = array();
         exec($ffmpeg_command, $output, $ret);
         if ($ret) {
-            print_r($output);
             return false;
-        } 
+        }
+        // unlink file 
+        unlink($full_filename);
         return true;
     }
 

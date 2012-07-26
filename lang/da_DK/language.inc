@@ -42,3 +42,6 @@ $_COS_LANG_MODULE['file_add_legend'] = 'Tilføj Fil';
 $_COS_LANG_MODULE['file_abstract_label'] = 'Abstrakt';
 $_COS_LANG_MODULE['file_file_label'] = 'Vælg en video';
 $_COS_LANG_MODULE['video_submit'] = 'Send';
+
+$_COS_LANG_MODULE['system_submit_delete'] = 'system_submit_delete';
+$_COS_LANG_MODULE['video_could_not_transform_to_flv'] = 'Kunne ikke komprimere video til .flv format';
