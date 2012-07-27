@@ -2,7 +2,7 @@ url = "mysql:dbname=osnet;host=localhost"
 username = "root"
 password = "iversen1234"
 server_name = "www.os-cms.net"
-server_redirect = 'www.os-cms.net'
+;server_redirect = 'www.os-cms.net'
 send_mail = 1
 smtp_mail = 1
 site_email = "os-cms.net <mail@os-cms.net>"
@@ -36,11 +36,11 @@ captcha_image_module = 1
 ;image_driver = 'Imagick3'
 [stage]
 server_name = 'dbi.no-ip.org'
-server_redirect ='dbi.no-ip.org'
+:server_redirect ='dbi.no-ip.org'
 hostname = 'dennis-Rev-1-0'
 
 [development]
 server_name = 'osnet'
-server_redirect ='osnet'
+;server_redirect ='osnet'
 hostname = 'dennis-Rev-1-0'
 
