@@ -41,7 +41,7 @@ function prompt_install(){
 
     // load profile.
     config::$vars['coscms_main'] = config::getIniFileArray(_COS_PATH . '/config/config.ini', true);
-    echo "hello";
+
     // get configuration info
     $host = cos_readline('Enter mysql host, and hit return: ');
     $database = cos_readline('Enter database name, and hit return: ');
