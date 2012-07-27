@@ -1,6 +1,6 @@
 <?php
 
-
+include_once "coslib/config.php";
 
 /**
  * File containing documentation functions for shell mode
