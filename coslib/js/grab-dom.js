@@ -1,7 +1,7 @@
 var page = new WebPage();
 var system = require('system');
 var url = 'http://twitter.com/#!/search/javascript';
-var timeout = 4000;  
+var timeout = 80000;  
 
 function displayHelp () {
     console.log('Usage:');
@@ -44,5 +44,5 @@ function getFullDom() {
         });
         console.log(results);
         phantom.exit();
-    }, timeout);
+    }, 8000);
 }

@@ -1,4 +1,4 @@
 tags_per_page = 10
 tags_auto_add = 1
 tags_allow_edit = "admin"
-tags_min_chars = 1
+tags_min_chars = 0

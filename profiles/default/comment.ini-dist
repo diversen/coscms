@@ -12,3 +12,4 @@ comment_events[0] = "vote::events"
 comment_events[1] = "flood::events"
 comment_sort_by = "vote"
 comment_iframe = 1
+comment_send_notification = 1

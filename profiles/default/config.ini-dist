@@ -1,13 +1,13 @@
 url = "mysql:dbname=osnet;host=localhost"
 username = "root"
-password = "password"
+password = "iversen1234"
 server_name = "www.os-cms.net"
-;server_redirect = 'www.os-cms.net'
+server_redirect = 'www.os-cms.net'
 send_mail = 1
 smtp_mail = 1
 site_email = "os-cms.net <mail@os-cms.net>"
-smtp_params_host = "mail.os-cms.dk"
-smtp_params_sender = "os-cms.net <mail@os-cms.net>"
+smtp_params_host = "mail.example.com"
+smtp_params_sender = "mail <mail@example.com>"
 smtp_params_port     = "465"
 smtp_params_auth     =  "true"
 smtp_params_username = "mail@example.com"

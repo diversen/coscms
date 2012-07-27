@@ -18,3 +18,4 @@ blog_use_addthis = 1
 blog_use_jquery_markedit = 1
 blog_use_tags = 1
 blog_events[0] = "tags::events"
+blog_use_imap = 1
