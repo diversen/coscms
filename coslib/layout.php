@@ -396,6 +396,8 @@ class layout {
             $str.= "</li>\n";
         }
         
+        if (empty($str)) return '';
+        
         return "<ul>\n$str</ul>\n";
     }
     
@@ -496,7 +498,7 @@ class layout {
                 $row['content_block'] = get_filtered_content(
                     get_module_ini('block_manip_filters'), $row['content_block']
                 );
-                $row['title'] = htmlentities_encode($row['title']);
+                $row['title'] = htmlspecialchars($row['title']);
                 $content = templateView::get('block_manip', 'block_html', $row);
                 $ret_blocks[] = $content;
                 continue;
