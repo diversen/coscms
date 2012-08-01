@@ -678,7 +678,7 @@ EOF;
      * @param array $extra set extras e.g. array ('class' => 'action')
      * @return string 
      */
-    public static function checkbox ($name, $value = null, $extra = array ()) {        
+    public static function checkbox ($name, $value = 0, $extra = array ()) {        
         $str = self::checkboxClean($name, $value, $extra) ;
         self::$fields[] = array ('value' => $str, 'type' => 'checkbox');
         return $str;
