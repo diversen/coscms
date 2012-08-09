@@ -1,11 +1,29 @@
 This directory can be used to add locale module files for the CLI
-part of the framework.
+part of the CosCMS framework. 
+
+### Install
+
+We use the Pear Console Commandline class
+
+    pear install Console_Commandline
+
+We use the CosCMS framework
+
+    git clone git://github.com/diversen/coscms.git
 
 ### Example
 
+Move into folder where you can place your commands: 
+
+   cd ./coscms/coslib/shell_base/locale
+
+Complete command example: 
+
+https://github.com/diversen/coscms/blob/master/coslib/shell_base/locale/hello_world.php
+
 Create example. All files need to be ending in .inc
 
-    mv hello_world.inc.example hello_world.inc 
+    mv hello_world.php hello_world.inc 
 
 Show help message:
 
@@ -17,4 +35,4 @@ Say 'hello world'
 
 Say 'something else' Using an argument
 
-    ./coscli.sh hello_world -s something else
+    ./coscli.sh hello_world -s 'something else'
