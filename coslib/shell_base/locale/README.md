@@ -23,7 +23,11 @@ https://github.com/diversen/coscms/blob/master/coslib/shell_base/locale/hello_wo
 
 Create example. All files need to be ending in .inc
 
-    mv hello_world.php hello_world.inc 
+    mv hello_world.php hello_world.inc
+
+cd back to main path: 
+
+    cd ../../../
 
 Show help message:
 
