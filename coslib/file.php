@@ -23,7 +23,37 @@ class file {
      * @return  array   entries of all files array (0 => 'file.txt', 1 => 'test.php')
      */
     public static function getFileList ($dir, $options = null) {
-        return get_file_list($dir, $options);
+        if (!file_exists($dir)){
+            return false;
+        }
+        $d = dir($dir);
+        $entries = array();
+        while (false !== ($entry = $d->read())) {
+            if ($entry == '..') continue;
+            if ($entry == '.') continue;
+            if (isset($options['dir_only'])){
+                if (is_dir($dir . "/$entry")){
+                    if (isset($options['search'])){
+                        if (strstr($entry, $options['search'])){
+                            $entries[] = $entry;
+                        }
+                    } else {
+                        $entries[] = $entry;
+                    }
+                }
+            } else {
+                if (isset($options['search'])){
+                    if (strstr($entry, $options['search'])){
+                        $entries[] = $entry;
+                    }
+                } else {
+                    $entries[] = $entry;
+                }
+            }
+        }
+        $d->close();
+        return $entries;
+
     }
     
     /**
@@ -160,30 +190,7 @@ class file {
  */
 
 function get_file_list($dir, $options = null){
-    if (!file_exists($dir)){
-        return false;
-    }
-    $d = dir($dir);
-    $entries = array();
-    while (false !== ($entry = $d->read())) {
-        if ($entry == '..') continue;
-        if ($entry == '.') continue;
-        if (isset($options['dir_only'])){
-            if (is_dir($dir . "/$entry")){
-                if (isset($options['search'])){
-                    if (strstr($entry, $options['search'])){
-                       $entries[] = $entry;
-                    }
-                } else {
-                    $entries[] = $entry;
-                }
-            }
-        } else {
-            $entries[] = $entry;
-        }
-    }
-    $d->close();
-    return $entries;
+    return file::getFileList($dir, $options);
 }
 
 /**
