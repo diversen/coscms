@@ -15,7 +15,7 @@ We use the CosCMS framework
 
 Move into folder where you can place your commands: 
 
-   cd ./coscms/coslib/shell_base/locale
+    cd ./coscms/coslib/shell_base/locale
 
 Complete command example: 
 
