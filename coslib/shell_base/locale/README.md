@@ -1,5 +1,5 @@
-This directory can be used to add locale module files for the CLI
-part of the CosCMS framework. 
+This directory can be used to create Standalone shell modules 
+with the CLI part of the CosCMS framework. 
 
 ### Install
 
@@ -36,3 +36,5 @@ Say 'hello world'
 Say 'something else' Using an argument
 
     ./coscli.sh hello_world -s 'something else'
+
+That's it. 
