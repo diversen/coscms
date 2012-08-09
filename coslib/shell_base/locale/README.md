@@ -35,7 +35,7 @@ Show help message:
 
 Say 'hello world'
 
-    ./coscli.sh hello_world --say
+    ./coscli.sh hello_world --say-it
 
 Say 'something else' Using an argument
 
