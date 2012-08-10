@@ -15,21 +15,20 @@
  * @return string the input which readline reads
  */
 function cos_readline($str){
-    echo $str;
     if (function_exists('readline') ){
-        $out = readline();
+        $out = readline($str);
         return $out;
     } else {
         // if not readline we use this
         // we could actually just use this .)
         // found at php.net
-        //print $str;
+        print $str;
         $out = "";
         $key = "";
         $key = fgetc(STDIN);        //read from standard input (keyboard)
         while ($key!="\n") {       //if the newline character has not yet arrived read another
             $out.= $key;
-            $key = fread(STDIN, 1);
+        $key = fread(STDIN, 1);
         }
     }
     return $out;
