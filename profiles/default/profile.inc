@@ -109,7 +109,7 @@ $_PROFILE_MODULES = array (
   array (
     'id' => '9',
     'module_name' => 'account_profile',
-    'module_version' => '1.7',
+    'module_version' => '1.71',
     'menu_item' => '1',
     'run_level' => '0',
     'load_on' => NULL,
