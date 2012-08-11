@@ -5,7 +5,7 @@ $_PROFILE_MODULES = array (
   array (
     'id' => '1',
     'module_name' => 'system',
-    'module_version' => '1.70',
+    'module_version' => '1.7',
     'menu_item' => '0',
     'run_level' => '0',
     'load_on' => NULL,
@@ -18,7 +18,7 @@ $_PROFILE_MODULES = array (
   array (
     'id' => '2',
     'module_name' => 'settings',
-    'module_version' => '1.70',
+    'module_version' => '1.7',
     'menu_item' => '1',
     'run_level' => '0',
     'load_on' => NULL,
@@ -31,7 +31,7 @@ $_PROFILE_MODULES = array (
   array (
     'id' => '3',
     'module_name' => 'error',
-    'module_version' => '1.70',
+    'module_version' => '1.7',
     'menu_item' => '0',
     'run_level' => '0',
     'load_on' => NULL,
@@ -44,7 +44,7 @@ $_PROFILE_MODULES = array (
   array (
     'id' => '4',
     'module_name' => 'content',
-    'module_version' => '1.70',
+    'module_version' => '1.7',
     'menu_item' => '1',
     'run_level' => '0',
     'load_on' => NULL,
@@ -57,7 +57,7 @@ $_PROFILE_MODULES = array (
   array (
     'id' => '5',
     'module_name' => 'files',
-    'module_version' => '1.70',
+    'module_version' => '1.7',
     'menu_item' => '0',
     'run_level' => '0',
     'load_on' => NULL,
@@ -70,7 +70,7 @@ $_PROFILE_MODULES = array (
   array (
     'id' => '6',
     'module_name' => 'account',
-    'module_version' => '1.70',
+    'module_version' => '1.7',
     'menu_item' => '1',
     'run_level' => '0',
     'load_on' => NULL,
@@ -83,7 +83,7 @@ $_PROFILE_MODULES = array (
   array (
     'id' => '7',
     'module_name' => 'google_analytics',
-    'module_version' => '1.70',
+    'module_version' => '1.7',
     'menu_item' => '1',
     'run_level' => '0,5',
     'load_on' => NULL,
@@ -96,7 +96,7 @@ $_PROFILE_MODULES = array (
   array (
     'id' => '8',
     'module_name' => 'gallery',
-    'module_version' => '1.70',
+    'module_version' => '1.7',
     'menu_item' => '1',
     'run_level' => '0',
     'load_on' => NULL,
@@ -109,7 +109,7 @@ $_PROFILE_MODULES = array (
   array (
     'id' => '9',
     'module_name' => 'account_profile',
-    'module_version' => '1.70',
+    'module_version' => '1.7',
     'menu_item' => '1',
     'run_level' => '0',
     'load_on' => NULL,
@@ -122,7 +122,7 @@ $_PROFILE_MODULES = array (
   array (
     'id' => '10',
     'module_name' => 'filter_youtube',
-    'module_version' => '1.70',
+    'module_version' => '1.7',
     'menu_item' => '0',
     'run_level' => '0',
     'load_on' => NULL,
@@ -135,7 +135,7 @@ $_PROFILE_MODULES = array (
   array (
     'id' => '11',
     'module_name' => 'filter_markdown',
-    'module_version' => '1.70',
+    'module_version' => '1.7',
     'menu_item' => '0',
     'run_level' => '0',
     'load_on' => NULL,
@@ -148,7 +148,7 @@ $_PROFILE_MODULES = array (
   array (
     'id' => '12',
     'module_name' => 'gravatar',
-    'module_version' => '1.70',
+    'module_version' => '1.7',
     'menu_item' => '0',
     'run_level' => '0',
     'load_on' => NULL,
@@ -161,7 +161,7 @@ $_PROFILE_MODULES = array (
   array (
     'id' => '13',
     'module_name' => 'image',
-    'module_version' => '1.70',
+    'module_version' => '1.711',
     'menu_item' => '0',
     'run_level' => '0',
     'load_on' => NULL,
@@ -174,7 +174,7 @@ $_PROFILE_MODULES = array (
   array (
     'id' => '14',
     'module_name' => 'addthis',
-    'module_version' => '1.70',
+    'module_version' => '1.7',
     'menu_item' => '0',
     'run_level' => '0',
     'load_on' => NULL,
@@ -187,7 +187,7 @@ $_PROFILE_MODULES = array (
   array (
     'id' => '15',
     'module_name' => 'comment',
-    'module_version' => '1.70',
+    'module_version' => '1.7',
     'menu_item' => '1',
     'run_level' => '0',
     'load_on' => NULL,
@@ -200,7 +200,7 @@ $_PROFILE_MODULES = array (
   array (
     'id' => '16',
     'module_name' => 'filter_markdownExt',
-    'module_version' => '1.70',
+    'module_version' => '1.7',
     'menu_item' => '0',
     'run_level' => '0',
     'load_on' => NULL,
@@ -209,12 +209,11 @@ $_PROFILE_MODULES = array (
     'public_clone_url' => 'git://github.com/diversen/filter_markdownExt.git',
     'private_clone_url' => 'git@github.com:diversen/filter_markdownExt.git',
   ),
-
-  17 => 
+  16 => 
   array (
-    'id' => '18',
+    'id' => '17',
     'module_name' => 'blog',
-    'module_version' => '1.70',
+    'module_version' => '1.7',
     'menu_item' => '1',
     'run_level' => '0',
     'load_on' => NULL,
@@ -223,11 +222,11 @@ $_PROFILE_MODULES = array (
     'public_clone_url' => 'git://github.com/diversen/blog.git',
     'private_clone_url' => 'git@github.com:diversen/blog.git',
   ),
-  18 => 
+  17 => 
   array (
-    'id' => '19',
+    'id' => '18',
     'module_name' => 'tags',
-    'module_version' => '1.70',
+    'module_version' => '1.7',
     'menu_item' => '1',
     'run_level' => '0',
     'load_on' => NULL,
@@ -236,11 +235,11 @@ $_PROFILE_MODULES = array (
     'public_clone_url' => 'git://github.com/diversen/tags.git',
     'private_clone_url' => 'git@github.com:diversen/tags.git',
   ),
-  19 => 
+  18 => 
   array (
-    'id' => '20',
+    'id' => '19',
     'module_name' => 'rss',
-    'module_version' => '1.70',
+    'module_version' => '1.7',
     'menu_item' => '0',
     'run_level' => '0',
     'load_on' => NULL,
@@ -249,11 +248,11 @@ $_PROFILE_MODULES = array (
     'public_clone_url' => 'git://github.com/diversen/rss.git',
     'private_clone_url' => 'git@github.com:diversen/rss.git',
   ),
-  20 => 
+  19 => 
   array (
-    'id' => '21',
+    'id' => '20',
     'module_name' => 'remote',
-    'module_version' => '1.70',
+    'module_version' => '1.7',
     'menu_item' => '0',
     'run_level' => '0',
     'load_on' => NULL,
@@ -262,11 +261,11 @@ $_PROFILE_MODULES = array (
     'public_clone_url' => 'git://github.com/diversen/remote.git',
     'private_clone_url' => 'git@github.com:diversen/remote.git',
   ),
-  21 => 
+  20 => 
   array (
-    'id' => '22',
+    'id' => '21',
     'module_name' => 'configdb',
-    'module_version' => '1.70',
+    'module_version' => '1.7',
     'menu_item' => '0',
     'run_level' => '2',
     'load_on' => NULL,
@@ -275,11 +274,11 @@ $_PROFILE_MODULES = array (
     'public_clone_url' => 'git://github.com/diversen/configdb.git',
     'private_clone_url' => 'git@github.com:diversen/configdb.git',
   ),
-  22 => 
+  21 => 
   array (
-    'id' => '23',
+    'id' => '22',
     'module_name' => 'locales',
-    'module_version' => '1.70',
+    'module_version' => '1.7',
     'menu_item' => '1',
     'run_level' => '0',
     'load_on' => NULL,
@@ -288,11 +287,11 @@ $_PROFILE_MODULES = array (
     'public_clone_url' => 'git://github.com/diversen/locales.git',
     'private_clone_url' => 'git@github.com:diversen/locales.git',
   ),
-  23 => 
+  22 => 
   array (
-    'id' => '24',
+    'id' => '23',
     'module_name' => 'menus',
-    'module_version' => '1.70',
+    'module_version' => '1.7',
     'menu_item' => '1',
     'run_level' => '0',
     'load_on' => NULL,
@@ -301,11 +300,11 @@ $_PROFILE_MODULES = array (
     'public_clone_url' => 'git://github.com/diversen/menus.git',
     'private_clone_url' => 'git@github.com:diversen/menus.git',
   ),
-  24 => 
+  23 => 
   array (
-    'id' => '25',
+    'id' => '24',
     'module_name' => 'jquerysort',
-    'module_version' => '1.70',
+    'module_version' => '1.7',
     'menu_item' => '0',
     'run_level' => '0',
     'load_on' => NULL,
@@ -314,11 +313,11 @@ $_PROFILE_MODULES = array (
     'public_clone_url' => 'git://github.com/diversen/jquerysort.git',
     'private_clone_url' => 'git@github.com:diversen/jquerysort.git',
   ),
-  25 => 
+  24 => 
   array (
-    'id' => '26',
+    'id' => '25',
     'module_name' => 'vote',
-    'module_version' => '1.70',
+    'module_version' => '1.7',
     'menu_item' => '0',
     'run_level' => '0',
     'load_on' => NULL,
@@ -327,11 +326,11 @@ $_PROFILE_MODULES = array (
     'public_clone_url' => 'git://github.com/diversen/vote.git',
     'private_clone_url' => 'git@github.com:diversen/vote.git',
   ),
-  26 => 
+  25 => 
   array (
-    'id' => '27',
+    'id' => '26',
     'module_name' => 'image_captcha',
-    'module_version' => '1.70',
+    'module_version' => '1.7',
     'menu_item' => '0',
     'run_level' => '0',
     'load_on' => NULL,
@@ -340,11 +339,11 @@ $_PROFILE_MODULES = array (
     'public_clone_url' => 'git://github.com/diversen/image_captcha.git',
     'private_clone_url' => 'git@github.com:diversen/image_captcha.git',
   ),
-  27 => 
+  26 => 
   array (
-    'id' => '28',
+    'id' => '27',
     'module_name' => 'flood',
-    'module_version' => '1.70',
+    'module_version' => '1.7',
     'menu_item' => '0',
     'run_level' => '0',
     'load_on' => NULL,
@@ -353,11 +352,11 @@ $_PROFILE_MODULES = array (
     'public_clone_url' => 'git://github.com/diversen/flood.git',
     'private_clone_url' => 'git@github.com:diversen/flood.git',
   ),
-  28 => 
+  27 => 
   array (
-    'id' => '29',
+    'id' => '28',
     'module_name' => 'video',
-    'module_version' => '1.70',
+    'module_version' => '1.7',
     'menu_item' => '0',
     'run_level' => '0',
     'load_on' => NULL,
@@ -366,11 +365,11 @@ $_PROFILE_MODULES = array (
     'public_clone_url' => 'git://github.com/diversen/video.git',
     'private_clone_url' => 'git@github.com:diversen/video.git',
   ),
-  29 => 
+  28 => 
   array (
-    'id' => '30',
+    'id' => '29',
     'module_name' => 'block_manip',
-    'module_version' => '1.70',
+    'module_version' => '1.7',
     'menu_item' => '1',
     'run_level' => '0',
     'load_on' => NULL,
@@ -386,56 +385,56 @@ $_PROFILE_TEMPLATES = array (
   array (
     'public_clone_url' => 'git://github.com/diversen/clean.git',
     'private_clone_url' => 'git@github.com:diversen/clean.git',
-    'module_version' => '1.70',
+    'module_version' => '1.7',
     'module_name' => 'clean',
   ),
   1 => 
   array (
     'public_clone_url' => 'git://github.com/diversen/zimpleza.git',
     'private_clone_url' => 'git@github.com:diversen/zimpleza.git',
-    'module_version' => '1.70',
+    'module_version' => '1.7',
     'module_name' => 'zimpleza',
   ),
   2 => 
   array (
     'public_clone_url' => 'git://github.com/diversen/flowplayer.git',
     'private_clone_url' => 'git@github.com:diversen/flowplayer.git',
-    'module_version' => '1.70',
+    'module_version' => '1.7',
     'module_name' => 'flowplayer',
   ),
   3 => 
   array (
     'public_clone_url' => 'git://github.com/diversen/1kbgrid.git',
     'private_clone_url' => 'git@github.com:diversen/1kbgrid.git',
-    'module_version' => '1.70',
+    'module_version' => '1.7',
     'module_name' => '1kbgrid',
   ),
   4 => 
   array (
     'public_clone_url' => 'git://github.com/diversen/openid-selector.git',
     'private_clone_url' => 'git@github.com:diversen/openid-selector.git',
-    'module_version' => '1.70',
+    'module_version' => '1.7',
     'module_name' => 'openid-selector',
   ),
   5 => 
   array (
     'public_clone_url' => 'git://github.com/diversen/fancybox.git',
     'private_clone_url' => 'git@github.com:diversen/fancybox.git',
-    'module_version' => '1.70',
+    'module_version' => '1.7',
     'module_name' => 'fancybox',
   ),
   6 => 
   array (
     'public_clone_url' => 'git://github.com/diversen/js-toc.git',
     'private_clone_url' => 'git@github.com:diversen/js-toc.git',
-    'module_version' => '1.70',
+    'module_version' => '1.7',
     'module_name' => 'js-toc',
   ),
   7 => 
   array (
     'public_clone_url' => 'git://github.com/diversen/jquery-markedit.git',
     'private_clone_url' => 'git@github.com:diversen/jquery-markedit.git',
-    'module_version' => '1.70',
+    'module_version' => '1.7',
     'module_name' => 'jquery-markedit',
   ),
 );
