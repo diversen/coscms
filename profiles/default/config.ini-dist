@@ -41,6 +41,6 @@ hostname = 'dennis-Rev-1-0'
 
 [development]
 server_name = 'osnet'
-;server_redirect ='osnet'
+server_redirect ='osnet'
 hostname = 'dennis-Rev-1-0'
 
