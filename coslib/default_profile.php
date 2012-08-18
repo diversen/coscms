@@ -26,15 +26,21 @@ class default_profile {
      * @param array $row
      * @return string $str html logout link 
      */
-    public static function getLogoutHTML ($row = null) {
+    public static function getLogoutHTML ($id = null) {
         $logout_url = "/account/login/index/1";
-        $profile = self::getProfile(session::getUserId());
+        
+        
+        //$profile = self::getProfile(session::getUserId());
+        $db = new db();
+        $profile = $db->selectOne('account', 'id', $id);
+        //if (!empty($row)) return $row;
+        
         
         $link = lang::translate('system_profile_logout');
         $str = html::createLink(
                 $logout_url, 
                 $link);
-        $str.= " ($row[email])";
+        $str.= " ($profile[email])";
         return $str;
     } 
     
@@ -44,9 +50,7 @@ class default_profile {
      * @return string $str return empty string
      */
     public function getProfile ($id = null) {
-        $db = new db();
-        $row = $db->selectOne('account', 'id', $id);
-        if (!empty($row)) return $row;
+        
         return '';
     }
     
