@@ -325,10 +325,16 @@ class intl {
     
     /**
      * method for getting browser language
-     * @return string $res e.g. en, da, it, fr 
+     * @return array $browser e.g. array ('language' => 'en', 'language_long => 'en_GB');
      */
-    function getBrowserLang () {
-        return substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2);
+    public static function getBrowserLang () {
+        include_once "Zend/Locale.php";
+
+        $zend_locale = new Zend_Locale(Zend_Locale::BROWSER);
+        $browser = array ();
+        $browser['language'] = $zend_locale->getLanguage();
+        $browser['language_long'] = $zend_locale->toString();
+        return $browser;
 
     }
 }
