@@ -322,4 +322,13 @@ class intl {
 	);
 
     }
+    
+    /**
+     * method for getting browser language
+     * @return string $res e.g. en, da, it, fr 
+     */
+    function getBrowserLang () {
+        return substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2);
+
+    }
 }
