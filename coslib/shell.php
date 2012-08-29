@@ -217,9 +217,7 @@ class mainCli {
         $ret = @$db->connect(array('dont_die' => 1));
       
         if ($ret == 'NO_DB_CONN'){
-
             // if no db conn we exists before loading any more modules.
-            cos_cli_print("Notice: No db exists!");
             return;
         }
 
@@ -254,9 +252,20 @@ class mainCli {
      * base modules are placed in coslib/shell_base
      */
     public static function loadBaseModules () {
+        
+        $options = array ('search' => '.inc');
         $coslib_path = file::getFirstCoslibPath();
         $command_path = $coslib_path . '/shell_base';
-        $file_list = file::getFileList($command_path);
+        $file_list = file::getFileList($command_path, $options);
+        
+
+        foreach ($file_list as $val){
+            $path =  $command_path . "/$val";
+            include_once $path;
+        }
+        
+        $command_path = $coslib_path . '/shell_base/locale';
+        $file_list = file::getFileList($command_path, $options);
 
         foreach ($file_list as $val){
             $path =  $command_path . "/$val";

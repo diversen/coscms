@@ -1,9 +1,11 @@
 <?php
 
+/**
 class config {
     public static $vars = array();
-}
+} */
 
+include_once "../coslib/config.php";
 config::$vars['coscms_main'] = array();
 
 $path = realpath('..');
@@ -22,28 +24,50 @@ $_COS_DEBUG['timer']['start'] = microtime();
 // set base path in debug info
 $_COS_DEBUG['cos_base_path'] = _COS_PATH;
 
+echo _COS_PATH;
+
 // set include path
 $ini_path = ini_get('include_path');
 ini_set('include_path',
     _COS_PATH . PATH_SEPARATOR . "." . PATH_SEPARATOR .
     _COS_PATH . '/lib/vendor' . PATH_SEPARATOR .
-    _COS_PATH . "/lib");
+    _COS_PATH . "/cosllib");
 
 // parse main config.ini file
 $_COS_DEBUG['include_path'] = ini_get('include_path');
 
-include_once "common.php";
+//include_once "common.php";
 
 // register::$vars['coscms_main'] is used as a register for holding global settings.
 config::$vars['coscms_main'] = config::getIniFileArray(_COS_PATH . '/config/config.ini', true);
 
-include_once "db.php";
-include_once "moduleInstaller.php";
+include_once "coslib/config.php";
+include_once "coslib/file.php";
+include_once "coslib/strings.php";
+include_once "coslib/db.php";
+include_once "coslib/uri.php";
+include_once "coslib/moduleLoader.php";
+include_once "coslib/session.php";
+include_once "coslib/html.php";
+include_once "coslib/layout.php";
+include_once "coslib/template.php";
+include_once "coslib/event.php";
+include_once "coslib/mail.php";
+include_once "coslib/validate.php";
+include_once "coslib/http.php";
+include_once "coslib/user.php";
+include_once "coslib/log.php";
+include_once "coslib/lang.php";
+include_once "coslib/time.php";
+include_once "coslib/urldispatch.php";
+include_once "coslib/moduleInstaller.php";
+include_once "coslib/shell_base/profile.inc";
 
 /**
  *
  * @param <string> $module name of module to be installed.
  */
+/*
 function install_module($module){
     $install = new moduleInstaller($module);
     $ret = $install->install();
@@ -53,7 +77,7 @@ function install_module($module){
         print $install->confirm . "<br />";
     }
 }
-
+*/
 /**
  * class installDb
  * Only method change is connect.
@@ -127,13 +151,15 @@ if ($num_rows == 0){
     $res = $db->rawQuery($sql);
 
     // if positive we install base modules.
+   
     if ($res){
-        echo install_module('error');
-        echo install_module('settings');
-        echo install_module('account');
-        echo install_module('path_manip');
-        echo install_module('content');
+        install_from_profile(array ('profile' => 'default'));
+        //echo install_module('error');
+        //echo install_module('settings');
+        //echo install_module('account');
+        //echo install_module('path_manip');
+        //echo install_module('content');
     }
 } else {
-    print "System is already installed! Error<br>";
+    echo "System is already installed! Error<br>";
 }

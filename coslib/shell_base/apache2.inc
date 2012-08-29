@@ -128,7 +128,7 @@ mainCli::setOption('a2_use_ssl', array(
 
 mainCli::setOption('a2_enable_site', array(
     'long_name'   => '--enable',
-    'description' => 'Will enable current directory as an apache2 virtual host. Will also add new sitename to your /et/hosts file',
+    'description' => 'Will enable current directory as an apache2 virtual host. Will also add new sitename to your /etc/hosts file',
     'action'      => 'StoreTrue'
 ));
 
