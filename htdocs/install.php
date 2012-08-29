@@ -24,14 +24,16 @@ $_COS_DEBUG['timer']['start'] = microtime();
 // set base path in debug info
 $_COS_DEBUG['cos_base_path'] = _COS_PATH;
 
-echo _COS_PATH;
+//echo _COS_PATH;
 
 // set include path
 $ini_path = ini_get('include_path');
-ini_set('include_path',
-    _COS_PATH . PATH_SEPARATOR . "." . PATH_SEPARATOR .
-    _COS_PATH . '/lib/vendor' . PATH_SEPARATOR .
-    _COS_PATH . "/cosllib");
+//$ini_path = ini_get('include_path');
+ini_set('include_path', 
+    _COS_PATH . PATH_SEPARATOR . 
+    _COS_PATH . '/vendor' . PATH_SEPARATOR .
+    _COS_PATH . "/coslib" . PATH_SEPARATOR . _COS_PATH . '/modules' . 
+        $ini_path . PATH_SEPARATOR);
 
 // parse main config.ini file
 $_COS_DEBUG['include_path'] = ini_get('include_path');
@@ -63,21 +65,7 @@ include_once "coslib/urldispatch.php";
 include_once "coslib/moduleInstaller.php";
 include_once "coslib/shell_base/profile.inc";
 
-/**
- *
- * @param <string> $module name of module to be installed.
- */
-/*
-function install_module($module){
-    $install = new moduleInstaller($module);
-    $ret = $install->install();
-    if (!$ret) {
-        print $install->error . "<br />";
-    } else {
-        print $install->confirm . "<br />";
-    }
-}
-*/
+
 /**
  * class installDb
  * Only method change is connect.
@@ -99,28 +87,29 @@ class installDb extends db {
 }
 
 
-$version = "5.2.0";
+$version = "5.3.0";
 if (version_compare( $version, phpversion(), ">=")) {
-    echo 'We need PHP version 5.2.0 or higher, my version: ' . PHP_VERSION . " ERROR<br>";
+    echo "We need PHP version $version or higher, my version: " . PHP_VERSION . " ERROR<br>";
 } else {
     echo "Version " . phpversion() . " OK. We need $version<br />"; 
 }
 
-
-
 $ary = get_loaded_extensions();
 if (in_array('PDO', $ary)){
     echo "PDO is installed. OK<br>";
+} else {
+    die("No PDO<br />");
 }
 
 if (in_array('pdo_mysql', $ary)){
     echo "PDO MySql is installed. OK<br>";
+} else {
+    die("No PDO MySQL<br />");
 }
 
 if (get_magic_quotes_gpc()){
     echo "magic_quotes_gpc is on. Error";
     die();
-
 } else {
     echo "magic_quotes_gpc is off. OK<br>";
 }
@@ -137,7 +126,6 @@ try {
 // home menu item in table 'menus' will be set if an install has been made.
 // we check if there are rows in 'menus'
 
-
 try {
     $num_rows = $db->getNumRows('menus');
 } catch (PDOException $e) {   
@@ -151,15 +139,84 @@ if ($num_rows == 0){
     $res = $db->rawQuery($sql);
 
     // if positive we install base modules.
-   
     if ($res){
         install_from_profile(array ('profile' => 'default'));
-        //echo install_module('error');
-        //echo install_module('settings');
-        //echo install_module('account');
-        //echo install_module('path_manip');
-        //echo install_module('content');
     }
+    echo "Base system installed.<br />";
+
+    
+    
 } else {
-    echo "System is already installed! Error<br>";
+    echo "System is installed! <br>";
+    echo "If something is wrong. Try to drop database and retry install<br />";
+    
+}
+
+    $users = $db->getNumRows('account');
+    if ($users == 0) {
+        web_install_add_user();
+    } else {
+        echo "User exists. Install OK<br />\n";
+    }
+
+
+function web_install_add_user () {
+
+        $layout = new layout();
+
+        $errors = array ();
+        
+        if (isset($_POST['submit'])) {
+            $_POST = html::specialEncode($_POST);
+            if (empty($_POST['pass1'])) {
+                $errors[] = 'Please enter a password';
+            }
+            
+            if ($_POST['pass1'] != $_POST['pass2']) {
+                $errors[] = 'Not same passwords';
+            }
+            if (empty ($_POST['email'])) {
+                $errors[] = 'Please enter an email';
+            }
+            
+            if (!empty($errors)){
+                view_form_errors($errors);
+            } else {
+                $db = new db();
+                
+                $_POST = html::specialDecode($_POST);
+                $values = array ();
+                
+                $values['email'] = $_POST['email'];
+                $values['password'] = md5($_POST['pass1']); // MD5
+                $values['username'] = $_POST['email'];
+                $values['verified'] = 1;
+                $values['admin'] = 1;
+                $values['super'] = 1;
+                $values['type'] = 'email';
+
+                $db->insert('account', $values);
+                http::locationHeader("/account/login/index", 
+                        'Account created. You may log in');
+                //web_install_add_user();
+            }
+        }
+
+        web_install_user_form ();
+}
+
+function web_install_user_form () {
+    $form = new html();
+    $form->formStart();
+    $form->init(null, 'submit');
+    $form->legend('Add User');
+    $form->label('email', 'Enter email of user:');
+    $form->text('email');
+    $form->label('pass1', 'Enter password');
+    $form->password('pass1');
+    $form->label('pass2', 'Retype password');
+    $form->password('pass2');
+    $form->submit('submit', 'Submit');
+    $form->formEnd();
+    echo $form->getStr();
 }
