@@ -127,8 +127,13 @@ if (!defined('_COS_CLI')){
     // set locale for time and monetary
     // if the array locale is not sepcified we set time and money
     // according to locales
-    setlocale(LC_TIME, $locale);
-    setlocale(LC_MONETARY, $locale);
+    if (config::isWindows()) {
+        // set to system locale
+        setlocale(LC_ALL, '');
+    } else {
+        setlocale(LC_TIME, $locale);
+        setlocale(LC_MONETARY, $locale);
+    }
     
     // set default timezone
     date_default_timezone_set(config::$vars['coscms_main']['date_default_timezone']);
