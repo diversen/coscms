@@ -322,4 +322,16 @@ class intl {
 	);
 
     }
+    
+    /**
+     * transforms a decimal number to secified locale
+     * @param string $locale e.g. en_US
+     * @param decimal $decimal 
+     * @return decimal $decimal
+     */
+    public static function formatCurrency ($locale, $decimal) {
+        
+        $formatter = new NumberFormatter($locale, NumberFormatter::CURRENCY);
+        return $formatter->format($decimal);
+    }
 }
