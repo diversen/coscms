@@ -527,7 +527,7 @@ mainCli::setOption('git_echo_remote_tags', array(
 ));
 
 mainCli::setOption('git_coscms_pull', array(
-    'long_name'   => '--pull',
+    'long_name'   => '--pull-base',
     'description' => 'Will pull latest master of CosCMS',
     'action'      => 'StoreTrue'
 ));
