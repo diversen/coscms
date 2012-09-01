@@ -4,7 +4,7 @@
  * @package shell
  *
  */
-
+include_once "coslib/shell_base/useradd.inc";
 /**
  * Adds a super user directly. Password have to be the md5 of the real password. 
  * @param array $options

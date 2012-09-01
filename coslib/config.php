@@ -399,6 +399,18 @@ class config {
         }
         return $content;
     }
+    
+    /**
+     * checks if we are on a windows server
+     * @return boolean $res
+     */
+    public static function isWindows () {
+        if (isset($_SERVER['WINDIR'])) {
+            return true;
+        }
+        return false;
+
+    }
 }
 
 /**
