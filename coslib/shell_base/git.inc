@@ -441,6 +441,11 @@ function git_echo_remote_tags ($options){
     cos_cli_print("Latest is: $latest");
 }
 
+function git_coscms_pull ($version = null) {
+    $command = 'git pull';
+    passthru($command);
+}
+
 
 
 mainCli::setCommand('git', array(
@@ -521,7 +526,11 @@ mainCli::setOption('git_echo_remote_tags', array(
     'action'      => 'StoreTrue'
 ));
 
-
+mainCli::setOption('git_coscms_pull', array(
+    'long_name'   => '--pull',
+    'description' => 'Will pull latest master of CosCMS',
+    'action'      => 'StoreTrue'
+));
 
 mainCli::setArgument(
     'repo',

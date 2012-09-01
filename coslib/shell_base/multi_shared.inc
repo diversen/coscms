@@ -1,6 +1,6 @@
 <?php
 
-function multi_all_up ($options = null) {
+function multi_shared_all_up ($options = null) {
     $path = _COS_PATH . "/config/multi/*";    
     $dirs = file::getDirsGlob($path, array ('basename' => 1));
     //print_r($options); die;
@@ -22,7 +22,7 @@ function multi_all_up ($options = null) {
     }
 }
 
-function multi_exec_command ($options = null) {
+function multi_shared_exec_command ($options = null) {
     
     $path = _COS_PATH . "/config/multi/*";  
     if (!isset($options['command'])) {
@@ -45,13 +45,13 @@ mainCli::setCommand('multi-shared', array(
     'description' => 'Commands used on a multi domain server where multiple hosts share same code base',
 ));
 
-mainCli::setOption('multi_all_up', array(
+mainCli::setOption('multi_shared_all_up', array(
     'long_name'   => '--all-up',
     'description' => 'Will upgrade all sites found in config/multi',
     'action'      => 'StoreTrue'
 ));
 
-mainCli::setOption('multi_exec_command', array(
+mainCli::setOption('multi_shared_exec_command', array(
     'long_name'   => '--exec',
     'description' => 'Will execute given command on all multi sites. E.g: ./coscli.sh multi --exec \'module --mod-down meta\'',
     'action'      => 'StoreTrue'
