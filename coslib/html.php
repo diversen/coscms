@@ -303,14 +303,18 @@ class HTML {
     public static function labelClean ($label_for, $label = '', $options = array()) {
         if (isset($options['required'])) {
             $label = "* " . $label;
+            unset($options['required']);
         }
         
+        $options = self::parseExtra($options);
         if ($label_for == 'captcha') {
-            // no label for images
+            // no label for captcha images
             $str = $label. self::$br;
         } else {
-            $str = "<label for=\"$label_for\">$label</label>" . self::$br . "\n";
+            $str = "<label for=\"$label_for\" $options>$label</label>" . self::$br . "\n";
         }
+        
+        
         return $str;
     }
 
@@ -807,8 +811,8 @@ EOF;
     public static function select(
             $name, 
             $rows, 
-            $field, 
-            $id, 
+            $field = 'title', 
+            $id = 'id', 
             $value=null, 
             $extra = array(), 
             $init = array()){        
@@ -832,7 +836,11 @@ EOF;
      * 
      */
     public static function selectClean($name, $rows, $field, $id, $value = null, $extra = array(), $init = array()){        
+        if (!isset($extra['id'])) {
+            $extra['id'] = $name;
+        }
         $extra = self::parseExtra($extra);
+        
         $dropdown = "<select name=\"$name\" $extra";
 
         if (!isset($value)) {

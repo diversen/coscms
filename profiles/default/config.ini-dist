@@ -1,6 +1,6 @@
 url = "mysql:dbname=osnet;host=localhost"
 username = "root"
-password = "iversen1234"
+password = "pass"
 server_name = "www.os-cms.net"
 ;server_redirect = 'www.os-cms.net'
 send_mail = 1
@@ -18,7 +18,7 @@ date_format_short = "%d-%b-%Y"
 locale = "en_GB.utf8"
 language = "en_GB"
 lang = "en"
-session_time = 0
+session_time = -1
 session_path = "/"
 session_host = ""
 session_handler = "memcache"
@@ -41,6 +41,6 @@ hostname = 'dennis-Rev-1-0'
 
 [development]
 server_name = 'osnet'
-;server_redirect ='osnet'
+server_redirect ='osnet'
 hostname = 'dennis-Rev-1-0'
 

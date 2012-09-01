@@ -63,7 +63,7 @@ class log {
  * @param mixed $message
  * @param boolean $write_file
  */
-function cos_error_log ($message, $write_file = null) {
+function cos_error_log ($message, $write_file = 1) {
     if (!is_string($message)) {
         $message = var_export($message, true);
     }

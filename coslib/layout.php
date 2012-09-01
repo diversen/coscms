@@ -396,6 +396,8 @@ class layout {
             $str.= "</li>\n";
         }
         
+        if (empty($str)) return '';
+        
         return "<ul>\n$str</ul>\n";
     }
     

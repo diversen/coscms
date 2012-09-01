@@ -322,4 +322,33 @@ class intl {
 	);
 
     }
+    
+    /**
+<<<<<<< HEAD
+     * transforms a decimal number to secified locale
+     * @param string $locale e.g. en_US
+     * @param decimal $decimal 
+     * @return decimal $decimal
+     */
+    public static function formatCurrency ($locale, $decimal) {
+        
+        $formatter = new NumberFormatter($locale, NumberFormatter::CURRENCY);
+        return $formatter->format($decimal);
+
+    }
+    
+    /**
+     * method for getting browser language
+     * @return array $browser e.g. array ('language' => 'en', 'language_long => 'en_GB');
+     */
+    public static function getBrowserLang () {
+        include_once "Zend/Locale.php";
+
+        $zend_locale = new Zend_Locale(Zend_Locale::BROWSER);
+        $browser = array ();
+        $browser['language'] = $zend_locale->getLanguage();
+        $browser['language_long'] = $zend_locale->toString();
+        return $browser;
+
+    }
 }

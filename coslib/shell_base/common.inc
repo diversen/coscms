@@ -16,14 +16,14 @@
  */
 function cos_readline($str){
     echo $str;
-    if (function_exists('readline') ){
-        $out = readline();
-        return $out;
-    } else {
+    //if (function_exists('readline') ){
+    //    $out = readline($str);
+    //    return $out;
+    //} else {
         // if not readline we use this
         // we could actually just use this .)
         // found at php.net
-        //print $str;
+
         $out = "";
         $key = "";
         $key = fgetc(STDIN);        //read from standard input (keyboard)
@@ -31,7 +31,7 @@ function cos_readline($str){
             $out.= $key;
             $key = fread(STDIN, 1);
         }
-    }
+    //}
     return $out;
 }
 
