@@ -802,7 +802,30 @@ class templateView {
      * @return string $parsed the parsed template view  
      */
     public static function get ($module, $view, $vars = null) {
+       
+        // only template who has set name will be able to override this way
+        $template = config::getModuleIni('template_name');
+        if ($template) {
+            $override = _COS_PATH . "/htdocs/templates/$template/$module/$view.inc";
+            if (is_file($override)) {
+                return self::getFileView($override, $vars);
+            }
+        }
         return self::includeModuleView($module, $view, $vars, 1);
+    }
+    
+    /**
+     * gets a direct file view
+     * @param string $filename
+     * @param mixed $vars
+     * @return strin $str 
+     */
+    public static function getFileView ($filename, $vars = null) {
+            ob_start();
+            include $filename;
+            $contents = ob_get_contents();
+            ob_end_clean();
+            return $contents;
     }
 }
 

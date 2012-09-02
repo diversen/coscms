@@ -222,6 +222,31 @@ class strings {
     } 
 
     /**
+     * method for counting occurences of a set of chars
+     * modified from: 
+     * 
+     * http://stackoverflow.com/a/4736123/464549
+     * 
+     * @param string $char_string
+     * @param string $haystack
+     * @param boolean $case_sensitive
+     * @return int $res
+     */
+    public static function occurences($char_string, $haystack, $case_sensitive = true){
+        if($case_sensitive === false){
+            $char_string = strtolower($char_string);
+            $haystack = strtolower($haystack);
+        }
+
+        $characters = str_split($char_string);
+        $character_count = 0;
+        foreach($characters as $character){
+            $character_count = $character_count + substr_count($haystack, $character);
+        }
+        return $character_count;
+    }
+
+    /**
      * @ignore
      */
     public static function trimArray () {

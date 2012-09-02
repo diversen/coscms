@@ -18,6 +18,7 @@ if (!defined('_COS_CLI')){
  */
 define('NEW_LINE', $new_line);
 include_once "coslib/db.php";
+include_once "coslib/shell_base/common.inc";
 
 /**
  * class for installing a module or upgrading it.
@@ -756,32 +757,31 @@ class moduleInstaller extends db {
             foreach ($updates as $key => $val){
                 $version = substr($val, 0, -4);
                 if ($current_version < $version ) {
-                    //try {
                         $sql =  $this->getSqlFileString(
                                     $this->installInfo['NAME'],
                                     $version,
                                     'up');
                         $sql_ary = explode ("\n\n", $sql);
-                        foreach ($sql_ary as $sql_key => $sql_val) {
+                        foreach ($sql_ary as  $sql_val) {
                             try {
-                                $result = self::$dbh->query($sql_val);
+                                self::$dbh->query($sql_val);
                             } catch (Exception $e) {
                                  echo 'Caught exception: ',  $e->getMessage(), "\n";
                                  echo "version of sql: $version";
                                  die;;
                             }
                         }
-                        
-                    //} catch (PDOException $e) {
-                      //  $this->fatalError($e->getMessage());
-                    //}
                 }
+                
+                $this->callUpdateFunction($version);
                 // only upgrade to specified version
                 if ($version == $specific) break;
             }
         }
 
 
+        
+        
         // update registry
         $this->updateRegistry($specific, $row['id']);
         if ( $specific > $current_version ){
@@ -793,6 +793,17 @@ class moduleInstaller extends db {
         } else {
             $this->confirm = "module: " . $this->installInfo['NAME'] . " Nothing to upgrade. module version is still $current_version";
             return true;
+        }
+    }
+    
+    public function callUpdateFunction ($version) {
+        $update_file = _COS_PATH . "/modules/" . $this->installInfo['NAME'] . "/update.inc";
+        if (file_exists($update_file)) {
+            include_once $update_file;
+            $update_func = $this->installInfo['NAME'] . "_update";
+            if(function_exists($update_func)) {
+                $update_func($version);
+            }
         }
     }
 }

@@ -178,7 +178,7 @@ function update_ini_file ($options){
     }
 }
 
-
+if (cos_is_cli()){
 mainCli::setCommand('module', array(
     'description' => 'Commands for installing and uninstalling modules (only locale)',
 ));
@@ -233,3 +233,4 @@ mainCli::setArgument(
     array('description'=> 'Specify the version to upgrade or downgrade to',
         'optional' => true,
 ));
+}

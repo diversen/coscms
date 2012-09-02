@@ -102,6 +102,14 @@ function dateGetDateNow ($options = array ()) {
     return $date;
 }
 
+function dateGetDateNowLocale ($format) {
+    if (!$format) {
+        $format = '%Y-%m-%d';
+    }
+        
+    return strftime($format);
+}
+
 /**
  * add days to a timestamp
  * @param string $from start date

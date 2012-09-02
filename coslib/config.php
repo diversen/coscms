@@ -235,7 +235,7 @@ class config {
             // NOT take effect on CLI ini settings
             if (isset(config::$vars['coscms_main']['stage'])){
                 if (
-                    config::$vars['coscms_main']['stage']['hostname'] ==
+                    @config::$vars['coscms_main']['stage']['hostname'] ==
                        config::getHostnameFromCli() )
  
                     {
@@ -255,7 +255,8 @@ class config {
             // Development settings will ALSO be added to CLI
             // ini settings
             if (isset(config::$vars['coscms_main']['development'])){
-                if (config::$vars['coscms_main']['development']['hostname'] ==
+                if (
+		    @config::$vars['coscms_main']['development']['hostname'] ==
                         config::getHostnameFromCli() )
 
                     {
@@ -397,6 +398,18 @@ class config {
             }
         }
         return $content;
+    }
+    
+    /**
+     * checks if we are on a windows server
+     * @return boolean $res
+     */
+    public static function isWindows () {
+        if (isset($_SERVER['WINDIR'])) {
+            return true;
+        }
+        return false;
+
     }
 }
 
