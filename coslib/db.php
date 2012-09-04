@@ -715,6 +715,7 @@ class QBuilder  {
         $fields = explode(',', $fields);
         $ary = array ();
         foreach ($fields as $field) {
+            $field = trim($field);
             $ary[] = " `$field` "; 
         }
         return implode(",", $ary);
