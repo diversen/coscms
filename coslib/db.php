@@ -743,6 +743,28 @@ class QBuilder  {
     }
     
     /**
+     * prepare for a select one row statement. 
+     * 
+     * @param string $table the table to select from 
+     * @param string $fields the fields from the table to select 
+     *             e.g. * or 'id, title'
+     */
+    
+    public static function setSelectOne ($table, $fields = null){
+        self::$method = 'select_one';
+        
+        if (!$fields) {
+            $fields = '*';
+        } else {
+            $fields = self::escapeFields($fields);
+        }
+        
+        self::$query = "SELECT $fields FROM `$table` ";
+        return new QBuilder;
+    }
+    
+    
+    /**
      * sets select statement for numrows
      * @param type $table
      * @return \QBuilder 
@@ -961,6 +983,12 @@ class QBuilder  {
 
             self::$stmt->execute();
             $rows = self::$stmt->fetchAll(PDO::FETCH_ASSOC);
+            if (self::$method == 'select_one') {
+                if (!empty($rows)) {
+                    $rows = $rows[0];
+                } 
+            }
+            
 
             self::unsetVars();
         } catch (Exception $e) {

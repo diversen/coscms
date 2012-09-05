@@ -533,6 +533,16 @@ class moduleLoader {
             return $str;
         }
     }
+    
+    /**
+     * returns a path from a module class name.
+     * e.g. content_article will return content/article
+     * @param string $class
+     * @return string $module_path 
+     */
+    public static function moduleClassToModelPath ($class) {
+        return $module_path = str_replace('_', '/', $class);
+    }
 
     /**
      * returns a modules class path from modules path
