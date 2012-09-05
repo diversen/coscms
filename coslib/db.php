@@ -552,7 +552,7 @@ class db {
      * @param   string  $sql to query
      * @return  object  $stmt the object returned from the query
      */
-    public function rawQuery($sql){
+    public static function rawQuery($sql){
         self::$debug[]  = "Trying to prepare rawQuery sql: $sql";
         $stmt = self::$dbh->query($sql);
         return $stmt;

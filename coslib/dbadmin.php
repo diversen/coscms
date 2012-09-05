@@ -23,7 +23,7 @@ class dbadmin extends db {
             $database = $db_curr['name'];  
         }
         $sql = "USE `$database`";
-        $this->rawQuery($sql);
+        self::rawQuery($sql);
     }
     
     /**

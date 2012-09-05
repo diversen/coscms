@@ -191,7 +191,7 @@ class imap {
         
         $parts['subject'] = $message->subject;
         // only one plain text message pe email
-        $parts['plain'] =  $message->getContent();        
+        $parts['plain'] =  ''; $message->getContent();        
         $parts['images'] = array ();
         $parts['movies'] = array ();
         $parts['unknown'] = array ();
