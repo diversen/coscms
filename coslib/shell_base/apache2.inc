@@ -13,8 +13,7 @@ function create_logs(){
     touch(_COS_PATH . '/logs/access.log');
     touch(_COS_PATH . '/logs/error.log');
 }
-// }}} 
-// {{{ function create_a2_conf()
+
 /**
  * create apache2 configuration string
  * @param   string  name of host to enable
