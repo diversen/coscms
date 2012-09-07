@@ -11,7 +11,7 @@
  *
  * @package    moduleloader
  */
-class moduleLoader {
+class moduleloader {
 
     /**
      * all enabled modules

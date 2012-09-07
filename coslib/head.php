@@ -32,7 +32,7 @@ include_once "coslib/file.php";
 include_once "coslib/strings.php";
 include_once "coslib/db.php";
 include_once "coslib/uri.php";
-include_once "coslib/moduleLoader.php";
+include_once "coslib/moduleloader.php";
 include_once "coslib/session.php";
 include_once "coslib/html.php";
 include_once "coslib/layout.php";
