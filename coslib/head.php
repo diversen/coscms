@@ -141,8 +141,14 @@ if (!defined('_COS_CLI')){
     // load url routes if any
     urldispatch::setDbRoutes();
 
-    // set files to load and init module.
-    $moduleLoader->setModuleInfo();
+    $controller = null;
+    $route = urldispatch::getMatchRoutes();
+    if ($route) {
+        // set files to load and init module.
+        $controller = '/' . $route['controller'];
+    } 
+    
+    $moduleLoader->setModuleInfo($controller);
     $moduleLoader->initModule();
 
     // include template class found in htdocs/templates
@@ -160,7 +166,9 @@ if (!defined('_COS_CLI')){
     // load page module
     // catch the included controller file with ob functions
     // and return the parsed page as html
+
     $str = $moduleLoader->loadModule();
+
    
     mainTemplate::printHeader();
     echo $str;

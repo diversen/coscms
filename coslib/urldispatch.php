@@ -85,9 +85,9 @@ class urldispatch {
         foreach ($routes as $pattern => $call) { 
             //echo $call;
             if (preg_match($pattern, self::$pathInfo['path'] , $matches)) {
-                echo $call;
+
                 $res = self::call($call, $matches);
-                print_r($matches);
+
                 return $res;
             } else {
                 // no pattern match
@@ -102,8 +102,27 @@ class urldispatch {
     public static function setDbRoutes () {
         $routes = dbQ::setSelect('system_route')->fetch();
         foreach ($routes as $route) {
-            config::$vars['coscms_main']['routes'][$route['route']] = unserialize($route['value']); 
- 
+            config::$vars['coscms_main']['routes'][$route['route']] = unserialize($route['value']);  
         }
+    }
+    
+    public static function getDbRoutes () {
+        return config::$vars['coscms_main']['routes'];
+    }
+    
+    public static function getMatchRoutes () {
+        self::parse();        
+        $matches = array();
+        $routes = self::getDbRoutes();
+
+        foreach ($routes as $pattern => $call) { 
+            
+            if (preg_match($pattern, self::$pathInfo['path'] , $matches)) {
+
+                return $call;
+            
+            } 
+        }
+        return false;
     }
 }

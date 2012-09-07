@@ -273,12 +273,9 @@ class moduleloader {
      * been possible to create routes and route a specific url to 
      * a specific controller. 
      */
-    public function setModuleInfo (){
-        
-        //$routes = config::getMainIni('routes');
-        //urldispatch::includeFile($routes);
-
-        $uri = uri::getInstance();
+    public function setModuleInfo ($route = null){
+                
+        $uri = uri::getInstance($route);
         $info = uri::getInfo();
        
         // if no module_base is set in the URI::info we can will use
