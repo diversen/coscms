@@ -101,6 +101,7 @@ class urldispatch {
      */
     public static function setDbRoutes () {
         $routes = dbQ::setSelect('system_route')->fetch();
+        if (empty($routes)) config::$vars['coscms_main']['routes'] = array ();
         foreach ($routes as $route) {
             config::$vars['coscms_main']['routes'][$route['route']] = unserialize($route['value']);  
         }
