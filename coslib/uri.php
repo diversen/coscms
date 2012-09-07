@@ -45,10 +45,8 @@ class uri {
      *
      */
     public static function getInstance($path = null) {
-        echo $path;
          if(is_null(self::$instance)){
              self::$instance = new uri($path);
-             //self::setInfo($path);
          }
          return self::$instance;
     }
