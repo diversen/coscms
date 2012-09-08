@@ -92,9 +92,7 @@ if (!defined('_COS_CLI')){
            
     // catch all output
     ob_start();
-    
-    
-
+   
     // init module loader. 
     // after this point we can check if module exists and fire events connected to
     // installed modules
@@ -144,10 +142,12 @@ if (!defined('_COS_CLI')){
     $controller = null;
     $route = urldispatch::getMatchRoutes();
     if ($route) {
-        // set files to load and init module.
-        $controller = '/' . $route['controller'];
+        // if any route is found we get controller from match
+        // else we load module in default way
+        $controller = $route['controller'];
     } 
     
+    // load module
     $moduleLoader->setModuleInfo($controller);
     $moduleLoader->initModule();
 
@@ -163,24 +163,25 @@ if (!defined('_COS_CLI')){
     // init blocks
     $layout->initBlocks();
 
-    // load page module
-    // catch the included controller file with ob functions
-    // and return the parsed page as html
-
-    $str = $moduleLoader->loadModule();
-
-   
+    // if any matching route was found we see 
+    // if we have a method in the loaded module
+    if (isset($route['method'])) {
+        $str = urldispatch::call($route['method']);       
+    } else {
+        // or we use default module loading
+        $str = $moduleLoader->loadModule();
+    }
+    
     mainTemplate::printHeader();
     echo $str;
-    
+
     $moduleLoader->runLevel(6);
     mainTemplate::printFooter();   
     config::$vars['final_output'] = ob_get_contents();
     ob_end_clean();
-    
+
     // Last divine intervention
     // e.g. Dom or Tidy
-
     $moduleLoader->runLevel(7); 
     echo config::$vars['final_output'];
 }

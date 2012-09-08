@@ -31,26 +31,27 @@ class urldispatch {
      * @param type $matches
      * @return boolean $res if no function or method is found return false. 
      */
-    public static function call ($call, $matches) {
+    public static function call ($call) {
         $ary = explode('::', $call);
+
+        
+        ob_start();
+        
+        // call is a function
         if (count($ary) == 1) {
             if (function_exists($call)) {
-                $call($matches);
-                return true;
-            } else {
-                return false;
-            }   
+                $call();
+            }
         }
         
+        // call is a class
         if (count($ary == 2)) {
             $class = $ary[0]; $method = $ary[1];
-            if (!method_exists($class, $method)) {
-                return false;
+            if (method_exists($class, $method)) {
+                $class::$method();
             }
-            $class::$method($matches);
-            return true;
         }    
-        return false;
+        return ob_get_clean();
     }
     
     /**
@@ -67,34 +68,12 @@ class urldispatch {
                 $res = self::call($call, $matches);
                 return $res;
             } else {
-                // no pattern match
                 return false;
             }
         }
     }
     
-    /**
-     * returns false if no matches are found. Return true
-     * if a match is found and called. 
-     * @param array $routes array of routes
-     * @return boolean $res true on success and false on failure.  
-     */
-    public static function includeFile ($routes) {
-        self::parse();        
-        $matches = array();
-        foreach ($routes as $pattern => $call) { 
-            //echo $call;
-            if (preg_match($pattern, self::$pathInfo['path'] , $matches)) {
 
-                $res = self::call($call, $matches);
-
-                return $res;
-            } else {
-                // no pattern match
-                return false;
-            }
-        }
-    }
     
     /**
      * sets db routes
@@ -107,21 +86,26 @@ class urldispatch {
         }
     }
     
+    /**
+     *  return all database routes
+     * @return array $routes
+     */
     public static function getDbRoutes () {
         return config::$vars['coscms_main']['routes'];
     }
     
+    /**
+     * examine path traverse routes and return match if any
+     * @return mixed $res false if no match or array with match
+     */
     public static function getMatchRoutes () {
         self::parse();        
         $matches = array();
         $routes = self::getDbRoutes();
-
+        
         foreach ($routes as $pattern => $call) { 
-            
             if (preg_match($pattern, self::$pathInfo['path'] , $matches)) {
-
                 return $call;
-            
             } 
         }
         return false;
