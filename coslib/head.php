@@ -163,8 +163,7 @@ if (!defined('_COS_CLI')){
     // init blocks
     $layout->initBlocks();
 
-    // if any matching route was found we see 
-    // if we have a method in the loaded module
+    // if any matching route was found we check for a method or funciton
     if (isset($route['method'])) {
         $str = urldispatch::call($route['method']);       
     } else {
