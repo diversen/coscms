@@ -50,6 +50,7 @@ class urldispatch {
         if (count($ary == 2)) {
             $class = $ary[0]; $method = $ary[1];
             if (method_exists($class, $method)) {
+                
                 $call_exists = 1;
                 $class::$method();
                 if (isset(moduleloader::$status[403])){
@@ -58,10 +59,10 @@ class urldispatch {
                 }     
             }
         }  
-        
-        if ($call_exists) {
+
+        //if ($call_exists) {
             return ob_get_clean();
-        }
+        //}
     }
     
     public static function checkAcces () {
