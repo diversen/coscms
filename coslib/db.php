@@ -599,9 +599,7 @@ class db {
         foreach ($keys as $val) {
             if (isset($_POST[$val])) {
                 $ary[$val] = $_POST[$val];
-            } else {
-                $ary[$val] = 0;
-            }
+            } 
         }
         return $ary;
     }
