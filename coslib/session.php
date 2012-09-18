@@ -217,15 +217,15 @@ class session {
      * @param boolean $close to close session writing or not
      */
     public static function setActionMessage($message, $close = false){
-            if (!isset($_SESSION['system_message'])) {
-                $_SESSION['system_message'] = array ();
-            } 
+        if (!isset($_SESSION['system_message'])) {
+            $_SESSION['system_message'] = array ();
+        } 
             
-            $_SESSION['system_message'][] = $message;
+        $_SESSION['system_message'][] = $message;
             
-            if ($close) {
-                session_write_close();
-            }
+        if ($close) {
+            session_write_close();
+        }
     }
 
     /**
@@ -239,7 +239,7 @@ class session {
             $ret = '';
             if (is_array ($messages)){
                 if (function_exists('template_get_action_message')) {
-                    $ret = template_geT_action_message ($messages);
+                    $ret = template_get_action_message ($messages);
                 } else {
                 
                     foreach ($messages as $message) {
