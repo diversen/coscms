@@ -324,17 +324,52 @@ class intl {
     }
     
     /**
-<<<<<<< HEAD
      * transforms a decimal number to secified locale
      * @param string $locale e.g. en_US
      * @param decimal $decimal 
      * @return decimal $decimal
      */
-    public static function formatCurrency ($locale, $decimal) {
-        
-        $formatter = new NumberFormatter($locale, NumberFormatter::CURRENCY);
-        return $formatter->format($decimal);
-
+    public static function formatCurrency ($locale, $decimal) {       
+        $f = new NumberFormatter($locale, NumberFormatter::CURRENCY);
+        return $f->format($decimal);
+    }
+    
+    /**
+     * formats a dicimal according to locale
+     * @param string $locale e.g. en_US
+     * @param string $decimal
+     * @param int $max_digits
+     * @param int $min_digits
+     * @return decimal $res
+     */
+    public static function formatDecimal ($locale, $decimal, $min_digits = 2, $max_digits = 2 )  {
+        $f = new NumberFormatter($locale, NumberFormatter::DECIMAL);
+        if ($min_digits) {
+            $f->setAttribute(NumberFormatter::MIN_FRACTION_DIGITS, $min_digits);
+        } 
+        if ($max_digits) {
+            $f->setAttribute(NumberFormatter::MAX_FRACTION_DIGITS, $max_digits); // by default some locales got max 2 fraction digits, that is probably not what you want
+        }
+        return $f->format($decimal); 
+    }
+    
+    /**
+     * Returns a machine workable decimal according to locale. 
+     * @param string $locale e.g. en_US
+     * @param string $decimal
+     * @param int $max_digits
+     * @param int $min_digits
+     * @return decimal $res
+     */
+    public static function formatDecimalFromLocale ($locale, $decimal, $min_digits = 2, $max_digits = 2 )  {
+        $f = new NumberFormatter($locale, NumberFormatter::DECIMAL);
+        if ($min_digits) {
+            $f->setAttribute(NumberFormatter::MIN_FRACTION_DIGITS, $min_digits);
+        } 
+        if ($max_digits) {
+            $f->setAttribute(NumberFormatter::MAX_FRACTION_DIGITS, $max_digits); // by default some locales got max 2 fraction digits, that is probably not what you want
+        }
+        return $f->parse($decimal); 
     }
     
     /**
@@ -349,6 +384,5 @@ class intl {
         $browser['language'] = $zend_locale->getLanguage();
         $browser['language_long'] = $zend_locale->toString();
         return $browser;
-
     }
 }
