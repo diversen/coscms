@@ -81,12 +81,10 @@ class event {
         if (!is_array($methods)) return;
 
         $methods = self::prepareMethods($methods);       
-        $str = '';
-        $i = count($methods);
-        
+        $str = '';        
         $ary_ret = array ();
         
-        foreach ($methods as $key => $val) {
+        foreach ($methods as $val) {
             $ary = explode('::', $val);
             $module = $class = $ary[0];
             $method = $ary[1];
