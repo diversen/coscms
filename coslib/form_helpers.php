@@ -87,8 +87,8 @@ class formHelpers {
         
         for ($i= 1; $i <= 12; $i++) {
             $months[$i] = array (
-                'id' => dateGetMonthName($i), 
-                'value' =>  $i
+                'id' => $i,
+                'value' =>  dateGetMonthName($i)
             );
         }
         $currentYear = dateGetCurrentYear();
@@ -102,9 +102,7 @@ class formHelpers {
             $currentYear--;
             $goBack--;
         }  
-        
-
-        
+   
         $day = html::selectClean(
                 'birth_day', 
                 $days, 'id', 'value');
@@ -117,7 +115,9 @@ class formHelpers {
                 'birth_year',
                 $years, 'id', 'value');
         
-        $ret = array ('day' => $day, 'month' => $month, 'year' => $year);
+        $ret = array (
+            'day' => $day, 'month' => $month, 'year' => $year,
+            'day_options' => $days, 'month_options' => $months, 'year_options' => $years);
         return $ret;
     }
     

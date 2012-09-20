@@ -87,12 +87,12 @@ function cos_error_log ($message, $write_file = 1) {
  */
 function cos_debug ($message) {
     static $debug = null;
-    if ($debug) {
-        cos_error_log($message);
-        return;
-    }
-    
     if (config::getMainIni('debug')) {
         $debug = 1;
     }
+    
+    if ($debug) {
+        cos_error_log($message);
+        return;
+    }    
 }

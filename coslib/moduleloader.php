@@ -11,7 +11,7 @@
  *
  * @package    moduleloader
  */
-class moduleLoader {
+class moduleloader {
 
     /**
      * all enabled modules
@@ -273,12 +273,9 @@ class moduleLoader {
      * been possible to create routes and route a specific url to 
      * a specific controller. 
      */
-    public function setModuleInfo (){
-        
-        //$routes = config::getMainIni('routes');
-        //urldispatch::includeFile($routes);
-
-        $uri = uri::getInstance();
+    public function setModuleInfo ($route = null){
+                
+        $uri = uri::getInstance($route);
         $info = uri::getInfo();
        
         // if no module_base is set in the URI::info we can will use
@@ -532,6 +529,16 @@ class moduleLoader {
             $str = $ary[0] . ucfirst($ary[1]);
             return $str;
         }
+    }
+    
+    /**
+     * returns a path from a module class name.
+     * e.g. content_article will return content/article
+     * @param string $class
+     * @return string $module_path 
+     */
+    public static function moduleClassToModelPath ($class) {
+        return $module_path = str_replace('_', '/', $class);
     }
 
     /**

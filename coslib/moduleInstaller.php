@@ -201,8 +201,9 @@ class moduleInstaller extends db {
     public function reloadConfig () {
         $modules = $this->getModules();
         foreach ($modules as $key => $val){
-            @include config::getModulePath($val['module_name']) . "/install.inc";
-            if (isset($_INSTALL['IS_SHELL']) && $_INSTALL['IS_SHELL'] == '1') {
+            //@include config::getModulePath($val['module_name']) . "/install.inc";
+            $this->setInstallInfo($options = array ('module' => $val['module_name']));
+            if (isset($this->installInfo['IS_SHELL']) && $this->installInfo['IS_SHELL'] == '1') {
                 $this->update(
                         'modules', 
                         array('is_shell' => 1), 
@@ -215,6 +216,7 @@ class moduleInstaller extends db {
                         array ('module_name' => NULL)
                         );
             }
+            $this->insertRoutes();
         }
     }
 

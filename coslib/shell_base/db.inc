@@ -10,20 +10,15 @@
  * @package     shell
  */
 
+include_once "coslib/dbadmin.php";
 include_once "coslib/shell_base/common.inc";
 /*
  *
  * @return array $database containing array('name' => database, 'host' => 'host')
  */
+
 function get_db_info(){
-    $url = parse_url(config::$vars['coscms_main']['url']);
-    $ary = explode (';', $url['path']);
-    $db = explode ("=", $ary[0]);
-    $database = array();
-    $database['name'] = $db[1];
-    $host = explode ("=", $ary[1]);
-    $database['host'] = $host[1];
-    return $database;
+    return dbadmin::getDbInfo();
 }
 
 // {{{ create_db() 
@@ -34,7 +29,7 @@ function get_db_info(){
  */
 function create_db($options = array()){
 
-    $db = get_db_info();
+    $db = dbadmin::getDbInfo();
     $command = 
         "mysqladmin -u" . config::$vars['coscms_main']['username'] .
         " -p" . config::$vars['coscms_main']['password'] . " -h$db[host] ";
@@ -54,7 +49,7 @@ function create_db($options = array()){
  */
 function drop_db_default($options = array()){
     define ('NO_DB', 1);    
-    $db = get_db_info();
+    $db = dbadmin::getDbInfo();
     $command = 
         "mysqladmin -f -u" . config::$vars['coscms_main']['username'] .
         " -p" . config::$vars['coscms_main']['password'] . " -h$db[host] ";
@@ -73,14 +68,14 @@ function load_db_default(){
     // silence when dropping db. 
     drop_db_default($options = array ('silence' => 1));
     create_db();
-    $db = get_db_info();
+    $db = dbadmin::getDbInfo();
     $command = 
         "mysql -u" . config::$vars['coscms_main']['username'] .
         " -p" . config::$vars['coscms_main']['password'] ." $db[name] < scripts/default.sql";
+    // TODO: why don't we return anything
     $ret = cos_exec($command);
 }
-// }}} 
-// {{{ connect_db();
+
 
 /**
  * function for opening a connection to the database specified in config.ini
@@ -90,7 +85,7 @@ function load_db_default(){
  * @return  int     the executed commands shell status 0 on success.
  */
 function connect_db(){
-    $db = get_db_info();
+    $db = dbadmin::getDbInfo();
     $command = 
         "mysql -u" . config::$vars['coscms_main']['username'] .
         " -p" . config::$vars['coscms_main']['password'] . " $db[name]";
@@ -99,8 +94,6 @@ function connect_db(){
     proc_close(proc_open($command, array(0 => STDIN, 1 => STDOUT, 2 => STDERR), $pipes));
 }
 
-// }}}
-// {{{ dump_db()
 /**
  * function for dumping a database specfied in config.ini to a file
  *
@@ -119,7 +112,7 @@ function dump_db_file ($options = null){
         
      }
     
-    $db = get_db_info();
+    $db = dbadmin::getDbInfo();
     $command = 
         "mysqldump --opt -u" . config::$vars['coscms_main']['username'] .
         " -p" . config::$vars['coscms_main']['password'];
@@ -127,8 +120,6 @@ function dump_db_file ($options = null){
     cos_exec($command);
 }
 
-// }}}
-// {{{ load_db_file ($options)
 /**
  * function for loading a database file into db specified in config.ini
  *
@@ -148,7 +139,7 @@ function load_db_file($options){
             cos_cli_abort("No such file: $file");
         }
     }
-    $db = get_db_info();
+    $db = dbadmin::getDbInfo();
     $command = 
         "mysql -u" . config::$vars['coscms_main']['username'] .
         " -p" . config::$vars['coscms_main']['password'] . " $db[name] < $file";
@@ -156,8 +147,6 @@ function load_db_file($options){
 
 }
 
-// }}}
-// {{{ _get_latest
 /**
  * function for getting latest timestamp for dumps found in backup/sql
  *

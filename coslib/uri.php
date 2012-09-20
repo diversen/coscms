@@ -44,10 +44,9 @@ class uri {
      * @return object $uri an instance of the uri class
      *
      */
-    public static function getInstance() {
+    public static function getInstance($path = null) {
          if(is_null(self::$instance)){
-             self::$instance = new uri;
-             self::setInfo();
+             self::$instance = new uri($path);
          }
          return self::$instance;
     }
@@ -57,8 +56,8 @@ class uri {
      * This is private as we want users to only use the getInstance
      * method and only create the object once.  
      */
-    private function __construct() {
-        self::setInfo();        
+    private function __construct($path) {
+        self::setInfo($path);        
     }
 
     /**

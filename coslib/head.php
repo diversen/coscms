@@ -32,7 +32,7 @@ include_once "coslib/file.php";
 include_once "coslib/strings.php";
 include_once "coslib/db.php";
 include_once "coslib/uri.php";
-include_once "coslib/moduleLoader.php";
+include_once "coslib/moduleloader.php";
 include_once "coslib/session.php";
 include_once "coslib/html.php";
 include_once "coslib/layout.php";
@@ -92,9 +92,7 @@ if (!defined('_COS_CLI')){
            
     // catch all output
     ob_start();
-    
-    
-
+   
     // init module loader. 
     // after this point we can check if module exists and fire events connected to
     // installed modules
@@ -141,8 +139,16 @@ if (!defined('_COS_CLI')){
     // load url routes if any
     urldispatch::setDbRoutes();
 
-    // set files to load and init module.
-    $moduleLoader->setModuleInfo();
+    $controller = null;
+    $route = urldispatch::getMatchRoutes();
+    if ($route) {
+        // if any route is found we get controller from match
+        // else we load module in default way
+        $controller = $route['controller'];
+    } 
+    
+    // load module
+    $moduleLoader->setModuleInfo($controller);
     $moduleLoader->initModule();
 
     // include template class found in htdocs/templates
@@ -157,22 +163,24 @@ if (!defined('_COS_CLI')){
     // init blocks
     $layout->initBlocks();
 
-    // load page module
-    // catch the included controller file with ob functions
-    // and return the parsed page as html
-    $str = $moduleLoader->loadModule();
-   
+    // if any matching route was found we check for a method or funciton
+    if (isset($route['method'])) {
+        $str = urldispatch::call($route['method']);       
+    } else {
+        // or we use default module loading
+        $str = $moduleLoader->loadModule();
+    }
+    
     mainTemplate::printHeader();
     echo $str;
-    
+
     $moduleLoader->runLevel(6);
     mainTemplate::printFooter();   
     config::$vars['final_output'] = ob_get_contents();
     ob_end_clean();
-    
+
     // Last divine intervention
     // e.g. Dom or Tidy
-
     $moduleLoader->runLevel(7); 
     echo config::$vars['final_output'];
 }

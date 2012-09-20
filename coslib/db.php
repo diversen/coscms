@@ -552,7 +552,7 @@ class db {
      * @param   string  $sql to query
      * @return  object  $stmt the object returned from the query
      */
-    public function rawQuery($sql){
+    public static function rawQuery($sql){
         self::$debug[]  = "Trying to prepare rawQuery sql: $sql";
         $stmt = self::$dbh->query($sql);
         return $stmt;
@@ -599,9 +599,7 @@ class db {
         foreach ($keys as $val) {
             if (isset($_POST[$val])) {
                 $ary[$val] = $_POST[$val];
-            } else {
-                $ary[$val] = 0;
-            }
+            } 
         }
         return $ary;
     }
@@ -715,6 +713,7 @@ class QBuilder  {
         $fields = explode(',', $fields);
         $ary = array ();
         foreach ($fields as $field) {
+            $field = trim($field);
             $ary[] = " `$field` "; 
         }
         return implode(",", $ary);
@@ -740,6 +739,28 @@ class QBuilder  {
         self::$query = "SELECT $fields FROM `$table` ";
         return new QBuilder;
     }
+    
+    /**
+     * prepare for a select one row statement. 
+     * 
+     * @param string $table the table to select from 
+     * @param string $fields the fields from the table to select 
+     *             e.g. * or 'id, title'
+     */
+    
+    public static function setSelectOne ($table, $fields = null){
+        self::$method = 'select_one';
+        
+        if (!$fields) {
+            $fields = '*';
+        } else {
+            $fields = self::escapeFields($fields);
+        }
+        
+        self::$query = "SELECT $fields FROM `$table` ";
+        return new QBuilder;
+    }
+    
     
     /**
      * sets select statement for numrows
@@ -960,6 +981,12 @@ class QBuilder  {
 
             self::$stmt->execute();
             $rows = self::$stmt->fetchAll(PDO::FETCH_ASSOC);
+            if (self::$method == 'select_one') {
+                if (!empty($rows)) {
+                    $rows = $rows[0];
+                } 
+            }
+            
 
             self::unsetVars();
         } catch (Exception $e) {
