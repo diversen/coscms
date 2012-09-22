@@ -36,8 +36,9 @@ class layout {
      * @param string $template
      */
     function __construct($template = null){
-        
-        $template = self::getTemplateName();
+        if (!isset($template)) {
+            $template = self::getTemplateName();
+        }
         self::includeTemplateCommon($template);
         template::init($template);
     }
