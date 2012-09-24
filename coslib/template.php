@@ -815,6 +815,28 @@ class templateView {
     }
     
     /**
+     * include a set of module function used for e.g. templates. These 
+     * functions can be overridden in template if they exists in a template
+     * @param string $module
+     * @param string $file
+     * @return void
+     */
+    public static function includeOverrideFunctions ($module, $file) {
+
+        // only template who has set name will be able to override this way
+        $template = layout::getTemplateName();//config::getModuleIni('template_name');
+        if ($template) {
+            $override = _COS_PATH . "/htdocs/templates/$template/$module/$file";
+            if (is_file($override)) {
+                include_once $override;
+                return;
+            }
+        }
+        include_once _COS_PATH . "/modules/$module/$file";
+    }
+    
+    
+    /**
      * gets a direct file view
      * @param string $filename
      * @param mixed $vars

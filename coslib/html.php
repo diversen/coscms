@@ -769,6 +769,20 @@ EOF;
         return $str;
     }
     
+    /** 
+     * method for getting a submit button
+     * @param string $name the name of the button
+     * @param string $value the value of the button
+     * @param array $extra e.g. for setting css array ('class' => 'onPress')
+     * @return string $str the submit button 
+     */
+    public static function submitClean ($name, $value, $extra = array ()) {
+        $extra = self::parseExtra($extra);
+        $str =  "<input type=\"submit\" $extra name=\"$name\" id=\"$name\" value=\"$value\" />" . self::$br . "\n";
+        self::$fields[] = array ('value' => $str);
+        return $str;
+    }
+    
     /**
      * add html as a field inside the form
      * @param string $str the string to add 
