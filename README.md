@@ -12,21 +12,25 @@ Login with admin / admin. A simple demo with a blog (blog module) and a CMS (con
 
 ### Dependencies: 
 
-[Dependencies](http://www.coscms.org/content/article/view/43)
+[Dependencies](http://www.coscms.org/content/article/view/43/Dependencies)
 
-### Install (Only tested with Linux): 
+### Install Linux / Unix 
 
-[Step by Step](http://www.coscms.org/content/article/view/1)
+[Install Site Script](http://www.coscms.org/content/article/view/26/Debian-Install-Script)
 
-[Install Site Script](http://www.coscms.org/content/article/view/26)
+[Step by Step](http://www.coscms.org/content/article/view/1/Step-by-Step-Linux-Install)
+
+### Windows
+
+[Windows Install](http://www.coscms.org/content/article/view/71/Windows-setup)
 
 ### Extending: 
 
-[Extend](http://coscms.org/content/article/view/40)
+[Extend](http://www.coscms.org/content/article/view/40/Extend)
 
-[Web Module](http://coscms.org/content/article/view/27)
+[Web Module](http://www.coscms.org/content/article/view/27/Web-Module-Guide)
 
-[Shell Module Guide](http://www.coscms.org/content/article/view/60/Shell%20Module%20Guide)
+[Shell Module Guide](http://www.coscms.org/content/article/view/60/Shell-Module-Guide)
 
 Enjoy!
 
