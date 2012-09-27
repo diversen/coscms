@@ -354,7 +354,7 @@ class config {
         }
         
         if ($file) {
-            return $files_path . "$file";
+            return $files_path . $file;
         }
         
         return $files_path;
