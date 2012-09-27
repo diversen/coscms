@@ -34,4 +34,3 @@ Login with admin / admin. A simple demo with a blog (blog module) and a CMS (con
 
 Enjoy!
 
-
