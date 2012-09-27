@@ -366,8 +366,16 @@ class config {
      */
     public static function getDomain () {
         $domain = config::getMainIni('domain');
-        return $domain;
-        
+        return $domain;       
+    }
+    
+    /**
+     * method for getting domain. 
+     * @return string $domain the current domain
+     */
+    public static function getServerName () {
+        $server_name = config::getMainIni('server_name');
+        return $server_name;       
     }
      
    /**

@@ -75,7 +75,7 @@ if (!defined('_COS_CLI')){
         config::setMainIni('server_name', $_SERVER['SERVER_NAME']);
     }
 
-    // redirect to uniform domain name is set in config.ini
+    // redirect to uniform server name is set in config.ini
     // e.g. www.testsite.com => testsite.com
     $server_redirect = config::getMainIni('server_redirect');
     if (isset($server_redirect)) {
