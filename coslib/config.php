@@ -342,15 +342,21 @@ class config {
     
    /**
     * function for getting a full path to public files folder when doing e.g. uploads
+    * @param string|null $file optional file name to attach to path. You need to attach '/'
     * @return string $files_path the full file path 
     */
-    public static function getFullFilesPath () {
+    public static function getFullFilesPath ($file = null) {
         $domain = config::getMainIni('domain');
         if ($domain == 'default') {
             $files_path = _COS_PATH . "/htdocs/files/default";
         } else {
             $files_path = _COS_PATH . "/htdocs/files/$domain";
         }
+        
+        if ($file) {
+            return $files_path . "$file";
+        }
+        
         return $files_path;
     }
 
@@ -366,11 +372,14 @@ class config {
      
    /**
     * method for getting the web path to files folder. 
-    * @param string $file the file to get path from
+    * @param string|null $file optional. a filename to attach to path. You need to attach '/'
     * @return string $path the web path to the file
     */
-    public static function getWebFilesPath ($file) {
-        return "/files/" . config::getDomain() . $file; 
+    public static function getWebFilesPath ($file = null) {
+        if ($file) {
+            return "/files/" . config::getDomain() . $file; 
+        } 
+        return "/files/" . config::getDomain();
     }
     
    /**
