@@ -320,9 +320,7 @@ class profile  {
                     $this->error[] = "Could not copy $source to $dest";
                 }
             }
-        }
-        
-        
+        }       
     }
 
     /**

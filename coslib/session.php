@@ -211,7 +211,8 @@ class session {
 
     /**
      * method for setting an action message. Used when we want to tell a
-     * user what happened if he is redirected
+     * user what happened if he is redirected. I have noticed that on memcache
+     * you will need to close the the session, or session data may get lost. 
      *
      * @param string $message the action message.
      * @param boolean $close to close session writing or not
