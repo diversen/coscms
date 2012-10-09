@@ -71,6 +71,14 @@ class config {
         config::$vars['coscms_main'][$key] = $value;
     }
     
+    /**
+     * 
+     */
+    public static function getLanguageAry ($language = null) {
+        if (!$language) $language = config::getMainIni ('language');
+        $ary = explode('_', $language);
+        return $ary;
+    }
     
     /**
      * parse ini with this and they will be cached with APC
