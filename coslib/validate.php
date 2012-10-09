@@ -70,6 +70,38 @@ class cosValidate {
     }
     
     /**
+     * chech a password length
+     * @param string $password
+     * @param int $length
+     * @return boolean $res
+     */
+    public static function passwordLength ($password, $length) {
+        if (function_exists('mb_strlen')) {
+            if (mb_strlen($password, 'UTF-8') < $length){
+                return false;
+            }
+        } else {
+            if (strlen($password) < $length){
+                return false;
+            }
+        }
+        return true;
+    }
+    
+    /**
+     * check password match
+     * @param string $password
+     * @param string $password2
+     * @return boolean $res
+     */
+    public static function passwordMatch ($password, $password2) {
+        if ($password != $password2){
+            return false;
+        }
+        return true;
+    }
+    
+    /**
      * validates a hostname
      * @param string $host
      */
