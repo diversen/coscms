@@ -242,10 +242,11 @@ function mail_smtp_zend ($to, $subject, $message, $from = null, $reply_to = null
 
     include_once "Zend/Mail.php";
     include_once "Zend/Mail/Transport/Smtp.php";
-    $config = array('auth' => config::getMainIni('smtp_params_auth'),
-                    'username' => config::getMainIni('smtp_params_username'),
-                    'password' => config::getMainIni('smtp_params_password'),
-                    'port' => config::getMainIni('smtp_params_port')
+    $config = array(
+        'auth' => config::getMainIni('smtp_params_auth'),
+        'username' => config::getMainIni('smtp_params_username'),
+         'password' => config::getMainIni('smtp_params_password'),
+         'port' => config::getMainIni('smtp_params_port')
      );
      
     
@@ -314,13 +315,13 @@ function mail_html ($recipient, $subject, $html, $from = null, $reply_to = null)
                 'head_charset' => "UTF-8"));
     $headers = $mime->headers($headers);
 
-    // SMTP authentication params
     $smtp_params = array();
     $smtp_params["host"]     = config::$vars['coscms_main']['smtp_params_host']; //"ssl://smtp.gmail.com";
     $smtp_params["port"]     = config::$vars['coscms_main']['smtp_params_port'];
-    $smtp_params["auth"]     = true; //register::$vars['coscms_main']['smtp_params_auth'];
+    $smtp_params["auth"]     = config::getMainIni('smtp_params_auth');
     $smtp_params["username"] = config::$vars['coscms_main']['smtp_params_username'];
     $smtp_params["password"] = config::$vars['coscms_main']['smtp_params_password'];
+    $smtp_params['debug'] = config::getMainIni('smtp_params_debug');
 
     $mail = Mail::factory("smtp", $smtp_params);
     $res = $mail->send($recipient, $headers, $body);
