@@ -310,9 +310,9 @@ function mail_html ($recipient, $subject, $html, $from = null, $reply_to = null)
     $mime = new Mail_mime($crlf);
     $mime->setHTMLBody($html);
     $body = $mime->get(
-            array('text_charset' => 'UTF-8', 
-                'html_charset' => "UTF-8",
-                'head_charset' => "UTF-8"));
+            array('text_charset' => 'utf-8', 
+                'html_charset' => "utf-8",
+                'head_charset' => "utf-8"));
     $headers = $mime->headers($headers);
 
     $smtp_params = array();
