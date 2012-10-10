@@ -246,7 +246,7 @@ class mycurl {
              curl_setopt($s,CURLOPT_NOBODY,true);
          }
          
-         if($this->_binary){
+         if($this->_binaryTransfer){
              curl_setopt($s,CURLOPT_BINARYTRANSFER,true);
          }
 
