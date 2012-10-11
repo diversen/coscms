@@ -10,7 +10,7 @@
  * class for doing translation with the goolge API
  * @package gtranslate
  */
-class GTranslate {
+class gtranslate {
     
     /**
      * var holding options
