@@ -14,25 +14,39 @@ class http {
     /**
      * simple function for creating prg pattern. 
      * (Keep state when reloading browser and resends forms etc.) 
+     * @param int $last
      */
-    public static function prg (){
+    public static function prg ($max_time = 0){
+        
+        // POST
+        // genrate a session var holding the _POST
         if ($_SERVER['REQUEST_METHOD'] == 'POST'){
             $uniqid = uniqid();
             $_SESSION['post'][$uniqid] = $_POST;
+            $_SESSION['post'][$uniqid]['time'] = time();
             $_SESSION['REQUEST_URI'] = $_SERVER['REQUEST_URI'];
 
+            // GET
             header("HTTP/1.1 303 See Other");
             $header = "Location: " . $_SERVER['REDIRECT_URL'] . '?prg=1&uniqid=' . $uniqid;
             header($header);
             die;
         }
 
+        
         if (!isset($_SESSION['REQUEST_URI'])){
             @$_SESSION['post'] = null;
         } else {
             if (isset($_GET['prg'])){
                 $uniqid = $_GET['uniqid'];
-                $_POST = @$_SESSION['post'][$uniqid];
+                
+                if (isset($_SESSION['post'][$uniqid])) {
+                    if ( $max_time && ($_SESSION['post'][$uniqid]['time'] + $max_time) < time() ) {
+                        unset($_SESSION['post'][$uniqid]);
+                    } else {           
+                        $_POST = $_SESSION['post'][$uniqid];
+                    }
+                }
             } else {
                 @$_SESSION['REQUEST_URI'] = null;
             }
