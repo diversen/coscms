@@ -1,7 +1,7 @@
 var page = new WebPage();
 var system = require('system');
 var url = 'http://twitter.com/#!/search/javascript';
-var timeout = 80000;  
+var timeout = 8000;  
 
 function displayHelp () {
     console.log('Usage:');
@@ -19,7 +19,6 @@ function argParser () {
         url = system.args[1];
         if (system.args[2] != 'undefined') {
             timeout = system.args[2];
-            console.log(timeout);
         }
         //phantom.exit();        
     }
@@ -28,21 +27,31 @@ function argParser () {
 argParser();
 
 page.open(url, function (status) {
-    if (status === 'success') {
+    
+    
+    
+    if (status == 'success') {
+        // inject jquery
+        //page.injectJs("http://code.jquery.com/jquery-latest.min.js", function() {
+    // jQuery is loaded, now manipulate the DOM
+        //});
         getFullDom();
     } else {
        console.log('failure open page');
     }
 });
 
+
+
+
 function getFullDom() {
     window.setTimeout(function () {
         var results = page.evaluate(function() {
-            return document.getElementsByTagName('html')[0].innerHTML
+            return document.getElementsByTagName('html')[0].innerHTML;
             // If jquery is loaded you can use this: 
             //return $('html').html();
         });
         console.log(results);
         phantom.exit();
-    }, 8000);
+    }, timeout);
 }
