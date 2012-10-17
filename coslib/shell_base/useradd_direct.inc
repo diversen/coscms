@@ -29,7 +29,7 @@ function useradd_direct_add ($options = null){
 }
 
 /**
- * Adds an admin user directly. Password have to be the md5 of the real password. 
+ * Adds an admin user directly. Note: Password have to be the md5 of the real password. 
  * @param array $options
  * @return int
  */

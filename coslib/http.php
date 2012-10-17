@@ -23,10 +23,9 @@ class http {
         if ($_SERVER['REQUEST_METHOD'] == 'POST'){
             $uniqid = uniqid();
             $_SESSION['post'][$uniqid] = $_POST;
-            $_SESSION['post'][$uniqid]['time'] = time();
+            $_SESSION['post'][$uniqid]['prg_time'] = time();            
             $_SESSION['REQUEST_URI'] = $_SERVER['REQUEST_URI'];
 
-            // GET
             header("HTTP/1.1 303 See Other");
             $header = "Location: " . $_SERVER['REDIRECT_URL'] . '?prg=1&uniqid=' . $uniqid;
             header($header);
@@ -35,18 +34,57 @@ class http {
 
         
         if (!isset($_SESSION['REQUEST_URI'])){
-            @$_SESSION['post'] = null;
+            $_SESSION['post'] = null;
         } else {
             if (isset($_GET['prg'])){
                 $uniqid = $_GET['uniqid'];
                 
                 if (isset($_SESSION['post'][$uniqid])) {
-                    if ( $max_time && ($_SESSION['post'][$uniqid]['time'] + $max_time) < time() ) {
+                    if ( $max_time && ($_SESSION['post'][$uniqid]['prg_time'] + $max_time) < time() ) {
                         unset($_SESSION['post'][$uniqid]);
                     } else {           
                         $_POST = $_SESSION['post'][$uniqid];
                     }
                 }
+            } else {
+                @$_SESSION['REQUEST_URI'] = null;
+            }
+        }
+    }
+    
+    /**
+     * simple function for creating prg pattern. 
+     * (Keep state when reloading browser and resends forms etc.) 
+     * @param int $last
+     */
+    public static function prgSinglePost (){
+        
+        // POST
+        // genrate a session var holding the _POST
+        if ($_SERVER['REQUEST_METHOD'] == 'POST'){
+            $uniqid = uniqid();
+            $_SESSION['post'][$uniqid] = $_POST;
+            $_SESSION['post'][$uniqid]['prg_time'] = time();            
+            $_SESSION['REQUEST_URI'] = $_SERVER['REQUEST_URI'];
+
+            header("HTTP/1.1 303 See Other");
+            $header = "Location: " . $_SERVER['REDIRECT_URL'] . '?prg=1&uniqid=' . $uniqid;
+            header($header);
+            die;
+        }
+
+        
+        if (!isset($_SESSION['REQUEST_URI'])){
+            $_SESSION['post'] = null;
+        } else {
+            if (isset($_GET['prg'])){
+                $uniqid = $_GET['uniqid'];
+                
+                if (isset($_SESSION['post'][$uniqid])) {        
+                    $_POST = $_SESSION['post'][$uniqid];
+                    unset($_SESSION['post'][$uniqid]);
+                }
+                
             } else {
                 @$_SESSION['REQUEST_URI'] = null;
             }
