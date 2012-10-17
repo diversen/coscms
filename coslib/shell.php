@@ -254,8 +254,10 @@ class mainCli {
     public static function loadBaseModules () {
         
         $options = array ('search' => '.inc');
-        $coslib_path = file::getFirstCoslibPath();
-        $command_path = $coslib_path . '/shell_base';
+        // TODO: Test
+        //$coslib_path = file::getFirstCoslibPath();
+        //$command_path = $coslib_path . '/shell_base';
+        $command_path = _COS_PATH . '/coslib/shell_base';
         $file_list = file::getFileList($command_path, $options);
         
 
@@ -264,7 +266,7 @@ class mainCli {
             include_once $path;
         }
         
-        $command_path = $coslib_path . '/shell_base/locale';
+        $command_path = _COS_PATH . '/coslib/shell_base/locale';
         $file_list = file::getFileList($command_path, $options);
 
         foreach ($file_list as $val){

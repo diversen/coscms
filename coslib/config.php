@@ -89,7 +89,7 @@ class config {
     public static function getIniFileArray ($file, $sections = null) {
         ob_start();
         include $file;
-        $str = ob_get_contents();
+	$str = ob_get_contents();
         ob_end_clean();
         return parse_ini_string($str, $sections);
     }
