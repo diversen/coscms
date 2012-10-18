@@ -92,15 +92,21 @@ class uri {
     /**
      * method for getting the base path as an array
      * @param string $path
+     * @param int    $max max parts allowed to parse
      * @return array $fragments the URL base parts an array
      */
-    public static function getRequestUriAry($path){
+    public static function getRequestUriAry($path, $max = 7){
         self::splitRequestAry($path);
         $fragments =  explode('/', self::$info['path']);
+        $i = 0;
         foreach ($fragments as $key => $value) {
+            if ($i > $max) {
+                return array ();
+            }
             if (strlen($value) == 0) {
                 unset($fragments[$key]);
             }
+            $i++;
         }
 
         $fragments = array_values($fragments);

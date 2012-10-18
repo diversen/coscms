@@ -1,6 +1,6 @@
 <?php
 
-// go to ../coscms and run as phar-create.php
+// go to ../coscms and run as phar-create.php folder-with-install
 if (isset($argv[1])) {
     $dir = $argv[1];
 } else {

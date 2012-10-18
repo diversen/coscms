@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Some methods for manipulating strings
+ * Common methods for manipulating strings
  * @package strings
  */
 
@@ -39,6 +39,7 @@ class strings {
     
     /**
      * method for creating a seo title by seperating spaces with e.g. '-'
+     * @deprecated since 1.721
      * @param string $title the title to change
      * @param string $sep the seperator to use. Deffaults to '-'
      * @return string $title seo title
@@ -106,27 +107,27 @@ class strings {
     
     /**
      * Found on: http://www.php.net/manual/en/function.utf8-encode.php#102382
-     * convert a string to UTF8
+     * Simple way to convert a string to UTF-8
      * @param string $content
      * @return string $str
      */
     public static function toUTF8($content) {
-
         if(!mb_check_encoding($content, 'UTF-8')
             OR !($content === mb_convert_encoding(mb_convert_encoding($content, 'UTF-32', 'UTF-8' ), 'UTF-8', 'UTF-32'))) {
 
+            // not UTF-8 - convert
             $content = mb_convert_encoding($content, 'UTF-8');
-
-            if (mb_check_encoding($content, 'UTF-8')) {
-                //print('Converted to UTF-8');
-            } else {
-                //print "could not convert";
-                //cos_debug('Could not converted to UTF-8');
-                //die;
+            if (!defined('_COS_PATH')) {  
+                die;
+                if (config::getMainIni('debug')) {
+                    if (mb_check_encoding($content, 'UTF-8')) {
+                        log::debug('Converted to UTF-8');
+                    } else {
+                        log::debug("Could not convert: $content");
+                    }
+                }
             }
-        } else {
-            //echo "is utf8";
-        }
+        } 
         return $content;
     } 
     
