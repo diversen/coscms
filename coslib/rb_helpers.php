@@ -60,10 +60,8 @@ class RB {
         }
         
         if (empty($needle)) {
-            //log::file ("NOTICE: DISPENSE: table {$table} field {$field} search {$search}");
             $bean = R::dispense( $table );
         } else {
-            //log::file ("NOTICE: LOADING: table {$table} field {$field} search {$search}");
             $bean = R::load($table, $needle->id);
         }
         return $bean;
