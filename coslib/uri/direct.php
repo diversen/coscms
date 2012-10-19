@@ -3,7 +3,7 @@
 class URI_direct {
     
     /**
-     * flag to prevent dos
+     * flag to prevent to many url parts
      * @var int $max 
      */
     public static $max = 7;
@@ -45,6 +45,17 @@ class URI_direct {
     }
     
     /**
+     * get base path of url, e.g. from /test/me?test=10 you will get /test/me
+     * @param string|null $url
+     * @return string
+     */
+    public static function path ($url = null) {
+        if (!$url) $url = $_SERVER['REQUEST_URI'];
+        $parsed = @parse_url($url);
+        return $parsed['path'];
+    }
+    
+    /**
      * get a query part ?test=1&test=2
      * @staticvar null $query_parts
      * @param string $part
@@ -74,4 +85,6 @@ class URI_direct {
             return null;
         }
     }
+    
+    
 }
