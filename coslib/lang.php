@@ -84,9 +84,15 @@ class lang {
                     $i++;
                 }
             }
+            
             return self::$dict[$sentence];
         } else {
-            return "NT: '$sentence'";
+            // don't add NT
+            if (isset(config::$vars['coscms_main']['translate_ignore'])) {
+                return $sentence;
+            } else {
+                return "NT: '$sentence'";
+            }
         }
     }
     
