@@ -576,6 +576,7 @@ class db {
         foreach ($_POST as $key => $value){
             // continue if field value is 'submit' or 'captcha'
             if ($key == 'submit') continue;
+            if ($key == 'prg_time') continue;
             if ($key == 'submitted') continue;
             if ($key == 'password2') continue;
             if ($key == 'captcha') continue;
