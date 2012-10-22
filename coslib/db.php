@@ -801,7 +801,7 @@ class QBuilder  {
      */
     public static function setInsert ($table) {
         self::$method = 'INSERT';
-        self::$query = "INSERT INTO `$table`";
+        self::$query = "INSERT INTO `$table` ";
         return new QBuilder;
     }
     
@@ -866,15 +866,13 @@ class QBuilder  {
     } 
 
     /**
-     * filter for something in a query e.g. filter('id > 2', $value);
-     * the values used will be prepared by class. 
+     * filter something in a query e.g. filter('id > 2', $value);
+     * the values used will be prepared 
      * @param string $filter the filter to use e.g. 'id >
      * @param string $value the value to filter from e.g. '2'
      * @param string $bind  if we want to bind the value to a type. 
      */
     public static function filter ($filter, $value, $bind = null) {
-
-        static $where = null;
 
         if (!self::$where) {
             self::$where = 1;
@@ -885,6 +883,25 @@ class QBuilder  {
         self::$bind[] = array ('value' => $value, 'bind' => $bind);
         return new QBuilder();
     }
+    
+    /**
+     * filter for setting some additional sql
+     * @param string $sql e.g. "id >= 3"
+     */
+    public static function sql ($sql) {
+
+        if (!self::$where) {
+            self::$where = 1;
+            self::$query.= "WHERE ";
+        }
+
+        self::$query.= " $sql ";
+
+        return new QBuilder();
+    }
+    
+    
+    
 
     /**
      * filter for creating IN queries where we use an array of values
