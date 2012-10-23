@@ -880,6 +880,72 @@ EOF;
     }
     
     /**
+     * method for setting a optgroup dropdown box. This will be colleted in the HTML::fields[]
+     * If you just want a select box use selectOptgroupClean
+     * @param   string  $name the name of the select field
+     * @param   array   $rows the rows making up the ids and names of the select field
+     * @param   string  $field array field which will be used as name of the select element
+     * @param   string  $id the array field which will be used as id of the select element
+     * @param   string  $value inital value
+     * @param   array   $extra extra elements to be added
+     */
+    public static function selectOptgroup(
+            $name, 
+            $rows, 
+            $field = 'title', 
+            $id = 'id', 
+            $value=null, 
+            $extra = array() ){        
+        $dropdown = self::selectOptgroupClean($name, $rows, $field, $id, $value, $extra);
+        $str = $dropdown . self::$br . "\n" ;
+        self::$fields[] = array ('value' => $str);
+        return $str;
+    }
+    
+    /** method for getting a optgroup dropdown select. 
+     * @param   string  $name the name of the select field
+     * @param   array   $rows the rows making up the ids and names of the select field
+     * @param   string  $field array field which will be used as name of the select element
+     * @param   string  $id the array field which will be used as id of the select element
+     * @param   string  $value inital value
+     * @param   array   $extra extra elements to be added
+     * @return  string $str select as a string
+     * 
+     */
+    public static function selectOptgroupClean($name, $rows, $field, $id, $value = null, $extra = array()){        
+        if (!isset($extra['id'])) {
+            $extra['id'] = $name;
+        }
+        $extra = self::parseExtra($extra);
+        
+        $dropdown = "<select name=\"$name\" $extra";
+        if (!isset($value)) {
+            $value = self::setValue($name, $value);
+        }
+        
+        $dropdown.= ">\n";
+        foreach ($rows as $group) {
+            
+            $title = $group['optgroup'];
+            $dropdown.= "<optgroup label=\"$title\">\n";
+
+            
+            foreach($group['options'] as $row){
+                if ($row[$id] == $value){
+                    $s = ' selected';
+                } else {
+                    $s = '';
+                }
+
+                $dropdown .= '<option value="'.$row[$id].'"' . $s . '>'.$row[$field].'</option>'."\n";
+            }
+            $dropdown.= "</optgroup>\n";
+        }
+        $dropdown .= "</select>\n";
+        return $dropdown;
+    }
+    
+    /**
      * method for setting drop down for birthday
      * with element for day, month and year
      */
