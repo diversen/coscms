@@ -36,30 +36,7 @@ class layout {
      * @param string $template
      */
     function __construct($template = null){
-        if (!isset($template)) {
-            $template = self::getTemplateName();
-        }
-        self::includeTemplateCommon($template);
-        template::init($template);
-    }
-    
-    public static function includeTemplateCommon($template) {
-        // load template. This is done before parsing the modules. Then the 
-        // modules still can effect the template. Set header, css, js etc. 
-        $template_path = 
-            _COS_PATH .
-            "/htdocs/templates/" .
-            $template;
         
-        include_once $template_path . "/common.inc";
-        include_once $template_path . "/template.inc";
-    }
-    
-    /**
-     * gets template name, the folder where the template is located
-     * @return string $template
-     */
-    public static function getTemplateName () {
         // check is a admin template is being used. 
         if (session::isAdmin() && isset(config::$vars['coscms_main']['admin_template'])){
             config::$vars['coscms_main']['template'] = config::$vars['coscms_main']['admin_template'];
@@ -69,7 +46,17 @@ class layout {
             $template = config::$vars['coscms_main']['template'];
         }
         
-        return $template;
+        // load template. This is done before parsing the modules. Then the 
+        // modules still can effect the template. Set header, css, js etc. 
+        $template_path = 
+            _COS_PATH .
+            "/htdocs/templates/" .
+            $template;
+        
+        include_once $template_path . "/common.inc";
+        include_once $template_path . "/template.inc";
+        
+        template::init(config::$vars['coscms_main']['template']);
     }
     
     /**
@@ -507,7 +494,7 @@ class layout {
             // numeric is custom block added to database
             if (is_numeric($val)) {
                 include_module('block_manip');
-                $row = block_manip::getOne($val); 
+                $row = blockManip::getOne($val); 
                 $row['content_block'] = get_filtered_content(
                     get_module_ini('block_manip_filters'), $row['content_block']
                 );
