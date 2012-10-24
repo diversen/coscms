@@ -3,14 +3,20 @@
 /**
  * File contains RB (Redbeans) helpers for easy connecting to CosCMS 
  * DB using Redbeans
- * @package rb helpers 
+ * @package rb_helpers 
  */
 
 /**
  * class contains class RB with a connect method, which creates a Redbean
  * connection from a CosCMS string. Also a a couple of methods used for
- * helping creating beans from arrays  
- * @package rb helpers
+ * helping creating beans from arrays
+ * 
+ * Note: You should only use the R and RB classes if you have independent tables,
+ * e.g. your modules only uses the same tables. If you mix R, RB with e.g.
+ * dbQ you can get diffrences in the UTF-8 output. E.g. inserts with dbQ
+ * and selects with R or RB. 
+ *
+ * @package rb_helpers
  */
 
 class RB {
