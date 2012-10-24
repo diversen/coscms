@@ -134,6 +134,21 @@ class layout {
         }
     }
     
+    public static function setMenuFromClassPath ($path) {
+        $ary = explode("/", $path);
+        if (count($ary) == 1) {
+            $menu = self::getBaseModuleMenu($ary[0]);
+            self::$menu['module'] = $menu;
+        }
+        
+        if (count($ary) == 2) {
+            $menu = self::getBaseModuleMenu($ary[0]);
+            self::$menu['module'] = $menu;
+            self::$menu['sub'] = self::getSubMenu($path);
+        }
+        
+    }
+    
     /**
      * translate all menu items. 
      * With main menu items we look for human translation.
