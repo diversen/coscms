@@ -422,19 +422,21 @@ class moduleloader {
     public static $id;
     
     /**
-     * var holding referenceLink
+     * var holding referenceLink. E.g. for pointing back to parent modules
+     * page
      * @var string $referenceLink
      */
     public static $referenceLink = null;
     
     /**
-     * var holding redirect reference 
+     * var holding redirect reference when called object has performed
+     * e.g. a correct submission
      * @var string $referenceRedirect
      */
     public static $referenceRedirect = null;
     
     /**
-     * var holding reference options
+     * var holding reference options sent to called object
      * @var array $referenceOptions
      */
     public static $referenceOptions = null;
@@ -473,16 +475,27 @@ class moduleloader {
         
         $res = moduleLoader::includeModule($reference);
         if ($res) {
+            // transform a reference (e.g. contentArticle) into a class name
+            // (contentArticle)
             $class = moduleLoader::modulePathToClassName($reference);
             self::$reference = $reference;
             self::$id = $id;
             self::$referenceId = $reference_id;
-            self::$referenceLink = $class::getLinkFromId(
-                    moduleLoader::$referenceId, moduleLoader::$referenceOptions);
-            self::$referenceRedirect = $class::getRedirect(
-                    moduleLoader::$referenceId, moduleLoader::$referenceOptions);
-            self::$referenceRedirect = html::getUrl(self::$referenceRedirect);
             
+            // we only need this if we just need a link to point to 'parent' module
+            if (method_exists($class, 'getLinkFromId')) {            
+                self::$referenceLink = $class::getLinkFromId(
+                    moduleLoader::$referenceId, moduleLoader::$referenceOptions);
+            }
+            
+            // we need this if we want to redirect if a submission was valid
+            if (method_exists($class, 'getRedirect')) {
+                self::$referenceRedirect = $class::getRedirect(
+                    moduleLoader::$referenceId, moduleLoader::$referenceOptions);
+                
+                // check if url is a rewritten one
+                self::$referenceRedirect = html::getUrl(self::$referenceRedirect);
+            }
             return true;
         }
         return false;
@@ -500,6 +513,7 @@ class moduleloader {
         $ary['reference'] = self::$reference;
         $ary['link'] = self::$referenceLink;
         $ary['redirect'] = self::$referenceRedirect;
+        $ary['options'] = self::$referenceOptions;
         return $ary;
     }
 
@@ -722,6 +736,7 @@ class moduleloader {
     public static function subModuleGetAdminOptions ($modules, $options) {
         $str = '';
         $ary = array();
+        
         if (!is_array($modules)) return array ();
         foreach ($modules as $val){
             if (method_exists($val, 'subModuleAdminOption') && moduleLoader::isInstalledModule($val)){

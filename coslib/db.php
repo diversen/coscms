@@ -704,6 +704,14 @@ class QBuilder  {
         } 
     }
     
+    /**
+     * 
+     * @return string $debug
+     */
+    public static function getLastDebug () {
+        return $debug = array_pop(self::$debug);
+    }
+    
 
     /**
      * escapes fields to select, e.g. 'id, date, test'
