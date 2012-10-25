@@ -97,6 +97,16 @@ function install_install_reload(){
     $reload->reloadConfig();
 }
 
+/**
+ * cli call function is --master is set then master will be used instead of
+ * normal tag
+ *
+ * @param array $options
+ */
+function install_use_master ($options){
+    config::$vars['git_use_master'] = 1;
+}
+
 
 mainCli::setCommand('install', array(
     'description' => 'install cos cms system',
@@ -123,6 +133,13 @@ mainCli::setOption('install_menu_lang_reload', array(
 mainCli::setOption('install_install_reload', array(
     'long_name'   => '--config-reload',
     'description' => 'Reloads the module table. E.g. you have made a CLI part of a module',
+    'action'      => 'StoreTrue'
+));
+
+mainCli::setOption('git_use_master', array(
+    'long_name'   => '--master',
+    'short_name'   => '-m',
+    'description' => 'Will use master. Use if you have all module sources, then the master will be installed',
     'action'      => 'StoreTrue'
 ));
 
