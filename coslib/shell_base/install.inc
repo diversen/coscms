@@ -38,16 +38,30 @@ function install($options = false) {
 
     // install modules
     foreach ($pro->profileModules as $key => $val){
+        
+        if (isset(config::$vars['git_use_master'])){
+            $tag = 'master';
+        } else {
+            $tag = $val['module_version'];
+        }
+        
         $options['repo'] = $val['public_clone_url'];
-        $options['version'] = $val['module_version'];
+        $options['version'] = $tag; //$val['module_version'];
         $options['module'] = $val['module_name'];
         git_install($options, 'module');
     }
     
     // install templates
     foreach ($pro->profileTemplates as $key => $val){
+        
+        if (isset(config::$vars['git_use_master'])){
+            $tag = 'master';
+        } else {
+            $tag = $val['module_version'];
+        }
+        
         $options['repo'] = $val['public_clone_url'];
-        $options['version'] = $val['module_version'];
+        $options['version'] = $tag; //$val['module_version'];
         $options['template'] = $val['module_name'];
         git_install($options, 'template');
     }
