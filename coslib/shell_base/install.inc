@@ -136,7 +136,7 @@ mainCli::setOption('install_install_reload', array(
     'action'      => 'StoreTrue'
 ));
 
-mainCli::setOption('git_use_master', array(
+mainCli::setOption('install_use_master', array(
     'long_name'   => '--master',
     'short_name'   => '-m',
     'description' => 'Will use master. Use if you have all module sources, then the master will be installed',
