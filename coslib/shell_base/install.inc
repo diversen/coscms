@@ -46,7 +46,7 @@ function install($options = false) {
         }
         
         $options['repo'] = $val['public_clone_url'];
-        $options['version'] = $tag; //$val['module_version'];
+        echo $options['version'] = $tag; //$val['module_version'];
         $options['module'] = $val['module_name'];
         git_install($options, 'module');
     }
@@ -118,12 +118,21 @@ function install_install_reload(){
  * @param array $options
  */
 function install_use_master ($options){
+    //echo "ok";
+    //die;
     config::$vars['git_use_master'] = 1;
 }
 
 
 mainCli::setCommand('install', array(
     'description' => 'install cos cms system',
+));
+
+mainCli::setOption('install_use_master', array(
+    'long_name'   => '--master',
+    'short_name'   => '-m',
+    'description' => 'Will use master. Use if you have all module sources, then the master will be installed',
+    'action'      => 'StoreTrue'
 ));
 
 mainCli::setOption('install', array(
@@ -150,12 +159,7 @@ mainCli::setOption('install_install_reload', array(
     'action'      => 'StoreTrue'
 ));
 
-mainCli::setOption('install_use_master', array(
-    'long_name'   => '--master',
-    'short_name'   => '-m',
-    'description' => 'Will use master. Use if you have all module sources, then the master will be installed',
-    'action'      => 'StoreTrue'
-));
+
 
 
 mainCli::setArgument('profile',
