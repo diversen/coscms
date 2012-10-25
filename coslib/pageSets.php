@@ -43,6 +43,8 @@ class pageSets {
         $next_text = $this->getNextText();
         $prev_text = $this->getPrevText();
         foreach ($rows as $key => $val) {
+            if ($num_rows == 1) return '';
+            
             if ($current == $val && $key == 0) {
                 // current is first
                 $next_url = $rows[$key+1];
