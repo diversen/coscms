@@ -46,7 +46,7 @@ function install($options = false) {
         }
         
         $options['repo'] = $val['public_clone_url'];
-        echo $options['version'] = $tag; //$val['module_version'];
+        $options['version'] = $tag; //$val['module_version'];
         $options['module'] = $val['module_name'];
         git_install($options, 'module');
     }
