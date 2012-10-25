@@ -134,6 +134,10 @@ class layout {
         }
     }
     
+    /**
+     * sets a module main and sub menu from class path. 
+     * @param string $path e.g. blog or content/article
+     */
     public static function setMenuFromClassPath ($path) {
         $ary = explode("/", $path);
         if (count($ary) == 1) {

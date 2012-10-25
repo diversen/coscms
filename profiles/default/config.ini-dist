@@ -1,4 +1,4 @@
-url = "mysql:dbname=osnet;host=localhost"
+url = "mysql:dbname=osnet;host=localhost;charset=utf8"
 username = "root"
 password = "pass"
 server_name = "www.os-cms.net"

@@ -56,7 +56,7 @@ function prompt_install(){
     //$super_email = cos_readline('Enter superuser email, and hit return: ');
 
     // assemble configuration info
-    config::$vars['coscms_main']['url'] = "mysql:dbname=$database;host=$host";
+    config::$vars['coscms_main']['url'] = "mysql:dbname=$database;host=$host;charset=utf8";
     config::$vars['coscms_main']['username'] = $username;
     config::$vars['coscms_main']['password'] = $password;
     config::$vars['coscms_main']['server_name'] = $server_name;
