@@ -765,11 +765,8 @@ class QBuilder  {
         
         if (!$fields) {
             $fields = '*';
-        } else {
-            $fields = self::escapeFields($fields);
-        }
+        } 
         
-        $table = self::$dbh->quote($table);
         $fields = self::$dbh->quote($fields);
         
         self::$query = "SELECT $fields FROM $table ";
@@ -783,7 +780,6 @@ class QBuilder  {
      * @return \QBuilder 
      */
     public static function setSelectNumRows ($table){
-        $table = self::$dbh->quote($table);
         self::$method = 'num_rows';
         self::$query = "SELECT count(*) as num_rows FROM $table ";
         return new QBuilder;
@@ -794,7 +790,6 @@ class QBuilder  {
      * @param string $table the table to delete from
      */
     public static function setDelete ($table){
-        $table = self::$dbh->quote($table);
         self::$method == 'delete';
         self::$query = "DELETE FROM $table ";
         return new QBuilder;
