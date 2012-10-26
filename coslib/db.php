@@ -131,6 +131,8 @@ class db {
                 $password
             );
             self::$dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            self::$dbh->exec("SET NAMES utf8");
+
         } catch (PDOException $e) {
             if (!$options){
                 self::fatalError ('Connection failed: ' . $e->getMessage());
