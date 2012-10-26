@@ -758,6 +758,7 @@ class QBuilder  {
      */
     
     public static function setSelectOne ($table, $fields = null){
+        
         self::$method = 'select_one';
         
         if (!$fields) {
@@ -766,7 +767,10 @@ class QBuilder  {
             $fields = self::escapeFields($fields);
         }
         
-        self::$query = "SELECT $fields FROM `$table` ";
+        $table = self::$dbh->quote($table);
+        $fields = self::$dbh->quote($fields);
+        
+        self::$query = "SELECT $fields FROM $table ";
         return new QBuilder;
     }
     
@@ -777,8 +781,9 @@ class QBuilder  {
      * @return \QBuilder 
      */
     public static function setSelectNumRows ($table){
+        $table = self::$dbh->quote($table);
         self::$method = 'num_rows';
-        self::$query = "SELECT count(*) as num_rows FROM `$table` ";
+        self::$query = "SELECT count(*) as num_rows FROM $table ";
         return new QBuilder;
     }
     
@@ -787,8 +792,9 @@ class QBuilder  {
      * @param string $table the table to delete from
      */
     public static function setDelete ($table){
+        $table = self::$dbh->quote($table);
         self::$method == 'delete';
-        self::$query = "DELETE FROM `$table` ";
+        self::$query = "DELETE FROM $table ";
         return new QBuilder;
     }
     
@@ -798,8 +804,9 @@ class QBuilder  {
      */
     
     public static function setUpdate ($table) {
+        $table = self::$dbh->quote($table);
         self::$method = 'update';
-        self::$query = "UPDATE `$table` SET ";
+        self::$query = "UPDATE $table SET ";
         return new QBuilder;
     }
     
@@ -808,8 +815,9 @@ class QBuilder  {
      * @param type $table the table to insert values into
      */
     public static function setInsert ($table) {
+        $table = self::$dbh->quote($table);
         self::$method = 'INSERT';
-        self::$query = "INSERT INTO `$table` ";
+        self::$query = "INSERT INTO $table ";
         return new QBuilder;
     }
     
@@ -954,11 +962,13 @@ class QBuilder  {
      * @param string $order (e.g. ASC or DESC)
      */
     public static function order ($column, $order = 'ASC'){
-        //static $isset = null;
+        $column = self::$dbh->quote($column);
+        $order = self::$dbh->quote($order);
+        
         if (!self::$isset) { 
-            self::$query.= " ORDER BY `$column` $order ";
+            self::$query.= " ORDER BY $column $order ";
         } else {
-            self::$query.= ", `$column` $order ";
+            self::$query.= ", $column $order ";
         }   
         self::$isset = true;
         return new QBuilder;
