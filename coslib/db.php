@@ -806,7 +806,6 @@ class QBuilder  {
      */
     
     public static function setUpdate ($table) {
-        $table = self::$dbh->quote($table);
         self::$method = 'update';
         self::$query = "UPDATE $table SET ";
         return new QBuilder;
