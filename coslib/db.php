@@ -961,9 +961,13 @@ class QBuilder  {
      * @param string $column column to order by, e.g. title
      * @param string $order (e.g. ASC or DESC)
      */
-    public static function order ($column, $order = 'ASC'){
-        $column = self::$dbh->quote($column);
-        $order = self::$dbh->quote($order);
+    public static function order ($column, $order = 'ASC', $options = array ()){
+        
+        //var_dump($column);
+        if (!isset($options['no_escape'])) {
+            $column = self::$dbh->quote($column);
+            $order = self::$dbh->quote($order);
+        }
         
         if (!self::$isset) { 
             self::$query.= " ORDER BY $column $order ";
