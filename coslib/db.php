@@ -122,6 +122,7 @@ class db {
             $url = config::getMainIni('url');
             $username = config::getMainIni('username');
             $password = config::getMainIni('password');
+            
         }
 
         try {
@@ -131,7 +132,10 @@ class db {
                 $password
             );
             self::$dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            self::$dbh->exec("SET NAMES utf8");
+            if (isset(config::$vars['coscms_main']['db_init'])) {
+                self::$dbh->exec(config::$vars['coscms_main']['db_init']);
+
+            }
 
         } catch (PDOException $e) {
             if (!$options){
