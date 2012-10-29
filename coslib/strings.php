@@ -163,18 +163,27 @@ class strings {
         {
             $part = (($sub != '') ? ' ' : '') . $word;
             $sub .= $part;
-            $len += strlen($part);
+            $len += strings::strlen($part);
 
-            if (strlen($word) > $minword && strlen($sub) >= $length)
+            if (strings::strlen($word) > $minword && strings::strlen($sub) >= $length)
             {
                 break;
             }
         }
 
         if ($use_dots) {
-            return $sub . (($len < strlen($str)) ? ' ... ' : '');
+            return $sub . (($len < strings::strlen($str)) ? ' ... ' : '');
         }
         return $sub;
+    }
+    
+    public static function strlen ($str) {
+        if (function_exists('mb_strlen')) {
+            return mb_strlen($str, 'UTF-8');
+        } else {
+            return strlen($str);
+        }
+        
     }
     
     /**
