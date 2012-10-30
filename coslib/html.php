@@ -1096,7 +1096,7 @@ EOF;
     public static function specialEncode(&$values){
         if (is_array($values)){
             foreach($values as $key => $val){
-                if (is_array($val)) {
+                if (is_array($val) ) {
                     $values[$key] = self::specialEncode($val);
                 } else {
                     $values[$key] = htmlspecialchars($val, ENT_COMPAT);
