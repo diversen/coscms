@@ -377,7 +377,8 @@ class video {
                 if ($res){
                     session::setActionMessage(lang::translate('video_file_added'));
                     $header = "Location: " . $redirect;
-                    header($redirect);
+                    header($header);
+                    exit;
                 } else {
                     view_form_errors(self::$errors);
                 }
