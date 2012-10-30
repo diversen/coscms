@@ -279,11 +279,48 @@ abstract class template {
         $str = "";
         ksort(self::$css);
         
-        foreach (self::$css as $key => $val){
+        foreach (self::$css as $val){
             $str.= "<link rel=\"stylesheet\" type=\"text/css\" href=\"$val\" />\n";
         }
         
         return $str;
+    }
+    
+
+     
+    public static function getCachedCss(){
+        
+        $str = "";
+        ksort(self::$css);
+        
+        if (config::getMainIni('cached_assets_reload')) {
+            foreach (self::$css as $key => $val){
+                if (!strstr($val, "http://") ) {
+                    unset(self::$css[$key]);
+                    $str.= file::getCachedFile(_COS_PATH . "/htdocs/$val");
+                }
+            }
+            
+            $md5 = md5($str);
+            $domain = config::getDomain();
+            
+            $web_path = "/files/$domain/cached_assets"; 
+            $file = "/all-$md5.css";
+           
+            $full_path = _COS_PATH . "/htdocs" . $web_path;
+            $full_file_path = $full_path . $file;
+            
+            // create file if it does not exist
+            if (!file_exists($full_file_path)) {
+                $to_remove = glob($full_path . "/all-*");
+                file::remove($to_remove);
+                file_put_contents($full_file_path, $str);
+            } 
+        }
+        
+        self::setCss($web_path . "$file");      
+        return self::getCss();
+    
     }
     
     /**
