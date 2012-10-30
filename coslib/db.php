@@ -963,12 +963,6 @@ class QBuilder  {
      */
     public static function order ($column, $order = 'ASC', $options = array ()){
         
-        //var_dump($column);
-        if (!isset($options['no_escape'])) {
-            $column = self::$dbh->quote($column);
-            $order = self::$dbh->quote($order);
-        }
-        
         if (!self::$isset) { 
             self::$query.= " ORDER BY $column $order ";
         } else {
