@@ -288,16 +288,16 @@ abstract class template {
     
 
      
-    public static function getCachedCss(){
+    public static function getCompressedCss(){
         
         $str = "";
         ksort(self::$css);
         
-        if (config::getMainIni('cached_assets_reload')) {
+        if (config::getMainIni('cached_assets_compress')) {
             foreach (self::$css as $key => $val){
                 if (!strstr($val, "http://") ) {
                     unset(self::$css[$key]);
-                    $str.= file::getCachedFile(_COS_PATH . "/htdocs/$val");
+                    $str.= file::getCachedFile(_COS_PATH . "/htdocs/$val") ."\n\n\n";
                 }
             }
             
@@ -305,22 +305,21 @@ abstract class template {
             $domain = config::getDomain();
             
             $web_path = "/files/$domain/cached_assets"; 
-            $file = "/all-$md5.css";
+            $file = "/css_all-$md5.css";
            
             $full_path = _COS_PATH . "/htdocs" . $web_path;
             $full_file_path = $full_path . $file;
             
             // create file if it does not exist
             if (!file_exists($full_file_path)) {
-                $to_remove = glob($full_path . "/all-*");
+                $to_remove = glob($full_path . "/css_all-*");
                 file::remove($to_remove);
                 file_put_contents($full_file_path, $str);
-            } 
-        }
-        
-        self::setCss($web_path . "$file");      
+            }
+            
+            self::setCss($web_path . "$file");   
+        }  
         return self::getCss();
-    
     }
     
     /**
@@ -387,10 +386,47 @@ abstract class template {
     public static function getJs(){
         $str = "";
         ksort(self::$js);
-        foreach (self::$js as $key => $val){
+        foreach (self::$js as $val){
             $str.= "<script src=\"$val\" type=\"text/javascript\"></script>\n";
         }
         return $str;
+    }
+    
+         
+    public static function getCompressedJs(){
+        
+        $str = "";
+        ksort(self::$js);
+        
+        if (config::getMainIni('cached_assets_compress')) {
+            foreach (self::$js as $key => $val){
+                if (!strstr($val, "http://") ) {
+                    unset(self::$js[$key]);
+                    $str.= file::getCachedFile(_COS_PATH . "/htdocs/$val") ."\n\n\n";
+                }
+            }
+            
+            $md5 = md5($str);
+            $domain = config::getDomain();
+            
+            $web_path = "/files/$domain/cached_assets"; 
+            $file = "/js_all-$md5.js";
+           
+            $full_path = _COS_PATH . "/htdocs" . $web_path;
+            $full_file_path = $full_path . $file;
+            
+            // create file if it does not exist
+            if (!file_exists($full_file_path)) {
+                $to_remove = glob($full_path . "/js_all-*");
+                file::remove($to_remove);
+                file_put_contents($full_file_path, $str);
+            }
+            self::setJs($web_path . $file);
+        }
+        
+          
+        return self::getJs();
+    
     }
     
     /**
