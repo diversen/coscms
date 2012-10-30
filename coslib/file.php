@@ -67,6 +67,24 @@ class file {
     }
     
     /**
+     * remove single file or array of files
+     * @param string|array $files
+     */
+    public static function remove ($files) {
+        if (is_string($files)) {
+            unlink($files);
+        }
+        if (is_array ($files)) {
+            foreach ($files as $val) {
+                $res = unlink($val);
+                if (!$res) {
+                    log::error("Could not remove file: $val");
+                }
+            }
+        }
+    }
+    
+    /**
      * method for getting extension of a file
      * @param string $filename
      * @return string $extension
