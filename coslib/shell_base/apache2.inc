@@ -64,12 +64,12 @@ function a2_enable_site($options){
 
     // create new hosts file and reload server
     $hosts_file_str = file_get_contents("/etc/hosts");
-    if (strstr($hosts_file_str, $hostname)){
-        return 1;
+    if (!strstr($hosts_file_str, $hostname)){
+        $new_hosts_file_str = "127.0.0.1\t$hostname\n" . $hosts_file_str;
+        file_put_contents("tmp/hosts", $new_hosts_file_str);
+        cos_exec("cp -f tmp/hosts /etc/hosts");
     }
-    $new_hosts_file_str = "127.0.0.1\t$hostname\n" . $hosts_file_str;
-    file_put_contents("tmp/hosts", $new_hosts_file_str);
-    cos_exec("cp -f tmp/hosts /etc/hosts");
+    
     cos_exec("/etc/init.d/apache2 restart");
     cos_exec("rm tmp/hosts tmp/$hostname"); 
 }
