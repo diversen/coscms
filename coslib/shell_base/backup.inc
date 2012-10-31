@@ -28,6 +28,8 @@
  * @return  int     the executed commands shell status 0 on success. 
  */
 function backup_backup($options){
+    cos_needs_root();
+    
     // default backup dir
     if (isset($options['File'])){
         // we use full path when specifing a file
@@ -35,7 +37,7 @@ function backup_backup($options){
     } else {
         $backup_file = "backup/full/" . time() . ".tar";
     }
-    $command = "sudo tar -Pcf $backup_file --exclude=backup* -v . ";
+    $command = "tar -Pcf $backup_file --exclude=backup* -v . ";
     $ret = cos_exec($command);
 }
 
@@ -55,6 +57,7 @@ function backup_backup($options){
  * @return  int     the executed commands shell status 0 on success. 
  */
 function backup_files_backup($options){
+    cos_needs_root();
     // default backup dir
     if (isset($options['File'])){
         // we use full path when specifing a file
@@ -62,7 +65,7 @@ function backup_files_backup($options){
     } else {
         $backup_file = "backup/files/" . time() . ".tar";
     }
-    $command = "sudo tar -Pcf $backup_file -v ./htdocs/files ";
+    $command = "tar -Pcf $backup_file -v ./htdocs/files ";
     $ret = cos_exec($command);
 }
 
@@ -81,6 +84,8 @@ function backup_files_backup($options){
  * @return  int     the executed commands shell status 0 on success. 
  */
 function backup_restore($options){
+    
+    cos_needs_root();
     if (!isset($options['File'])){
         $latest = backup_get_latest_backup();
         if ($latest == 0) die ("Yet no backups\n");
@@ -89,8 +94,7 @@ function backup_restore($options){
         $backup_file = $options['File'];
     }
 
-    // in order to easily preserve ownership we use sudo mode
-    $command = "sudo tar -Pxf $backup_file --exclude=backup* -v . ";
+    $command = "tar -Pxf $backup_file --exclude=backup* -v . ";
     $ret = cos_exec($command);
 }
 
@@ -109,6 +113,9 @@ function backup_restore($options){
  * @return  int     the executed commands shell status 0 on success. 
  */
 function backup_files_restore($options){
+    
+    // in order to easily preserve ownership we use need to run as root
+    cos_needs_root();
     if (!isset($options['File'])){
         $latest = backup_get_latest_backup('files');
         if ($latest == 0) die ("Yet no backups\n");
@@ -116,9 +123,8 @@ function backup_files_restore($options){
     } else {
         $backup_file = $options['File'];
     }
-
-    // in order to easily preserve ownership we use sudo mode
-    $command = "sudo tar -Pxf $backup_file -v ./htdocs/files ";
+    
+    $command = "tar -Pxf $backup_file -v ./htdocs/files ";
     $ret = cos_exec($command);
 }
 

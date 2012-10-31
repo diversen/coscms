@@ -21,7 +21,7 @@ function create_docs(){
     if ($ret){
         cos_cli_print("Could not find command phpdoc on your system");
         cos_cli_print("If the command phpdoc is not on your system we will not be able to create documentation.");
-        cos_cli_print("One way to do this is to: sudo pear install PhpDocumentor");
+        cos_cli_print("One way to do this is to: pear install PhpDocumentor");
         exit(127);
     }
 

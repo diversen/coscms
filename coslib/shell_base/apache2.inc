@@ -50,15 +50,17 @@ function create_a2_conf($SERVER_NAME){
  */
 function a2_enable_site($options){
     $hostname = trim($options['hostname']);
+    
+    cos_needs_root();
     create_logs();
-
+   
     // create apache2 conf and enable site
     $apache2_conf = create_a2_conf($hostname);
     $tmp_file = _COS_PATH . "/tmp/$hostname";
     file_put_contents($tmp_file, $apache2_conf);
     $apache2_conf_file = "/etc/apache2/sites-available/$hostname";
-    cos_exec("sudo cp -f tmp/$hostname $apache2_conf_file");
-    cos_exec("sudo a2ensite $hostname");
+    cos_exec("cp -f tmp/$hostname $apache2_conf_file");
+    cos_exec("a2ensite $hostname");
 
     // create new hosts file and reload server
     $hosts_file_str = file_get_contents("/etc/hosts");
@@ -67,8 +69,8 @@ function a2_enable_site($options){
     }
     $new_hosts_file_str = "127.0.0.1\t$hostname\n" . $hosts_file_str;
     file_put_contents("tmp/hosts", $new_hosts_file_str);
-    cos_exec("sudo cp -f tmp/hosts /etc/hosts");
-    cos_exec("sudo /etc/init.d/apache2 restart");
+    cos_exec("cp -f tmp/hosts /etc/hosts");
+    cos_exec("/etc/init.d/apache2 restart");
     cos_exec("rm tmp/hosts tmp/$hostname"); 
 }
 // }}}
@@ -85,11 +87,13 @@ function a2_enable_site($options){
  * @param   array   options only options is $options[sitename] 
  */
 function a2_disable_site($options){
+    
+    cos_needs_root();
     $hostname = trim($options['hostname']);
 
     $apache2_conf_file = "/etc/apache2/sites-available/$hostname";
-    cos_exec("sudo a2dissite $hostname");
-    cos_exec("sudo rm -f $apache2_conf_file");
+    cos_exec("a2dissite $hostname");
+    cos_exec("rm -f $apache2_conf_file");
 
     // create new hosts file and reload server
 
@@ -105,8 +109,8 @@ function a2_disable_site($options){
         }
     }
     file_put_contents("tmp/hosts", $host_file_str);
-    cos_exec("sudo cp -f tmp/hosts /etc/hosts");
-    cos_exec("sudo /etc/init.d/apache2 restart");
+    cos_exec("cp -f tmp/hosts /etc/hosts");
+    cos_exec("/etc/init.d/apache2 restart");
     cos_exec("rm tmp/hosts"); 
 
 }

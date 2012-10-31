@@ -171,3 +171,23 @@ function cos_is_cli (){
     }
     return true;
 }
+
+/**
+ * checks if user is root or not
+ * @return boolean true if is root else false
+ */
+function cos_is_root () {
+    
+    if (0 == posix_getuid()) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+function cos_needs_root () {
+    if (!cos_is_root()) {
+        echo "Command needs to run as root. Do the command with sudo or any other similar way\n";
+        exit(128);
+    }
+}

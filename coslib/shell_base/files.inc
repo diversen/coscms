@@ -17,6 +17,8 @@
  * @return int  value from exec command
  */
 function chmod_files(){
+    
+    cos_needs_root();
     $url = 'http://' . config::$vars['coscms_main']['server_name'] . '/whoami.php';
     $handle = fopen($url, "r");
     if ($handle) {
@@ -24,37 +26,37 @@ function chmod_files(){
             $group = fgets($handle, 4096);
         }
     } else {
-        die ("Could not open the url: $url\nGuess you need to change server name in config/config.ini");
+        die ("Could not open the url: $url\nGuess you need to change server name in config/config.ini\nOr a web host has not been enabled\n");
     }
     fclose($handle);
 
-    // current owner
-    $owner = exec('whoami');
+    cos_needs_root();
+    $owner = posix_getlogin();
 
     $files_path = _COS_PATH . '/htdocs/files ';
     $files_path.= _COS_PATH . '/logs ';
     $files_path.= _COS_PATH . '/config/multi';
-    $command = "sudo chown -R $owner:$group $files_path";
+    $command = "chown -R $owner:$group $files_path";
     cos_exec($command);
-    $command = "sudo chmod -R 770 $files_path";
+    $command = "chmod -R 770 $files_path";
     cos_exec($command);
 }
 
 /**
  * function for changing all files to be onwed by user.
  *
- * Change file to owned by owner
+ * Change file to owned by owner (the user logged in)
  * Public files /htdocs/files will then be set to 777
  *
  * @return int  value from exec command
  */
 function chmod_files_to_owner(){
-    // current owner
-    $owner = exec('whoami');
+    cos_needs_root();
+    $owner = posix_getlogin();
     $files_path = _COS_PATH . '/htdocs/files ';
-    $command = "sudo chown -R $owner:$owner $files_path";
+    $command = "chown -R $owner:$owner $files_path";
     cos_exec($command);
-    $command = "sudo chmod -R 770 $files_path";
+    $command = "chmod -R 770 $files_path";
     cos_exec($command);
 }
 
@@ -65,8 +67,9 @@ function chmod_files_to_owner(){
  * @return int  value from exec command
  */
 function rm_files(){
+    cos_needs_root();
     $files_path = _COS_PATH . '/htdocs/files/* ';
-    $command = "sudo rm -Rf $files_path";
+    $command = "rm -Rf $files_path";
     cos_exec($command);
 }
 
