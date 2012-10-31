@@ -68,10 +68,11 @@ function a2_enable_site($options){
         $new_hosts_file_str = "127.0.0.1\t$hostname\n" . $hosts_file_str;
         file_put_contents("tmp/hosts", $new_hosts_file_str);
         cos_exec("cp -f tmp/hosts /etc/hosts");
+        cos_exec("rm tmp/hosts tmp/$hostname"); 
     }
     
     cos_exec("/etc/init.d/apache2 restart");
-    cos_exec("rm tmp/hosts tmp/$hostname"); 
+    
 }
 // }}}
 // {{{ a2_disable_site()
