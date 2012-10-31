@@ -23,7 +23,6 @@ function install($options = false) {
     }
 
     // remove old files
-    rm_files();
     create_files();
 
     // load default sql.
