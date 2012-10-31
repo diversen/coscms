@@ -123,6 +123,10 @@ function install_use_master ($options){
     config::$vars['git_use_master'] = 1;
 }
 
+function install_check_root ($options = null) {
+    cos_needs_root();
+}
+
 
 mainCli::setCommand('install', array(
     'description' => 'install cos cms system',
@@ -144,6 +148,12 @@ mainCli::setOption('install', array(
 mainCli::setOption('install_reload_language', array(
     'long_name'   => '--lang-reload',
     'description' => 'Reinstall system language files according to language set in config/config.ini',
+    'action'      => 'StoreTrue'
+));
+
+mainCli::setOption('install_check_root', array(
+    'long_name'   => '--check-root',
+    'description' => 'Dummy command (used when installing system from shell). Checks if user is super user (root)',
     'action'      => 'StoreTrue'
 ));
 

@@ -185,9 +185,13 @@ function cos_is_root () {
     }
 }
 
-function cos_needs_root () {
+function cos_needs_root ($str = '') {
+    
+    if (empty($str)) {
+        $str = "Current command needs to be run as root. Do the command with sudo or any other similar way\n";
+    }    
     if (!cos_is_root()) {
-        echo "Command needs to run as root. Do the command with sudo or any other similar way\n";
+        echo $str;
         exit(128);
     }
 }
