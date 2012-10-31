@@ -48,19 +48,12 @@ function prompt_install(){
     $username = cos_readline('Enter database user, and hit return: ');
     $password = cos_readline('Enter database users password, and hit return: ');
     $server_name = cos_readline('Enter server host name (e.g. www.coscms.org), and hit return: ');
-    $site_email = cos_readline('Enter email (site wide) to send messages from, and hit return: ');
-    
-    // questions for creating a super user
-    //$super_user = cos_readline('Enter superuser username, and hit return: ');
-    //$super_password = cos_readline('Enter superuser password, and hit return: ');
-    //$super_email = cos_readline('Enter superuser email, and hit return: ');
 
     // assemble configuration info
     config::$vars['coscms_main']['url'] = "mysql:dbname=$database;host=$host;charset=utf8";
     config::$vars['coscms_main']['username'] = $username;
     config::$vars['coscms_main']['password'] = $password;
     config::$vars['coscms_main']['server_name'] = $server_name;
-    config::$vars['coscms_main']['site_email'] = $server_name;
 
     // write it to ini file
     $content = config::arrayToIniFile(config::$vars['coscms_main']);
@@ -68,7 +61,7 @@ function prompt_install(){
     file_put_contents($path, $content);
 
     // install profile.
-    $confirm_mes = "Configuration rewritten (config/config.ini). Many more options can be set here, so check it out at some point.";
+    $confirm_mes = "Configuration rewritten (config/config.ini). More options can be set here, so check it out at some point.";
     $confirm_mes.= "Will now install system ... ";
     
     cos_cli_print($confirm_mes);
@@ -80,20 +73,6 @@ function prompt_install(){
     }
 
     install($options);
-
-    // we can then add user when database is created
-    //include_module ("account/create", array('load_language' => true));
-    //$account = new accountCreate(false);
-    /*
-    $values = array(
-                'username'=> $super_user,
-                'password' => md5($super_password),
-                'email' => $super_email,
-                'verified' => 1,
-                'admin' => 1,
-                'super' => 1);
-    $account->createSystemUser($values);
-    cos_cli_print("If no critical errors, system should be installed.");*/
     useradd_add();
     $login = "http://$server_name/account/login/index";
     cos_cli_print("You are now able to log in: At $login");
