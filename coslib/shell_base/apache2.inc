@@ -63,6 +63,7 @@ function a2_enable_site($options){
     cos_exec("a2ensite $hostname");
 
     // create new hosts file and reload server
+    // not very exact match
     $hosts_file_str = file_get_contents("/etc/hosts");
     if (!strstr($hosts_file_str, $hostname)){
         $new_hosts_file_str = "127.0.0.1\t$hostname\n" . $hosts_file_str;
@@ -74,8 +75,9 @@ function a2_enable_site($options){
     cos_exec("/etc/init.d/apache2 restart");
     
 }
-// }}}
-// {{{ a2_disable_site()
+
+
+
 /**
  * function for enabling a apche2 site
  * the script does the following:
