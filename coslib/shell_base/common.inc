@@ -194,4 +194,5 @@ function cos_needs_root ($str = '') {
         echo $str;
         exit(128);
     }
+    exit(0);
 }
