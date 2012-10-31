@@ -71,7 +71,7 @@ function install($options = false) {
     $pro->setProfileTemplate();
 
     create_files();
-    chmod_files();
+    //chmod_files();
 }
 
 /**
