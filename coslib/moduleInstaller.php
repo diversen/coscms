@@ -13,6 +13,8 @@ if (!defined('_COS_CLI')){
     $new_line = "\n";
 }
 
+update_ini_file();
+
 /**
  * define new line if not cli
  */

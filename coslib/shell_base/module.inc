@@ -51,7 +51,7 @@ function upgrade_all(){
         $upgrade = new moduleInstaller($options);
         $upgrade->upgrade();
 
-        update_ini_file($options);
+        //update_ini_file($options);
         cos_cli_print($upgrade->confirm);
     }
 }
@@ -126,7 +126,7 @@ function upgrade_module($options){
         print $upgrade->confirm . "\n";
     }
     
-    update_ini_file($options);
+    //update_ini_file($options);
 }
 
 
