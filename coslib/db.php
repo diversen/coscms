@@ -966,7 +966,7 @@ class QBuilder  {
         //$column = self::$dbh->quote($column);
         //$order = self::$dbh->quote($order);
         if (!self::$isset) { 
-            self::$query.= " ORDER BY $column $order ";
+            self::$query.= " ORDER BY `$column` $order ";
         } else {
             self::$query.= ", $column $order ";
         }   
