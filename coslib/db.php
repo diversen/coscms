@@ -963,7 +963,7 @@ class QBuilder  {
      */
     public static function order ($column, $order = 'ASC', $options = array ()){
         
-        $column = self::$dbh->quote($column);
+        //$column = self::$dbh->quote($column);
         //$order = self::$dbh->quote($order);
         if (!self::$isset) { 
             self::$query.= " ORDER BY $column $order ";
