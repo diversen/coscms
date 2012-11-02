@@ -93,7 +93,7 @@ class profile  {
         $db->connect();
         $modules = $db->selectAll('modules');
 
-        include_once "moduleInstaller.php";
+        include_once "coslib/moduleInstaller.php";
         foreach ($modules as $key => $val){
             $options['module'] = $val['module_name'];
             $mi = new moduleInstaller($options);
