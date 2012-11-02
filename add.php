@@ -22,6 +22,9 @@ headline_message($headline);
 template::setTitle(lang::translate('video_add_file'));
 $options = moduleLoader::getReferenceInfo();
 
+// set parent modules menu
+layout::setMenuFromClassPath($options['reference']);
+
 $video = new video($options);
 $video->viewFileFormInsert();
 

@@ -9,7 +9,7 @@
 /**
  * @ignore
  */
-include_once "upload.php";
+include_once "coslib/upload.php";
 
 /**
  * class content video is used for keeping track of file changes
