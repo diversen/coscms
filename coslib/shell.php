@@ -10,7 +10,6 @@ include_once "coslib/head.php";
 include_once "coslib/file.php";
 include_once "coslib/strings.php";
 include_once 'Console/CommandLine.php';
-include_once "Console/Color.php";
 include_once "coslib/moduleInstaller.php";
 include_once "coslib/shell_base/common.inc";
 

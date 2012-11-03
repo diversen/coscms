@@ -100,7 +100,8 @@ class captcha {
      * @return string $str
      */
     public static function genRandomString() {
-        $length = 8;
+        $length = config::getMainIni('captcha_image_chars');
+        if (!$length) $length = 4;
         $characters = '0123456789';
         $string ='';    
 
