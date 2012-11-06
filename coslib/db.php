@@ -1048,8 +1048,9 @@ class QBuilder  {
             $res = self::$stmt->execute();
         } catch (Exception $e) {
             $last = self::getLastDebug();
-            log::debug($last);
+            log::debug("Last db query: " . $last);
             die;
+            
         }
         self::unsetVars();
         return $res;
