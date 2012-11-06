@@ -287,7 +287,13 @@ abstract class template {
     }
     
 
-     
+    /**
+     * takes all CSS and puts in one file. It works the same way as 
+     * template::getCss. You can sepcify this in your ini settings by using
+     * cached_assets_compress = 1
+     * Usefull if you have many css files. 
+     * @return string $str
+     */
     public static function getCompressedCss(){
         
         $str = "";
@@ -391,8 +397,15 @@ abstract class template {
         }
         return $str;
     }
-    
-         
+      
+    /**
+     * takes all JS and puts them in one file. It works the same way as 
+     * template::getJs (except you only get one file) 
+     * You can sepcify this in your ini settings by using
+     * cached_assets_compress = 1
+     * Usefull if you have many JS files. 
+     * @return string $str
+     */
     public static function getCompressedJs(){
         
         $str = "";

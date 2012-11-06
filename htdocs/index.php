@@ -11,7 +11,7 @@ $path = dirname(__FILE__);
 $path = realpath($path . "/../");
 
 // make it work on both windows and unix
-if (DIRECTORY_SEPARATOR != '/') {	
+if (DIRECTORY_SEPARATOR != '/') {
     $path = str_replace ('\\', '/', $path);
 }
 
