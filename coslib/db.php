@@ -815,7 +815,6 @@ class QBuilder  {
      * @param type $table the table to insert values into
      */
     public static function setInsert ($table) {
-        $table = self::$dbh->quote($table);
         self::$method = 'INSERT';
         self::$query = "INSERT INTO $table ";
         return new QBuilder;
@@ -1044,8 +1043,14 @@ class QBuilder  {
     public static function exec() {
         self::$debug[] = self::$query;    
         self::$stmt = self::$dbh->prepare(self::$query);
-        self::prepare();       
-        $res = self::$stmt->execute();
+        try {
+            self::prepare();       
+            $res = self::$stmt->execute();
+        } catch (Exception $e) {
+            $last = self::getLastDebug();
+            log::debug($last);
+            die;
+        }
         self::unsetVars();
         return $res;
     }
