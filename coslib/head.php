@@ -100,8 +100,7 @@ if (!defined('_COS_CLI')){
     $moduleLoader = new moduleLoader();
     $moduleLoader->runLevel(1);
 
-    // start session
-    session::initSession();
+    
     
     // select all db settings and merge them with ini file settings
     $db_settings = $db->selectOne('settings', 'id', 1);
@@ -127,10 +126,14 @@ if (!defined('_COS_CLI')){
     // according to locales
     setlocale(LC_TIME, $locale);
     setlocale(LC_MONETARY, $locale);
+
+    $moduleLoader->runLevel(4);
     
     // set default timezone
     date_default_timezone_set(config::$vars['coscms_main']['date_default_timezone']);
-    $moduleLoader->runLevel(4);
+
+    // start session
+    session::initSession();
 
     // load languages.
     lang::init();    
