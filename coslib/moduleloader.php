@@ -661,9 +661,10 @@ class moduleloader {
             // Note: Development needs to be set in main config/config.ini
             if (
 
-                config::$vars['coscms_main']['development']['server_name']
+                config::$vars['coscms_main']['server_name']
                     ==
                 @$_SERVER['SERVER_NAME']){
+                    
 
 
                 // we are on development, merge and overwrite normal settings with
@@ -683,13 +684,13 @@ class moduleloader {
             // Note: Development needs to be set in main config/config.ini
             if (
 
-                config::$vars['coscms_main']['stage']['server_name']
+                config::$vars['coscms_main']['server_name']
                     ==
                 @$_SERVER['SERVER_NAME']){
 
 
-                // we are on development, merge and overwrite normal settings with
-                // development settings.
+                // we are on stage, merge and overwrite normal settings with
+                // stage settings.
                 config::$vars['coscms_main']['module'] =
                     array_merge(
                         config::$vars['coscms_main']['module'],
