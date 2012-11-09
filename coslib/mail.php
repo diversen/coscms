@@ -276,12 +276,12 @@ function mail_smtp_zend ($to, $subject, $message, $from = null, $reply_to = null
  * method for sending html mails via smtp
  * @param   string  $recipient to whom are we gonna send the email
  * @param   string  $subject the subject of the email
- * @param   string  $html the html message the message of the email
+ * @param   string|array  $html the html message the message of the email
  * @param   string  $from from the sender of the email
  * @param   string  $reply_to email to reply to
  * @return  int     $res 1 on success 0 on error
  */
-function mail_html ($recipient, $subject, $html, $from = null, $reply_to = null){
+function mail_html ($recipient, $subject, $message, $from = null, $reply_to = null){
     
     if (!$from) {
         $from = config::$vars['coscms_main']['smtp_params_sender'];  
@@ -308,7 +308,20 @@ function mail_html ($recipient, $subject, $html, $from = null, $reply_to = null)
 
     $crlf = "\n";
     $mime = new Mail_mime($crlf);
-    $mime->setHTMLBody($html);
+    
+    // set a both a txt and a html message
+    if (is_array($message)) {
+        $html_message = $message['html'];
+        $txt_message = $message['txt'];
+    } else {
+        $html_message = $message;
+    }
+    
+    if (isset($txt_message)) {
+        $mime->setTXTBody($txt_message);
+    }
+    
+    $mime->setHTMLBody($html_message);
     $body = $mime->get(
             array('text_charset' => 'utf-8', 
                 'html_charset' => "utf-8",
