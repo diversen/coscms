@@ -160,25 +160,25 @@ mainCli::setCommand('backup', array(
 
 mainCli::setOption('backup_backup', array(
     'long_name'   => '--full',
-    'description' => "Will backup all files and preserve ownership, e.g. --backup test.tar. If you don't specify a file then the script will use current timestamp." ,
+    'description' => "Will backup all files and preserve ownership. If you don't specify a file then the script will use current timestamp." ,
     'action'      => 'StoreTrue'
 ));
 
 mainCli::setOption('backup_files_backup', array(
     'long_name'   => '--public',
-    'description' => "Will backup public html files in htdocs/files  and preserve ownership, e.g. --backup test.tar." ,
+    'description' => "Will backup public html files in htdocs/files  and preserve ownership" ,
     'action'      => 'StoreTrue'
 ));
 
 mainCli::setOption('backup_restore', array(
     'long_name'   => '--full-restore',
-    'description' => 'Will restore all files from a backup and preserve ownership, e.g. --restore test.tar. If no file is given when restoring backup, then file with latest timestamp will be used',
+    'description' => 'Will restore all files from a backup and preserve ownership. If no file is given when restoring backup, then file with latest timestamp will be used',
     'action'      => 'StoreTrue'
 ));
 
 mainCli::setOption('backup_files_restore', array(
     'long_name'   => '--public-restore',
-    'description' => 'Will restore public htdocs/files from a backup and preserve ownership, e.g. --files-restore test.tar. I',
+    'description' => 'Will restore public htdocs/files from a backup and preserve ownership.',
     'action'      => 'StoreTrue'
 ));
 
