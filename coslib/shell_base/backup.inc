@@ -35,9 +35,9 @@ function backup_backup($options){
         // we use full path when specifing a file
         $backup_file = $options['File'];
     } else {
-        $backup_file = "backup/full/" . time() . ".tar";
+        $backup_file = "backup/full/" . time() . ".tar.gz";
     }
-    $command = "tar -Pcf $backup_file --exclude=backup* -v . ";
+    $command = "tar -Pczf $backup_file --exclude=backup* -v . ";
     $ret = cos_exec($command);
 }
 
@@ -89,12 +89,12 @@ function backup_restore($options){
     if (!isset($options['File'])){
         $latest = backup_get_latest_backup();
         if ($latest == 0) die ("Yet no backups\n");
-        $backup_file = $latest = "backup/full/" . $latest . ".tar";
+        $backup_file = $latest = "backup/full/" . $latest . ".tar.gz";
     } else {
         $backup_file = $options['File'];
     }
 
-    $command = "tar -Pxf $backup_file --exclude=backup* -v . ";
+    $command = "tar -Pxzf $backup_file --exclude=backup* -v . ";
     $ret = cos_exec($command);
 }
 
