@@ -729,7 +729,7 @@ class QBuilder  {
         $ary = array ();
         foreach ($fields as $field) {
             $field = trim($field);
-            $ary[] = " `$field` "; 
+            $ary[] = " $field "; 
         }
         return implode(",", $ary);
     }
@@ -754,30 +754,7 @@ class QBuilder  {
         self::$query = "SELECT $fields FROM `$table` ";
         return new QBuilder;
     }
-    
-    /**
-     * prepare for a select one row statement. 
-     * 
-     * @param string $table the table to select from 
-     * @param string $fields the fields from the table to select 
-     *             e.g. * or 'id, title'
-     */
-    
-    public static function setSelectOne ($table, $fields = null){
         
-        self::$method = 'select_one';
-        
-        if (!$fields) {
-            $fields = '*';
-        } 
-        
-        $fields = self::$dbh->quote($fields);
-        
-        self::$query = "SELECT $fields FROM $table ";
-        return new QBuilder;
-    }
-    
-    
     /**
      * sets select statement for numrows
      * @param type $table
