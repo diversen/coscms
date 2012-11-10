@@ -63,9 +63,9 @@ function backup_files_backup($options){
         // we use full path when specifing a file
         $backup_file = $options['File'];
     } else {
-        $backup_file = "backup/files/" . time() . ".tar";
+        $backup_file = "backup/files/" . time() . ".tar.gz";
     }
-    $command = "tar -Pcf $backup_file -v ./htdocs/files ";
+    $command = "tar -Pczf $backup_file -v ./htdocs/files ";
     $ret = cos_exec($command);
 }
 
@@ -119,12 +119,12 @@ function backup_files_restore($options){
     if (!isset($options['File'])){
         $latest = backup_get_latest_backup('files');
         if ($latest == 0) die ("Yet no backups\n");
-        $backup_file = $latest = "backup/files/" . $latest . ".tar";
+        $backup_file = $latest = "backup/files/" . $latest . ".tar.gz";
     } else {
         $backup_file = $options['File'];
     }
     
-    $command = "tar -Pxf $backup_file -v ./htdocs/files ";
+    $command = "tar -Pxzf $backup_file -v ./htdocs/files ";
     $ret = cos_exec($command);
 }
 
@@ -159,25 +159,25 @@ mainCli::setCommand('backup', array(
 ));
 
 mainCli::setOption('backup_backup', array(
-    'long_name'   => '--backup',
+    'long_name'   => '--full',
     'description' => "Will backup all files and preserve ownership, e.g. --backup test.tar. If you don't specify a file then the script will use current timestamp." ,
     'action'      => 'StoreTrue'
 ));
 
 mainCli::setOption('backup_files_backup', array(
-    'long_name'   => '--files-backup',
+    'long_name'   => '--public',
     'description' => "Will backup public html files in htdocs/files  and preserve ownership, e.g. --backup test.tar." ,
     'action'      => 'StoreTrue'
 ));
 
 mainCli::setOption('backup_restore', array(
-    'long_name'   => '--restore',
+    'long_name'   => '--full-restore',
     'description' => 'Will restore all files from a backup and preserve ownership, e.g. --restore test.tar. If no file is given when restoring backup, then file with latest timestamp will be used',
     'action'      => 'StoreTrue'
 ));
 
 mainCli::setOption('backup_files_restore', array(
-    'long_name'   => '--files-restore',
+    'long_name'   => '--public-restore',
     'description' => 'Will restore public htdocs/files from a backup and preserve ownership, e.g. --files-restore test.tar. I',
     'action'      => 'StoreTrue'
 ));
