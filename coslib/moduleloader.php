@@ -220,6 +220,7 @@ class moduleloader {
     public function setHomeModuleInfo(){
         
         $frontpage_module = config::$vars['coscms_main']['frontpage_module'];
+        $this->info['module_name'] = $frontpage_module;
         $this->info['module_base_name'] = $frontpage_module;
         $this->info['base'] = $base = _COS_PATH . "/modules";
         $this->info['language_file'] = $base . "/$frontpage_module" . '/lang/' . config::$vars['coscms_main']['language'] . '/language.inc';
@@ -274,7 +275,7 @@ class moduleloader {
      * a specific controller. 
      */
     public function setModuleInfo ($route = null){
-                
+
         $uri = uri::getInstance($route);
         $info = uri::getInfo();
        
@@ -288,28 +289,32 @@ class moduleloader {
         // if we only have one fragment 
         // means we are in frontpage module
         $frontpage_module = config::$vars['coscms_main']['frontpage_module'];
-
+        $this->info['module_name'] = $info['module_name'];
         if ($uri->numFragments() == 1){
+           
             $this->info['module_base_name'] = $frontpage_module;
+            //$this->info['module_name'] = $frontpage_module; //;
             $this->info['base'] = $base = _COS_PATH . "/modules/$frontpage_module";
         } else {
             
+            //$this->info['module_name'] = $info['module_name'];
             $this->info['module_base_name'] = $info['module_base_name'];
             $this->info['base'] = $base = _COS_PATH . "/modules";
         }
-       
+
+        
         $this->info['language_file'] = $base . $info['module_base'] . '/lang/' . config::$vars['coscms_main']['language'] . '/language.inc';
         $this->info['ini_file'] =  $base . $info['module_base'] . $info['module_base'] . '.ini';
         $this->info['ini_file_php'] =  $base . $info['module_base'] . $info['module_base'] . '.php.ini';
         $this->info['model_file'] = $base . $info['controller_path_str'] . "/model." . $info['module_frag'] . ".inc";
-        $this->info['view_file'] = $base . $info['controller_path_str'] . "/view." . $info['module_frag'] . ".inc";        
+        $this->info['view_file'] = $base . $info['controller_path_str'] . "/view." . $info['module_frag'] . ".inc";    
+         
         $controller_file = $base . $info['controller_path_str'] . '/' . $info['controller'] . '.php';
-        
         
         $this->info['controller_file'] = $controller_file;
         $this->info['controller'] = $info['controller'];
 
-        // all we need is a controller. anything else is optional
+        // We need is a controller
         if (!file_exists($this->info['controller_file'])){
             $mes = "Controller file does not exists: ";
             $mes.= $this->info['controller_file'];
@@ -318,6 +323,7 @@ class moduleloader {
             $this->setErrorModuleInfo();    
         }
 
+        // we need module to be installed (only the base name) e.g. content
         if (!$this->isInstalledModule($info['module_base_name'])){
             self::$status[404] = 1;
             $mes = "module not installed: ";
@@ -344,57 +350,40 @@ class moduleloader {
      */
     public function initModule(){
 
-        // set ini file
-        if (file_exists($this->info['ini_file'])){
-            $module = $this->info['module_base_name'];
-            self::setModuleIniSettings($module);
-            
-            // load php ini if exists
-            if (isset(config::$vars['coscms_main']['module']['load_php_ini'])){
-                include $this->info['ini_file_php'];
-                config::$vars['coscms_main']['module'] = 
-                        array_merge(config::$vars['coscms_main']['module'], 
-                        $_MODULE_SETTINGS);
-            }
 
-            // set module template if specified
-            if (isset(config::$vars['coscms_main']['module']['template'])){
-                config::$vars['coscms_main']['template'] = config::$vars['coscms_main']['module']['template'];
-            }
+        $module = $this->info['module_name'];
 
-            // load controller specific template if specified
-            if (isset(config::$vars['coscms_main']['module']['page_template'])){
-                $page_template = explode (':', config::$vars['coscms_main']['module']['page_template']);
-                if ($this->info['controller'] == $page_template[0]){
-                    config::$vars['coscms_main']['template'] = $page_template[1];
-                }
-            }
-        }
-        
-        // include model if exists
-        if (file_exists($this->info['model_file'])){
-            include_once $this->info['model_file'];
+        include_module($module);
+
+        // load php ini if exists
+        if (isset(config::$vars['coscms_main']['module']['load_php_ini'])){
+            include $this->info['ini_file_php'];
+            config::$vars['coscms_main']['module'] = 
+                    array_merge(config::$vars['coscms_main']['module'], 
+                    $_MODULE_SETTINGS);
         }
 
-        // include view file if exists
-        if (file_exists($this->info['view_file'])){
-            include_once $this->info['view_file'];
+        // set module template if specified
+        // e.g. in account.ini:
+        // template = 'clean'
+        if (isset(config::$vars['coscms_main']['module']['template'])){
+            config::$vars['coscms_main']['template'] = config::$vars['coscms_main']['module']['template'];
         }
 
-        // include language file if exists.
-        if (file_exists($this->info['language_file'])){
-            include $this->info['language_file'];
-            if (isset($_COS_LANG_MODULE)){
-                lang::$dict = array_merge(lang::$dict, $_COS_LANG_MODULE);
+        // load controller specific template if specified
+        // e.g. set this is account.ini:
+        // page_template = '/account/admin/list:clean';
+        if (isset(config::$vars['coscms_main']['module']['page_template'])){
+            $page_template = explode (':', config::$vars['coscms_main']['module']['page_template']);   
+            $controller_path = "/" . $this->info['module_name'] . "/" . $this->info['controller'];   
+            if ($controller_path == $page_template[0]){
+                config::$vars['coscms_main']['template'] = $page_template[1];
             }
         }
 
-        // load any modules connected to this module
-        // we can see this is 'load_on' is set in module table
-        $module_name = uri::$info['module_name'];
         foreach (self::$modules as $val){
             if (!isset($val['load_on'])) continue;
-            if ($val['load_on'] === $module_name){
+            if ($val['load_on'] === $module){
                 moduleLoader::includeModule($val['module_name']);
                 $class_name = self::modulePathToClassName($val['module_name']);
                 $class_object = new $class_name(); 

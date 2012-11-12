@@ -82,8 +82,17 @@ class uri {
         self::$info['controller_frags'] = $controller_frags;
         self::$info['controller'] = self::getControllerFrag($controller_frags);
         self::$info['module_frag'] = self::getModuleFrag($controller_frags);
+        
+        
+        
         self::$info['controller_path_str'] = self::getControllerPathStr($controller_frags);
         self::$info['module_name'] = self::getModuleName($controller_frags);
+        
+        //if (self::$info['module_name'] != self::$info['module_frag']) {
+            //echo self::$info['module_name'];//.= self::$info['module_frag'];
+            //die;
+        //}
+        
         self::$info['module_base'] = self::getModuleBase($controller_frags);
         self::$info['module_base_name'] = self::getModuleBaseName($controller_frags);
         $info_isset = true;
