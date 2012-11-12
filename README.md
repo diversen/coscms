@@ -16,7 +16,7 @@ Login with admin / admin. A simple demo with a blog (blog module) and a CMS (con
 
 ### Install Linux / Unix 
 
-[Install Site Script](http://www.coscms.org/content/article/view/26/Debian-Install-Script)
+[Ubuntu / Debian / Linux Install](http://www.coscms.org/content/article/view/26/Debian--Ubuntu-install)
 
 [Step by Step](http://www.coscms.org/content/article/view/1/Step-by-Step-Linux-Install)
 
