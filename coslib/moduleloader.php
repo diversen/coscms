@@ -251,6 +251,7 @@ class moduleloader {
      */
     public function setErrorModuleInfo(){     
         $error_module = 'error';
+        $this->info['module_name'] = 'error';
         $this->info['base'] = $base = _COS_PATH . "/modules";
         $this->info['language_file'] = $base . "/$error_module" . '/lang/' . config::$vars['coscms_main']['language'] . '/language.inc';
         $this->info['ini_file'] =  $base . "/$error_module"  . "/$error_module" . '.ini';
@@ -350,9 +351,8 @@ class moduleloader {
      */
     public function initModule(){
 
-
-        $module = $this->info['module_name'];
-
+        $module = $this->info['module_name'];       
+       
         include_module($module);
 
         // load php ini if exists
@@ -582,7 +582,12 @@ class moduleloader {
      * @return string the parsed modules html
      */
     public function loadModule(){
-        include_once $this->info['controller_file'];        
+        
+        if (!file_exists($this->info['controller_file'])){
+            self::$status[404] = 1;
+        }  else {
+            include_once $this->info['controller_file'];
+        }
         if (isset(self::$status[403])){
             $this->setErrorModuleInfo();
             $this->initModule();
@@ -948,7 +953,7 @@ function include_module($module){
     $model_file = $module_path . '/' . "model.$last.inc";  
     $view_file = $module_path . '/' . "view.$last.inc";
     $ary = explode('/', $module);
-
+    
     lang::loadModuleLanguage($ary[0]);
     moduleLoader::setModuleIniSettings($ary[0]);
 
