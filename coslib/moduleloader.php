@@ -373,14 +373,17 @@ class moduleloader {
         // load controller specific template if specified
         // e.g. set this is account.ini:
         // page_template = '/account/admin/list:clean';
-        if (isset(config::$vars['coscms_main']['module']['page_template'])){
-            $page_template = explode (':', config::$vars['coscms_main']['module']['page_template']);   
+        // can only be used for one controller per module.
+        if (isset(config::$vars['coscms_main']['module']['template_controller'])){
+            $page_template = explode (':', config::$vars['coscms_main']['module']['template_controller']);   
             $controller_path = "/" . $this->info['module_name'] . "/" . $this->info['controller'];   
             if ($controller_path == $page_template[0]){
                 config::$vars['coscms_main']['template'] = $page_template[1];
             }
         }
 
+        // by setting the load_on param in install.inc 
+        // you can load a module as a sub module. 
         foreach (self::$modules as $val){
             if (!isset($val['load_on'])) continue;
             if ($val['load_on'] === $module){
@@ -388,7 +391,21 @@ class moduleloader {
                 $class_name = self::modulePathToClassName($val['module_name']);
                 $class_object = new $class_name(); 
                 $class_object->init();
-            }    
+            }
+        }
+        
+        // enable modules which are set in module ini settings
+        // e.g. for account you will set the following ini setting
+        // account_modules[] = 'test' 
+        $load_on = $this->info['module_base_name']. "_modules";
+        $load_on_modules = config::getModuleIni($load_on);
+        if (isset($load_on_modules)) {
+            foreach (self::$modules as $val) {
+                
+                if (in_array($val['module_name'], $load_on_modules)) {
+
+                }
+            }
         }
     }
     
