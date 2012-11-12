@@ -103,9 +103,11 @@ function a2_disable_site($options){
     $host_file_str = '';
     $hosts_file_str = file("/etc/hosts");
 
+    
+    $host_search = "127.0.0.1\t$hostname\n";
     $str="";
     foreach ($hosts_file_str as $key => $val){
-        if (strstr($val, $hostname)) {
+        if (strstr($val, $host_search)) {
             continue; 
         } else { 
             $host_file_str.=$val;
