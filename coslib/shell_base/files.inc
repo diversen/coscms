@@ -30,7 +30,6 @@ function chmod_files(){
     }
     fclose($handle);
 
-    cos_needs_root();
     $owner = posix_getlogin();
 
     $files_path = _COS_PATH . '/htdocs/files ';
