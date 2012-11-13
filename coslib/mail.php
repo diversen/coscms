@@ -281,7 +281,7 @@ function mail_smtp_zend ($to, $subject, $message, $from = null, $reply_to = null
  * @param   string  $reply_to email to reply to
  * @return  int     $res 1 on success 0 on error
  */
-function mail_html ($recipient, $subject, $message, $from = null, $reply_to = null){
+function mail_smtp_html ($recipient, $subject, $message, $from = null, $reply_to = null){
     
     if (!$from) {
         $from = config::$vars['coscms_main']['smtp_params_sender'];  
@@ -298,7 +298,7 @@ function mail_html ($recipient, $subject, $message, $from = null, $reply_to = nu
         'Return-Path'   => $from,
         'Reply-To'      => $reply_to,
         'Subject'       => $subject,
-        'Content-type' => 'text/plain; charset=UTF-8'
+        'Content-type' => 'text/html; charset=UTF-8'
     );
 
     $bounce = config::getMainIni('site_email_bounce');
