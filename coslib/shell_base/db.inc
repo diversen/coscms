@@ -185,36 +185,36 @@ if (cos_is_cli()){
 
     mainCli::setOption('create_db', array(
         'long_name'   => '--create-db',
-        'description' => 'Creates database from settings in config/config.ini (if user is allowed to) ',
+        'description' => 'Creates database from settings in config/config.ini (if user is allowed to). Warning: Will drop database if it exists, and create database again.',
         'action'      => 'StoreTrue'
     ));
 
 
     mainCli::setOption('load_db_default', array(
         'long_name'   => '--load-db-default',
-        'description' => 'Loads database in config/config.ini with default sql (scripts/default.sql)',
+        'description' => 'Loads database in config/config.ini with default sql (scripts/default.sql). Only the very basic SQL is loaded into database.',
         'action'      => 'StoreTrue'
     ));
 
     mainCli::setOption('load_db_file', array(
         'long_name'   => '--load-db-file',
-        'description' => 'Loads specified file or latest into db',
+        'description' => 'Loads specified file or latest found in backup/sql into db',
         'action'      => 'StoreTrue'
     ));
 
     mainCli::setOption('connect_db', array(
         'long_name'   => '--connect',
-        'description' => 'Will try to connect to database specified in config/config.ini',
+        'description' => 'Connects to database specified in config/config.ini using the mysql shell',
         'action'      => 'StoreTrue'
     ));
 
     mainCli::setOption ('dump_db_file', array(
         'long_name'   => '--dump-db-file',
-        'description' => 'Will try to dump database specified in config/config.ini',
+        'description' => 'Will try to dump database specified in config/config.ini. If no file is specified then dump will be generated with a unix timestamp.',
         'action'      => 'StoreTrue'
     ));
 
     mainCli::setArgument('File',
-        array('description'=> 'Specify the file to load into db',
+        array('description'=> 'Optional: Specify a path to a file to load into db',
               'optional' => true));
 }

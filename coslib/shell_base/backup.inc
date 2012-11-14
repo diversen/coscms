@@ -155,24 +155,24 @@ function backup_get_latest_backup($type = null){
 // }}}
 
 mainCli::setCommand('backup', array(
-    'description' => "Command for making file based tar archive backups of system. ",
+    'description' => "Command for creating and restoring file based tar.gz archives of a complete system.",
 ));
 
 mainCli::setOption('backup_backup', array(
     'long_name'   => '--full',
-    'description' => "Will backup all files and preserve ownership. If you don't specify a file then the script will use current timestamp." ,
+    'description' => "Will backup all files and preserve ownership. If you don't specify a file then the script will create backup from current timestamp." ,
     'action'      => 'StoreTrue'
 ));
 
 mainCli::setOption('backup_files_backup', array(
     'long_name'   => '--public',
-    'description' => "Will backup public html files in htdocs/files  and preserve ownership" ,
+    'description' => "Will backup public html files in htdocs/files and preserve ownership" ,
     'action'      => 'StoreTrue'
 ));
 
 mainCli::setOption('backup_restore', array(
     'long_name'   => '--full-restore',
-    'description' => 'Will restore all files from a backup and preserve ownership. If no file is given when restoring backup, then file with latest timestamp will be used',
+    'description' => 'Will restore all files from a backup and regenerate original ownership. If no file is given when restoring backup, then the backup with latest timestamp will be used',
     'action'      => 'StoreTrue'
 ));
 

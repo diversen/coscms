@@ -172,7 +172,7 @@ function profile_use_master ($options){
 
 if (cos_is_cli()){
 mainCli::setCommand('profile', array(
-    'description' => 'Profile commands. Profiles are configuration for complete sites',
+    'description' => 'Profile commands. Profiles are configuration for complete sites. You can build profiles for distribution, install from profiles, reload configuration and more.',
 ));
 
 mainCli::setOption('load_profile', array(
