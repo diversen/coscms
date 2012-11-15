@@ -118,12 +118,12 @@ class mail_mime_wrapper {
 }
 
 /**
- * function for sending utf8 mails with native mail function
+ * function for sending text amils as with utf8 encoding
  *
  * @param   string  $to to whom are we gonna send the email
  * @param   string  $subject the subject of the email
  * @param   string  $message the message of the email
- * @param   string  $from from the sender of the email
+ * @param   string  $from the sender of the email
  * @param   string  $reply_to email to reply to
  * @return  int     1 on success 0 on error
  */
@@ -154,27 +154,30 @@ function mail_utf8($to, $subject, $message, $from = null, $reply_to=null) {
 }
 
 /**
- * method for sending html mails via smtp
+ * method for sending multi part emails. Default to txt if $message is a string 
  * @param   string  $to to whom are we send the email
  * @param   string  $subject the subject of the email
- * @param   string|array  $html the html message the message of the email
+ * @param   array   $html the html message the message of the email, e.g.
+ *                  array ('txt' => 'message', 'html' => '<h3>html message</h3>',
+ *                         'attachments => array ('/path/to/file', '/path/to/another/file'));
  * @param   string  $from from the sender of the email
  * @param   string  $reply_to email to reply to
  * @return  int     $res 1 on success 0 on error
  */
 function mail_multipart_utf8 ($to, $subject, $message, $from = null, $reply_to = null){
-
-    $to = "<$to>";
-    $headers = mail_get_headers($subject, $from, $reply_to, 'text/html; charset=UTF-8');
-
     
+    $to = "<$to>";
+    $headers = mail_get_headers($subject, $from, $reply_to, 'text/plain; charset=UTF-8');
+ 
     $mime = new mail_mime_wrapper();
     if (is_array($message)) {
         if (isset($message['txt'])) {
             $mime->setTxt($message['txt']);
         }
         if (isset($message['html'])) {
-            $mime->setHTML($message['html']);
+            if (strlen($message['html']) != 0) {
+                $mime->setHTML($message['html']);
+            } 
         }
         
         if (isset($message['attachment'])) {
@@ -183,7 +186,7 @@ function mail_multipart_utf8 ($to, $subject, $message, $from = null, $reply_to =
             }
         }
     } else {
-        $mime->setHTML($message);
+        $mime->setTxt($message);
     }
     
     $body = $mime->getBody();
@@ -195,7 +198,7 @@ function mail_multipart_utf8 ($to, $subject, $message, $from = null, $reply_to =
     $mail = Mail::factory($options['mail_method'], $params);
     $res = $mail->send($to, $mime_headers, $body);
     if (PEAR::isError($res)) {
-        cos_error_log($res->getMessage());
+        log::debug($res->getMessage());
         return false;
     }
     return true;
