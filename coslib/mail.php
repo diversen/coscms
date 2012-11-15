@@ -83,31 +83,62 @@ function mail_get_headers ($subject, $from, $reply_to, $content_type = 'text/htm
     return $headers;
 }
 
+/**
+ * thin wrapper around Mail::Mime
+ */
 class mail_mime_wrapper {
+    /**
+     * holding mime object
+     * @var object $mime 
+     */
     public $mime = null;
     
+    /**
+     * constructs a mime object
+     */
     public function __construct () {
         $crlf = "\n";
         $this->mime = new Mail_mime($crlf);
     }
     
+    /**
+     * sets txt part
+     * @param string $txt
+     */
     public function setTxt ($txt) {
         $this->mime->setTXTBody($txt);   
     }
     
+    /**
+     * sets html part
+     * @param string $html
+     */
     public function setHTML ($html) {
         $this->mime->setHTMLBody($html);
     }
     
+    /**
+     * sets a attachment
+     * @param string $file path to file
+     */
     public function setAttachment ($file) {
         $mime_type = file::getMime($file);
         $this->mime->addAttachment($file, $mime_type);  
     }
     
+    /**
+     * get mime headers
+     * @param array $headers
+     * @return string $headers
+     */
     public function getHeaders ($headers) {
         return $this->mime->headers($headers);
     }
     
+    /**
+     * gets body
+     * @return string $body
+     */
     public function getBody () {
         return $this->mime->get(
             array('text_charset' => 'utf-8', 
@@ -117,7 +148,7 @@ class mail_mime_wrapper {
 }
 
 /**
- * function for sending text amils as with utf8 encoding
+ * function for sending text emails as with utf8 encoding
  *
  * @param   string  $to to whom are we gonna send the email
  * @param   string  $subject the subject of the email
@@ -126,7 +157,6 @@ class mail_mime_wrapper {
  * @param   string  $reply_to email to reply to
  * @return  int     1 on success 0 on error
  */
-
 function mail_utf8($to, $subject, $message, $from = null, $reply_to=null) {
     
     $to = "<$to>"; 
@@ -154,28 +184,20 @@ function mail_utf8($to, $subject, $message, $from = null, $reply_to=null) {
 
 /**
  * method for sending multi part emails. Default to txt if $message is a string 
- * @param   string  $to to whom are we send the email
- * @param   string  $subject the subject of the email
- * @param   array   $html the html message the message of the email, e.g.
+ * @param   string          $to to whom are we send the email
+ * @param   string          $subject the subject of the email
+ * @param   array|string    $html the html message the message of the email, e.g.
  *                  array ('txt' => 'message', 'html' => '<h3>html message</h3>',
  *                         'attachments => array ('/path/to/file', '/path/to/another/file'));
- * @param   string  $from from the sender of the email
- * @param   string  $reply_to email to reply to
- * @return  int     $res 1 on success 0 on error
+ * @param   string          $from from the sender of the email
+ * @param   string          $reply_to email to reply to
+ * @return  int             $res 1 on success 0 on error
  */
 function mail_multipart_utf8 ($to, $subject, $message, $from = null, $reply_to = null){
     
     $to = "<$to>";
     $mime = new mail_mime_wrapper();
     if (is_array($message)) {
-        
-        // clean html
-        if ( (count($message) == 1) && (isset($message['html'])) ) {
-            $headers = mail_get_headers($subject, $from, $reply_to, 'text/html; charset=UTF-8');
-        // true multi part
-        } else {
-            $headers = mail_get_headers($subject, $from, $reply_to, 'text/plain; charset=UTF-8');
-        }
                 
         if (isset($message['txt'])) {
             $mime->setTxt($message['txt']);
@@ -211,7 +233,7 @@ function mail_multipart_utf8 ($to, $subject, $message, $from = null, $reply_to =
 }
 
 /**
- * send mail to primary user
+ * sends a mail to primary system user
  * @param string $subject
  * @param string $message
  * @param string $from (optional)
