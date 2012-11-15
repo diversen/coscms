@@ -84,6 +84,39 @@ function mail_get_headers ($subject, $from, $reply_to, $content_type = 'text/htm
     return $headers;
 }
 
+class mail_mime_wrapper {
+    public $mime = null;
+    
+    public function __construct () {
+        $crlf = "\n";
+        $this->mime = new Mail_mime($crlf);
+    }
+    
+    public function setTxt ($txt) {
+        $this->mime->setTXTBody($txt);   
+    }
+    
+    public function setHTML ($html) {
+        $this->mime->setHTMLBody($html);
+    }
+    
+    public function setAttachment ($file) {
+        $mime_type = file::getMime($file);
+        $this->mime->addAttachment($file, $mime_type);  
+    }
+    
+    public function getHeaders ($headers) {
+        return $this->mime->headers($headers);
+    }
+    
+    public function getBody () {
+        return $this->mime->get(
+            array('text_charset' => 'utf-8', 
+                'html_charset' => "utf-8",
+                'head_charset' => "utf-8"));
+    }
+}
+
 /**
  * function for sending utf8 mails with native mail function
  *
@@ -101,29 +134,24 @@ function mail_utf8($to, $subject, $message, $from = null, $reply_to=null) {
     
     $headers = mail_get_headers($subject, $from, $reply_to, 'text/plain; charset=UTF-8');
     
-    $crlf = "\n";
-    $mime = new Mail_mime($crlf);
+    $mime = new mail_mime_wrapper();
+    $mime->setTxt($message);
 
-    $mime->setTXTBody($message);
-    $body = $mime->get(
-            array('text_charset' => 'UTF-8', 
-                'html_charset' => "UTF-8",
-                'head_charset' => "UTF-8"));
-    $headers = $mime->headers($headers);
+    $body = $mime->getBody();
+    $mime_headers = $mime->getHeaders($headers);
 
     $options = mail_init();
     $params = mail_get_params ();
   
     $mail = Mail::factory($options['mail_method'], $params);
-    $res = $mail->send($to, $headers, $body);
+    $res = $mail->send($to, $mime_headers, $body);
     if (PEAR::isError($res)) {
-        cos_error_log($res->getMessage());
+        log::debug($res->getMessage());
         return false;
     }
     return true;
     
 }
-
 
 /**
  * method for sending html mails via smtp
@@ -134,40 +162,38 @@ function mail_utf8($to, $subject, $message, $from = null, $reply_to=null) {
  * @param   string  $reply_to email to reply to
  * @return  int     $res 1 on success 0 on error
  */
-function mail_html_utf8 ($to, $subject, $message, $from = null, $reply_to = null){
+function mail_multipart_utf8 ($to, $subject, $message, $from = null, $reply_to = null){
 
-    $to = "<$to>"; 
+    $to = "<$to>";
+    $headers = mail_get_headers($subject, $from, $reply_to, 'text/html; charset=UTF-8');
+
     
-    $headers = mail_get_headers($subject, $from, $reply_ro, 'text/plain; charset=UTF-8');
-
-    $crlf = "\n";
-    $mime = new Mail_mime($crlf);
-     
-    // set a both a txt and a html message
+    $mime = new mail_mime_wrapper();
     if (is_array($message)) {
-        $html_message = $message['html'];
-        $txt_message = $message['txt'];
+        if (isset($message['txt'])) {
+            $mime->setTxt($message['txt']);
+        }
+        if (isset($message['html'])) {
+            $mime->setHTML($message['html']);
+        }
+        
+        if (isset($message['attachment'])) {
+            foreach ($message['attachment'] as $val) {
+                $mime->setAttachment($val);
+            }
+        }
     } else {
-        $html_message = $message;
+        $mime->setHTML($message);
     }
     
-    if (isset($txt_message)) {
-        $mime->setTXTBody($txt_message);
-    }
-    
-    $mime->setHTMLBody($html_message);
-    $body = $mime->get(
-            array('text_charset' => 'utf-8', 
-                'html_charset' => "utf-8",
-                'head_charset' => "utf-8"));
-    $headers = $mime->headers($headers);
+    $body = $mime->getBody();
+    $mime_headers = $mime->getHeaders($headers);
 
     $options = mail_init();
     $params = mail_get_params ();
 
     $mail = Mail::factory($options['mail_method'], $params);
-
-    $res = $mail->send($to, $headers, $body);
+    $res = $mail->send($to, $mime_headers, $body);
     if (PEAR::isError($res)) {
         cos_error_log($res->getMessage());
         return false;
