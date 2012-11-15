@@ -76,7 +76,6 @@ function mail_get_headers ($subject, $from, $reply_to, $content_type = 'text/htm
         'Return-Path'   => $from,
         'Reply-To'      => $reply_to,
         'Subject'       => $subject,
-        'Content-type'  => $content_type
     );
 
     $bounce = config::getMainIni('site_email_bounce');
@@ -132,7 +131,7 @@ function mail_utf8($to, $subject, $message, $from = null, $reply_to=null) {
     
     $to = "<$to>"; 
     
-    $headers = mail_get_headers($subject, $from, $reply_to, 'text/plain; charset=UTF-8');
+    $headers = mail_get_headers($subject, $from, $reply_to);
     
     $mime = new mail_mime_wrapper();
     $mime->setTxt($message);
@@ -167,10 +166,17 @@ function mail_utf8($to, $subject, $message, $from = null, $reply_to=null) {
 function mail_multipart_utf8 ($to, $subject, $message, $from = null, $reply_to = null){
     
     $to = "<$to>";
-    $headers = mail_get_headers($subject, $from, $reply_to, 'text/plain; charset=UTF-8');
- 
     $mime = new mail_mime_wrapper();
     if (is_array($message)) {
+        
+        // clean html
+        if ( (count($message) == 1) && (isset($message['html'])) ) {
+            $headers = mail_get_headers($subject, $from, $reply_to, 'text/html; charset=UTF-8');
+        // true multi part
+        } else {
+            $headers = mail_get_headers($subject, $from, $reply_to, 'text/plain; charset=UTF-8');
+        }
+                
         if (isset($message['txt'])) {
             $mime->setTxt($message['txt']);
         }
@@ -193,7 +199,7 @@ function mail_multipart_utf8 ($to, $subject, $message, $from = null, $reply_to =
     $mime_headers = $mime->getHeaders($headers);
 
     $options = mail_init();
-    $params = mail_get_params ();
+    $params = mail_get_params();
 
     $mail = Mail::factory($options['mail_method'], $params);
     $res = $mail->send($to, $mime_headers, $body);
