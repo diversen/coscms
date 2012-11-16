@@ -72,6 +72,17 @@ class config {
     }
     
     /**
+     * sets a main ini setting, e.g. override from database
+     * @param string $key the key to set
+     * @param string $value the value to set the key with
+     */
+    public static function setMainIniWithArray ($ary) {
+        foreach ($ary as $key => $val) {
+            config::$vars['coscms_main'][$key] = $val;
+        }
+    }
+    
+    /**
      * 
      */
     public static function getLanguageAry ($language = null) {
@@ -383,7 +394,12 @@ class config {
      */
     public static function getServerName () {
         $server_name = config::getMainIni('server_name');
-        return $server_name;       
+        if (!$server_name) $server_name = $_SERVER['SERVER_NAME'];
+        return $server_name;     
+    }
+    
+    public static function getSchemeWithServerName () {
+        return config::getHttpScheme() . "//" . config::getServerName();
     }
      
    /**

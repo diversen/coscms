@@ -3,7 +3,28 @@
 
 /**
  * file contains functions for sending mail 
- * in various ways. With  PHP or SMTP using UTF-8
+ * using sendmail, smtp or mail function using UTF-8
+ * It uses the excellent PEAR Mail and Mail:mime 
+ * classes. And this file just wraps the functionality of these classes. 
+ * 
+ * You really only need to use one function call: 
+ * 
+ * mail_multipart_utf8($to, $subject, $message, $from, $reply_to);
+ * 
+ * with this command you can send mails as txt, html (or both) and 
+ * add attachments by only setting the attachment part of the message array
+ * 
+ * You can use this as standalone component. You will need to the following
+ * includes: 
+ * 
+ * include_once "coslib/file.php"
+ * include_once "coslib/config.php";
+ * 
+ * $params = array ('mail_method' => 'smtp');
+ * config::setMainIniWithArray($params);
+ * 
+ * 
+ *  
  * @package mail
  */
 

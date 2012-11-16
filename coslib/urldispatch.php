@@ -7,7 +7,11 @@
 
 /**
  * simple class for dispatching url patterns to a controller file or class
- * call. 
+ * call. This gives option for setting a path e.g. /my/homemade/path to
+ * call a specified controller. This should be set in a modules install 
+ * file as the urlmatching patterns are stored in database. Example from 
+ * a install.inc file: 
+ * 
  * @package urldispatch 
  */
 class urldispatch {
