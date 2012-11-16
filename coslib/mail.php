@@ -67,7 +67,7 @@ function mail_get_params () {
  * @param string $content_type
  * @return array $headers
  */
-function mail_get_headers ($subject, $from, $reply_to, $content_type = 'text/html; charset=UTF-8') {
+function mail_get_headers ($subject, $from, $reply_to) {
     if (!$from) $from = config::$vars['coscms_main']['site_email']; 
     if (!$reply_to) $reply_to = $from;
                        
@@ -196,6 +196,9 @@ function mail_utf8($to, $subject, $message, $from = null, $reply_to=null) {
 function mail_multipart_utf8 ($to, $subject, $message, $from = null, $reply_to = null){
     
     $to = "<$to>";
+    
+    $headers = mail_get_headers($subject, $from, $reply_to);
+    
     $mime = new mail_mime_wrapper();
     if (is_array($message)) {
                 
