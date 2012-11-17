@@ -399,7 +399,7 @@ class config {
     }
     
     public static function getSchemeWithServerName () {
-        return config::getHttpScheme() . "//" . config::getServerName();
+        return config::getHttpScheme() . "://" . config::getServerName();
     }
      
    /**
