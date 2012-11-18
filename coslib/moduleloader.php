@@ -824,7 +824,6 @@ class moduleloader {
     public static function includeModules ($modules) {
         if (!is_array($modules)) return false;
         foreach ($modules as $key => $val) {
-            //lang::loadModuleLanguage($val);
             moduleLoader::includeModule ($val);
         }
     }
