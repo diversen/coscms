@@ -45,19 +45,22 @@ function dev_test ($options = null) {
     //echo config::getModuleIni('account_allow_create');
 }
 
+
+function dev_build ($options = null) {
+    $command = "cp -rf . ../build";
+    cos_exec($command);
+    $command = "rm `find ../build -name '.git'` -rf";
+    //$command = escapeshellarg($command);
+    cos_exec($command);
+}
+
 mainCli::setCommand('dev', array(
-    'description' => 'Dev command for checking if allow people where they are not allowed. ',
+    'description' => 'Dev command. ',
 ));
 
 mainCli::setOption('dev_test_access', array(
-    'long_name'   => '--check-access',
-    'description' => 'Will check all web access points and give return code, e.g. 200 or 403',
-    'action'      => 'StoreTrue'
-));
-
-mainCli::setOption('dev_test', array(
-    'long_name'   => '--test',
-    'description' => 'test',
+    'long_name'   => '--http-return-codes',
+    'description' => 'Will check all web access points and give return code, e.g. 200 or 403 or 404',
     'action'      => 'StoreTrue'
 ));
 
@@ -67,4 +70,8 @@ mainCli::setOption('dev_clear_cache', array(
     'action'      => 'StoreTrue'
 ));
 
-
+mainCli::setOption('dev_build', array(
+    'long_name'   => '--build',
+    'description' => 'Will build a distribution from current source',
+    'action'      => 'StoreTrue'
+));
