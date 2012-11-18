@@ -606,26 +606,6 @@ class moduleloader {
     }
     
     /**
-     * method for getting a modules ini settings.
-     * @param string $module
-     * @param string $single used if we just want a single ini setting
-     * @return  array   array with ini settings of module.
-     */
-    public static function getModuleIniSettings($module, $single = null){
-
-        // only read ini file settings once.
-        if (!isset(self::$iniSettings[$module])){
-            self::setModuleIniSettings($module);
-            if (isset($single)){
-                if (isset(self::$iniSettings[$module][$single])){
-                    return self::$iniSettings[$module][$single];
-                }
-            }
-        } 
-    }
-
-
-    /**
      * method for setting a modules ini settings.
      * @param string $module
      * @param string $type module or template
@@ -634,9 +614,6 @@ class moduleloader {
     public static function setModuleIniSettings($module, $type = 'module'){
 
         static $set = array();
-        if (!isset(self::$iniSettings['module'])){
-            self::$iniSettings['module'] = array();
-        }
         
         if (!isset(config::$vars['coscms_main']['module'])){
             config::$vars['coscms_main']['module'] = array ();
@@ -658,16 +635,16 @@ class moduleloader {
             return;
         }
                 
-        self::$iniSettings[$module] = config::getIniFileArray($ini_file, true);
-        if (is_array(self::$iniSettings[$module])){
+        $module_ini = config::getIniFileArray($ini_file, true);
+        if (is_array($module_ini)){
             config::$vars['coscms_main']['module'] = array_merge(
                 config::$vars['coscms_main']['module'],
-                self::$iniSettings[$module]
+                $module_ini
             );
         }
 
         // check if development settings exists.
-        if (isset(self::$iniSettings[$module]['development'])){
+        if (isset($module_ini['development'])){
             // check if we are on a development server.
             // Note: Development needs to be set in main config/config.ini
             if (
@@ -683,7 +660,7 @@ class moduleloader {
                 config::$vars['coscms_main']['module'] =
                     array_merge(
                         config::$vars['coscms_main']['module'],
-                        self::$iniSettings[$module]['development']
+                        $module_ini['development']
                     );
             }
         }
@@ -847,7 +824,7 @@ class moduleloader {
     public static function includeModules ($modules) {
         if (!is_array($modules)) return false;
         foreach ($modules as $key => $val) {
-            lang::loadModuleLanguage($val);
+            //lang::loadModuleLanguage($val);
             moduleLoader::includeModule ($val);
         }
     }

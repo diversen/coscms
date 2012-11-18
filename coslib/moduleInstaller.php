@@ -514,9 +514,9 @@ class moduleInstaller extends db {
 
         $module = $this->installInfo['NAME'];
         $ini_file = _COS_PATH . "/modules/$module/$module.ini";
-        $ini_file_php = _COS_PATH . "/modules/$module/$module.php.ini";
+        $ini_file_php = _COS_PATH . "/modules/$module/$module.ini.php";
         $ini_file_dist = _COS_PATH . "/modules/$module/$module.ini-dist";
-        $ini_file_dist_php = _COS_PATH . "/modules/$module/$module.php.ini-dist";
+        $ini_file_dist_php = _COS_PATH . "/modules/$module/$module.ini.php-dist";
 
         if (!file_exists($ini_file)){
             if (!copy($ini_file_dist, $ini_file)){

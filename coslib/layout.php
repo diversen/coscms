@@ -262,7 +262,6 @@ class layout {
             $module = $parent;
         }
 
-        moduleLoader::getModuleIniSettings($module);
         $module_menu = self::getMenuFromFile($module);
         
         $children_menu = self::getChildrenMenus($module);
