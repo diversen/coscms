@@ -26,12 +26,6 @@ ini_set('include_path',
  * the names specifify what the classes or function collections do. 
  * @ignore
  */
-/*
-spl_autoload_register(function($className)
-{
-    include('coslib/' . str_replace('\\', '/', ltrim($className, '\\')) . '.php');
-}); */ 
-
 
 include_once "coslib/config.php";
 include_once "coslib/file.php";
