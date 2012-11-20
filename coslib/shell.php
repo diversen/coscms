@@ -227,7 +227,7 @@ class mainCli {
             return;
         }
 
-        $modules = moduleLoader::getAllModules();
+        $modules = moduleloader::getAllModules();
 
         foreach ($modules as $val){
             if (isset($val['is_shell']) && $val['is_shell'] == 1){
