@@ -823,7 +823,7 @@ class moduleloader {
      */
     public static function includeModules ($modules) {
         if (!is_array($modules)) return false;
-        foreach ($modules as $key => $val) {
+        foreach ($modules as $val) {
             moduleLoader::includeModule ($val);
         }
     }
@@ -925,6 +925,7 @@ function include_module($module){
 
     $module_path = config::$vars['coscms_base'] . '/modules/' . $module;
     $ary = explode('/', $module);
+    
     $last = array_pop($ary);
     $model_file = $module_path . '/' . "model.$last.inc";  
     $view_file = $module_path . '/' . "view.$last.inc";
