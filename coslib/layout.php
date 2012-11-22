@@ -556,4 +556,8 @@ class layout {
         }
         return $ret_blocks;
     }
+    
+    public static function setMenu ($item, $menu) {
+        self::$menu[$item] = $menu;
+    }
 }
