@@ -2,7 +2,7 @@
 
 class strings_ext {
     
-        /** 
+    /** 
      * Substring without losing word meaning and
      * tiny words (length 3 by default) are included on the result.
      *  "..." is added if result do not reach original string length
@@ -34,7 +34,7 @@ class strings_ext {
         }
 
         if ($use_dots) {
-            return $ret . (($len < strings::strlen($str)) ? ' ... ' : '');
+            return $ret . (($len < strings::strlen($str)) ? '...' : '');
         }
         return $ret;
     }

@@ -172,7 +172,7 @@ class strings {
         }
 
         if ($use_dots) {
-            return $sub . (($len < strings::strlen($str)) ? ' ... ' : '');
+            return $sub . (($len < strings::strlen($str)) ? '...' : '');
         }
         return $sub;
     }
