@@ -98,6 +98,8 @@ class session {
             }
             
             $db = new db();
+            
+            // cookie_id is indexed with KEY `cookie_id_index` (`cookie_id`)
             $row = $db->selectOne ('system_cookie', 'cookie_id', $_COOKIE['system_cookie']);
             
             if (!empty($row)){
@@ -147,7 +149,6 @@ class session {
      */
     public static function setSystemCookie($user_id){
         
-        cos_debug("Notice: Settings system cookie");
         $uniqid = uniqid();
         $uniqid= md5($uniqid);
   
