@@ -1,5 +1,7 @@
 ; database url
 url = "mysql:dbname=osnet;host=localhost;charset=utf8"
+; a database init command
+db_init = "SET NAMES utf8"
 ; database username
 username = "root"
 ; database password

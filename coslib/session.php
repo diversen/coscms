@@ -382,6 +382,35 @@ class session {
             return true;
         }
     }
+    
+    /**
+     * checks access for user, admin or super. It 
+     * Loads error module if user level is not present
+     * @return boolean $res true if admin else false. 
+     */
+    public static function checkAccess ($type = null) {
+        $res = false;
+        if ($type == 'user') {
+            $res = session::isUser();
+        }
+        
+        if ($type == 'admin') {
+            $res = session::isAdmin();
+        }
+        
+        if ($type == 'super') {
+            $res = session::isSuper();
+        }
+        
+        if (!$res) {
+            moduleLoader::$status[403] = 1;
+            return false;
+        } else {
+            return true;
+        }
+    }
+    
+    
 
     /**
      * method for relocate user to login, and after correct login 
