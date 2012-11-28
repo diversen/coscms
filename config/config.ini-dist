@@ -1,54 +1,85 @@
-; database url to use
-url = "mysql:dbname=dbname;host=localhost"
-; your database user name
-username = "user"
+; database url
+url = "mysql:dbname=osnet;host=localhost;charset=utf8"
+; database username
+username = "root"
 ; database password
-password = "password"
+password = "pass"
 ; server name
-server_name = "www.coscms.org"
-; from mail when sending mails with native mail function
-site_email = "dennis@os-cms.dk"
+server_name = "www.os-cms.net"
+; force server redirect
+;server_redirect = 'www.os-cms.net'
+; send mail
+send_mail = 1
+; send mail using smtp (defaultt)
+; mail method (sendmail, mail, smtp)
+mail_method= 'smtp'
+smtp_mail = 1
+; default email to send mail to
+site_email = "mail <mail@example.com>"
+default mail host
+smtp_params_host = "mail.example.com"
+; smtp sender
+smtp_params_sender = "mail <mail@example.com>"
+; smtp port
+smtp_params_port     = "465"
+; use auth
+smtp_params_auth     =  "true"
+; smtp username
+smtp_params_username = "mail@example.com"
+; smtp password
+smtp_params_password = "pass"
 ; default timezone
 date_default_timezone = "Europe/Copenhagen"
-; some default time settings to use when displaying dates.
-date_format_long = "d-M-Y H:i:s"
-date_format_short = "d-M-Y"
-; send mail or not.
-send_mail = 1
-; language
+; long time format
+date_format_long = "%d-%b-%Y %T"
+; short time format
+date_format_short = "%d-%b-%Y"
+; locale - sets money and time
+locale = "en_GB.utf8"
+; language translation
 language = "en_GB"
-; language code for HTML
+; html language
 lang = "en"
-; session settings time in secounds.
-session_time = 3600
+; session time - close when browser closes
+session_time = 0
+; session path
 session_path = "/"
+; session host - not set we use current HTTP_HOST
 session_host = ""
-; cookie lifetimes in days.
-cookie_time = 30
-; frontpage module
+; use memcache session handler
+; session_handler = "memcache"
+; log in cookie time - endless = -1, else number in days 
+cookie_time = -1
+; frontpage module - use cms as frontpage
 frontpage_module = "content"
 ; profile module
 profile_module = "account_profile"
-; blocks enabled.
-blocks[] = "/modules/content/blocks/treeKeepState.php"
-; ssh host and porrt are used if we want to be 
-; able to tranfer sites between servers with rsync and ssh
-; see ./coscli.sh remote -h
-ssh_port = 12312
-ssh_host = 123.123.123.123
-; production path on remote server
-prod_path = /home/dennis/www/www.coscms.org
-; locale path on locale machine
-locale_path = /home/dennis/www/coscms
+; default blocks enabled
+blocks_top[0] = "/modules/system/blocks/system_admin_menu_top.inc"
+blocks[1] = "/modules/content/blocks/content_tree_keep_state.inc"
+; all type of blocks
+blocks_all = "blocks,blocks_top"
+; default domain
+domain = 'default'
+; debug
+debug = 0
+; cache assets
+cached_assets = 1
+; reload cached assets
+cached_assets_reload = 0
+; use captcha image
+captcha_image_module = 1
+; set image driver - default is GD
+;image_driver = 'Imagick3'
+; override with stage settings - when host is dbi.no-i.org
+; the settings in section stage will override above
+[stage]
+server_name = 'dbi.no-ip.org'
+:server_redirect ='dbi.no-ip.org'
+hostname = 'dennis-Rev-1-0'
 ; development settings
-; only used when sitename is coscms (locale server name)
-; we set some smtp settings because we are not on a mail host. 
+; when server name is osnet - these setting will override above
 [development]
-server_name = "coscms"
-smtp_mail = 1
-smtp_params_host = "ssl://smtp.gmail.com"
-smtp_params_sender = "mail@gmail.com"
-smtp_params_port     = "465"
-smtp_params_auth     = "true"
-smtp_params_username = "mail@gmail.com"
-smtp_params_password = "password"
+server_name = 'osnet'
+server_redirect ='osnet'
+hostname = 'dennis-Rev-1-0'
