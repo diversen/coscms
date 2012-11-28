@@ -327,11 +327,12 @@ class session {
 
     /**
      * Checks access control against a module ini setting 
-     * Allow is a module setting
-     * e.g. in blog.ini
-     * blog_allow = 'admin'
-     * then checkAccessControl will check if user is admin. 
-     * If not the default error page and 403 header will be set. 
+     * e.g. in blog.ini default is: blog_allow = 'admin'
+     * then you should call checkAccessControl('blog_allow') in order to prevent
+     * others than 'admin' in using the page
+     * 
+     * If user does not have perms then the default 403 page will be set, 
+     * and a 403 header will be sent. 
      * 
      * @param   string  $allow user or admin or super
      * @param   boolean $setErrorModule set error module or not
