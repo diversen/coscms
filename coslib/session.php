@@ -231,8 +231,9 @@ class session {
 
     /**
      * method for setting an action message. Used when we want to tell a
-     * user what happened if he is redirected. I have noticed that on memcache
-     * you will need to close the the session, or session data may get lost. 
+     * user what happened if he is e.g. redirected. You can force to
+     * close the session, which means you can write to screen after you
+     * session vars has been set. This should be avoided.  
      *
      * @param string $message the action message.
      * @param boolean $close to close session writing or not
@@ -251,8 +252,9 @@ class session {
 
     /**
      * method for reading an action message
-     *
-     * @return string current set actionMessage
+     * You can template this message by adding a template_get_action_message
+     * in your template. 
+     * @return string $str actionMessage
      */
     public static function getActionMessage(){
         if (isset($_SESSION['system_message'])){
@@ -276,8 +278,7 @@ class session {
 
     /**
      * method for testing if user is in super or not
-     *
-     * @return  boolean true or false
+     * @return  boolean $res true or false
      */
     static public function isSuper(){
         if ( isset($_SESSION['super']) && ($_SESSION['super'] == 1)){
@@ -289,8 +290,7 @@ class session {
 
     /**
      * method for testing if user is admin or not
-     *
-     * @return  boolean true or false
+     * @return  boolean $res true or false
      */
     static public function isAdmin(){
         if ( isset($_SESSION['admin']) && ($_SESSION['admin'] == 1)){
@@ -302,7 +302,7 @@ class session {
 
     /**
      * method for getting users level (null, user, admin, super)
-     * return   mixed   null or string if null then user is not logged in
+     * return   mixed   $res null or string if null then user is not logged in
      *                  if string we get the users highest level, user, admin or super.
      */
     public static function getUserLevel(){
