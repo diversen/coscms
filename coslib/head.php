@@ -67,9 +67,9 @@ if (!defined('_COS_CLI')){
     // check if there exists a shared ini file
     // shared ini is used if we want to enable settings between hosts
     // which share same code base. 
-    // e.g. when updating all sites. It is good to set the following flag
-    // update = 1
-    // this flag will send correct 307 header, when we are updating our site. 
+    // e.g. when updating all sites, it is a good idea to set the following flag
+    // site_update = 1
+    // this flag will send correct 503 headers, when we are updating our site. 
     
     $shared_ini = _COS_PATH . '/config/shared.ini';
     if (file_exists($shared_ini)) {
