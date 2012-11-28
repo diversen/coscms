@@ -12,14 +12,12 @@
  * @package    session
  */
 class session {
-    // {{{ static public function initSession()
     /**
      * method for initing a session
      * set in_session and start_time of session
      * checks if we use memcached which is a good idea
      */
-    static public function initSession(){
-        //return;
+    public static function initSession(){
         // figure out session time
         $session_time = config::getMainIni('session_time');
         if ($session_time) {
@@ -81,6 +79,8 @@ class session {
     /**
      * checks if there is a cookie we can use for 
      * log in. If cookie exists we will login the user
+     * Note: Your this triggers events set in 
+     * main ini setting session_events
      * @return void
      */
     public static function checkSystemCookie(){
@@ -326,13 +326,13 @@ class session {
     }
 
     /**
-     * checkAccessControl($allow)
-     * checks user level:
-     *      super has access to all,
-     *      admin has access to more
-     *      user has access to less
-     *      null has access to least
-     *
+     * Checks access control against a module ini setting 
+     * Allow is a module setting
+     * e.g. in blog.ini
+     * blog_allow = 'admin'
+     * then checkAccessControl will check if user is admin. 
+     * If not the default error page and 403 header will be set. 
+     * 
      * @param   string  $allow user or admin or super
      * @param   boolean $setErrorModule set error module or not
      * @return  boolean true if user has required accessLevel.
