@@ -123,6 +123,21 @@ class session {
             } 
         }
     }
+    
+    /**
+     * you can specify one event in your main ini (config/config.ini) file.
+     * session_events:  
+     * 
+     * e.g. $args = array (
+     *                  'action' => 'account_login',
+     *                  'user_id' => $account['id']
+     *              );
+     * 
+     * This is called on session::checkSystemCookie on a cookie login.   
+     */
+    public static function __events () {
+        
+    }
 
 
     /**
