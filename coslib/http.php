@@ -182,7 +182,19 @@ class http {
             exit;
         }
     }
-
+    
+    /**
+     * send temorarily unavailable headers
+     * and displays an error message found in:
+     * htdocs/temporarily_unavailable.inc
+     */
+    public static function temporarilyUnavailable () {
+        header('HTTP/1.1 503 Service Temporarily Unavailable');
+        header('Status: 503 Service Temporarily Unavailable');
+        header('Retry-After: 300'); // 5 minutes in seconds
+        include_once _COS_PATH . "/htdocs/temporarily_unavailable.inc";
+        die();
+    }
 }
 
 /**

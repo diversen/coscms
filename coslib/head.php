@@ -63,6 +63,29 @@ if (!defined('_COS_CLI')){
     
     // load config/config.ini
     config::loadMain();
+    
+    // check if there exists a shared ini file
+    // shared ini is used if we want to enable settings between hosts
+    // which share same code base. 
+    // e.g. when updating all sites. It is good to set the following flag
+    // update = 1
+    // this flag will send correct 307 header, when we are updating our site. 
+    
+    $shared_ini = _COS_PATH . '/config/shared.ini';
+    if (file_exists($shared_ini)) {
+        $ini = config::getIniFileArray($shared_ini, true);
+        config::$vars['coscms_main'] =
+            array_merge(
+                config::$vars['coscms_main'],
+                $ini
+            );
+    }
+    
+    // if site is being updaing we send temporarily headers
+    // and display an error message
+    if (config::getMainIni('site_update')) {
+        http::temporarilyUnavailable();
+    }
 
     
     if (config::getMainIni('debug')) {

@@ -9,6 +9,7 @@ htdocs/css/*.css*
 htdocs/phpdocs
 htdocs/examples
 config/config.ini
+config/shared.ini
 config/multi/*
 logs/*.log*
 nbproject/*
