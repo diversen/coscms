@@ -1,0 +1,8 @@
+; shared.ini-dist
+; Ini settings found here will be added to main ini - and
+; will work accross multiple sites. 
+;
+; set the following flag and a 'temporarily unavailable'
+; message will be displayed. Used when updating a site
+
+; site_update = 1
