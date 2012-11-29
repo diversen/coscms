@@ -1,6 +1,12 @@
 ; shared.ini-dist
+;
+; to make this file have effect you will to copy it to
+; shared.ini
+;
+; cp shared.ini-dist shared.ini
+;
 ; Ini settings found here will be added to main ini - and
-; will work accross multiple sites. 
+; will work accross shared sites. 
 ;
 ; set the following flag and a 'temporarily unavailable'
 ; message will be displayed. Used when updating a site
