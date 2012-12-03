@@ -159,7 +159,7 @@ if ($num_rows == 0){
 
 function web_install_add_user () {
 
-        $layout = new layout();
+        $layout = new layout('zimpleza');
 
         $errors = array ();
         
