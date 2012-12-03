@@ -47,10 +47,20 @@ function dev_test ($options = null) {
 
 
 function dev_build ($options = null) {
-    $command = "cp -rf . ../build";
+    $name = cos_readline("Enter name of build - usually name of profile");
+    
+    $command = "cp -rf . ../$name";
     cos_exec($command);
-    $command = "rm `find ../build -name '.git'` -rf";
-    //$command = escapeshellarg($command);
+    
+    $command = "rm `find ../$name -name '.git'` -rf";
+    cos_exec($command);
+    
+    $output = array ();
+    exec('git tag -l', $output);
+    
+    $version = array_pop($output);
+    
+    $command = "tar -Pczf ../$name-$version.tar.gz  -v ../$name ";
     cos_exec($command);
 }
 
