@@ -49,6 +49,10 @@ function dev_test ($options = null) {
 function dev_build ($options = null) {
     $name = cos_readline("Enter name of build - usually name of profile");
     
+    if (file_exists("../$name")) {
+        die("File or dir with name $name exists\n");
+    }
+    
     $command = "cp -rf . ../$name";
     cos_exec($command);
     
@@ -60,7 +64,7 @@ function dev_build ($options = null) {
     
     $version = array_pop($output);
     
-    $command = "tar -Pczf ../$name-$version.tar.gz  -v ../$name ";
+    $command = "cd  .. && tar -Pczf $name-$version.tar.gz  -v $name ";
     cos_exec($command);
 }
 
