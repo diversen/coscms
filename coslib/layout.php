@@ -41,6 +41,11 @@ class layout {
         }
         self::includeTemplateCommon($template);
         template::init($template);
+        //if (!isset(self::$menu['module'])) {
+            self::$menu['module'] = array ();
+            self::$menu['sub'] = array ();
+            self::$menu['main'] = array ();
+        //}
     }
     
     public static function includeTemplateCommon($template) {
@@ -115,8 +120,14 @@ class layout {
         // we decide this from num fragments in uri. 
         $module = uri::getInstance()->fragment(0);
         if ($num >= 2){
+            
             $menu = self::getBaseModuleMenu($module);
-            self::$menu['module'] = $menu;
+            //print_r($menu);
+            //print_r(self::$menu['module']);
+            //self::$menu['module']= array_merge(self::$menu['module'], $menu);
+            
+            $menu = self::getBaseModuleMenu($module);
+            self::$menu['module'] = array_merge(self::$menu['module'], $menu);
         }
 
         // with num fragments larger then two we know there may be a sub module
@@ -249,6 +260,10 @@ class layout {
 
     }
 
+    public static function attachMenuItem ($menu, $item) {     
+        self::$menu[$menu][] = $item;
+    }
+    
     /**
      * gets the base modules menu. 
      * @param   string  module name
@@ -555,9 +570,5 @@ class layout {
             }
         }
         return $ret_blocks;
-    }
-    
-    public static function setMenu ($item, $menu) {
-        self::$menu[$item] = $menu;
     }
 }
