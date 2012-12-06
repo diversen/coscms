@@ -1,6 +1,17 @@
 ### About
 
-Coscms is a small and simple CMS system / framework for building websites. Easy to use, administer, and extend with modules (web and shell modules, and templates). Aims is modularity, easy install on Linux (can be done with two scripts). Export websites as simple profiles. Tested with Debian systems (like Ubuntu 10.04  or Debian 6.0.0). You will need PHP >= 5.3 and a MySQL database. So far: Only tested with Apache2 on Debian systems. 
+Coscms is a simple CMS system and a framework for building web application.
+It is an eclectic framework and uses classes from other frameworks were appropiate.
+
+E.g. PEAR::Mail, and PEAR::Mime. And a lot others.  
+
+Easy to use, administer, and extend with modules (web and shell modules, and templates). 
+Export websites as simple profiles. 
+
+You will need PHP >= 5.3 and a MySQL database. 
+
+Tested with Apache2 on Debian systems and Windows. 
+Should work anywhere, even though it is build on Debian systems.  
 
 ### Websites
 
