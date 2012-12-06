@@ -260,9 +260,24 @@ class layout {
 
     }
 
+    /**
+     * attach a emnu item to a specified menu
+     * @param string $menu (sub, main, module)
+     * @param array $item menu item
+     */
     public static function attachMenuItem ($menu, $item) {     
         self::$menu[$menu][] = $item;
     }
+    
+    /**
+     * sets specified menu
+     * @param string $item (module, sub, main)
+     * @param array $menu
+     */
+    public static function setMenu ($item, $menu) {
+        self::$menu[$item] = $menu;
+    }
+
     
     /**
      * gets the base modules menu. 
