@@ -1000,12 +1000,12 @@ class QBuilder  {
 
             self::unsetVars();
         } catch (Exception $e) {
-            echo $message = $e->getMessage();
-            cos_error_log($message);
-            $development = config::getMainIni('development');
-            if ($development == 'development') {
-                print_r(self::$debug);
-            }
+            $message = $e->getTraceAsString();
+            log::error($message);
+            $last = self::getLastDebug();
+            log::error($last);
+            die();
+            
         }
         if (self::$method == 'num_rows') {
             return $rows[0]['num_rows'];
@@ -1024,8 +1024,10 @@ class QBuilder  {
             self::prepare();       
             $res = self::$stmt->execute();
         } catch (Exception $e) {
+            $message = $e->getTraceAsString();
+            log::error($message);
             $last = self::getLastDebug();
-            log::debug("Last db query: " . $last);
+            log::error($last);
             die;
             
         }
