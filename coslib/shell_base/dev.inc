@@ -68,6 +68,26 @@ function dev_build ($options = null) {
     cos_exec($command);
 }
 
+function dev_build_pear ($options = null) {
+    $name = cos_readline("Enter name of pear lib - default to /usr/share/php [usr/share/php]\n");
+    if (empty($name)) $name = '/usr/share/php';
+    if (!file_exists('../deps')) mkdir('../deps');
+    
+    $command = "cp -rf $name/* ../deps/";
+    cos_exec($command);
+    
+    //$command = "rm `find ../$name -name '.git'` -rf";
+    //cos_exec($command);
+    
+    //$output = array ();
+    exec('git tag -l', $output);
+    
+    $version = array_pop($output);
+    
+    $command = "cd  .. && tar -Pczf deps-$version.tar.gz  -v deps ";
+    cos_exec($command);
+}
+
 mainCli::setCommand('dev', array(
     'description' => 'Dev command. ',
 ));
@@ -87,5 +107,11 @@ mainCli::setOption('dev_clear_cache', array(
 mainCli::setOption('dev_build', array(
     'long_name'   => '--build',
     'description' => 'Will build a distribution from current source',
+    'action'      => 'StoreTrue'
+));
+
+mainCli::setOption('dev_build_pear', array(
+    'long_name'   => '--build-deps',
+    'description' => 'Will build a package of dependencies found in /usr/share/php',
     'action'      => 'StoreTrue'
 ));
