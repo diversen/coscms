@@ -15,7 +15,8 @@ function cache_clear_db ($options = null) {
 }
 
 function cache_clear_assets ($options = null) {
-    $path = _COS_PATH . "/htdocs/files/cached_assets/*";
+    cos_needs_root();
+    $path = _COS_PATH . "/htdocs/files/default/cached_assets/*";
     $command = "rm -rf $path";
     cos_exec($command);
 }
@@ -29,7 +30,7 @@ mainCli::setCommand('cache', array(
 
 mainCli::setOption('cache_clear_db', array(
     'long_name'   => '--db-clear',
-    'description' => 'Will clear db cache',
+    'description' => 'Will clear db cache - only works on default domain',
     'action'      => 'StoreTrue'
 ));
 
