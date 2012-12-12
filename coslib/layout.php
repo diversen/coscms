@@ -165,6 +165,13 @@ class layout {
     }
     
     /**
+     * 
+     */
+    public static function disableMainModuleMenu () {
+        unset(self::$menu['module']);
+    }
+    
+    /**
      * translate all menu items. 
      * With main menu items we look for human translation.
      */
