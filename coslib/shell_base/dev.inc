@@ -34,11 +34,6 @@ function dev_test_access($options = null){
    }
 }
 
-function dev_clear_cache ($options = null) {
-    $res = dbQ::setDelete('system_cache')->filter('1 =', 1)->exec();
-    if ($res) return 0;
-    return 1;
-}
 
 function dev_test ($options = null) {
     //include_module('account');
@@ -101,11 +96,6 @@ mainCli::setOption('dev_test_access', array(
     'action'      => 'StoreTrue'
 ));
 
-mainCli::setOption('dev_clear_cache', array(
-    'long_name'   => '--clear_db_cache',
-    'description' => 'Will clear db cache',
-    'action'      => 'StoreTrue'
-));
 
 mainCli::setOption('dev_build', array(
     'long_name'   => '--build',
