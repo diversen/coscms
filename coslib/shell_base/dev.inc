@@ -47,7 +47,7 @@ function dev_test ($options = null) {
 
 
 function dev_build ($options = null) {
-    $name = cos_readline("Enter name of build - usually name of profile");
+    $name = cos_readline("Enter name of build - usually name of profile. Command make take some time to execute - be patient\n");
     
     if (file_exists("../$name")) {
         die("File or dir with name $name exists\n");
