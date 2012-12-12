@@ -76,6 +76,9 @@ function dev_build_pear ($options = null) {
     $command = "cp -rf $name/* ../deps/";
     cos_exec($command);
     
+    $command = "rm ../deps/doc";
+    cos_exec($command);
+    
     //$command = "rm `find ../$name -name '.git'` -rf";
     //cos_exec($command);
     
