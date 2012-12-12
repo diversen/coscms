@@ -15,7 +15,7 @@ if (DIRECTORY_SEPARATOR != '/') {
     $path = str_replace ('\\', '/', $path);
 }
 
-// define _COS_PATH. Only major constant
+// define _COS_PATH.
 define('_COS_PATH',  $path);
 
 // include bootstrap file. 
