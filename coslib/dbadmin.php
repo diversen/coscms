@@ -17,7 +17,7 @@ class dbadmin extends db {
      *  changes database we are working on
      * @param string $database
      */
-    function changeDB ($database = null) {
+    public static function changeDB ($database = null) {
         if (!$database) {
             $db_curr = dbadmin::getDbInfo(); 
             $database = $db_curr['name'];  
