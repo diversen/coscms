@@ -48,9 +48,11 @@ class config {
         if (!isset(config::$vars['coscms_main'][$key])){
             return null;
         }
+        
         if (config::$vars['coscms_main'][$key] == '0'){
             return null;
         }
+        
         
         if (config::$vars['coscms_main'][$key] == 'true') {
             return true;
@@ -58,6 +60,32 @@ class config {
         
         if (config::$vars['coscms_main'][$key] == 'false') {
             return false;
+        }
+        return config::$vars['coscms_main'][$key];      
+    }
+    
+        /**
+     * method for getting a main ini setting found in config/config.ini
+     * @param   string  $key the ini setting key to get
+     * @return  mixed   $val the value of the setting or null if not found. 
+     *                       If 0 is found we also reutnr null
+     */    
+    public static function getMainIniAsString($key) {
+        if (!isset(config::$vars['coscms_main'][$key])){
+            return null;
+        }
+        
+        if (config::$vars['coscms_main'][$key] == '0'){
+            return null;
+        }
+        
+        
+        if (config::$vars['coscms_main'][$key] == 'true') {
+            return "true";
+        }
+        
+        if (config::$vars['coscms_main'][$key] == 'false') {
+            return "false";
         }
         return config::$vars['coscms_main'][$key];      
     }
