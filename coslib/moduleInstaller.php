@@ -480,7 +480,7 @@ class moduleInstaller extends db {
      * @param <int> $id the id of the module to be upgraded
      * @return boolean true or throws an error on failure
      */
-    private function updateRegistry ($new_version, $id){
+    public function updateRegistry ($new_version, $id){
         $values = array (
             'module_version' => $new_version);
 
@@ -497,7 +497,7 @@ class moduleInstaller extends db {
      *
      * @return boolean true or throws an error on failure
      */
-    private function deleteRegistry (){
+    public function deleteRegistry (){
         try {
             $result = $this->delete('modules', 'module_name', $this->installInfo['NAME']);
         } catch (PDOException $e) {
@@ -685,15 +685,7 @@ class moduleInstaller extends db {
      *
      * @param   float   if $specific_version isset, then only upgrade to this version
      * @return  int     0 if no upgrade $i >= 1 if upgrades were made
-     *          NOTE that the update of registry is taking place before the
-     *          actual upgrade of the modules sql. ERROR CODE:
      *
-     *          Error!: SQLSTATE[HY000]: General error: 2014
-     *          Cannot execute queries while other unbuffered queries are active.
-     *          Consider using PDOStatement::fetchAll().
-     *          Alternatively, if your code is only ever going to run against mysql,
-     *          you may enable query buffering by setting the
-     *          PDO::MYSQL_ATTR_USE_BUFFERED_QUERY attribute.
      *
      *          current version is fetched from database
      *          new version is found in list of mysql/up files
@@ -717,9 +709,6 @@ class moduleInstaller extends db {
      * 
      *          You will see if there is any new configuration which needs 
      *          to be set.
-     *
-     *          @TODO update menus, registry, routes
-     *          @see    scripts/commands/module.php
      *
      *
      */

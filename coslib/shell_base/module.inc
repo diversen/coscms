@@ -146,6 +146,11 @@ function force_confirm_readline(){
  * @param array     $options 
  */
 function update_ini_file ($options){
+    if (!isset($options['module'])) {
+        echo "Specify module\n";
+        exit(1);
+    }
+    
     $ini_file_path = _COS_PATH . "/modules/$options[module]/$options[module].ini";
     $ini_dist_path = $ini_file_path . "-dist";
 
@@ -176,6 +181,19 @@ function update_ini_file ($options){
         cos_cli_print("These are the new ini settings for module $options[module]:");
         cos_cli_print(trim($new_settings_str));
     }
+}
+
+function module_ini_all_up ($options = array ()) {
+
+    $m = new moduleInstaller();
+    $modules = $m->getModules();
+
+    foreach($modules as $val){
+
+        $options = array ('module' => $val['module_name']);
+        update_ini_file($options);
+    }
+
 }
 
 if (cos_is_cli()){
@@ -218,7 +236,13 @@ mainCli::setOption('upgrade_all', array(
 
 mainCli::setOption('update_ini_file', array(
     'long_name'   => '--ini-up',
-    'description' => 'Will add new ini settings from ini-dist to ini',
+    'description' => 'Will update specified modules ini settings from ini-dist to ini',
+    'action'      => 'StoreTrue'
+));
+//()
+mainCli::setOption('module_ini_all_up', array(
+    'long_name'   => '--ini-all-up',
+    'description' => 'Will update all ini settings for installed modules',
     'action'      => 'StoreTrue'
 ));
 
