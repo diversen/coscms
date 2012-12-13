@@ -109,14 +109,14 @@ class user {
      * @param string $text string to add to user e.g. date of the post. 
      * @return string $str profile html.  
      */
-    public static function getProfile($user, $text = '') {
+    public static function getProfile($user, $text = '', $options = array ()) {
         
         self::initProfile();
         if (!is_array($user)) {
             $user = user::getAccount($user);
         }
 
-        return self::$profile_object->getProfile($user, $text);       
+        return self::$profile_object->getProfile($user, $text, $options);       
     }
     
     /**
