@@ -200,6 +200,24 @@ class file {
     public static function rrmdir ($path) {
         rrmdir($path);
     }
+    
+    public static function scandirRecursive ($dir) {
+        $files = scandir($dir);
+        static $ary = array ();
+        foreach ($files as $file) {
+            if ($file == '.' || $file == '..') {
+                continue;
+            }
+            $file = $dir . '/' . $file;
+            if (is_dir($file)) {
+                self::scandirRecursive($file);
+            } else {
+                $ary[] = $file;
+            }
+        }
+        return $ary;
+        
+    }
 }
 
 /**
@@ -210,6 +228,8 @@ class file {
 function get_file_list($dir, $options = null){
     return file::getFileList($dir, $options);
 }
+
+
 
 /**
  * @ignore
