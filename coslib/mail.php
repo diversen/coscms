@@ -67,8 +67,6 @@ function mail_get_params () {
         if (!config::getMainIni('smtp_params_persist')) {
             $params['persist'] = true;
         }
-        
-        //print_r($params); die;
     }
     
     if ($options['mail_method'] == 'sendmail') {
