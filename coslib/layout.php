@@ -67,11 +67,11 @@ class layout {
     public static function getTemplateName () {
         // check is a admin template is being used. 
         if (session::isAdmin() && isset(config::$vars['coscms_main']['admin_template'])){
-            config::$vars['coscms_main']['template'] = config::$vars['coscms_main']['admin_template'];
+            $template = config::$vars['coscms_main']['admin_template'];
         }
         
         if (!isset($template)) {
-            $template = config::$vars['coscms_main']['template'];
+            $template = config::getMainIni('template');
         }
         
         return $template;

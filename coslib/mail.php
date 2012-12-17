@@ -64,6 +64,11 @@ function mail_get_params () {
         $params["username"] = config::getMainIni('smtp_params_username');
         $params["password"] = config::getMainIni('smtp_params_password');
         $params['debug'] = config::getMainIni('smtp_params_debug');
+        if (!config::getMainIni('smtp_params_persist')) {
+            $params['persist'] = true;
+        }
+        
+        //print_r($params); die;
     }
     
     if ($options['mail_method'] == 'sendmail') {
