@@ -226,6 +226,8 @@ class mainCli {
             cos_cli_print('No tables exists. We can not load all modules');
             return;
         }
+        
+        $mod_loader = new moduleloader();
 
         $modules = moduleloader::getAllModules();
 
