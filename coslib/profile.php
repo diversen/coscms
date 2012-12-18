@@ -146,11 +146,11 @@ class profile  {
     
     
     /**
-     * method for getting all templates located in htdocs/template
+     * method for getting all templates located in _COS_HTDOCS/template
      * used for settings current templates in profiles/profile/profile.inc file
      */
     public static function getAllTemplates (){
-        $dir = _COS_PATH . "/htdocs/templates";
+        $dir = _COS_HTDOCS . "/templates";
         $templates = file::getFileList($dir, array('dir_only' => true));
 
         foreach ($templates as $key => $val){
@@ -244,7 +244,7 @@ class profile  {
             $this->profileTemplate = $template;
         }
 
-        $ini_file = _COS_PATH . "/htdocs/templates/$this->profileTemplate/$this->profileTemplate.ini";
+        $ini_file = _COS_HTDOCS . "/templates/$this->profileTemplate/$this->profileTemplate.ini";
         $ini_file_dist = $ini_file . "-dist";
 
         if (file_exists($ini_file_dist)){
@@ -308,8 +308,8 @@ class profile  {
         
         $templates = $this->getAllTemplates();
         foreach ($templates as $key => $val){
-            $template_ini_file = _COS_PATH . "/htdocs/templates/$val[module_name]/$val[module_name].ini";
-            $source = _COS_PATH . "/htdocs/templates/$val[module_name]/$val[module_name].ini";
+            //$template_ini_file = _COS_PATH . "/templates/$val[module_name]/$val[module_name].ini";
+            $source = _COS_HTDOCS . "/templates/$val[module_name]/$val[module_name].ini";
             $dest = $profile_dir . "/$val[module_name].ini-dist";
             
             // templates does not need to have an ini file
@@ -402,7 +402,7 @@ class profile  {
         
         foreach ($this->profileTemplates as $key => $val){
             $source = $profile_dir . "/$val[module_name].ini-dist";
-            $dest = _COS_PATH . "/htdocs/templates/$val[module_name]/$val[module_name].ini";
+            $dest = _COS_HTDOCS . "/templates/$val[module_name]/$val[module_name].ini";
     
             if (file_exists($source)) {
                 if (copy($source, $dest)){

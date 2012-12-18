@@ -13,6 +13,8 @@ include_once 'Console/CommandLine.php';
 include_once "coslib/moduleInstaller.php";
 include_once "coslib/shell_base/common.inc";
 
+
+
 /**
  * class shell is a wrapper function around PEAR::commandLine
  *
@@ -119,6 +121,17 @@ class mainCli {
             // base modules which may be set
            
             config::loadMainCli();
+            
+            $htdocs_path = config::getMainIni('htdocs_path');
+    
+            // default
+            if (!$htdocs_path) {
+                define('_COS_HTDOCS', _COS_PATH . '/htdocs');
+            }
+
+            if ($htdocs_path == '_COS_PATH') {
+                define('_COS_HTDOCS', _COS_PATH);
+            }
             
             // load all modules
             if (!isset($options['disable_base_modules'])) {

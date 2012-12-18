@@ -148,7 +148,7 @@ class file {
     }
     
     /**
-     * method for creating a directory in the htdocs/files directory
+     * method for creating a directory in the _COS_HTDOCS/files directory
      * It will know if we are using a multi domain setup
      * @param string $dir
      */
