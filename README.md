@@ -1,3 +1,10 @@
+
+
+	  ___|             ___|  \  |  ___|  
+	 |      _ \   __| |     |\/ |\___ \  
+	 |     (   |\__ \ |     |   |      | 
+	\____|\___/ ____/\____|_|  _|_____/  
+
 ### About
 
 CosCMS is a simple framework for building web application.
