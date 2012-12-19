@@ -905,7 +905,8 @@ class templateView {
     public static function includeOverrideFunctions ($module, $file) {
 
         // only template who has set name will be able to override this way
-        $template = layout::getTemplateName();//config::getModuleIni('template_name');
+        // templage_name = 'clean'
+        $template = layout::getTemplateName();
         if ($template) {
             $override = _COS_PATH . "/htdocs/templates/$template/$module/$file";
             if (is_file($override)) {
