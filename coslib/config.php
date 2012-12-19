@@ -384,7 +384,7 @@ class config {
      * @return  string  $path the template path
      */
     public static function getTemplatePath ($template) {
-        return _COS_PATH . '/htdocs/templates/' . $template;
+        return _COS_HTDOCS . '/templates/' . $template;
     }
     
    /**
@@ -395,9 +395,9 @@ class config {
     public static function getFullFilesPath ($file = null) {
         $domain = config::getMainIni('domain');
         if ($domain == 'default') {
-            $files_path = _COS_PATH . "/htdocs/files/default";
+            $files_path = _COS_HTDOCS . "/files/default";
         } else {
-            $files_path = _COS_PATH . "/htdocs/files/$domain";
+            $files_path = _COS_HTDOCS . "/files/$domain";
         }
         
         if ($file) {

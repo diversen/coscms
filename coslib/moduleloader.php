@@ -627,7 +627,7 @@ class moduleloader {
             $ini_file = _COS_PATH . "/modules/$module/$module.ini";
         } else {
             // template
-            $ini_file = _COS_PATH . "/htdocs/templates/$module/$module.ini";
+            $ini_file = _COS_HTDOCS . "/templates/$module/$module.ini";
         }
         
         if (!file_exists($ini_file)) {
@@ -905,7 +905,7 @@ class moduleloader {
  * @param string $template the template name which we want to load.  
  */
 function include_template_inc ($template){
-    include_once _COS_PATH . "/htdocs/templates/$template/common.inc";
+    include_once _COS_HTDOCS . "/templates/$template/common.inc";
 }
 
 /**

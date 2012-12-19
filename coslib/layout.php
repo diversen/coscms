@@ -31,8 +31,8 @@ class layout {
     /**
      * construtor method
      * checks for a admin template. 
-     * loads a template from htdocs/templates
-     * loads a template's common file htdocs/templates/template/common.inc
+     * loads a template from _COS_HTODCS . '/templates'
+     * loads a template's common file _COS_HTDOCS . /templates/template/common.inc
      * @param string $template
      */
     function __construct($template = null){
@@ -51,9 +51,7 @@ class layout {
     public static function includeTemplateCommon($template) {
         // load template. This is done before parsing the modules. Then the 
         // modules still can effect the template. Set header, css, js etc. 
-        $template_path = 
-            _COS_PATH .
-            "/htdocs/templates/" .
+        $template_path = _COS_HTDOCS. "/templates/" .
             $template;
         
         include_once $template_path . "/common.inc";

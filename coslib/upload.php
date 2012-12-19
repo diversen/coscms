@@ -220,7 +220,7 @@ class upload {
                 self::$errors[] = 'Could not move file. Doh!';
                 return false;
             }
-            $savefile = str_replace(_COS_PATH . "/htdocs", '', $savefile);
+            $savefile = str_replace(_COS_HTDOCS, '', $savefile);
             return $savefile;
             
         } 

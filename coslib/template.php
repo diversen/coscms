@@ -303,7 +303,7 @@ abstract class template {
             foreach (self::$css as $key => $val){
                 if (!strstr($val, "http://") ) {
                     unset(self::$css[$key]);
-                    $str.= file::getCachedFile(_COS_PATH . "/htdocs/$val") ."\n\n\n";
+                    $str.= file::getCachedFile(_COS_HTDOCS . "/$val") ."\n\n\n";
                 }
             }
             
@@ -313,7 +313,7 @@ abstract class template {
             $web_path = "/files/$domain/cached_assets"; 
             $file = "/css_all-$md5.css";
            
-            $full_path = _COS_PATH . "/htdocs" . $web_path;
+            $full_path = _COS_HTDOCS . "/$web_path";
             $full_file_path = $full_path . $file;
             
             // create file if it does not exist
@@ -415,7 +415,7 @@ abstract class template {
             foreach (self::$js as $key => $val){
                 if (!strstr($val, "http://") ) {
                     unset(self::$js[$key]);
-                    $str.= file::getCachedFile(_COS_PATH . "/htdocs/$val") ."\n\n\n";
+                    $str.= file::getCachedFile(_COS_HTDOCS . "/$val") ."\n\n\n";
                 }
             }
             
@@ -425,7 +425,7 @@ abstract class template {
             $web_path = "/files/$domain/cached_assets"; 
             $file = "/js_all-$md5.js";
            
-            $full_path = _COS_PATH . "/htdocs" . $web_path;
+            $full_path = _COS_HTDOCS . "/$web_path";
             $full_file_path = $full_path . $file;
             
             // create file if it does not exist
@@ -462,7 +462,7 @@ abstract class template {
         $favicon = config::getMainIni('favicon');
         $domain = config::getDomain();
         $rel_path = "/files/$domain/favicon/$favicon";
-        $full_path = _COS_PATH . "/htdocs" . $rel_path; 
+        $full_path = _COS_HTDOCS . "/$rel_path"; 
         if (!is_file($full_path)) {
             $rel_path = '/favicon.ico';
         }
@@ -725,7 +725,7 @@ abstract class template {
             return;
         }
         $base_path = "/templates/$template/$css";
-        $css_path = _COS_PATH . "/htdocs" .  $base_path . "/$css.css";
+        $css_path = _COS_HTDOCS . "/$base_path/$css.css";
         $css_web_path = $base_path . "/$css.css";
         if (file_exists($css_path)) {
 
@@ -744,7 +744,7 @@ abstract class template {
      * @param string $css
      */
     public static function setTemplateCssIni ($template, $css) {
-        $ini_file = _COS_PATH . "/htdocs/templates/$template/$css/$css.ini";
+        $ini_file = _COS_HTDOCS . "/templates/$template/$css/$css.ini";
         if (file_exists($ini_file)) {
             
             $ary = config::getIniFileArray($ini_file, true);
@@ -813,7 +813,7 @@ class templateView {
     public static function getOverrideFilename () {
         
         if (isset(self::$options['template'])) {
-            $filename = _COS_PATH . "/htdocs/template/" . self::$options[template];
+            $filename = _COS_HTDOCS . "/template/" . self::$options[template];
         } 
         
         if (isset(self::$options['module'])) {
@@ -887,7 +887,7 @@ class templateView {
         // only template who has set name will be able to override this way
         $template = config::getModuleIni('template_name');
         if ($template) {
-            $override = _COS_PATH . "/htdocs/templates/$template/$module/$view.inc";
+            $override = _COS_HTDOCS . "/templates/$template/$module/$view.inc";
             if (is_file($override)) {
                 return self::getFileView($override, $vars);
             }
@@ -908,7 +908,7 @@ class templateView {
         // templage_name = 'clean'
         $template = layout::getTemplateName();
         if ($template) {
-            $override = _COS_PATH . "/htdocs/templates/$template/$module/$file";
+            $override = _COS_HTDOCS . "/templates/$template/$module/$file";
             if (is_file($override)) {
                 include_once $override;
                 return;

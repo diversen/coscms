@@ -81,6 +81,17 @@ if (!defined('_COS_CLI')){
             );
     }
     
+    $htdocs_path = config::getMainIni('htdocs_path');
+    
+    // default
+    if (!$htdocs_path) {
+        define('_COS_HTDOCS', _COS_PATH . '/htdocs');
+    }
+    
+    if ($htdocs_path == '_COS_PATH') {
+        define('_COS_HTDOCS', _COS_PATH);
+    }
+    
     // if site is being updaing we send temporarily headers
     // and display an error message
     if (config::getMainIni('site_update')) {
@@ -177,7 +188,7 @@ if (!defined('_COS_CLI')){
     $moduleLoader->setModuleInfo($controller);
     $moduleLoader->initModule();
 
-    // include template class found in htdocs/templates
+    // include template class found in _COS_HTDOCS . '/templates'
     // only from here we should use template class. 
     $layout = new layout();
 

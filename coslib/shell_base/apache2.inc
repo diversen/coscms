@@ -16,6 +16,7 @@ function create_logs(){
 
 /**
  * create apache2 configuration string
+ * Note: we don't use the _COS_HTDOCS path. 
  * @param   string  name of host to enable
  * @return  string  a apache2 configuration string.
  */

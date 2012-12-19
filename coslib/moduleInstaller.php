@@ -845,7 +845,7 @@ class templateInstaller extends moduleInstaller {
             $template_name = $options['template'];
         }
         
-        $template_dir = _COS_PATH . "/htdocs/templates/$template_name";
+        $template_dir = _COS_HTDOCS  . "/templates/$template_name";
         $ini_file = $template_dir . "/$template_name.ini";
         $ini_file_dist = $template_dir . "/$template_name.ini-dist";
 
@@ -898,10 +898,10 @@ class templateInstaller extends moduleInstaller {
 
         // create ini files for template
         $template = $this->installInfo['NAME'];
-        $ini_file = _COS_PATH . "/htdocs/templates/$template/$template.ini";
-        $ini_file_php = _COS_PATH . "/htdocs/templates/$template/$template.php.ini";
-        $ini_file_dist = _COS_PATH . "/htdocs/templates/$template/$template.ini-dist";
-        $ini_file_dist_php = _COS_PATH . "/htdocs/templates/$template/$template.php.ini-dist";
+        $ini_file = _COS_HTDOCS . "/templates/$template/$template.ini";
+        $ini_file_php = _COS_HTDOCS . "/templates/$template/$template.php.ini";
+        $ini_file_dist = _COS_HTDOCS . "/templates/$template/$template.ini-dist";
+        $ini_file_dist_php = _COS_HTDOCS . "/templates/$template/$template.php.ini-dist";
 
         if (!file_exists($ini_file)){
             if (file_exists($ini_file_dist)){
