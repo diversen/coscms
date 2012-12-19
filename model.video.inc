@@ -171,7 +171,7 @@ class video {
         
         $web_dir = "/video/" . self::$options['reference'] . "/" . self::$options['parent_id'];        
         $web_dir = config::getWebFilesPath($web_dir);
-        $full_path = _COS_PATH . "/htdocs" . $web_dir;
+        $full_path = _COS_HTDOCS . "" . $web_dir;
         if (!file_exists($full_path)) {
             mkdir($full_path, 0777, true);
         }
@@ -222,7 +222,7 @@ class video {
     public function deleteFile($id){
         $row = $this->getSingleFileInfo($id);
         
-        $file = _COS_PATH . "/htdocs" . $row['web_path'];
+        $file = _COS_HTDOCS . "" . $row['web_path'];
         if (file_exists($file)) {
             unlink($row['full_path']); //filename)
         }
