@@ -2,15 +2,27 @@
 
 set_time_limit(0);
 ignore_user_abort(true);
-include_once "../coslib/config.php";
+
+$config = $path = null;
+
+// test if we place coslib outside web directory
+if (file_exists('../coslib/config.php')) {
+    $config = "../coslib/config.php";
+    $path = realpath('..');
+} else {
+    $config = "./coslib/config.php";
+    $path = realpath('.');
+}
+include_once $config;
 config::$vars['coscms_main'] = array();
 
-$path = realpath('..');
+
 if (DIRECTORY_SEPARATOR != '/') {	
 	$path = str_replace ('\\', '/', $path); 
 }
 
 define('_COS_PATH',  $path);
+define('_COS_HTDOCS',  $path);
 
 // global array used as registry for holding debug info
 $_COS_DEBUG = array();
@@ -140,11 +152,13 @@ if ($num_rows == 0){
         install_from_profile(array ('profile' => 'default'));
     }
     echo "Base system installed.<br />";
+    echo "Remember to set files/ directory to be writeable <br>";
 
     
     
 } else {
     echo "System is installed! <br>";
+    echo "Remember to set files/ directory to be writeable <br>";
     echo "If something is wrong. Try to drop database and retry install<br />";
     
 }

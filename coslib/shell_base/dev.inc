@@ -63,6 +63,89 @@ function dev_build ($options = null) {
     cos_exec($command);
 }
 
+/**
+ * build source package with more simple form of install. 
+ * @param array $options
+ */
+function dev_build_simple ($options = null) {
+
+    $name = cos_readline("Enter name of build - usually name of profile. Command make take some time to execute - be patient\n");
+    $mk_build_dir = "mkdir ./build/$name";
+    if (file_exists("./build/$name")) {
+        $res = cos_confirm_readline("Delete ./build/$name ");
+        if ($res) {
+            $rm_build_dir = "rm -rf ./build/$name*";
+            cos_exec($rm_build_dir);
+            cos_exec($mk_build_dir);
+        } else {
+            cos_cli_abort('Aborted!');
+        }
+    } else {
+        cos_exec($mk_build_dir);
+    }
+    
+    
+    
+    $htdocs = "cp -rf htdocs/* ./build/$name";
+    cos_exec($htdocs);
+    
+    $config = "cp -rf config ./build/$name";
+    cos_exec($config);
+    
+    $profiles = "cp -rf profiles ./build/$name";
+    cos_exec($profiles);
+    
+    $sql_scripts = "cp -rf scripts ./build/$name";
+    cos_exec($sql_scripts);
+    
+    // reset database password
+    $ary = config::getIniFileArray("./config/config.ini");
+    if (isset($ary['password'])) {
+        $ary['password'] = '';
+    }
+    
+    // in same dir we place all. 
+    $ary['htdocs_path'] = '_COS_PATH';
+    
+    $ini_settings = config::arrayToIniFile($ary);
+    file_put_contents("./build/$name/config/config.ini", $ini_settings);
+    
+    $coslib = "cp -rf coslib ./build/$name";
+    cos_exec($coslib);
+    
+    $index = "cp -rf misc/alt-index.php ./build/$name/index.php";
+    cos_exec($index);
+    
+    $modules = "cp -rf modules ./build/$name";
+    cos_exec($modules);
+    
+    $vendor = "cp -rf vendor ./build/$name";
+    cos_exec($vendor);
+    
+    
+    $rm_git = "rm `find ./build/$name -name '.git'` -rf";
+    cos_exec($rm_git);
+    
+    $pear = cos_readline("Enter name of pear lib - default to /usr/share/php [/usr/share/php]\n");
+    if (empty($pear)) $pear = '/usr/share/php';
+
+    
+    $cp_pear = "cp -rf $pear/* ./build/$name/vendor";
+    cos_exec($cp_pear);
+    
+    $rm_doc = "rm -rf ./build/vendor/doc";
+    cos_exec($rm_doc);
+    
+    $output = array ();
+    
+    // get latest tag.
+    exec('git tag -l', $output);
+    $version = array_pop($output);
+    
+    $command = "cd  ./build && tar -Pczf $name-$version.tar.gz  -v $name ";
+    cos_exec($command);
+}
+
 function dev_build_pear ($options = null) {
     $name = cos_readline("Enter name of pear lib - default to /usr/share/php [usr/share/php]\n");
     if (empty($name)) $name = '/usr/share/php';
@@ -100,6 +183,13 @@ mainCli::setOption('dev_test_access', array(
 mainCli::setOption('dev_build', array(
     'long_name'   => '--build',
     'description' => 'Will build a distribution from current source',
+    'action'      => 'StoreTrue'
+));
+
+
+mainCli::setOption('dev_build_simple', array(
+    'long_name'   => '--build-simple',
+    'description' => 'Will build a distribution from current source where all files are placed in a single directory',
     'action'      => 'StoreTrue'
 ));
 
