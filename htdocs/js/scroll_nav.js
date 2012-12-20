@@ -1,3 +1,7 @@
+// 
+// From:
+// 
+// http://code.stephenmorley.org/about-this-site/copyright/
 /* Handles the page being scrolled by ensuring the navigation is always in
  * view.
  */
