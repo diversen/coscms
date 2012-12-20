@@ -607,7 +607,9 @@ class db {
         foreach ($keys as $val) {
             if (isset($_POST[$val])) {
                 $ary[$val] = $_POST[$val];
-            } 
+            } else {
+                $ary[$val] = NULL;
+            }
         }
         return $ary;
     }
