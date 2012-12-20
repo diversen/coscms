@@ -176,15 +176,9 @@ if ($num_rows == 0){
         install_from_profile(array ('profile' => 'default'));
     }
     echo "Base system installed.<br />";
-    echo "Remember to set files/ directory to be writeable <br>";
-
-    
     
 } else {
     echo "System is installed! <br>";
-    echo "Remember to set files/ directory to be writeable <br>";
-    echo "If something is wrong. Try to drop database and retry install<br />";
-    
 }
 
 $users = $db->getNumRows('account');
