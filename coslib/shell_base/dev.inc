@@ -130,6 +130,9 @@ function dev_build_simple ($options = null) {
     $rm_git = "rm `find ./build/$name -name '.git'` -rf";
     cos_exec($rm_git);
     
+    $rm_ignore = "rm `find ./build/$name -name '.gitignore'` -rf";
+    cos_exec($rm_ignore);
+    
     $pear = cos_readline("Enter name of pear lib - default to /usr/share/php [/usr/share/php]\n");
     if (empty($pear)) $pear = '/usr/share/php';
 
