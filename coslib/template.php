@@ -684,7 +684,11 @@ abstract class template {
             self::setTemplateCssIni($template, $css);
         }
         
-        // load rel js
+
+    }
+    
+    public static function loadTemplateIniAssets () {
+                // load rel js
         $js = config::getModuleIni('template_rel_js');
         if ($js) {
             foreach ($js as $val) {
