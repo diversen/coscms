@@ -89,6 +89,10 @@ function dev_build_simple ($options = null) {
     $htdocs = "cp -rf htdocs/* ./build/$name";
     cos_exec($htdocs);
     
+    $domain = config::getMainIni('domain');
+    $files_rm = "rm -rf ./build/$name/files/$domain/*";
+    cos_exec($files_rm);
+    
     $config = "cp -rf config ./build/$name";
     cos_exec($config);
     
