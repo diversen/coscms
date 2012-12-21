@@ -45,6 +45,7 @@ class RB {
      */
     public static function arrayToBean ($bean, $ary) {
         foreach ($ary as $key => $val) {
+            if (empty($val)) continue;
             $bean->{$key} = trim($val);
         }
         return $bean;
