@@ -33,11 +33,12 @@ Should work anywhere, even though it is build on Debian systems.
 
 [Demo Site](http://demo.coscms.org/) 
 
-[Forum Site](http://forum.coscms.org/) 
-
 Login with admin / admin. A simple demo with a blog (blog module),
 and a CMS (content module) and a comment module (comment), 
 and a few more modules. 
+
+[Forum Site](http://forum.coscms.org/) 
+
 
 ### Easy install (New)
 
