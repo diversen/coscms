@@ -120,6 +120,8 @@ class moduleloader {
         return self::isInstalledModule($module_name);
     }
     
+    
+    
     /**
      *
      * get child modules to a parent module
@@ -905,7 +907,12 @@ class moduleloader {
  * @param string $template the template name which we want to load.  
  */
 function include_template_inc ($template){
-    include_once _COS_HTDOCS . "/templates/$template/common.inc";
+    static $included = array ();
+    
+    if (!isset($included[$template])) {
+        include_once _COS_HTDOCS . "/templates/$template/common.inc";
+    }
+    $included[$template] = true;
 }
 
 /**

@@ -131,6 +131,13 @@ abstract class template {
         }
     }
     
+    public static function templateCommonExists ($template) {
+        if (file_exists( _COS_HTDOCS . "/templates/$template/common.inc")) {
+            return true;
+        }
+        return false;
+    }
+    
     /**
      * gets rel assets. assure that we only get every asset once.
      * @staticvar array $set
