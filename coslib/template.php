@@ -366,7 +366,7 @@ abstract class template {
      * @param   string   $js_url pointing to the path of the javascript
      * @param   int      $order the loading order of javascript 0 is first > 0 is
      *                   later.
-     * @param   array    $options
+     * @param   array    $options defaults: array ('head' => false)
      */
     public static function setJs($js_url, $order = null, $options = null){
         if (isset($options['head'])) {
