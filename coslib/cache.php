@@ -4,7 +4,7 @@
  * File contains a simple class for caching content to database table. 
  * @package cache
  */
-array_to_ini_file($ary);
+
 /**
  * 
  * class cache. 3 methods set, get, and delete
