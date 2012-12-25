@@ -6,7 +6,10 @@
  */
 
 /**
- * one linier register class. 
+ * config class. 
+ * 
+ * read and load configuration files from config/config.ini and 
+ * modules/e.g.  modules/som_module/some_module.ini  
  * @package config
  */
 

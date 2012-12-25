@@ -455,7 +455,7 @@ abstract class template {
     public static function getJsHead(){
         $str = "";
         ksort(self::$jsHead);
-        foreach (self::$jsHead as $key => $val){
+        foreach (self::$jsHead as $val){
             $str.= "<script src=\"$val\" type=\"text/javascript\"></script>\n";
         }
         return $str;

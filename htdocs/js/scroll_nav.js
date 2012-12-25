@@ -5,16 +5,8 @@
 /* Handles the page being scrolled by ensuring the navigation is always in
  * view.
  */
-function handleScroll(height, item_id){
+function handleScroll(){
 
-  if (height == undefined) {
-      height = 104;
-  }
-  
-  if (item_id == undefined) {
-      item_id = 'sidebar_left';
-  }
-    
   // check that this is a relatively modern browser
   if (window.XMLHttpRequest){
 
@@ -24,8 +16,8 @@ function handleScroll(height, item_id){
                : document.documentElement.scrollTop;
 
     // set the appropriate class on the navigation
-    document.getElementById(item_id).className =
-        (offset > height ? 'fixed' : '');
+    document.getElementById('sidebar_left').className =
+        (offset > 190 ? 'fixed' : '');
 
   }
 

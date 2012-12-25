@@ -4,10 +4,37 @@
  * File contains a simple class for caching content to database table. 
  * @package cache
  */
-
+array_to_ini_file($ary);
 /**
  * 
  * class cache. 3 methods set, get, and delete
+ * 
+ * When setting something with the cache class you will specify a string and
+ * a ID. Name is given in order to prevent class of identical ID's only.
+ * This can be e.g. the module name if your module uses the cache.  
+ * 
+ * When the class gets a name and ID it generates a unique string 
+ * which is the internal cache key. 
+ * 
+ * When retrieving information you will only need to specify the 
+ * a original (e.g. the module name) and the ID. 
+ * 
+ * <code>
+ * 
+ * $data = array ('title' => 'test', 'content' => 'some content');
+ * 
+ * 
+ * cache::set('my_blog' 123, $data);
+ * 
+ * // getting the entry is just as easy. 
+ * // The last argument is max life time in seconds for the entry. 
+ * cache::get('my_blog', 123, 3600);
+ * 
+ * // if the entry is outdated NULL will be returned
+ * 
+ * </code>
+ * 
+ * 
  * @package cache
  * 
  */
