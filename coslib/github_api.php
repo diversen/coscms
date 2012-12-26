@@ -88,7 +88,11 @@ class githubApi {
      * @return array $res array with the reult of the call
      */
     public function apiCall ($command, $request = null, $post = null) {
-
+        if (!isset($_SESSION['access_token']) || empty($_SESSION['access_token'])) {
+            $this->errors[] = 'No valid token';
+            return false;
+            
+        }
         $end_point = 'https://api.github.com';
         $command = $end_point . "$command";
 
