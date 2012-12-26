@@ -6,7 +6,11 @@
  */
 
 /**
- * Simple class for using the github oauth api
+ * Simple class for using the github oauth api:
+ * 
+ * 
+ * 
+ * 
  * @package githubapi
  */
 class githubApi {
@@ -16,6 +20,8 @@ class githubApi {
      */
     public $errors = array ();
     
+    
+    public $returnCode = null;
     /**
      * oauth stars with getting a login url from configuration
      * @param array $config e.g. $access_config = array (
@@ -81,7 +87,7 @@ class githubApi {
      * @param string $command e.g. /user
      * @return array $res array with the reult of the call
      */
-    public function apiCall ($command) {
+    public function apiCall ($command, $request = null, $post = null) {
 
         $end_point = 'https://api.github.com';
         $command = $end_point . "$command";
@@ -89,9 +95,22 @@ class githubApi {
         $command.= "?access_token=$_SESSION[access_token]";
 
         $c = new mycurl($command);
+        
+        if (isset($request)) {
+            $c->setRequest($request);
+        }
+        if (isset($post)) {
+            $json = json_encode($post);
+            $c->setPost($json);
+        }
+        
+        
+        
         $c->createCurl();
         $resp = $c->getWebPage();
+        $this->returnCode = $c->getHttpStatus();
         $ary = json_decode($resp, true);  
         return $ary;
     }
+    
 }

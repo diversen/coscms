@@ -119,6 +119,13 @@ class mycurl {
       * @var string $auth_pass
       */
      public    $auth_pass      = '';
+     
+     /**
+      * specify a request method other than GET or POST, e.g .DELETE or 
+      * PATCH
+      * @var string $_request 
+      */
+     public $_request = null;
  
      /**
       * method setting use auth
@@ -144,39 +151,8 @@ class mycurl {
      public function setPass($pass){
        $this->auth_pass = $pass;
      }
- 
-     /**
-      * constructor. Sets up curl object
-      * @param string  $url
-      * @param boolean $followlocation
-      * @param int $timeOut
-      * @param int $maxRedirecs
-      * @param boolean $binaryTransfer
-      * @param boolean $includeHeader
-      * @param boolean $noBody
-      */
-     public function __construct(
-             $url,
-             $followlocation = true,
-             $timeOut = 30,
-             $maxRedirecs = 4,
-             $binaryTransfer = false,
-             $includeHeader = false,
-             $noBody = false)
-     {
-         $this->_url = $url;
-         $this->_followlocation = $followlocation;
-         $this->_timeout = $timeOut;
-         $this->_maxRedirects = $maxRedirecs;
-         $this->_noBody = $noBody;
-         $this->_includeHeader = $includeHeader;
-         $this->_binaryTransfer = $binaryTransfer;
- 
-         //$this->_cookieFileLocation = dirname(__FILE__).'/cookie.txt';
- 
-     }
- 
-     /**
+     
+          /**
       * sets referer
       * @param string $referer 
       */
@@ -210,6 +186,55 @@ class mycurl {
      }
      
      /**
+      * sets useragent
+      * @param string $userAgent
+      */
+     public function setRequest($request){
+         $this->_request = $request; 
+     }
+     
+     /**
+      * return headers when returning web page
+      * @param boolean $bool
+      */
+     public function includeHeader ($bool) {
+         $this->_includeHeader = $bool;
+     }
+ 
+     /**
+      * constructor. Sets up curl object
+      * @param string  $url
+      * @param boolean $followlocation
+      * @param int $timeOut
+      * @param int $maxRedirecs
+      * @param boolean $binaryTransfer
+      * @param boolean $includeHeader
+      * @param boolean $noBody
+      */
+     public function __construct(
+             $url,
+             $followlocation = true,
+             $timeOut = 30,
+             $maxRedirecs = 4,
+             $binaryTransfer = false,
+             $includeHeader = false,
+             $noBody = false)
+     {
+         $this->_url = $url;
+         $this->_followlocation = $followlocation;
+         $this->_timeout = $timeOut;
+         $this->_maxRedirects = $maxRedirecs;
+         $this->_noBody = $noBody;
+         $this->_includeHeader = $includeHeader;
+         $this->_binaryTransfer = $binaryTransfer;
+ 
+         //$this->_cookieFileLocation = dirname(__FILE__).'/cookie.txt';
+ 
+     }
+ 
+
+     
+     /**
       * create curl
       * @param string $url = 'nul'
       */
@@ -217,7 +242,7 @@ class mycurl {
          if($url != 'nul'){
              $this->_url = $url;
          }
- 
+   
          $s = curl_init();
  
          curl_setopt($s,CURLOPT_URL,$this->_url);
@@ -229,13 +254,21 @@ class mycurl {
          curl_setopt($s,CURLOPT_COOKIEJAR,$this->_cookieFileLocation);
          curl_setopt($s,CURLOPT_COOKIEFILE,$this->_cookieFileLocation);
  
+         if ($this->_request) {
+             curl_setopt($s, CURLOPT_CUSTOMREQUEST, $this->_request);
+         } 
+         
          if($this->authentication == 1){
            curl_setopt($s, CURLOPT_USERPWD, $this->auth_name.':'.$this->auth_pass);
          }
          
          if($this->_post){
-             curl_setopt($s,CURLOPT_POST,true);
-             curl_setopt($s,CURLOPT_POSTFIELDS,$this->_postFields);
+             // only set CURLOPT_POST is _request is empty or 'POST'
+             if ($this->_request == 'POST' || !isset($this->_request)) {
+                curl_setopt($s,CURLOPT_POST,true);
+             }
+             curl_setopt($s, CURLOPT_POSTFIELDS, $this->_postFields);
+
          }
  
          if($this->_includeHeader){
