@@ -72,7 +72,7 @@ class githubApi {
             parse_str($resp, $ary);
             
             if (isset($ary['access_token']) && isset($ary['token_type']) && $ary['token_type'] == 'bearer') {
-                echo $_SESSION['access_token'] = $ary['access_token'];
+                $_SESSION['access_token'] = $ary['access_token'];
                 return true;
             } else {
                 $this->errors[] = "No access token returned";
