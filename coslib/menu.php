@@ -31,7 +31,7 @@ class menu {
     }
 
     /**
-     * get system menu array from a name
+     * get system menu as array from a name (e.g. (content/article)
      * @param string  $name name of the system menu to get
      * @return array $ary returns menu as a array
      */
@@ -173,7 +173,6 @@ class menu {
                             $val['id'], $val['title']),
                     html::specialEncode($val['title']));
 
-            //echo $val['title'];
             if (!empty($val['sub'])){              
                 if ( $element == $val['id']){
                     self::getTreeHTML($val['sub'], $name, $element);

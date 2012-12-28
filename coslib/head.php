@@ -31,6 +31,7 @@ include_once "coslib/config.php";
 include_once "coslib/file.php";
 include_once "coslib/strings.php";
 include_once "coslib/db.php";
+include_once "coslib/dbQ.php";
 include_once "coslib/uri.php";
 include_once "coslib/moduleloader.php";
 include_once "coslib/session.php";
