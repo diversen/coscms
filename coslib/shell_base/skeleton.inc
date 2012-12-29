@@ -47,12 +47,11 @@ function create_module_skeleton($args){
         $files.= $module_path . "/$module_name.ini ";
         $files.= $module_path . "/$module_name.ini-dist ";
         $files.= $module_path . "/model.$module_name.inc ";
-        $files.= $module_path . "/view.$module_name.inc ";
+        $files.= $module_path . "/views.phtml ";
         $files.= $lang_dir_en . "/system.inc ";
         $files.= $lang_dir_en . "/language.inc ";
     } else {
         $files.= $module_path . "/model.".$ary[1].".inc ";
-        $files.= $module_path . "/view.".$ary[1].".inc ";
     }
     cos_cli_print('Creating files: ');
     return (cos_exec('touch ' . $files));
