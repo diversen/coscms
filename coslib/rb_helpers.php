@@ -32,6 +32,7 @@ class RB {
             $url = config::getMainIni('url');
             $username = config::getMainIni('username');
             $password = config::getMainIni('password');
+            R::setStrictTyping(false); 
             R::setup($url, $username,$password); //mysql
             $connected = true;
         } 
