@@ -199,7 +199,7 @@ function mail_utf8($to, $subject, $message, $from = null, $reply_to=null) {
     $mail = Mail::factory($options['mail_method'], $params);
     $res = $mail->send($to, $mime_headers, $body);
     if (PEAR::isError($res)) {
-        log::debug($res->getMessage());
+        log::error($res->getMessage());
         return false;
     }
     return true;
