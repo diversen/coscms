@@ -183,8 +183,6 @@ class mail_mime_wrapper {
  */
 function mail_utf8($to, $subject, $message, $from = null, $reply_to=null) {
     
-    //$to = "<$to>"; 
-    
     $headers = mail_get_headers($subject, $from, $reply_to);
     
     $mime = new mail_mime_wrapper();
