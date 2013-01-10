@@ -161,12 +161,18 @@ class upload {
     public static function moveFile($filename = null, $options = null){
         if (isset($options)) self::$options = $options;
         
-        // create dir. 
-        if (!file_exists(self::$options['upload_dir'])){
-            if (!strstr(self::$options['upload_dir'], _COS_PATH)) {
-                self::$options ['upload_dir'] = _COS_PATH . self::$options['upload_dir'];
-            } 
-            mkdir (self::$options['upload_dir'], self::$mode, true);
+        // We can give both just the /htdocs/files ... path 
+        // then we add _COS_PATH
+        if (!strstr(self::$options['upload_dir'], _COS_PATH)) {
+            self::$options ['upload_dir'] = _COS_PATH . self::$options['upload_dir'];
+        } 
+        
+        // check if dir exists
+        if (!file_exists(self::$options['upload_dir'])){            
+            $res = @mkdir (self::$options['upload_dir'], self::$mode, true);
+            if (!$res) {
+                echo "Could not make dir: " . self::$options['upload_dir'] . "\n";
+            }
         }
 
         // check if an upload were performed

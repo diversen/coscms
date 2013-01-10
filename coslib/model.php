@@ -17,7 +17,7 @@ class model {
     }
     
     public function postEncode () {
-        if (!empty($_POST) && !$this->encocded) {
+        if (!empty($_POST) && !$this->encoded) {
             $_POST = html::specialEncode($_POST);
             $this->encoded = true;
         }
