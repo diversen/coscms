@@ -321,6 +321,32 @@ class upload {
             return false;
         }
     }
+    
+    /**
+     * 
+     * wrapper method for uploading an image from a id, destination folder,
+     * and a post field, e.g. image
+     * @param int     $id the id of the path to save image to
+     *                e.g. 10 for /files/default/campaign/10
+     * @param string  $post_field name of $_POST element to upload, e.g campaign
+     * @return mixed  $res false on failure.
+     *                String containing base filname on success
+     *                e.g. /files/default/campagin/10/file.jpg or false
+     *                If false then errors can be found in upload::$errors  
+     */
+    public function uploadFromPost ($id, $folder = null, $post_field = 'image') {
+        if (!$folder) {
+            die('Developer: Set a folder when uploading');
+        }
+        
+        $domain = config::getDomain();
+        $options = array (
+            'upload_dir' => "/htdocs/files/$domain/$folder/$id",
+        );
+        $this->setOptions($options);
+        $res = $this->moveFile($post_field);
+        return $res;
+    }   
 }
 
 /**
