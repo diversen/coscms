@@ -46,4 +46,4 @@ include_once "coslib/log.php";
 include_once "coslib/lang.php";
 include_once "coslib/time.php";
 include_once "coslib/urldispatch.php";
-
+include_once "coslib/model.php";
