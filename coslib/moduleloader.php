@@ -187,9 +187,12 @@ class moduleloader {
      * @param string $module the module we examine
      * @return boolean $res boolean
      */
-    public static function isInstalledModule($module){        
+    public static function isInstalledModule($module){  
+        static $installed = array ();
+        if (isset($installed[$module])) return true;
         foreach (self::$modules as $val){
             if ($val['module_name'] == $module){
+                $installed[$module] = true;
                 return true;
             }
         }
