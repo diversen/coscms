@@ -234,6 +234,20 @@ class upload {
         return false;
     }
     
+    /**
+     * checks if file exists, is uploaded
+     * @param strng $post_name post name given to form
+     * @return boolea $res true if uploaded else false
+     */
+    public function isUploaded ($post_name) {
+        if (isset($_FILES[$post_name])){
+            if ($_FILES[$post_name]['error'] == 0) {
+                return true;
+            } 
+        }
+        return false;
+    }
+    
     
     /**
      *
