@@ -11,6 +11,12 @@
  * set include path
  * @ignore
  */
+
+
+if (!defined('_COS_PATH')) {
+    define('_COS_PATH', realpath($path));
+}
+
 $ini_path = ini_get('include_path');
 ini_set('include_path', 
     _COS_PATH . PATH_SEPARATOR . 
@@ -75,6 +81,7 @@ include_once "coslib/lang.php";
 include_once "coslib/time.php";
 include_once "coslib/urldispatch.php";
 include_once "coslib/model.php";
+
 // set some common register vars
 config::$vars['coscms_base'] = _COS_PATH;
 config::$vars['coscms_main'] = array();

@@ -98,7 +98,7 @@ class pearPager {
             'separator' => '',
             'mode'       => 'Sliding',
             'perPage'    => $this->perPage,
-            'delta'      => 2,
+            'delta'      => 5,
             'urlVar'    => 'from', 
             'append'   => false,
             'path'     =>  '',
