@@ -67,7 +67,7 @@ class config {
         return config::$vars['coscms_main'][$key];      
     }
     
-        /**
+    /**
      * method for getting a main ini setting found in config/config.ini
      * @param   string  $key the ini setting key to get
      * @return  mixed   $val the value of the setting or null if not found. 

@@ -20,9 +20,8 @@ class session {
     public static function initSession(){
         // figure out session time
         $session_time = config::getMainIni('session_time');
-        if ($session_time) {
-            ini_set("session.cookie_lifetime", $session_time);
-        }
+        if (!$session_time) $session_time = '0';
+        ini_set("session.cookie_lifetime", $session_time);
 
         $session_path = config::getMainIni('session_path');
         if ($session_path) {
