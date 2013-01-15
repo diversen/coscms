@@ -17,7 +17,7 @@ function handleScroll(){
 
     // set the appropriate class on the navigation
     document.getElementById('sidebar_left').className =
-        (offset > 110 ? 'fixed' : '');
+        (offset > 170 ? 'fixed' : '');
 
   }
 
