@@ -42,7 +42,6 @@ class user {
      * @return array $row
      */
     public static function getAccountFromEmail ($email = null) {
-        //if (!$id) $id = session::getUserId ();
         $db = new db();
         $row = $db->selectOne('account', 'email', $email);
         return $row;
