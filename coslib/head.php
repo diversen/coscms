@@ -81,6 +81,8 @@ include_once "coslib/lang.php";
 include_once "coslib/time.php";
 include_once "coslib/urldispatch.php";
 include_once "coslib/model.php";
+include_once "coslib/pearPager.php";
+include_once "coslib/random.php";
 
 // set some common register vars
 config::$vars['coscms_base'] = _COS_PATH;

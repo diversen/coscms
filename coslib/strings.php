@@ -120,7 +120,7 @@ class strings {
             if (defined('_COS_PATH')) {  
                 if (config::getMainIni('debug')) {
                     if (mb_check_encoding($content, 'UTF-8')) {
-                        log::debug('Converted to UTF-8');
+                        //log::debug('Converted to UTF-8');
                     } else {
                         log::debug("Could not convert: $content");
                     }

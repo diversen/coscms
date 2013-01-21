@@ -43,4 +43,12 @@ class random {
 
 	return $str;
     }
+    
+    /**
+     * returns a random md5
+     * @return string $md5 random md5
+     */
+    public static function md5() {
+        return md5(uniqid(mt_rand(), true));
+    }
 }
