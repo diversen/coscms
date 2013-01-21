@@ -148,9 +148,7 @@ class session {
      */
     public static function setSystemCookie($user_id){
         
-        $uniqid = uniqid();
-        $uniqid= md5($uniqid);
-  
+        $uniqid = random::md5();  
         $days = config::getMainIni('cookie_time');
         
         // calculate days into seconds
