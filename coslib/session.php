@@ -172,8 +172,7 @@ class session {
         
         $db = new db();
 
-        // only keep one system cookie (e.g. if user clears his cookies)
-        $db->delete('system_cookie', 'account_id', $user_id);
+        // place cookie in system cookie table
         $values = array (
             'account_id' => $user_id, 
             'cookie_id' => $uniqid, 
@@ -200,7 +199,7 @@ class session {
     public static function killSession (){
         // only keep one system cookie (e.g. if user clears his cookies)
         $db = new db();
-        $db->delete('system_cookie', 'account_id', @$_SESSION['id']);
+        $db->delete('system_cookie', 'cookie_id', @$_COOKIE['system_cookie']);
         
         setcookie ("system_cookie", "", time() - 3600, "/");
         unset($_SESSION['id'], $_SESSION['admin'], $_SESSION['super'], $_SESSION['account_type']);
