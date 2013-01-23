@@ -711,8 +711,6 @@ abstract class template {
         }
         
         $js = config::getModuleIni('template_js');
-        //print_r($js);
-        //die;
         if ($js) {
             foreach ($js as $val) {
                 self::setJs($val);
