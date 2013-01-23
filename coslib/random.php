@@ -51,4 +51,8 @@ class random {
     public static function md5() {
         return md5(uniqid(mt_rand(), true));
     }
+    
+    public static function sha1 () {
+        return sha1(microtime(true).mt_rand(10000,90000));
+    }
 }

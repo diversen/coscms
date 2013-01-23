@@ -76,10 +76,12 @@ class session {
     }
 
     /**
-     * checks if there is a cookie we can use for 
-     * log in. If cookie exists we will login the user
-     * Note: Your this triggers events set in 
-     * main ini setting session_events
+     * checks if there is a cookie we can use for log in. If cookie exists 
+     * we will login the user
+     * 
+     * You can run trigger events which needs to be set in session_events
+     * in config/config.ini 
+     * 
      * @return void
      */
     public static function checkSystemCookie(){
@@ -147,7 +149,7 @@ class session {
      * @return boolean $res true on success and false on failure. 
      */
     public static function setSystemCookie($user_id){
-        
+ 
         $uniqid = random::md5();  
         $days = config::getMainIni('cookie_time');
         
@@ -172,7 +174,10 @@ class session {
 
         // only keep one system cookie (e.g. if user clears his cookies)
         $db->delete('system_cookie', 'account_id', $user_id);
-        $values = array ('account_id' => $user_id , 'cookie_id' => $uniqid, 'timestamp' => $timestamp);
+        $values = array (
+            'account_id' => $user_id, 
+            'cookie_id' => $uniqid, 
+            'timestamp' => $timestamp);
         return $db->insert('system_cookie', $values);
     }
     

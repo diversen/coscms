@@ -67,6 +67,7 @@ include_once "coslib/db.php";
 include_once "coslib/dbQ.php";
 include_once "coslib/uri.php";
 include_once "coslib/moduleloader.php";
+include_once "coslib/useragent.php";
 include_once "coslib/session.php";
 include_once "coslib/html.php";
 include_once "coslib/layout.php";
@@ -83,6 +84,7 @@ include_once "coslib/urldispatch.php";
 include_once "coslib/model.php";
 include_once "coslib/pearPager.php";
 include_once "coslib/random.php";
+
 
 // set some common register vars
 config::$vars['coscms_base'] = _COS_PATH;

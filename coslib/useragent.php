@@ -1,5 +1,21 @@
 <?php
 
+class useragent {
+    /**
+     * Parses a user agent string into its important parts
+     * 
+     * @author Jesse G. Donat <donatj@gmail.com>
+     * @link https://github.com/donatj/PhpUserAgent
+     * @link http://donatstudios.com/PHP-Parser-HTTP_USER_AGENT
+     * @param string $u_agent
+     * @return array an array with browser, version and platform keys
+     */
+    public static function getInfo () {
+        return parse_user_agent();
+    }
+}
+
+
 /**
 * Parses a user agent string into its important parts
 * 
