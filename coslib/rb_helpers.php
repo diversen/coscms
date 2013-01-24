@@ -42,11 +42,15 @@ class RB {
      * method for transforming an array into a bean
      * @param object $bean
      * @param array $ary
+     * @param boolean $skip_null if true we skip values that is not set (e.g. null)
+     *                           if false we don't skip null - but add them to bean
      * @return object $bean 
      */
-    public static function arrayToBean ($bean, $ary) {
+    public static function arrayToBean ($bean, $ary, $skip_null = true) {
         foreach ($ary as $key => $val) {
-            if (empty($val)) continue;
+            if (!isset($val) && $skip_null)  { 
+                continue;
+            }
             $bean->{$key} = trim($val);
         }
         return $bean;
