@@ -267,7 +267,7 @@ function mail_multipart_utf8 ($to, $subject, $message, $from = null, $reply_to =
  */
 function mail_system_user_utf8 ($subject, $message, $from = null, $reply_to = null) {
     $to = config::getMainIni('site_email');
-    return $res = mail_utf8(
+    return $res = cosMail::text(
             $to, 
             $subject, 
             $message, 
