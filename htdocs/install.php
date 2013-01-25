@@ -65,7 +65,7 @@ include_once "coslib/log.php";
 include_once "coslib/lang.php";
 include_once "coslib/time.php";
 include_once "coslib/urldispatch.php";
-include_once "coslib/moduleInstaller.php";
+include_once "coslib/moduleinstaller.php";
 include_once "coslib/shell_base/profile.inc";
 
 

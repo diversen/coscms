@@ -274,3 +274,46 @@ function mail_system_user_utf8 ($subject, $message, $from = null, $reply_to = nu
             $from, 
             $reply_to);
 }
+
+class cosMail {
+   /**
+    * sends a mail to primary system user
+    * @param string $subject
+    * @param string $message
+    * @param string $from (optional)
+    * @param string $reply_to (optional)
+    * @return boolean $res
+    */
+    public static function systemUser ($subject, $message, $from = null, $reply_to = null) {
+        return mail_system_user_utf8 ($subject, $message, $from = null, $reply_to = null);
+    }
+
+    /**
+     * method for sending multi part emails. Default to txt if $message is a string 
+     * @param   string          $to to whom are we send the email
+     * @param   string          $subject the subject of the email
+     * @param   array|string    $html the html message the message of the email, e.g.
+     *                  array ('txt' => 'message', 'html' => '<h3>html message</h3>',
+     *                         'attachments => array ('/path/to/file', '/path/to/another/file'));
+     * @param   string          $from from the sender of the email
+     * @param   string          $reply_to email to reply to
+     * @return  int             $res 1 on success 0 on error
+     */
+    public static function multipart ($to, $subject, $message, $from = null, $reply_to = null){
+        return mail_multipart_utf8 ($to, $subject, $message, $from = null, $reply_to = null);
+    }  
+   
+   /**
+    * function for sending text emails as with utf8 encoding
+    *
+    * @param   string  $to to whom are we gonna send the email
+    * @param   string  $subject the subject of the email
+    * @param   string  $message the message of the email
+    * @param   string  $from the sender of the email
+    * @param   string  $reply_to email to reply to
+    * @return  int     1 on success 0 on error
+    */
+    public static function text($to, $subject, $message, $from = null, $reply_to=null) {
+       return mail_utf8($to, $subject, $message, $from = null, $reply_to=null);
+   }
+}

@@ -13,7 +13,7 @@
  * @package html
  */
 
-class HTML {
+class html {
 
     /**
      * array holding values used when creating forms
@@ -950,7 +950,7 @@ EOF;
      * with element for day, month and year
      */
     public static function selectBirthday () {
-        include_once "coslib/form_helpers.php";
+        include_once "coslib/formHelpers.php";
         
         $date = formHelpers::birthdayDropdown();
         self::$fields[] = array ('value' => $date['day']);

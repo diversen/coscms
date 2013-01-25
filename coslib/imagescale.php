@@ -70,7 +70,7 @@ class imagescale {
         
         if (PEAR::isError($it)) {
             self::$errors[] = lang::translate('system_scaleimage_transform_factory_exception');
-            cos_error_log($it->getMessage());
+            log::error($it->getMessage());
             return false;
         }
 
@@ -78,21 +78,21 @@ class imagescale {
         $ret = $it->load($image);
         if (PEAR::isError($ret)) {
             self::$errors[] = lang::translate('system_scaleimage_transform_load_exception');
-            cos_error_log($ret->getMessage());
+            log::error($ret->getMessage());
             return false;
         }
 
         $ret = $it->resize($x, $y);
         if (PEAR::isError($ret)) {
             self::$errors[] = lang::translate('system_scaleimage_image_transform_scale_exception');
-            cos_error_log($ret->getMessage());
+            log::error($ret->getMessage());
             return false;
         }
 
         $ret = $it->save($thumb);
         if (PEAR::isError($ret)) {
             self::$errors[] = lang::translate('system_scaleimage_factory_transform_save_exception');
-            cos_error_log($ret->getMessage());
+            log::error($ret->getMessage());
             return false;
         }
         return true;
@@ -119,7 +119,7 @@ class imagescale {
         
         if (PEAR::isError($it)) {
             self::$errors[] = lang::translate('system_scaleimage_transform_factory_exception');
-            cos_error_log($it->getMessage());
+            log::error($it->getMessage());
             return false;
         }
 
@@ -127,21 +127,21 @@ class imagescale {
         $ret = $it->load($image);
         if (PEAR::isError($ret)) {
             self::$errors[] = lang::translate('system_scaleimage_transform_load_exception');
-            cos_error_log($ret->getMessage());
+            log::error($ret->getMessage());
             return false;
         }
 
         $ret = $it->scaleByX($x);
         if (PEAR::isError($ret)) {
             self::$errors[] = lang::translate('system_scaleimage_image_transform_scale_exception');
-            cos_error_log($ret->getMessage());
+            log::error($ret->getMessage());
             return false;
         }
 
         $ret = $it->save($thumb);
         if (PEAR::isError($ret)) {
             self::$errors[] = lang::translate('system_scaleimage_factory_transform_save_exception');
-            cos_error_log($ret->getMessage());
+            log::error($ret->getMessage());
             return false;
         }
         return true;
@@ -167,7 +167,7 @@ class imagescale {
         
         if (PEAR::isError($it)) {
             self::$errors[] = lang::translate('system_scaleimage_transform_factory_exception');
-            cos_error_log($it->getMessage());
+            log::error($it->getMessage());
             return false;
         }
 
@@ -175,21 +175,21 @@ class imagescale {
         $ret = $it->load($image);
         if (PEAR::isError($ret)) {
             self::$errors[] = lang::translate('system_scaleimage_transform_load_exception');
-            cos_error_log($ret->getMessage());
+            log::error($ret->getMessage());
             return false;
         }
 
         $ret = $it->fit($x, $y);
         if (PEAR::isError($ret)) {
             self::$errors[] = lang::translate('system_scaleimage_image_transform_scale_exception');
-            cos_error_log($ret->getMessage());
+            log::error($ret->getMessage());
             return false;
         }
 
         $ret = $it->save($thumb);
         if (PEAR::isError($ret)) {
             self::$errors[] = lang::translate('system_scaleimage_factory_transform_save_exception');
-            cos_error_log($ret->getMessage());
+            log::error($ret->getMessage());
             return false;
         }
         return true;
@@ -214,7 +214,7 @@ class imagescale {
         
         if (PEAR::isError($it)) {
             self::$errors[] = lang::translate('system_scaleimage_transform_factory_exception');
-            cos_error_log($it->getMessage());
+            log::error($it->getMessage());
             return false;
         }
 
@@ -222,21 +222,21 @@ class imagescale {
         $ret = $it->load($image);
         if (PEAR::isError($ret)) {
             self::$errors[] = lang::translate('system_scaleimage_transform_load_exception');
-            cos_error_log($ret->getMessage());
+            log::error($ret->getMessage());
             return false;
         }
 
         $ret = $it->scaleByY($y);
         if (PEAR::isError($ret)) {
             self::$errors[] = lang::translate('system_scaleimage_image_transform_scale_exception');
-            cos_error_log($ret->getMessage());
+            log::error($ret->getMessage());
             return false;
         }
 
         $ret = $it->save($thumb);
         if (PEAR::isError($ret)) {
             self::$errors[] = lang::translate('system_scaleimage_factory_transform_save_exception');
-            cos_error_log($ret->getMessage());
+            log::error($ret->getMessage());
             return false;
         }
         return true;

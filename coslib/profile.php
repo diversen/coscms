@@ -10,7 +10,7 @@
 /**
  * @ignore
  */
-include_once "moduleInstaller.php";
+include_once "moduleinstaller.php";
 
 /**
  * class for installing a profile or creating one from current install
@@ -93,10 +93,10 @@ class profile  {
         $db->connect();
         $modules = $db->selectAll('modules');
 
-        include_once "coslib/moduleInstaller.php";
+        include_once "coslib/moduleinstaller.php";
         foreach ($modules as $key => $val){
             $options['module'] = $val['module_name'];
-            $mi = new moduleInstaller($options);
+            $mi = new moduleinstaller($options);
 
             if (isset($mi->installInfo['PUBLIC_CLONE_URL'])) {
                 $modules[$key]['public_clone_url'] = $mi->installInfo['PUBLIC_CLONE_URL'];

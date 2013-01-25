@@ -230,7 +230,7 @@ class upload {
             return $savefile;
             
         } 
-        cos_error_log('No file to move in ' . __FILE__ . ' ' . __LINE__, false);        
+        log::error('No file to move in ' . __FILE__ . ' ' . __LINE__, false);        
         return false;
     }
     

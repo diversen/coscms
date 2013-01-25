@@ -1,10 +1,15 @@
 <?php
-
+include_once "rb.php";
 /**
  * File contains RB (Redbeans) helpers for easy connecting to CosCMS 
  * DB using Redbeans
  * @package rb_helpers 
  */
+class MyModelFormatter implements RedBean_IModelFormatter {
+        public function formatModel($model) {
+            //return $model.'_Object';
+        }
+    }
 
 /**
  * class contains class RB with a connect method, which creates a Redbean
@@ -19,7 +24,7 @@
  * @package rb_helpers
  */
 
-class RB {
+class cosRB {
     
     /**
      * setup a Redbean instance from CosCMS
@@ -28,11 +33,13 @@ class RB {
         static $connected = null;
         
         if (!$connected){
-            include_once "rb.php";
+            
             $url = config::getMainIni('url');
             $username = config::getMainIni('username');
             $password = config::getMainIni('password');
             R::setStrictTyping(false); 
+            $formatter = new MyModelFormatter;
+            RedBean_ModelHelper::setModelFormatter($formatter);
             R::setup($url, $username,$password); //mysql
             $connected = true;
         } 
@@ -108,3 +115,5 @@ class RB {
         }
     }
 }
+
+

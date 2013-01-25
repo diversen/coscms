@@ -95,7 +95,7 @@ function reset_install (){
  * change language settings in config/config.ini to load another language. 
  */
 function install_reload_language(){
-    $reload = new moduleInstaller();
+    $reload = new moduleinstaller();
     $reload->reloadLanguages();
 }
 
@@ -106,7 +106,7 @@ function install_menu_lang_reload(){
 }
 
 function install_install_reload(){
-    $reload = new moduleInstaller();
+    $reload = new moduleinstaller();
     $reload->reloadConfig();
 }
 
