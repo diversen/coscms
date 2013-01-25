@@ -1,6 +1,7 @@
 <?php
 
 include_once "coslib/git.php";
+include_once "coslib/moduleinstaller.php";
 
 /**
  * funtion for installing a module
