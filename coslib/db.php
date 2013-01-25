@@ -552,6 +552,19 @@ class db {
         $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
         return $rows;
     }
+    
+        /**
+     * Method for performing a direct selectQuery, e.g. if we are joinging rows
+     *
+     * @param   string  The query to execute
+     * @return  mixed   $rows array the rows found. Or false on failure. 
+     *
+     */
+    public function selectQueryOne($sql){
+        $rows = $this->selectQuery($sql);
+        if (isset($rows[0])) return $rows[0];
+        return array ();
+    }
 
     /**
      * Method for doing a raw query. Anything will go
@@ -602,13 +615,15 @@ class db {
      * @param array $keys keys to use from request
      * @return array $ary array with post array we will use 
      */
-    public static function prepareToPostArray ($keys) {
+    public static function prepareToPostArray ($keys, $null_values = true) {
         $ary = array ();
         foreach ($keys as $val) {
             if (isset($_POST[$val])) {
                 $ary[$val] = $_POST[$val];
             } else {
-                $ary[$val] = NULL;
+                if ($null_values) {
+                    $ary[$val] = NULL;
+                }
             }
         }
         return $ary;

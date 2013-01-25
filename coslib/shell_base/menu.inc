@@ -22,7 +22,7 @@ function menu_install_menu($options){
         cos_cli_print("module $options[module] does not exists in modules dir. ");
     }
 
-    $mod = new moduleInstaller($options);
+    $mod = new moduleinstaller($options);
     $res = $mod->insertMenuItem();
     if ($res) {
         cos_cli_print("Main menu item for $options[module] inserted");
@@ -31,7 +31,7 @@ function menu_install_menu($options){
 
 function menu_install_all (){
 
-    $mods = moduleInstaller::getModules();
+    $mods = moduleinstaller::getModules();
     foreach ($mods as $key => $val){
         $options = array('module' => $val['module_name']);
         //$mod = new moduleInstaller($options);
@@ -43,7 +43,7 @@ function menu_install_all (){
 
 function menu_uninstall_all (){
 
-    $mods = moduleInstaller::getModules();
+    $mods = moduleinstaller::getModules();
     foreach ($mods as $key => $val){
         $options = array('module' => $val['module_name']);
         menu_uninstall_menu($options);
@@ -64,7 +64,7 @@ function menu_uninstall_menu($options){
         cos_cli_print("module $options[module] does not exists in modules dir. ");
     }
 
-    $menu = new moduleInstaller($options);
+    $menu = new moduleinstaller($options);
     $res = $menu->deleteMenuItem($options['module']);
     if ($res) {
         cos_cli_print("Main menu item for $options[module] deleted");

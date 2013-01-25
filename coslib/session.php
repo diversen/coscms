@@ -18,11 +18,42 @@ class session {
      * checks if we use memcached which is a good idea
      */
     public static function initSession(){
+        
+        session::setSessionIni();
+        session::setSessinHandler();
+
+        session_start();
+        session::checkSystemCookie();
+
+        // if 'started' is set for previous request
+        //we truely know we are in 'in_session'
+        if (isset($_SESSION['started'])){
+            $_SESSION['in_session'] = 1;
+        }
+
+        // if not started we do not know for sure if session will work
+        // we destroy 'in_session'
+        if (!isset($_SESSION['started'])){
+            $_SESSION['started'] = 1;
+            $_SESSION['in_session'] = null;
+        }
+
+        // we set a session start time
+        if (!isset($_SESSION['start_time'])){
+            $_SESSION['start_time'] = time();
+        }
+    }
+    
+    /**
+     * sets ini for 
+     * session.cooke_lifetime, session.cookie_path,session.cookie_domain
+     */
+    public static function setSessionIni () {
+        
         // figure out session time
         $session_time = config::getMainIni('session_time');
-        if ($session_time) {
-            ini_set("session.cookie_lifetime", $session_time);
-        }
+        if (!$session_time) $session_time = '0';
+        ini_set("session.cookie_lifetime", $session_time);
 
         $session_path = config::getMainIni('session_path');
         if ($session_path) {
@@ -33,7 +64,14 @@ class session {
         if ($session_host){
             ini_set("session.cookie_domain", $session_host);
         }
-
+    }
+    
+    /**
+     * sets session handler. 
+     * only memcahce if supported
+     */
+    public static function setSessinHandler () {
+        
         // use memcache if available
         $handler = config::getMainIni('session_handler');
         if ($handler == 'memcache'){
@@ -53,34 +91,15 @@ class session {
             ini_set('session.save_handler', 'memcache');
             ini_set('session.save_path', $session_save_path);
         }
-
-        session_start();
-        session::checkSystemCookie();
-
-        // if 'started' is set for previous request
-        // we truely know we are in 'in_session'
-        if (isset($_SESSION['started'])){
-            $_SESSION['in_session'] = 1;
-        }
-
-        // if not started we do not know for sure if session will work
-        // we destroy 'in_session'
-        if (!isset($_SESSION['started'])){
-            $_SESSION['started'] = 1;
-            $_SESSION['in_session'] = null;
-        }
-
-        // we set a session start time
-        if (!isset($_SESSION['start_time'])){
-            $_SESSION['start_time'] = time();
-        }
     }
 
     /**
-     * checks if there is a cookie we can use for 
-     * log in. If cookie exists we will login the user
-     * Note: Your this triggers events set in 
-     * main ini setting session_events
+     * checks if there is a cookie we can use for log in. If cookie exists 
+     * we will log in the user
+     * 
+     * You can run trigger events which needs to be set in session_events
+     * in config/config.ini 
+     * 
      * @return void
      */
     public static function checkSystemCookie(){
@@ -98,11 +117,40 @@ class session {
             }
             
             $db = new db();
+            $row = $db->selectOne ('system_cookie', 'cookie_id', @$_COOKIE['system_cookie']);
             
-            // cookie_id is indexed with KEY `cookie_id_index` (`cookie_id`)
-            $row = $db->selectOne ('system_cookie', 'cookie_id', $_COOKIE['system_cookie']);
-            
+            // we got a cookie that equals one found in database
             if (!empty($row)){
+                $days = session::getCookiePersistentDays();
+                // delete system_cookies that are out of date. 
+                
+                $sql = "
+                    DELETE FROM `system_cookie` WHERE 
+                        account_id = '$row[account_id]' AND 
+                        last_login < now() - interval $days day";
+                $db->rawQuery($sql);
+                
+                $row = $db->selectOne ('system_cookie', 'cookie_id', @$_COOKIE['system_cookie']);
+                if (empty($row)) { 
+                    return;
+                }
+                
+                // on every cookie login we update the cookie id and
+                // delete every user cookie that is older than 1 month
+                
+                $new_cookie_id = random::md5();
+                $values = array ('cookie_id' => $new_cookie_id);
+                $search = array ('cookie_id' => $_COOKIE['system_cookie']);
+                
+                // update new cookie id in db
+                $db->update('system_cookie', $values, $search);
+                
+                // update browser cookie
+                $cookie_time = session::getCookiePersistentSecs();              
+                $timestamp = time() + $cookie_time;
+                setcookie('system_cookie', $new_cookie_id, $timestamp, '/');
+                
+                // get account which is connected to account id
                 $account = $db->selectOne('account', 'id', $row['account_id']);
 
                 if ($account){
@@ -117,6 +165,7 @@ class session {
                         'user_id' => $account['id']
                     );
 
+                    // trigger session_events
                     $login_events = config::getMainIni('session_events');
                     event::getTriggerEvent(
                         $login_events, $args
@@ -125,22 +174,6 @@ class session {
             } 
         }
     }
-    
-    /**
-     * you can specify one event in your main ini (config/config.ini) file.
-     * session_events:  
-     * 
-     * e.g. $args = array (
-     *                  'action' => 'account_login',
-     *                  'user_id' => $account['id']
-     *              );
-     * 
-     * This is called on session::checkSystemCookie on a cookie login.   
-     */
-    public static function __events () {
-        
-    }
-
 
     /**
      * sets a system cookie. 
@@ -148,13 +181,35 @@ class session {
      * @return boolean $res true on success and false on failure. 
      */
     public static function setSystemCookie($user_id){
+
+        $uniqid = random::md5();  
         
-        $uniqid = uniqid();
-        $uniqid= md5($uniqid);
-  
-        $days = config::getMainIni('cookie_time');
+        $cookie_time = session::getCookiePersistentSecs();              
         
-        // calculate days into seconds
+        $timestamp = time() + $cookie_time;
+        setcookie('system_cookie', $uniqid, $timestamp, '/');
+        
+        $db = new db();
+        
+        // cookie_id is indexed with KEY `cookie_id_index` (`cookie_id`)
+        $row = $db->selectOne ('system_cookie', 'cookie_id', @$_COOKIE['system_cookie']);
+
+        // place cookie in system cookie table
+        // last login is auto updated
+        $values = array (
+            'account_id' => $user_id, 
+            'cookie_id' => $uniqid);
+        
+        return $db->insert('system_cookie', $values);
+    }
+    
+    /**
+     * return persistent cookie time in secs
+     * @return int $time in secs
+     */
+    public static function getCookiePersistentSecs () {
+        
+        $days = config::getMainIni('cookie_time');        
         if ($days == -1) {
             // ten years
             $cookie_time = 3600 * 24 * 365 * 10;
@@ -167,16 +222,31 @@ class session {
         else {
             $cookie_time = 0;
         }
-            
-        $timestamp = time() + $cookie_time;
-        setcookie('system_cookie', $uniqid, $timestamp, '/');
         
-        $db = new db();
-
-        // only keep one system cookie (e.g. if user clears his cookies)
-        $db->delete('system_cookie', 'account_id', $user_id);
-        $values = array ('account_id' => $user_id , 'cookie_id' => $uniqid, 'timestamp' => $timestamp);
-        return $db->insert('system_cookie', $values);
+        return $cookie_time;
+    }
+    
+        /**
+     * return persistent cookie time in secs
+     * @return int $time in secs
+     */
+    public static function getCookiePersistentDays () {
+        
+        $days = config::getMainIni('cookie_time');        
+        if ($days == -1) {
+            // ten years
+            $cookie_time = 365 * 10;
+        }
+        
+        else if ($days >= 1) {
+            $cookie_time = $days;
+        }
+        
+        else {
+            $cookie_time = 0;
+        }
+        
+        return $cookie_time;
     }
     
     /**
@@ -198,11 +268,26 @@ class session {
     public static function killSession (){
         // only keep one system cookie (e.g. if user clears his cookies)
         $db = new db();
-        $db->delete('system_cookie', 'account_id', @$_SESSION['id']);
+        $db->delete('system_cookie', 'cookie_id', @$_COOKIE['system_cookie']);
         
         setcookie ("system_cookie", "", time() - 3600, "/");
         unset($_SESSION['id'], $_SESSION['admin'], $_SESSION['super'], $_SESSION['account_type']);
         session_destroy();
+    }
+    
+    /**
+     * you can specify one event in your main ini (config/config.ini) file.
+     * session_events:  
+     * 
+     * e.g. $args = array (
+     *                  'action' => 'account_login',
+     *                  'user_id' => $account['id']
+     *              );
+     * 
+     * This is called on a login  
+     */
+    public static function __events () {
+        
     }
 
     /**

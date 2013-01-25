@@ -2,11 +2,22 @@
 
 
 /**
- * initialize base system. 
+ * initialize base system if you just want to use classes
  * Runs both web system and commandline system.
+ * 
+ * 
  * @package  head
  */
 
+/**
+// example 
+// path to ../coslib
+$path = dirname('../../../');
+$path = realpath($path);
+define('_COS_PATH', $path);
+// include this file
+include_once "../../coslib/include_common.php";
+*/
 /**
  * set include path
  * @ignore
@@ -46,4 +57,4 @@ include_once "coslib/log.php";
 include_once "coslib/lang.php";
 include_once "coslib/time.php";
 include_once "coslib/urldispatch.php";
-
+include_once "coslib/model.php";

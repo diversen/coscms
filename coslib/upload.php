@@ -161,12 +161,18 @@ class upload {
     public static function moveFile($filename = null, $options = null){
         if (isset($options)) self::$options = $options;
         
-        // create dir. 
-        if (!file_exists(self::$options['upload_dir'])){
-            if (!strstr(self::$options['upload_dir'], _COS_PATH)) {
-                self::$options ['upload_dir'] = _COS_PATH . self::$options['upload_dir'];
-            } 
-            mkdir (self::$options['upload_dir'], self::$mode, true);
+        // We can give both just the /htdocs/files ... path 
+        // then we add _COS_PATH
+        if (!strstr(self::$options['upload_dir'], _COS_PATH)) {
+            self::$options ['upload_dir'] = _COS_PATH . self::$options['upload_dir'];
+        } 
+        
+        // check if dir exists
+        if (!file_exists(self::$options['upload_dir'])){            
+            $res = @mkdir (self::$options['upload_dir'], self::$mode, true);
+            if (!$res) {
+                echo "Could not make dir: " . self::$options['upload_dir'] . "\n";
+            }
         }
 
         // check if an upload were performed
@@ -224,7 +230,21 @@ class upload {
             return $savefile;
             
         } 
-        cos_error_log('No file to move in ' . __FILE__ . ' ' . __LINE__, false);        
+        log::error('No file to move in ' . __FILE__ . ' ' . __LINE__, false);        
+        return false;
+    }
+    
+    /**
+     * checks if file exists, is uploaded
+     * @param strng $post_name post name given to form
+     * @return boolea $res true if uploaded else false
+     */
+    public function isUploaded ($post_name) {
+        if (isset($_FILES[$post_name])){
+            if ($_FILES[$post_name]['error'] == 0) {
+                return true;
+            } 
+        }
         return false;
     }
     
@@ -321,6 +341,32 @@ class upload {
             return false;
         }
     }
+    
+    /**
+     * 
+     * wrapper method for uploading an image from a id, destination folder,
+     * and a post field, e.g. image
+     * @param int     $id the id of the path to save image to
+     *                e.g. 10 for /files/default/campaign/10
+     * @param string  $post_field name of $_POST element to upload, e.g campaign
+     * @return mixed  $res false on failure.
+     *                String containing base filname on success
+     *                e.g. /files/default/campagin/10/file.jpg or false
+     *                If false then errors can be found in upload::$errors  
+     */
+    public function uploadFromPost ($id, $folder = null, $post_field = 'image') {
+        if (!$folder) {
+            die('Developer: Set a folder when uploading');
+        }
+        
+        $domain = config::getDomain();
+        $options = array (
+            'upload_dir' => "/htdocs/files/$domain/$folder/$id",
+        );
+        $this->setOptions($options);
+        $res = $this->moveFile($post_field);
+        return $res;
+    }   
 }
 
 /**

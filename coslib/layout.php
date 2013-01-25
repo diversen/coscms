@@ -566,7 +566,7 @@ class layout {
                     config::getModuleIni('block_manip_filters'), $row['content_block']
                 );
                 $row['title'] = htmlspecialchars($row['title']);
-                $content = templateView::get('block_manip', 'block_html', $row);
+                $content = view::get('block_manip', 'block_html', $row);
                 $ret_blocks[] = $content;
                 continue;
             }

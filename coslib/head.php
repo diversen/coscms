@@ -11,6 +11,12 @@
  * set include path
  * @ignore
  */
+
+
+if (!defined('_COS_PATH')) {
+    define('_COS_PATH', realpath($path));
+}
+
 $ini_path = ini_get('include_path');
 ini_set('include_path', 
     _COS_PATH . PATH_SEPARATOR . 
@@ -19,14 +25,49 @@ ini_set('include_path',
         $ini_path . PATH_SEPARATOR);
 
 
+function coslib_autoloader($classname) {
+    $classname = ltrim($classname, '\\');
+    $filename  = '';
+    $namespace = '';
+    if ($lastnspos = strripos($classname, '\\')) {
+        $namespace = substr($classname, 0, $lastnspos);
+        $classname = substr($classname, $lastnspos + 1);
+        $filename  = str_replace('\\', '/', $namespace) . '/';
+    }
+    $filename .= str_replace('_', '/', $classname) . '.php';
+    require $filename;
+}
 
-
+spl_autoload_register('coslib_autoloader');
 /**
  * include base classes and functions
  * the names specifify what the classes or function collections do. 
  * @ignore
  */
 
+//include_once "coslib/config.php";
+//include_once "coslib/file.php";
+//include_once "coslib/strings.php";
+//include_once "coslib/db.php";
+//include_once "coslib/dbQ.php";
+//include_once "coslib/uri.php";
+//include_once "coslib/moduleloader.php";
+//include_once "coslib/session.php";
+//include_once "coslib/html.php";
+//include_once "coslib/layout.php";
+//include_once "coslib/template.php";
+//include_once "coslib/event.php";
+//include_once "coslib/cosmail.php";
+//include_once "coslib/cosvalidate.php";
+//include_once "coslib/http.php";
+//include_once "coslib/user.php";
+//include_once "coslib/log.php";
+//include_once "coslib/lang.php";
+//include_once "coslib/time.php";
+//include_once "coslib/urldispatch.php";
+//include_once "coslib/model.php";
+
+/*
 include_once "coslib/config.php";
 include_once "coslib/file.php";
 include_once "coslib/strings.php";
@@ -34,6 +75,7 @@ include_once "coslib/db.php";
 include_once "coslib/dbQ.php";
 include_once "coslib/uri.php";
 include_once "coslib/moduleloader.php";
+include_once "coslib/useragent.php";
 include_once "coslib/session.php";
 include_once "coslib/html.php";
 include_once "coslib/layout.php";
@@ -47,8 +89,11 @@ include_once "coslib/log.php";
 include_once "coslib/lang.php";
 include_once "coslib/time.php";
 include_once "coslib/urldispatch.php";
+include_once "coslib/model.php";
+include_once "coslib/pearPager.php";
+include_once "coslib/random.php";
 
-
+*/
 // set some common register vars
 config::$vars['coscms_base'] = _COS_PATH;
 config::$vars['coscms_main'] = array();

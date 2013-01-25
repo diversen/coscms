@@ -14,7 +14,7 @@
 function install_module($options, $return_output = null){
 
     $str = "Proceeding with install of module '$options[module]'\n";
-    $install = new moduleInstaller();
+    $install = new moduleinstaller();
     $install->setInstallInfo($options);
     $ret = $install->install();
     if (!$ret) {
@@ -32,7 +32,7 @@ function install_module($options, $return_output = null){
 
 function install_module_silent ($options) {
     //$str = "Proceeding with install of module '$options[module]'\n";
-    $install = new moduleInstaller();
+    $install = new moduleinstaller();
     $install->setInstallInfo($options);
     return $install->install();
 }
@@ -41,14 +41,14 @@ function install_module_silent ($options) {
  * function for upgrading all modules
  */
 function upgrade_all(){
-    $upgrade = new moduleInstaller();
+    $upgrade = new moduleinstaller();
     //$upgrade->upgradeAll();
     $modules = $upgrade->getModules();
 
     foreach($modules as $val){
         // testing if this is working
         $options = array ('module' => $val['module_name']);
-        $upgrade = new moduleInstaller($options);
+        $upgrade = new moduleinstaller($options);
         $upgrade->upgrade();
 
         //update_ini_file($options);
@@ -63,7 +63,7 @@ function upgrade_all(){
  * @param   array  options
  */
 function uninstall_module($options){
-    $uninstall = new moduleInstaller($options);
+    $uninstall = new moduleinstaller($options);
     $ret = $uninstall->uninstall();
     if (!$ret) {
         cos_cli_print($uninstall->error);
@@ -115,7 +115,7 @@ function upgrade_module($options){
     }
 
     // module exists, compare with remote server
-    $upgrade = new moduleInstaller($options);
+    $upgrade = new moduleinstaller($options);
     //$current_version = $upgrade->installInfo['VERSION'];
     
     // upgrade
@@ -185,7 +185,7 @@ function update_ini_file ($options){
 
 function module_ini_all_up ($options = array ()) {
 
-    $m = new moduleInstaller();
+    $m = new moduleinstaller();
     $modules = $m->getModules();
 
     foreach($modules as $val){

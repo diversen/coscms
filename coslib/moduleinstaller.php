@@ -35,7 +35,7 @@ include_once "coslib/shell_base/common.inc";
  * and also tables connected to module.
  * @package    moduleinstaller
  */
-class moduleInstaller extends db {
+class moduleinstaller extends db {
 
     /**
      * holding array of info for the install
@@ -228,7 +228,7 @@ class moduleInstaller extends db {
         $modules = $this->getModules();
         foreach($modules as $key => $val){
             // testing if this is working
-            $upgrade = new moduleInstaller($val['module_name']);
+            $upgrade = new moduleinstaller($val['module_name']);
             $upgrade->upgrade();
         }
     }
@@ -812,7 +812,7 @@ class moduleInstaller extends db {
  * @package    moduleinstaller
  */
 
-class templateInstaller extends moduleInstaller {
+class templateInstaller extends moduleinstaller {
     /**
      * holding array of info for the install
      * this is loaded from install.inc file and will read

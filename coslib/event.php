@@ -63,7 +63,7 @@ class event {
                     $ret[] = $ret_val; 
                 }
             } else {
-                cos_debug("No such static method: $class::$method");
+                log::debug("No such static method: $class::$method");
             }
         }
         return $ret;

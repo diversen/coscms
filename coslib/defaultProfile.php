@@ -11,7 +11,7 @@
  * @package default profile
  */
 
-class default_profile {
+class defaultProfile {
     
     /**
      * return empty string 
