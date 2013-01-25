@@ -10,7 +10,7 @@
 /**
  * @ignore
  */
-include_once "moduleInstaller.php";
+include_once "moduleinstaller.php";
 
 /**
  * class for installing a profile or creating one from current install
