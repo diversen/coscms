@@ -560,9 +560,9 @@ class layout {
             
             // numeric is custom block added to database
             if (is_numeric($val)) {
-                include_module('block_manip');
+                moduleloader::includeModule('block_manip');
                 $row = block_manip::getOne($val); 
-                $row['content_block'] = get_filtered_content(
+                $row['content_block'] = moduleloader::getFilteredContent(
                     config::getModuleIni('block_manip_filters'), $row['content_block']
                 );
                 $row['title'] = htmlspecialchars($row['title']);

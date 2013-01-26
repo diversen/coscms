@@ -5,7 +5,7 @@ function multi_shared_all_up ($options = null) {
     $dirs = file::getDirsGlob($path, array ('basename' => 1));
     //print_r($options); die;
     
-    include_module('siteclone');
+    moduleloader::includeModule('siteclone');
     foreach ($dirs as $domain) {
         
         $command = "./coscli.sh --domain=$domain module --all-up";

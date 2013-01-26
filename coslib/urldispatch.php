@@ -59,7 +59,7 @@ class urldispatch {
                 $class::$method();
                 if (isset(moduleloader::$status[403])){
                     moduleloader::includeModule('error');
-                    include_controller('error/403');
+                    moduleloader::includeController('error/403');
                 }     
             }
         }  

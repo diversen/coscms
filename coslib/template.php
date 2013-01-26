@@ -186,7 +186,7 @@ abstract class template {
                 $link = html::createLink('/', $title);
                 return $str = "<div id=\"logo_title\">$link</div>";
             } else {
-                include_module ($logo_method);
+                moduleloader::includeModule ($logo_method);
                 //if (function_exists($logo_method)) die ('exists');
                 //moduleLoader::includeModuleFromStaticCall($logo_method);
                 $str =  $logo_method::logo();
