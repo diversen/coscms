@@ -18,8 +18,16 @@ ini_set('include_path',
     _COS_PATH . "/coslib" . PATH_SEPARATOR . _COS_PATH . '/modules' . 
         $ini_path . PATH_SEPARATOR);
 
+
+/**
+ * specific composer autoload
+ */
 include_once 'vendor/autoload.php';
 
+/**
+ * coslib autoloader
+ * @param type $classname
+ */
 function coslib_autoloader($classname) {
     $classname = ltrim($classname, '\\');
     $filename  = '';
@@ -33,22 +41,17 @@ function coslib_autoloader($classname) {
     include_once $filename;
 }
 
-
-
-
+/**
+ * register the autoload on the stack
+ */
 spl_autoload_register('coslib_autoloader');
 
-
-
-
-//die;
 
 /**
  * include base classes and functions
  * the names specifify what the classes or function collections do. 
  * @ignore
  */
-
 
 // set some common register vars
 config::$vars['coscms_base'] = _COS_PATH;

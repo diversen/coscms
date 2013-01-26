@@ -189,12 +189,12 @@ class config {
     }
     
     /**
-     * Function for loading the config file
-     * In order for this to work you need to have in your config file:
-     *  
-     * server_name = "coscms.org"
+     * Function for loading the main config file
+     * found in config/config.ini
      * 
-     * In order to set settiings for development or stage: 
+     * You can place global configuration in this file. 
+     * 
+     * In order to set settiings for development or stage server 
      * 
      * Add to the [development] or [stage] section the server_name
      * for stage or development, e.g.:

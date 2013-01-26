@@ -61,7 +61,7 @@ class imagescale {
      */
     public static function resize ($image, $thumb, $x, $y){
         //create transform driver object
-        $driver = get_main_ini('image_driver');
+        $driver = config::getMainIni('image_driver');
         if (!$driver) $driver = 'GD';
         $it = Image_Transform::factory($driver);
         if (isset(self::$options)) {
@@ -110,7 +110,7 @@ class imagescale {
      */
     public static function byX ($image, $thumb, $x){
         //create transform driver object
-        $driver = get_main_ini('image_driver');
+        $driver = config::getMainIni('image_driver');
         if (!$driver) $driver = 'GD';
         $it = Image_Transform::factory($driver);
         if (isset(self::$options)) {
@@ -158,7 +158,7 @@ class imagescale {
      */
     public static function fit ($image, $thumb, $x, $y){
         //create transform driver object
-        $driver = get_main_ini('image_driver');
+        $driver = config::getMainIni('image_driver');
         if (!$driver) $driver = 'GD';
         $it = Image_Transform::factory($driver);
         if (isset(self::$options)) {
@@ -205,7 +205,7 @@ class imagescale {
      */
     public static function byY ($image, $thumb, $y){
         //create transform driver object
-        $driver = get_main_ini('image_driver');
+        $driver = config::getMainIni('image_driver');
         if (!$driver) $driver = 'GD';
         $it = Image_Transform::factory($driver);
         if (isset(self::$options)) {

@@ -10,15 +10,6 @@
  */
 
 /**
-// example 
-// path to ../coslib
-$path = dirname('../../../');
-$path = realpath($path);
-define('_COS_PATH', $path);
-// include this file
-include_once "../../coslib/include_common.php";
-*/
-/**
  * set include path
  * @ignore
  */
@@ -31,30 +22,33 @@ ini_set('include_path',
 
 
 
+/**
+ * specific composer autoload
+ */
+include_once 'vendor/autoload.php';
 
 /**
- * include base classes and functions
- * the names specifify what the classes or function collections do. 
- * @ignore
+ * coslib autoloader
+ * @param type $classname
  */
+function coslib_autoloader($classname) {
+    $classname = ltrim($classname, '\\');
+    $filename  = '';
+    $namespace = '';
+    if ($lastnspos = strripos($classname, '\\')) {
+        $namespace = substr($classname, 0, $lastnspos);
+        $classname = substr($classname, $lastnspos + 1);
+        $filename  = str_replace('\\', '/', $namespace) . '/';
+    }
+    $filename = str_replace('_', '/', $classname) . '.php';
+    include_once $filename;
+}
 
-include_once "coslib/config.php";
-include_once "coslib/file.php";
-include_once "coslib/strings.php";
-include_once "coslib/db.php";
-include_once "coslib/uri.php";
-include_once "coslib/moduleloader.php";
-include_once "coslib/session.php";
-include_once "coslib/html.php";
-include_once "coslib/layout.php";
-include_once "coslib/template.php";
-include_once "coslib/event.php";
-include_once "coslib/mail.php";
-include_once "coslib/validate.php";
-include_once "coslib/http.php";
-include_once "coslib/user.php";
-include_once "coslib/log.php";
-include_once "coslib/lang.php";
-include_once "coslib/time.php";
-include_once "coslib/urldispatch.php";
-include_once "coslib/model.php";
+/**
+ * register the autoload on the stack
+ */
+spl_autoload_register('coslib_autoloader');
+
+/**
+ * we will now be able to use all coslib classes and all vendor classes
+ */
