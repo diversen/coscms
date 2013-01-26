@@ -305,55 +305,45 @@ class menu {
     public static function getStack ($name, $id){
         $tree = menu::getSystemMenuArray($name);
         if (!$id) return array();
-        $stack = get_parent_stack($id, $tree);
+        $stack = menu::getParentStack($id, $tree);
         if (!is_array($stack)) return array();
-        $stack = array_flatten($stack, true);
+        $stack = menu::arrayFlatten($stack, true);
         return $stack;
     }
-}
+    
+    public static function getParentStack ($child, $stack) {
+        foreach ($stack as $k => $v) {
+            if (is_array($v)) {
+                // If the current element of the array is an array, recurse it and capture the return
+                $return = menu::getParentStack($child, $v);
 
-/**
- * function for getting parent stack of array
- * found on php.net
- *
- * @param string $child
- * @param array  $stack
- * @return mixed $stack array or false
- */
-
-function get_parent_stack($child, $stack) {
-    foreach ($stack as $k => $v) {
-        if (is_array($v)) {
-            // If the current element of the array is an array, recurse it and capture the return
-            $return = get_parent_stack($child, $v);
-
-            // If the return is an array, stack it and return it
-            if (is_array($return)) {
-                return array($k => $return);
-            }
-        } else {
-            // Since we are not on an array, compare directly
-            if ($v == $child) {
-                // And if we match, stack it and return it
-                return array($k => $child);
+                // If the return is an array, stack it and return it
+                if (is_array($return)) {
+                    return array($k => $return);
+                }
+            } else {
+                // Since we are not on an array, compare directly
+                if ($v == $child) {
+                    // And if we match, stack it and return it
+                    return array($k => $child);
+                }
             }
         }
+
+        // Return false since there was nothing found
+        return false;
     }
-
-    // Return false since there was nothing found
-    return false;
-}
-
-/**
- * function for flatting a array.
- * found on php.net
- *
- * @param array     $array to flatten
- * @param boolean   $preserve preserve keys or not
- * @param array     $r
- * @return array    $r
- */
-function array_flatten($array, $preserve = FALSE, $r = array()){
+    
+   /**
+    * function for flatting a array.
+    * found on php.net
+    *
+    * @param array     $array to flatten
+    * @param boolean   $preserve preserve keys or not
+    * @param array     $r
+    * @return array    $r
+    */
+    public static function arrayFlatten($array, $preserve = FALSE, $r = array()){
 
         foreach($array as $key => $value){
             if (is_array($value)){
@@ -364,9 +354,10 @@ function array_flatten($array, $preserve = FALSE, $r = array()){
                 else $r[] = $value;
             }
           // this is correct
-          $r = isset($tmp) ? array_flatten($tmp, $preserve, $r) : $r;
+          $r = isset($tmp) ? menu::arrayFlatten($tmp, $preserve, $r) : $r;
         }
         // wrong spot:
         // $r = isset($tmp) ? array_flatten($tmp, $preserve, $r) : $r;
         return $r;
-    }
+    }    
+}
