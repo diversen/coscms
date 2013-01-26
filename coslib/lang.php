@@ -1,5 +1,6 @@
 <?php
 
+
 /**
  * File contains contains class creating simple translation
  *

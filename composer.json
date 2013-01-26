@@ -1,0 +1,10 @@
+{
+
+
+
+
+
+    "require": {
+	"michelf/php-markdown": "1.3.*@dev"
+    }
+}

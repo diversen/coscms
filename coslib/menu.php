@@ -5,7 +5,7 @@
  * @package     menu
  */
 
-moduleLoader::includeModel ('content/article');
+moduleloader::includeModel ('content/article');
 /**
  * class menu contains methods for manipulating main menu. Default menu system
  * is used with content/article

@@ -1,3 +1,4 @@
+composer.lock
 htdocs/logo/*
 *.ini
 test/*

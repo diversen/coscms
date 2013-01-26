@@ -1,5 +1,6 @@
 <?php
 
+
 /**
  * File contains contains class for connecting to a mysql database
  * with PDO and doing basic crud operations and simple search operations. 
@@ -126,7 +127,7 @@ class db {
         }
 
         try {
-            self::$dbh = new PDO(
+            self::$dbh = new \PDO(
                 $url,
                 $username,
                 $password

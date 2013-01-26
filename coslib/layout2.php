@@ -1,5 +1,7 @@
 <?php
 
+
+
 /**
  * File contains a short extension of layout class
  * Using this class will keep better state of current link and 

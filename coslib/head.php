@@ -1,6 +1,5 @@
 <?php
 
-
 /**
  * initialize base system. 
  * Runs both web system and commandline system.
@@ -19,6 +18,7 @@ ini_set('include_path',
     _COS_PATH . "/coslib" . PATH_SEPARATOR . _COS_PATH . '/modules' . 
         $ini_path . PATH_SEPARATOR);
 
+include_once 'vendor/autoload.php';
 
 function coslib_autoloader($classname) {
     $classname = ltrim($classname, '\\');
@@ -29,11 +29,20 @@ function coslib_autoloader($classname) {
         $classname = substr($classname, $lastnspos + 1);
         $filename  = str_replace('\\', '/', $namespace) . '/';
     }
-    $filename .= str_replace('_', '/', $classname) . '.php';
-    require $filename;
+    $filename = str_replace('_', '/', $classname) . '.php';
+    include_once $filename;
 }
 
+
+
+
 spl_autoload_register('coslib_autoloader');
+
+
+
+
+//die;
+
 /**
  * include base classes and functions
  * the names specifify what the classes or function collections do. 
