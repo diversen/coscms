@@ -3,6 +3,7 @@
 /**
  * contains mail class and mail functions
  * use cosMail::multipart, this will send text, html, add attachments
+ * All in all it is a wrapper around PEAR::mail
  * 
  * @package cosMail 
  */

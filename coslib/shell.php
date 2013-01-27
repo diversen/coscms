@@ -7,10 +7,7 @@
  */
 
 include_once "coslib/head.php";
-include_once "coslib/file.php";
-include_once "coslib/strings.php";
 include_once 'Console/CommandLine.php';
-include_once "coslib/moduleinstaller.php";
 include_once "coslib/shell_base/common.inc";
 
 
@@ -55,7 +52,16 @@ class mainCli {
     static function init (){
         
         self::$parser = new Console_CommandLine();
-        self::$parser->description = 'Command line program for installing cos cms and reading databases';
+        self::$parser->description = <<<EOF
+                    _ _       _     
+  ___ ___  ___  ___| (_)  ___| |__  
+ / __/ _ \/ __|/ __| | | / __| '_ \ 
+| (_| (_) \__ \ (__| | |_\__ \ | | |
+ \___\___/|___/\___|_|_(_)___/_| |_|
+
+Modulized Command line program
+
+EOF;
         self::$parser->version = '0.0.1';
 
         // Adding an main option for setting domain
