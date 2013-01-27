@@ -1,4 +1,3 @@
-composer.lock
 htdocs/logo/*
 *.ini
 test/*
@@ -20,3 +19,4 @@ htdocs/templates/*
 htdocs/files/*
 htdocs/youtube_import/*
 locale/*
+composer.lock

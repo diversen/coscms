@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * contains mail class and mail functions
+ * use cosMail::multipart, this will send text, html, add attachments
+ * 
+ * @package cosMail 
+ */
 
 /**
  * file contains functions for sending mail 
@@ -13,19 +19,8 @@
  * 
  * with this command you can send mails as txt, html (or both) and 
  * add attachments by only setting the attachment part of the message array
- * 
- * You can use this as standalone component. You will need to the following
- * includes: 
- * 
- * include_once "coslib/file.php"
- * include_once "coslib/config.php";
- * 
- * $params = array ('mail_method' => 'smtp');
- * config::setMainIniWithArray($params);
- * 
- * 
  *  
- * @package mail
+ * @package cosMail
  */
 
 include_once "Mail.php";
