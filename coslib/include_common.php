@@ -41,7 +41,7 @@ function coslib_autoloader($classname) {
         $filename  = str_replace('\\', '/', $namespace) . '/';
     }
     $filename = str_replace('_', '/', $classname) . '.php';
-    include_once $filename;
+    include $filename;
 }
 
 /**

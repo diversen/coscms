@@ -1,4 +1,5 @@
 <?php
+
 include_once "rb.php";
 /**
  * File contains RB (Redbeans) helpers for easy connecting to CosCMS 

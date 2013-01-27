@@ -10,8 +10,6 @@ include_once "coslib/head.php";
 include_once 'Console/CommandLine.php';
 include_once "coslib/shell_base/common.inc";
 
-
-
 /**
  * class shell is a wrapper function around PEAR::commandLine
  *

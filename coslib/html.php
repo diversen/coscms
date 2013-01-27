@@ -950,9 +950,7 @@ EOF;
      * method for setting drop down for birthday
      * with element for day, month and year
      */
-    public static function selectBirthday () {
-        include_once "coslib/formHelpers.php";
-        
+    public static function selectBirthday () {        
         $date = formHelpers::birthdayDropdown();
         self::$fields[] = array ('value' => $date['day']);
         self::$fields[] = array ('value' => $date['month']);

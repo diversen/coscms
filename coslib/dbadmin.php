@@ -5,8 +5,6 @@
  * @package coslib 
  */
 
-include_once "db.php";
-
 /**
  * dbadmin 
  * @package
