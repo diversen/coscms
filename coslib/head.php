@@ -22,7 +22,7 @@ ini_set('include_path',
 /**
  * specific composer autoload
  */
-include_once 'vendor/autoload.php';
+include 'vendor/autoload.php';
 
 /**
  * coslib autoloader
@@ -38,7 +38,7 @@ function coslib_autoloader($classname) {
         $filename  = str_replace('\\', '/', $namespace) . '/';
     }
     $filename = str_replace('_', '/', $classname) . '.php';
-    include_once $filename;
+    include $filename;
 }
 
 /**

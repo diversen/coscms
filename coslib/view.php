@@ -8,7 +8,6 @@
  * @package view
  */
 
-
 /**
  * class with simple view methods
  * @package view

@@ -964,6 +964,7 @@ class moduleloader {
      */
     public static function getFilteredContent ($filter, $content) {
         if (!is_array($filter)){
+            die('ok');
             moduleloader::includeFilters($filter);
             $class = 'filter_' . $filter;
             $filter_class = new $class;
