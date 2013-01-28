@@ -123,6 +123,8 @@ abstract class template {
      *                  array('description' => 'content of description meta tags')
      */
     public static function setMeta($ary){
+        //echo count($ary);
+        //print_r($ary); die;
         foreach($ary as $key => $val){
             if (isset(self::$meta[$key])){
                 continue;
