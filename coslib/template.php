@@ -102,6 +102,11 @@ abstract class template {
     public static $cacheDirWeb = '';
     
     /**
+     * var holding meta tags strings
+     * @var string $metaStr
+     */
+    public static $metaStr = '';
+    /**
      * method for setting title of page
      * @param string $title the title of the document
      */
@@ -120,11 +125,12 @@ abstract class template {
     /**
      * method for setting meta tags. The tags will be special encoded
      * @param   array   $ary of metatags e.g. 
-     *                  array('description' => 'content of description meta tags')
+     *                         <code>array('description' => 'content of description meta tags')</code>
+     *                         or string which will be set direct. E.g. 
+     *                         
      */
     public static function setMeta($ary){
-        //echo count($ary);
-        //print_r($ary); die;
+
         foreach($ary as $key => $val){
             if (isset(self::$meta[$key])){
                 continue;
@@ -133,6 +139,19 @@ abstract class template {
         }
     }
     
+    /**
+     * sets meta tags directly. 
+     * @param string $str e.g. <code><meta name="description" content="test" /></code>
+     */
+    public static function setMetaAsStr ($str) {
+        self::$metaStr.= $str;
+    }
+    
+    /**
+     * check if template common.inc exists
+     * @param string $template
+     * @return boolean $res true if exists else false
+     */
     public static function templateCommonExists ($template) {
         if (file_exists( _COS_HTDOCS . "/templates/$template/common.inc")) {
             return true;
@@ -189,11 +208,7 @@ abstract class template {
                 return $str = "<div id=\"logo_title\">$link</div>";
             } else {
                 moduleloader::includeModule ($logo_method);
-                //if (function_exists($logo_method)) die ('exists');
-                //moduleLoader::includeModuleFromStaticCall($logo_method);
                 $str =  $logo_method::logo();
-                
-                
                 return $str = "<div id=\"logo_title\">$str</div>";
             }
                 
@@ -255,7 +270,8 @@ abstract class template {
         foreach (self::$meta as $key => $val) {
             $str.= "<meta name=\"$key\" content=\"$val\" />\n";
         }
-
+        
+        $str.= self::$metaStr;
         return $str;
     }
 
