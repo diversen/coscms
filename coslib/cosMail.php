@@ -281,7 +281,7 @@ class cosMail {
     * @return boolean $res
     */
     public static function systemUser ($subject, $message, $from = null, $reply_to = null) {
-        return mail_system_user_utf8 ($subject, $message, $from = null, $reply_to = null);
+        return mail_system_user_utf8 ($subject, $message, $from, $reply_to);
     }
 
     /**
@@ -296,7 +296,7 @@ class cosMail {
      * @return  int             $res 1 on success 0 on error
      */
     public static function multipart ($to, $subject, $message, $from = null, $reply_to = null){
-        return mail_multipart_utf8 ($to, $subject, $message, $from = null, $reply_to = null);
+        return mail_multipart_utf8 ($to, $subject, $message, $from, $reply_to);
     }  
    
    /**
@@ -310,6 +310,6 @@ class cosMail {
     * @return  int     1 on success 0 on error
     */
     public static function text($to, $subject, $message, $from = null, $reply_to=null) {
-       return mail_utf8($to, $subject, $message, $from = null, $reply_to=null);
+       return mail_utf8($to, $subject, $message, $from, $reply_to);
    }
 }
