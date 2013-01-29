@@ -1,11 +1,11 @@
 var page = new WebPage();
 var system = require('system');
-var url = 'http://twitter.com/#!/search/javascript';
+var url = 'http://twitter.com/search/javascript';
 var timeout = 8000;  
 
 function displayHelp () {
     console.log('Usage:');
-    console.log(system.args[0] + ' \'http://twitter.com/#!/search/javascript\'');
+    console.log(system.args[0] + ' \'http://twitter.com/search/javascript\'');
     phantom.exit();
 }
 
