@@ -313,6 +313,35 @@ class session {
             return time() - $_SESSION['start_time'];
         }
     }
+    
+    /**
+     * sets a persistent session var
+     * @param string $name index of var
+     * @param mixed $var array or object or string or int
+     */
+    public static function setPersistentVar ($name, $var) {
+        if (!isset($_SESSION['system_persistent_var'])) $_SESSION['system_persistent_var'] = array ();
+        $_SESSION['system_persistent_var'][$name] = serialize($var);
+        
+    }
+    
+    /**
+     * returns a persistent var from index name
+     * @param string $name index of var
+     * @param boolean $clean true will clean var from session, false will not 
+     * @return mixed $ret array or object or string or int
+     */
+    public static function getPersistentVar($name, $clean = true) {
+        if (!isset($_SESSION['system_persistent_var'][$name])) {
+            return null;
+        }
+        
+        $ret = unserialize($_SESSION['system_persistent_var'][$name]);
+        if ($clean) { 
+            unset($_SESSION['system_persistent_var'][$name]);
+        }
+        return $ret;
+    }
 
     /**
      * method for setting an action message. Used when we want to tell a
@@ -365,7 +394,7 @@ class session {
      * method for testing if user is in super or not
      * @return  boolean $res true or false
      */
-    static public function isSuper(){
+    public static function isSuper(){
         if ( isset($_SESSION['super']) && ($_SESSION['super'] == 1)){
             return true;
         } else {
