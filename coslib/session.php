@@ -276,6 +276,21 @@ class session {
     }
     
     /**
+     * method for killing a session
+     * unsets the system cookie and unsets session credentials
+     * @param int $user_id
+     */
+    public static function killAllSessions ($user_id){
+        // only keep one system cookie (e.g. if user clears his cookies)
+        $db = new db();
+        $db->delete('system_cookie', 'account_id', $user_id);
+        
+        setcookie ("system_cookie", "", time() - 3600, "/");
+        unset($_SESSION['id'], $_SESSION['admin'], $_SESSION['super'], $_SESSION['account_type']);
+        session_destroy();
+    }
+    
+    /**
      * you can specify one event in your main ini (config/config.ini) file.
      * session_events:  
      * 
