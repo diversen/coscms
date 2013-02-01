@@ -96,7 +96,7 @@ class cosMailMime {
 
 class cosMail {
     
-    public $params = array ();
+    public static  $params = array ();
     
     /**
      * sets type of mailing to do
@@ -154,7 +154,8 @@ class cosMail {
             // mail function params
             $params["mail_params"] = config::getMainIni('mail_function_params');
         }
-        return  $params;
+        $params =  array_merge($params, self::$params);
+        var_dump($params); die;
     }
     
     
