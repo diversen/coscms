@@ -190,7 +190,7 @@ class imap {
         $parts = array ();
         
         $parts['subject'] = $message->subject;
-        // only one plain text message pe email
+        // only one plain text message per email
         $parts['plain'] =  ''; $message->getContent();        
         $parts['images'] = array ();
         $parts['movies'] = array ();
@@ -221,4 +221,32 @@ class imap {
         } 
         return $parts;
     }
+    
+    function getFolders () {
+            $folders = new RecursiveIteratorIterator($this->mail->getFolders(),
+                                             RecursiveIteratorIterator::SELF_FIRST);
+            //print_r($folders);
+    //echo '<select name="folder">';
+            //$ary = array ();
+    /*
+            foreach ($folders as $localName => $folder) {
+        $localName = str_pad('', $folders->getDepth(), '-', STR_PAD_LEFT) .
+                     $localName;
+        echo '<option';
+        if (!$folder->isSelectable()) {
+            echo ' disabled="disabled"';
+        }
+        echo ' value="' . htmlspecialchars($folder) . '">'
+            . htmlspecialchars($localName) . '</option>';
+    }
+    echo '</select>'; */
+            
+            $ary = array ();
+            foreach ($folders as $local => $folder ) {
+                $ary[htmlspecialchars($local)] = htmlspecialchars($folder);
+            }
+    
+            return $ary;
+    }
+    
 }
