@@ -276,7 +276,7 @@ class session {
     }
     
     /**
-     * method for killing a session
+     * method for killing all cookie sessions
      * unsets the system cookie and unsets session credentials
      * @param int $user_id
      */
