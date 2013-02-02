@@ -9,7 +9,9 @@
 /**
  * define path to modules
  */
-define ('_COS_MOD_PATH', 'cosmod');
+define ('_COS_MOD_DIR', 'cosmod');
+define ('_COS_MOD_PATH', _COS_PATH . '/' . _COS_MOD_DIR);
+
 /**
  * Class for loading modules
  *
@@ -213,7 +215,7 @@ class moduleloader {
         if (!isset($this->levels[$level])) return;
         foreach($this->levels[$level] as $val){
             moduleloader::setModuleIniSettings($val);
-            $class_path = _COS_PATH . '/' . _COS_MOD_PATH . "/$val/model.$val.inc";
+            $class_path = _COS_PATH . '/' . _COS_MOD_DIR . "/$val/model.$val.inc";
             include_once $class_path;
             $class = new $val;
             $class->runLevel($level);
@@ -230,7 +232,7 @@ class moduleloader {
         $frontpage_module = config::$vars['coscms_main']['frontpage_module'];
         $this->info['module_name'] = $frontpage_module;
         $this->info['module_base_name'] = $frontpage_module;
-        $this->info['base'] = $base = _COS_PATH . '' . _COS_MOD_PATH;
+        $this->info['base'] = $base = _COS_PATH . '' . _COS_MOD_DIR;
         $this->info['language_file'] = $base . "/$frontpage_module" . '/lang/' . config::$vars['coscms_main']['language'] . '/language.inc';
         $this->info['ini_file'] =  $base . "/$frontpage_module"  . "/$frontpage_module" . '.ini';
         $this->info['model_file'] = $base . "/$frontpage_module"  . "/model." . $frontpage_module  . ".inc";
@@ -260,7 +262,7 @@ class moduleloader {
     public function setErrorModuleInfo(){     
         $error_module = 'error';
         $this->info['module_name'] = 'error';
-        $this->info['base'] = $base = _COS_PATH . '/' . _COS_MOD_PATH;
+        $this->info['base'] = $base = _COS_PATH . '/' . _COS_MOD_DIR;
         $this->info['language_file'] = $base . "/$error_module" . '/lang/' . config::$vars['coscms_main']['language'] . '/language.inc';
         $this->info['ini_file'] =  $base . "/$error_module"  . "/$error_module" . '.ini';
         $this->info['model_file'] = $base . "/$error_module"  . "/model." . $error_module  . ".inc";
@@ -303,12 +305,12 @@ class moduleloader {
            
             $this->info['module_base_name'] = $frontpage_module;
             //$this->info['module_name'] = $frontpage_module; //;
-            $this->info['base'] = $base = _COS_PATH . '/' . _COS_MOD_PATH . "/$frontpage_module";
+            $this->info['base'] = $base = _COS_PATH . '/' . _COS_MOD_DIR . "/$frontpage_module";
         } else {
             
             //$this->info['module_name'] = $info['module_name'];
             $this->info['module_base_name'] = $info['module_base_name'];
-            $this->info['base'] = $base = _COS_PATH . "/" . _COS_MOD_PATH;
+            $this->info['base'] = $base = _COS_PATH . "/" . _COS_MOD_DIR;
         }
 
         
@@ -633,7 +635,7 @@ class moduleloader {
 
         $set[$module] = $module;
         if ($type == 'module') {
-            $ini_file = _COS_PATH . '/' . _COS_MOD_PATH . "/$module/$module.ini";
+            $ini_file = _COS_PATH . '/' . _COS_MOD_DIR . "/$module/$module.ini";
         } else {
             // template
             $ini_file = _COS_HTDOCS . "/templates/$module/$module.ini";
@@ -858,7 +860,7 @@ class moduleloader {
             return true;
         }
 
-        $module_path = config::$vars['coscms_base'] . '/' . _COS_MOD_PATH . '/' . $module;
+        $module_path = config::$vars['coscms_base'] . '/' . _COS_MOD_DIR . '/' . $module;
         $ary = explode('/', $module);
 
         $last = array_pop($ary);
@@ -898,7 +900,7 @@ class moduleloader {
      * @param string $model e.g. accuount/create
      */
     public static function includeModel ($model) {
-        $module_path = _COS_MOD_PATH  . '/' . $model;
+        $module_path = _COS_MOD_DIR  . '/' . $model;
         $ary = explode('/', $model);
         $last = array_pop($ary);
         $model_file = $module_path . '/' . "model.$last.inc";
@@ -910,7 +912,7 @@ class moduleloader {
      * @param string $controller
      */
     public static function includeController ($controller) {
-        $module_path = config::$vars['coscms_base']  . '/' . _COS_MOD_PATH . '/' . $controller;
+        $module_path = config::$vars['coscms_base']  . '/' . _COS_MOD_DIR . '/' . $controller;
         $controller_file = $module_path . '.php';
         include_once $controller_file;
     }
@@ -923,7 +925,7 @@ class moduleloader {
         static $loaded = array();
 
         if (!is_array($filter)){
-            $class_path = _COS_PATH . '/' . _COS_MOD_PATH . "/filter_$filter/$filter.inc";
+            $class_path = _COS_PATH . '/' . _COS_MOD_DIR . "/filter_$filter/$filter.inc";
             include_once $class_path;
             moduleloader::setModuleIniSettings("filter_$filter");
             $loaded[$filter] = true;
@@ -932,7 +934,7 @@ class moduleloader {
         if (is_array ($filter)){
             foreach($filter as  $val){
                 if (isset($loaded[$val])) continue;
-                $class_path = _COS_PATH . "/" . _COS_MOD_PATH . "/filter_$val/$val.inc";
+                $class_path = _COS_PATH . "/" . _COS_MOD_DIR . "/filter_$val/$val.inc";
                 include_once $class_path;
                 moduleloader::setModuleIniSettings("filter_$val");
                 $loaded[$val] = true;

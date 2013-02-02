@@ -377,7 +377,7 @@ class config {
      * @return  string  $path the module path
      */
     public static function getModulePath ($module) {
-        return _COS_PATH . '/' . _COS_MOD_PATH . '/' . $module;
+        return _COS_PATH . '/' . _COS_MOD_DIR . '/' . $module;
     }
     
     /**

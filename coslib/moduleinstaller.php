@@ -18,7 +18,7 @@ if (!defined('_COS_CLI')){
  */
 define('NEW_LINE', $new_line);
 include_once "coslib/db.php";
-include_once "coslib/shell_base/common.inc";
+include_once "coslib/shell/common.inc";
 
 /**
  * class for installing a module or upgrading it.
@@ -86,7 +86,7 @@ class moduleinstaller extends db {
     public function setInstallInfo($options){
 
         $module_name = $options['module'];
-        $module_dir = _COS_PATH . "/" . _COS_MOD_PATH . "/$module_name";
+        $module_dir = _COS_PATH . "/" . _COS_MOD_DIR . "/$module_name";
         $ini_file = $module_dir . "/$module_name.ini";
         $ini_file_dist = $module_dir . "/$module_name.ini-dist";
 
@@ -271,7 +271,7 @@ class moduleinstaller extends db {
     public function insertLanguage($module = null){
         $language_path =
             _COS_PATH .
-            '/' . _COS_MOD_PATH . '/' .
+            '/' . _COS_MOD_DIR . '/' .
             $this->installInfo['NAME'] .
             '/lang';
 
@@ -313,7 +313,7 @@ class moduleinstaller extends db {
      * @return string   sql filename
      */
     public function getSqlFileName($module, $version, $action){
-        $sql_file = _COS_PATH . '/' . _COS_MOD_PATH . "/$module/mysql/$action/$version.sql";
+        $sql_file = _COS_PATH . '/' . _COS_MOD_DIR . "/$module/mysql/$action/$version.sql";
         return $sql_file;
     }
 
@@ -339,7 +339,7 @@ class moduleinstaller extends db {
      * @return  array    array with file list
      */
     public function getSqlFileList($module, $action){
-        $sql_dir = _COS_PATH . "/" . _COS_MOD_PATH . "/$module/mysql/$action";
+        $sql_dir = _COS_PATH . "/" . _COS_MOD_DIR . "/$module/mysql/$action";
         $file_list = file::getFileList($sql_dir);
         if (is_array($file_list)){
             return $file_list;
@@ -514,7 +514,7 @@ class moduleinstaller extends db {
 
         $module = $this->installInfo['NAME'];
         
-        $module_path = _COS_PATH . '/' . _COS_MOD_PATH;
+        $module_path = _COS_PATH . '/' . _COS_MOD_DIR;
         
         $ini_file = "$module_path/$module/$module.ini";
         $ini_file_php = "$module_path/$module/$module.ini.php";
@@ -640,7 +640,7 @@ class moduleinstaller extends db {
         $this->delete('language', 'module_name', $this->installInfo['NAME']);
         
         // check for uninstall.inc file
-        $unin_file = _COS_PATH . '/' . _COS_MOD_PATH . '/' . $this->installInfo['NAME'] . "/uninstall.inc";
+        $unin_file = _COS_PATH . '/' . _COS_MOD_DIR . '/' . $this->installInfo['NAME'] . "/uninstall.inc";
         if (file_exists($unin_file)) {
             include_once $unin_file;
             $unin_func = $this->installInfo['NAME'] . "_uninstall";
@@ -791,7 +791,7 @@ class moduleinstaller extends db {
     }
     
     public function callUpdateFunction ($version) {
-        $update_file = _COS_PATH . '/' . _COS_MOD_PATH . '/' . $this->installInfo['NAME'] . "/update.inc";
+        $update_file = _COS_PATH . '/' . _COS_MOD_DIR . '/' . $this->installInfo['NAME'] . "/update.inc";
         if (file_exists($update_file)) {
             include_once $update_file;
             $update_func = $this->installInfo['NAME'] . "_update";

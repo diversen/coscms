@@ -248,7 +248,7 @@ class layout {
      */
     public static function getMenuFromFile ($module){
         $module_menu =
-        _COS_PATH . '/' . _COS_MOD_PATH . '/' . $module . '/menu.inc';
+        _COS_PATH . '/' . _COS_MOD_DIR . '/' . $module . '/menu.inc';
 
         if (file_exists($module_menu)){
             include $module_menu;
@@ -303,7 +303,7 @@ class layout {
         $children_menu = self::getChildrenMenus($module);
         $module_menu = array_merge($module_menu, $children_menu);  
         
-        $db_config_file = _COS_PATH . '/' . _COS_MOD_PATH . "/$module/configdb.inc";
+        $db_config_file = _COS_PATH . '/' . _COS_MOD_DIR . "/$module/configdb.inc";
         
         if (file_exists($db_config_file)) {
             include $db_config_file;
@@ -579,7 +579,7 @@ class layout {
             $num = count($func) -1;
             $func = explode ('.', $func[$num]);
             $func = 'block_' . $func[0];
-            $path_to_function = _COS_PATH . '/' . _COS_MOD_PATH . "/$val";
+            $path_to_function = _COS_PATH . '/' . _COS_MOD_DIR . "/$val";
             include_once $path_to_function;
             ob_start();
             $ret = $func();

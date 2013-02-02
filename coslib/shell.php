@@ -8,7 +8,7 @@
 
 include_once "coslib/head.php";
 include_once 'Console/CommandLine.php';
-include_once "coslib/shell_base/common.inc";
+include_once "coslib/shell/common.inc";
 
 /**
  * class shell is a wrapper function around PEAR::commandLine
@@ -251,13 +251,13 @@ EOF;
         foreach ($modules as $val){
             if (isset($val['is_shell']) && $val['is_shell'] == 1){
                 //$command_path = _COS_PATH . "/modules/$val[module_name]";
-                $path =  _COS_PATH . "/" . _COS_MOD_PATH.  "/$val[module_name]/$val[module_name].inc";
+                $path =  _COS_PATH . "/" . _COS_MOD_DIR.  "/$val[module_name]/$val[module_name].inc";
                 
                 if (file_exists($path)) {
                     include_once $path;
                 }
 
-                $ini = _COS_PATH . "/" . _COS_MOD_PATH  . "/$val[module_name]/$val[module_name].ini";
+                $ini = _COS_PATH . "/" . _COS_MOD_DIR  . "/$val[module_name]/$val[module_name].ini";
                 self::$ini[$val['module_name']] = config::getIniFileArray($ini);
             }
         }
@@ -267,15 +267,12 @@ EOF;
     
     /**
      * loads all base modules
-     * base modules are placed in coslib/shell_base
+     * base modules are placed in coslib/shell
      */
     public static function loadBaseModules () {
         
         $options = array ('search' => '.inc');
-        // TODO: Test
-        //$coslib_path = file::getFirstCoslibPath();
-        //$command_path = $coslib_path . '/shell_base';
-        $command_path = _COS_PATH . '/coslib/shell_base';
+        $command_path = _COS_PATH . '/coslib/shell';
         $file_list = file::getFileList($command_path, $options);
         
 
@@ -284,7 +281,7 @@ EOF;
             include_once $path;
         }
         
-        $command_path = _COS_PATH . '/coslib/shell_base/locale';
+        $command_path = _COS_PATH . '/coslib/shell/locale';
         $file_list = file::getFileList($command_path, $options);
 
         foreach ($file_list as $val){
