@@ -18,6 +18,13 @@ if (DIRECTORY_SEPARATOR != '/') {
 // define _COS_PATH.
 define('_COS_PATH',  $path);
 
+
+/**
+ * initialize base system. 
+ * Runs both web system and commandline system.
+ * @package  head
+ */
+
 /**
  * set include path
  * @ignore
@@ -58,7 +65,12 @@ function coslib_autoloader($classname) {
  */
 spl_autoload_register('coslib_autoloader');
 
-
-// include bootstrap file. 
-include _COS_PATH . "/coslib/head.php";
-
+$htdocs_path = config::getMainIni('htdocs_path');
+// default
+    if (!$htdocs_path) {
+        define('_COS_HTDOCS', _COS_PATH . '/htdocs');
+    }
+    
+    if ($htdocs_path == '_COS_PATH') {
+        define('_COS_HTDOCS', _COS_PATH);
+    }

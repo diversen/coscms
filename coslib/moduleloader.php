@@ -915,6 +915,24 @@ class moduleloader {
     }
     
     /**
+     * inits a filter. Loads it and set ini settings.
+     * @param type $filter
+     */
+    public static function initFilter ($filter) {
+        // check for filter in coslib first. 
+        
+        $file_path = _COS_PATH . "/coslib/filters/$filter.php";
+        if (file_exists($file_path)) { 
+            include_once "coslib/filters/$filter.php";
+            return;
+        }
+            
+        $class_path = _COS_MOD_PATH . "/filter_$filter/$filter.inc";
+        include_once $class_path;
+        moduleloader::setModuleIniSettings("filter_$filter");
+    }
+    
+    /**
      * method for including filters
      * @param array|string $filters
      */
@@ -922,18 +940,14 @@ class moduleloader {
         static $loaded = array();
 
         if (!is_array($filter)){
-            $class_path = _COS_PATH . '/' . _COS_MOD_DIR . "/filter_$filter/$filter.inc";
-            include_once $class_path;
-            moduleloader::setModuleIniSettings("filter_$filter");
+            self::initFilter($filter);
             $loaded[$filter] = true;
         }
 
         if (is_array ($filter)){
             foreach($filter as  $val){
                 if (isset($loaded[$val])) continue;
-                $class_path = _COS_PATH . "/" . _COS_MOD_DIR . "/filter_$val/$val.inc";
-                include_once $class_path;
-                moduleloader::setModuleIniSettings("filter_$val");
+                self::initFilter($val);
                 $loaded[$val] = true;
             }
         }
@@ -967,8 +981,9 @@ class moduleloader {
      */
     public static function getFilteredContent ($filter, $content) {
         if (!is_array($filter)){
+            
             moduleloader::includeFilters($filter);
-            $class = 'filter_' . $filter;
+            $class = $filter;
             $filter_class = new $class;
 
             if (is_array($content)){
@@ -985,7 +1000,7 @@ class moduleloader {
         if (is_array ($filter)){
             foreach($filter as $key => $val){
                 moduleloader::includeFilters($val);
-                $class = 'filter_' .$val; 
+                $class = $val; 
                 $filter_class = new $class;
                 if (is_array($content)){
                     foreach ($content as $key => $val){

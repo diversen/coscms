@@ -6,46 +6,6 @@
  * @package  head
  */
 
-/**
- * set include path
- * @ignore
- */
-
-$ini_path = ini_get('include_path');
-ini_set('include_path', 
-    _COS_PATH . PATH_SEPARATOR . 
-    _COS_PATH . '/vendor' . PATH_SEPARATOR .
-    _COS_PATH . "/coslib" . PATH_SEPARATOR . _COS_PATH . '/modules' . 
-        $ini_path . PATH_SEPARATOR);
-
-
-/**
- * specific composer autoload
- */
-include 'vendor/autoload.php';
-
-/**
- * coslib autoloader
- * @param type $classname
- */
-function coslib_autoloader($classname) {
-    $classname = ltrim($classname, '\\');
-    $filename  = '';
-    $namespace = '';
-    if ($lastnspos = strripos($classname, '\\')) {
-        $namespace = substr($classname, 0, $lastnspos);
-        $classname = substr($classname, $lastnspos + 1);
-        $filename  = str_replace('\\', '/', $namespace) . '/';
-    }
-    $filename = str_replace('_', '/', $classname) . '.php';
-    include $filename;
-}
-
-/**
- * register the autoload on the stack
- */
-spl_autoload_register('coslib_autoloader');
-
 
 /**
  * include base classes and functions
@@ -63,11 +23,24 @@ config::$vars['coscms_debug']['timer']['start'] = microtime(true);
 config::$vars['coscms_debug']['coscms_base']  = config::$vars['coscms_base'];
 config::$vars['coscms_debug']['include_path'] = ini_get('include_path');
 
+config::loadMain();
+
+$htdocs_path = config::getMainIni('htdocs_path');
+// default
+    if (!$htdocs_path) {
+        define('_COS_HTDOCS', _COS_PATH . '/htdocs');
+    }
+    
+    if ($htdocs_path == '_COS_PATH') {
+        define('_COS_HTDOCS', _COS_PATH);
+    }
+
+
 // This is only if commandline mode is not specified  
 if (!defined('_COS_CLI')){
     
     // load config/config.ini
-    config::loadMain();
+    
     
     // check if there exists a shared ini file
     // shared ini is used if we want to enable settings between hosts
@@ -86,16 +59,9 @@ if (!defined('_COS_CLI')){
             );
     }
     
-    $htdocs_path = config::getMainIni('htdocs_path');
     
-    // default
-    if (!$htdocs_path) {
-        define('_COS_HTDOCS', _COS_PATH . '/htdocs');
-    }
     
-    if ($htdocs_path == '_COS_PATH') {
-        define('_COS_HTDOCS', _COS_PATH);
-    }
+
     
     // if site is being updaing we send temporarily headers
     // and display an error message

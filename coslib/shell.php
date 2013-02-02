@@ -5,6 +5,50 @@
  *
  * @package     shell
  */
+/**
+ * set include path
+ * @ignore
+ */
+
+$ini_path = ini_get('include_path');
+ini_set('include_path', 
+    _COS_PATH . PATH_SEPARATOR . 
+    _COS_PATH . '/vendor' . PATH_SEPARATOR .
+    _COS_PATH . "/coslib" . PATH_SEPARATOR . _COS_PATH . '/modules' . 
+        $ini_path . PATH_SEPARATOR);
+
+
+/**
+ * specific composer autoload
+ */
+include 'vendor/autoload.php';
+
+/**
+ * coslib autoloader
+ * @param type $classname
+ */
+function coslib_autoloader($classname) {
+    $classname = ltrim($classname, '\\');
+    $filename  = '';
+    $namespace = '';
+    if ($lastnspos = strripos($classname, '\\')) {
+        $namespace = substr($classname, 0, $lastnspos);
+        $classname = substr($classname, $lastnspos + 1);
+        $filename  = str_replace('\\', '/', $namespace) . '/';
+    }
+    $filename = str_replace('_', '/', $classname) . '.php';
+    include $filename;
+}
+
+/**
+ * register the autoload on the stack
+ */
+spl_autoload_register('coslib_autoloader');
+
+
+// include bootstrap file. 
+//include _COS_PATH . "/coslib/head.php";
+
 
 include_once "coslib/head.php";
 include_once 'Console/CommandLine.php';
@@ -123,9 +167,10 @@ EOF;
             // load config file
             // Note: First time loaded we only load it order to load any
             // base modules which may be set
-           
-            config::loadMainCli();
             
+            
+            //config::loadMainCli();
+            /*
             $htdocs_path = config::getMainIni('htdocs_path');
     
             // default
@@ -135,7 +180,7 @@ EOF;
 
             if ($htdocs_path == '_COS_PATH') {
                 define('_COS_HTDOCS', _COS_PATH);
-            }
+            } */
             
             // load all modules
             if (!isset($options['disable_base_modules'])) {
