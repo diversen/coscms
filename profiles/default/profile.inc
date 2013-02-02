@@ -118,45 +118,7 @@ $_PROFILE_MODULES = array (
     'public_clone_url' => 'git://github.com/diversen/account_profile.git',
     'private_clone_url' => 'git@github.com:diversen/account_profile.git',
   ),
-  9 => 
-  array (
-    'id' => '10',
-    'module_name' => 'filter_youtube',
-    'module_version' => '1.70',
-    'menu_item' => '0',
-    'run_level' => '0',
-    'load_on' => NULL,
-    'parent' => NULL,
-    'is_shell' => NULL,
-    'public_clone_url' => 'git://github.com/diversen/filter_youtube.git',
-    'private_clone_url' => 'git@github.com:diversen/filter_youtube.git',
-  ),
-  10 => 
-  array (
-    'id' => '11',
-    'module_name' => 'filter_markdown',
-    'module_version' => '1.70',
-    'menu_item' => '0',
-    'run_level' => '0',
-    'load_on' => NULL,
-    'parent' => NULL,
-    'is_shell' => NULL,
-    'public_clone_url' => 'git://github.com/diversen/filter_markdown.git',
-    'private_clone_url' => 'git@github.com:diversen/filter_markdown.git',
-  ),
-  11 => 
-  array (
-    'id' => '12',
-    'module_name' => 'gravatar',
-    'module_version' => '1.70',
-    'menu_item' => '0',
-    'run_level' => '0',
-    'load_on' => NULL,
-    'parent' => NULL,
-    'is_shell' => NULL,
-    'public_clone_url' => 'git://github.com/diversen/gravatar.git',
-    'private_clone_url' => 'git@github.com:diversen/gravatar.git',
-  ),
+
   12 => 
   array (
     'id' => '13',
@@ -196,19 +158,7 @@ $_PROFILE_MODULES = array (
     'public_clone_url' => 'git://github.com/diversen/comment.git',
     'private_clone_url' => 'git@github.com:diversen/comment.git',
   ),
-  15 => 
-  array (
-    'id' => '16',
-    'module_name' => 'filter_markdownExt',
-    'module_version' => '1.70',
-    'menu_item' => '0',
-    'run_level' => '0',
-    'load_on' => NULL,
-    'parent' => NULL,
-    'is_shell' => NULL,
-    'public_clone_url' => 'git://github.com/diversen/filter_markdownExt.git',
-    'private_clone_url' => 'git@github.com:diversen/filter_markdownExt.git',
-  ),
+
   16 => 
   array (
     'id' => '17',
@@ -402,13 +352,7 @@ $_PROFILE_TEMPLATES = array (
     'module_version' => '1.70',
     'module_name' => 'flowplayer',
   ),
-  3 => 
-  array (
-    'public_clone_url' => 'git://github.com/diversen/1kbgrid.git',
-    'private_clone_url' => 'git@github.com:diversen/1kbgrid.git',
-    'module_version' => '1.70',
-    'module_name' => '1kbgrid',
-  ),
+
   4 => 
   array (
     'public_clone_url' => 'git://github.com/diversen/openid-selector.git',

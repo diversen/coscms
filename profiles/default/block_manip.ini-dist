@@ -1,4 +1,4 @@
-block_manip_filters[0] = "markdown"
+block_manip_filters[0] = "cosmarkdown"
 block_manip_blocks = "blocks,blocks_sec,blocks_unused"
 block_manip_allow = "admin"
 block_manip_modules[0] = "image"

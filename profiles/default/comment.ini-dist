@@ -1,4 +1,4 @@
-comment_view_filter = "markdown"
+comment_view_filter = "cosmarkdown"
 comment_date_format = "d-M-Y H:i:s"
 comment_allow_anon_post = 1
 comment_anon_post_verify = 1

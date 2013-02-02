@@ -1,4 +1,4 @@
-account_profile_filters[0] = "markdown"
+account_profile_filters[0] = "cosmarkdown"
 account_profile_use_identicon = 1
 account_profile_cache_identicon = 1
 account_profile_image_size_small = 60
