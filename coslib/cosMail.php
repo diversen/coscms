@@ -155,7 +155,7 @@ class cosMail {
             $params["mail_params"] = config::getMainIni('mail_function_params');
         }
         $params =  array_merge($params, self::$params);
-        var_dump($params); die;
+        return $params;
     }
     
     
