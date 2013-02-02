@@ -16,14 +16,14 @@ include_once "coslib/db.php";
 /**
  * function for installing a profile
  */
-function install($options = false) {
+function cos_install($options = false) {
     // no options - install clean default
     if (!isset($options['profile'])){
         cos_cli_abort('You need to specifiy a profile');
     }
 
     // remove old files
-    create_files();
+    cos_create_files();
 
     // load default sql.
     load_db_default();
@@ -47,7 +47,7 @@ function install($options = false) {
         $options['repo'] = $val['public_clone_url'];
         $options['version'] = $tag; //$val['module_version'];
         $options['module'] = $val['module_name'];
-        git_install($options, 'module');
+        cos_git_install($options, 'module');
     }
     
     // install templates
@@ -62,7 +62,7 @@ function install($options = false) {
         $options['repo'] = $val['public_clone_url'];
         $options['version'] = $tag; //$val['module_version'];
         $options['template'] = $val['module_name'];
-        git_install($options, 'template');
+        cos_git_install($options, 'template');
     }
 
     // load profile ini files
@@ -70,8 +70,8 @@ function install($options = false) {
 
     $pro->setProfileTemplate();
 
-    create_files();
-    //chmod_files();
+    cos_create_files();
+
 }
 
 /**
@@ -80,32 +80,32 @@ function install($options = false) {
  * all data will be lost
  */
 
-function reset_install (){
-    rm_files();
+function cos_reset_install (){
+    cos_rm_files();
     drop_db_default();
     create_db();
     load_db_default();
-    create_files();
-    chmod_files();
-    install();
+    cos_create_files();
+    cos_chmod_files();
+    cos_install();
 }
 
 /**
  * wrapper function for reloading all languages
  * change language settings in config/config.ini to load another language. 
  */
-function install_reload_language(){
+function cos_reload_language(){
     $reload = new moduleinstaller();
     $reload->reloadLanguages();
 }
 
-function install_menu_lang_reload(){
-    install_reload_language();
-    menu_uninstall_all();
-    menu_install_all();
+function cos_menu_lang_reload(){
+    cos_reload_language();
+    cos_menu_uninstall_all();
+    cos_menu_install_all();
 }
 
-function install_install_reload(){
+function cos_install_reload(){
     $reload = new moduleinstaller();
     $reload->reloadConfig();
 }
@@ -116,13 +116,11 @@ function install_install_reload(){
  *
  * @param array $options
  */
-function install_use_master ($options){
-    //echo "ok";
-    //die;
+function cos_install_use_master ($options){
     config::$vars['git_use_master'] = 1;
 }
 
-function install_check_root ($options = null) {
+function cos_check_root ($options = null) {
     cos_needs_root();
 }
 
@@ -131,38 +129,38 @@ mainCli::setCommand('install', array(
     'description' => 'install cos cms system',
 ));
 
-mainCli::setOption('install_use_master', array(
+mainCli::setOption('cos_install_use_master', array(
     'long_name'   => '--master',
     'short_name'   => '-m',
     'description' => 'Will use master. Use if you have all module sources, then the master will be installed',
     'action'      => 'StoreTrue'
 ));
 
-mainCli::setOption('install', array(
+mainCli::setOption('cos_install', array(
     'long_name'   => '--install',
     'description' => 'Will try and install system',
     'action'      => 'StoreTrue'
 ));
 
-mainCli::setOption('install_reload_language', array(
+mainCli::setOption('cos_reload_language', array(
     'long_name'   => '--lang-reload',
     'description' => 'Reinstall system language files according to language set in config/config.ini',
     'action'      => 'StoreTrue'
 ));
 
-mainCli::setOption('install_check_root', array(
+mainCli::setOption('cos_check_root', array(
     'long_name'   => '--check-root',
     'description' => 'Dummy command (used when installing system from shell). Checks if user is super user (root)',
     'action'      => 'StoreTrue'
 ));
 
-mainCli::setOption('install_menu_lang_reload', array(
+mainCli::setOption('cos_menu_lang_reload', array(
     'long_name'   => '--menu-lang-reload',
     'description' => 'Reloads system menu translation according to config/config.ini, and reload all custom module menus. Useful if you have made changes to system menu items. ',
     'action'      => 'StoreTrue'
 ));
 
-mainCli::setOption('install_install_reload', array(
+mainCli::setOption('cos_install_reload', array(
     'long_name'   => '--config-reload',
     'description' => 'Reloads the module table. E.g. you have made a CLI part of a module',
     'action'      => 'StoreTrue'

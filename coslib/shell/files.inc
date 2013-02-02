@@ -16,7 +16,7 @@
  *
  * @return int  value from exec command
  */
-function chmod_files(){
+function cos_chmod_files(){
     
     cos_needs_root();
     $url = 'http://' . config::$vars['coscms_main']['server_name'] . '/whoami.php';
@@ -49,7 +49,7 @@ function chmod_files(){
  *
  * @return int  value from exec command
  */
-function chmod_files_to_owner(){
+function cos_chmod_files_owner(){
     cos_needs_root();
     $owner = posix_getlogin();
     $files_path = _COS_PATH . '/htdocs/files ';
@@ -65,7 +65,7 @@ function chmod_files_to_owner(){
  *
  * @return int  value from exec command
  */
-function rm_files(){
+function cos_rm_files(){
     cos_needs_root();
     $files_path = _COS_PATH . '/htdocs/files/* ';
     $command = "rm -Rf $files_path";
@@ -78,7 +78,7 @@ function rm_files(){
  *
  * @return int  value from exec command
  */
-function create_files(){
+function cos_create_files(){
     $files_path = _COS_PATH . '/logs/coscms.log';
     if (!file_exists($files_path)){
         $command = "touch $files_path";
@@ -104,25 +104,25 @@ mainCli::setCommand('file', array(
     'description' => 'Basic files commands',
 ));
 
-mainCli::setOption('chmod_files', array(
+mainCli::setOption('cos_chmod_files', array(
     'long_name'   => '--chmod-files',
     'description' => 'Will try to chmod and chown of htdocs/files',
     'action'      => 'StoreTrue'
 ));
 
-mainCli::setOption('chmod_files_to_owner', array(
+mainCli::setOption('cos_chmod_files_owner', array(
     'long_name'   => '--chmod-files-owner',
     'description' => 'Will try to chmod and chown of htdocs/files to current user',
     'action'      => 'StoreTrue'
 ));
 
-mainCli::setOption('rm_files', array(
+mainCli::setOption('cos_rm_files', array(
     'long_name'   => '--rm-files',
     'description' => 'Will remove files in htdocs/files and in htdocs/logo',
     'action'      => 'StoreTrue'
 ));
 
-mainCli::setOption('create_files', array(
+mainCli::setOption('cos_create_files', array(
     'long_name'   => '--create-files',
     'description' => 'Will create log file: log/coscms.log',
     'action'      => 'StoreTrue'

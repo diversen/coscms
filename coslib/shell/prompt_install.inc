@@ -72,7 +72,7 @@ function prompt_install(){
         $options['master'] = true;
     }
 
-    install($options);
+    cos_install($options);
     useradd_add();
     $login = "http://$server_name/account/login/index";
     cos_cli_print("You are now able to log in: At $login");

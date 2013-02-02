@@ -8,7 +8,7 @@ include_once "coslib/moduleinstaller.php";
  * @param array     $options
  * @param string    $type (module, profile or template)
  */
-function git_install ($options, $type = 'module'){
+function cos_git_install ($options, $type = 'module'){
     $module_name = git_module_name_from_repo($options['repo']);
     if (!$module_name){
         cos_cli_abort('Install command need a valid repo name');
@@ -16,7 +16,7 @@ function git_install ($options, $type = 'module'){
 
     $options['module'] = $module_name;
 
-    $ret = git_clone ($options, $type);
+    $ret = cos_git_clone ($options, $type);
     if ($type == 'module'){
         $str = install_module($options, true);
         cos_cli_print($str);
@@ -37,7 +37,7 @@ function git_install ($options, $type = 'module'){
  * @return string    $repo_path the locale path to the repo.
  */
 
-function get_repo_path ($module_name, $type = 'module'){
+function cos_get_repo_path ($module_name, $type = 'module'){
     // set repo_dir according to module type.
     if($type == 'template'){
         $repo_dir = _COS_PATH . "/htdocs/templates/$module_name";
@@ -53,9 +53,9 @@ function get_repo_path ($module_name, $type = 'module'){
  * function for cloning a template repo
  * @param array $options
  */
-function git_clone_template($options){
+function cos_git_clone_template($options){
     
-    git_clone($options, 'template');
+    cos_git_clone($options, 'template');
     
     $template = git_module_name_from_repo($options['repo']);
     $options['template'] = $template;
@@ -68,8 +68,8 @@ function git_clone_template($options){
  * function for cloning a profile repo
  * @param array $options
  */
-function git_clone_profile($options){
-    git_clone($options, 'profile');
+function cos_git_clone_profile($options){
+    cos_git_clone($options, 'profile');
 }
 
 
@@ -80,7 +80,7 @@ function git_clone_profile($options){
  * @param string $type
  */
 
-function git_clone($options, $type){
+function cos_git_clone($options, $type){
     // get latest repo tag
     $latest = git_get_latest_tag($options['repo']);
     
@@ -160,7 +160,7 @@ function git_clone($options, $type){
  *
  * @param array $options
  */
-function git_use_master ($options){
+function cos_git_use_master ($options){
     config::$vars['git_use_master'] = 1;
 }
 
@@ -169,7 +169,7 @@ function git_use_master ($options){
  * upgrade according to latest tag
  * @param   array   options from cli env
  */
-function git_upgrade_all ($options){
+function cos_git_upgrade_all ($options){
 
     $modules = profile::getModules();
     foreach ($modules as $key => $val){
@@ -182,7 +182,7 @@ function git_upgrade_all ($options){
         if ( ($tag == 'master') OR  ($tag > $val['module_version'])) {
             
             cos_cli_print("Will upgrade $val[module_name]");
-            git_upgrade ($val, $tag, 'module');
+            cos_git_upgrade ($val, $tag, 'module');
         }
     }
     
@@ -196,7 +196,7 @@ function git_upgrade_all ($options){
         }
 
         if ( ($tag == 'master') OR  ($tag > $val['module_version'])) {
-            git_upgrade ($val, $tag, 'template');
+            cos_git_upgrade ($val, $tag, 'template');
         }
     }
 }
@@ -208,18 +208,17 @@ function git_upgrade_all ($options){
  * function for adding and commiting all modules and templates
  * @param   array   options from cli env
  */
-function git_commit_all ($options){
+function cos_git_commit_all ($options){
 
     $modules = profile::getModules();
     foreach ($modules as $key => $val){
-        git_commit($val, 'module');
+        cos_git_commit($val, 'module');
 
     }
 
     $templates = profile::getAllTemplates();
-
     foreach ($templates as $key => $val){
-        git_commit($val, 'template');
+        cos_git_commit($val, 'template');
     }
 }
 
@@ -227,22 +226,19 @@ function git_commit_all ($options){
  * function for adding and commiting all modules and templates
  * @param   array   options from cli env
  */
-function git_tag_all ($options){
+function cos_git_tag_all ($options){
 
     $version = cos_readline('Enter tag version to use ');
-
     $modules = profile::getModules();
     foreach ($modules as $key => $val){
         $val['new_version'] = $version;
-        git_tag($val, 'module');
-
+        cos_git_tag($val, 'module');
     }
 
     $templates = profile::getAllTemplates();
-
     foreach ($templates as $key => $val){
         $val['new_version'] = $version;
-        git_tag($val, 'template');
+        cos_git_tag($val, 'template');
     }
 }
 
@@ -252,10 +248,10 @@ function git_tag_all ($options){
  * @param string $typ (template or module)
  * @return type 
  */
-function git_tag ($val, $type = 'module'){
-    $repo_path = get_repo_path($val['module_name'], $type);
+function cos_git_tag ($val, $type = 'module'){
+    $repo_path = cos_get_repo_path($val['module_name'], $type);
 
-    if (!git_is_repo ($repo_path)){
+    if (!cos_git_is_repo ($repo_path)){
         cos_cli_print("$repo_path is not a git repo");
         return;
     }
@@ -278,28 +274,28 @@ function git_tag ($val, $type = 'module'){
     print "\n---\n";
 }
 
-function git_tag_all_files ($options){
+function cos_git_tag_all_files ($options){
     $version = cos_readline('Enter tag version to use ');
 
     $modules = profile::getModules();
     foreach ($modules as $key => $val){
         $val['module'] = $val['module_name'];
         $val['new_version'] = $version;
-        git_tag_install_file($val, 'module');
+        cos_git_tag_install_file($val, 'module');
     }
 
     $templates = profile::getAllTemplates();
     foreach ($templates as $key => $val){
         $val['module'] = $val['module_name'];
         $val['new_version'] = $version;
-        git_tag_install_file($val, 'template');
+        cos_git_tag_install_file($val, 'template');
     }
 }
 
-function git_tag_install_file ($val, $type = 'module'){
-    $repo_path = get_repo_path($val['module_name'], $type);
+function cos_git_tag_install_file ($val, $type = 'module'){
+    $repo_path = cos_get_repo_path($val['module_name'], $type);
 
-    if (!git_is_repo ($repo_path)){
+    if (!cos_git_is_repo ($repo_path)){
         cos_cli_print("$repo_path is not a git repo");
         return;
     }
@@ -332,10 +328,10 @@ function git_tag_install_file ($val, $type = 'module'){
  * @param string    tag with wersion or 'master'
  * @param string    module, templatee or profile.
  */
-function git_commit ($val, $type = 'module'){
-    $repo_path = get_repo_path($val['module_name'], $type);
+function cos_git_commit ($val, $type = 'module'){
+    $repo_path = cos_get_repo_path($val['module_name'], $type);
 
-    if (!git_is_repo ($repo_path)){
+    if (!cos_git_is_repo ($repo_path)){
         cos_cli_print("$repo_path is not a git repo");
         return;
     }
@@ -371,14 +367,14 @@ function git_commit ($val, $type = 'module'){
  * @param string    tag with wersion or 'master'
  * @param string    module, templatee or profile. 
  */
-function git_upgrade ($val, $tag = 'master', $type = 'module'){
+function cos_git_upgrade ($val, $tag = 'master', $type = 'module'){
 
     if (!isset($val['module_name'])) {
         $val['module_name'] = git_module_name_from_repo($val['repo']);
     }
-    $repo_path = get_repo_path($val['module_name'], $type);
+    $repo_path = cos_get_repo_path($val['module_name'], $type);
     
-    if (!git_is_repo ($repo_path)){
+    if (!cos_git_is_repo ($repo_path)){
         cos_cli_print("$repo_path is not a git repo - will not upgrade");
         return;
     }
@@ -413,7 +409,7 @@ function git_upgrade ($val, $tag = 'master', $type = 'module'){
     // print "\n---\n";
 }
 
-function git_is_repo($path){
+function cos_git_is_repo($path){
     $repo = $path . "/.git";
     if (!file_exists($repo)){
         return false;
@@ -421,7 +417,7 @@ function git_is_repo($path){
     return true;
 }
 
-function git_no_questions (){
+function cos_git_no_questions (){
     cos_confirm_readline(null, 1);
 }
 
@@ -429,7 +425,7 @@ function git_no_questions (){
  * function for showing git tags (just for testing)
  * @param array $options
  */
-function git_echo_remote_tags ($options){
+function cos_git_echo_remote_tags ($options){
     if (empty($options['repo']))  {
         cos_cli_abort('You need to specify a repo');
     }
@@ -442,7 +438,7 @@ function git_echo_remote_tags ($options){
     cos_cli_print("Latest is: $latest");
 }
 
-function git_coscms_pull ($version = null) {
+function cos_git_coscms_pull ($version = null) {
     $command = 'git pull';
     passthru($command);
 }
@@ -453,81 +449,81 @@ mainCli::setCommand('git', array(
     'description' => 'Commands for using git. Can be used for installing and uninstalling modules from git repos (remote)',
 ));
 
-mainCli::setOption('git_no_questions', array(
+mainCli::setOption('cos_git_no_questions', array(
     'long_name'   => '--silence',
     'short_name'   => '-s',
     'description' => 'Will ask [y] to all questions raised',
     'action'      => 'StoreTrue'
 ));
 
-mainCli::setOption('git_use_master', array(
+mainCli::setOption('cos_git_use_master', array(
     'long_name'   => '--master',
     'short_name'   => '-m',
     'description' => 'Will use master. Valid for all-up',
     'action'      => 'StoreTrue'
 ));
 
-mainCli::setOption('git_install', array(
+mainCli::setOption('cos_git_install', array(
     'long_name'   => '--mod-in',
     'description' => 'Will clone specified remote url with latest version',
     'action'      => 'StoreTrue'
 ));
 
-mainCli::setOption('git_clone_template', array(
+mainCli::setOption('cos_git_clone_template', array(
     'long_name'   => '--temp-in',
     'description' => 'Will install remote clone url with latest version',
     'action'      => 'StoreTrue'
 ));
 
-mainCli::setOption('git_upgrade_template', array(
+mainCli::setOption('cos_git_upgrade_template', array(
     'long_name'   => '--temp-up',
     'description' => 'Will check latest remote version and compare with locale version. If remote is higher it will be checked out',
     'action'      => 'StoreTrue'
 ));
 
-mainCli::setOption('git_clone_profile', array(
+mainCli::setOption('cos_git_clone_profile', array(
     'long_name'   => '--pro-in',
     'description' => 'Will clone remote profile with latest version',
     'action'      => 'StoreTrue'
 ));
 
-mainCli::setOption('git_upgrade', array(
+mainCli::setOption('cos_git_upgrade', array(
     'long_name'   => '--mod-up',
     'description' => 'Will check latest remote version and compare with locale version. If remote is higher it will be checked out and system will be upgraded',
     'action'      => 'StoreTrue'
 ));
 
-mainCli::setOption('git_upgrade_all', array(
+mainCli::setOption('cos_git_upgrade_all', array(
     'long_name'   => '--all-up',
     'description' => 'Will check latest remote versions of modules, templates and profiles, and compare with locale version. If remote is higher it will be checked out and system will be upgraded',
     'action'      => 'StoreTrue'
 ));
 
-mainCli::setOption('git_commit_all', array(
+mainCli::setOption('cos_git_commit_all', array(
     'long_name'   => '--all-commit',
     'description' => 'Will try and commit all modules and templates in one try.',
     'action'      => 'StoreTrue'
 ));
 
-mainCli::setOption('git_tag_all', array(
+mainCli::setOption('cos_git_tag_all', array(
     'long_name'   => '--all-tag',
     'description' => 'Will tag and push tags for all modules and templates in one try.',
     'action'      => 'StoreTrue'
 ));
 
-mainCli::setOption('git_tag_all_files', array(
+mainCli::setOption('cos_git_tag_all_files', array(
     'long_name'   => '--all-tag-files',
     'description' => 'Will tag and push tags for all modules and templates in one try.',
     'action'      => 'StoreTrue'
 ));
 
-mainCli::setOption('git_echo_remote_tags', array(
+mainCli::setOption('cos_git_echo_remote_tags', array(
     'long_name'   => '--echo-remote-tags',
     'description' => 'Will list remote tags',
     'action'      => 'StoreTrue'
 ));
 
-mainCli::setOption('git_coscms_pull', array(
+mainCli::setOption('cos_git_coscms_pull', array(
     'long_name'   => '--pull-base',
     'description' => 'Will pull latest master of CosCMS',
     'action'      => 'StoreTrue'

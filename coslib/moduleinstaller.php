@@ -87,7 +87,7 @@ class moduleinstaller extends db {
     public function setInstallInfo($options){
 
         $module_name = $options['module'];
-        $module_dir = _COS_PATH . "/" . _COS_MOD_DIR . "/$module_name";
+        $module_dir = _COS_MOD_PATH . "/$module_name";
         $ini_file = $module_dir . "/$module_name.ini";
         $ini_file_dist = $module_dir . "/$module_name.ini-dist";
 

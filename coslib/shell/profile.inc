@@ -70,9 +70,9 @@ function upgrade_from_profile ($options){
         $module = new moduleinstaller($val);
 
         if ($module->isInstalled($val['module_name'])){
-            git_upgrade($val, $val['version'], 'module');
+            cos_git_upgrade($val, $val['version'], 'module');
         } else {
-            git_install($val, 'module');
+            cos_git_install($val, 'module');
         }
     }
 
@@ -89,7 +89,7 @@ function upgrade_from_profile ($options){
         }
 
         // no db operations. Just clone version.
-        git_install($val, 'template');
+        cos_git_install($val, 'template');
     }
 }
 
