@@ -232,7 +232,7 @@ class moduleloader {
         $frontpage_module = config::$vars['coscms_main']['frontpage_module'];
         $this->info['module_name'] = $frontpage_module;
         $this->info['module_base_name'] = $frontpage_module;
-        $this->info['base'] = $base = _COS_PATH . '' . _COS_MOD_DIR;
+        $this->info['base'] = $base = _COS_MOD_PATH;
         $this->info['language_file'] = $base . "/$frontpage_module" . '/lang/' . config::$vars['coscms_main']['language'] . '/language.inc';
         $this->info['ini_file'] =  $base . "/$frontpage_module"  . "/$frontpage_module" . '.ini';
         $this->info['model_file'] = $base . "/$frontpage_module"  . "/model." . $frontpage_module  . ".inc";
@@ -262,7 +262,7 @@ class moduleloader {
     public function setErrorModuleInfo(){     
         $error_module = 'error';
         $this->info['module_name'] = 'error';
-        $this->info['base'] = $base = _COS_PATH . '/' . _COS_MOD_DIR;
+        $this->info['base'] = $base = _COS_MOD_PATH;
         $this->info['language_file'] = $base . "/$error_module" . '/lang/' . config::$vars['coscms_main']['language'] . '/language.inc';
         $this->info['ini_file'] =  $base . "/$error_module"  . "/$error_module" . '.ini';
         $this->info['model_file'] = $base . "/$error_module"  . "/model." . $error_module  . ".inc";
@@ -304,13 +304,10 @@ class moduleloader {
         if ($uri->numFragments() == 1){
            
             $this->info['module_base_name'] = $frontpage_module;
-            //$this->info['module_name'] = $frontpage_module; //;
-            $this->info['base'] = $base = _COS_PATH . '/' . _COS_MOD_DIR . "/$frontpage_module";
+            $this->info['base'] = $base = _COS_MOD_PATH . "/$frontpage_module";
         } else {
-            
-            //$this->info['module_name'] = $info['module_name'];
             $this->info['module_base_name'] = $info['module_base_name'];
-            $this->info['base'] = $base = _COS_PATH . "/" . _COS_MOD_DIR;
+            $this->info['base'] = $base = _COS_MOD_PATH;
         }
 
         
