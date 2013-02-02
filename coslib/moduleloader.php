@@ -9,7 +9,7 @@
 /**
  * define path to modules
  */
-define ('_COS_MOD_DIR', 'cosmod');
+define ('_COS_MOD_DIR', 'modules');
 define ('_COS_MOD_PATH', _COS_PATH . '/' . _COS_MOD_DIR);
 
 /**

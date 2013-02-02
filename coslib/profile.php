@@ -8,11 +8,6 @@
  */
 
 /**
- * @ignore
- */
-include_once "moduleinstaller.php";
-
-/**
  * class for installing a profile or creating one from current install
  *
  * @package    profile
@@ -287,8 +282,8 @@ class profile  {
         
         $modules = $this->getModules();
         foreach ($modules as $key => $val){
-            $module_ini_file = _COS_PATH . "/modules/$val[module_name]/$val[module_name].ini";
-            $source = _COS_PATH . "/modules/$val[module_name]/$val[module_name].ini";
+            $module_ini_file = _COS_MOD_PATH . "/$val[module_name]/$val[module_name].ini";
+            $source = _COS_MOD_PATH . "/$val[module_name]/$val[module_name].ini";
             $dest = $profile_dir . "/$val[module_name].ini-dist";
             if (copy($source, $dest)){
                 $this->confirm[] = "Copy $module_ini_file to $profile_dir";
@@ -297,7 +292,7 @@ class profile  {
             }
 
             // if php ini file exists copy that to.
-            $source = _COS_PATH . "/modules/$val[module_name]/$val[module_name].php.ini";
+            $source = _COS_MOD_PATH . "/$val[module_name]/$val[module_name].php.ini";
             $dest = $profile_dir . "/$val[module_name].php.ini-dist";
 
             if (file_exists($source)){
@@ -383,7 +378,7 @@ class profile  {
         
         foreach ($this->profileModules as $key => $val){
             $source = $profile_dir . "/$val[module_name].ini-dist";
-            $dest = _COS_PATH . "/modules/$val[module_name]/$val[module_name].ini";
+            $dest = _COS_MOD_PATH . "/$val[module_name]/$val[module_name].ini";
     
             if (copy($source, $dest)){
                 $this->confirm[] = "Copy $source to $dest";
@@ -392,7 +387,7 @@ class profile  {
             }
 
             // if php ini file exists copy that to.
-            $dest = _COS_PATH . "/modules/$val[module_name]/$val[module_name].php.ini";
+            $dest = _COS_MOD_PATH . "/$val[module_name]/$val[module_name].php.ini";
             $source = $profile_dir . "/$val[module_name].php.ini-dist";
 
             if (file_exists($source)){
