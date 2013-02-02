@@ -511,7 +511,7 @@ class html {
         }
 
         if (isset($extra['filter_help'])) {
-            echo $extra['title'] = moduleLoader::getFiltersHelp($extra['filter_help']);            
+            echo $extra['title'] = moduleloader::getFiltersHelp($extra['filter_help']);            
         } 
         
         if (!isset($value)) {
