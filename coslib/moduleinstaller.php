@@ -19,7 +19,7 @@ if (!defined('_COS_CLI')){
 define('NEW_LINE', $new_line);
 include_once "coslib/db.php";
 include_once "coslib/shell/common.inc";
-include_once "coslib/shell/moduleloader.php";
+include_once "coslib/moduleloader.php";
 
 /**
  * class for installing a module or upgrading it.
