@@ -15,11 +15,11 @@ We use the CosCMS framework
 
 Move into folder where you can place your commands: 
 
-    cd ./coscms/coslib/shell_base/locale
+    cd ./coscms/coslib/shell/locale
 
 Complete command example: 
 
-https://github.com/diversen/coscms/blob/master/coslib/shell_base/locale/hello_world.php
+https://github.com/diversen/coscms/blob/master/coslib/shell/locale/hello_world.php
 
 Create example. All files need to be ending in .inc
 
