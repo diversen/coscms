@@ -129,7 +129,7 @@ class lang {
             return;
         }
 
-        $base = _COS_PATH . "/modules";
+        $base = _COS_PATH . '/' . _COS_MOD_PATH;
         $language_file =
             $base . "/$module" . '/lang/' .
             config::$vars['coscms_main']['language'] .

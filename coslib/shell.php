@@ -57,7 +57,7 @@ class mainCli {
 | (_| (_) \__ \ (__| | |_\__ \ | | |
  \___\___/|___/\___|_|_(_)___/_| |_|
 
-Modulized Command line program
+    Modulized Command line program
 
 EOF;
         self::$parser->version = '0.0.1';
@@ -251,13 +251,13 @@ EOF;
         foreach ($modules as $val){
             if (isset($val['is_shell']) && $val['is_shell'] == 1){
                 //$command_path = _COS_PATH . "/modules/$val[module_name]";
-                $path =  _COS_PATH . "/modules/$val[module_name]/$val[module_name].inc";
+                $path =  _COS_PATH . "/" . _COS_MOD_PATH.  "/$val[module_name]/$val[module_name].inc";
                 
                 if (file_exists($path)) {
                     include_once $path;
                 }
 
-                $ini = _COS_PATH . "/modules/$val[module_name]/$val[module_name].ini";
+                $ini = _COS_PATH . "/" . _COS_MOD_PATH  . "/$val[module_name]/$val[module_name].ini";
                 self::$ini[$val['module_name']] = config::getIniFileArray($ini);
             }
         }

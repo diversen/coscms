@@ -122,7 +122,7 @@ class cosMail {
     }
     
     /**
-     * get mail params
+     * get mail params from a cos config file
      * @return array $params
      */
     public static function getCosParams () {
@@ -198,6 +198,7 @@ class cosMail {
     * @param string $message
     * @param string $from (optional)
     * @param string $reply_to (optional)
+    * @param array  $more additional headers
     * @return boolean $res
     */
     public static function systemUser ($subject, $message, $from = null, $reply_to = null, $more = array ()) {
@@ -221,6 +222,7 @@ class cosMail {
      *                         'attachments => array ('/path/to/file', '/path/to/another/file'));
      * @param   string          $from from the sender of the email
      * @param   string          $reply_to email to reply to
+     * @param   array   $more additional headers
      * @return  int             $res 1 on success 0 on error
      */
     public static function multipart ($to, $subject, $message, $from = null, $reply_to = null, $more = array ()){
@@ -273,6 +275,7 @@ class cosMail {
     * @param   string  $message the message of the email
     * @param   string  $from the sender of the email
     * @param   string  $reply_to email to reply to
+    * @param   array   $more additional headers
     * @return  int     1 on success 0 on error
     */
     public static function text($to, $subject, $message, $from = null, $reply_to=null, $more = array ()) {
