@@ -9,7 +9,7 @@
 /**
  * define path to modules
  */
-define ('_COS_MOD_DIR', 'modules');
+define ('_COS_MOD_DIR', 'cosmod');
 define ('_COS_MOD_PATH', _COS_PATH . '/' . _COS_MOD_DIR);
 
 /**
@@ -277,7 +277,9 @@ class moduleloader {
 
         $this->info['controller_file'] = $controller_file;
         $this->info['controller'] = "403.php";
+        
     }
+    
 
     /**
      * method for setting the requested module info
@@ -322,23 +324,10 @@ class moduleloader {
         $this->info['controller_file'] = $controller_file;
         $this->info['controller'] = $info['controller'];
 
-        // We need is a controller
-        if (!file_exists($this->info['controller_file'])){
-            $mes = "Controller file does not exists: ";
-            $mes.= $this->info['controller_file'];
-            error_log($mes);
-            self::$status[404] = 1;
-            $this->setErrorModuleInfo();    
-        }
+        $this->info['module_class'] = 'cosmod_' . $info['module_base_name'] . "_module";
+        
 
-        // we need module to be installed (only the base name) e.g. content
-        if (!$this->isInstalledModule($info['module_base_name'])){
-            self::$status[404] = 1;
-            $mes = "module not installed: ";
-            $mes.= $info['module_base_name'];
-            error_log($mes);
-            $this->setErrorModuleInfo(); 
-        }
+
     }
 
     /**
@@ -357,18 +346,10 @@ class moduleloader {
      * has the flag load_on set 
      */
     public function initModule(){
-
+        
         $module = $this->info['module_name'];       
-       
         moduleloader::includeModule($module);
 
-        // load php ini if exists
-        if (isset(config::$vars['coscms_main']['module']['load_php_ini'])){
-            include $this->info['ini_file_php'];
-            config::$vars['coscms_main']['module'] = 
-                    array_merge(config::$vars['coscms_main']['module'], 
-                    $_MODULE_SETTINGS);
-        }
 
         // set module template if specified
         // e.g. in account.ini:
@@ -386,32 +367,6 @@ class moduleloader {
             $controller_path = "/" . $this->info['module_name'] . "/" . $this->info['controller'];   
             if ($controller_path == $page_template[0]){
                 config::$vars['coscms_main']['template'] = $page_template[1];
-            }
-        }
-
-        // by setting the load_on param in install.inc 
-        // you can load a module as a sub module. 
-        foreach (self::$modules as $val){
-            if (!isset($val['load_on'])) continue;
-            if ($val['load_on'] === $module){
-                moduleloader::includeModule($val['module_name']);
-                $class_name = self::modulePathToClassName($val['module_name']);
-                $class_object = new $class_name(); 
-                $class_object->init();
-            }
-        }
-        
-        // enable modules which are set in module ini settings
-        // e.g. for account you will set the following ini setting
-        // account_modules[] = 'test' 
-        $load_on = $this->info['module_base_name']. "_modules";
-        $load_on_modules = config::getModuleIni($load_on);
-        if (isset($load_on_modules)) {
-            foreach (self::$modules as $val) {
-                
-                if (in_array($val['module_name'], $load_on_modules)) {
-
-                }
             }
         }
     }
@@ -583,6 +538,7 @@ class moduleloader {
         }
     }
     
+    
     /**
      * method for loading a parsing module
      *
@@ -590,7 +546,38 @@ class moduleloader {
      */
     public function loadModule(){
         
-        if (!file_exists($this->info['controller_file'])){
+        $info = $this->info;
+        $controller = $info['controller'];
+        $module_class = 'cosmod_' . $info['module_base_name'] . "_module";
+        $method_exists = @method_exists($module_class, $controller);
+        
+        // only allow installed modules
+        if (!$this->isInstalledModule($info['module_base_name'])){
+            self::$status[404] = 1;
+            $mes = "module not installed: ";
+            $mes.= $info['module_base_name'];
+            log::error($mes);
+            $this->setErrorModuleInfo(); 
+        }
+        
+        // We need is a controller
+        if (!file_exists($this->info['controller_file']) && !$method_exists){
+            $mes = "Controller file does not exists: ";
+            $mes.= $this->info['controller_file'];
+            log::error($mes);
+            self::$status[404] = 1;
+            $this->setErrorModuleInfo();    
+        }
+        //accountCreate::displayLogout();
+        if ($method_exists) {
+            $module_class::$controller();
+            $str = ob_get_contents();
+            ob_clean();
+            return $str;
+        } 
+        
+        
+        if (!file_exists($this->info['controller_file']) ){    
             self::$status[404] = 1;
         }  else {
             include_once $this->info['controller_file'];
@@ -620,28 +607,23 @@ class moduleloader {
      */
     public static function setModuleIniSettings($module, $type = 'module'){
 
-        static $set = array();
-        
-        if (!isset(config::$vars['coscms_main']['module'])){
-            config::$vars['coscms_main']['module'] = array ();
-        }
-
+        static $set = array();     
         if (isset($set[$module])) {
             return;
         }
 
         $set[$module] = $module;
         if ($type == 'module') {
-            $ini_file = _COS_PATH . '/' . _COS_MOD_DIR . "/$module/$module.ini";
+            $ini_file = _COS_MOD_PATH . "/$module/$module.ini";
         } else {
-            // template
             $ini_file = _COS_HTDOCS . "/templates/$module/$module.ini";
         }
         
         if (!file_exists($ini_file)) {
             return;
         }
-                
+        
+       
         $module_ini = config::getIniFileArray($ini_file, true);
         if (is_array($module_ini)){
             config::$vars['coscms_main']['module'] = array_merge(
@@ -652,18 +634,7 @@ class moduleloader {
 
         // check if development settings exists.
         if (isset($module_ini['development'])){
-            // check if we are on a development server.
-            // Note: Development needs to be set in main config/config.ini
-            if (
-
-                config::$vars['coscms_main']['server_name']
-                    ==
-                @$_SERVER['SERVER_NAME']){
-                    
-
-
-                // we are on development, merge and overwrite normal settings with
-                // development settings.
+            if ( config::getMainIni('server_name') == @$_SERVER['SERVER_NAME']){
                 config::$vars['coscms_main']['module'] =
                     array_merge(
                         config::$vars['coscms_main']['module'],
@@ -672,20 +643,9 @@ class moduleloader {
             }
         }
         
-        // check if development settings exists.
+        // check if stage settings exists.
         if (isset(self::$iniSettings[$module]['stage'])){
-            
-            // check if we are on a development server.
-            // Note: Development needs to be set in main config/config.ini
-            if (
-
-                config::$vars['coscms_main']['server_name']
-                    ==
-                @$_SERVER['SERVER_NAME']){
-
-
-                // we are on stage, merge and overwrite normal settings with
-                // stage settings.
+            if ( config::getMainIni('server_name') == @$_SERVER['SERVER_NAME'] ){
                 config::$vars['coscms_main']['module'] =
                     array_merge(
                         config::$vars['coscms_main']['module'],
@@ -694,6 +654,26 @@ class moduleloader {
             }
         }
     }
+    
+    public static function setModuleClassSettings ($module) {
+        static $set = array();     
+        if (isset($set[$module])) {
+            return;
+        }
+
+        $set[$module] = $module;
+
+        $config_file = _COS_MOD_PATH . "/$module/config.php";
+        if (!file_exists($config_file)) {
+            return;
+        }
+        
+        include_once $config_file;
+        $class = $module . "Config";
+        $obj = new $class;
+        return $obj->getConfig();      
+    }
+    
 
     /**
      * method for getting modules pre content. pre content is content shown
@@ -857,27 +837,37 @@ class moduleloader {
             return true;
         }
 
-        $module_path = config::$vars['coscms_base'] . '/' . _COS_MOD_DIR . '/' . $module;
+        $module_path = _COS_MOD_PATH . '/' . $module;
         $ary = explode('/', $module);
 
-        $last = array_pop($ary);
-        $model_file = $module_path . '/' . "model.$last.inc";  
-        $view_file = $module_path . '/' . "view.$last.inc";
+        $load = array_pop($ary);
+        $model_file = $module_path . '/' . "model.$load.inc";  
+        $view_file = $module_path . '/' . "view.$load.inc";
         $ary = explode('/', $module);
 
-        lang::loadModuleLanguage($ary[0]);
-        moduleloader::setModuleIniSettings($ary[0]);
-
+        $base = $ary[0];
+        
+        // lang and ini only exists in base module
+        lang::loadModuleLanguage($base);
+        moduleloader::setModuleIniSettings($base);
+        moduleloader::setModuleClassSettings($base);
+        
         if (file_exists($view_file)){
             include_once $view_file;
         }
-        if (file_exists($model_file)){
+        
+        if (file_exists($model_file)){  
             include_once $model_file;
             $modules[$module] = true;
+            
+            
+            
             return true;
-        } else {
-            return false;
-        }
+        } 
+        
+        return false;
+        
+        
     }
     
     /**
@@ -901,7 +891,9 @@ class moduleloader {
         $ary = explode('/', $model);
         $last = array_pop($ary);
         $model_file = $module_path . '/' . "model.$last.inc";
-        include_once $model_file;
+        if (file_exists($model_file)) {
+            include_once $model_file;
+        }
     }
     
     /**

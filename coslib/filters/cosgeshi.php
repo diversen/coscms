@@ -77,17 +77,15 @@ class cosgeshi {
             preg_match("{([a-z]+)}i", $ary[1], $lang);
             
             if (isset($lang[0]) && isset($lang[1])){
-                if ($lang[0] == $lang[1]){                    
-                    //if ($lang[0] == 'php'){
-                        $article = $this->highlightCode($article, $lang[0]);
-                    //}
+                if ($lang[0] == $lang[1]){     
+                    $article = $this->highlightCode($article, $lang[0]);
                 }
             }
         }
         return $article;
     }
     
-        /**
+    /**
      * filter string for files
      * @param string $article
      * @return string $str
@@ -104,10 +102,7 @@ class cosgeshi {
             
             if (isset($lang[0]) && isset($lang[1])){
                 if ($lang[0] == $lang[1]){     
-                   
-                    //if ($lang[0] == 'php'){
-                        $article = $this->HighlightCodeFile($article, $lang[0]);
-                    //} 
+                    $article = $this->HighlightCodeFile($article, $lang[0]);
                 }
             }
         }
@@ -143,14 +138,13 @@ class cosgeshi {
      * @param <string> $replace string to highlight code from
      * @return <string> highlighted code.
      */
-    private function replaceCode(&$replace){
-
-          $str = trim($replace[1], "\n ");
-          $geshi = new GeSHi($str, $this->lang);
-          
-          $geshi->parse_code();
+    public function replaceCode(&$replace){
+        $str = trim($replace[1], "\n ");
+        $geshi = new GeSHi($str, $this->lang);        
+        return $geshi->parse_code();
     }
-/**
+    
+    /**
      *
      * @param <string> $replace string to highlight code from
      * @return <string> highlighted code.

@@ -23,6 +23,9 @@ config::$vars['coscms_debug']['timer']['start'] = microtime(true);
 config::$vars['coscms_debug']['coscms_base']  = config::$vars['coscms_base'];
 config::$vars['coscms_debug']['include_path'] = ini_get('include_path');
 
+
+
+
 config::loadMain();
 
 $htdocs_path = config::getMainIni('htdocs_path');
