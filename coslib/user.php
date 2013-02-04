@@ -183,7 +183,6 @@ class user {
         }
         return self::$profile_object->getProfileSimple($user, $text);       
     }
-
     
     /**
      * Gets user profile link if a profile system is in place.
@@ -196,23 +195,6 @@ class user {
     public static function getProfileEditLink ($user_id){
         self::initProfile();
         return self::$profile_object->getProfileEditLink($user_id);
-    }
-    
+    }    
 }
 
-/**
- * gets a user profile link same as user::getProfileLink
- * @param mixed $user array or user id
- * @return string $str html string with profile link 
- */
-function get_profile_link ($user){
-    return user::getProfileLink($user);
-}
-/**
- * gets a users edit link
- * @param int $user_id
- * @return string $html link 
- */
-function get_profile_edit_link ($user_id){
-    return user::getProfileEditLink($user_id);
-}
