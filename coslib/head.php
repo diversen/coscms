@@ -41,7 +41,6 @@ $htdocs_path = config::getMainIni('htdocs_path');
 
 // This is only if commandline mode is not specified  
 if (!defined('_COS_CLI')){
-    
     // load config/config.ini
     
     

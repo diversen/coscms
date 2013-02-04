@@ -169,7 +169,7 @@ EOF;
             // base modules which may be set
             
             
-            //config::loadMainCli();
+            config::loadMainCli();
             /*
             $htdocs_path = config::getMainIni('htdocs_path');
     
@@ -274,9 +274,10 @@ EOF;
      * loads all modules in database
      */
     public static function loadDbModules (){        
+        
         $db = new db();
-        $ret = @$db->connect(array('dont_die' => 1));
-      
+        $ret = $db->connect(array('dont_die' => 1));
+        
         if ($ret == 'NO_DB_CONN'){
             // if no db conn we exists before loading any more modules.
             return;
@@ -306,6 +307,7 @@ EOF;
                 self::$ini[$val['module_name']] = config::getIniFileArray($ini);
             }
         }
+        
         
         //db::$dbh = null;
     }
