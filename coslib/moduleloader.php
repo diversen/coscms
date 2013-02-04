@@ -9,7 +9,7 @@
 /**
  * define path to modules
  */
-define ('_COS_MOD_DIR', 'cosmod');
+define ('_COS_MOD_DIR', 'modules');
 define ('_COS_MOD_PATH', _COS_PATH . '/' . _COS_MOD_DIR);
 
 /**
@@ -229,7 +229,7 @@ class moduleloader {
      */
     public function setHomeModuleInfo(){
         
-        $frontpage_module = config::$vars['coscms_main']['frontpage_module'];
+        $frontpage_module = config::getMainIni('frontpage_module');
         $this->info['module_name'] = $frontpage_module;
         $this->info['module_base_name'] = $frontpage_module;
         $this->info['base'] = $base = _COS_MOD_PATH;
@@ -247,6 +247,7 @@ class moduleloader {
             $controller_file = $controller_dir . "index.php";
         }
         $this->info['controller_file'] = $controller_file;
+        $this->info['controller'] = 'index';
 
     }
     
@@ -547,6 +548,7 @@ class moduleloader {
     public function loadModule(){
         
         $info = $this->info;
+        
         $controller = $info['controller'];
         $module_class = 'cosmod_' . $info['module_base_name'] . "_module";
         $method_exists = @method_exists($module_class, $controller);

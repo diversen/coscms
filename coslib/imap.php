@@ -195,14 +195,16 @@ class imap {
         $parts['images'] = array ();
         $parts['movies'] = array ();
         $parts['unknown'] = array ();
+        $parts['html'] = array ();
       //  echo 
 
         foreach (new RecursiveIteratorIterator($message) as $part) {
             try {
                 $type = $this->getContentType($part);
-
+                echo $type . "<br />\n";
+                continue;
                 if ($type == 'text/plain') {
-                    $parts['plain'] = $this->decodePlain($part);
+                    $parts['plain'][] = $this->decodePlain($part);
 
                 } else if ($type == 'image/jpeg' || $type == 'image/png' || $type == 'image/jpg') {
                     $file = base64_decode($part->getContent());  
@@ -211,8 +213,11 @@ class imap {
                         'name' => $human['content-name'],
                         'type' => $human['content-type'],
                         'file' => $file
-                    );                
+                    );  
+                } else if ($type == 'text/html') {
+                    $parts['html'][] = $part->getContent();
                 } else {
+                    
                     $parts['unknown'][] = $part;
                 }
             } catch (Exception $e) {
@@ -222,9 +227,46 @@ class imap {
         return $parts;
     }
     
+    /**
+     * gets all parts of a message
+     * @param object $message
+     * @return array $parts 
+     */
+    function getAllParts ($message) {
+        
+        $parts = array ();
+        foreach (new RecursiveIteratorIterator($message) as $part) {
+            try {
+                $type = $this->getContentType($part);
+                $parts[$type][] = $part->getContent();
+
+                //print_r($part->getHeaders());
+                
+            } catch (Exception $e) {
+                error_log($e->getMessage());
+            }
+        } 
+        return $parts;
+    }
+    
+    
+    
     function getFolders () {
             $folders = new RecursiveIteratorIterator($this->mail->getFolders(),
                                              RecursiveIteratorIterator::SELF_FIRST);
+
+            
+            $ary = array ();
+            foreach ($folders as $local => $folder ) {
+                $ary[htmlspecialchars($local)] = htmlspecialchars($folder);
+            }
+    
+            return $ary;
+    }
+    
+}
+
+
             //print_r($folders);
     //echo '<select name="folder">';
             //$ary = array ();
@@ -240,13 +282,3 @@ class imap {
             . htmlspecialchars($localName) . '</option>';
     }
     echo '</select>'; */
-            
-            $ary = array ();
-            foreach ($folders as $local => $folder ) {
-                $ary[htmlspecialchars($local)] = htmlspecialchars($folder);
-            }
-    
-            return $ary;
-    }
-    
-}
