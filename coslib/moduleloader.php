@@ -66,9 +66,7 @@ class moduleloader {
         self::$modules = self::getAllModules(); 
         $this->setLevels();
 
-        if (!isset(config::$vars['coscms_main']['module'])){
-            config::$vars['coscms_main']['module'] = array();
-        }
+
     }
     
     /**
@@ -612,6 +610,10 @@ class moduleloader {
         static $set = array();     
         if (isset($set[$module])) {
             return;
+        }
+        
+        if (!isset(config::$vars['coscms_main']['module'])){
+            config::$vars['coscms_main']['module'] = array();
         }
 
         $set[$module] = $module;
