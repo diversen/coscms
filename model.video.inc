@@ -127,7 +127,7 @@ class video {
     }
     
     public static function subModuleInlineContent($options){
-        moduleLoader::includeTemplateCommon('flowplayer');
+        moduleloader::includeTemplateCommon('flowplayer');
         flowplayer_include();
         $info = video::getAllVideoInfo($options);
 
@@ -241,7 +241,7 @@ class video {
      */
     public static function subModuleAdminOption ($options){
         $str = "";
-        $url = moduleLoader::buildReferenceURL('/video/add', $options);
+        $url = moduleloader::buildReferenceURL('/video/add', $options);
         $add_str= lang::translate('video_add');
         $str.= html::createLink($url, $add_str);
         return $str;
@@ -274,10 +274,10 @@ class video {
             $options['id'] = $val['id'];
             if (isset($options['admin'])){
                 $str.= MENU_SUB_SEPARATOR_SEC;
-                $url = moduleLoader::buildReferenceURL('/video/edit', $options);
+                $url = moduleloader::buildReferenceURL('/video/edit', $options);
                 $str.= html::createLink($url, lang::translate('video_edit'));
                 $str.= MENU_SUB_SEPARATOR;
-                $url = moduleLoader::buildReferenceURL('/video/delete', $options);
+                $url = moduleloader::buildReferenceURL('/video/delete', $options);
                 $str.= html::createLink($url, lang::translate('video_delete'));
             }
             $str.= "<br />\n";
@@ -369,7 +369,7 @@ class video {
      */
     public function viewFileFormInsert(){
         
-        $redirect = moduleLoader::buildReferenceURL('/video/add', self::$options);
+        $redirect = moduleloader::buildReferenceURL('/video/add', self::$options);
         if (isset($_POST['submit'])){
             $this->validateInsert();
             if (!isset(self::$errors)){
@@ -393,7 +393,7 @@ class video {
      * method to be used in a delete controller
      */
     public function viewFileFormDelete(){
-        $redirect = moduleLoader::buildReferenceURL('/video/add', self::$options);
+        $redirect = moduleloader::buildReferenceURL('/video/add', self::$options);
         if (isset($_POST['submit'])){
             if (!isset(self::$errors)){
                 $res = $this->deleteFile(self::$fileId);
@@ -414,7 +414,7 @@ class video {
      * merhod to be used in an update controller 
      */
     public function viewFileFormUpdate(){
-        $redirect = moduleLoader::buildReferenceURL('/video/add', self::$options);
+        $redirect = moduleloader::buildReferenceURL('/video/add', self::$options);
         if (isset($_POST['submit'])){
             if (!isset(self::$errors)){
                 $res = $this->updateFile();
