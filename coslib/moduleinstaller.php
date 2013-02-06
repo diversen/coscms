@@ -104,7 +104,7 @@ class moduleinstaller extends db {
         } else {
             config::$vars['coscms_main']['module'] = config::getIniFileArray($ini_file);
         }
-        //moduleLoader::setModuleIniSettings($module_name);
+        //moduleloader::setModuleIniSettings($module_name);
         if (file_exists($module_dir)){
             $install_file = "$module_dir/install.inc";
             if (!file_exists($install_file)){

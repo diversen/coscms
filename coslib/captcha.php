@@ -19,8 +19,8 @@ class captcha {
      * @return  string  $str the catcha to be used in forms
      */
     static public function createCaptcha($method = 'stringrandom'){
-        if (moduleLoader::moduleExists('image_captcha')){
-            moduleLoader::includeModule('image_captcha');
+        if (moduleloader::moduleExists('image_captcha')){
+            moduleloader::includeModule('image_captcha');
         }
         
         $method = config::getModuleIni ('image_captcha_method');

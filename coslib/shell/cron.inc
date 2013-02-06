@@ -148,7 +148,7 @@ function enable_cron_line(){
 // {{{ function run_cron()
 function run_cron (){
     
-    $mi = new moduleLoader();
+    $mi = new moduleloader();
     $mods = $mi->getAllModules();
     $module_path = _COS_MOD_PATH;
 

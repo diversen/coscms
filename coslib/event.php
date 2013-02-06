@@ -56,8 +56,8 @@ class event {
             $ary = explode('::', $val);
             $module = $class = $ary[0];
             $method = $ary[1];
-            if (moduleLoader::isInstalledModule($module)) {
-                moduleLoader::includeModule($module);
+            if (moduleloader::isInstalledModule($module)) {
+                moduleloader::includeModule($module);
                 $ret_val = $class::$method($args);
                 if ($ret_val) {
                     $ret[] = $ret_val; 
@@ -88,8 +88,8 @@ class event {
             $ary = explode('::', $val);
             $module = $class = $ary[0];
             $method = $ary[1];
-            if (moduleLoader::isInstalledModule($module)) {
-                moduleLoader::includeModule($module);
+            if (moduleloader::isInstalledModule($module)) {
+                moduleloader::includeModule($module);
                 $ret = $class::$method($args);
                 if (!empty($ret)) {
                     $ary_ret[] =  $ret;

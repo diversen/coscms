@@ -703,7 +703,7 @@ abstract class template {
         if (!isset(config::$vars['template'])) {
             config::$vars['template'] = array();
         }       
-        moduleLoader::setModuleIniSettings($template, 'template');
+        moduleloader::setModuleIniSettings($template, 'template');
         $css = config::getMainIni('css');
         if ($css) {
             self::setTemplateCssIni($template, $css);

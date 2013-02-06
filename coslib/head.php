@@ -104,8 +104,8 @@ if (!defined('_COS_CLI')){
     // after this point we can check if module exists and fire events connected to
     // installed modules
     $db = new db();
-    $moduleLoader = new moduleloader();
-    $moduleLoader->runLevel(1);
+    $moduleloader = new moduleloader();
+    $moduleloader->runLevel(1);
 
     
     
@@ -119,7 +119,7 @@ if (!defined('_COS_CLI')){
     // run level 2: Just after configuration from file have been set
     // in order to change e.g. file settings you can change the now.
     // See module configdb for example. 
-    $moduleLoader->runLevel(2);
+    $moduleloader->runLevel(2);
 
     // find out what locales we are using
     if (isset(config::$vars['coscms_main']['locale'])){
@@ -134,7 +134,7 @@ if (!defined('_COS_CLI')){
     setlocale(LC_TIME, $locale);
     setlocale(LC_MONETARY, $locale);
 
-    $moduleLoader->runLevel(4);
+    $moduleloader->runLevel(4);
     
     // set default timezone
     date_default_timezone_set(config::$vars['coscms_main']['date_default_timezone']);
@@ -144,7 +144,7 @@ if (!defined('_COS_CLI')){
 
     // load languages.
     lang::init();    
-    $moduleLoader->runLevel(5);
+    $moduleloader->runLevel(5);
     
     // load url routes if any
     urldispatch::setDbRoutes();
@@ -158,8 +158,8 @@ if (!defined('_COS_CLI')){
     } 
     
     // load module
-    $moduleLoader->setModuleInfo($controller);
-    $moduleLoader->initModule();
+    $moduleloader->setModuleInfo($controller);
+    $moduleloader->initModule();
 
     // include template class found in _COS_HTDOCS . '/templates'
     // only from here we should use template class. 
@@ -178,19 +178,19 @@ if (!defined('_COS_CLI')){
         $str = urldispatch::call($route['method']);       
     } else {
         // or we use default module loading
-        $str = $moduleLoader->loadModule();
+        $str = $moduleloader->loadModule();
     }
     
     mainTemplate::printHeader();
     echo $str;
 
-    $moduleLoader->runLevel(6);
+    $moduleloader->runLevel(6);
     mainTemplate::printFooter();   
     config::$vars['final_output'] = ob_get_contents();
     ob_end_clean();
 
     // Last divine intervention
     // e.g. Dom or Tidy
-    $moduleLoader->runLevel(7); 
+    $moduleloader->runLevel(7); 
     echo config::$vars['final_output'];
 }

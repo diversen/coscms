@@ -513,7 +513,7 @@ class session {
                 return true;
             } else {
                 if ($setErrorModule){
-                    moduleLoader::$status[403] = 1;
+                    moduleloader::$status[403] = 1;
                 }
                 return false;
             }
@@ -525,7 +525,7 @@ class session {
         // someone who just have a valid $_SESSION['id'] set
         if (!isset($_SESSION[$allow]) || $_SESSION[$allow] != 1){
             if ($setErrorModule){
-                moduleLoader::$status[403] = 1;
+                moduleloader::$status[403] = 1;
             }
             return false;
         } else {
@@ -553,7 +553,7 @@ class session {
         }
         
         if (!$res) {
-            moduleLoader::$status[403] = 1;
+            moduleloader::$status[403] = 1;
             return false;
         } else {
             return true;
@@ -572,7 +572,7 @@ class session {
     public static function loginThenRedirect ($message){
         unset($_SESSION['redirect_on_login']);
         if (!session::isUser()){
-            moduleLoader::includeModule('account');
+            moduleloader::includeModule('account');
             $_SESSION['redirect_on_login'] = $_SERVER['REQUEST_URI'];
             session::setActionMessage($message);
             account::redirectDefault();

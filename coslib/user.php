@@ -55,12 +55,12 @@ class user {
         if (!isset(self::$profile_object)){
             
             $profile_system = config::getMainIni('profile_module');
-            if (!isset($profile_system) || !moduleLoader::isInstalledModule($profile_system)){
+            if (!isset($profile_system) || !moduleloader::isInstalledModule($profile_system)){
                 include_once "coslib/defaultProfile.php";
                 $profile_system = 'defaultProfile';
             }
             
-            moduleLoader::includeModule ($profile_system);
+            moduleloader::includeModule ($profile_system);
             self::$profile_object = new $profile_system();
         }
     }

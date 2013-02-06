@@ -111,7 +111,7 @@ class layout {
         // we then return empty array. module loader will know what to do when
         // including correct error pages. No menus from normal main module 
         // should then be loaded. 
-        if (!empty(moduleLoader::$status)){
+        if (!empty(moduleloader::$status)){
             return array();
         }
 
@@ -138,7 +138,7 @@ class layout {
         }
         
         // check if module being loaded is a child module to a parent module
-        $parent = moduleLoader::getParentModule($module);
+        $parent = moduleloader::getParentModule($module);
         if (isset($parent)) {
             self::$menu['sub'] = self::getMenuFromFile($module);
         }
@@ -293,7 +293,7 @@ class layout {
     public static function getBaseModuleMenu($module){
         $menu = array();
 
-        $parent = moduleLoader::getParentModule($module);
+        $parent = moduleloader::getParentModule($module);
         if (isset($parent)) { 
             $module = $parent;
         }
@@ -364,7 +364,7 @@ class layout {
     public static function parseAdminMenuList ($options = array()){
 
         $module_base = uri::$info['module_base'];
-        $parent = moduleLoader::getParentModule($module_base);
+        $parent = moduleloader::getParentModule($module_base);
         if ($parent){
             $module_base = "/" . $parent;
         }

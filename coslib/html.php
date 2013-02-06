@@ -1184,7 +1184,7 @@ EOF;
      * @return string $str the widget string 
      */
     public static function widget ($class, $method, $name = null, $value = null){
-        moduleLoader::includeModule ($class);
+        moduleloader::includeModule ($class);
         $value = self::setValue($name, $value);
         $str = $class::$method($name, $value);
         self::$fields[] = array ('value' => $str);
