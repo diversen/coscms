@@ -101,7 +101,6 @@ class cosMail {
     
     /**
      * sets type of mailing to do
-     * @staticvar null $options
      * @return null|string
      */
     public static function init () {
@@ -309,3 +308,4 @@ class cosMail {
         return true;
    }
 }
+
