@@ -10,11 +10,11 @@ class autolink {
      */
     public static function filter($text){
         
-       $text = self::autolink($text);
+       $text = self::setLinks($text);
        return $text;
     }
 
-    public static function autolink ($text) {
+    public static function setLinks ($text) {
         
         $text = " " . $text;
         $text = preg_replace("#([\n ])([a-zæøå]+?)://([a-zæøå0-9\-\.,\?!%\*_\#:;~\\&$@\/=\+]+)#i", "\\1<a href=\"\\2://\\3\" target=\"_blank\">\\2://\\3</a>", $text);
