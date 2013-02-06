@@ -104,11 +104,10 @@ class view {
      */
     static function includeModuleView ($module, $view, $vars = null, $return = null){
 
-        $base_path = _COS_PATH . '/' . _COS_MOD_DIR;
         if (self::$override) {
             $filename = self::getOverrideFilename();
         } else {
-            $filename = $base_path . "/$module/" . self::$options['folder'] . "/$view.inc";
+            $filename = _COS_MOD_PATH . "/$module/" . self::$options['folder'] . "/$view.inc";
         }
         
         if (is_file($filename)) {
@@ -168,7 +167,7 @@ class view {
                 return;
             }
         }
-        include_once _COS_PATH . '/' . _COS_MOD_DIR .  "/$module/$file";
+        include_once _COS_MOD_PATH .  "/$module/$file";
     }
     
     

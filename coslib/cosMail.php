@@ -139,6 +139,7 @@ class cosMail {
             $params["password"] = config::getMainIni('smtp_params_password');
             $params['debug'] = config::getMainIni('smtp_params_debug');
             $params['persist'] = config::getMainIni('smtp_params_persist');
+            $params['pipelining'] = config::getMainIni('smtp_params_pipelining');
             if (!config::getMainIni('smtp_params_persist')) {
                 $params['persist'] = false;
             }
@@ -226,7 +227,8 @@ class cosMail {
      * @return  int             $res 1 on success 0 on error
      */
     public static function multipart ($to, $subject, $message, $from = null, $reply_to = null, $more = array ()){
-
+        static $mail = null;
+        
         $headers = cosMail::getHeaders($subject, $from, $reply_to, $more);
         $mime = new cosMailMime();
         if (is_array($message)) {
@@ -255,7 +257,10 @@ class cosMail {
         $options = cosMail::init();
         $params = cosMail::getCosParams();
 
-        $mail = Mail::factory($options['mail_method'], $params);
+        if (!is_object($mail)) {
+            $mail = Mail::factory($options['mail_method'], $params);
+        }
+        
         $res = $mail->send($to, $mime_headers, $body);
         if (PEAR::isError($res)) {
             log::debug($res->getMessage());
