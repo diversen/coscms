@@ -119,7 +119,7 @@ function linkifyYouTubeURLs2($text) {
 
 function youtubeCallback ($text) {
     $embed_code = $text[1];
-    $ratio = filter_youtube::videoRatio(420);
+    $ratio = cosmedia::videoRatio(420);
     $width =420;
     $height = 315;
     $width = ceil($ratio * $width);
