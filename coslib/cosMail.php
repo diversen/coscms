@@ -96,6 +96,7 @@ class cosMailMime {
 
 class cosMail {
     
+    public static $mail = null;
     public static  $params = array ();
     
     /**
@@ -257,11 +258,11 @@ class cosMail {
         $options = cosMail::init();
         $params = cosMail::getCosParams();
 
-        if (!is_object($mail)) {
-            $mail = Mail::factory($options['mail_method'], $params);
+        if (!is_object(self::$mail)) {
+            self::$mail = Mail::factory($options['mail_method'], $params);
         }
         
-        $res = $mail->send($to, $mime_headers, $body);
+        $res = self::$mail->send($to, $mime_headers, $body);
         if (PEAR::isError($res)) {
             log::debug($res->getMessage());
             return false;
@@ -296,7 +297,11 @@ class cosMail {
         $params = cosMail::getCosParams ();
 
         $mail = Mail::factory($options['mail_method'], $params);
-        $res = $mail->send($to, $mime_headers, $body);
+        
+        if (!is_object(self::$mail)) {
+            self::$mail = Mail::factory($options['mail_method'], $params);
+        }
+        $res = self::$mail->send($to, $mime_headers, $body);
         if (PEAR::isError($res)) {
             log::error($res->getMessage());
             return false;
