@@ -548,7 +548,8 @@ class moduleloader {
         $info = $this->info;
         
         $controller = $info['controller'];
-        //echo $info['module_name'];
+        
+    //echo $info['module_name'];
         $module_class = 'cosmod_' . $info['module_base_name'] . "_module";
         $method_exists = @method_exists($module_class, $controller);
         
