@@ -548,6 +548,7 @@ class moduleloader {
         $info = $this->info;
         
         $controller = $info['controller'];
+        //echo $info['module_name'];
         $module_class = 'cosmod_' . $info['module_base_name'] . "_module";
         $method_exists = @method_exists($module_class, $controller);
         
@@ -562,13 +563,13 @@ class moduleloader {
         
         // We need is a controller
         if (!file_exists($this->info['controller_file']) && !$method_exists){
-            $mes = "Controller file does not exists: ";
+            $mes = "Controller file or action does not exists: ";
             $mes.= $this->info['controller_file'];
             log::error($mes);
             self::$status[404] = 1;
             $this->setErrorModuleInfo();    
         }
-        //accountCreate::displayLogout();
+
         if ($method_exists) {
             $module_class::$controller();
             $str = ob_get_contents();
@@ -690,7 +691,7 @@ class moduleloader {
     public static function subModuleGetPreContent ($modules, $options) {
         $str = '';
         $ary = array();
-        if (!is_array($modules)) return;
+        if (!is_array($modules)) return array ();
         foreach ($modules as $val){
             $str = '';
             if (method_exists($val, 'subModulePreContent') && moduleloader::isInstalledModule($val)){
@@ -891,7 +892,7 @@ class moduleloader {
      * @param string $model e.g. accuount/create
      */
     public static function includeModel ($model) {
-        $module_path = _COS_MOD_DIR  . '/' . $model;
+        $module_path = _COS_MOD_PATH  . '/' . $model;
         $ary = explode('/', $model);
         $last = array_pop($ary);
         $model_file = $module_path . '/' . "model.$last.inc";
@@ -916,13 +917,15 @@ class moduleloader {
      */
     public static function initFilter ($filter) {
         // check for filter in coslib first. 
+        if (!$filter) return;
         
         $file_path = _COS_PATH . "/coslib/filters/$filter.php";
-        if (file_exists($file_path)) { 
+        if (file_exists($file_path)) {             
             include_once "coslib/filters/$filter.php";
             return;
         }
             
+
         $class_path = _COS_MOD_PATH . "/filter_$filter/$filter.inc";
         include_once $class_path;
         moduleloader::setModuleIniSettings("filter_$filter");
@@ -955,6 +958,7 @@ class moduleloader {
      * @return string $filters_help
      */
     public static function getFiltersHelp ($filters) {
+        if (empty($filters)) return '';
         
         moduleloader::includeFilters($filters);
         $str = '<span class="small-font">';
@@ -976,8 +980,10 @@ class moduleloader {
      * @return string $content
      */
     public static function getFilteredContent ($filter, $content) {
+        if (!$filter) return $content;
+        
         if (!is_array($filter)){
-            
+
             moduleloader::includeFilters($filter);
             $class = $filter;
             $filter_class = new $class;
@@ -993,7 +999,8 @@ class moduleloader {
             return $content;
         }
 
-        if (is_array ($filter)){
+        if (!empty ($filter)){
+
             foreach($filter as $key => $val){
                 moduleloader::includeFilters($val);
                 $class = $val; 
