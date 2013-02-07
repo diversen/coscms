@@ -9,7 +9,14 @@
 /**
  * define path to modules
  */
-define ('_COS_MOD_DIR', 'modules');
+
+$mod_dir = config::getMainIni('module_dir');
+
+if (!$mod_dir) {
+    $mod_dir = 'modules';
+}
+
+define ('_COS_MOD_DIR', $mod_dir);
 define ('_COS_MOD_PATH', _COS_PATH . '/' . _COS_MOD_DIR);
 
 /**
@@ -213,7 +220,7 @@ class moduleloader {
         if (!isset($this->levels[$level])) return;
         foreach($this->levels[$level] as $val){
             moduleloader::setModuleIniSettings($val);
-            $class_path = _COS_PATH . '/' . _COS_MOD_DIR . "/$val/model.$val.inc";
+            $class_path = _COS_MOD_PATH . "/$val/model.$val.inc";
             include_once $class_path;
             $class = new $val;
             $class->runLevel($level);
