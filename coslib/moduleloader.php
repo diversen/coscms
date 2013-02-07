@@ -231,7 +231,7 @@ class moduleloader {
         $this->info['module_name'] = $frontpage_module;
         $this->info['module_base_name'] = $frontpage_module;
         $this->info['base'] = $base = _COS_MOD_PATH;
-        $this->info['language_file'] = $base . "/$frontpage_module" . '/lang/' . config::$vars['coscms_main']['language'] . '/language.inc';
+        $this->info['language_file'] = $base . "/$frontpage_module" . '/lang/' . config::getMainIni('language') . '/language.inc';
         $this->info['ini_file'] =  $base . "/$frontpage_module"  . "/$frontpage_module" . '.ini';
         $this->info['model_file'] = $base . "/$frontpage_module"  . "/model." . $frontpage_module  . ".inc";
         $this->info['view_file'] = $base . "/$frontpage_module"  . "/view." . $frontpage_module . ".inc";
@@ -246,6 +246,7 @@ class moduleloader {
         }
         $this->info['controller_file'] = $controller_file;
         $this->info['controller'] = 'index';
+        $this->info['module_class'] = $this->info['module_name'] . "_module";
 
     }
     
@@ -258,11 +259,17 @@ class moduleloader {
      * But it wil lbe easy to implement at some point. 
      * 
      */
-    public function setErrorModuleInfo(){     
-        $error_module = 'error';
-        $this->info['module_name'] = 'error';
+    public function setErrorModuleInfo(){
+        
+        $error_module = config::getMainIni('error_module');
+        if (!$error_module) {
+            $error_module = 'error';
+        }
+        $this->info['module_name'] = $error_module;
+        $this->info['module_base_name'] = $error_module;
         $this->info['base'] = $base = _COS_MOD_PATH;
-        $this->info['language_file'] = $base . "/$error_module" . '/lang/' . config::$vars['coscms_main']['language'] . '/language.inc';
+        
+        $this->info['language_file'] = $base . "/$error_module" . '/lang/' . config::getMainIni('language'). '/language.inc';
         $this->info['ini_file'] =  $base . "/$error_module"  . "/$error_module" . '.ini';
         $this->info['model_file'] = $base . "/$error_module"  . "/model." . $error_module  . ".inc";
         $this->info['view_file'] = $base . "/$error_module"  . "/view." . $error_module . ".inc";
@@ -276,15 +283,13 @@ class moduleloader {
 
         $this->info['controller_file'] = $controller_file;
         $this->info['controller'] = "403.php";
+        $this->info['module_class'] = $this->info['module_name'];
         
     }
     
 
     /**
-     * method for setting the requested module info
-     * According to the layout of the coscms project there it has not
-     * been possible to create routes and route a specific url to 
-     * a specific controller. 
+     * Method for setting the requested module info
      */
     public function setModuleInfo ($route = null){
 
@@ -300,19 +305,20 @@ class moduleloader {
 
         // if we only have one fragment 
         // means we are in frontpage module
-        $frontpage_module = config::$vars['coscms_main']['frontpage_module'];
+        $frontpage_module = config::getMainIni('frontpage_module');
         $this->info['module_name'] = $info['module_name'];
-        if ($uri->numFragments() == 1){
-           
+        if ($uri->numFragments() == 1){         
             $this->info['module_base_name'] = $frontpage_module;
+            $this->info['module_class'] = $this->info['module_name'];
             $this->info['base'] = $base = _COS_MOD_PATH . "/$frontpage_module";
         } else {
             $this->info['module_base_name'] = $info['module_base_name'];
+            $this->info['module_class'] = str_replace('/', '_', $this->info['module_name']);
             $this->info['base'] = $base = _COS_MOD_PATH;
         }
 
         
-        $this->info['language_file'] = $base . $info['module_base'] . '/lang/' . config::$vars['coscms_main']['language'] . '/language.inc';
+        $this->info['language_file'] = $base . $info['module_base'] . '/lang/' . config::getMainIni('language'). '/language.inc';
         $this->info['ini_file'] =  $base . $info['module_base'] . $info['module_base'] . '.ini';
         $this->info['ini_file_php'] =  $base . $info['module_base'] . $info['module_base'] . '.php.ini';
         $this->info['model_file'] = $base . $info['controller_path_str'] . "/model." . $info['module_frag'] . ".inc";
@@ -322,8 +328,7 @@ class moduleloader {
         
         $this->info['controller_file'] = $controller_file;
         $this->info['controller'] = $info['controller'];
-
-        $this->info['module_class'] = 'cosmod_' . $info['module_base_name'] . "_module";
+        //$this->info['module_class'] = 'cosmod_' . $info['module_base_name'] . "_module";
         
 
 
@@ -545,28 +550,21 @@ class moduleloader {
      */
     public function loadModule(){
         
-        $info = $this->info;
-        
-        $controller = $info['controller'];
-        
-    //echo $info['module_name'];
-        $module_class = 'cosmod_' . $info['module_base_name'] . "_module";
-        $method_exists = @method_exists($module_class, $controller);
-        
+        $info = $this->info;       
+        $controller = $this->info['controller'];
+
         // only allow installed modules
-        if (!$this->isInstalledModule($info['module_base_name'])){
+        if (!$this->isInstalledModule($this->info['module_base_name'])){
             self::$status[404] = 1;
-            $mes = "module not installed: ";
-            $mes.= $info['module_base_name'];
-            log::error($mes);
             $this->setErrorModuleInfo(); 
         }
+
+        $module_class = 'cosmod_' . $this->info['module_class'] . "_module";
+        $method_exists = @method_exists($module_class, $controller);
+        
         
         // We need is a controller
         if (!file_exists($this->info['controller_file']) && !$method_exists){
-            $mes = "Controller file or action does not exists: ";
-            $mes.= $this->info['controller_file'];
-            log::error($mes);
             self::$status[404] = 1;
             $this->setErrorModuleInfo();    
         }
