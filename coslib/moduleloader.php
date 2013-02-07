@@ -860,9 +860,15 @@ class moduleloader {
             return true;
         }
         
+        // find base module. 
+        // only in base modules we set language and ini settings
+        
+        $ary = explode('/', $module);
+        $base_module = $ary[0]; 
+        
         // lang and ini only exists in base module
-        lang::loadModuleLanguage($module);
-        moduleloader::setModuleIniSettings($module);
+        lang::loadModuleLanguage($base_module);
+        moduleloader::setModuleIniSettings($base_module);
         
         // new include style
         $module_file = _COS_MOD_PATH . "/$module/module.php";
@@ -874,7 +880,6 @@ class moduleloader {
             
         // old include style
         $module_path = _COS_MOD_PATH . '/' . $module;
-        $ary = explode('/', $module);
 
         $load = array_pop($ary);
         $model_file = $module_path . '/' . "model.$load.inc";  
