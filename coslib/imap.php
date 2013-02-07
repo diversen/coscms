@@ -242,10 +242,26 @@ class imap {
                 //print_r($part->getHeaders());
                 
             } catch (Exception $e) {
-                error_log($e->getMessage());
+                log::error($e->getMessage());
             }
         } 
         return $parts;
+    }
+    
+    
+    function findPart ($id, $type ='text/plain') {
+        $foundPart = null;
+        foreach (new RecursiveIteratorIterator($this->mail->getMessage($id)) as $part) {
+            try {
+                if (strtok($part->contentType, ';') == $type) {
+                    $foundPart = $part;
+                    return $foundPart;
+                    break;
+                }
+            } catch (Zend_Mail_Exception $e) {
+                 log::error($e->getMessage());
+            }
+        }
     }
     
 
