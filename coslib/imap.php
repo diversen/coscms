@@ -1,6 +1,5 @@
 <?php
 
-include_once "coslib/strings.php";
 include_once "Zend/Mail/Storage/Imap.php";
 
 /**

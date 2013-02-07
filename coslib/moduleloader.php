@@ -335,7 +335,9 @@ class moduleloader {
         
         $this->info['controller_file'] = $controller_file;
         $this->info['controller'] = $info['controller'];
-        //$this->info['module_class'] = 'cosmod_' . $info['module_base_name'] . "_module";
+        
+        // set module class name from path e.g. content/admin will become contentAdmin 
+        $this->info['module_class'] = self::modulePathToClassName($this->info['module_name']);
         
 
 
@@ -559,16 +561,16 @@ class moduleloader {
         
         $info = $this->info;       
         $controller = $this->info['controller'];
+        $action = $controller. 'Action';
 
         // only allow installed modules
         if (!$this->isInstalledModule($this->info['module_base_name'])){
             self::$status[404] = 1;
             $this->setErrorModuleInfo(); 
         }
-
-        $module_class = 'cosmod_' . $this->info['module_class'] . "_module";
-        $method_exists = @method_exists($module_class, $controller);
         
+        $module_class = $info['module_class'];
+        $method_exists = @method_exists($module_class, $action);
         
         // We need is a controller
         if (!file_exists($this->info['controller_file']) && !$method_exists){
@@ -577,7 +579,15 @@ class moduleloader {
         }
 
         if ($method_exists) {
-            $module_class::$controller();
+            $init_action = 'initAction';
+            
+            $module_object = new $module_class();
+            if (method_exists($module_class, $init_action) ) {
+                $module_object->$init_action();
+            }
+            
+            
+            $module_object->$action();
             $str = ob_get_contents();
             ob_clean();
             return $str;
@@ -666,6 +676,7 @@ class moduleloader {
         }
     }
     
+    /*
     public static function setModuleClassSettings ($module) {
         static $set = array();     
         if (isset($set[$module])) {
@@ -683,7 +694,7 @@ class moduleloader {
         $class = $module . "Config";
         $obj = new $class;
         return $obj->getConfig();      
-    }
+    }*/
     
 
     /**
@@ -838,16 +849,30 @@ class moduleloader {
     }
      
     /**
-     * include a module
+     * include a module. This will include the module file
+     * and load language and configuration
      * @param string $module
+     * @retur boolean true on success and false on failure
      */
     public static function includeModule ($module) {
         static $modules = array ();
         if (isset($modules[$module])){
-            // module has been included
             return true;
         }
-
+        
+        // lang and ini only exists in base module
+        lang::loadModuleLanguage($module);
+        moduleloader::setModuleIniSettings($module);
+        
+        // new include style
+        $module_file = _COS_MOD_PATH . "/$module/module.php";
+        if (file_exists($module_file)) {
+            include_once $module_file;
+            return;
+        }
+        
+            
+        // old include style
         $module_path = _COS_MOD_PATH . '/' . $module;
         $ary = explode('/', $module);
 
@@ -858,10 +883,7 @@ class moduleloader {
 
         $base = $ary[0];
         
-        // lang and ini only exists in base module
-        lang::loadModuleLanguage($base);
-        moduleloader::setModuleIniSettings($base);
-        moduleloader::setModuleClassSettings($base);
+        
         
         if (file_exists($view_file)){
             include_once $view_file;
@@ -869,16 +891,10 @@ class moduleloader {
         
         if (file_exists($model_file)){  
             include_once $model_file;
-            $modules[$module] = true;
-            
-            
-            
+            $modules[$module] = true;            
             return true;
         } 
-        
         return false;
-        
-        
     }
     
     /**
