@@ -454,6 +454,7 @@ class moduleloader {
             return false;
         }
         
+        echo $reference;
         $res = moduleloader::includeModule($reference);
         if ($res) {
             // transform a reference (e.g. contentArticle) into a class name
@@ -874,7 +875,7 @@ class moduleloader {
         $module_file = _COS_MOD_PATH . "/$module/module.php";
         if (file_exists($module_file)) {
             include_once $module_file;
-            return;
+            return true;
         }
         
             
