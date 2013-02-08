@@ -89,8 +89,8 @@ $_PROFILE_MODULES = array (
     'load_on' => NULL,
     'parent' => NULL,
     'is_shell' => NULL,
-    'public_clone_url' => 'git://github.com/diversen/google_analytics.git',
-    'private_clone_url' => 'git@github.com:diversen/google_analytics.git',
+    'public_clone_url' => 'git://github.com/diversen/googleanalytics.git',
+    'private_clone_url' => 'git@github.com:diversen/googleanalytics.git',
   ),
   7 => 
   array (
