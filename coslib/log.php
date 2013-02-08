@@ -75,8 +75,6 @@ function cos_error_log ($message, $write_file = 1) {
     }
     
     $message = strftime('%c', time()) . ": " . $message;
-    $message.="\n";
-    
     
     if ($write_file) {
         $write_file = _COS_PATH . "/logs/error.log";
