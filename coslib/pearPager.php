@@ -72,7 +72,7 @@ class pearPager {
         $uri = $uri_ary[0];
 
         if (moduleloader::isInstalledModule('rewrite_manip')) {
-            $alt_uri = rewrite_manip::getRowFromRequest($uri);
+            $alt_uri = rewrite::getRowFromRequest($uri);
             if (isset($alt_uri)){
                 $uri = $alt_uri; //$row['rewrite_uri'];
             }

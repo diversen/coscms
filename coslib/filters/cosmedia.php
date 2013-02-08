@@ -23,8 +23,9 @@ class cosmedia {
         return $text;
     }
     
-    public static function videoRatio ($default = 400) {
-        $width = config::getModuleIni('youtube_width');
+    public static function videoRatio ($default = 600) {
+        
+        $width = config::getMainIni('media_width');
         if ($width) {
             return $ratio = $width / $default;
         } else {
@@ -70,7 +71,7 @@ function soundcloudCallback ($match) {
 
 function vimeoCallback ($text) {
 
-    $ratio = filter_youtube::videoRatio(400);
+    $ratio = cosmedia::videoRatio(400);
     $width =400;
     $height = 225;
     $width = ceil($ratio * $width);
@@ -120,12 +121,12 @@ function linkifyYouTubeURLs2($text) {
 function youtubeCallback ($text) {
     $embed_code = $text[1];
     $ratio = cosmedia::videoRatio(420);
+    
+    //
     $width =420;
     $height = 315;
     $width = ceil($ratio * $width);
     $height = ceil($ratio * $height); 
-    
-    
     
     $str = <<<EOF
 <iframe 

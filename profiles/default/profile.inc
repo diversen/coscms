@@ -82,15 +82,15 @@ $_PROFILE_MODULES = array (
   6 => 
   array (
     'id' => '7',
-    'module_name' => 'google_analytics',
-    'module_version' => '1.70',
+    'module_name' => 'googleanalytics',
+    'module_version' => '1.71',
     'menu_item' => '1',
     'run_level' => '0,5',
     'load_on' => NULL,
     'parent' => NULL,
     'is_shell' => NULL,
-    'public_clone_url' => 'git://github.com/diversen/google_analytics.git',
-    'private_clone_url' => 'git@github.com:diversen/google_analytics.git',
+    'public_clone_url' => 'git://github.com/diversen/googleanalytics.git',
+    'private_clone_url' => 'git@github.com:diversen/googleanalytics.git',
   ),
   7 => 
   array (

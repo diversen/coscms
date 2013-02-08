@@ -10,7 +10,7 @@ ini_set('include_path',
     _COS_PATH . PATH_SEPARATOR . 
         $ini_path . PATH_SEPARATOR);
 
-include_once "coslib/shell.php";
+include_once "coslib/mainCli.php";
 
 mainCli::init();
 mainCli::run();

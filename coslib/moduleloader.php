@@ -454,6 +454,7 @@ class moduleloader {
             return false;
         }
         
+        echo $reference;
         $res = moduleloader::includeModule($reference);
         if ($res) {
             // transform a reference (e.g. contentArticle) into a class name
@@ -860,21 +861,26 @@ class moduleloader {
             return true;
         }
         
+        // find base module. 
+        // only in base modules we set language and ini settings
+        
+        $ary = explode('/', $module);
+        $base_module = $ary[0]; 
+        
         // lang and ini only exists in base module
-        lang::loadModuleLanguage($module);
-        moduleloader::setModuleIniSettings($module);
+        lang::loadModuleLanguage($base_module);
+        moduleloader::setModuleIniSettings($base_module);
         
         // new include style
         $module_file = _COS_MOD_PATH . "/$module/module.php";
         if (file_exists($module_file)) {
             include_once $module_file;
-            return;
+            return true;
         }
         
             
         // old include style
         $module_path = _COS_MOD_PATH . '/' . $module;
-        $ary = explode('/', $module);
 
         $load = array_pop($ary);
         $model_file = $module_path . '/' . "model.$load.inc";  

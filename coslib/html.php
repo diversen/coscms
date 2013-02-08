@@ -1052,8 +1052,8 @@ EOF;
      * @return string $url rewritten if rewrite url entered url exists
      */
     public static function getUrl ($url) {
-       if (moduleloader::isInstalledModule('rewrite_manip')) {
-            $alt_uri = rewrite_manip::getRowFromRequest(html::specialDecode(rawurldecode($url)));
+       if (moduleloader::isInstalledModule('rewrite')) {
+            $alt_uri = rewrite::getRowFromRequest(html::specialDecode(rawurldecode($url)));
             if (isset($alt_uri)){
                 $url = $alt_uri;
             }
