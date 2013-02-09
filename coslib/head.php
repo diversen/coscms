@@ -89,6 +89,7 @@ if (!defined('_COS_CLI')){
         http::redirectHeaders($server_redirect);
     }
     
+    
     // redirect to https is set in config.in
     // force anything into ssl mode
     $server_force_ssl = config::getMainIni('server_force_ssl');
@@ -120,6 +121,8 @@ if (!defined('_COS_CLI')){
     // in order to change e.g. file settings you can change the now.
     // See module configdb for example. 
     $moduleloader->runLevel(2);
+    
+    
 
     // find out what locales we are using
     if (isset(config::$vars['coscms_main']['locale'])){
@@ -136,6 +139,7 @@ if (!defined('_COS_CLI')){
 
     $moduleloader->runLevel(4);
     
+    
     // set default timezone
     date_default_timezone_set(config::$vars['coscms_main']['date_default_timezone']);
 
@@ -144,7 +148,9 @@ if (!defined('_COS_CLI')){
 
     // load languages.
     lang::init();    
+
     $moduleloader->runLevel(5);
+    
     
     // load url routes if any
     urldispatch::setDbRoutes();

@@ -208,7 +208,7 @@ function web_install_add_user () {
         }
         
         if (!empty($errors)){
-            view_form_errors($errors);
+            template::html::errors($errors);
         } else {
             $db = new db();
             

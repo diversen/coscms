@@ -13,7 +13,7 @@
  * 
  * @package template
  */
-abstract class template {
+class template {
     
     /**
      * holding css files
@@ -615,6 +615,17 @@ abstract class template {
         }
     }
     
+    function getFileIncludeContents($filename, $vars = null) {
+        if (is_file($filename)) {
+            ob_start();
+            include $filename;
+            $contents = ob_get_contents();
+            ob_end_clean();
+            return $contents;
+        }
+        return false;
+    }
+    
     /**
      * method for parsing a css file and substituing css var with
      * php defined values
@@ -623,7 +634,7 @@ abstract class template {
      * @param int    $order
      */
     public static function setParseVarsCss($css, $vars, $order = null){
-        $str = get_include_contents($css, $vars);
+        $str = template::getFileIncludeContents($css, $vars);
         //$str = file_get_contents($css);
         if (isset($order)){
             self::$inlineCss[$order] = $str;
@@ -782,92 +793,5 @@ abstract class template {
         }        
     }
     
-    /**
-     * template function for printing a headline
-     * @param type $message
-     * @param type $tag
-     */
-    public static function headline ($message, $tag = 'h3') {
-        echo "<!-- headline_message -->\n";
-        echo "<div class=\"headline\">\n";
-        echo "<$tag>$message</$tag>\n";
-        echo "</div>\n";
-    }
 
-    /**
-     * template function for printing form errors
-     * @param  array $errors to display on wrong form submit
-     */
-    public static function errors($errors){ 
-        if (is_string($errors)){
-            self::error($errors);
-            return;
-        }
-        echo "<!-- view_form_errors -->\n";
-        echo "<div id=\"form_error\"><ul>\n";
-        foreach($errors as $error){
-            echo "<li>$error</li>\n";
-        }
-        echo "</ul></div>\n";
-        echo "<!-- / end form_error -->\n";
-    }
-
-    /**
-     * function for displaying an confirm message
-     * @param   string  $message positive confirmation on correct filled form
-     */
-    public static function confirm($message){
-        echo "<!-- view_confirm -->\n";
-        echo "<div id=\"form_confirm\">\n";
-        echo "<ul><li>$message</li></ul>\n";
-        echo "</div>\n";
-    }
-
-    /**
-     * print a single error
-     * @param string $error message
-     */
-    public static function error($message){
-        echo "<!-- view_error -->\n";
-        echo "<div id=\"form_error\">\n";
-        echo "<ul><li>$message</li></ul>\n";
-        echo "</div>\n";
-
-    }
-}
-
-/**
- * function for including a view file.
- * Maps to module (e.g. 'tags' and 'view file' e.g. 'add')
- * we presume that views are placed in modules views folder
- * e.g. tags/views And we presume that views always has a .inc
- * postfix
- * @ignore
- * @param string $module the module where our view exists
- * @param string $view the view file we want to use
- * @param mixed $vars vars to substitue in view
- * @param boolean $return if true we will return the content of the view
- *                        if false we echo the view
- */
-function include_view ($module, $view, $vars = null){
-    return view::includeModuleView($module, $view, $vars, 1); 
-}
-
-/**
- * function for getting content from a file
- * used as a very simple template function
- * @deprecated
- * @param string $filename the full path of the file to include
- * @param mixed  $vars the var to sustitute with
- * @return string $str the parsed template.
- */
-function get_include_contents($filename, $vars = null) {
-    if (is_file($filename)) {
-        ob_start();
-        include $filename;
-        $contents = ob_get_contents();
-        ob_end_clean();
-        return $contents;
-    }
-    return false;
 }
