@@ -44,8 +44,8 @@ class layout {
         template::init($template);
         template::loadTemplateIniAssets();
         
+        
         self::defineLayoutConstants ();
-
         self::$menu['module'] = array ();
         self::$menu['sub'] = array ();
         self::$menu['main'] = array ();
@@ -86,7 +86,7 @@ class layout {
         if (!defined('MENU_SUBLIST_START')) {
             define('MENU_SUBLIST_START', '<li>');
         }
-        if ('MENU_SUBLIST_END') {
+        if (!defined('MENU_SUBLIST_END')) {
             define('MENU_SUBLIST_END', '</li>');
         }
 
