@@ -197,8 +197,22 @@ class file {
      * remove directory recursively
      * @param string $path 
      */
-    public static function rrmdir ($path) {
-        file::rrmdir($path);
+    public static function rrmdir ($dir) {
+        $fp = opendir($dir);
+        if ( $fp ) {
+            while ($f = readdir($fp)) {
+                $file = $dir . "/" . $f;
+                if ($f == "." || $f == "..") {
+                    continue;
+                } else if (is_dir($file) && !is_link($file)) {
+                    file::rrmdir($file);
+                } else {
+                    unlink($file);
+                }
+            }
+            closedir($fp);
+            rmdir($dir);
+       }
     }
     
     public static function scandirRecursive ($dir) {
@@ -307,19 +321,5 @@ function transform_bytes($bytes, $force_unit = NULL, $format = NULL, $si = TRUE)
  * @param string $dir 
  */
 function rrmdir($dir) {
-    $fp = opendir($dir);
-    if ( $fp ) {
-        while ($f = readdir($fp)) {
-            $file = $dir . "/" . $f;
-            if ($f == "." || $f == "..") {
-                continue;
-            } else if (is_dir($file) && !is_link($file)) {
-                file::rrmdir($file);
-            } else {
-                unlink($file);
-            }
-        }
-        closedir($fp);
-        rmdir($dir);
-   }
+    file::rrmdir($dir);
 }
