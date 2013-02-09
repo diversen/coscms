@@ -12,7 +12,7 @@ if (!moduleloader::includeRefrenceModule()){
 
 $link = moduleloader::$referenceLink;
 $headline = lang::translate('video_delete_file') . MENU_SUB_SEPARATOR_SEC . $link;
-headline_message($headline);
+html::headline($headline);
 
 template::setTitle(lang::translate('video_add_file'));
 

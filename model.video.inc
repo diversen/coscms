@@ -380,10 +380,10 @@ class video {
                     header($header);
                     exit;
                 } else {
-                    view_form_errors(self::$errors);
+                    html::errors(self::$errors);
                 }
             } else {
-                view_form_errors(self::$errors);
+                html::errors(self::$errors);
             }
         }
         $this->viewFileForm('insert');
@@ -404,7 +404,7 @@ class video {
                     exit;
                 }
             } else {
-                view_form_errors(self::$errors);
+                html::errors(self::$errors);
             }
         }
         $this->viewFileForm('delete', self::$fileId);
@@ -424,10 +424,10 @@ class video {
                     header($header);
                     exit;
                 } else {
-                    view_form_errors(self::$errors);
+                    html::errors(self::$errors);
                 }
             } else {
-                view_form_errors(self::$errors);
+                html::errors(self::$errors);
             }
         }
         $this->viewFileForm('update', self::$fileId);

@@ -13,7 +13,7 @@ moduleloader::$referenceOptions = array ('edit_link' => 'true');
 
 $link = moduleloader::$referenceLink;
 $headline = lang::translate('video_edit_file') . MENU_SUB_SEPARATOR_SEC . $link;
-headline_message($headline);
+html::headline($headline);
 
 template::setTitle(lang::translate('video_edit_file'));
 
