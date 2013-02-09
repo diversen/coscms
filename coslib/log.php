@@ -19,7 +19,7 @@ class log {
      * @param boolean $write_file
      */
     public static function error ($message, $write_file = true) {
-        cos_error_log($message, $write_file);
+        log::error($message, $write_file);
     }
     
     /**
@@ -97,7 +97,7 @@ function cos_debug ($message) {
     }
     
     if ($debug) {
-        cos_error_log($message);
+        log::error($message);
         return;
     }    
 }

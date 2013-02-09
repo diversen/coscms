@@ -65,7 +65,13 @@ function soundcloudCallback ($match) {
     $url = $match[0];
     
     include_once "soundcloud.php";
-    $atts = 'soundcloud params="color=33e040&theme_color=80e4a0&iframe=true';
+    //$atts = 'soundcloud params="color=33e040&theme_color=80e4a0&iframe=true';
+    $atts = array (
+        'color' => '33e040',
+        'theme_color' => '80e4a0',
+        'iframe' => true
+        
+            );
     return soundcloud_shortcode($atts, $url);
 }
 

@@ -198,7 +198,7 @@ class file {
      * @param string $path 
      */
     public static function rrmdir ($path) {
-        rrmdir($path);
+        file::rrmdir($path);
     }
     
     public static function scandirRecursive ($dir) {
@@ -314,7 +314,7 @@ function rrmdir($dir) {
             if ($f == "." || $f == "..") {
                 continue;
             } else if (is_dir($file) && !is_link($file)) {
-                rrmdir($file);
+                file::rrmdir($file);
             } else {
                 unlink($file);
             }
