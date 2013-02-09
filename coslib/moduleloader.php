@@ -454,7 +454,6 @@ class moduleloader {
             return false;
         }
         
-        echo $reference;
         $res = moduleloader::includeModule($reference);
         if ($res) {
             // transform a reference (e.g. contentArticle) into a class name

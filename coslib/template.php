@@ -781,6 +781,59 @@ abstract class template {
                     array_merge_recursive(config::$vars['coscms_main']['module'], $ary);
         }        
     }
+    
+    /**
+     * template function for printing a headline
+     * @param type $message
+     * @param type $tag
+     */
+    public static function headline ($message, $tag = 'h3') {
+        echo "<!-- headline_message -->\n";
+        echo "<div class=\"headline\">\n";
+        echo "<$tag>$message</$tag>\n";
+        echo "</div>\n";
+    }
+
+    /**
+     * template function for printing form errors
+     * @param  array $errors to display on wrong form submit
+     */
+    public static function errors($errors){ 
+        if (is_string($errors)){
+            self::error($errors);
+            return;
+        }
+        echo "<!-- view_form_errors -->\n";
+        echo "<div id=\"form_error\"><ul>\n";
+        foreach($errors as $error){
+            echo "<li>$error</li>\n";
+        }
+        echo "</ul></div>\n";
+        echo "<!-- / end form_error -->\n";
+    }
+
+    /**
+     * function for displaying an confirm message
+     * @param   string  $message positive confirmation on correct filled form
+     */
+    public static function confirm($message){
+        echo "<!-- view_confirm -->\n";
+        echo "<div id=\"form_confirm\">\n";
+        echo "<ul><li>$message</li></ul>\n";
+        echo "</div>\n";
+    }
+
+    /**
+     * print a single error
+     * @param string $error message
+     */
+    public static function error($message){
+        echo "<!-- view_error -->\n";
+        echo "<div id=\"form_error\">\n";
+        echo "<ul><li>$message</li></ul>\n";
+        echo "</div>\n";
+
+    }
 }
 
 /**

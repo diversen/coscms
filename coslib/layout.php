@@ -42,11 +42,11 @@ class layout {
         self::includeTemplateCommon($template);
         template::init($template);
         template::loadTemplateIniAssets();
-        //if (!isset(self::$menu['module'])) {
-            self::$menu['module'] = array ();
-            self::$menu['sub'] = array ();
-            self::$menu['main'] = array ();
-        //}
+
+        self::$menu['module'] = array ();
+        self::$menu['sub'] = array ();
+        self::$menu['main'] = array ();
+        
     }
     
     public static function includeTemplateCommon($template) {

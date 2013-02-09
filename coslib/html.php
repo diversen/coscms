@@ -1190,34 +1190,6 @@ EOF;
         self::$fields[] = array ('value' => $str);
         return $str;
     }
-
-    /**
-     * generic method for displaying errors on form submission
-     * If template method for displaying errors (view_form_errors) 
-     * exists we use this 
-     * @param array $errors the errors to display
-     * @return string $str html with errors 
-     */
-    public static function errors ($errors) {
-            if (function_exists('template_view_errors')) {
-                view_form_errors($errors);
-                return;
-            }
-            if (is_string($errors)){
-                echo "<!-- view_error -->\n";
-                echo "<div class=\"form_error\">\n";
-                echo "<p>$message</p></div>\n";
-                return;
-            }
-            echo "<!-- view_form_errors -->\n";
-            echo "<div class=\"form_error\"><ul>\n";
-            foreach($errors as $error){
-                echo "<li>$error</li>\n";
-            }
-            echo "</ul></div>\n";
-            echo "<!-- / end form_error -->\n";
-            return;
-    }
     
     /**
      * method for sanitizing a url real simple
@@ -1235,37 +1207,4 @@ EOF;
         return $clean;
         
     }
-}
-
-/**
- * function for creating a link
- * @ignore
- * @deprecated see html::createHrefImage()
- * @param   string  the url to create the link from
- * @param   string  the title of the link
- * @param   boolean if true we only return the url and not the html link
- * @return  string  the <code><a href='url'>title</></code> tag
- */
-function create_image_link($url, $href_image, $options = null){
-    
-    $str = '';
-    if (isset($options['alt'])) $str.= " alt = \"$options[alt]\" ";
-    if (isset($options['title'])) $str.= " title = \"$options[title]\" ";
-    if (isset($options['width'])) $str.= " width = \"$options[width]\" ";
-    if (isset($options['height'])) $alt = $options['height'];
-    return "<a href=\"$url\"><img $str src=\"$href_image\" /></a>";
-}
-/**
- * @ignore
- * @deprecated see html::createImage($src)
- * @param type $href_image
- * @param type $options
- * @return type 
- */
-function create_image($href_image, $options = null){  
-    $str = '';
-    if (isset($options['alt'])) $str.= " alt = \"$options[alt]\" ";
-    if (isset($options['width'])) $str.= " width = \"$options[width]\" ";
-    if (isset($options['height'])) $alt = $options['height'];
-    return "<img $str src=\"$href_image\" />";
 }
