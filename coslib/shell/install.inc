@@ -65,6 +65,9 @@ function cos_install($options = false) {
     $pro->setProfileTemplate();
 
     cos_create_files();
+    
+    $md = new moduleinstaller();
+    $md->reloadCosLanguages();
 
 }
 
