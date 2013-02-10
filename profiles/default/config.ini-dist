@@ -1,17 +1,17 @@
-url = "mysql:dbname=osnet;host=localhost;charset=utf8"
-username = "root"
-password = "pass"
+url = "mysql:dbname=osnet;host=localhost"
+username = ""
+password = ""
 server_name = "www.os-cms.net"
-;server_redirect = 'www.os-cms.net'
+server_redirect = "www.os-cms.net"
 send_mail = 1
 smtp_mail = 1
 site_email = "os-cms.net <mail@os-cms.net>"
-smtp_params_host = "mail.example.com"
-smtp_params_sender = "mail <mail@example.com>"
-smtp_params_port     = "465"
-smtp_params_auth     =  "true"
-smtp_params_username = "mail@example.com"
-smtp_params_password = "pass"
+smtp_params_host = "mail.os-cms.dk"
+smtp_params_sender = "os-cms.net <mail@os-cms.net>"
+smtp_params_port = 465
+smtp_params_auth = "true"
+smtp_params_username = ""
+smtp_params_password = ""
 date_default_timezone = "Europe/Copenhagen"
 date_format_long = "%d-%b-%Y %T"
 date_format_short = "%d-%b-%Y"
@@ -23,24 +23,20 @@ session_path = "/"
 session_host = ""
 session_handler = "memcache"
 cookie_time = -1
-frontpage_module = "content"
+frontpage_module = "blog"
 profile_module = "account_profile"
-blocks_top[0] = "/system/blocks/system_admin_menu_top.inc"
-blocks[1] = "/content/blocks/content_tree_keep_state.inc"
-blocks_all = "blocks,blocks_top"
-domain = 'default'
-debug = 1
+domain = "default"
+debug = 0
 cached_assets = 1
 cached_assets_reload = 0
 captcha_image_module = 1
-;image_driver = 'Imagick3'
-[stage]
-server_name = 'dbi.no-ip.org'
-:server_redirect ='dbi.no-ip.org'
-hostname = 'dennis-Rev-1-0'
-
+media_width = 600
+blocks_all = "blocks_top,blocks"
+blocks_top[0] = "/system/blocks/system_admin_menu_top.inc"
+blocks[1] = "/content/blocks/content_tree_keep_state.inc"
 [development]
-server_name = 'osnet'
-server_redirect ='osnet'
-hostname = 'dennis-Rev-1-0'
-
+cache_disable = 0
+server_name = "osnet"
+cached_assets_reload = 1
+server_redirect = "osnet"
+hostname = "dennis-Rev-1-0"
