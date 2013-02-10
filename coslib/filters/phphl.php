@@ -21,7 +21,7 @@ class phphl {
     public static function init () {
         static $run = null;
         if (!$run) {
-            template::setInlineCss(config::getModulePath('filter_php') . "/assets/filter_php.css");
+            //template::setInlineCss(config::getModulePath('filter_php') . "/assets/filter_php.css");
             $run = 1;
         }
     }
