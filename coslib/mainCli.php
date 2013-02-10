@@ -277,7 +277,7 @@ EOF;
     public static function loadDbModules (){        
         
         $db = new db();
-        $ret = $db->connect(array('dont_die' => 1));
+        $ret = @$db->connect(array('dont_die' => 1));
         
         if ($ret == 'NO_DB_CONN'){
             // if no db conn we exists before loading any more modules.

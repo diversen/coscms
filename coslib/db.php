@@ -114,8 +114,8 @@ class db {
      *
      */
     public static function connect($options = null){
-        self::$debug[] = "Trying to connect with " . config::getMainIni('url');
-        if (isset($options) ) {
+        self::$debug[] = "Trying to connect with " . config::$vars['coscms_main']['url'];
+        if (isset($options['url'])) {
             $url = $options['url'];
             $username = $options['username'];
             $password = $options['password'];
