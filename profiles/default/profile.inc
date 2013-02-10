@@ -346,56 +346,56 @@ $_PROFILE_TEMPLATES = array (
   array (
     'public_clone_url' => 'git://github.com/diversen/clean.git',
     'private_clone_url' => 'git@github.com:diversen/clean.git',
-    'module_version' => '1.7',
+    'module_version' => '1.81',
     'module_name' => 'clean',
   ),
   1 => 
   array (
     'public_clone_url' => 'git://github.com/diversen/zimpleza.git',
     'private_clone_url' => 'git@github.com:diversen/zimpleza.git',
-    'module_version' => '1.7',
+    'module_version' => '1.81',
     'module_name' => 'zimpleza',
   ),
   2 => 
   array (
     'public_clone_url' => 'git://github.com/diversen/flowplayer.git',
     'private_clone_url' => 'git@github.com:diversen/flowplayer.git',
-    'module_version' => '1.7',
+    'module_version' => '1.81',
     'module_name' => 'flowplayer',
   ),
   3 => 
   array (
     'public_clone_url' => 'git://github.com/diversen/1kbgrid.git',
     'private_clone_url' => 'git@github.com:diversen/1kbgrid.git',
-    'module_version' => '1.7',
+    'module_version' => '1.81',
     'module_name' => '1kbgrid',
   ),
   4 => 
   array (
     'public_clone_url' => 'git://github.com/diversen/openid-selector.git',
     'private_clone_url' => 'git@github.com:diversen/openid-selector.git',
-    'module_version' => '1.7',
+    'module_version' => '1.81',
     'module_name' => 'openid-selector',
   ),
   5 => 
   array (
     'public_clone_url' => 'git://github.com/diversen/fancybox.git',
     'private_clone_url' => 'git@github.com:diversen/fancybox.git',
-    'module_version' => '1.7',
+    'module_version' => '1.81',
     'module_name' => 'fancybox',
   ),
   6 => 
   array (
     'public_clone_url' => 'git://github.com/diversen/js-toc.git',
     'private_clone_url' => 'git@github.com:diversen/js-toc.git',
-    'module_version' => '1.71',
+    'module_version' => '1.81',
     'module_name' => 'js-toc',
   ),
   7 => 
   array (
     'public_clone_url' => 'git://github.com/diversen/jquery-markedit.git',
     'private_clone_url' => 'git@github.com:diversen/jquery-markedit.git',
-    'module_version' => '1.7',
+    'module_version' => '1.81',
     'module_name' => 'jquery-markedit',
   ),
 );
