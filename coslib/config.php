@@ -455,6 +455,31 @@ class config {
     * @return  string    $str ini string readable by parse_ini_file
     */
     public static function arrayToIniFile ($ary) {
+        if (isset($ary['stage'])) {
+            $stage = $ary['stage'];
+            unset($ary['stage']);
+        }
+        
+        if (isset($ary['development'])) {
+            $development = $ary['development'];
+            unset($ary['development']);
+        }
+        
+        
+        $content = self::parseIniSection($ary);
+        if (isset($stage)) {
+            $content.= "[stage]\n";
+            $content.= self::parseIniSection($stage);
+        }
+        
+        if (isset($development)) {
+            $content.= "[development]\n";
+            $content.= self::parseIniSection($development);
+        }
+        return $content;
+    }
+    
+    public static function parseIniSection ($ary) {
         $content = '';
         foreach ($ary as $key => $val){
             if (is_array($val)){

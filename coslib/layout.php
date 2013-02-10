@@ -251,6 +251,7 @@ class layout {
      * using these names. 
      */
     public static function initBlocks () {
+        
         $blocks = config::getMainIni('blocks_all');
         if (!isset($blocks)) return;
         //print_r($blocks); die;

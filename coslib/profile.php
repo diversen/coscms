@@ -123,6 +123,7 @@ class profile  {
         // create install script
         $this->createProfileScript($profile);
         // copy config.ini
+
         $this->createConfigIni($profile);
     }
 
@@ -267,6 +268,7 @@ class profile  {
      * @param   string  name of profile to be created
      */
     private function createProfileFiles($profile){
+        
         $modules = $this->getModules();
         $profile_dir = _COS_PATH . "/profiles/$profile";
         
@@ -275,25 +277,27 @@ class profile  {
             if ($mkdir){
                 $this->confirm[] = "Created dir $profile_dir"; 
             } else {
-                // non fatal - we move on
                 $this->error[] = "Could not create dir $profile_dir";
             }
         }
         
-        $modules = $this->getModules();
+        // use config.ini-dist with modules with personal configuration
+        $secrets = array ('remote');
         foreach ($modules as $key => $val){
-            $module_ini_file = _COS_MOD_PATH . "/$val[module_name]/$val[module_name].ini";
+
             $source = _COS_MOD_PATH . "/$val[module_name]/$val[module_name].ini";
+            $ary = config::getIniFileArray($source, true);
+            $ary = $this->removeIniSecrets($ary);               
+            $config_str = config::arrayToIniFile($ary);
+
             $dest = $profile_dir . "/$val[module_name].ini-dist";
-            if (copy($source, $dest)){
-                $this->confirm[] = "Copy $module_ini_file to $profile_dir";
-            } else {
-                $this->error[] = "Could not copy $module_ini_file to $profile_dir";
-            }
+            file_put_contents($dest, $config_str);
+   
+            //}
 
             // if php ini file exists copy that to.
-            $source = _COS_MOD_PATH . "/$val[module_name]/$val[module_name].php.ini";
-            $dest = $profile_dir . "/$val[module_name].php.ini-dist";
+            $source = _COS_MOD_PATH . "/$val[module_name]/config.php";
+            $dest = $profile_dir . "/$val[module_name].php-dist";
 
             if (file_exists($source)){
                 copy($source, $dest);
@@ -324,13 +328,40 @@ class profile  {
      */
     private function createConfigIni($profile){
         $profile_dir = _COS_PATH . "/profiles/$profile";
-        $source = _COS_PATH . "/config/config.ini";
-        $dest = $profile_dir . "/config.ini-dist";
-        if (copy($source, $dest)){
-            $this->confirm[] = "Copy $source to $dest";
-        } else {
-            $this->confirm[] = "Could not Copy $source to $dest";
+        $source = _COS_PATH . "/config/config.ini";  
+        $ary = config::getIniFileArray($source, true);
+        $ary = $this->removeIniSecrets($ary);  
+        $config_str = config::arrayToIniFile($ary);     
+        file_put_contents($profile_dir . "/config.ini-dist", $config_str);
+
+    }
+    
+    public function removeIniSecrets (&$ary) {
+       
+        $secrets =array (
+            'username', 
+            'password',
+            'smtp_params_username',
+            'smtp_params_password',
+            'ssh_host',
+            'ssh_port',
+            'account_facebook_api_secret',
+            
+        );
+        foreach ($ary as $key => &$val) {
+            if (is_array($val)) {
+                //$this->removeIniSecrets($val);
+                foreach ($val as $k2  => $v2) {
+                    if (in_array($v2, $secrets)) {
+                        $val[$k2] = '';
+                    }
+                }
+            }
+            if (in_array($key, $secrets)) {
+                $ary[$key] = '';
+            }
         }
+        return $ary;    
     }
 
     /**
