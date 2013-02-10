@@ -6,12 +6,6 @@
  * @package     shell
  */
 
-/**
- * @ignore
- */
-include_once "coslib/profile.php";
-include_once "coslib/db.php";
-
 
 /**
  * function for installing a profile
@@ -96,6 +90,7 @@ function cos_reset_install (){
  */
 function cos_reload_language(){
     $reload = new moduleinstaller();
+    $reload->reloadCosLanguages();
     $reload->reloadLanguages();
 }
 

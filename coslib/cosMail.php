@@ -25,74 +25,6 @@
  */
 
 include_once "Mail.php";
-include_once "Mail/mime.php";
-
-
-/**
- * thin wrapper around Mail::Mime
- */
-class cosMailMime {
-    /**
-     * holding mime object
-     * @var object $mime 
-     */
-    public $mime = null;
-    
-    /**
-     * constructs a mime object
-     */
-    public function __construct () {
-        $crlf = "\n";
-        $this->mime = new Mail_mime($crlf);
-    }
-    
-    /**
-     * sets txt part
-     * @param string $txt
-     */
-    public function setTxt ($txt) {
-        $this->mime->setTXTBody($txt);   
-    }
-    
-    /**
-     * sets html part
-     * @param string $html
-     */
-    public function setHTML ($html) {
-        $this->mime->setHTMLBody($html);
-    }
-    
-    /**
-     * sets a attachment
-     * @param string $file path to file
-     */
-    public function setAttachment ($file) {
-        $mime_type = file::getMime($file);
-        $this->mime->addAttachment($file, $mime_type);  
-    }
-    
-    /**
-     * get mime headers
-     * @param array $headers
-     * @return string $headers
-     */
-    public function getHeaders ($headers) {
-        return $this->mime->headers($headers);
-    }
-    
-    /**
-     * gets body
-     * @return string $body
-     */
-    public function getBody () {
-        return $this->mime->get(
-            array('text_charset' => 'utf-8', 
-                'html_charset' => "utf-8",
-                'head_charset' => "utf-8"));
-    }
-}
-
-
 
 class cosMail {
     
@@ -227,7 +159,7 @@ class cosMail {
      * @return  int             $res 1 on success 0 on error
      */
     public static function multipart ($to, $subject, $message, $from = null, $reply_to = null, $more = array ()){
-        static $mail = null;
+        
         
         $headers = cosMail::getHeaders($subject, $from, $reply_to, $more);
         $mime = new cosMailMime();
@@ -254,22 +186,8 @@ class cosMail {
         $body = $mime->getBody();
         $mime_headers = $mime->getHeaders($headers);
 
-        $options = cosMail::init();
-        $params = cosMail::getCosParams();
+        return self::send($to, $mime_headers, $body);
 
-        if (!is_object(self::$mail)) {
-            self::$mail = Mail::factory($options['mail_method'], $params);
-        }
-        
-        $res = self::$mail->send($to, $mime_headers, $body);
-        if (PEAR::isError($res)) {
-            log::debug($res->getMessage());
-            return false;
-        }
-        return true;
-        
-        
-        //return mail_multipart_utf8 ($to, $subject, $message, $from, $reply_to, $more);
     }  
    
    /**
@@ -292,20 +210,53 @@ class cosMail {
         $body = $mime->getBody();
         $mime_headers = $mime->getHeaders($headers);
 
-        $options = cosMail::init();
-        $params = cosMail::getCosParams ();
-
-        $mail = Mail::factory($options['mail_method'], $params);
+        return self::send($to, $mime_headers, $body);
+   }
+   
+   /**
+    * actual sending of the mail
+    * @param string $to
+    * @param array $mime_headers
+    * @param string $body
+    * @return boolean $res true on success and false on failure
+    */
+    public static function send ($to, $mime_headers, $body) {
+        if (self::$que) {
+            return cosMailQue::addToQue ($to, $mime_headers, $body);
+        }
         
+        $options = cosMail::init();
+        $params = cosMail::getCosParams();
+
         if (!is_object(self::$mail)) {
             self::$mail = Mail::factory($options['mail_method'], $params);
         }
+
         $res = self::$mail->send($to, $mime_headers, $body);
         if (PEAR::isError($res)) {
-            log::error($res->getMessage());
+            log::debug($res->getMessage());
             return false;
         }
         return true;
-   }
+    }
+        
+    /**
+     *
+     * @var boolean $que if true que is enabled else que is not enabled
+     */
+    public static $que = false;
+    
+    /**
+     * enables mail que
+     */
+    public static function enableQue () {
+        self::$que = true;
+    }
+    
+    /**
+     * disables mail que
+     */
+    public static function disableQue () {
+        self::$que = true;
+    }
 }
-

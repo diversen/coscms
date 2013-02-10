@@ -59,8 +59,12 @@ class moduleloader {
      * holding module ini settings.
      * @var array $iniSettings 
      */
-    public static $iniSettings = array();
+    //public static $iniSettings = array();
     
+    /**
+     * public running module
+     */
+    public static $running = null;
     
     /**
      * constructer recieves module list and places them in $this->levels where
@@ -219,9 +223,7 @@ class moduleloader {
     public function runLevel($level){
         if (!isset($this->levels[$level])) return;
         foreach($this->levels[$level] as $val){
-            moduleloader::setModuleIniSettings($val);
-            $class_path = _COS_MOD_PATH . "/$val/model.$val.inc";
-            include_once $class_path;
+            $this->includeModule($val);
             $class = new $val;
             $class->runLevel($level);
         }
@@ -360,7 +362,8 @@ class moduleloader {
      */
     public function initModule(){
         
-        $module = $this->info['module_name'];       
+        $module = $this->info['module_name'];  
+        self::$running = $module;
         moduleloader::includeModule($module);
 
 
@@ -553,11 +556,10 @@ class moduleloader {
     
     
     /**
-     * method for loading a parsing module
-     *
+     * method for running a parsing module
      * @return string the parsed modules html
      */
-    public function loadModule(){
+    public function getParsedModule(){
         
         $info = $this->info;       
         $controller = $this->info['controller'];
@@ -665,12 +667,13 @@ class moduleloader {
         }
         
         // check if stage settings exists.
-        if (isset(self::$iniSettings[$module]['stage'])){
+        if (isset($module_ini[$module]['stage'])){
             if ( config::getMainIni('server_name') == @$_SERVER['SERVER_NAME'] ){
                 config::$vars['coscms_main']['module'] =
                     array_merge(
                         config::$vars['coscms_main']['module'],
-                        self::$iniSettings[$module]['stage']
+                        $module_ini['stage']
+                        //self::$iniSettings[$module]['stage']
                     );
             }
         }
@@ -884,11 +887,6 @@ class moduleloader {
         $load = array_pop($ary);
         $model_file = $module_path . '/' . "model.$load.inc";  
         $view_file = $module_path . '/' . "view.$load.inc";
-        $ary = explode('/', $module);
-
-        $base = $ary[0];
-        
-        
         
         if (file_exists($view_file)){
             include_once $view_file;
@@ -943,6 +941,7 @@ class moduleloader {
      * @param type $filter
      */
     public static function initFilter ($filter) {
+        
         // check for filter in coslib first. 
         if (!$filter) return;
         
@@ -953,9 +952,9 @@ class moduleloader {
         }
             
 
-        $class_path = _COS_MOD_PATH . "/filter_$filter/$filter.inc";
+        $class_path = _COS_MOD_PATH . "/$filter/$filter.inc";
         include_once $class_path;
-        moduleloader::setModuleIniSettings("filter_$filter");
+        moduleloader::setModuleIniSettings("$filter");
     }
     
     /**

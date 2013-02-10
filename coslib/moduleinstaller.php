@@ -7,7 +7,7 @@
  *
  * @package    moduleinstaller
  */
-if (!defined('_COS_CLI')){
+if (!config::isCli()){
     $new_line = "<br />";
 } else {
     $new_line = "\n";
@@ -197,6 +197,19 @@ class moduleinstaller extends db {
     }
     
     /**
+     * method to reload all languages for system
+     * These language files are placed in lang/
+     * reloads language files one after another.
+     */
+    public function reloadCosLanguages(){        
+        $modules = file::getDirsGlob(_COS_PATH . "/lang/", '*');
+        //print_r($modules); die;
+        foreach ($modules as $val){
+            $this->insertLanguage($val);
+        }
+    }
+    
+    /**
      * reloads config for all modules
      */
     public function reloadConfig () {
@@ -270,18 +283,28 @@ class moduleinstaller extends db {
      * @return  boolean $res false if no language file exists. Else return true.
      */
     public function insertLanguage($module = null){
-        $language_path =
-            _COS_PATH .
-            '/' . _COS_MOD_DIR . '/' .
-            $this->installInfo['NAME'] .
-            '/lang';
-
+        if (!$module) {
+            $module = $this->installInfo['NAME'];
+        }
+        
+        $language_path = _COS_PATH . "/lang/$module/lang";
+        if (file_exists($language_path) ) {
+            // system language
+            
+        } else {
+            // module language
+            $language_path =
+                _COS_PATH .
+                '/' . _COS_MOD_DIR . '/' .
+                $this->installInfo['NAME'] .
+                '/lang';
+        }
         $dirs = file::getFileList($language_path);
         if ($dirs == false){
             $this->notice = "Notice: No language dir in: $language_path " . NEW_LINE;
         }
 
-        $this->delete('language', 'module_name', $this->installInfo['NAME']);
+        $this->delete('language', 'module_name', $module);
         if (is_array($dirs)){
             foreach($dirs as $val){
                 $language_file = $language_path . "/$val" . '/system.inc';
@@ -290,7 +313,7 @@ class moduleinstaller extends db {
                     if (isset($_COS_LANG_MODULE)){         
                         $str = serialize($_COS_LANG_MODULE);
                         $values = array(
-                            'module_name' => $this->installInfo['NAME'],
+                            'module_name' => $module,
                             'language' => $val,
                             'translation' => $str);
                         $this->insert('language', $values);
@@ -299,10 +322,7 @@ class moduleinstaller extends db {
                     $this->notice = "Notice: " . $language_file . " not found" . NEW_LINE;
                 }
             }
-        }
-
-        
-
+        }      
         return true;
     }
 

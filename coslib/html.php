@@ -1054,6 +1054,7 @@ EOF;
      */
     public static function getUrl ($url) {
        if (moduleloader::isInstalledModule('rewrite')) {
+           moduleloader::includeModule('rewrite');
             $alt_uri = rewrite::getRowFromRequest(html::specialDecode(rawurldecode($url)));
             if (isset($alt_uri)){
                 $url = $alt_uri;

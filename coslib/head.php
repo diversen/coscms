@@ -29,18 +29,20 @@ config::$vars['coscms_debug']['include_path'] = ini_get('include_path');
 config::loadMain();
 
 $htdocs_path = config::getMainIni('htdocs_path');
+
 // default
-    if (!$htdocs_path) {
-        define('_COS_HTDOCS', _COS_PATH . '/htdocs');
-    }
-    
-    if ($htdocs_path == '_COS_PATH') {
-        define('_COS_HTDOCS', _COS_PATH);
-    }
+if (!$htdocs_path) {
+    define('_COS_HTDOCS', _COS_PATH . '/htdocs');
+}
+
+// if coslib path is the same as the cos htdocs path
+if ($htdocs_path == '_COS_PATH') {
+    define('_COS_HTDOCS', _COS_PATH);
+}
 
 
 // This is only if commandline mode is not specified  
-if (!defined('_COS_CLI')){
+if (!config::isCli()){
     // load config/config.ini
     
     
@@ -106,10 +108,12 @@ if (!defined('_COS_CLI')){
     // installed modules
     $db = new db();
     $moduleloader = new moduleloader();
+    
+    // load languages.
+    lang::init();  
+    
     $moduleloader->runLevel(1);
 
-    
-    
     // select all db settings and merge them with ini file settings
     $db_settings = $db->selectOne('settings', 'id', 1);
 
@@ -146,9 +150,6 @@ if (!defined('_COS_CLI')){
     // start session
     session::initSession();
 
-    // load languages.
-    lang::init();    
-
     $moduleloader->runLevel(5);
     
     
@@ -184,7 +185,7 @@ if (!defined('_COS_CLI')){
         $str = urldispatch::call($route['method']);       
     } else {
         // or we use default module loading
-        $str = $moduleloader->loadModule();
+        $str = $moduleloader->getParsedModule();
     }
     
     mainTemplate::printHeader();

@@ -171,7 +171,7 @@ class config {
         // determine host and see if we use virtual hosting
         // where one code base can be used for more virtual hosts.
         // this is set with the domain flag in ./coscli.sh
-        if (defined('_COS_CLI')){
+        if (config::isCli()){
             if (isset(config::$vars['domain']) && config::$vars['domain'] != 'default'){
                 $config_file = _COS_PATH . "/config/multi/". config::$vars['domain'] . "/config.ini";
             } else {
@@ -207,14 +207,18 @@ class config {
      * the default settings. Same goes for development 
      */    
     public static function loadMain () {
+        if (config::isCli()) {
+            return;
+        }
+        
         $config_file = config::getConfigFileName();
     
         if (!file_exists($config_file)){
             return;
         } else {
             config::$vars['coscms_main'] = config::getIniFileArray($config_file, true);
-            if ( @config::$vars['coscms_main']['server_name'] ==
-                    @$_SERVER['SERVER_NAME'] ) {
+            if ( config::$vars['coscms_main']['server_name'] ==
+                    $_SERVER['SERVER_NAME'] ) {
                     self::$vars['coscms_main']['development'] = 'real';
                     // We are on REAL server and exits without
                     // adding additional settings for stage or development
@@ -228,7 +232,7 @@ class config {
             // NOT take effect on CLI ini settings
             if (isset(config::$vars['coscms_main']['stage'])){
                 if ( config::$vars['coscms_main']['stage']['server_name'] ==
-                        @$_SERVER['SERVER_NAME']) {
+                        $_SERVER['SERVER_NAME']) {
 
                     // we are on development, merge and overwrite normal settings with
                     // development settings.
@@ -247,7 +251,7 @@ class config {
             // ini settings
             if (isset(config::$vars['coscms_main']['development'])){
                 if ( config::$vars['coscms_main']['development']['server_name'] ==
-                        @$_SERVER['SERVER_NAME']) {
+                        $_SERVER['SERVER_NAME']) {
 
                     config::$vars['coscms_main'] =
                     array_merge(

@@ -15,7 +15,7 @@
  *                  used when writing a module
  * @return  int     result from shell operation 0 is success
  */
-function create_module_skeleton($args){
+function create_module_skeleton_v1($args){
     $module_name = $args['module'];
     $ary = explode('/', $module_name);
     $module_path = _COS_MOD_PATH . '/' . $module_name;
@@ -58,25 +58,62 @@ function create_module_skeleton($args){
 }
 
 /**
- * @TODO create function that puts initial content into
- *       install.inc and config.ini-dist
+ * function for creating a skeleton for a module. We are just
+ * using shell command touch for creating the files.
+ *
+ * @param   array   e.g: <code>array('module' => 'test')</code> This will create
+ *                  the following folder /modules/test containing base files
+ *                  used when writing a module
+ * @return  int     result from shell operation 0 is success
  */
-function createProfileScript($profile){
-    /*
-    $modules = $this->getModules();
-    $str = var_export($modules, true);
-    $module_str = '<?php ' . "\n\n";
-    $module_str.= '$_PROFILE_MODULES = ' . $str . ";";
-    $module_str.= "\n\n";
-    $module_str.= '$_PROFILE_TEMPLATE = ' . "'" . $this->getProfileTemplate() . "'" . ';';
-    $module_str.= "\n\n";
-    $module_str.= '$_PROFILE_USE_HOME = ' . $this->getProfileUseHome() . ';';
-    $module_str.= "\n\n";
-    $file = _COS_PATH . "/profiles/$profile/profile.inc";
-    if (!file_put_contents($file, $module_str)){
-        print "Could not write to $file";
-    }*/
+function create_module_skeleton($args){
+    $module_name = $args['module'];
+    $ary = explode('/', $module_name);
+    $module_path = _COS_MOD_PATH . '/' . $module_name;
+    
+    cos_exec('mkdir ' . $module_path);
+
+    if (count($ary) == 1) {
+        // create dirs for sql. Only need in a base module
+        $mysql_dir = $module_path . "/mysql";
+        cos_exec('mkdir ' . $mysql_dir);
+        $mysql_up = $mysql_dir . "/up";
+        cos_exec('mkdir ' . $mysql_up);
+        $mysql_down = $mysql_dir . "/down";
+        cos_exec('mkdir ' . $mysql_down);
+
+        // create dirs for language. Only need in base module
+        $lang_dir = $module_path . "/lang";
+        cos_exec('mkdir ' . $lang_dir);
+        $lang_dir_en = $module_path . "/lang/en_GB";
+        cos_exec('mkdir ' . $lang_dir_en);
+
+        $files = $module_path . "/menu.inc ";
+        $files.= $module_path . "/index.php ";
+        $files.= $module_path . "/README.md ";
+        $files.= $module_path . "/install.inc ";
+        $files.= $module_path . "/$module_name.ini ";
+        $files.= $module_path . "/$module_name.ini-dist ";
+        $files.= $module_path . "/module.php ";
+        $files.= $lang_dir_en . "/system.inc ";
+        $files.= $lang_dir_en . "/language.inc ";
+    } 
+    cos_cli_print('Creating files: ');
+    echo $res = cos_exec('touch ' . $files);
+    
+    if (!$res) {
+        // add a version
+        $str = "<?php
+
+\$_INSTALL['VERSION'] = 1.71; 
+";
+        $res = file_put_contents($module_path . "/install.inc", $str);
+        echo $res;
+        
+    }
 }
+
+
 
 mainCli::setCommand('skeleton', array(
     'description' => 'Create skeleton for a module',
@@ -84,7 +121,13 @@ mainCli::setCommand('skeleton', array(
 
 mainCli::setOption('create_module_skeleton', array(
     'long_name'   => '--create-module',
-    'description' => 'creates module specified',
+    'description' => 'specify module v2 to create',
+    'action'      => 'StoreTrue'
+));
+
+mainCli::setOption('create_module_skeleton_v1', array(
+    'long_name'   => '--v1-create-module',
+    'description' => 'specify v1 module to create',
     'action'      => 'StoreTrue'
 ));
 
