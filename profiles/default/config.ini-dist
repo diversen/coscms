@@ -2,6 +2,7 @@ url = "mysql:dbname=osnet;host=localhost"
 username = ""
 password = ""
 server_name = "www.os-cms.net"
+server_redirect = "www.os-cms.net"
 send_mail = 1
 smtp_mail = 1
 site_email = "os-cms.net <mail@os-cms.net>"
