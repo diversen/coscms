@@ -5,7 +5,7 @@ $_PROFILE_MODULES = array (
   array (
     'id' => '1',
     'module_name' => 'system',
-    'module_version' => '1.71',
+    'module_version' => '1.81',
     'menu_item' => '1',
     'run_level' => '0',
     'load_on' => NULL,
@@ -18,7 +18,7 @@ $_PROFILE_MODULES = array (
   array (
     'id' => '2',
     'module_name' => 'settings',
-    'module_version' => '1.71',
+    'module_version' => '1.81',
     'menu_item' => '1',
     'run_level' => '0',
     'load_on' => NULL,
@@ -31,7 +31,7 @@ $_PROFILE_MODULES = array (
   array (
     'id' => '3',
     'module_name' => 'error',
-    'module_version' => '1.7',
+    'module_version' => '1.81',
     'menu_item' => '0',
     'run_level' => '0',
     'load_on' => NULL,
@@ -44,7 +44,7 @@ $_PROFILE_MODULES = array (
   array (
     'id' => '4',
     'module_name' => 'content',
-    'module_version' => '1.71',
+    'module_version' => '1.81',
     'menu_item' => '1',
     'run_level' => '0',
     'load_on' => NULL,
@@ -57,7 +57,7 @@ $_PROFILE_MODULES = array (
   array (
     'id' => '10',
     'module_name' => 'files',
-    'module_version' => '1.7',
+    'module_version' => '1.81',
     'menu_item' => '0',
     'run_level' => '0',
     'load_on' => NULL,
@@ -70,7 +70,7 @@ $_PROFILE_MODULES = array (
   array (
     'id' => '46',
     'module_name' => 'account',
-    'module_version' => '1.711',
+    'module_version' => '1.81',
     'menu_item' => '1',
     'run_level' => '0',
     'load_on' => NULL,
@@ -83,7 +83,7 @@ $_PROFILE_MODULES = array (
   array (
     'id' => '49',
     'module_name' => 'gallery',
-    'module_version' => '1.711',
+    'module_version' => '1.81',
     'menu_item' => '1',
     'run_level' => '0',
     'load_on' => NULL,
@@ -96,7 +96,7 @@ $_PROFILE_MODULES = array (
   array (
     'id' => '85',
     'module_name' => 'account_profile',
-    'module_version' => '1.712',
+    'module_version' => '1.81',
     'menu_item' => '0',
     'run_level' => '0',
     'load_on' => NULL,
@@ -109,7 +109,7 @@ $_PROFILE_MODULES = array (
   array (
     'id' => '94',
     'module_name' => 'image',
-    'module_version' => '1.711',
+    'module_version' => '1.81',
     'menu_item' => '0',
     'run_level' => '0',
     'load_on' => NULL,
@@ -122,7 +122,7 @@ $_PROFILE_MODULES = array (
   array (
     'id' => '99',
     'module_name' => 'addthis',
-    'module_version' => '1.7',
+    'module_version' => '1.81',
     'menu_item' => '0',
     'run_level' => '0',
     'load_on' => NULL,
@@ -135,7 +135,7 @@ $_PROFILE_MODULES = array (
   array (
     'id' => '101',
     'module_name' => 'comment',
-    'module_version' => '1.711',
+    'module_version' => '1.81',
     'menu_item' => '1',
     'run_level' => '0',
     'load_on' => NULL,
@@ -148,7 +148,7 @@ $_PROFILE_MODULES = array (
   array (
     'id' => '105',
     'module_name' => 'blog',
-    'module_version' => '1.7',
+    'module_version' => '1.81',
     'menu_item' => '1',
     'run_level' => '0',
     'load_on' => NULL,
@@ -161,7 +161,7 @@ $_PROFILE_MODULES = array (
   array (
     'id' => '106',
     'module_name' => 'tags',
-    'module_version' => '1.7',
+    'module_version' => '1.81',
     'menu_item' => '1',
     'run_level' => '0',
     'load_on' => NULL,
@@ -174,7 +174,7 @@ $_PROFILE_MODULES = array (
   array (
     'id' => '107',
     'module_name' => 'rss',
-    'module_version' => '1.7',
+    'module_version' => '1.81',
     'menu_item' => '0',
     'run_level' => '0',
     'load_on' => NULL,
@@ -187,7 +187,7 @@ $_PROFILE_MODULES = array (
   array (
     'id' => '108',
     'module_name' => 'remote',
-    'module_version' => '1.71',
+    'module_version' => '1.81',
     'menu_item' => '0',
     'run_level' => '0',
     'load_on' => NULL,
@@ -200,7 +200,7 @@ $_PROFILE_MODULES = array (
   array (
     'id' => '109',
     'module_name' => 'configdb',
-    'module_version' => '1.7',
+    'module_version' => '1.81',
     'menu_item' => '0',
     'run_level' => '2',
     'load_on' => NULL,
@@ -213,7 +213,7 @@ $_PROFILE_MODULES = array (
   array (
     'id' => '110',
     'module_name' => 'locales',
-    'module_version' => '1.7',
+    'module_version' => '1.81',
     'menu_item' => '1',
     'run_level' => '0',
     'load_on' => NULL,
@@ -226,7 +226,7 @@ $_PROFILE_MODULES = array (
   array (
     'id' => '111',
     'module_name' => 'menus',
-    'module_version' => '1.7',
+    'module_version' => '1.81',
     'menu_item' => '1',
     'run_level' => '0',
     'load_on' => NULL,
@@ -239,7 +239,7 @@ $_PROFILE_MODULES = array (
   array (
     'id' => '113',
     'module_name' => 'jquerysort',
-    'module_version' => '1.7',
+    'module_version' => '1.81',
     'menu_item' => '0',
     'run_level' => '0',
     'load_on' => NULL,
@@ -252,7 +252,7 @@ $_PROFILE_MODULES = array (
   array (
     'id' => '114',
     'module_name' => 'vote',
-    'module_version' => '1.7',
+    'module_version' => '1.81',
     'menu_item' => '0',
     'run_level' => '0',
     'load_on' => NULL,
@@ -265,7 +265,7 @@ $_PROFILE_MODULES = array (
   array (
     'id' => '115',
     'module_name' => 'image_captcha',
-    'module_version' => '1.7',
+    'module_version' => '1.81',
     'menu_item' => '0',
     'run_level' => '0',
     'load_on' => NULL,
@@ -278,7 +278,7 @@ $_PROFILE_MODULES = array (
   array (
     'id' => '116',
     'module_name' => 'flood',
-    'module_version' => '1.71',
+    'module_version' => '1.81',
     'menu_item' => '0',
     'run_level' => '0',
     'load_on' => NULL,
@@ -291,7 +291,7 @@ $_PROFILE_MODULES = array (
   array (
     'id' => '118',
     'module_name' => 'googleanalytics',
-    'module_version' => '1.71',
+    'module_version' => '1.81',
     'menu_item' => '1',
     'run_level' => '0,5',
     'load_on' => NULL,
@@ -304,7 +304,7 @@ $_PROFILE_MODULES = array (
   array (
     'id' => '121',
     'module_name' => 'share',
-    'module_version' => '1.7',
+    'module_version' => '1.81',
     'menu_item' => '1',
     'run_level' => '0',
     'load_on' => NULL,
@@ -317,7 +317,7 @@ $_PROFILE_MODULES = array (
   array (
     'id' => '122',
     'module_name' => 'block_manip',
-    'module_version' => '1.7',
+    'module_version' => '1.81',
     'menu_item' => '1',
     'run_level' => '0',
     'load_on' => NULL,
@@ -330,7 +330,7 @@ $_PROFILE_MODULES = array (
   array (
     'id' => '123',
     'module_name' => 'rewrite',
-    'module_version' => '1.72',
+    'module_version' => '1.81',
     'menu_item' => '0',
     'run_level' => '0,1',
     'load_on' => NULL,
