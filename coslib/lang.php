@@ -40,7 +40,7 @@ class lang {
      * 
      */
     public static function init(){
-        echo self::$language = config::getMainIni('language');
+        self::$language = config::getMainIni('language');
 
         $system_lang = array();
         $db = new db();
