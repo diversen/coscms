@@ -109,8 +109,7 @@ if (!config::isCli()){
     $db = new db();
     $moduleloader = new moduleloader();
     
-    // load languages.
-    lang::init();  
+
     
     $moduleloader->runLevel(1);
 
@@ -121,11 +120,15 @@ if (!config::isCli()){
     config::$vars['coscms_main'] =
         array_merge(config::$vars['coscms_main'] , $db_settings);
     
+    
+    
     // run level 2: Just after configuration from file have been set
     // in order to change e.g. file settings you can change the now.
     // See module configdb for example. 
     $moduleloader->runLevel(2);
     
+    // load languages.
+    lang::init();  
     
 
     // find out what locales we are using

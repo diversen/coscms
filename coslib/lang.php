@@ -40,7 +40,7 @@ class lang {
      * 
      */
     public static function init(){
-        self::$language = config::$vars['coscms_main']['language'];
+        echo self::$language = config::getMainIni('language');
 
         $system_lang = array();
         $db = new db();
