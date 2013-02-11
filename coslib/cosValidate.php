@@ -4,7 +4,11 @@
  * file contains validating class
  * @package validate
  */
+/**
+ * @ignore
+ */
 
+require_once 'Validate.php';
 /**
  * class for validating most common thing: URL's and emails. 
  * 
@@ -49,6 +53,14 @@ class cosValidate {
         }
         return true;
     }
+    
+    public static function emailRfc822 ($email) {
+        if (Validate::email($email, array('use_rfc822' => true))) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 
     /**
      * method for vaildating email and an emails domain with PEAR:Validate
@@ -57,7 +69,6 @@ class cosValidate {
      * @return  boolean $res true on success and false on failure 
      */
     public static function validateEmailAndDomain ($email, $options = null){
-        require_once 'Validate.php';
 
         if (!$options){
             $options = array('check_domain' => 'true');
