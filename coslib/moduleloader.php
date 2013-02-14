@@ -340,7 +340,7 @@ class moduleloader {
         
         // set module class name from path e.g. content/admin will become contentAdmin 
         // But only if module path exists. In order to prevent clash with web file system. 
-        //$module_full_path = _COS_MOD_PATH . "/" . $this->info['module_name'];
+        $module_full_path = _COS_MOD_PATH . "/" . $this->info['module_name'];
         if (file_exists($module_full_path)) {
             $this->info['module_class'] = self::modulePathToClassName($this->info['module_name']);
         }
