@@ -3,7 +3,7 @@
 # Markdown Extra  -  A text-to-HTML conversion tool for web writers
 #
 # PHP Markdown Extra
-# Copyright (c) 2004-2012 Michel Fortin  
+# Copyright (c) 2004-2013 Michel Fortin  
 # <http://michelf.com/projects/php-markdown/>
 #
 # Original Markdown
@@ -12,6 +12,10 @@
 #
 namespace Michelf;
 
+
+# Just force Michelf/Markdown.php to load. This is needed to load
+# the temporary implementation class. See below for details.
+\Michelf\Markdown::MARKDOWNLIB_VERSION;
 
 #
 # Markdown Extra Parser Class
@@ -24,10 +28,6 @@ namespace Michelf;
 #
 
 class MarkdownExtra extends \Michelf\_MarkdownExtra_TmpImpl {
-
-	### Version ###
-
-	const  MARKDOWNEXTRA_VERSION  = \Michelf\MARKDOWNEXTRA_VERSION;
 
 	### Parser Implementation ###
 

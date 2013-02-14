@@ -19,5 +19,4 @@ htdocs/templates/*
 htdocs/files/*
 htdocs/youtube_import/*
 locale/*
-composer.lock
 cosmod/*
