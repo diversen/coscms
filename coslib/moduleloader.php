@@ -562,50 +562,23 @@ class moduleloader {
      */
     public function getParsedModule(){
         
-        $info = $this->info;       
-        $controller = $this->info['controller'];
-        $action = $controller. 'Action';
-
-        // only allow installed modules
-        if (!$this->isInstalledModule($this->info['module_base_name'])){
+        $action_str = $this->getParsedModuleAction();        
+        if (!file_exists($this->info['controller_file']) && !$this->info['module_action_exists'] ){ 
             self::$status[404] = 1;
             $this->setErrorModuleInfo(); 
-        }
-        
-        $module_class = $info['module_class'];
-        $method_exists = @method_exists($module_class, $action);
-        
-        // We need is a controller
-        if (!file_exists($this->info['controller_file']) && !$method_exists){
-            self::$status[404] = 1;
-            $this->setErrorModuleInfo();    
-        }
-
-        if ($method_exists) {
-            $init_action = 'initAction';
-            
-            $module_object = new $module_class();
-            if (method_exists($module_class, $init_action) ) {
-                $module_object->$init_action();
-            }
-            
-            
-            $module_object->$action();
-            $str = ob_get_contents();
-            ob_clean();
-            return $str;
-        } 
-        
-        
-        if (!file_exists($this->info['controller_file']) ){    
-            self::$status[404] = 1;
         }  else {
-            include_once $this->info['controller_file'];
+            // include controller file or call module action 
+            if ($action_str !== false) {
+                echo $action_str;        
+            } else {
+                include_once $this->info['controller_file'];
+            }
         }
+        
         if (isset(self::$status[403])){
             $this->setErrorModuleInfo();
             $this->initModule();
-            include_once $this->info['controller_file'];  
+            include_once $this->info['controller_file'];
         }
 
         if (isset(self::$status[404])){
@@ -617,6 +590,48 @@ class moduleloader {
         $str = ob_get_contents();
         ob_clean();
         return $str;
+    }
+    
+    /**
+     * latest way to load is a module, is by checking 
+     * if a class a has an action method. Eg. 
+     * 
+     * We have loaded a blog module and we we are on blog/index
+     * The we check the class blog for a method with the name
+     * indexAction
+     * 
+     * This takes precedence over the old method were the actions
+     * were placed in the module as files, e.g. blog/index.php
+     * 
+     */
+    
+    public function getParsedModuleAction () {
+
+        $controller = $this->info['controller'];
+        $action = $controller. 'Action';
+        $module_class = $this->info['module_class'];
+        $action_exists = @method_exists($module_class, $action);
+        
+        // We need is a controller
+        if (!$action_exists){
+            $this->info['module_action_exists'] = false;
+            return false;
+        } else {
+            $this->info['module_action_exists'] = true;
+        }
+        
+        $init_action = 'initAction';            
+        $module_object = new $module_class();
+        if (method_exists($module_class, $init_action) ) {
+            $module_object->$init_action();
+        }          
+        
+
+        $module_object->$action();
+        $str = ob_get_contents();
+        ob_clean();    
+        return $str;
+
     }
     
     /**
