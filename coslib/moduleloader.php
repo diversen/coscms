@@ -313,7 +313,7 @@ class moduleloader {
         }
 
         // if we only have one fragment 
-        // means we are in frontpage module
+        // means we are need to load the frontpage module
         $frontpage_module = config::getMainIni('frontpage_module');
         $this->info['module_name'] = $info['module_name'];
         if ($uri->numFragments() == 1){         
@@ -339,7 +339,11 @@ class moduleloader {
         $this->info['controller'] = $info['controller'];
         
         // set module class name from path e.g. content/admin will become contentAdmin 
-        $this->info['module_class'] = self::modulePathToClassName($this->info['module_name']);
+        // But only if module path exists. In order to prevent clash with web file system. 
+        //$module_full_path = _COS_MOD_PATH . "/" . $this->info['module_name'];
+        if (file_exists($module_full_path)) {
+            $this->info['module_class'] = self::modulePathToClassName($this->info['module_name']);
+        }
         
 
 
