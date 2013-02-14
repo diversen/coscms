@@ -344,9 +344,6 @@ class moduleloader {
         if (file_exists($module_full_path)) {
             $this->info['module_class'] = self::modulePathToClassName($this->info['module_name']);
         }
-        
-
-
     }
 
     /**
