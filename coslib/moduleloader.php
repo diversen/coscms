@@ -531,12 +531,13 @@ class moduleloader {
     }
     
     /**
-     * returns a path from a module class name.
+     * returns a module path from a module reference
      * e.g. content_article will return content/article
+     * and blog will return blog
      * @param string $class
      * @return string $module_path 
      */
-    public static function moduleClassToModelPath ($class) {
+    public static function moduleReferenceToModulePath ($class) {
         return $module_path = str_replace('_', '/', $class);
     }
 
