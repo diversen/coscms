@@ -5,13 +5,14 @@ ignore_user_abort(true);
 $config = $path = null;
 
 // test if we have placed coslib outside web directory
-if (file_exists('../coslib/config.php')) {
-    //$config = "../coslib/coslibSetup.php";
+if (file_exists('../coslib/coslibSetup.php')) {
+    $config = "../coslib/coslibSetup.php";
     $path = realpath('..');
 } else {
-    //$config = "./coslib/coslibSetup.php";
+    $config = "./coslib/coslibSetup.php";
     $path = realpath('.');
 }
+
 
 
 // windows
@@ -20,13 +21,11 @@ if (DIRECTORY_SEPARATOR != '/') {
 }
 
 define('_COS_PATH',  $path);
-define('_COS_HTDOCS',  $path);
+define('_COS_HTDOCS',  ".");
 
 // include config.php for reading config files etc.
-include_once _COS_PATH . "/coslib/coslibSetup.php";
+include_once $config;
 config::$vars['coscms_main'] = array();
-
-
 
 // global array used as registry for holding debug info
 $_COS_DEBUG = array();
@@ -38,19 +37,20 @@ $_COS_DEBUG['timer']['start'] = microtime();
 $_COS_DEBUG['cos_base_path'] = _COS_PATH;
 
 // set include path
+/*
 $ini_path = ini_get('include_path');
 ini_set('include_path', 
     _COS_PATH . PATH_SEPARATOR . 
     _COS_PATH . '/vendor' . PATH_SEPARATOR .
     _COS_PATH . "/coslib" . PATH_SEPARATOR . _COS_PATH . '/modules' . 
         $ini_path . PATH_SEPARATOR);
-
+*/
 // parse main config.ini file
 $_COS_DEBUG['include_path'] = ini_get('include_path');
 config::$vars['coscms_main'] = config::getIniFileArray(_COS_PATH . '/config/config.ini', true);
 
-
-
+include_once "coslib/shell/common.inc";
+include_once "coslib/shell/profile.inc";
 
 /**
  * class installDb
