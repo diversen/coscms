@@ -6,16 +6,13 @@ $config = $path = null;
 
 // test if we have placed coslib outside web directory
 if (file_exists('../coslib/config.php')) {
-    $config = "../coslib/config.php";
+    //$config = "../coslib/coslibSetup.php";
     $path = realpath('..');
 } else {
-    $config = "./coslib/config.php";
+    //$config = "./coslib/coslibSetup.php";
     $path = realpath('.');
 }
 
-// include config.php for reading config files etc.
-include_once $config;
-config::$vars['coscms_main'] = array();
 
 // windows
 if (DIRECTORY_SEPARATOR != '/') {	
@@ -24,6 +21,12 @@ if (DIRECTORY_SEPARATOR != '/') {
 
 define('_COS_PATH',  $path);
 define('_COS_HTDOCS',  $path);
+
+// include config.php for reading config files etc.
+include_once _COS_PATH . "/coslib/coslibSetup.php";
+config::$vars['coscms_main'] = array();
+
+
 
 // global array used as registry for holding debug info
 $_COS_DEBUG = array();
@@ -46,27 +49,7 @@ ini_set('include_path',
 $_COS_DEBUG['include_path'] = ini_get('include_path');
 config::$vars['coscms_main'] = config::getIniFileArray(_COS_PATH . '/config/config.ini', true);
 
-include_once "coslib/config.php";
-include_once "coslib/file.php";
-include_once "coslib/strings.php";
-include_once "coslib/db.php";
-include_once "coslib/uri.php";
-include_once "coslib/moduleloader.php";
-include_once "coslib/session.php";
-include_once "coslib/html.php";
-include_once "coslib/layout.php";
-include_once "coslib/template.php";
-include_once "coslib/event.php";
-include_once "coslib/mail.php";
-include_once "coslib/validate.php";
-include_once "coslib/http.php";
-include_once "coslib/user.php";
-include_once "coslib/log.php";
-include_once "coslib/lang.php";
-include_once "coslib/time.php";
-include_once "coslib/urldispatch.php";
-include_once "coslib/moduleinstaller.php";
-include_once "coslib/shell_base/profile.inc";
+
 
 
 /**
@@ -208,7 +191,7 @@ function web_install_add_user () {
         }
         
         if (!empty($errors)){
-            template::html::errors($errors);
+            html::errors($errors);
         } else {
             $db = new db();
             
