@@ -37,14 +37,7 @@ $_COS_DEBUG['timer']['start'] = microtime();
 $_COS_DEBUG['cos_base_path'] = _COS_PATH;
 
 // set include path
-/*
-$ini_path = ini_get('include_path');
-ini_set('include_path', 
-    _COS_PATH . PATH_SEPARATOR . 
-    _COS_PATH . '/vendor' . PATH_SEPARATOR .
-    _COS_PATH . "/coslib" . PATH_SEPARATOR . _COS_PATH . '/modules' . 
-        $ini_path . PATH_SEPARATOR);
-*/
+
 // parse main config.ini file
 $_COS_DEBUG['include_path'] = ini_get('include_path');
 config::$vars['coscms_main'] = config::getIniFileArray(_COS_PATH . '/config/config.ini', true);
@@ -157,6 +150,9 @@ if ($num_rows == 0){
     // if positive we install base modules.
     if ($res){
         install_from_profile(array ('profile' => 'default'));
+        $reload = new moduleinstaller();
+        $reload->reloadCosLanguages();
+        $reload->reloadLanguages();
     }
     echo "Base system installed.<br />";
     
