@@ -116,12 +116,13 @@ function install_from_profile ($options){
             if (!$ret) $final = false;
         }
     }
+    
+    $reload = new moduleinstaller();
+    $reload->reloadCosLanguages();
+
 
     return $final;
-    // install templates
-    foreach ($pro->profileTemplates as $key => $val){
-        
-    }
+
 }
 
 /**

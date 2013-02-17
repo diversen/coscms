@@ -150,9 +150,7 @@ if ($num_rows == 0){
     // if positive we install base modules.
     if ($res){
         install_from_profile(array ('profile' => 'default'));
-        $reload = new moduleinstaller();
-        $reload->reloadCosLanguages();
-        $reload->reloadLanguages();
+        
     }
     echo "Base system installed.<br />";
     
