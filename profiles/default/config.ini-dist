@@ -1,7 +1,9 @@
 url = "mysql:dbname=osnet;host=localhost"
+db_init = "SET NAMES utf8"
 username = ""
 password = ""
 server_name = "www.os-cms.net"
+server_redirect = "www.os-cms.net"
 send_mail = 1
 smtp_mail = 1
 site_email = "os-cms.net <mail@os-cms.net>"
@@ -20,7 +22,6 @@ lang = "en"
 session_time = 0
 session_path = "/"
 session_host = ""
-session_handler = "memcache"
 cookie_time = -1
 frontpage_module = "blog"
 profile_module = "account_profile"
@@ -33,9 +34,3 @@ media_width = 600
 blocks_all = "blocks_top,blocks"
 blocks_top[0] = "/system/blocks/system_admin_menu_top.inc"
 blocks[1] = "/content/blocks/content_tree_keep_state.inc"
-[development]
-cache_disable = 0
-server_name = "osnet"
-cached_assets_reload = 1
-server_redirect = "osnet"
-hostname = "dennis-Rev-1-0"
