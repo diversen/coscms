@@ -17,9 +17,6 @@ if (DIRECTORY_SEPARATOR != '/') {
 // define _COS_PATH.
 define('_COS_PATH',  $path);
 
-// include bootstrap file. 
-include _COS_PATH . "/coslib/head.php";
-
 /**
  * set include path
  * @ignore
@@ -60,9 +57,5 @@ function coslib_autoloader($classname) {
  */
 spl_autoload_register('coslib_autoloader');
 
-
 // include bootstrap file. 
-
-
-
 include _COS_PATH . "/coslib/head.php";

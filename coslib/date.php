@@ -65,6 +65,8 @@ function dateGetCurrentYear () {
     return strftime("%Y");
 }
 
+
+
 /**
  * get dates as array 
  * @param string $from date
@@ -135,7 +137,7 @@ function dateSubstractDaysFromTimestamp ($from, $days) {
 }
 
 /**
- * checks if a date is valid
+ * checks if a mysql date is valid
  * @param string $date
  * @return boolean $res
  */
@@ -235,6 +237,20 @@ function dateGetWeek($date) {
         $end = $start + 6 * 24 * 60 * 60;
         return array('start' => strftime('%Y-%m-%d', $start),
                      'end' => strftime('%Y-%m-%d', $end));
+}
+
+/**
+ * return date as an array
+ * @param string $mysql timestamp
+ * @return array $ary ('year' => 1972, 'month' => 02, 'day' => 1972);
+ */
+function dateGetAry ($mysql) {
+    $ary = explode ("-" , $mysql);
+
+    $ary['year'] = $ary[0];
+    $ary['month'] = $ary[1];
+    $ary['day'] = $ary[2];
+    return $ary;
 }
 
 // found on
