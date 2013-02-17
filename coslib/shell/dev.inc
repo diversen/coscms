@@ -127,6 +127,9 @@ function dev_build_simple ($options = null) {
     $vendor = "cp -rf vendor ./build/$name";
     cos_exec($vendor);
     
+    $lang = "cp -rf lang ./build/$name";
+    cos_exec($lang);
+    
     $rm_git = "rm `find ./build/$name -name '.git'` -rf";
     cos_exec($rm_git);
     
