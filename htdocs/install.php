@@ -111,7 +111,7 @@ function cos_check_files_dir () {
         $user = getenv('APACHE_RUN_USER');
         echo "server user is: $user<br />\n";
         echo "On unix solution will be to:<br />\n";
-        echo "chown -R $user:$user $files_dir";
+        echo "sudo chown -R www-data:www-data ./files";
         die();
     } else {
         echo "We can write to files dir.OK<br>";
