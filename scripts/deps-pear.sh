@@ -22,8 +22,8 @@ pear install Image_Transform-0.9.3
 pear install Net_SMTP
 
 # for using markdown
-pear channel-discover pear.michelf.com
-pear install michelf/MarkdownExtra
+#pear channel-discover pear.michelf.com
+#pear install michelf/MarkdownExtra
 
 # For automatic documentation. Install:
 # pear channel-discover pear.phpdoc.org

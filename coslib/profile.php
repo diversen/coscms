@@ -330,13 +330,13 @@ class profile  {
         $profile_dir = _COS_PATH . "/profiles/$profile";
         $source = _COS_PATH . "/config/config.ini";  
         $ary = config::getIniFileArray($source, true);
-        $ary = $this->removeIniSecrets($ary);  
+        $ary = $this->removeIniSecretsFromArray($ary);  
         $config_str = config::arrayToIniFile($ary);     
         file_put_contents($profile_dir . "/config.ini-dist", $config_str);
 
     }
     
-    public function removeIniSecrets (&$ary) {
+    public static function removeIniSecretsFromArray ($ary) {
        
         $secrets =array (
             'username', 
@@ -350,7 +350,6 @@ class profile  {
         );
         foreach ($ary as $key => &$val) {
             if (is_array($val)) {
-                //$this->removeIniSecrets($val);
                 foreach ($val as $k2  => $v2) {
                     if (in_array($v2, $secrets)) {
                         $val[$k2] = '';

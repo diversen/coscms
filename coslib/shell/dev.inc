@@ -101,6 +101,9 @@ function dev_build_simple ($options = null) {
     
     // reset database password
     $ary = config::getIniFileArray("./config/config.ini");
+    $ary = profile::removeIniSecretsFromArray($ary);
+    
+    profile::getModules();
     if (isset($ary['password'])) {
         $ary['password'] = '';
     }
