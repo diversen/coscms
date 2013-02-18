@@ -836,7 +836,7 @@ class moduleloader {
         $ary = array ();
         if (!is_array($modules)) return $ary;
         foreach ($modules as $val){
-            if (method_exists($val, 'subModulePostContent') && moduleloader::isInstalledModule($val)){
+            if (@method_exists($val, 'subModulePostContent') && moduleloader::isInstalledModule($val)){
                 $str = $val::subModulePostContent($options);
                 if (!empty($str)) $ary[] = $str;
             }
