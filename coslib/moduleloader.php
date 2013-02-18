@@ -700,7 +700,6 @@ class moduleloader {
         // can be added by end user. 
         if (file_exists($ini_locale)) {
             $locale = config::getIniFileArray($ini_locale, true);
-            var_dump($locale);
             config::$vars['coscms_main']['module'] =
                 array_merge(
                 config::$vars['coscms_main']['module'],
