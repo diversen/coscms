@@ -133,9 +133,11 @@ try {
 }
 
 
-$password = config::getMainIni('web_upgrade_password');
-if (!$password ) {
-    die("Set ini_setting 'web_upgrade_password' password in config/config.ini");
+$password = config::getMainIni('upgrade_password');
+if (!$password || !isset($_GET['password'])) {
+    //$server = config::getSchemeWithServerName();
+    $url = "http://" . $_SERVER['SERVER_NAME'] . "/upgrade.php?password=password";
+    die("Set ini_setting 'upgrade_password'='password' password in config/config.ini, and visit $url");
 } else {
     if ($password == $_GET['password']) {
         install_from_profile(array ('profile' => 'default'));
