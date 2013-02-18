@@ -143,6 +143,3 @@ if (!$password || !isset($_GET['password'])) {
         install_from_profile(array ('profile' => 'default'));
     }
 }
-
-
-

@@ -655,8 +655,10 @@ class moduleloader {
         $set[$module] = $module;
         if ($type == 'module') {
             $ini_file = _COS_MOD_PATH . "/$module/$module.ini";
+            $ini_locale = _COS_MOD_PATH . "/$module/locale.ini";
         } else {
             $ini_file = _COS_HTDOCS . "/templates/$module/$module.ini";
+            $ini_locale = _COS_HTDOCS . "/templates/$module/locale.ini";
         }
         
         if (!file_exists($ini_file)) {
@@ -690,33 +692,23 @@ class moduleloader {
                         array_merge_recursive(
                         config::$vars['coscms_main']['module'],
                         $module_ini['stage']
-                        //self::$iniSettings[$module]['stage']
                     );
             }
         }
+        
+        // check for a locale ini file which only
+        // can be added by end user. 
+        if (file_exists($ini_locale)) {
+            $locale = config::getIniFileArray($ini_locale, true);
+            var_dump($locale);
+            config::$vars['coscms_main']['module'] =
+                array_merge(
+                config::$vars['coscms_main']['module'],
+                $locale
+            );
+        }
     }
     
-    /*
-    public static function setModuleClassSettings ($module) {
-        static $set = array();     
-        if (isset($set[$module])) {
-            return;
-        }
-
-        $set[$module] = $module;
-
-        $config_file = _COS_MOD_PATH . "/$module/config.php";
-        if (!file_exists($config_file)) {
-            return;
-        }
-        
-        include_once $config_file;
-        $class = $module . "Config";
-        $obj = new $class;
-        return $obj->getConfig();      
-    }*/
-    
-
     /**
      * method for getting modules pre content. pre content is content shown
      * before the real content of a page. E.g. admin options if any. 
@@ -731,16 +723,14 @@ class moduleloader {
         if (!is_array($modules)) return array ();
         foreach ($modules as $val){
             $str = '';
-            if (method_exists($val, 'subModulePreContent') && moduleloader::isInstalledModule($val)){
+            if (@method_exists($val, 'subModulePreContent') && moduleloader::isInstalledModule($val)){
                 $str = $val::subModulePreContent($options);
                 if (!empty($str)) {
                     $ary[] = $str;
                 }
             }
-        }
-        
+        }       
         return $ary;
-        //return self::parsePreContent($ary);
     }
     
     /**
@@ -757,7 +747,7 @@ class moduleloader {
         
         if (!is_array($modules)) return array ();
         foreach ($modules as $val){
-            if (method_exists($val, 'subModuleAdminOption') && moduleloader::isInstalledModule($val)){
+            if (@method_exists($val, 'subModuleAdminOption') && moduleloader::isInstalledModule($val)){
                 $str = $val::subModuleAdminOption($options);
                 if (!empty($str)) $ary[] = $str;
             }
