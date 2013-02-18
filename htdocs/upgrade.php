@@ -141,5 +141,11 @@ if (!$password || !isset($_GET['password'])) {
 } else {
     if ($password == $_GET['password']) {
         install_from_profile(array ('profile' => 'default'));
+
+        // reload language
+        $reload = new moduleinstaller();
+        $reload->reloadCosLanguages();
+        $reload->reloadLanguages();
+        
     }
 }
