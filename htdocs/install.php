@@ -151,6 +151,7 @@ if ($num_rows == 0){
     if ($res){
         install_from_profile(array ('profile' => 'default'));
         
+        
     }
     echo "Base system installed.<br />";
     
