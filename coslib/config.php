@@ -510,7 +510,26 @@ class config {
             return true;
         }
         return false;
-
+    }
+    
+    /**
+     * returns name of web server user, e.g. www-data or false
+     * if name can be fetched
+     * @return mixed $user user on success or false on failure
+     */
+    public static function getServerUser () {
+        $server_name = config::getMainIni('server_name');
+        $url = 'http://' . $server_name . '/whoami.php';
+        $handle = fopen($url, "r");
+        if ($handle) {
+            while (!feof($handle)) {
+                $group = fgets($handle, 4096);
+            }
+        } else {
+            return false;
+        }
+        fclose($handle);
+        return $group;
     }
 }
 

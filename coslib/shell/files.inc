@@ -18,18 +18,9 @@
  */
 function cos_chmod_files(){
     
-    cos_needs_root();
-    $url = 'http://' . config::$vars['coscms_main']['server_name'] . '/whoami.php';
-    $handle = fopen($url, "r");
-    if ($handle) {
-        while (!feof($handle)) {
-            $group = fgets($handle, 4096);
-        }
-    } else {
-        die ("Could not open the url: $url\nGuess you need to change server name in config/config.ini\nOr a web host has not been enabled\n");
-    }
-    fclose($handle);
+    $group = config::getServerUser();
 
+    cos_needs_root();
     $owner = posix_getlogin();
 
     $files_path = _COS_PATH . '/htdocs/files ';

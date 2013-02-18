@@ -9,7 +9,9 @@
 /**
  * create apache log files
  */
-function create_logs(){
+function cos_create_logs(){
+    
+    
     touch(_COS_PATH . '/logs/access.log');
     touch(_COS_PATH . '/logs/error.log');
 }
@@ -20,7 +22,7 @@ function create_logs(){
  * @param   string  name of host to enable
  * @return  string  a apache2 configuration string.
  */
-function create_a2_conf($SERVER_NAME){
+function cos_create_a2_conf($SERVER_NAME){
     $current_dir = getcwd();
     $DOCUMENT_ROOT = $current_dir . '/htdocs';
     $APACHE_LOG_ROOT = $current_dir . '/logs';
@@ -49,14 +51,14 @@ function create_a2_conf($SERVER_NAME){
  *
  * @param   array   options only options is $options[sitename] 
  */
-function a2_enable_site($options){
+function cos_a2_enable_site($options){
     $hostname = trim($options['hostname']);
     
     cos_needs_root();
-    create_logs();
+    cos_create_logs();
    
     // create apache2 conf and enable site
-    $apache2_conf = create_a2_conf($hostname);
+    $apache2_conf = cos_create_a2_conf($hostname);
     $tmp_file = _COS_PATH . "/tmp/$hostname";
     file_put_contents($tmp_file, $apache2_conf);
     $apache2_conf_file = "/etc/apache2/sites-available/$hostname";
@@ -91,7 +93,7 @@ function a2_enable_site($options){
  *
  * @param   array   options only options is $options[sitename] 
  */
-function a2_disable_site($options){
+function cos_a2_disable_site($options){
     
     cos_needs_root();
     $hostname = trim($options['hostname']);
@@ -122,7 +124,7 @@ function a2_disable_site($options){
 
 }
 // }}}
-function a2_use_ssl ($options) {
+function cos_a2_use_ssl ($options) {
     config::$vars['a2_use_ssl'] = true;
 }
 
@@ -130,19 +132,19 @@ mainCli::setCommand('apache2', array(
     'description' => 'apache2 commands. Install, remove hosts.',
 ));
 
-mainCli::setOption('a2_use_ssl', array(
+mainCli::setOption('cos_a2_use_ssl', array(
     'long_name'   => '--ssl',
     'description' => 'Set this flag and enable SSL mode',
     'action'      => 'StoreTrue'
 ));
 
-mainCli::setOption('a2_enable_site', array(
+mainCli::setOption('cos_a2_enable_site', array(
     'long_name'   => '--enable',
     'description' => 'Will enable current directory as an apache2 virtual host. Will also add new sitename to your /etc/hosts file',
     'action'      => 'StoreTrue'
 ));
 
-mainCli::setOption('a2_disable_site', array(
+mainCli::setOption('cos_a2_disable_site', array(
     'long_name'   => '--disable',
     'description' => 'Will disable current directory as an apache2 virtual host, and remove sitename from /etc/hosts files',
     'action'      => 'StoreTrue'
