@@ -121,9 +121,9 @@ function upgrade_module($options){
     // upgrade
     $ret = $upgrade->upgrade($options['version']);
     if (!$ret) {
-        print $upgrade->error . "\n";
+        echo $upgrade->error . NEW_LINE;
     } else {
-        print $upgrade->confirm . "\n";
+        echo $upgrade->confirm . NEW_LINE;
     }
     
     //update_ini_file($options);

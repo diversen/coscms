@@ -66,7 +66,6 @@ function upgrade_from_profile ($options){
         }
                
         $val['module'] = $val['module_name'];
-
         $module = new moduleinstaller($val);
 
         if ($module->isInstalled($val['module_name'])){
@@ -100,7 +99,7 @@ function install_from_profile ($options){
     $pro->setProfileInfo($options['profile']);
 
     $final = true;
-    foreach ($pro->profileModules as $key => $val){
+    foreach ($pro->profileModules as $val){
         $val['module'] = $val['module_name'];
         $val['version'] = $val['module_version'];
 
