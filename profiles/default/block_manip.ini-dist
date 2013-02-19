@@ -4,5 +4,3 @@ block_manip_allow = "admin"
 block_manip_modules[0] = "image"
 block_manip_markedit = 1
 [development]
-block_manip_filters[0] = "phphl"
-block_manip_filters[1] = "cosmarkdownext"

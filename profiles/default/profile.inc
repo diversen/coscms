@@ -328,7 +328,7 @@ $_PROFILE_MODULES = array (
   ),
   25 => 
   array (
-    'id' => '27',
+    'id' => '29',
     'module_name' => 'google_analytics',
     'module_version' => '1.71',
     'menu_item' => '1',
@@ -400,7 +400,7 @@ $_PROFILE_TEMPLATES = array (
   ),
 );
 
-$_PROFILE_TEMPLATE = 'clean';
+$_PROFILE_TEMPLATE = 'zimpleza';
 
 $_PROFILE_USE_HOME = 0;
 

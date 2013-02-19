@@ -287,7 +287,7 @@ class profile  {
 
             $source = _COS_MOD_PATH . "/$val[module_name]/$val[module_name].ini";
             $ary = config::getIniFileArray($source, true);
-            $ary = $this->removeIniSecrets($ary);               
+            $ary = $this->removeIniSecretsFromArray($ary);               
             $config_str = config::arrayToIniFile($ary);
 
             $dest = $profile_dir . "/$val[module_name].ini-dist";
