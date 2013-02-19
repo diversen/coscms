@@ -104,14 +104,14 @@ class moduleinstaller extends db {
         } else {
             config::$vars['coscms_main']['module'] = config::getIniFileArray($ini_file);
         }
-        //moduleloader::setModuleIniSettings($module_name);
+
         if (file_exists($module_dir)){
             $install_file = "$module_dir/install.inc";
             if (!file_exists($install_file)){
                 cos_cli_print("Notice: No install file '$install_file' found in: '$module_dir'\n");
             }
 
-            include $install_file;
+            include_once $install_file;
             $this->installInfo = $_INSTALL;
             
             // use directory name as name of module
