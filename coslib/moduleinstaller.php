@@ -85,7 +85,9 @@ class moduleinstaller extends db {
      * @param   array $options
      */
     public function setInstallInfo($options){
-
+        
+        
+        
         $module_name = $options['module'];
         $module_dir = _COS_MOD_PATH . "/$module_name";
         $ini_file = $module_dir . "/$module_name.ini";
@@ -111,7 +113,7 @@ class moduleinstaller extends db {
                 cos_cli_print("Notice: No install file '$install_file' found in: '$module_dir'\n");
             }
 
-            include_once $install_file;
+            include $install_file;
             $this->installInfo = $_INSTALL;
             
             // use directory name as name of module
@@ -627,9 +629,9 @@ class moduleinstaller extends db {
         $this->insertMenuItem();
         $this->insertRoutes();
 
-        $in_func = $this->installInfo['NAME'] . "_install";
-        if(function_exists($in_func)) {
-            $in_func($this->installInfo['VERSION']);
+        //$in_func = $this->installInfo['NAME'] . "_install";
+        if(isset($this->installInfo['INSTALL'])) {
+            $this->installInfo['INSTALL']($this->installInfo['VERSION']);
         }
         
         $this->confirm = "module '" . $this->installInfo['NAME'] . "' ";
@@ -665,15 +667,9 @@ class moduleinstaller extends db {
         $this->deleteRoutes();
         $this->delete('language', 'module_name', $this->installInfo['NAME']);
         
-        // check for uninstall.inc file
-        //$unin_file = _COS_PATH . '/' . _COS_MOD_DIR . '/' . $this->installInfo['NAME'] . "/uninstall.inc";
-        //if (file_exists($unin_file)) {
-        //    include_once $unin_file;
-            $unin_func = $this->installInfo['NAME'] . "_uninstall";
-            if(function_exists($unin_func)) {
-                $unin_func($this->installInfo['VERSION']);
-            }
-        //}
+        if(isset($this->installInfo['UNINSTALL'])) {
+            $this->installInfo['UNINSTALL']($this->installInfo['VERSION']);
+        }
         
 
         if (!empty($downgrades)) {
@@ -793,9 +789,9 @@ class moduleinstaller extends db {
                         }
                 }
                 
-                $this->callUpdateFunction($version);
-                // only upgrade to specified version
-                if ($version == $specific) break;
+                if(isset($this->installInfo['INSTALL'])) {
+                    $this->installInfo['INSTALL']($this->installInfo['VERSION']);
+                }
             }
         }
 
@@ -814,15 +810,6 @@ class moduleinstaller extends db {
             $this->confirm = "module: " . $this->installInfo['NAME'] . " Nothing to upgrade. module version is still $current_version";
             return true;
         }
-    }
-    
-    public function callUpdateFunction ($version) {
-
-            $update_func = $this->installInfo['NAME'] . "_install";
-            if(function_exists($update_func)) {
-                $update_func($version);
-            }
-       
     }
 }
 /**
