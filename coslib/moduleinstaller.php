@@ -631,6 +631,7 @@ class moduleinstaller extends db {
 
         //$in_func = $this->installInfo['NAME'] . "_install";
         if(isset($this->installInfo['INSTALL'])) {
+
             $this->installInfo['INSTALL']($this->installInfo['VERSION']);
         }
         
@@ -738,6 +739,12 @@ class moduleinstaller extends db {
      *
      */
     public function upgrade ($specific = null){
+        
+        if (!moduleloader::isInstalledModule($this->installInfo['NAME'])) {
+            cos_cli_print("Notice: Can not upgrade. You will need to install module first");
+            return;
+        }
+        
         if (!isset($specific)){
             $specific = $this->installInfo['VERSION'] ;
         }
@@ -789,9 +796,10 @@ class moduleinstaller extends db {
                         }
                 }
                 
-                if(isset($this->installInfo['INSTALL'])) {
+                
+            }
+            if(isset($this->installInfo['INSTALL'])) {
                     $this->installInfo['INSTALL']($this->installInfo['VERSION']);
-                }
             }
         }
 
