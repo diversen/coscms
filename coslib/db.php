@@ -363,6 +363,7 @@ class db {
      * method for doing a insert or update. If search conditions finds 
      * a row, then this row is updated. If no row is found we insert a new
      * one. 
+     * 
      * @param string $table
      * @param array $values
      * @param array $search e.g. array ('user_id' => 123);

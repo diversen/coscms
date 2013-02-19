@@ -62,15 +62,5 @@ function coslib_autoloader($classname) {
  */
 spl_autoload_register('coslib_autoloader');
 
-
-
-
-
-//include _COS_PATH . "/coslib/SplClassLoader.php";
-
-//$classLoader = new SplClassLoader('\coslib', 'coslib');
-//$classLoader->register();
-
-// include bootstrap file. 
 include _COS_PATH . "/coslib/head.php";
 

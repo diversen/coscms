@@ -22,11 +22,13 @@ define('_COS_PATH',  $path);
  * @ignore
  */
 
+
 $ini_path = ini_get('include_path');
 ini_set('include_path', 
     _COS_PATH . PATH_SEPARATOR . 
     _COS_PATH . '/vendor' . PATH_SEPARATOR .
-    _COS_PATH . "/coslib" . PATH_SEPARATOR . _COS_PATH . '/modules' . 
+    _COS_PATH . "/coslib" . PATH_SEPARATOR . 
+    _COS_PATH . '/cosmod' . PATH_SEPARATOR . 
         $ini_path . PATH_SEPARATOR);
 
 
@@ -34,11 +36,11 @@ ini_set('include_path',
  * specific composer autoload
  */
 include 'vendor/autoload.php';
-
 /**
  * coslib autoloader
  * @param type $classname
  */
+
 function coslib_autoloader($classname) {
     $classname = ltrim($classname, '\\');
     $filename  = '';
@@ -51,6 +53,8 @@ function coslib_autoloader($classname) {
     $filename = str_replace('_', '/', $classname) . '.php';
     include $filename;
 }
+
+
 
 /**
  * register the autoload on the stack
