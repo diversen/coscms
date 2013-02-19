@@ -273,7 +273,7 @@ class upload {
      */
     public static function checkAllowedMime ($filename) {
         // if (isset($allow_mime)){
-        $type = mime_content_type($_FILES[$filename]['tmp_name']);
+        $type = file::getMime($_FILES[$filename]['tmp_name']);
 
         if (!in_array($type, self::$options['allow_mime'])) {
             $message = lang::translate('system_file_upload_mime_type_not allowed');
