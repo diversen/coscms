@@ -445,7 +445,7 @@ class uploadBlob extends upload {
 
         // check for right content
         if (isset($options['allow_mime'])){
-            $type = mime_content_type($options['filename']);
+            $type = file::getMime($options['filename']);
             if (!in_array($type, $options['allow_mime'])) {
                 self::$errors[] = lang::translate('system_class_upload_file_format_not_allowed') .
                 ": " . $type;
