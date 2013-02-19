@@ -344,6 +344,11 @@ class moduleloader {
         if (file_exists($module_full_path)) {
             $this->info['module_class'] = self::modulePathToClassName($this->info['module_name']);
         }
+        
+        if (!moduleloader::isInstalledModule($this->info['module_base_name'])){          
+            self::$status[404] = 1;
+            $this->setErrorModuleInfo(); 
+        } 
     }
 
     /**
@@ -366,6 +371,8 @@ class moduleloader {
         $module = $this->info['module_name'];  
         self::$running = $module;
         moduleloader::includeModule($module);
+        
+        
 
 
         // set module template if specified
@@ -563,7 +570,13 @@ class moduleloader {
      */
     public function getParsedModule(){
         
-        $action_str = $this->getParsedModuleAction();        
+
+        
+        $action_str = $this->getParsedModuleAction();  
+        
+        
+        
+        
         if (!file_exists($this->info['controller_file']) && !$this->info['module_action_exists'] ){ 
             self::$status[404] = 1;
             $this->setErrorModuleInfo(); 

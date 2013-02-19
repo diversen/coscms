@@ -627,6 +627,11 @@ class moduleinstaller extends db {
         $this->insertMenuItem();
         $this->insertRoutes();
 
+        $in_func = $this->installInfo['NAME'] . "_install";
+        if(function_exists($in_func)) {
+            $in_func($this->installInfo['VERSION']);
+        }
+        
         $this->confirm = "module '" . $this->installInfo['NAME'] . "' ";
         $this->confirm.= "version '"  . $this->installInfo['VERSION'] . "' ";
         $this->confirm.= "installed";
@@ -661,14 +666,14 @@ class moduleinstaller extends db {
         $this->delete('language', 'module_name', $this->installInfo['NAME']);
         
         // check for uninstall.inc file
-        $unin_file = _COS_PATH . '/' . _COS_MOD_DIR . '/' . $this->installInfo['NAME'] . "/uninstall.inc";
-        if (file_exists($unin_file)) {
-            include_once $unin_file;
+        //$unin_file = _COS_PATH . '/' . _COS_MOD_DIR . '/' . $this->installInfo['NAME'] . "/uninstall.inc";
+        //if (file_exists($unin_file)) {
+        //    include_once $unin_file;
             $unin_func = $this->installInfo['NAME'] . "_uninstall";
             if(function_exists($unin_func)) {
-                $unin_func();
+                $unin_func($this->installInfo['VERSION']);
             }
-        }
+        //}
         
 
         if (!empty($downgrades)) {
@@ -812,14 +817,12 @@ class moduleinstaller extends db {
     }
     
     public function callUpdateFunction ($version) {
-        $update_file = _COS_PATH . '/' . _COS_MOD_DIR . '/' . $this->installInfo['NAME'] . "/update.inc";
-        if (file_exists($update_file)) {
-            include_once $update_file;
-            $update_func = $this->installInfo['NAME'] . "_update";
+
+            $update_func = $this->installInfo['NAME'] . "_install";
             if(function_exists($update_func)) {
                 $update_func($version);
             }
-        }
+       
     }
 }
 /**
