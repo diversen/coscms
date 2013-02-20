@@ -381,7 +381,7 @@ $_PROFILE_TEMPLATES = array (
   array (
     'public_clone_url' => 'git://github.com/diversen/zimpleza.git',
     'private_clone_url' => 'git@github.com:diversen/zimpleza.git',
-    'module_version' => '1.81',
+    'module_version' => '1.82',
     'module_name' => 'zimpleza',
   ),
   6 => 
