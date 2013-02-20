@@ -35,9 +35,9 @@ class phphl {
         
         self::init();
         
-        if (config::getModuleIni('filter_php_use_files')) {
+        //if (config::getModuleIni('filter_php_use_files')) {
             $article = self::filterPhpFile($article);
-        }
+        //}
         $article = self::filterPhpInline($article);
         return $article;
         
