@@ -623,17 +623,24 @@ class moduleinstaller extends db {
         $res = $this->createSQL () ;
         if (!$res) return false;
         
+        if (isset($this->installInfo['VERSIONS'])) {
+                foreach ($this->installInfo['VERSIONS'] as $val) {          
+                    $this->installInfo['INSTALL']($val);
+                    if ($val == $this->installInfo['VERSION']) { 
+                        break;
+                    }
+                    
+                }
+            } 
+        
+        
         // insert into registry. Set menu item and insert language.
         $this->insertRegistry();
         $this->insertLanguage();
         $this->insertMenuItem();
         $this->insertRoutes();
 
-        //$in_func = $this->installInfo['NAME'] . "_install";
-        if(isset($this->installInfo['INSTALL'])) {
-
-            $this->installInfo['INSTALL']($this->installInfo['VERSION']);
-        }
+        
         
         $this->confirm = "module '" . $this->installInfo['NAME'] . "' ";
         $this->confirm.= "version '"  . $this->installInfo['VERSION'] . "' ";
@@ -753,6 +760,12 @@ class moduleinstaller extends db {
         $row = $this->getModuleInfo();
         $current_version = $row['module_version'];
 
+        
+        if ($current_version == $specific) {
+            cos_cli_print("Module version is $specific and registry has same version. No upgrade to perform");
+            return;
+        }
+              
         // get a list of sql updates to perform or an empty array if no sql
         // updates exists
         $updates = $this->getSqlFileListOrdered($this->installInfo['NAME'], 'up');
@@ -773,43 +786,49 @@ class moduleinstaller extends db {
                 $this->error = 'module SQL ' . $this->installInfo['NAME'] . " ";
                 $this->error.= 'does not have such a version. Possible version are: ';
                 $this->error.= $possible_versions;
-                //return false;
             }
             
-            // perform SQL updates
+            // perform SQL updates found in .sql files
             foreach ($updates as $key => $val){
                 $version = substr($val, 0, -4);
                 if ($current_version < $version ) {
-                        $sql =  $this->getSqlFileString(
-                                    $this->installInfo['NAME'],
-                                    $version,
-                                    'up');
-                        $sql_ary = explode ("\n\n", $sql);
-                        foreach ($sql_ary as  $sql_val) {
-                            try {
-                                self::$dbh->query($sql_val);
-                            } catch (Exception $e) {
-                                 echo 'Caught exception: ',  $e->getMessage(), "\n";
-                                 echo "version of sql: $version";
-                                 die;;
-                            }
+                    $sql =  $this->getSqlFileString(
+                                $this->installInfo['NAME'],
+                                $version,
+                                'up');
+                    $sql_ary = explode ("\n\n", $sql);
+                    foreach ($sql_ary as  $sql_val) {
+                        try {
+                            self::$dbh->query($sql_val);
+                        } catch (Exception $e) {
+                            echo 'Caught exception: ',  $e->getMessage(), "\n";
+                            echo "version of sql: $version";
+                            die;;
                         }
+                    }
                 }
-                
-                
-            }
-            if(isset($this->installInfo['INSTALL'])) {
-                    $this->installInfo['INSTALL']($this->installInfo['VERSION']);
-            }
+            }   
         }
 
-
-        
+        // perform SQL upgrades - 2. method
+        if (isset($this->installInfo['VERSIONS'])) {
+            $perform_next = 0;
+            foreach ($this->installInfo['VERSIONS'] as $val) {
+                if ($perform_next) {
+                    $this->installInfo['INSTALL']($val);
+                    continue;
+                }
+                    
+                if ($val == $current_version) { 
+                    $perform_next = 1;
+                    continue;
+                }        
+            }
+        } 
         
         // update registry
         $this->updateRegistry($specific, $row['id']);
         if ( $specific > $current_version ){
-            //self::$dbh->commit();
             $this->confirm = "module: '" . $this->installInfo['NAME'] . "' ";
             $this->confirm.= "version: '" . $specific . " Installed. " . "' ";
             $this->confirm.= "Upgraded from $current_version";
@@ -820,130 +839,4 @@ class moduleinstaller extends db {
         }
     }
 }
-/**
- * class for installing a templates or upgrading it.
- * base actions are:
- *
- *
- * update: checks module version from install.inc
- * perform any needed updates e.g. from version
- * 1.04 to 1.07
- *
- * If more upgrades exist. Upgrade all one after one.
- * 
- * @package    moduleinstaller
- */
 
-class templateInstaller extends moduleinstaller {
-    /**
-     * holding array of info for the install
-     * this is loaded from install.inc file and will read
-     * the $_INSTALL var
-     * @var array $installInfo
-     */
-    public $installInfo = null;
-
-    /**
-     * constructor which will take the template to install, upgrade or delete
-     * as param
-     *
-     * @param string name of template to do operations on
-     */
-    function __construct($options = null){
-        if (isset($options)){
-            $this->setInstallInfo($options);
-        }
-    }
-
-/**
-     * reads install info from modules/module_name/install.inc
-     *
-     * @param   array $options
-     */
-    public function setInstallInfo($options){
-        if (isset($options['module_name'])) {
-            $template_name = $options['module_name'];
-        } else {
-            $template_name = $options['template'];
-        }
-        
-        $template_dir = _COS_HTDOCS  . "/templates/$template_name";
-        $ini_file = $template_dir . "/$template_name.ini";
-        $ini_file_dist = $template_dir . "/$template_name.ini-dist";
-
-        if (isset($options['profile'])){
-            $ini_file_dist = _COS_PATH . "/profiles/$options[profile]/$template_name.ini-dist";
-        }
-
-        if (!file_exists($ini_file)){
-            if (file_exists($ini_file_dist)){
-                copy ($ini_file_dist, $ini_file);
-                config::$vars['coscms_main']['template'] = config::getIniFileArray($ini_file);
-            } 
-        } else {
-            config::$vars['coscms_main']['template'] = config::getIniFileArray($ini_file);
-        }
-
-        if (file_exists($template_dir)){
-            $install_file = "$template_dir/install.inc";
-            if (!file_exists($install_file)){
-                cos_cli_print("Notice: No install file '$install_file' found in: '$template_dir'\n");
-            }
-
-            include $install_file;
-            $this->installInfo = $_INSTALL;
-            
-            // use directory name as name of module
-            $this->installInfo['NAME'] = $template_name;
-            if (empty($this->installInfo['MAIN_MENU_ITEM'])){
-                $this->installInfo['menu_item'] = 0;
-            } else {
-                $this->installInfo['menu_item'] = 1;
-            }
-
-            if (empty($this->installInfo['RUN_LEVEL'])){
-                $this->installInfo['RUN_LEVEL'] = 0;
-            }
-
-            
-            
-        } else {
-            cos_cli_print ("Notice: No module dir: $module_dir\n");
-        }
-    }
-    
-    /**
-     * installs a template
-     * @return boolean $res 
-     */
-    public function install () {
-
-        // create ini files for template
-        $template = $this->installInfo['NAME'];
-        $ini_file = _COS_HTDOCS . "/templates/$template/$template.ini";
-        $ini_file_php = _COS_HTDOCS . "/templates/$template/$template.php.ini";
-        $ini_file_dist = _COS_HTDOCS . "/templates/$template/$template.ini-dist";
-        $ini_file_dist_php = _COS_HTDOCS . "/templates/$template/$template.php.ini-dist";
-
-        if (!file_exists($ini_file)){
-            if (file_exists($ini_file_dist)){
-                if (!copy($ini_file_dist, $ini_file)){
-                    $this->error = "Error: Could not copy $ini_file to $ini_file_dist" . NEW_LINE;
-                    $this->error.= "Make sure your module has an ini-dist file: $ini_file_dist";
-                    return false;
-                }
-            } 
-        }
-        
-        // create php ini file if a php.ini-dist file exists
-        if (!file_exists($ini_file_php)){
-            if (file_exists($ini_file_dist_php)){
-                copy($ini_file_dist_php, $ini_file_php);
-            }
-        }
-        
-        $this->confirm = "Template '" . $this->installInfo['NAME'] . "' installed" . NEW_LINE;
-        $this->confirm.= "Make sure your module has an ini-dist file: $ini_file_dist";
-                    
-    }
-}

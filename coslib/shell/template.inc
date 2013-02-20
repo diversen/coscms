@@ -50,7 +50,7 @@ function install_template ($options, $return_val = null) {
     //$template_path = _COS_PATH . "/htdocs/templates/$template";
 
     $str = "Proceeding with install of template $template";
-    $install = new templateInstaller();
+    $install = new templateinstaller();
     $install->setInstallInfo($options);
     $ret = $install->install();
     if (!$ret) {
