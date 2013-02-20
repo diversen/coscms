@@ -328,9 +328,9 @@ $_PROFILE_MODULES = array (
   ),
   25 => 
   array (
-    'id' => '29',
+    'id' => '27',
     'module_name' => 'google_analytics',
-    'module_version' => '1.71',
+    'module_version' => '1.81',
     'menu_item' => '1',
     'run_level' => '0,5',
     'load_on' => NULL,
@@ -344,17 +344,17 @@ $_PROFILE_MODULES = array (
 $_PROFILE_TEMPLATES = array (
   0 => 
   array (
+    'public_clone_url' => 'git://github.com/diversen/openid-selector.git',
+    'private_clone_url' => 'git@github.com:diversen/openid-selector.git',
+    'module_version' => '1.81',
+    'module_name' => 'openid-selector',
+  ),
+  1 => 
+  array (
     'public_clone_url' => 'git://github.com/diversen/clean.git',
     'private_clone_url' => 'git@github.com:diversen/clean.git',
     'module_version' => '1.81',
     'module_name' => 'clean',
-  ),
-  1 => 
-  array (
-    'public_clone_url' => 'git://github.com/diversen/zimpleza.git',
-    'private_clone_url' => 'git@github.com:diversen/zimpleza.git',
-    'module_version' => '1.81',
-    'module_name' => 'zimpleza',
   ),
   2 => 
   array (
@@ -365,24 +365,24 @@ $_PROFILE_TEMPLATES = array (
   ),
   3 => 
   array (
-    'public_clone_url' => 'git://github.com/diversen/1kbgrid.git',
-    'private_clone_url' => 'git@github.com:diversen/1kbgrid.git',
+    'public_clone_url' => 'git://github.com/diversen/jquery-markedit.git',
+    'private_clone_url' => 'git@github.com:diversen/jquery-markedit.git',
     'module_version' => '1.81',
-    'module_name' => '1kbgrid',
+    'module_name' => 'jquery-markedit',
   ),
   4 => 
-  array (
-    'public_clone_url' => 'git://github.com/diversen/openid-selector.git',
-    'private_clone_url' => 'git@github.com:diversen/openid-selector.git',
-    'module_version' => '1.81',
-    'module_name' => 'openid-selector',
-  ),
-  5 => 
   array (
     'public_clone_url' => 'git://github.com/diversen/fancybox.git',
     'private_clone_url' => 'git@github.com:diversen/fancybox.git',
     'module_version' => '1.81',
     'module_name' => 'fancybox',
+  ),
+  5 => 
+  array (
+    'public_clone_url' => 'git://github.com/diversen/zimpleza.git',
+    'private_clone_url' => 'git@github.com:diversen/zimpleza.git',
+    'module_version' => '1.81',
+    'module_name' => 'zimpleza',
   ),
   6 => 
   array (
@@ -393,10 +393,10 @@ $_PROFILE_TEMPLATES = array (
   ),
   7 => 
   array (
-    'public_clone_url' => 'git://github.com/diversen/jquery-markedit.git',
-    'private_clone_url' => 'git@github.com:diversen/jquery-markedit.git',
+    'public_clone_url' => 'git://github.com/diversen/1kbgrid.git',
+    'private_clone_url' => 'git@github.com:diversen/1kbgrid.git',
     'module_version' => '1.81',
-    'module_name' => 'jquery-markedit',
+    'module_name' => '1kbgrid',
   ),
 );
 
