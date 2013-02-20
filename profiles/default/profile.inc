@@ -289,7 +289,7 @@ $_PROFILE_MODULES = array (
   ),
   22 => 
   array (
-    'id' => '24',
+    'id' => '23',
     'module_name' => 'share',
     'module_version' => '1.81',
     'menu_item' => '1',
@@ -302,7 +302,7 @@ $_PROFILE_MODULES = array (
   ),
   23 => 
   array (
-    'id' => '25',
+    'id' => '24',
     'module_name' => 'block_manip',
     'module_version' => '1.81',
     'menu_item' => '1',
@@ -315,7 +315,7 @@ $_PROFILE_MODULES = array (
   ),
   24 => 
   array (
-    'id' => '26',
+    'id' => '25',
     'module_name' => 'rewrite',
     'module_version' => '1.81',
     'menu_item' => '0',
@@ -328,7 +328,7 @@ $_PROFILE_MODULES = array (
   ),
   25 => 
   array (
-    'id' => '27',
+    'id' => '26',
     'module_name' => 'google_analytics',
     'module_version' => '1.81',
     'menu_item' => '1',
