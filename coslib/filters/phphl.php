@@ -130,9 +130,9 @@ function filterPhpReplaceCodeFile($file){
     }
     $str = file_get_contents($file);
     $str = highlight_string($str, true);
-    if (config::getModuleIni('filter_php_add_div')) {
+    //if (config::getModuleIni('filter_php_add_div')) {
         $str = filter_php_add_div($str);
-    }
+    //}
     
     return $str;
 }
