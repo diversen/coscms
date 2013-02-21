@@ -1,6 +1,14 @@
 {
+"repositories": [
+                    {
+                        "type": "composer",
+                        "url": "https://packages.zendframework.com/"
+                    }
+                ],
+
     "require": {
 	"michelf/php-markdown": "1.3.*@dev",
-	"facebook/php-sdk": "dev-master"
+	"facebook/php-sdk": "dev-master",
+	"zendframework/zend-mail": "2.*"
     }
 }

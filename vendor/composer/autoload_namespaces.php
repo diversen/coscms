@@ -6,5 +6,9 @@ $vendorDir = dirname(__DIR__);
 $baseDir = dirname($vendorDir);
 
 return array(
+    'Zend\\Stdlib\\' => $vendorDir . '/zendframework/zend-stdlib/',
+    'Zend\\Mime\\' => $vendorDir . '/zendframework/zend-mime/',
+    'Zend\\Mail\\' => $vendorDir . '/zendframework/zend-mail/',
+    'Zend\\Loader\\' => $vendorDir . '/zendframework/zend-loader/',
     'Michelf' => $vendorDir . '/michelf/php-markdown/',
 );
