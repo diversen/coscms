@@ -140,6 +140,7 @@ return array(
     'PEAR_Validate' => $baseDir . '/vendor/pear-pear.php.net/PEAR/PEAR/Validate.php',
     'PEAR_Validator_PECL' => $baseDir . '/vendor/pear-pear.php.net/PEAR/PEAR/Validator/PECL.php',
     'PEAR_XMLParser' => $baseDir . '/vendor/pear-pear.php.net/PEAR/PEAR/XMLParser.php',
+    'Pager' => $baseDir . '/vendor/pear-pear.php.net/Pager/Pager.php',
     'Pager_Common' => $baseDir . '/vendor/pear-pear.php.net/Pager/Pager/Common.php',
     'Pager_HtmlWidgets' => $baseDir . '/vendor/pear-pear.php.net/Pager/Pager/HtmlWidgets.php',
     'Pager_Jumping' => $baseDir . '/vendor/pear-pear.php.net/Pager/Pager/Jumping.php',
