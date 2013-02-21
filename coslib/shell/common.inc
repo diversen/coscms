@@ -113,7 +113,7 @@ function cos_exec($command, $options = array()){
 // }}}
 
 function color_output ($output, $color_code = 'g') {
-    if (isset(config::$vars['coscms_main']['color_shell'])) {
+    if (!isset(config::$vars['coscms_main']['color_shell_disable'])) {
         return Console_Color::convert("%$color_code$output%n");    
     } 
     return $output;
