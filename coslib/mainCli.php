@@ -169,24 +169,13 @@ EOF;
             // Note: First time loaded we only load it order to load any
             // base modules which may be set
             
-            
             config::loadMainCli();
-            /*
-            $htdocs_path = config::getMainIni('htdocs_path');
-    
-            // default
-            if (!$htdocs_path) {
-                define('_COS_HTDOCS', _COS_PATH . '/htdocs');
-            }
-
-            if ($htdocs_path == '_COS_PATH') {
-                define('_COS_HTDOCS', _COS_PATH);
-            } */
             
             // load all modules
             if (!isset($options['disable_base_modules'])) {
                 mainCli::loadBaseModules();
             }
+            
             if (!isset($options['disable_db_modules'])) {
                 mainCli::loadDbModules();
             }
@@ -219,49 +208,18 @@ EOF;
             // Then we know we operate on the correct database. 
             
             config::loadMainCli();
-           
-            // and connect
-            $db = new db();
-            $ret = @$db->connect(array('dont_die' => 1));
             
             if (is_object($result) && isset($result->command_name)){
+                
                 if (isset($result->command->options)){
+                    
                     foreach ($result->command->options as $key => $val){
                         // command option if set run call back
-                        if ($val == 1){
-                            // bring argument to command if set.
-                            // only call function if it exists.
-                            if (!empty($result->command->args)) {
-                                if (function_exists($key)){
-                                    
-                                    // pretty weird. 
-                                    // But according to scope we need 
-                                    // to load shell modules here
-                                    // in order to use config::getModuleIni()
-                                    
-                                    //if ($ret) {
-                                    /*
-                                    $modules = moduleloader::getAllModules();
-                                    foreach ($modules as $val){
-                                        if (isset($val['is_shell']) && $val['is_shell'] == 1){
-                                            moduleloader::includeModule($val['module_name']);
-                                        }
-                                    }*/
-                                    
-                                     
-                                    $ret = $key($result->command->args);
-                                } else {
-                                    cos_cli_abort("No such function $key");
-                                }
-                            
-                            // No args - we leave empty we leave command argument
-                            // empty
+                        if ($val == 1){                              
+                            if (function_exists($key)){                    
+                                $ret = $key($result->command->args);
                             } else {
-                                if (function_exists($key)){
-                                    $ret = $key();
-                                } else {
-                                    cos_cli_abort("No such function $key");
-                                } 
+                                cos_cli_abort("No such function $key");
                             }
                         } else {
                             $no_sub = 1;
@@ -279,10 +237,7 @@ EOF;
             if (isset($no_base)){
                 cos_cli_print('No base commands given use -h or --help for help');
             }
-
-
-        } catch (Exception $e) {
-            
+        } catch (Exception $e) {           
             self::$parser->displayError($e->getMessage());
         }        
     }
@@ -296,6 +251,7 @@ EOF;
         $ret = @$db->connect(array('dont_die' => 1));
         
         if ($ret == 'NO_DB_CONN'){
+            
             // if no db conn we exists before loading any more modules.
             return;
         }
@@ -308,11 +264,11 @@ EOF;
         }
         
         $mod_loader = new moduleloader();
-
         $modules = moduleloader::getAllModules();
-
-        foreach ($modules as $val){
+        foreach ($modules as $val){     
             if (isset($val['is_shell']) && $val['is_shell'] == 1){
+                moduleloader::includeModule($val['module_name']);
+                
                 $path =  _COS_PATH . "/" . _COS_MOD_DIR.  "/$val[module_name]/$val[module_name].inc";
                 
                 if (file_exists($path)) {
@@ -320,7 +276,7 @@ EOF;
                 }
 
                 $ini = _COS_PATH . "/" . _COS_MOD_DIR  . "/$val[module_name]/$val[module_name].ini";
-                self::$ini[$val['module_name']] = config::getIniFileArray($ini);
+                self::$ini[$val['module_name']] = config::getIniFileArray($ini);                
             }
         }
         
