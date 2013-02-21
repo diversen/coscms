@@ -136,12 +136,12 @@ function dev_build_simple ($options = null) {
     $rm_ignore = "rm `find ./build/$name -name '.gitignore'` -rf";
     cos_exec($rm_ignore);
     
-    $pear = cos_readline("Enter name of pear lib - default to /usr/share/php [/usr/share/php]\n");
-    if (empty($pear)) $pear = '/usr/share/php';
+    //$pear = cos_readline("Enter name of pear lib - default to /usr/share/php [/usr/share/php]\n");
+    //if (empty($pear)) $pear = '/usr/share/php';
 
     
-    $cp_pear = "cp -rf $pear/* ./build/$name/vendor";
-    cos_exec($cp_pear);
+    //$cp_pear = "cp -rf $pear/* ./build/$name/vendor";
+    //cos_exec($cp_pear);
     
     $rm_doc = "rm -rf ./build/vendor/doc";
     cos_exec($rm_doc);
