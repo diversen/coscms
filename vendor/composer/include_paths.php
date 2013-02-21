@@ -6,5 +6,18 @@ $vendorDir = dirname(__DIR__);
 $baseDir = dirname($vendorDir);
 
 return array(
-    $vendorDir . '/pear-pear2.php.net/PEAR2_HTTP_Request/',
+    $vendorDir . '/pear-pear.php.net/Mail/',
+    $vendorDir . '/pear-pear.php.net/Mail_Mime/',
+    $vendorDir . '/pear-pear.php.net/Image_Transform/',
+    $vendorDir . '/pear-pear.php.net/Console_CommandLine/',
+    $vendorDir . '/pear-pear.php.net/XML_Util/',
+    $vendorDir . '/pear-pear.php.net/Console_Getopt/',
+    $vendorDir . '/pear-pear.php.net/Structures_Graph/',
+    $vendorDir . '/pear-pear.php.net/Archive_Tar/',
+    $vendorDir . '/pear-pear.php.net/PEAR/',
+    $vendorDir . '/pear-pear.php.net/Pager/',
+    $vendorDir . '/pear-pear.php.net/Validate/',
+    $vendorDir . '/pear-pear.php.net/Auth_SASL/',
+    $vendorDir . '/pear-pear.php.net/Net_Socket/',
+    $vendorDir . '/pear-pear.php.net/Net_SMTP/',
 );

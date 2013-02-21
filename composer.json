@@ -11,7 +11,18 @@
         	    }
                 ],
 
-    "require": {
+    "require": { 
+
+
+	"pear-pear/PEAR": "1.9.4",
+	"pear-pear/Pager": "2.4.8",
+	"pear-pear/Validate": "0.8.5",
+	"pear-pear/Image_Transform": "0.9.5",
+	"pear-pear/Auth_SASL": "1.0.6",
+	"pear-pear/Net_SMTP": "1.6.1",
+	"pear-pear/Console_Commandline": "1.2.0",
+	"pear-pear/Mail_Mime": "1.8.7",
+	"pear-pear/Mail": "1.2.0",
 	"michelf/php-markdown": "1.3.*@dev",
 	"facebook/php-sdk": "dev-master",
 	"zendframework/zend-mail": "2.*"
