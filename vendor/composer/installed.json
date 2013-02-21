@@ -709,5 +709,33 @@
             "/"
         ],
         "description": "Provides an implementation of the SMTP protocol using PEAR's Net_Socket class."
+    },
+    {
+        "name": "pear-pear.php.net/Console_Color",
+        "version": "1.0.3",
+        "version_normalized": "1.0.3.0",
+        "dist": {
+            "type": "file",
+            "url": "http://pear.php.net/get/Console_Color-1.0.3.tgz",
+            "reference": null,
+            "shasum": null
+        },
+        "require": {
+            "php": ">=4.0.0.0"
+        },
+        "replace": {
+            "pear-pear/console_color": "== 1.0.3.0"
+        },
+        "type": "pear-library",
+        "installation-source": "dist",
+        "autoload": {
+            "classmap": [
+                ""
+            ]
+        },
+        "include-path": [
+            "/"
+        ],
+        "description": "You can use Console_Color::convert to transform colorcodes like %r into ANSI\ncontrol codes. print Console_Color::convert(&amp;amp;quot;%rHello World!%n&amp;amp;quot;); would print\n&amp;amp;quot;Hello World&amp;amp;quot; in red, for example."
     }
 ]
