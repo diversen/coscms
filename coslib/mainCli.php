@@ -233,6 +233,22 @@ EOF;
                             // only call function if it exists.
                             if (!empty($result->command->args)) {
                                 if (function_exists($key)){
+                                    
+                                    // pretty weird. 
+                                    // But according to scope we need 
+                                    // to load shell modules here
+                                    // in order to use config::getModuleIni()
+                                    
+                                    //if ($ret) {
+                                    /*
+                                    $modules = moduleloader::getAllModules();
+                                    foreach ($modules as $val){
+                                        if (isset($val['is_shell']) && $val['is_shell'] == 1){
+                                            moduleloader::includeModule($val['module_name']);
+                                        }
+                                    }*/
+                                    
+                                     
                                     $ret = $key($result->command->args);
                                 } else {
                                     cos_cli_abort("No such function $key");
@@ -297,7 +313,6 @@ EOF;
 
         foreach ($modules as $val){
             if (isset($val['is_shell']) && $val['is_shell'] == 1){
-                //$command_path = _COS_PATH . "/modules/$val[module_name]";
                 $path =  _COS_PATH . "/" . _COS_MOD_DIR.  "/$val[module_name]/$val[module_name].inc";
                 
                 if (file_exists($path)) {
