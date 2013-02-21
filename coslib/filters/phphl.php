@@ -19,7 +19,8 @@ class phphl {
     private $lang;
 
     public static function init () {
-        static $run = null;
+        template::setCss('/css/filter_php.css');
+	static $run = null;
         if (!$run) {
             //template::setInlineCss(config::getModulePath('filter_php') . "/assets/filter_php.css");
             $run = 1;
@@ -97,7 +98,7 @@ class phphl {
 }
 
 function filter_php_add_div ($str) {
-    return "<div id=\"php\">$str</div>\n";
+    return "<div class=\"php\">$str</div>\n";
     return $str;
 }
 

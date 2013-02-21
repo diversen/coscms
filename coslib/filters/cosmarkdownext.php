@@ -1,6 +1,5 @@
 <?php
-
-use Michelf\Markdown;
+use \Michelf\MarkdownExtra;
 /**
  * markdownExt filter.
  *
@@ -18,7 +17,7 @@ class cosmarkdownext {
 
         static $md;
         if (!$md){
-            $md = new Markdown();
+            $md = new MarkdownExtra();
         }
 
         $md->no_entities = false;
