@@ -1,6 +1,8 @@
 <?php
 
-include_once "Zend/Mail/Storage/Imap.php";
+
+use Zend\Mail\Storage\Imap as ZendImap;
+//include_once "Zend/Mail/Storage/Imap.php";
 
 /**
  * Wrapper around Zend Mail Storage Imap 
@@ -71,7 +73,7 @@ class imap {
     
     public function connect ($connect = null) {
         //print_r($connect); die ('t');
-        $this->mail = new Zend_Mail_Storage_Imap($connect);
+        $this->mail = new ZendImap($connect);
     }
     
     /**

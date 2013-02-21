@@ -3,7 +3,12 @@
                     {
                         "type": "composer",
                         "url": "https://packages.zendframework.com/"
-                    }
+                    },
+
+		    {
+            		"type": "pear",
+            		"url": "http://pear.php.net"
+        	    }
                 ],
 
     "require": {
