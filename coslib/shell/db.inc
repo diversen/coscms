@@ -141,7 +141,7 @@ function load_db_file($options){
     }
     $db = dbadmin::getDbInfo();
     $command = 
-        "mysql -u" . config::$vars['coscms_main']['username'] .
+        "mysql --default-character-set=utf8  -u" . config::$vars['coscms_main']['username'] .
         " -p" . config::$vars['coscms_main']['password'] . " $db[name] < $file";
     return $ret = cos_exec($command);
 
