@@ -71,7 +71,7 @@ class cosMail {
             $params["password"] = config::getMainIni('smtp_params_password');
             $params['debug'] = config::getMainIni('smtp_params_debug');
             $params['persist'] = config::getMainIni('smtp_params_persist');
-            $params['pipelining'] = config::getMainIni('smtp_params_pipelining');
+            //$params['pipelining'] = config::getMainIni('smtp_params_pipelining');
             if (!config::getMainIni('smtp_params_persist')) {
                 $params['persist'] = false;
             }
