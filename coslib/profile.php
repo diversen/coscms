@@ -282,7 +282,7 @@ class profile  {
         }
         
         // use config.ini-dist with modules with personal configuration
-        $secrets = array ('remote');
+        //$secrets = array ('remote');
         foreach ($modules as $key => $val){
 
             $source = _COS_MOD_PATH . "/$val[module_name]/$val[module_name].ini";
@@ -346,6 +346,8 @@ class profile  {
             'ssh_host',
             'ssh_port',
             'account_facebook_api_secret',
+            'imap_user',
+            'imap_password'
             
         );
         foreach ($ary as $key => &$val) {
