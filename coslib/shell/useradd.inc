@@ -36,10 +36,10 @@ function useradd_add ($options = null){
  * @return  boolean $res
  */
 function useradd_db_insert ($values){
+    $database = config::getMainIni('domain');
+    dbadmin::changeDB($database);
     $db = new db();
-    //print_r(db::$debug);
     $res = $db->insert('account', $values);
-    //echo "res" . $res; 
     return $res;
 }
 
