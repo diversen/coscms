@@ -130,11 +130,6 @@ class session {
                         last_login < now() - interval $days day";
                 $db->rawQuery($sql);
                 
-                $row = $db->selectOne ('system_cookie', 'cookie_id', @$_COOKIE['system_cookie']);
-                if (empty($row)) { 
-                    return;
-                }
-                
                 // on every cookie login we update the cookie id and
                 // delete every user cookie that is older than 1 month
                 
@@ -152,7 +147,8 @@ class session {
                 
                 // get account which is connected to account id
                 $account = $db->selectOne('account', 'id', $row['account_id']);
-
+                
+                // user with account
                 if ($account){
                     
                     $_SESSION['id'] = $account['id'];
@@ -170,8 +166,14 @@ class session {
                     event::getTriggerEvent(
                         $login_events, $args
                     );
+                } else {
+                    // keep anon user in session
+                    $_SESSION['id'] = 0;
+                    $_SESSION['type'] = 'anon';
                 }
             } 
+        } else {
+            
         }
     }
 
