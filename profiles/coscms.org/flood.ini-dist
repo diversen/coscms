@@ -1,0 +1,2 @@
+flood_comment_create[post_max] = "1"
+flood_comment_create[post_interval] = "150"
