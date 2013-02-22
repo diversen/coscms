@@ -17,8 +17,8 @@ return array(
     $vendorDir . '/pear-pear.php.net/PEAR/',
     $vendorDir . '/pear-pear.php.net/Pager/',
     $vendorDir . '/pear-pear.php.net/Validate/',
-    $vendorDir . '/pear-pear.php.net/Auth_SASL/',
     $vendorDir . '/pear-pear.php.net/Net_Socket/',
     $vendorDir . '/pear-pear.php.net/Net_SMTP/',
     $vendorDir . '/pear-pear.php.net/Console_Color/',
+    $vendorDir . '/pear-pear.php.net/Auth_SASL/',
 );
