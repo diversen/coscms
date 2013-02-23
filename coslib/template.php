@@ -569,6 +569,30 @@ class template {
             self::$inlineCss[] = $str;
         }
     }
+    
+        /**
+     * method for setting user css used inline in user templates.
+     *
+     * @param   string   $css string file path of the css
+     * @param   int      $order the loading order of css 0 is first > 0 is
+     *                   later.
+     * @param array $options
+     */
+    public static function setModuleInlineCss($module, $css, $order = null, $options = array()){
+        
+        $module_css = _COS_MOD_PATH . "/$module/$css";
+        
+        $template_name = layout::getTemplateName();
+        $template_override =  "/templates/$template_name/$module$css";
+        
+        if (file_exists(_COS_HTDOCS . $template_override) ) {
+            template::setCss($template_override);
+
+            return;
+        }
+        
+        template::setInlineCss($module_css);
+    }
 
     
     /**

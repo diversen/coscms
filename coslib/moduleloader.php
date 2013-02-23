@@ -1009,6 +1009,11 @@ class moduleloader {
         $str = '<span class="small-font">';
         $i = 1;
 
+        if (is_string($filters)) {
+            //$ = array ();
+            die();
+        }
+        
         foreach($filters as $val) {
             $str.= $i . ") " .  lang::translate("filter_" . $val . "_help") . "<br />";
             $i++;
