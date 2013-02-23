@@ -86,8 +86,7 @@ class user {
      * @param param $row
      * @return string $html
      */
-    public static function getLogoutHTML ($row) {
-        
+    public static function getLogoutHTML ($row) {        
         self::initProfile();
         return self::$profile_object->getLogoutHTML($row);
     }
