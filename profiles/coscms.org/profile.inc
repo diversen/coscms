@@ -304,7 +304,7 @@ $_PROFILE_MODULES = array (
   array (
     'id' => '249',
     'module_name' => 'questions',
-    'module_version' => '1.311',
+    'module_version' => '1.811',
     'menu_item' => '1',
     'run_level' => '0',
     'load_on' => NULL,
