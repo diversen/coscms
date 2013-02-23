@@ -39,8 +39,8 @@ imap_password = ""
 imap_ssl = "TLS"
 cache_disable = 1
 [development]
-cache_disable = "1]"
+cache_disable = 1
 hostname = "dennis-Rev-1-0"
 server_name = "cos.org"
 server_redirect = "cos.org"
-development[cashed_assets_reload] = "1"
+cashed_assets_reload = 1

@@ -5,6 +5,7 @@ blog_abstract_length = 250
 blog_allow = "admin"
 blog_view_sub_modules[1] = "files"
 blog_view_sub_modules[3] = "comment"
+blog_view_sub_modules[4] = "counter"
 blog_edit_sub_modules[0] = "image"
 blog_edit_sub_modules[1] = "files"
 blog_index_sub_modules[2] = "rss"

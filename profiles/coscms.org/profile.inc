@@ -339,6 +339,19 @@ $_PROFILE_MODULES = array (
     'public_clone_url' => 'git://github.com/diversen/flood.git',
     'private_clone_url' => 'git@github.com:diversen/flood.git',
   ),
+  26 => 
+  array (
+    'id' => '254',
+    'module_name' => 'counter',
+    'module_version' => '1.82',
+    'menu_item' => '0',
+    'run_level' => '0,6',
+    'load_on' => NULL,
+    'parent' => NULL,
+    'is_shell' => NULL,
+    'public_clone_url' => 'git://github.com/diversen/counter.git',
+    'private_clone_url' => 'git@github.com:diversen/counter.git',
+  ),
 );
 
 $_PROFILE_TEMPLATES = array (
