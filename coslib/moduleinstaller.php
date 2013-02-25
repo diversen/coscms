@@ -89,6 +89,8 @@ class moduleinstaller extends db {
         
         
         $module_name = $options['module'];
+        // use directory name as name of module
+          
         $module_dir = _COS_MOD_PATH . "/$module_name";
         $ini_file = $module_dir . "/$module_name.ini";
         $ini_file_dist = $module_dir . "/$module_name.ini-dist";
@@ -116,8 +118,9 @@ class moduleinstaller extends db {
             include $install_file;
             $this->installInfo = $_INSTALL;
             
-            // use directory name as name of module
             $this->installInfo['NAME'] = $module_name;
+
+            
             if (empty($this->installInfo['MAIN_MENU_ITEM'])){
                 $this->installInfo['menu_item'] = 0;
             } else {
@@ -747,6 +750,8 @@ class moduleinstaller extends db {
      */
     public function upgrade ($specific = null){
         
+       
+        
         if (!moduleloader::isInstalledModule($this->installInfo['NAME'])) {
             cos_cli_print("Notice: Can not upgrade. You will need to install module first");
             return;
@@ -762,10 +767,12 @@ class moduleinstaller extends db {
 
         
         if ($current_version == $specific) {
-            cos_cli_print("Module version is $specific and registry has same version. No upgrade to perform");
+            $this->confirm = "Module '" . $this->installInfo['NAME'] ."' version is $specific and registry has same version. No upgrade to perform";
             return;
         }
-              
+        
+          // echo ;
+        
         // get a list of sql updates to perform or an empty array if no sql
         // updates exists
         $updates = $this->getSqlFileListOrdered($this->installInfo['NAME'], 'up');
@@ -781,7 +788,9 @@ class moduleinstaller extends db {
                     $possible_versions.="$version ";
                 }
             }
-
+            
+            
+            
             if (!isset($version_exists)){
                 $this->error = 'module SQL ' . $this->installInfo['NAME'] . " ";
                 $this->error.= 'does not have such a version. Possible version are: ';
@@ -825,6 +834,7 @@ class moduleinstaller extends db {
                 }        
             }
         } 
+       
         
         // update registry
         $this->updateRegistry($specific, $row['id']);
