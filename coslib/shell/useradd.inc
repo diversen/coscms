@@ -36,8 +36,9 @@ function useradd_add ($options = null){
  * @return  boolean $res
  */
 function useradd_db_insert ($values){
-    $database = config::getMainIni('domain');
-    dbadmin::changeDB($database);
+    $database = dbadmin::getDbInfo();
+    
+    dbadmin::changeDB($database['name']);
     $db = new db();
     $res = $db->insert('account', $values);
     return $res;
