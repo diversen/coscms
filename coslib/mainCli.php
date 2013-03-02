@@ -200,10 +200,8 @@ EOF;
                 } else {
                     
                     // if a not standard domain is given - we now need to load
-                    // the config file again - in order to tell system which database
-                    // we want to use. E.g. such a database may have been set in 
-                    // config/multi/example.com/config.ini
-                    // Then we know we operate on the correct database. 
+                    // the config file again -  e.gi n order to tell system which database
+                    // we want to use. 
                     
                     // we also loose all sub module ini settings
                     // Then db enabled modules ini settings will only work
