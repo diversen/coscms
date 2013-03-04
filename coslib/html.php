@@ -1100,11 +1100,11 @@ EOF;
                 if (is_array($val) ) {
                     $values[$key] = self::specialEncode($val);
                 } else {
-                    $values[$key] = htmlspecialchars($val, ENT_COMPAT);
+                    $values[$key] = htmlspecialchars($val, ENT_COMPAT, 'UTF-8');
                 }
             }
         } else if (is_string($values)) {
-            $values =  htmlspecialchars($values, ENT_COMPAT);
+            $values =  htmlspecialchars($values, ENT_COMPAT, 'UTF-8');
         } else {
             $values = '';
         }
@@ -1122,11 +1122,11 @@ EOF;
                 if (is_array($val)) {
                     $values[$key] = self::specialDecode($val);
                 } else {
-                    $values[$key] = htmlspecialchars_decode($val, ENT_COMPAT);
+                    $values[$key] = htmlspecialchars_decode($val, ENT_COMPAT, 'UTF-8');
                 }
             }
         } else if (is_string($values)) {
-            $values =  htmlspecialchars_decode($values, ENT_COMPAT);
+            $values =  htmlspecialchars_decode($values, ENT_COMPAT, 'UTF-8');
         } else {
             $values = '';
         }

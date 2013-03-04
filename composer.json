@@ -13,7 +13,6 @@
 
     "require": { 
 
-
 	"pear-pear/PEAR": "1.9.4",
 	"pear-pear/Pager": "2.4.8",
 	"pear-pear/Validate": "0.8.5",
