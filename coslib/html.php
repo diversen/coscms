@@ -1094,9 +1094,11 @@ EOF;
      * @param mixed $values
      * @return mixed $values special encoded
      */
-    public static function specialEncode(&$values){
+    public static function specialEncode(&$values, $negative = array ()){
         if (is_array($values)){
             foreach($values as $key => $val){
+                if (in_array($key, $negative)) continue;
+                
                 if (is_array($val) ) {
                     $values[$key] = self::specialEncode($val);
                 } else {
