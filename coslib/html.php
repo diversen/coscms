@@ -1122,11 +1122,11 @@ EOF;
                 if (is_array($val)) {
                     $values[$key] = self::specialDecode($val);
                 } else {
-                    $values[$key] = htmlspecialchars_decode($val, ENT_COMPAT, 'UTF-8');
+                    $values[$key] = htmlspecialchars_decode($val, ENT_COMPAT);
                 }
             }
         } else if (is_string($values)) {
-            $values =  htmlspecialchars_decode($values, ENT_COMPAT, 'UTF-8');
+            $values =  htmlspecialchars_decode($values, ENT_COMPAT);
         } else {
             $values = '';
         }
