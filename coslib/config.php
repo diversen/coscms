@@ -265,17 +265,44 @@ class config {
     }
     
     /**
+     * 
+     * @param type $section if normal default section. Else stage or development
+     * @return array $hostnames array with hostnames
+     *               hostnames are set in config/config.ini in ini setting 'hostname'
+     *               you can add multiple hosts e.g. for development by seperating
+     *               them with a :
+     */
+    public static function getHostnameFromIni ($section = null) {
+        if (!$section) {
+            $hostnames = @config::$vars['coscms_main']['hostname'];
+        }
+        
+        if ($section == 'stage') {
+            $hostnames = @config::$vars['coscms_main']['stage']['hostname'];
+        }
+        
+        if ($section == 'development') {
+            $hostnames = @config::$vars['coscms_main']['development']['hostname'];
+        }
+        
+        if (!$hostnames) return array ();        
+        $ary = explode(':', $hostnames);
+        return $ary;
+        
+    }
+    
+    /**
      * load main cli configuration
      */
     public static function loadMainCli () {
         $config_file = config::getConfigFileName();
+        
     
         if (!file_exists($config_file)){
             return;
         } else {
             config::$vars['coscms_main'] = config::getIniFileArray($config_file, true);
-            if ( @config::$vars['coscms_main']['hostname'] ==
-                    config::getHostnameFromCli() )
+            if (in_array(config::getHostnameFromCli(), config::getHostnameFromIni()))
                 {
                     // We are on REAL server and exists without
                     // adding additional settings for stage or development
@@ -288,14 +315,12 @@ class config {
             // Note that ini settings for development will
             // NOT take effect on CLI ini settings
             if (isset(config::$vars['coscms_main']['stage'])){
-                if (
-                    @config::$vars['coscms_main']['stage']['hostname'] ==
-                       config::getHostnameFromCli() )
- 
+                if (in_array(config::getHostnameFromCli(), config::getHostnameFromIni('stage')))
+                        
                     {
 
                     // we are on development, merge and overwrite normal settings with
-                    // development settings.
+                    // development settings and return
                     config::$vars['coscms_main'] =
                     array_merge(
                         config::$vars['coscms_main'],
@@ -309,11 +334,7 @@ class config {
             // Development settings will ALSO be added to CLI
             // ini settings
             if (isset(config::$vars['coscms_main']['development'])){
-                if (
-		    @config::$vars['coscms_main']['development']['hostname'] ==
-                        config::getHostnameFromCli() )
-
-                    {
+                if (in_array(config::getHostnameFromCli(), config::getHostnameFromIni('development'))) {
 
                     config::$vars['coscms_main'] =
                     array_merge(
