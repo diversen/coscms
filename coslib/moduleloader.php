@@ -699,7 +699,7 @@ class moduleloader {
         }
         
         // check if stage settings exists.
-        if (isset($module_ini[$module]['stage'])){
+        if (isset($module_ini['stage'])){
             if ( config::getMainIni('server_name') == @$_SERVER['SERVER_NAME'] ){
                 config::$vars['coscms_main']['module'] =
                         array_merge(
