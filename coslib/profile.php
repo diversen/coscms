@@ -76,6 +76,15 @@ class profile  {
     function setMaster (){
         self::$master = 1;
     }
+    
+    public static $hideSecrets = 1;
+    
+    /**
+     * method for setting master
+     */
+    function setNoHideSecrets (){
+        self::$hideSecrets = null;
+    }
 
     /**
      * method for getting all installed modules
@@ -118,6 +127,7 @@ class profile  {
      * @param string $profile
      */
     public function createProfile($profile){
+
         // create all files
         $this->createProfileFiles($profile);
         // create install script
@@ -336,8 +346,17 @@ class profile  {
 
     }
     
+    /**
+     * remove secrets from an ini file aray
+     * @param array $ary
+     * @return array $ary
+     */
     public static function removeIniSecretsFromArray ($ary) {
        
+        if (!self::$hideSecrets) {
+            return $ary;
+        }
+        
         $secrets =array (
             'username', 
             'password',
@@ -347,9 +366,9 @@ class profile  {
             'ssh_port',
             'account_facebook_api_secret',
             'imap_user',
-            'imap_password'
-            
+            'imap_password'           
         );
+        
         foreach ($ary as $key => &$val) {
             if (is_array($val)) {
                 foreach ($val as $k2  => $v2) {
