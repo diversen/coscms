@@ -681,7 +681,7 @@ class moduleloader {
        
         $module_ini = config::getIniFileArray($ini_file, true);
         if (is_array($module_ini)){
-            config::$vars['coscms_main']['module'] = array_merge_recursive(
+            config::$vars['coscms_main']['module'] = array_merge(
                 config::$vars['coscms_main']['module'],
                 $module_ini
             );
@@ -691,7 +691,7 @@ class moduleloader {
         if (isset($module_ini['development'])){
             if ( config::getMainIni('server_name') == @$_SERVER['SERVER_NAME']){
                 config::$vars['coscms_main']['module'] =
-                        array_merge_recursive(
+                        array_merge(
                         config::$vars['coscms_main']['module'],
                         $module_ini['development']
                     );
@@ -702,7 +702,7 @@ class moduleloader {
         if (isset($module_ini[$module]['stage'])){
             if ( config::getMainIni('server_name') == @$_SERVER['SERVER_NAME'] ){
                 config::$vars['coscms_main']['module'] =
-                        array_merge_recursive(
+                        array_merge(
                         config::$vars['coscms_main']['module'],
                         $module_ini['stage']
                     );
