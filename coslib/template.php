@@ -343,8 +343,8 @@ class template {
             
             // create file if it does not exist
             if (!file_exists($full_file_path)) {
-                $to_remove = glob($full_path . "/css_all-*");
-                file::remove($to_remove);
+                //$to_remove = glob($full_path . "/css_all-*");
+                //file::remove($to_remove);
                 file_put_contents($full_file_path, $str);
             }
             
@@ -457,8 +457,8 @@ class template {
             
             // create file if it does not exist
             if (!file_exists($full_file_path)) {
-                $to_remove = glob($full_path . "/js_all-*");
-                file::remove($to_remove);
+                //$to_remove = glob($full_path . "/js_all-*");
+                //file::remove($to_remove);
                 file_put_contents($full_file_path, $str);
             }
             self::setJs($web_path . $file);
