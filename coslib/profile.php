@@ -192,7 +192,7 @@ class profile  {
                 $ret = cos_exec($command);
                 if ($ret != 0) continue;
                
-                echo $git_url = shell_exec($command);
+                $git_url = shell_exec($command);
                 $tags = git_get_local_tags($val, 'template');
                 
                 
@@ -208,10 +208,9 @@ class profile  {
                 $templates[$key]['public_clone_url'] = $git_url;
 
             }
-            print_r($templates);
+
         }
-        die;
-        //print_r($templates); die;
+
         return $templates;
     }
     
