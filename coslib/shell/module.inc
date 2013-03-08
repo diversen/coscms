@@ -16,6 +16,8 @@ function install_module($options, $return_output = null){
     $str = "Proceeding with install of module '$options[module]'\n";
     $install = new moduleinstaller();
     $install->setInstallInfo($options);
+    
+    
     $ret = $install->install();
     if (!$ret) {
         $str.=$install->error;

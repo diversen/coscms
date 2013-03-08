@@ -105,7 +105,14 @@ class profile  {
             if (isset($mi->installInfo['PUBLIC_CLONE_URL'])) {
                 $modules[$key]['public_clone_url'] = $mi->installInfo['PUBLIC_CLONE_URL'];
             } else {
-                cos_cli_print("Notice: No public clone url is set for module $val[module_name]");
+                $command = "cd " . _COS_MOD_PATH . "/"; 
+                $command.= $val['module_name'];
+                $command.= " && git config --get remote.origin.url";
+                $git_url = shell_exec($command);
+                
+                $modules[$key]['public_clone_url'] = $git_url;
+                
+                cos_cli_print("Notice: module $val[module_name] has no public clone url set. We try to guess it. ");
             }
             
             if (isset($mi->installInfo['PRIVATE_CLONE_URL'])) {
@@ -130,6 +137,7 @@ class profile  {
 
         // create all files
         $this->createProfileFiles($profile);
+        
         // create install script
         $this->createProfileScript($profile);
         // copy config.ini
@@ -159,6 +167,8 @@ class profile  {
         $dir = _COS_HTDOCS . "/templates";
         $templates = file::getFileList($dir, array('dir_only' => true));
 
+
+        
         foreach ($templates as $key => $val){
             $install = $dir . "/$val/install.inc";
             if (file_exists($install)){
@@ -173,9 +183,35 @@ class profile  {
                 }
                 $templates[$key]['module_name'] = $val;
             } else {
-                unset($templates[$key]);
+                
+                $templates[$key] = array ();
+                
+                // try to get a repo
+                $path = _COS_HTDOCS . "/templates/$val";
+                $command = "cd $path && git config --get remote.origin.url";
+                $ret = cos_exec($command);
+                if ($ret != 0) continue;
+               
+                echo $git_url = shell_exec($command);
+                $tags = git_get_local_tags($val, 'template');
+                
+                
+                $latest = array_pop($tags);
+                
+                if (!self::$master){
+                    $templates[$key]['module_version'] = $latest;
+                } else {
+                    $templates[$key]['module_version'] = "master";
+                }
+                
+                $templates[$key]['module_name'] = $val;
+                $templates[$key]['public_clone_url'] = $git_url;
+
             }
+            print_r($templates);
         }
+        die;
+        //print_r($templates); die;
         return $templates;
     }
     
@@ -189,6 +225,8 @@ class profile  {
      */
     public function createProfileScript($profile){
         $modules = $this->getModules();
+        
+        
         $module_str = var_export($modules, true);
         
         $templates = $this->getAllTemplates();
@@ -296,14 +334,16 @@ class profile  {
         foreach ($modules as $key => $val){
 
             $source = _COS_MOD_PATH . "/$val[module_name]/$val[module_name].ini";
+            
+            // if no ini we just skip           
+            if (!file_exists($source)) continue;
+            
             $ary = config::getIniFileArray($source, true);
             $ary = $this->removeIniSecretsFromArray($ary);               
             $config_str = config::arrayToIniFile($ary);
 
             $dest = $profile_dir . "/$val[module_name].ini-dist";
             file_put_contents($dest, $config_str);
-   
-            //}
 
             // if php ini file exists copy that to.
             $source = _COS_MOD_PATH . "/$val[module_name]/config.php";
