@@ -375,6 +375,7 @@ class template {
             $js = str_replace($options['search'], $options['replace'], $str);
         }
         
+        
         //$js = "<script>$js</script>\n";
         //var myvar = <?php echo json_encode($myVarValue); 
         if (isset($order)){
@@ -417,6 +418,7 @@ class template {
     public static function getJs(){
         $str = "";
         ksort(self::$js);
+
         foreach (self::$js as $val){
             $str.= "<script src=\"$val\" type=\"text/javascript\"></script>\n";
         }
