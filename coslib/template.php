@@ -343,8 +343,6 @@ class template {
             
             // create file if it does not exist
             if (!file_exists($full_file_path)) {
-                $to_remove = glob($full_path . "/css_all-*");
-                file::remove($to_remove);
                 file_put_contents($full_file_path, $str);
             }
             
@@ -374,6 +372,7 @@ class template {
         if (isset($options['search'])){
             $js = str_replace($options['search'], $options['replace'], $str);
         }
+        
         
         //$js = "<script>$js</script>\n";
         //var myvar = <?php echo json_encode($myVarValue); 
@@ -417,6 +416,7 @@ class template {
     public static function getJs(){
         $str = "";
         ksort(self::$js);
+
         foreach (self::$js as $val){
             $str.= "<script src=\"$val\" type=\"text/javascript\"></script>\n";
         }
@@ -455,8 +455,6 @@ class template {
             
             // create file if it does not exist
             if (!file_exists($full_file_path)) {
-                $to_remove = glob($full_path . "/js_all-*");
-                file::remove($to_remove);
                 file_put_contents($full_file_path, $str);
             }
             self::setJs($web_path . $file);

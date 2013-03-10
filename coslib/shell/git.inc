@@ -4,8 +4,8 @@ include_once "coslib/git.php";
 include_once "coslib/moduleinstaller.php";
 
 /**
- * funtion for installing a module
- * @param array     $options
+ * funtion for installing a module from a git repo name
+ * @param array     $options array ('repo' => 'git::repo')
  * @param string    $type (module, profile or template)
  */
 function cos_git_install ($options, $type = 'module'){
@@ -18,6 +18,7 @@ function cos_git_install ($options, $type = 'module'){
 
     $ret = cos_git_clone ($options, $type);
     if ($type == 'module'){
+        //die;
         $str = install_module($options, true);
         cos_cli_print($str);
         return;
@@ -82,7 +83,7 @@ function cos_git_clone_profile($options){
 
 function cos_git_clone($options, $type){
     // get latest repo tag
-    $latest = git_get_latest_tag($options['repo']);
+    $latest = git_get_latest_remote_tag($options['repo']);
     
     // if version is set we will use this version.
     // or we will use latest tag.
@@ -176,11 +177,10 @@ function cos_git_upgrade_all ($options){
         if (isset(config::$vars['git_use_master'])){
             $tag = 'master';
         } else {
-            $tag = git_get_latest_tag($val['public_clone_url'], true);
+            $tag = git_get_latest_remote_tag($val['public_clone_url'], true);
         }
 
-        if ( ($tag == 'master') OR  ($tag > $val['module_version'])) {
-            
+        if ( ($tag == 'master') OR  ($tag != $val['module_version'])) {         
             cos_cli_print("Will upgrade $val[module_name]");
             cos_git_upgrade ($val, $tag, 'module');
         }
@@ -192,7 +192,7 @@ function cos_git_upgrade_all ($options){
         if (isset(config::$vars['git_use_master'])){
             $tag = 'master';
         } else {
-            $tag = git_get_latest_tag($val['public_clone_url'], true);
+            $tag = git_get_latest_remote_tag($val['public_clone_url'], true);
         }
 
         if ( ($tag == 'master') OR  ($tag > $val['module_version'])) {
@@ -372,6 +372,7 @@ function cos_git_upgrade ($val, $tag = 'master', $type = 'module'){
     if (!isset($val['module_name'])) {
         $val['module_name'] = git_module_name_from_repo($val['repo']);
     }
+    
     $repo_path = cos_get_repo_path($val['module_name'], $type);
     
     if (!cos_git_is_repo ($repo_path)){
@@ -429,12 +430,12 @@ function cos_git_echo_remote_tags ($options){
     if (empty($options['repo']))  {
         cos_cli_abort('You need to specify a repo');
     }
-    $tags = git_get_remote_repo_tags($options['repo']);
+    $tags = git_get_remote_tags($options['repo']);
     print_r($tags);
     if (empty($tags)) {
         cos_cli_abort('No tags');
     }
-    $latest = git_get_latest_tag($options['repo']);
+    $latest = git_get_latest_remote_tag($options['repo']);
     cos_cli_print("Latest is: $latest");
 }
 

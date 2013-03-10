@@ -44,7 +44,7 @@ class moduleinstaller extends db {
      * the $_INSTALL var
      * @var array $installInfo 
      */
-    public $installInfo = null;
+    public $installInfo = array();
 
     /**
      * holding error
@@ -102,7 +102,6 @@ class moduleinstaller extends db {
         if (!file_exists($ini_file)){
             if (file_exists($ini_file_dist)){
                 copy ($ini_file_dist, $ini_file);
-                clearstatcache();
                 config::$vars['coscms_main']['module'] = config::getIniFileArray($ini_file);
             } 
         } else {
@@ -114,24 +113,52 @@ class moduleinstaller extends db {
             if (!file_exists($install_file)){
                 cos_cli_print("Notice: No install file '$install_file' found in: '$module_dir'\n");
             }
-
-            include $install_file;
-            $this->installInfo = $_INSTALL;
-            
+              
             $this->installInfo['NAME'] = $module_name;
-
             
-            if (empty($this->installInfo['MAIN_MENU_ITEM'])){
-                $this->installInfo['menu_item'] = 0;
-            } else {
-                $this->installInfo['menu_item'] = 1;
-            }
+             // if no version we check if this is a git repo
+            if (!isset($this->installInfo['VERSION'])) {
 
-            if (empty($this->installInfo['RUN_LEVEL'])){
-                $this->installInfo['RUN_LEVEL'] = 0;
-            }          
+                $command = "cd " . _COS_MOD_PATH . "/"; 
+                $command.= $this->installInfo['NAME'];
+                $command.= " && git config --get remote.origin.url";
+
+                $git_url = shell_exec($command);
+                // git config --get remote.origin.url
+                $tags = git_get_remote_tags($git_url);
+                
+                //git_get_latest_remote_tag($repo);
+
+                if (empty($tags)) {
+                    $latest = 'master';
+                } else {
+                    $latest = array_pop($tags);
+                }
+
+                $this->installInfo['VERSION'] = $latest;
+
+            }
+            
+            
+            if (file_exists($install_file)) {
+                include $install_file;
+
+                $this->installInfo = $_INSTALL;
+                $this->installInfo['NAME'] = $module_name;
+                
+                if (empty($this->installInfo['MAIN_MENU_ITEM'])){
+                    $this->installInfo['menu_item'] = 0;
+                } else {
+                    $this->installInfo['menu_item'] = 1;
+                }
+
+                if (empty($this->installInfo['RUN_LEVEL'])){
+                    $this->installInfo['RUN_LEVEL'] = 0;
+                }
+            } 
         } else {
             cos_cli_print ("Notice: No module dir: $module_dir\n");
+            return false;
         }
     }
 
@@ -419,11 +446,24 @@ class moduleinstaller extends db {
      * @return  boolean true on success false on failure
      */
     public function insertRegistry (){
+        
+        //print_r($this->installInfo);
+         // die;
+          
+          if (!isset($this->installInfo['menu_item'])) {
+              $this->installInfo['menu_item'] = 0;
+          }
+          
+          if (!isset($this->installInfo['RUN_LEVEL'])) {
+              $this->installInfo['RUN_LEVEL'] = 0;
+          }
+
         $values = array (
             'module_version' => $this->installInfo['VERSION'],
             'module_name' => $this->installInfo['NAME'],
             'menu_item' => $this->installInfo['menu_item'],
             'run_level' => $this->installInfo['RUN_LEVEL']);
+        
         if (isset($this->installInfo['LOAD_ON'])){
             $values['load_on'] = $this->installInfo['LOAD_ON'];
         }
@@ -621,24 +661,31 @@ class moduleinstaller extends db {
         }
 
         $res = $this->createIniFile ();
-        if (!$res) return false;
+        if (!$res) {
+            $this->confirm.= "module '" . $this->installInfo['NAME'] . "' does not have an ini file";        
+        }
 
         $res = $this->createSQL () ;
         if (!$res) return false;
         
         if (isset($this->installInfo['VERSIONS'])) {
-                foreach ($this->installInfo['VERSIONS'] as $val) {          
-                    $this->installInfo['INSTALL']($val);
-                    if ($val == $this->installInfo['VERSION']) { 
-                        break;
-                    }
-                    
+            // run anonymous functions for each version
+            foreach ($this->installInfo['VERSIONS'] as $val) {          
+                $this->installInfo['INSTALL']($val);
+                if ($val == $this->installInfo['VERSION']) { 
+                    break;
                 }
-            } 
+            }
+        } 
+        
+      
         
         
         // insert into registry. Set menu item and insert language.
         $this->insertRegistry();
+        
+        
+        
         $this->insertLanguage();
         $this->insertMenuItem();
         $this->insertRoutes();
@@ -749,8 +796,6 @@ class moduleinstaller extends db {
      *
      */
     public function upgrade ($specific = null){
-        
-       
         
         if (!moduleloader::isInstalledModule($this->installInfo['NAME'])) {
             cos_cli_print("Notice: Can not upgrade. You will need to install module first");

@@ -29,24 +29,6 @@ function load_profile($options) {
 }
 
 /**
- * wrapper function for reloading a profile
- * does the same as loading a profile, but keeps config/config.ini
- */
-function reload_profile($options) {
-    $pro = new profile();
-    $pro->reloadProfile($options['profile']);
-
-}
-
-/**
- * wrapper function for creating a profile
- */
-function create_profile($options) {
-    $pro = new profile();
-    $pro->createProfile($options['profile']);
-}
-
-/**
  * 
  * @param type $options 
  */
@@ -157,6 +139,18 @@ function upgrade_config_ini_file ($options){
 }
 
 /**
+ * wrapper function for reloading a profile
+ * does the same as loading a profile, but keeps config/config.ini
+ */
+function reload_profile($options) {
+    $pro = new profile();
+    $pro->reloadProfile($options['profile']);
+
+}
+
+
+
+/**
  * wrapper function for creating a profile
  */
 function recreate_profile($options) {
@@ -164,71 +158,105 @@ function recreate_profile($options) {
     $pro->recreateProfile($options['profile']);
 }
 
+/**
+ * sets a flag that indicates that we uses master when 
+ * making profiles
+ * @param array $options
+ */
 function profile_use_master ($options){
     config::$vars['profile_use_master'] = 1;
     $pro = new profile();
     $pro->setMaster();
 }
 
-if (cos_is_cli()){
-mainCli::setCommand('profile', array(
-    'description' => 'Profile commands. Profiles are configuration for complete sites. You can build profiles for distribution, install from profiles, reload configuration and more.',
-));
+/**
+ * sets a flag indicating that we dont hide common secrets
+ * when building a profile
+ */
+function profile_dont_hide_secrets ($options) {
+    $pro = new profile();
+    $pro->setNoHideSecrets(); 
+}
 
-mainCli::setOption('load_profile', array(
-    'long_name'   => '--load',
-    'description' => 'Will load a profile. This means that any ini file from a profile 
-will overwrite current ini files',
-    'action'      => 'StoreTrue'
-));
-
-mainCli::setOption('reload_profile', array(
-    'long_name'   => '--reload',
-    'description' => 'Same as loading a profile, but config/config.ini will not be loaded',
-    'action'      => 'StoreTrue'
-));
-
-mainCli::setOption('profile_use_master', array(
-    'long_name'   => '--master',
-    'description' => 'Use master - else we will use specified versions of modules 
-        and templates found in profile.inc',
-    'action'      => 'StoreTrue'
-));
-
-mainCli::setOption('create_profile', array(
-    'long_name'   => '--create',
-    'description' => 'Will create profile with specified name which will be placed in /profiles/{profile}',
-    'action'      => 'StoreTrue'
-));
-
-mainCli::setOption('recreate_profile', array(
-    'long_name'   => '--recreate',
-    'description' => 'Will recreate profile with specified name. Same as create, but new config/config.ini-dist will not be created',
-    'action'      => 'StoreTrue'
-));
-
-mainCli::setOption('upgrade_from_profile', array(
-    'long_name'   => '--all-up',
-    'description' => 'Will upgrade from specified profile. If new module or templates 
-        exists they will be installed. ',
-    'action'      => 'StoreTrue'
-));
-
-mainCli::setOption('install_from_profile', array(
-    'long_name'   => '--all-in',
-    'description' => 'Will install all modules from specified profile',
-    'action'      => 'StoreTrue'
-));
-
-mainCli::setOption('upgrade_config_ini_file', array(
-    'long_name'   => '--config-up',
-    'description' => 'Will upgrade config.ini from profile with any new settings found in profile/{profile}/config.ini-dist',
-    'action'      => 'StoreTrue'
-));
+/**
+ * wrapper function for creating a profile
+ */
+function create_profile($options) {
+    $pro = new profile();
+    $pro->createProfile($options['profile']);
+}
 
 
-mainCli::setArgument('profile',
-    array('description'=> 'specify the profile to create or install',
-          'optional' => false));
+/**
+ * only add commands if we are in CLI mode
+ */
+if (cos_is_cli()){  
+    
+    mainCli::setCommand('profile', array(
+        'description' => 'Profile commands. Profiles are configuration for complete sites. You can build profiles for distribution, install from profiles, reload configuration and more.',
+    ));
+
+    mainCli::setOption('profile_dont_hide_secrets', array(
+        'long_name'   => '--no-hide-secrets',
+        'description' => 'Set this an common secrets will not be hidden when building profile',
+        'action'      => 'StoreTrue'
+    ));
+
+    mainCli::setOption('load_profile', array(
+        'long_name'   => '--load',
+        'description' => 'Will load a profile. This means that any ini file from a profile 
+    will overwrite current ini files',
+        'action'      => 'StoreTrue'
+    ));
+
+    mainCli::setOption('reload_profile', array(
+        'long_name'   => '--reload',
+        'description' => 'Same as loading a profile, but config/config.ini will not be loaded',
+        'action'      => 'StoreTrue'
+    ));
+
+    mainCli::setOption('profile_use_master', array(
+        'long_name'   => '--master',
+        'description' => 'Use master - else we will use specified versions of modules 
+            and templates found in profile.inc',
+        'action'      => 'StoreTrue'
+    ));
+
+    mainCli::setOption('create_profile', array(
+        'long_name'   => '--create',
+        'description' => 'Will create profile with specified name which will be placed in /profiles/{profile}',
+        'action'      => 'StoreTrue'
+    ));
+
+    mainCli::setOption('recreate_profile', array(
+        'long_name'   => '--recreate',
+        'description' => 'Will recreate profile with specified name. Same as create, but new config/config.ini-dist will not be created',
+        'action'      => 'StoreTrue'
+    ));
+
+    mainCli::setOption('upgrade_from_profile', array(
+        'long_name'   => '--all-up',
+        'description' => 'Will upgrade from specified profile. If new module or templates 
+            exists they will be installed. ',
+        'action'      => 'StoreTrue'
+    ));
+
+    mainCli::setOption('install_from_profile', array(
+        'long_name'   => '--all-in',
+        'description' => 'Will install all modules from specified profile',
+        'action'      => 'StoreTrue'
+    ));
+
+    mainCli::setOption('upgrade_config_ini_file', array(
+        'long_name'   => '--config-up',
+        'description' => 'Will upgrade config.ini from profile with any new settings found in profile/{profile}/config.ini-dist',
+        'action'      => 'StoreTrue'
+    ));
+
+
+
+    mainCli::setArgument('profile',
+        array('description'=> 'specify the profile to create or install',
+              'optional' => false));
 
 }

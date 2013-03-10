@@ -33,6 +33,41 @@ function git_coscms_tags_local (){
 }
 
 /**
+ * get tags local
+ * @return type 
+ */
+function git_get_local_tags ($module, $type = 'module'){
+    
+    if ($type == 'module') {
+        $path = _COS_MOD_PATH . "/$module"; 
+    }
+    
+    if ($type == 'template') {
+        $path = _COS_HTDOCS . "/templates/$module";
+    }
+    
+    $command = "cd $path && git tag -l";
+    $ret = cos_exec($command);
+    
+    // ok
+    if ($ret == 0) {
+        $str = shell_exec($command);
+        
+        $ary = explode("\n", $str);
+        $tags = array ();
+        foreach ($ary as $line) {
+            trim($line);
+            if (empty($line)) continue;
+            $tags[] = $line;
+        }
+    } else {
+        return false;
+    }
+    
+    return $tags;
+}
+
+/**
  * following function are sligtly modified from:
  * https://github.com/troelskn/pearhub
  *
@@ -40,7 +75,7 @@ function git_coscms_tags_local (){
  * @param   mixed   $clear set this and tags will not be cached in static var
  * @return  array   $ary array of remote tags
  */
-function git_get_remote_repo_tags($url = null, $clear = null) {
+function git_get_remote_tags($url = null, $clear = null) {
     static $tags = null;
 
     // clear tags if operation will be used more than once.
@@ -74,8 +109,8 @@ function git_get_remote_repo_tags($url = null, $clear = null) {
  * @param   mixed   set clear and tags will not be cached in static var
  * @return  array   array of remote tags
  */
-function git_get_latest_tag($repo, $clear = null) {
-    $tags = git_get_remote_repo_tags($repo, $clear);
+function git_get_latest_remote_tag($repo, $clear = null) {
+    $tags = git_get_remote_tags($repo, $clear);
     if (count($tags) > 0) {
         sort($tags);
         return $tags[count($tags) - 1];
