@@ -1010,8 +1010,10 @@ class moduleloader {
         $i = 1;
 
         if (is_string($filters)) {
-            //$ = array ();
-            die();
+            $ary = array ();
+            $ary[] = $filters;
+            $filters = $ary;
+
         }
         
         foreach($filters as $val) {

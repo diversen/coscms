@@ -191,11 +191,12 @@ class imap {
         $parts = array ();
         
         $parts['subject'] = $message->subject;
-        // only one plain text message per email
-        $parts['plain'] =  ''; $message->getContent();        
+    
+        $parts['plain'] = '';
         $parts['images'] = array ();
         $parts['movies'] = array ();
         $parts['unknown'] = array ();
+        $parts['date'] = $message->getHeader('Date', 'string');
         $parts['html'] = array ();
       //  echo 
 
@@ -203,9 +204,9 @@ class imap {
             try {
                 $type = $this->getContentType($part);
                 echo $type . "<br />\n";
-                continue;
+
                 if ($type == 'text/plain') {
-                    $parts['plain'][] = $this->decodePlain($part);
+                    $parts['plain'] = $this->decodePlain($part);
 
                 } else if ($type == 'image/jpeg' || $type == 'image/png' || $type == 'image/jpg') {
                     $file = base64_decode($part->getContent());  
@@ -225,6 +226,10 @@ class imap {
                 error_log($e->getMessage());
             }
         } 
+        
+
+            
+
         return $parts;
     }
     
@@ -234,14 +239,13 @@ class imap {
      * @return array $parts 
      */
     function getAllParts ($message) {
-        
+              
         $parts = array ();
         foreach (new RecursiveIteratorIterator($message) as $part) {
             try {
                 $type = $this->getContentType($part);
                 $parts[$type][] = $part->getContent();
-
-                //print_r($part->getHeaders());
+                
                 
             } catch (Exception $e) {
                 log::error($e->getMessage());
@@ -249,6 +253,18 @@ class imap {
         } 
         return $parts;
     }
+    
+
+        
+    public function getFirstTextPlainFromParts ($parts, $type) {
+        foreach ($parts as $key => $val) {
+            if ($key == 'text/palin') {
+                return $val[0];
+            }
+        }
+    }
+    
+    
     
     
     function findPart ($id, $type ='text/plain') {

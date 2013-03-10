@@ -100,7 +100,13 @@ function dateGetDateNow ($options = array ()) {
     } else {
         $format = 'Y-m-d';
     }
-    $date = date($format );
+    
+    if (isset($options['timestamp'])) {
+        $ts = $options['timestamp'];
+    } else {
+        $ts = null;
+    }
+    $date = date($format, $ts );
     return $date;
 }
 
