@@ -197,16 +197,17 @@ class imap {
         $parts['movies'] = array ();
         $parts['unknown'] = array ();
         $parts['date'] = $message->getHeader('Date', 'string');
+        $from = $message->getHeader('From', 'string');
+        $parts['from'] = trim($this->extractMailFrom($from));
         $parts['html'] = array ();
       //  echo 
 
         foreach (new RecursiveIteratorIterator($message) as $part) {
             try {
                 $type = $this->getContentType($part);
-                echo $type . "<br />\n";
 
                 if ($type == 'text/plain') {
-                    $parts['plain'] = $this->decodePlain($part);
+                    $parts['plain'] = $part->getContent();
 
                 } else if ($type == 'image/jpeg' || $type == 'image/png' || $type == 'image/jpg') {
                     $file = base64_decode($part->getContent());  
@@ -229,8 +230,19 @@ class imap {
         
 
             
-
+       // print_r($parts); die;
         return $parts;
+    }
+    
+    function extractMailFrom ($header) {
+        $pattern = "/([\s]*)([_a-zA-Z0-9-]+(\.[_a-zA-Z0-9-]+)*([ ]+|)@([ ]+|)([a-zA-Z0-9-]+\.)+([a-zA-Z]{2,}))([\s]*)/i";
+
+        // preg_match_all returns an associative array
+        preg_match($pattern, $header, $matches);
+        if (!empty($matches[0])) {
+            return  $matches[0];
+        }
+        return null;
     }
     
     /**
