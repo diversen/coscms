@@ -110,6 +110,27 @@ function dateGetDateNow ($options = array ()) {
     return $date;
 }
 
+/**
+ * get currenct date
+ * @param array $options if we need hms then set hms => 1
+ * @return string $date
+ */
+function dateGetDateNowFromTimestamp ($options = array ()) {
+    if (isset($options['hms'])) {
+        $format = 'Y-m-d G:i:s';
+    } else {
+        $format = 'Y-m-d';
+    }
+
+    if (isset($options['timestamp'])) {
+        $ts = $options['timestamp'];
+    } else {
+        $ts = null;
+    }
+    $date = date($format );
+    return $date;
+}
+
 function dateGetDateNowLocale ($format) {
     if (!$format) {
         $format = '%Y-%m-%d';
