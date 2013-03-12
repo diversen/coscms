@@ -433,7 +433,7 @@ function cos_git_echo_remote_tags ($options){
         cos_cli_abort('You need to specify a repo');
     }
     $tags = git_get_remote_tags($options['repo']);
-    print_r($tags);
+
     if (empty($tags)) {
         cos_cli_abort('No tags');
     }

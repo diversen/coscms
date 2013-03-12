@@ -39,7 +39,9 @@ function upgrade_from_profile ($options){
 
     // install modules
     foreach ($pro->profileModules as $key => $val){
-              
+             
+        
+        
         $val['repo'] = $val['public_clone_url'];
         $val['version'] = $val['module_version'];
         if (isset(config::$vars['profile_use_master'])) {
@@ -48,7 +50,10 @@ function upgrade_from_profile ($options){
         }
                
         $val['module'] = $val['module_name'];
-        $module = new moduleinstaller($val);
+        
+        
+        $module = new moduleinstaller();
+        $module->setInstallInfo($val);
 
         if ($module->isInstalled($val['module_name'])){
             cos_git_upgrade($val, $val['version'], 'module');
@@ -121,8 +126,6 @@ function upgrade_config_ini_file ($options){
     $ary = array_merge($ini_dist, $ini_file);
     $ary_diff = array_diff($ary, $ini_file);
 
-
-    //print_r($ary); die;
     $content = config::arrayToIniFile($ary);
     file_put_contents($ini_file_path, $content);
 

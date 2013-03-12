@@ -72,6 +72,7 @@ class moduleinstaller extends db {
      * @param   array $options
      */
     function __construct($options = null){
+        
         $this->connect();
         
         if (isset($options)){
@@ -85,7 +86,7 @@ class moduleinstaller extends db {
      * @param   array $options
      */
     public function setInstallInfo($options){
-              
+          
         $module_name = $options['module'];
         $module_dir = _COS_MOD_PATH . "/$module_name";
         $ini_file = $module_dir . "/$module_name.ini";
@@ -156,7 +157,7 @@ class moduleinstaller extends db {
                 }
             } 
         } else {
-            cos_cli_print ("Error: No module dir: $module_dir", 'r');
+            cos_cli_print ("Notice: No module dir: $module_dir", 'y');
             return false;
         }
     }
@@ -246,7 +247,7 @@ class moduleinstaller extends db {
      */
     public function reloadCosLanguages(){        
         $modules = file::getDirsGlob(_COS_PATH . "/lang/", '*');
-        //print_r($modules); die;
+
         foreach ($modules as $val){
             $this->insertLanguage($val);
         }
@@ -458,8 +459,7 @@ class moduleinstaller extends db {
      */
     public function insertRegistry (){
         
-        //print_r($this->installInfo);
-         // die;
+
           
           if (!isset($this->installInfo['menu_item'])) {
               $this->installInfo['menu_item'] = 0;
@@ -869,7 +869,7 @@ class moduleinstaller extends db {
                         } catch (Exception $e) {
                             echo 'Caught exception: ',  $e->getMessage(), "\n";
                             echo "version of sql: $version";
-                            die;;
+                            die;
                         }
                     }
                 }

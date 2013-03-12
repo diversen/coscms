@@ -15,12 +15,10 @@ function install_module($options, $return_output = null){
 
     $str = "Proceeding with install of module '$options[module]'\n";
     $install = new moduleinstaller();
-    $ret = $install->setInstallInfo($options);
-    if (!$ret) {
-        exit(124);
-    }
     
+    $ret = $install->setInstallInfo($options);
     $ret = $install->install();
+    
     if (!$ret) {
         $str.=$install->error;
     } else {
@@ -68,11 +66,7 @@ function upgrade_all(){
  */
 function uninstall_module($options){
     $uninstall = new moduleinstaller();
-    $ret = $uninstall->setInstallInfo($options);
-
-    if (!$ret) {
-        exit(124);
-    }
+    $uninstall->setInstallInfo($options);
     $ret = $uninstall->uninstall();
     if (!$ret) {
         cos_cli_print($uninstall->error);
