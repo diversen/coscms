@@ -97,22 +97,35 @@ class profile  {
         $db->connect();
         $modules = $db->selectAll('modules');
 
-        include_once "coslib/moduleinstaller.php";
         foreach ($modules as $key => $val){
             $options['module'] = $val['module_name'];
             $mi = new moduleinstaller($options);
 
+            // set public clone url
             if (isset($mi->installInfo['PUBLIC_CLONE_URL'])) {
                 $modules[$key]['public_clone_url'] = $mi->installInfo['PUBLIC_CLONE_URL'];
             } else {
-                $command = "cd " . _COS_MOD_PATH . "/"; 
-                $command.= $val['module_name'];
+                // try to find public clone url
+                cos_cli_print("Notice: module $val[module_name] has no public clone url set. We try to guess it. ");
+                
+                $module_path = _COS_MOD_PATH . "/$val[module_name]";
+                if (!file_exists($module_path)) {
+                    cos_cli_print("Notice: module $val[module_name] has no module source", 'r');
+                    continue;
+                } 
+                
+                $command = "cd  $module_path " . 
                 $command.= " && git config --get remote.origin.url";
+                
+                exec($command, $output, $ret);
+                if (!$ret) {
+                    cos_cli_print("Notice: module $val[module_name] is not a git repo - please remove it in order to build a correct profile", 'r');
+                }
+                
                 $git_url = shell_exec($command);
                 
                 $modules[$key]['public_clone_url'] = $git_url;
-                
-                cos_cli_print("Notice: module $val[module_name] has no public clone url set. We try to guess it. ");
+
             }
             
             if (isset($mi->installInfo['PRIVATE_CLONE_URL'])) {
@@ -186,10 +199,11 @@ class profile  {
                 
                 $templates[$key] = array ();
                 
-                // try to get a repo
+                // check if this a git repo
                 $path = _COS_HTDOCS . "/templates/$val";
                 $command = "cd $path && git config --get remote.origin.url";
-                $ret = cos_exec($command);
+                $ret = null;
+                exec($command, $output, $ret);
                 if ($ret != 0) continue;
                
                 $git_url = shell_exec($command);
@@ -311,7 +325,7 @@ class profile  {
 
     /**
      * method for creating a profiles configuration files
-     *
+     * this is all modules .ini files
      * @param   string  name of profile to be created
      */
     private function createProfileFiles($profile){

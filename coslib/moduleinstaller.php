@@ -75,7 +75,7 @@ class moduleinstaller extends db {
         $this->connect();
         
         if (isset($options)){
-            $this->setInstallInfo($options);
+            return $this->setInstallInfo($options);
         }
     }
 
@@ -85,20 +85,18 @@ class moduleinstaller extends db {
      * @param   array $options
      */
     public function setInstallInfo($options){
-        
-        
-        
+              
         $module_name = $options['module'];
-        // use directory name as name of module
-          
         $module_dir = _COS_MOD_PATH . "/$module_name";
         $ini_file = $module_dir . "/$module_name.ini";
         $ini_file_dist = $module_dir . "/$module_name.ini-dist";
 
+        // if profile is set - we use profile ini-dist
         if (isset($options['profile'])){
             $ini_file_dist = _COS_PATH . "/profiles/$options[profile]/$module_name.ini-dist";
         }
 
+        // check for an ini file - and load ini settings if found
         if (!file_exists($ini_file)){
             if (file_exists($ini_file_dist)){
                 copy ($ini_file_dist, $ini_file);
@@ -108,6 +106,7 @@ class moduleinstaller extends db {
             config::$vars['coscms_main']['module'] = config::getIniFileArray($ini_file);
         }
 
+        // check for install.inc in module dir
         if (file_exists($module_dir)){
             $install_file = "$module_dir/install.inc";
             if (!file_exists($install_file)){
@@ -120,8 +119,8 @@ class moduleinstaller extends db {
             if (!isset($this->installInfo['VERSION'])) {
 
                 $command = "cd " . _COS_MOD_PATH . "/"; 
-                $command.= $this->installInfo['NAME'];
-                $command.= " && git config --get remote.origin.url";
+                $command.= $this->installInfo['NAME'] . " ";
+                $command.= "&& git config --get remote.origin.url";
 
                 $git_url = shell_exec($command);
                 // git config --get remote.origin.url
@@ -157,11 +156,23 @@ class moduleinstaller extends db {
                 }
             } 
         } else {
-            cos_cli_print ("Notice: No module dir: $module_dir\n");
+            cos_cli_print ("Error: No module dir: $module_dir", 'r');
             return false;
         }
     }
-
+    
+    /**
+     * checks if module source exists
+     * @param string $module
+     * @return boolean $res true if exists else false
+     */
+    public function sourceExists ($module) {
+        $module_path = _COS_MOD_PATH . "/$module";
+        if (file_exists($module_path)) {
+            return true;
+        }
+        return false;
+    }
     /**
      * method for checking if a module is installed or not
      * checking is just done by looking into the modules table of database
@@ -171,7 +182,7 @@ class moduleinstaller extends db {
     public function isInstalled($module = null){
         // test if a module with $this->installInfo['MODULE_NAME']
         // already is installed.
-        if (isset($this->installInfo)){
+        if (!empty($this->installInfo)){
             $module = $this->installInfo['NAME'];
         }
 
@@ -709,6 +720,7 @@ class moduleinstaller extends db {
         $specific = 0;
 
         if (!$this->isInstalled()){
+            
             $this->error = "module '" . $this->installInfo['NAME'];
             $this->error .= "' does not exists in module registry!";
             return false;

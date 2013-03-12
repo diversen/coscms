@@ -156,8 +156,13 @@ function cos_system($command){
  * simple function for printing a message
  * @param  string $mes the message to echo
  */
-function cos_cli_print($mes){
+function cos_cli_print($mes, $color = null){
+    if ($color) {
+        echo color_output($mes . "\n", $color);
+        return;
+    }
     echo $mes . "\n";
+    return;
 }
 
 

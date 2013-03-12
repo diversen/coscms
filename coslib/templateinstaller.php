@@ -69,21 +69,49 @@ class templateinstaller extends moduleinstaller {
             if (!file_exists($install_file)){
                 cos_cli_print("Notice: No install file '$install_file' found in: '$template_dir'\n");
             }
-
-            include $install_file;
-            $this->installInfo = $_INSTALL;
-            
-            // use directory name as name of module
+              
             $this->installInfo['NAME'] = $template_name;
-            if (empty($this->installInfo['MAIN_MENU_ITEM'])){
-                $this->installInfo['menu_item'] = 0;
-            } else {
-                $this->installInfo['menu_item'] = 1;
-            }
+            
+             // if no version we check if this is a git repo
+            if (!isset($this->installInfo['VERSION'])) {
 
-            if (empty($this->installInfo['RUN_LEVEL'])){
-                $this->installInfo['RUN_LEVEL'] = 0;
+                $command = "cd " . _COS_HTDOCS . "/templates/"; 
+                $command.= $this->installInfo['NAME'] . " ";
+                $command.= "&& git config --get remote.origin.url";
+
+                $git_url = shell_exec($command);
+                // git config --get remote.origin.url
+                $tags = git_get_remote_tags($git_url);
+                
+                //git_get_latest_remote_tag($repo);
+
+                if (empty($tags)) {
+                    $latest = 'master';
+                } else {
+                    $latest = array_pop($tags);
+                }
+
+                $this->installInfo['VERSION'] = $latest;
+
             }
+            
+            
+            if (file_exists($install_file)) {
+                include $install_file;
+
+                $this->installInfo = $_INSTALL;
+                $this->installInfo['NAME'] = $template_name;
+                
+                if (empty($this->installInfo['MAIN_MENU_ITEM'])){
+                    $this->installInfo['menu_item'] = 0;
+                } else {
+                    $this->installInfo['menu_item'] = 1;
+                }
+
+                if (empty($this->installInfo['RUN_LEVEL'])){
+                    $this->installInfo['RUN_LEVEL'] = 0;
+                }
+            } 
 
             
             

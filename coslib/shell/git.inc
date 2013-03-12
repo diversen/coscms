@@ -83,6 +83,7 @@ function cos_git_clone_profile($options){
 
 function cos_git_clone($options, $type){
     // get latest repo tag
+
     $latest = git_get_latest_remote_tag($options['repo']);
     
     // if version is set we will use this version.
@@ -108,7 +109,7 @@ function cos_git_clone($options, $type){
 
     // set dir according to module type. Template, profile or module.
     if ($type == 'template'){
-        $clone_path = _COS_PATH . "/htdocs/templates";
+        $clone_path = _COS_HTDOCS . "/templates";
     } else if ($type == 'profile'){
         $clone_path = _COS_PATH . "/profiles";
     } else {
@@ -122,6 +123,7 @@ function cos_git_clone($options, $type){
 
     
     $module_name = git_module_name_from_repo($options['repo']);
+
     $module_path = "$clone_path/$module_name";
 
     // if dir exists we check if it is a git repo
