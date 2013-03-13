@@ -174,8 +174,10 @@ function cos_git_upgrade_all ($options){
             $tag = git_get_latest_remote_tag($val['public_clone_url'], true);
         }
 
-        if ( ($tag == 'master') OR  ($tag != $val['module_version'])) {         
-            cos_cli_print("Will upgrade $val[module_name]");
+        if ( ($tag == 'master') OR  ($tag != $val['module_version'])) { 
+            $status = "Will upgrade $val[module_name]";
+            cos_cli_print_status('UPGRADE', 'g', $status);
+            //cos_cli_print("Will upgrade $val[module_name]");
             cos_git_upgrade ($val, $tag, 'module');
         }
     }
