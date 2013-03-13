@@ -177,7 +177,6 @@ function cos_git_upgrade_all ($options){
         if ( ($tag == 'master') OR  ($tag != $val['module_version'])) { 
             $status = "Will upgrade $val[module_name]";
             cos_cli_print_status('UPGRADE', 'g', $status);
-            //cos_cli_print("Will upgrade $val[module_name]");
             cos_git_upgrade ($val, $tag, 'module');
         }
     }
@@ -270,6 +269,10 @@ function cos_git_tag ($val, $type = 'module'){
     print "\n---\n";
 }
 
+/**
+ * tags all files
+ * @param type $options
+ */
 function cos_git_tag_all_files ($options){
     $version = cos_readline('Enter tag version to use ');
 
@@ -288,6 +291,12 @@ function cos_git_tag_all_files ($options){
     }
 }
 
+/**
+ * change all install.inc files with a new version
+ * @param array $val
+ * @param string $type
+ * @return void
+ */
 function cos_git_tag_install_file ($val, $type = 'module'){
     $repo_path = cos_get_repo_path($val['module_name'], $type);
 

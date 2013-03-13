@@ -117,9 +117,6 @@ function upgrade_module($options){
 
     // module exists, compare with remote server
     $upgrade = new moduleinstaller($options);
-    //$current_version = $upgrade->installInfo['VERSION'];
-    
-    // upgrade
     $ret = $upgrade->upgrade($options['version']);
     if (!$ret) {
         echo $upgrade->error . NEW_LINE;
