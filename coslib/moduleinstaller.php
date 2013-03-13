@@ -17,9 +17,7 @@ if (!config::isCli()){
  * define new line if not cli
  */
 define('NEW_LINE', $new_line);
-include_once "coslib/db.php";
 include_once "coslib/shell/common.inc";
-include_once "coslib/moduleloader.php";
 
 /**
  * class for installing a module or upgrading it.
@@ -117,7 +115,7 @@ class moduleinstaller extends db {
             $this->installInfo['NAME'] = $module_name;
             
              // if no version we check if this is a git repo
-            if (!isset($this->installInfo['VERSION'])) {
+            if (!isset($this->installInfo['VERSION']) && defined('_COS_CLI')) {
 
                 $command = "cd " . _COS_MOD_PATH . "/"; 
                 $command.= $this->installInfo['NAME'] . " ";
