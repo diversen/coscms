@@ -16,6 +16,7 @@ function install_module($options, $return_output = null){
     $install = new moduleinstaller();
     $install->setInstallInfo($options);
     
+    $str = '';
     $ret = $install->install();
     if (!$ret) {
         $str.=$install->error;
