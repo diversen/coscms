@@ -21,3 +21,4 @@ htdocs/files/*
 htdocs/youtube_import/*
 locale/*
 cosmod/*
+modules/*

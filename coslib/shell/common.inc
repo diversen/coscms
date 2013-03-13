@@ -79,12 +79,12 @@ function cos_exec($command, $options = array()){
     if ($ret == 0){
         if (!isset($options['silence'])){
             echo color_output ("[OK]    ", 'g');
-            echo wordwrap($command) . "\n";
+            echo $command . "\n";
         }
     } else {
         if (!isset($options['silence'])){
             echo color_output("[ERROR] ", 'r');
-            echo wordwrap($command) . "\n";
+            echo $command . "\n";
             echo cos_parse_shell_output($output);
         }
     }

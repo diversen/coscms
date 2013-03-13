@@ -105,6 +105,7 @@ class profile  {
             if (isset($mi->installInfo['PUBLIC_CLONE_URL'])) {
                 $modules[$key]['public_clone_url'] = $mi->installInfo['PUBLIC_CLONE_URL'];
             } else {
+                
                 // try to find public clone url
                 cos_cli_print("Notice: module $val[module_name] has no public clone url set. We try to guess it. ");
                 
@@ -114,13 +115,12 @@ class profile  {
                     continue;
                 } 
                 
-                $command = "cd  $module_path " . 
-                $command.= " && git config --get remote.origin.url";
+                $command = "cd $module_path && git config --get remote.origin.url";
                 
-                exec($command, $output, $ret);
-                if (!$ret) {
-                    cos_cli_print("Notice: module $val[module_name] is not a git repo - please remove it in order to build a correct profile", 'r');
-                }
+                $ret = cos_exec($command);
+                //if ($ret) {
+                //    cos_cli_print("Notice: module $val[module_name] is not a git repo - please remove it in order to build a correct profile", 'r');
+                //}
                 
                 $git_url = shell_exec($command);
                 

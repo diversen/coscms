@@ -8,7 +8,7 @@
 /**
  * get module name from repo name
  * @param   string    $repo
- * @return  string    module name
+ * @return  string    $module_name
  */
 function git_module_name_from_repo ($repo){
     $url = parse_url($repo);

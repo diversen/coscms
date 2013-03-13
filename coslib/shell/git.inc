@@ -82,8 +82,8 @@ function cos_git_clone_profile($options){
  */
 
 function cos_git_clone($options, $type){
+    
     // get latest repo tag
-
     $latest = git_get_latest_remote_tag($options['repo']);
     
     // if version is set we will use this version.
@@ -99,11 +99,8 @@ function cos_git_clone($options, $type){
         $checkout = 'master';
     }
     
-    if (isset(config::$vars['git_use_master'])){
-        $checkout = 'master';
-    }
-
-    if (isset($options['master'])){
+    // check if profile use master or if master is set
+    if (isset(config::$vars['git_use_master']) || isset($options['master'])){
         $checkout = 'master';
     }
 
@@ -121,34 +118,29 @@ function cos_git_clone($options, $type){
         mkdir($clone_path);
     }
 
-    
+    // get module name
     $module_name = git_module_name_from_repo($options['repo']);
-
     $module_path = "$clone_path/$module_name";
 
     // if dir exists we check if it is a git repo
     // or just a directory
+    $ret = null;
     if (file_exists($module_path)){
-        // Repo exists or
-        // at least same dir name exists.
-        // cos_cli_print("$clone_command failed.");
         $repo_dir = $clone_path . "/$module_name";
 
         // check if path is a git repo
         $git_folder = $repo_dir . "/.git";
-
-
         if (file_exists($git_folder)){
             // repo exists. We pull changes and set version
-            $git_command = "cd $repo_dir && git checkout $checkout";
+            $git_command = "cd $repo_dir && git pull && git checkout $checkout";
         } else {
             // no git repo - empty dir we presume.
             $git_command = "cd $clone_path && git clone $options[repo] && cd $module_name && git checkout $checkout";
         }
-        $ret = cos_system($git_command);
+        $ret = cos_exec($git_command);
     } else {
         $git_command = "cd $clone_path && git clone $options[repo] && cd $module_name && git checkout $checkout";
-        $ret = cos_system($git_command);
+        $ret = cos_exec($git_command);
     }
 
     // evaluate actions
