@@ -6,9 +6,8 @@
  * @package     shell
  */
 
-// {{{ function cos_readline($line)
 /**
- * funtion for wrapping the readline function
+ * readline
  * found on php.net 
  *
  * @param string ouput to print to screen
@@ -16,35 +15,26 @@
  */
 function cos_readline($str){
     echo $str;
-    //if (function_exists('readline') ){
-    //    $out = readline($str);
-    //    return $out;
-    //} else {
-        // if not readline we use this
-        // we could actually just use this .)
-        // found at php.net
-
-        $out = "";
-        $key = "";
-        $key = fgetc(STDIN);        //read from standard input (keyboard)
-        while ($key!="\n") {       //if the newline character has not yet arrived read another
-            $out.= $key;
-            $key = fread(STDIN, 1);
-        }
-    //}
+    $out = "";
+    $key = "";
+    $key = fgetc(STDIN);      // read from standard input (keyboard)
+    while ($key!="\n") {      // if the newline character has not yet arrived read another
+        $out.= $key;
+        $key = fread(STDIN, 1);
+    }
     return $out;
 }
 
-// }}}
-// {{{ function confirm_readline()
 /**
- *
- * @return int 1 on y or 0 on anything else.
+ * a function for getting a confirm from command prompt
+ * @param string $line a line to inform user what is going to happen
+ * @param mixed $silence. If set we answer 'y' to all confirm readlines
+ * @return int 1 on 'y' or 'Y' and 0 on anything else.
  */
 
-function cos_confirm_readline($line = null, $setSilence = null){
+function cos_confirm_readline($line = null, $set_silence = null){
     static $silence = null;
-    if (isset($setSilence)){
+    if (isset($set_silence)){
         $silence = 1;
     }
     if ($silence == 1){
@@ -60,12 +50,10 @@ function cos_confirm_readline($line = null, $setSilence = null){
     }
 }
 
-// }}}
-// {{{ function cos_cli_abort
 /**
  * command for aborting a script and printing info about abort
- * @param   string  string to be printed on abort
- * @return  int     16 (positive int)
+ * @param   string  $str string to be printed on abort
+ * @return  int     $res  16
  */
 function cos_cli_abort($str = null){
     if (isset($str)){
@@ -76,13 +64,9 @@ function cos_cli_abort($str = null){
     cos_cli_print(color_output($str, 'r'));
     exit(16);
 }
-// }}}
 
-
-
-// {{{ cos_exec($command)
 /**
- * function for executing commands with php built-in command exec
+ * function for executing commands with php command exec
  * @param   string  $command to execute
  * @param   array   $options defaults to:
  *                  array ('silence' => false);
@@ -94,24 +78,26 @@ function cos_exec($command, $options = array()){
     exec($command.' 2>&1', $output, $ret);
     if ($ret == 0){
         if (!isset($options['silence'])){
-            echo color_output ("Command [ok]    ", 'y');
+            echo color_output ("[OK]    ", 'g');
             echo wordwrap($command) . "\n";
         }
     } else {
         if (!isset($options['silence'])){
-            echo color_output("Command [error] ", 'r');
-            $end_output = '';
-            foreach($output as $key => $val){
-                $end_output.= $val;
-            }
-            $end_output = wordwrap($end_output) . "\n";
-            echo $end_output;
+            echo color_output("[ERROR] ", 'r');
+            echo wordwrap($command) . "\n";
+            echo cos_parse_shell_output($output);
         }
     }
     return $ret;
 }
-// }}}
 
+
+/**
+ * method for coloring output to command line
+ * @param string $output
+ * @param char $color_code (e.g. 'g', 'y', 'r')
+ * @return string $colorered output
+ */
 function color_output ($output, $color_code = 'g') {
     if (!isset(config::$vars['coscms_main']['color_shell_disable'])) {
         return Console_Color::convert("%$color_code$output%n");    
@@ -119,35 +105,42 @@ function color_output ($output, $color_code = 'g') {
     return $output;
 }
 
+/**
+ * transform an array of output from exec into a single string
+ * @param array $output
+ * @return string $str
+ */
 function cos_parse_shell_output ($output){
-    if (!is_array($output)) return;
+    if (!is_array($output)) return '';
     $end_output = '';
-    foreach($output as $key => $val){
+    foreach($output as $val){
         $end_output.= $val ."\n";
     }
-    return $end_output;    
+    $output = wordwrap($end_output);
+    return $output;    
 }
-// {{{ cos_exec($command)
+
 /**
  * function for executing commands with php built-in command exec
- * @param <string> $command to execute
- * @return <int>   $ret the value returned by the shell script being
+ * @param string $command to execute
+ * @return int   $ret the value returned by the shell script being
  *                 executed through exec()
  */
 function cos_system($command){
     $output = array();
     system($command.' 2>&1', $ret);
     if ($ret == 0){
-        echo color_output("Command [ok]    ", 'g');
+        echo color_output ("[OK]    ", 'g');
         echo wordwrap($command) . "\n";
     } else {
-        echo color_output("Command [error] ", 'r');
-        $end_output = '';
-        foreach($output as $key => $val){
-            $end_output.= $val . "\n";
-        }
-        $end_output = wordwrap($end_output);
-        echo $end_output;
+        echo color_output("[ERROR] ", 'r');
+        echo wordwrap($command) . "\n";
+        //$end_output = '';
+        //foreach($output as $key => $val){
+        //    $end_output.= $val . "\n";
+        //}
+        //$end_output = wordwrap($end_output);
+        //echo $end_output;
     }
     return $ret;
 }
