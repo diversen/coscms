@@ -101,37 +101,34 @@ class profile  {
             $options['module'] = $val['module_name'];
             $mi = new moduleinstaller($options);
 
-            // set public clone url
+            // check for a public clone url
             if (isset($mi->installInfo['PUBLIC_CLONE_URL'])) {
                 $modules[$key]['public_clone_url'] = $mi->installInfo['PUBLIC_CLONE_URL'];
             } else {
                 
                 // try to find public clone url
-                cos_cli_print("Notice: module $val[module_name] has no public clone url set. We try to guess it. ");
-                
+                $status = "module $val[module_name] has no public clone url set. We try to guess it.";
+                cos_cli_print_status('NOTICE', 'y', $status);
                 $module_path = _COS_MOD_PATH . "/$val[module_name]";
                 if (!file_exists($module_path)) {
                     cos_cli_print("Notice: module $val[module_name] has no module source", 'r');
                     continue;
                 } 
                 
-                $command = "cd $module_path && git config --get remote.origin.url";
-                
-                $ret = cos_exec($command);
-                //if ($ret) {
-                //    cos_cli_print("Notice: module $val[module_name] is not a git repo - please remove it in order to build a correct profile", 'r');
-                //}
-                
-                $git_url = shell_exec($command);
-                
-                $modules[$key]['public_clone_url'] = $git_url;
+                $command = "cd $module_path && git config --get remote.origin.url";              
+                $ret = cos_exec($command, null, 0);
+                if (!$ret) { 
+                    $git_url = shell_exec($command);
+                    $modules[$key]['public_clone_url'] = $git_url;
+                }
 
             }
             
             if (isset($mi->installInfo['PRIVATE_CLONE_URL'])) {
                 $modules[$key]['private_clone_url'] = $mi->installInfo['PRIVATE_CLONE_URL'];
             } else {
-                cos_cli_print("Notice: No private clone url is set for module $val[module_name]");
+                $status = "No private clone url is set for module $val[module_name]";
+                cos_cli_print_status('NOTICE', 'y', $status);
             }
             
             if (self::$master){

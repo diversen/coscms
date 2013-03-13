@@ -379,7 +379,7 @@ function cos_git_upgrade ($val, $tag = 'master', $type = 'module'){
     $git_command.= "git pull && git fetch --tags && ";
     $git_command.= "git checkout $tag";
     
-    cos_system($git_command);
+    cos_exec($git_command);
     
     if ($type == 'module'){
         // sorry - but it is called with a different name in the upgrade_module

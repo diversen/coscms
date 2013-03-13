@@ -6,6 +6,7 @@
  * @package     shell
  */
 
+define('COS_CLI_STATUS_LENGTH', 10);
 /**
  * readline
  * found on php.net 
@@ -73,22 +74,42 @@ function cos_cli_abort($str = null){
  * @return  mixed   $ret the value returned by the shell script being
  *                  executed through exec()
  */
-function cos_exec($command, $options = array()){
+function cos_exec($command, $options = array(), $echo_output = 1){
     $output = array();
     exec($command.' 2>&1', $output, $ret);
     if ($ret == 0){
         if (!isset($options['silence'])){
-            echo color_output ("[OK]    ", 'g');
+            
+            
+            echo color_output (cos_get_color_status('[OK]'), 'g');
             echo $command . "\n";
+            if ($echo_output) {
+                echo cos_parse_shell_output($output);
+            }
         }
     } else {
         if (!isset($options['silence'])){
-            echo color_output("[ERROR] ", 'r');
+            echo color_output(cos_get_color_status('[ERROR]'), 'r');
             echo $command . "\n";
-            echo cos_parse_shell_output($output);
+            if ($echo_output) {
+                echo cos_parse_shell_output($output);
+            }
         }
     }
     return $ret;
+}
+
+/**
+ * calculate and gets correct length of a status message,
+ * e.g. [OK] and [NOTICE]
+ * @param string $status [OK]
+ * @return string $status
+ */
+function cos_get_color_status ($status) {
+    $len = strlen($status);
+    $add_spaces = COS_CLI_STATUS_LENGTH - $len;
+    $status.=str_repeat(' ', $add_spaces);
+    return $status;
 }
 
 
@@ -116,8 +137,8 @@ function cos_parse_shell_output ($output){
     foreach($output as $val){
         $end_output.= $val ."\n";
     }
-    $output = wordwrap($end_output);
-    return $output;    
+    //$output = wordwrap($end_output);
+    return $end_output;    
 }
 
 /**
@@ -131,10 +152,10 @@ function cos_system($command){
     system($command.' 2>&1', $ret);
     if ($ret == 0){
         echo color_output ("[OK]    ", 'g');
-        echo wordwrap($command) . "\n";
+        echo $command . "\n";
     } else {
         echo color_output("[ERROR] ", 'r');
-        echo wordwrap($command) . "\n";
+        echo $command . "\n";
         //$end_output = '';
         //foreach($output as $key => $val){
         //    $end_output.= $val . "\n";
@@ -155,6 +176,12 @@ function cos_cli_print($mes, $color = null){
         return;
     }
     echo $mes . "\n";
+    return;
+}
+
+function cos_cli_print_status ($mes, $color, $status) {
+    echo color_output(cos_get_color_status("[$mes]"), $color);
+    echo $status . "\n";
     return;
 }
 
