@@ -108,8 +108,7 @@ function dump_db_file ($options = null){
         cos_cli_print('You did not specify file to dump. We create one from current timestamp!');
         $dump_name = "backup/sql/" . time() . ".sql";
     } else {
-        echo $dump_name = $options['File'];
-        
+        $dump_name = $options['File'];
      }
     
     $db = dbadmin::getDbInfo();

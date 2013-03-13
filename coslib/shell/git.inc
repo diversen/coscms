@@ -350,18 +350,20 @@ function cos_git_commit ($val, $type = 'module'){
         return;
     }
 
+
+    cos_cli_print_status('COMMIT', 'g', "Module: '$val[module_name]'");
     
-    cos_cli_print ("Will commit $val[module_name]");
-    
-    $git_command = "cd $repo_path && git add . ";
-    passthru($git_command);
+    $git_add = "cd $repo_path && git add . ";
+    //passthru($git_command);
+    cos_exec($git_add);
 
     $git_command = "cd $repo_path && git commit ";
     proc_close(proc_open($git_command, array(0 => STDIN, 1 => STDOUT, 2 => STDERR), $pipes));
 
-    $git_command = "cd $repo_path && git push $val[private_clone_url]";
-    passthru($git_command);
-    print "\n";
+    $git_push = "cd $repo_path && git push $val[private_clone_url]";
+    //passthru($git_command);
+    cos_exec($git_push);
+    echo PHP_EOL;
 }
 
 /**
