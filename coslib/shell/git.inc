@@ -388,7 +388,7 @@ function cos_git_upgrade ($val, $tag = 'master', $type = 'module'){
     }
 
     $git_command = "cd $repo_path && ";
-    $git_command.= "git checkout master && ";
+    //$git_command.= "git checkout master && ";
     $git_command.= "git pull && git fetch --tags && ";
     $git_command.= "git checkout $tag";
     
