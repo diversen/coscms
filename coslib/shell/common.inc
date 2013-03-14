@@ -81,7 +81,7 @@ function cos_exec($command, $options = array(), $echo_output = 1){
         if (!isset($options['silence'])){
             
             
-            echo color_output (cos_get_color_status('[EXEC OK]'), 'g');
+            echo color_output (cos_get_color_status('[OK]'), 'g');
             echo $command . "\n";
             if ($echo_output) {
                 echo cos_parse_shell_output($output);
@@ -89,7 +89,7 @@ function cos_exec($command, $options = array(), $echo_output = 1){
         }
     } else {
         if (!isset($options['silence'])){
-            echo color_output(cos_get_color_status('[EXEC ERROR]'), 'r');
+            echo color_output(cos_get_color_status('[ERROR]'), 'r');
             echo $command . "\n";
             if ($echo_output) {
                 echo cos_parse_shell_output($output);
