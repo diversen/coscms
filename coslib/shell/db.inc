@@ -21,6 +21,11 @@ function get_db_info(){
     return dbadmin::getDbInfo();
 }
 
+function db_show_con_info ($options) {
+    $info = dbadmin::getDbInfo();
+    print_r($info);
+}
+
 // {{{ create_db() 
 /**
  * function for creating a database for creds in config.ini
@@ -174,6 +179,12 @@ if (cos_is_cli()){
 
     mainCli::setCommand('db', array(
         'description' => 'Will manipulate database in different ways: Backup, restore datbase, open connection etc.',
+    ));
+    
+    mainCli::setOption('db_show_con_info', array(
+        'long_name'   => '--show-con-info',
+        'description' => 'Show DB connection info',
+        'action'      => 'StoreTrue'
     ));
 
     mainCli::setOption('drop_db_default', array(
