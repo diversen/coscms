@@ -11,27 +11,48 @@ class date_helpers {
     }
     
     /**
+     * get current year as int, e.g. 1972
+     * @return int $current current year
+     */
+    public static function yearCurrentInt () {
+        return strftime("%Y");
+}
+    
+    /**
      * return last 12 months starting with param start
      * @param int $start
      * @return array $ary array with last 12 moinths as ints
      */
-    public static function last12Months ($start) {
+    public static function last12Months ($date) {
+        if (!$date) {
+            $year = self::yearCurrentInt();
+            $month = (int)self::monthCurrentInt();
+        } else {
+            $ary = explode('-', $date);
+            $year = $ary[0];
+            $month = $ary[1];
+        }
+        
+        
         
         
         $ary = array ();
-        $ary[] = (int)$start;
+        $ary[] = array ('year' => $year, 'month' => $month);
         $i = 11;
         
-        $next = (int)$start;
+        
+        $next = $month;
         while ($i) {
             if ($next == 1) {
                 $next = 12;
+                $year--;
             } else {
                 $next--;
             }
-            $ary[] = $next;
+            $ary[] = array ('month' => $next, 'year' => $year);
             $i--;
         }
+        
         return $ary;
     }
     
@@ -61,14 +82,27 @@ class date_helpers {
      * @return string $html the clean html select element
      */
     public static function monthOffsetDropdown ($name ='month', $start = null, $selected = null, $extra = array ()) {
-        if (!$start) $start = self::monthCurrentInt ();
-        if (!$selected) $selected = self::monthCurrentInt ();
         
-        $months = self::last12Months($start);       
+
+        if (!$start) { 
+            $start = self::yearCurrentInt () . '-' . self::monthCurrentInt ();
+        } else {
+            $ary = explode('-', $start);
+            $start = $ary[0] . '-' . $ary[1];
+        }
+        if (!$selected) { 
+            $selected = self::yearCurrentInt () . '-' . self::monthCurrentInt ();
+        } else {
+            $ary = explode('-', $selected);
+            $selected = $ary[0] . '-' . $ary[1];
+        }
+        
+        $months = self::last12Months($start);  
+        
         foreach ($months as $key => $val) {
             $months[$key] = array (
-                'id' => $val,
-                 'value' =>  self::monthName($val)
+                'id' => $val['year'] . '-' . $val['month'],
+                'value' =>  self::monthName($val['month'])
             );
         }
         
