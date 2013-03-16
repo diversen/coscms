@@ -31,7 +31,7 @@ $_PROFILE_MODULES = array (
   array (
     'id' => '3',
     'module_name' => 'error',
-    'module_version' => '1.81',
+    'module_version' => '1.82',
     'menu_item' => '0',
     'run_level' => '0',
     'load_on' => NULL,
@@ -70,7 +70,7 @@ $_PROFILE_MODULES = array (
   array (
     'id' => '146',
     'module_name' => 'account',
-    'module_version' => '1.81',
+    'module_version' => '1.91',
     'menu_item' => '1',
     'run_level' => '0',
     'load_on' => NULL,
@@ -351,6 +351,19 @@ $_PROFILE_MODULES = array (
     'is_shell' => NULL,
     'public_clone_url' => 'git://github.com/diversen/counter.git',
     'private_clone_url' => 'git@github.com:diversen/counter.git',
+  ),
+  27 => 
+  array (
+    'id' => '255',
+    'module_name' => 'gh-static',
+    'module_version' => '1.41',
+    'menu_item' => '0',
+    'run_level' => '0',
+    'load_on' => NULL,
+    'parent' => NULL,
+    'is_shell' => '1',
+    'public_clone_url' => 'git://github.com/diversen/gh-static.git',
+    'private_clone_url' => 'git@github.com:diversen/gh-static.git',
   ),
 );
 
