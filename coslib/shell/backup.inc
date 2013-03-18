@@ -116,7 +116,7 @@ function backup_restore($options){
 function backup_files_restore($options){
     
     // in order to easily preserve ownership we use need to run as root
-    cos_needs_root();
+    
     if (!isset($options['File'])){
         $latest = backup_get_latest_backup('files');
         if ($latest == 0) die ("Yet no backups\n");
@@ -125,6 +125,7 @@ function backup_files_restore($options){
         $backup_file = $options['File'];
     }
     
+    cos_needs_root("./coscli.sh backup --public-restore $backup_file");
     $command = "tar -Pxzf $backup_file -v ./htdocs/files ";
     $ret = cos_exec($command);
 }

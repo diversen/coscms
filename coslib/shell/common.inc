@@ -179,6 +179,13 @@ function cos_cli_print($mes, $color = null){
     return;
 }
 
+/**
+ * echos a colored status message
+ * @param string $mes (e.g. UPGRADE, NOTICE, ERROR)
+ * @param type $color the color to print, e.g. 'y', 'r', 'g'
+ * @param type $status the status message to be appended to e.g. STATUS
+ * @return void
+ */
 function cos_cli_print_status ($mes, $color, $status) {
     echo color_output(cos_get_color_status("[$mes]"), $color);
     echo $status . "\n";
@@ -210,13 +217,25 @@ function cos_is_root () {
     }
 }
 
+/**
+ * examine if user is root. If not we die and echos a message
+ * @param string $str
+ * @return int 0 on success else a positive int. 
+ */
 function cos_needs_root ($str = '') {
     
-    if (empty($str)) {
-        $str = "Current command needs to be run as root. Do the command with sudo or any other similar way\n";
-    }    
+    $output = '';
+
+    $output.= "Current command needs to be run as root. Eg. with sudo: ";
+    if (!empty($str)) {
+        $output.="\nsudo $str";
+    }
+    //$output.= "Do the command with sudo or any other similar way\n";
+     
+    
+    
     if (!cos_is_root()) {
-        echo $str;
+        echo $output . PHP_EOL;
         exit(128);
     }
     return 0;

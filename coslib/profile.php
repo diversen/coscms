@@ -111,7 +111,7 @@ class profile  {
                 cos_cli_print_status('NOTICE', 'y', $status);
                 $module_path = _COS_MOD_PATH . "/$val[module_name]";
                 if (!file_exists($module_path)) {
-                    cos_cli_print("Notice: module $val[module_name] has no module source", 'r');
+                    cos_cli_print_status('NOTICE', 'y', "module $val[module_name] has no module source");
                     continue;
                 } 
                 

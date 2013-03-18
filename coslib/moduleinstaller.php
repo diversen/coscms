@@ -109,7 +109,9 @@ class moduleinstaller extends db {
         if (file_exists($module_dir)){
             $install_file = "$module_dir/install.inc";
             if (!file_exists($install_file)){
-                cos_cli_print("Notice: No install file '$install_file' found in: '$module_dir'\n");
+                $status = "Notice: No install file '$install_file' found in: '$module_dir'";
+                cos_cli_print_status('NOTICE', 'y', $status);
+                cos_cli_print("Notice: No install file '$install_file' found in: '$module_dir'");
             }
               
             $this->installInfo['NAME'] = $module_name;
@@ -155,7 +157,8 @@ class moduleinstaller extends db {
                 }
             } 
         } else {
-            cos_cli_print ("Notice: No module dir: $module_dir", 'y');
+            $status = "No module dir: $module_dir";
+            cos_cli_print_status('NOTICE', 'y', $status);
             return false;
         }
     }
