@@ -291,6 +291,18 @@ class config {
         
     }
     
+    public static function mergeSharedIni () {
+        $shared_ini = _COS_PATH . "/config/shared.ini";
+        if (file_exists($shared_ini)) {
+            $shared = config::getIniFileArray($shared_ini);
+            config::$vars['coscms_main'] =
+                    array_merge(
+                        config::$vars['coscms_main'],
+                        $shared
+                    );
+        }
+    }
+    
     /**
      * load main cli configuration
      */
@@ -302,7 +314,7 @@ class config {
             return;
         } else {
             config::$vars['coscms_main'] = config::getIniFileArray($config_file, true);
-            if (in_array(config::getHostnameFromCli(), config::getHostnameFromIni()))
+            if (config::getMainIni('production') == 1)
                 {
                     // We are on REAL server and exists without
                     // adding additional settings for stage or development
