@@ -291,6 +291,18 @@ class config {
         
     }
     
+    /**
+     * merge shared.ini with main ini file settings
+     * This method was made in order to allow stage and production
+     * on the same server. 
+     * 
+     * You simply specify: 
+     * 
+     * production = 1
+     * 
+     * Before you did rely on hostname, which often is the same on 
+     * production and stage. 
+     */
     public static function mergeSharedIni () {
         $shared_ini = _COS_PATH . "/config/shared.ini";
         if (file_exists($shared_ini)) {
@@ -314,6 +326,15 @@ class config {
             return;
         } else {
             config::$vars['coscms_main'] = config::getIniFileArray($config_file, true);
+            
+            // as 'production' often is on the same server as 'stage', we 
+            // need to set: 
+            // 
+            // production= 1
+            // 
+            // in locale.ini in order to know if we are on production or on
+            // stage. 
+            // 
             self::mergeSharedIni();
             if (config::getMainIni('production') == 1)
                 {
