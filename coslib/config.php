@@ -314,6 +314,7 @@ class config {
             return;
         } else {
             config::$vars['coscms_main'] = config::getIniFileArray($config_file, true);
+            self::mergeSharedIni();
             if (config::getMainIni('production') == 1)
                 {
                     // We are on REAL server and exists without
