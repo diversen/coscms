@@ -101,11 +101,12 @@ class cosMail {
     * @param string $content_type
     * @return array $headers
     */
-    public static function getHeaders ($subject, $from, $reply_to, $more = array ()) {
+    public static function getHeaders ($to, $subject, $from, $reply_to, $more = array ()) {
         if (!$from) $from = config::getMainIni('site_email'); 
         if (!$reply_to) $reply_to = $from;
 
         $headers = array(
+            'To'            => $to,
             'From'          => $from,
             'Return-Path'   => $from,
             'Reply-To'      => $reply_to,
@@ -161,7 +162,7 @@ class cosMail {
     public static function multipart ($to, $subject, $message, $from = null, $reply_to = null, $more = array ()){
         
         
-        $headers = cosMail::getHeaders($subject, $from, $reply_to, $more);
+        $headers = cosMail::getHeaders($to, $subject, $from, $reply_to, $more);
         $mime = new cosMailMime();
         if (is_array($message)) {
 
@@ -202,7 +203,7 @@ class cosMail {
     * @return  int     1 on success 0 on error
     */
     public static function text($to, $subject, $message, $from = null, $reply_to=null, $more = array ()) {
-        $headers = cosMail::getHeaders($subject, $from, $reply_to, $more);
+        $headers = cosMail::getHeaders($to, $subject, $from, $reply_to, $more);
         
         $mime = new cosMailMime();
         $mime->setTxt($message);
