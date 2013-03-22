@@ -29,13 +29,13 @@ mainCli::setCommand('cache', array(
 
 
 mainCli::setOption('cache_clear_db', array(
-    'long_name'   => '--db-clear',
+    'long_name'   => '--clear-db',
     'description' => 'Will clear db cache - only works on default domain',
     'action'      => 'StoreTrue'
 ));
 
 mainCli::setOption('cache_clear_assets', array(
-    'long_name'   => '--assets-clear',
+    'long_name'   => '--clear-assets',
     'description' => 'Will clear cached assets',
     'action'      => 'StoreTrue'
 ));

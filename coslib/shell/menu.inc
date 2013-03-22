@@ -25,7 +25,9 @@ function cos_menu_install_menu($options){
     $mod = new moduleinstaller($options);
     $res = $mod->insertMenuItem();
     if ($res) {
-        cos_cli_print("Main menu item for $options[module] inserted");
+        if (isset(config::$vars['verbose']) ) {
+            cos_cli_print("Main menu item for '$options[module]' inserted");
+        }
     }  
 }
 
@@ -44,6 +46,7 @@ function cos_menu_install_all (){
 function cos_menu_uninstall_all (){
 
     $mods = moduleinstaller::getModules();
+
     foreach ($mods as $key => $val){
         $options = array('module' => $val['module_name']);
         cos_menu_uninstall_menu($options);
@@ -66,8 +69,12 @@ function cos_menu_uninstall_menu($options){
 
     $menu = new moduleinstaller($options);
     $res = $menu->deleteMenuItem($options['module']);
+    
     if ($res) {
-        cos_cli_print("Main menu item for $options[module] deleted");
+        //echo "ok";
+        if (isset(config::$vars['verbose']) ) {
+            cos_cli_print("Main menu item for '$options[module]' deleted");
+        }
     }
 
 }
