@@ -19,10 +19,18 @@ class phphl {
     private $lang;
 
     public static function init () {
-        template::setCss('/css/filter_php.css');
+        
+        
 	static $run = null;
         if (!$run) {
-            //template::setInlineCss(config::getModulePath('filter_php') . "/assets/filter_php.css");
+            $template = layout::getTemplateName();
+            $css_override = "/templates/$template/assets/phphl.css";
+        
+            if (file_exists(_COS_HTDOCS . $css_override )) {
+                template::setCss($css_override);
+            } else {
+                template::setCss('/css/assets/phphl.css');
+            }
             $run = 1;
         }
     }
@@ -36,9 +44,7 @@ class phphl {
         
         self::init();
         
-        //if (config::getModuleIni('filter_php_use_files')) {
-            $article = self::filterPhpFile($article);
-        //}
+        $article = self::filterPhpFile($article);
         $article = self::filterPhpInline($article);
         return $article;
         
@@ -111,9 +117,7 @@ function filterPhpHighlightCode($str, $lang){
 function filterPhpReplaceCode($replace){
     $str = trim($replace[1], "\n ");    
     $str = highlight_string($str, true);
-    if (config::getModuleIni('filter_php_add_div')) {
-        $str = filter_php_add_div($str);
-    }
+    $str = filter_php_add_div($str);
     return $str;
 }
 
