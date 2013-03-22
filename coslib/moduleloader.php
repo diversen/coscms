@@ -6,18 +6,7 @@
  * @package    moduleloader
  */
 
-/**
- * define path to modules
- */
 
-$mod_dir = config::getMainIni('module_dir');
-
-if (!$mod_dir) {
-    $mod_dir = 'modules';
-}
-
-define ('_COS_MOD_DIR', $mod_dir);
-define ('_COS_MOD_PATH', _COS_PATH . '/' . _COS_MOD_DIR);
 
 /**
  * Class for loading modules
