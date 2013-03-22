@@ -54,6 +54,7 @@ function prompt_install(){
     config::$vars['coscms_main']['username'] = $username;
     config::$vars['coscms_main']['password'] = $password;
     config::$vars['coscms_main']['server_name'] = $server_name;
+    config::$vars['coscms_main']['server_redirect'] = $server_name;
 
     // write it to ini file
     $content = config::arrayToIniFile(config::$vars['coscms_main']);
