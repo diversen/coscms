@@ -117,7 +117,19 @@ EOF;
                 'action'      => 'StoreString',
                 'default'     => 'default',
             )
-        );        
+        );  
+        
+        // Adding an main option for setting domain
+        self::$parser->addOption(
+            'verbose',
+            array(
+                'short_name'  => '-v',
+                'long_name'   => '--verbose',
+                'description' => 'Produce extra output',
+                'action'      => 'StoreTrue',
+            )
+        );  
+        
     }
 
     /**
@@ -187,10 +199,15 @@ EOF;
             // we parse the command line given. 
             // Note: Now we examine the domain, to if the -d switch is given
             // this is done in order to find out if we operate on another 
-            // database than the default. E.g.: multi domains. 
+            // database than the default. E.g.: multi domains.
             
             $domain = $result->options['domain'];
             config::$vars['domain'] = $domain;
+            
+            // set verbose
+            $verbose = $result->options['verbose'];
+            //var_dump($verbose);
+            config::$vars['verbose'] = $verbose;
             
             if ($domain != 'default' || empty($domain)) {
                 $domain_ini = _COS_PATH . "/config/multi/$domain/config.ini";
