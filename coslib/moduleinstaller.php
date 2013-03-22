@@ -105,6 +105,7 @@ class moduleinstaller extends db {
             config::$vars['coscms_main']['module'] = config::getIniFileArray($ini_file);
         }
 
+        
         // check for install.inc in module dir
         if (file_exists($module_dir)){
             $install_file = "$module_dir/install.inc";
@@ -116,9 +117,26 @@ class moduleinstaller extends db {
               
             $this->installInfo['NAME'] = $module_name;
             
+            if (file_exists($install_file)) {
+                include $install_file;
+
+                $this->installInfo = $_INSTALL;
+                $this->installInfo['NAME'] = $module_name;
+                
+                if (empty($this->installInfo['MAIN_MENU_ITEM'])){
+                    $this->installInfo['menu_item'] = 0;
+                } else {
+                    $this->installInfo['menu_item'] = 1;
+                }
+
+                if (empty($this->installInfo['RUN_LEVEL'])){
+                    $this->installInfo['RUN_LEVEL'] = 0;
+                }
+            } 
+            
              // if no version we check if this is a git repo
             if (!isset($this->installInfo['VERSION']) && defined('_COS_CLI')) {
-
+                
                 $command = "cd " . _COS_MOD_PATH . "/"; 
                 $command.= $this->installInfo['NAME'] . " ";
                 $command.= "&& git config --get remote.origin.url";
@@ -140,22 +158,7 @@ class moduleinstaller extends db {
             }
             
             
-            if (file_exists($install_file)) {
-                include $install_file;
-
-                $this->installInfo = $_INSTALL;
-                $this->installInfo['NAME'] = $module_name;
-                
-                if (empty($this->installInfo['MAIN_MENU_ITEM'])){
-                    $this->installInfo['menu_item'] = 0;
-                } else {
-                    $this->installInfo['menu_item'] = 1;
-                }
-
-                if (empty($this->installInfo['RUN_LEVEL'])){
-                    $this->installInfo['RUN_LEVEL'] = 0;
-                }
-            } 
+            
         } else {
             $status = "No module dir: $module_dir";
             cos_cli_print_status('NOTICE', 'y', $status);
