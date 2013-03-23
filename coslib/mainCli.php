@@ -139,6 +139,10 @@ EOF;
      * @param array options
      */
     static function setCommand ($command, $options){
+        if (isset($options['description'])) {
+            $options['description'] = strings_ext::removeNewlines($options['description']);
+        }
+        
         self::$command = self::$parser->addCommand($command, $options);
     }
 

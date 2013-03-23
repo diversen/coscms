@@ -197,7 +197,10 @@ function module_ini_all_up ($options = array ()) {
 
 if (cos_is_cli()){
 mainCli::setCommand('module', array(
-    'description' => 'Commands for installing and uninstalling modules (only locale)',
+    'description' => '
+        Commands for installing and uninstalling modules - 
+        only locale placed in module dir. 
+        For remote install of git repos see git'
 ));
 
 // create commandline parser

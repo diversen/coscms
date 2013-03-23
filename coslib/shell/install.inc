@@ -136,7 +136,7 @@ function cos_check_root ($options = null) {
 
 
 mainCli::setCommand('install', array(
-    'description' => 'install cos cms system',
+    'description' => 'install CosCMS from a specified profile [prompt-install is recommended for install]]',
 ));
 
 mainCli::setOption('cos_install_use_master', array(

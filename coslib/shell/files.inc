@@ -92,7 +92,7 @@ function cos_create_files(){
 }
 
 mainCli::setCommand('file', array(
-    'description' => 'Basic files commands',
+    'description' => 'Basic files commands for setting correct permissions and creating essential files like logs',
 ));
 
 mainCli::setOption('cos_chmod_files', array(

@@ -38,4 +38,8 @@ class strings_ext {
         }
         return $ret;
     }
+    
+    public static function removeNewlines ($str) {
+        return preg_replace('/\s+/', ' ', trim($str));
+    }
 }
