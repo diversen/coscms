@@ -77,15 +77,9 @@ function cos_error_log ($message, $write_file = 1) {
  * @return void 
  */
 function cos_debug ($message) {
-    static $debug = null;
+
     if (config::getMainIni('debug')) {
-        $debug = 1;
-    }
-    
-    echo $message;
-    
-    if ($debug) {
-        cos_error_log($message, 1);
+        cos_error_log($message);
         return;
-    }    
+    }  
 }
