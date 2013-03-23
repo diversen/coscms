@@ -316,7 +316,7 @@ class profile  {
         $db->connect();
         $sql = "INSERT INTO `menus` VALUES (1, 'home', '/', '', '', 0, 0);";
         if ($this->profileUseHome){
-            $res = $db->rawQuery($sql);
+            return $db->rawQuery($sql);
         }
     }
 

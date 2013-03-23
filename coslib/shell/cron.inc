@@ -4,12 +4,10 @@
  * @package shell
  */
 
-// {{{ create_cron_line($site)
 /**
  * function for showing a readline form where we can collect 
- * information about how crons should be done
+ * information about how a cron job should be done
  * 
- * @param string $site
  * @return array $cron with info about the cron
  */
 function create_cron_line(){
@@ -55,8 +53,6 @@ function create_cron_line(){
     return 0;
 }
 
-// }}} 
-// {{{ disable_cron_line($site)
 
 /**
  * function for deleting entries from the crontab file
@@ -83,8 +79,6 @@ function disable_cron_line(){
     return 1;
 }
 
-// }}}
-// {{{ enable_cron_line($site)
 /**
  * function for enabling the site in the crontab
  *
@@ -144,8 +138,7 @@ function enable_cron_line(){
     return 1;
 }
 
-// }}}
-// {{{ function run_cron()
+
 function run_cron (){
     
     $mi = new moduleloader();
@@ -164,8 +157,7 @@ function run_cron (){
     }
 }
 
-
-// }}}
+/*
 mainCli::setCommand('cron', array(
     'description' => 'Will enable cron job',
 ));
@@ -187,3 +179,4 @@ mainCli::setOption('run_cron', array(
     'description' => 'Runs cron for site ',
     'action'      => 'StoreTrue'
 ));
+*/

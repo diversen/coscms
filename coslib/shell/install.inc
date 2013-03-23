@@ -8,31 +8,33 @@
 
 
 /**
- * function for installing a profile
+ * function for installing a CosCMS from a profile
  */
 function cos_install($options = false) {
-    // no options - install clean default
+
+    // we need a profile specified
     if (!isset($options['profile'])){
         cos_cli_abort('You need to specifiy a profile');
     }
 
-    // remove old files
+    // create files - logs/ - files/
     cos_create_files();
 
-    // load default sql.
+    // load default base sql.
     load_db_default();
 
     // use profile object
     $pro = new profile();
     $pro->setProfileInfo($options['profile']);
 
-    // first we set if home link will be added.
+    // first we set if home link to http://example.com/ will be added to menus.
     $pro->setProfileUseHome();
 
-    // install modules
+    // install all the profile modules
     foreach ($pro->profileModules as $key => $val){
         
-        if (isset(config::$vars['git_use_master'])){
+        // check if master is specified. Else use profile version
+        if (config::getMainIni('git_use_master')){
             $tag = 'master';
         } else {
             $tag = $val['module_version'];
@@ -41,6 +43,8 @@ function cos_install($options = false) {
         $options['repo'] = $val['public_clone_url'];
         $options['version'] = $tag; //$val['module_version'];
         $options['module'] = $val['module_name'];
+        
+        // check out and install
         cos_git_install($options, 'module');
     }
     
@@ -56,16 +60,18 @@ function cos_install($options = false) {
         $options['repo'] = $val['public_clone_url'];
         $options['version'] = $tag; //$val['module_version'];
         $options['template'] = $val['module_name'];
+        
+        // check out and install
         cos_git_install($options, 'template');
     }
 
-    // load profile ini files
+    // load all profile ini files
     $pro->loadProfileFiles($options['profile']);
 
+    // set template
     $pro->setProfileTemplate();
-
-    cos_create_files();
     
+    // insert all base translations
     $md = new moduleinstaller();
     $md->reloadCosLanguages();
 
@@ -97,12 +103,18 @@ function cos_reload_language(){
     $reload->reloadLanguages();
 }
 
+/**
+ * wrapper function for reloading all menus
+ */
 function cos_menu_lang_reload(){
     cos_reload_language();
     cos_menu_uninstall_all();
     cos_menu_install_all();
 }
 
+/**
+ * wrapper function for reloading all languages
+ */
 function cos_install_reload(){
     $reload = new moduleinstaller();
     $reload->reloadConfig();
@@ -115,7 +127,7 @@ function cos_install_reload(){
  * @param array $options
  */
 function cos_install_use_master ($options){
-    config::$vars['git_use_master'] = 1;
+    config::setMainIni('git_use_master', 1);
 }
 
 function cos_check_root ($options = null) {

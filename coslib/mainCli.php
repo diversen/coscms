@@ -307,20 +307,17 @@ EOF;
         
         $options = array ('search' => '.inc');
         $command_path = _COS_PATH . '/coslib/shell';
-        $file_list = file::getFileList($command_path, $options);
+        $file_list = glob("$command_path/*.inc");
         
-
         foreach ($file_list as $val){
-            $path =  $command_path . "/$val";
-            include_once $path;
+            include_once $val;
         }
         
         $command_path = _COS_PATH . '/coslib/shell/locale';
-        $file_list = file::getFileList($command_path, $options);
-
+        $file_list = glob("$command_path/*.inc");
+        
         foreach ($file_list as $val){
-            $path =  $command_path . "/$val";
-            include_once $path;
+            include_once $val;
         }
     }
 }
