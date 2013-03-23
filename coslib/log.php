@@ -82,8 +82,10 @@ function cos_debug ($message) {
         $debug = 1;
     }
     
+    echo $message;
+    
     if ($debug) {
-        cos_error_log($message);
+        cos_error_log($message, 1);
         return;
     }    
 }

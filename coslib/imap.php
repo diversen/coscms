@@ -168,7 +168,7 @@ class imap {
     function decodePlain ($part) {
         $content = $part->getContent();
 
-        //echo $part->contentTransferEncoding;
+        //$part->contentTransferEncoding;
         switch ($part->contentTransferEncoding) {
             case 'base64':
                 $content = base64_decode($content);
@@ -200,16 +200,22 @@ class imap {
         $from = $message->getHeader('From', 'string');
         $parts['from'] = trim($this->extractMailFrom($from));
         $parts['html'] = array ();
-      //  echo 
-
+        
+        // test if it is not a multi part message
+        if (!$message->isMultipart()) {
+            $parts['plain'] = $this->decodePlain($message);
+        }
+        
         foreach (new RecursiveIteratorIterator($message) as $part) {
             try {
                 $type = $this->getContentType($part);
 
+                
                 if ($type == 'text/plain') {
-                    $parts['plain'] = $part->getContent();
-
+                    // text plain
+                    $parts['plain'] = $this->decodePlain($part);
                 } else if ($type == 'image/jpeg' || $type == 'image/png' || $type == 'image/jpg') {
+                    // image
                     $file = base64_decode($part->getContent());  
                     $human = $this->getHeadersHuman ($part);
                     $parts['images'][] = array (
@@ -217,10 +223,12 @@ class imap {
                         'type' => $human['content-type'],
                         'file' => $file
                     );  
-                } else if ($type == 'text/html') {
-                    $parts['html'][] = $part->getContent();
-                } else {
                     
+                } else if ($type == 'text/html') {
+                    // thtml
+                    $parts['html'][] = $part->getContent();
+                } else {    
+                    // else unknown
                     $parts['unknown'][] = $part;
                 }
             } catch (Exception $e) {
@@ -268,9 +276,9 @@ class imap {
     
 
         
-    public function getFirstTextPlainFromParts ($parts, $type) {
+    public function getFirstTextPlainFromParts ($parts, $type ='text/plain') {
         foreach ($parts as $key => $val) {
-            if ($key == 'text/palin') {
+            if ($key == 'text/plain') {
                 return $val[0];
             }
         }
