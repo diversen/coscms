@@ -17,3 +17,5 @@ gallery_zip_max = 100000000
 gallery_events[0] = "tags::events"
 gallery_image_anchors = 1
 gallery_preview_display_all = 1
+gallery_sub_modules[0] = "counter"
+gallery_sub_modules[1] = "comment"
