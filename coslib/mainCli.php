@@ -200,14 +200,12 @@ EOF;
             // Note: Now we examine the domain, to if the -d switch is given
             // this is done in order to find out if we operate on another 
             // database than the default. E.g.: multi domains.
-            
-            $domain = $result->options['domain'];
-            config::$vars['domain'] = $domain;
-            
-            // set verbose
+
             $verbose = $result->options['verbose'];
-            //var_dump($verbose);
-            config::$vars['verbose'] = $verbose;
+            config::setMainIni('verbose', $verbose);
+
+            // check domain
+            $domain = $result->options['domain'];            
             
             if ($domain != 'default' || empty($domain)) {
                 $domain_ini = _COS_PATH . "/config/multi/$domain/config.ini";

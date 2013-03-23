@@ -25,7 +25,7 @@ function cos_menu_install_menu($options){
     $mod = new moduleinstaller($options);
     $res = $mod->insertMenuItem();
     if ($res) {
-        if (isset(config::$vars['verbose']) ) {
+        if (config::getMainIni('verbose') ) {
             cos_cli_print("Main menu item for '$options[module]' inserted");
         }
     }  
@@ -72,7 +72,7 @@ function cos_menu_uninstall_menu($options){
     
     if ($res) {
         //echo "ok";
-        if (isset(config::$vars['verbose']) ) {
+        if (config::getMainIni('verbose') ) {
             cos_cli_print("Main menu item for '$options[module]' deleted");
         }
     }
