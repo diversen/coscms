@@ -455,7 +455,7 @@ class session {
      * @return  boolean true or false
      */
     static public function isUser(){
-        if ( isset($_SESSION['id']) ){
+        if ( isset($_SESSION['id']) && $_SESSION['id'] != 0 ) {
             return true;
         } else {
             return false;
