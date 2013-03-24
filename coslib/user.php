@@ -23,6 +23,27 @@ class user {
      */
     public static $profile_object = null;
     
+    /**
+     * checks if a 'user_id' owns 'id' of a 'table' meaning that he should
+     * be able e.g. edit and delete this row. 
+     * @param string $table able name
+     * @param string $id primary id of table 
+     * @param type $user_id the users account id
+     * @return array|false $row if row was found else false
+     */
+    public static function ownID ($table, $id, $user_id) {
+        $row = dbQ::setSelect($table)->
+                filter('id =', $id)->
+                condition('AND')->
+                filter('user_id = ', $user_id)->
+                fetchSingle();
+        if (empty($row)) {
+            return false;
+        } 
+        
+        return $row;
+        
+    }
     
     /**
      * function for getting an account

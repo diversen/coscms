@@ -168,17 +168,17 @@ class imap {
     function decodePlain ($part) {
         $content = $part->getContent();
 
-        //$part->contentTransferEncoding;
-        switch ($part->contentTransferEncoding) {
-            case 'base64':
-                $content = base64_decode($content);
+        if (isset($part->contentTransferEncoding)) {
+            switch ($part->contentTransferEncoding) {
+                case 'base64':
+                    $content = base64_decode($content);
+                    break;
+                case 'quoted-printable':
+                    $content = quoted_printable_decode($content);
                 break;
-            case 'quoted-printable':
-                $content = quoted_printable_decode($content);
-            break;
-        }
+            }
+        }        
         return $content;
-        
     }
     
     /**

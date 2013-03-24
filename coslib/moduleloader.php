@@ -530,11 +530,22 @@ class moduleloader {
      * returns a module path from a module reference
      * e.g. content_article will return content/article
      * and blog will return blog
-     * @param string $class
+     * @param string $reference
      * @return string $module_path 
      */
-    public static function moduleReferenceToModulePath ($class) {
-        return $module_path = str_replace('_', '/', $class);
+    public static function moduleReferenceToModulePath ($reference) {
+        return $module_path = str_replace('_', '/', $reference);
+    }
+    
+    /**
+     * returns a modules primiary table from a reference
+     * e.g. content/article will return content_article
+     * and blog will return blog
+     * @param string $path
+     * @return string $reference 
+     */
+    public static function moduleeReferenceToTable ($path) {
+        return str_replace('/', '_', $path);
     }
 
     /**
