@@ -118,6 +118,19 @@ function git_get_latest_remote_tag($repo, $clear = null) {
     return null;
 }
 
+/**
+ * returns the private version of a publi git url
+ * @param string $url public url
+ * @return string $url private url
+ */
+function git_public_to_private ($url) {
+    //public:  git://github.com/diversen/image.git
+    //private: git@github.com:diversen/image.git
+    
+    $ary = parse_url (trim($url));
+    return "$ary[scheme]@$ary[host]:$ary[path]";
+}
+
 /** 
  * gets contents of .git/config file as array
  * @param string $repo_path path to repo. 
