@@ -170,7 +170,8 @@ class file {
      */
     public static function getCachedFile ($file) {
         ob_start();
-        include $file;
+        readfile( $file);
+        
         $str = ob_get_contents();
         ob_end_clean();
         return $str;

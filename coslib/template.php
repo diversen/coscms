@@ -274,6 +274,20 @@ class template {
         $str.= self::$metaStr;
         return $str;
     }
+    
+    public static $noCacheCss = array ();
+    
+    public static function setNoCacheCss ($css_url, $order, $options = array ()) {
+         if (isset($order)){
+            if (isset(self::$css[$order])) {
+                self::setNoCacheCss($css_url, $order + 1, $options);
+            } else {
+                self::$noCacheCss[$order] = $css_url;
+            }
+        } else {
+            self::$noCacheCss[] = $css_url;
+        }
+    }
 
     /**
      * method for setting css files to be used on page
@@ -283,6 +297,11 @@ class template {
      * @param array $options
      */
     public static function setCss($css_url, $order = null, $options = null){
+        if (isset($options['no_cache'])) {
+            self::setNoCacheCss($css_url, $order, $options);
+            return;
+        }
+        
         if (isset($order)){
             if (isset(self::$css[$order])) {
                 self::setCss($css_url, $order + 1, $options);
@@ -326,7 +345,7 @@ class template {
         
         if (config::getMainIni('cached_assets_compress')) {
             foreach (self::$css as $key => $val){
-                if (!strstr($val, "http://") ) {
+                if (!strstr($val, "http://" || !strstr($val, 'https://')) ) {
                     unset(self::$css[$key]);
                     $str.= file::getCachedFile(_COS_HTDOCS . "/$val") ."\n\n\n";
                 }
@@ -347,7 +366,12 @@ class template {
             }
             
             self::setCss($web_path . "$file");   
-        }  
+        } 
+        
+        ksort(self::$noCacheCss);
+        foreach (self::$noCacheCss as $val) {
+            self::setCss($val);
+        }
         return self::getCss();
     }
     
@@ -783,18 +807,21 @@ class template {
         $css = config::getMainIni('css');
         if (!$css) {
             // no css set use default/default.css
-            self::setCss("/templates/$template/default/default.css?version=$version", $order);
+            //self::setCss("/templates/$template/default/default.css?version=$version", $order);
+            self::setCss("/templates/$template/default/default.css", $order);
             return;
         }
+        
         $base_path = "/templates/$template/$css";
         $css_path = _COS_HTDOCS . "/$base_path/$css.css";
         $css_web_path = $base_path . "/$css.css";
         if (file_exists($css_path)) {
 
-            self::setCss("$css_web_path?version=$version", $order);
-            
+            //self::setCss("$css_web_path?version=$version", $order);
+            self::setCss("$css_web_path", $order);
         } else {
-            self::setCss("/templates/$template/default/default.css?version=$version", $order);
+            //self::setCss("/templates/$template/default/default.css?version=$version", $order);
+            self::setCss("/templates/$template/default/default.css", $order);
             return;
         }
 
