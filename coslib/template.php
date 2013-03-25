@@ -348,7 +348,7 @@ class template {
                 if (!strstr($val, "http://" || !strstr($val, 'https://')) ) {
                     unset(self::$css[$key]);
                     $str.= file::getCachedFile(_COS_HTDOCS . "/$val") ."\n\n\n";
-                }
+                } 
             }
             
             $md5 = md5($str);
