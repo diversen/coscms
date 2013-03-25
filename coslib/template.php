@@ -1,5 +1,7 @@
 <?php
 
+include_once "csspacker.php";
+include_once "class.JavaScriptPacker.php";
 /**
  * File containing template class. 
  * 
@@ -362,6 +364,10 @@ class template {
             
             // create file if it does not exist
             if (!file_exists($full_file_path)) {
+                $str = csspacker::packcss($str);
+
+                //$packer = new JavaScriptPacker($script, $encoding, $fast_decode, $special_char);
+                
                 file_put_contents($full_file_path, $str);
             }
             
@@ -386,20 +392,10 @@ class template {
      */
     public static function setStringJs($js, $order = null, $options = array()){
         
-        /*
-        if (config::getMainIni('cached_assets') && !isset($options['no_cache'])) {
-            self::cacheAsset ($js, $order, 'js');
-            return;
-        }*/
-        
-        //$str = file_get_contents($js);
         if (isset($options['search'])){
             $js = str_replace($options['search'], $options['replace'], $str);
         }
         
-        
-        //$js = "<script>$js</script>\n";
-        //var myvar = <?php echo json_encode($myVarValue); 
         if (isset($order)){
             self::$inlineJs[$order] = $js;
         } else {
@@ -479,6 +475,9 @@ class template {
             
             // create file if it does not exist
             if (!file_exists($full_file_path)) {
+                //$packer = new JavaScriptPacker($str, 0, false, false);
+                //$packer = new JavaScriptPacker($_script, $_encoding, $_fastDecode, $_specialChars);
+                //$str = $packer->pack();
                 file_put_contents($full_file_path, $str);
             }
             self::setJs($web_path . $file);
