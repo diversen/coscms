@@ -27,3 +27,5 @@ class cosmarkdownext {
 	return $text; //$parser->transform($text);
     }
 }
+
+class filters_cosmarkdownext extends cosmarkdownext {}

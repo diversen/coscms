@@ -13,39 +13,8 @@ class cosgeshi {
      */
     private $lang;
 
-    /**
-     *
-     * @param <array> $article the article row from database to filter.
-     * @return <type>
-     */
-    /*
-    public function filter($article){
-        //foreach($article as $k => $v){
-        //    if ($k == 'content'){
-                // find all codes of type [hl:lang]
-                $reg_ex = "{(\[hl:[a-z\]]+)}i";
-                preg_match_all($reg_ex, $article, $match);
-                $match  = array_unique($match[1]);
-                foreach ($match as $key => $val){
-                    $ary = explode(":", $val);
-                    preg_match("{([a-z]+)}i", $ary[1], $lang);
-                    if (isset($lang[0]) && isset($lang[1])){
-                        if ($lang[0] == $lang[1]){
-                            if (config::getModuleIni('filter_geshi_use_files')){
-                                $article = $this->HighlightCodeFile($article, $lang[0]);
-                            } else {
-                                $article = $this->highlightCode($article, $lang[0]);
-                            }
 
-                            
-                        }
-                    }
-                }
-          //  }
-        //}
-        return $article;
-    }*/
-        /**
+    /**
      *
      * @param string $article string to filter.
      * @return 
@@ -54,9 +23,9 @@ class cosgeshi {
         
         //self::init();
         
-        //if (config::getModuleIni('filter_php_use_files')) {
+        if (config::getMainIni('filters_allow_files')) {
             $article = self::filterGeshiFile($article);
-        //}
+        }
         $article = self::filterGeshiInline($article);
         return $article;
         
@@ -161,3 +130,5 @@ class cosgeshi {
         return $geshi->parse_code();
     }
 }
+
+class filters_cosgeshi extends cosgeshi {}
