@@ -30,3 +30,5 @@ class cossafe {
         return $text;
     }
 }
+
+class filters_cossafe extends cossafe {}

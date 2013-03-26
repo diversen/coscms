@@ -44,7 +44,9 @@ class phphl {
         
         self::init();
         
-        $article = self::filterPhpFile($article);
+        if (config::getMainIni('filters_allow_files')) {
+            $article = self::filterPhpFile($article);
+        }
         $article = self::filterPhpInline($article);
         return $article;
         
@@ -102,6 +104,8 @@ class phphl {
         return $article;
     }
 }
+
+class filters_phphl extends phphl {}
 
 function filter_php_add_div ($str) {
     return "<div class=\"php\">$str</div>\n";

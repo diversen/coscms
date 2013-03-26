@@ -32,8 +32,9 @@ class cosmedia {
             return 1;
         }
     }
-
 }
+
+class filters_cosmedia extends cosmedia {}
 
 function linkifyVimeo ($text) {
     //$link = 'http://vimeo.com/10638288';

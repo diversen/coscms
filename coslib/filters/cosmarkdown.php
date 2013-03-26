@@ -30,3 +30,5 @@ class cosmarkdown {
 	return $text; //$parser->transform($text);
     }
 }
+
+class filters_cosmarkdown extends cosmarkdown {}
