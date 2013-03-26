@@ -201,30 +201,7 @@ class template {
      * @return string $str the html compsoing the logo or main title
      */
     public static function getLogoHTML ($options = array()) {
-        $logo = config::getMainIni('logo');
-        if (!$logo){
-            $logo_method = config::getMainIni('logo_method');
-            if (!$logo_method) {
-                $title = $_SERVER['HTTP_HOST'];
-                $link = html::createLink('/', $title);
-                return $str = "<div id=\"logo_title\">$link</div>";
-            } else {
-                moduleloader::includeModule ($logo_method);
-                $str =  $logo_method::logo();
-                return $str = "<div id=\"logo_title\">$str</div>";
-            }
-                
-        } else {
-            $file ="/logo/" . config::$vars['coscms_main']['logo'];
-            $src = config::getWebFilesPath($file);
-            if (!isset($options['alt'])){           
-                $options['alt'] = $_SERVER['HTTP_HOST'];
-            }
-            $href = html::createHrefImage('/', $src, $options);
-            $str = '<div id="logo_img">' . $href . '</div>' . "\n"; 
-            //die($str);
-            return $str;
-        }
+        return template_logo::getLogoHTML($options);
     }
 
     /**
@@ -277,9 +254,22 @@ class template {
         return $str;
     }
     
+    /**
+     * array holding css that should not be cached or compressed
+     * @var array $noCacheCss
+     */
     public static $noCacheCss = array ();
     
-    public static function setNoCacheCss ($css_url, $order, $options = array ()) {
+    /**
+     * set css that should not be cached. We have downloaded source of a 
+     * js script and we will compress anything into a single file. In order
+     * to avoid path issues with images in css we can use this in order
+     * to just link to the CSS
+     * @param string $css_url
+     * @param string $order
+     * @param array $options
+     */
+    public static function setNoCacheCss ($css_url, $order = null, $options = array ()) {
          if (isset($order)){
             if (isset(self::$css[$order])) {
                 self::setNoCacheCss($css_url, $order + 1, $options);
@@ -349,7 +339,15 @@ class template {
             foreach (self::$css as $key => $val){
                 if (!strstr($val, "http://" || !strstr($val, 'https://')) ) {
                     unset(self::$css[$key]);
-                    $str.= file::getCachedFile(_COS_HTDOCS . "/$val") ."\n\n\n";
+                    
+                    $file = _COS_HTDOCS . "$val";
+                    
+                    $str.= "\n/* Caching $file*/\n";
+                    if (!config::getMainIni('cache_disable')) {
+                        $str.= file::getCachedFile($file) ."\n\n\n";
+                    } else {
+                        $str.= file_get_contents($file);
+                    }
                 } 
             }
             
@@ -364,10 +362,7 @@ class template {
             
             // create file if it does not exist
             if (!file_exists($full_file_path)) {
-                $str = csspacker::packcss($str);
-
-                //$packer = new JavaScriptPacker($script, $encoding, $fast_decode, $special_char);
-                
+                $str = csspacker::packcss($str);                
                 file_put_contents($full_file_path, $str);
             }
             

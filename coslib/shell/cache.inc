@@ -21,6 +21,12 @@ function cache_clear_assets ($options = null) {
     cos_exec($command);
 }
 
+function cache_clear_all ($options = null) {
+    cos_needs_root();
+    cache_clear_assets();
+    cache_clear_db();
+}
+
 
 mainCli::setCommand('cache', array(
     'description' => 'Commands for clearing caches. ',
@@ -37,6 +43,12 @@ mainCli::setOption('cache_clear_db', array(
 mainCli::setOption('cache_clear_assets', array(
     'long_name'   => '--clear-assets',
     'description' => 'Will clear cached assets',
+    'action'      => 'StoreTrue'
+));
+
+mainCli::setOption('cache_clear_all', array(
+    'long_name'   => '--clear-all',
+    'description' => 'Will clear all cached assets, and db cache',
     'action'      => 'StoreTrue'
 ));
 
