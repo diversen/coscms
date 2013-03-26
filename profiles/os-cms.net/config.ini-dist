@@ -36,6 +36,7 @@ media_width = 600
 blocks_all = "blocks_top,blocks"
 blocks_top[0] = "/system/blocks/system_admin_menu_top.inc"
 blocks[1] = "/content/blocks/content_tree_keep_state.inc"
+filters_allow_files = 1
 [development]
 debug = 1
 cache_disable = 0
