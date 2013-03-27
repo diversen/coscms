@@ -115,7 +115,7 @@ function cos_menu_lang_reload(){
 /**
  * wrapper function for reloading all languages
  */
-function cos_install_reload(){
+function cos_config_reload(){
     $reload = new moduleinstaller();
     $reload->reloadConfig();
 }
@@ -170,7 +170,7 @@ mainCli::setOption('cos_menu_lang_reload', array(
     'action'      => 'StoreTrue'
 ));
 
-mainCli::setOption('cos_install_reload', array(
+mainCli::setOption('cos_config_reload', array(
     'long_name'   => '--config-reload',
     'description' => 'Reloads the module table. E.g. you have made a CLI part of a module',
     'action'      => 'StoreTrue'
