@@ -4,8 +4,6 @@
 /**
  * autolinking filter
  */
-
-
 class autolink {
 
     /**
@@ -29,10 +27,17 @@ class autolink {
    public static function auto_link_text($text)
    {
       $pattern  = '#\b(([\w-]+://?|www[.])[^\s()<>]+(?:\([\w\d]+\)|([^[:punct:]\s]|/)))#';
-      $callback = create_function('$matches', '
+      $callback = function($matches) { 
           $url       = array_shift($matches);
           $url_parts = parse_url($url);
+          $deny = filters_autolink::getDenyHosts();
 
+          // check for links that we will be transformed from link
+          // to inline content, e.g. youtube
+          if (in_array($url_parts['host'], $deny)) {
+;              return $url;
+          }
+          
           $text = parse_url($url, PHP_URL_HOST) . parse_url($url, PHP_URL_PATH);
           $text = preg_replace("/^www./", "", $text);
 
@@ -41,10 +46,14 @@ class autolink {
               $text = substr($text, 0, $last) . "&hellip;";
           }
 
-          return sprintf(\'<a target="_blank" href="%s">%s</a>\', $url, $text);
-      ');
+          return sprintf('<a target="_blank" href="%s">%s</a>', $url, $text);
+      };
 
       return preg_replace_callback($pattern, $callback, $text);
+    }
+    
+    public static function getDenyhosts () {
+        return array ('www.vimeo.com', 'soundcloud.com', 'youtu.be', 'www.youtu.be', 'www.youtube.com', 'youtube.com');
     }
 }
 
