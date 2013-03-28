@@ -64,7 +64,7 @@ class pearPager {
      */
     public function getPagerHTML ($options = null){
 
-        require_once 'Pager/Pager.php';
+        //require_once 'Pager/Pager.php';
      
         //first, we use Pager to create the links
         $num_items = $this->total;

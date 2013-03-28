@@ -336,7 +336,7 @@ class moduleinstaller extends db {
         }
         
         $language_path = _COS_PATH . "/lang/$module/lang";
-        if (file_exists($language_path) ) {
+        if (!file_exists($language_path) ) {
             // system language
             
         } else {
