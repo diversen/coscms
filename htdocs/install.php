@@ -23,6 +23,9 @@ if (DIRECTORY_SEPARATOR != '/') {
 
 define('_COS_PATH',  $path);
 define('_COS_HTDOCS',  ".");
+define('_COS_MOD_DIR', 'modules');
+define('_COS_MOD_PATH',  _COS_HTDOCS . "/modules");
+
 
 // include config.php for reading config files etc.
 include_once $config;
