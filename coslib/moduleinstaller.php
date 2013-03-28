@@ -250,8 +250,7 @@ class moduleinstaller extends db {
      * reloads language files one after another.
      */
     public function reloadCosLanguages(){        
-        $modules = file::getDirsGlob(_COS_PATH . "/lang/", '*');
-
+        $modules = file::getFileList(_COS_PATH . "/lang/", array ('dir_only' => true));
         foreach ($modules as $val){
             $this->insertLanguage($val);
         }
@@ -336,17 +335,20 @@ class moduleinstaller extends db {
         }
         
         $language_path = _COS_PATH . "/lang/$module/lang";
-        if (!file_exists($language_path) ) {
+        if (file_exists($language_path) ) {
             // system language
-            
+            // e.g. all filters
+            // cosmarkdown, cosmedia
+         
         } else {
             // module language
             $language_path =
                 _COS_PATH .
                 '/' . _COS_MOD_DIR . '/' .
-                $this->installInfo['NAME'] .
+                $module .
                 '/lang';
         }
+        
         $dirs = file::getFileList($language_path);
         if ($dirs == false){
             $this->notice = "Notice: No language dir in: $language_path " . NEW_LINE;
