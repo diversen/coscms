@@ -79,7 +79,7 @@ function upgrade_from_profile ($options){
 
 
 function install_from_profile ($options){
-    // use profile object
+
     $pro = new profile();
     $pro->setProfileInfo($options['profile']);
 
@@ -103,10 +103,12 @@ function install_from_profile ($options){
     
     $reload = new moduleinstaller();
     $reload->reloadCosLanguages();
-
-
     return $final;
+}
 
+function cos_purge_from_profile ($options) {
+    $pro = new profile();
+    $pro->setProfileInfo($options['profile']);
 }
 
 /**
@@ -237,14 +239,19 @@ if (cos_is_cli()){
 
     mainCli::setOption('upgrade_from_profile', array(
         'long_name'   => '--all-up',
-        'description' => 'Will upgrade from specified profile. If new module or templates 
-            exists they will be installed. ',
+        'description' => 'Will upgrade from specified profile. If new module or templates exists they will be installed. ',
         'action'      => 'StoreTrue'
     ));
 
     mainCli::setOption('install_from_profile', array(
         'long_name'   => '--all-in',
         'description' => 'Will install all modules from specified profile',
+        'action'      => 'StoreTrue'
+    ));
+    
+    mainCli::setOption('cos_purge_from_profile', array(
+        'long_name'   => '--purge',
+        'description' => 'Will remove modules and templates no logner specified in profile',
         'action'      => 'StoreTrue'
     ));
 
