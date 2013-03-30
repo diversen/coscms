@@ -447,6 +447,24 @@ class profile  {
         $this->profileTemplate = $_PROFILE_TEMPLATE;
         $this->profileUseHome = $_PROFILE_USE_HOME;
     }
+    
+    public function isModuleInProfile ($module) {
+        foreach ($this->profileModules as $val){
+            if ($val['module_name'] == $module){
+                return true;
+            }
+        }
+        return false;      
+    }
+    
+    public function isTemplateInProfile ($template) {
+        foreach ($this->profileTemplates as $val){
+            if ($val['module_name'] == $template){
+                return true;
+            }
+        }
+        return false;      
+    }
 
     /**
      *  method for loading a profile

@@ -109,6 +109,22 @@ function install_from_profile ($options){
 function cos_purge_from_profile ($options) {
     $pro = new profile();
     $pro->setProfileInfo($options['profile']);
+
+    $mods = moduleloader::getAllModules();
+    
+    //print_r($mods); die;
+    foreach ($mods as $module) {
+        if (!$pro->isModuleInProfile($module['module_name'])) {
+            purge_module($options = array ('module' => $module['module_name']));
+        }
+    } 
+
+    $temps = layout::getAllTemplates();
+    foreach ($temps as $template) {
+        if (!$pro->isTemplateInProfile($template)) {
+            purge_template($options = array ('template' => $template));         
+        }
+    }
 }
 
 /**
