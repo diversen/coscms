@@ -140,7 +140,7 @@ $_PROFILE_MODULES = array (
     'run_level' => '0',
     'load_on' => NULL,
     'parent' => NULL,
-    'is_shell' => NULL,
+    'is_shell' => '1',
     'public_clone_url' => 'git://github.com/diversen/blog.git',
     'private_clone_url' => 'git@github.com:diversen/blog.git',
   ),
@@ -330,7 +330,7 @@ $_PROFILE_MODULES = array (
   array (
     'id' => '42',
     'module_name' => 'nopostfiles',
-    'module_version' => '1.41',
+    'module_version' => '1.81',
     'menu_item' => '0',
     'run_level' => '1',
     'load_on' => NULL,
@@ -338,6 +338,19 @@ $_PROFILE_MODULES = array (
     'is_shell' => NULL,
     'public_clone_url' => 'git://github.com/diversen/nopostfiles.git',
     'private_clone_url' => 'git@github.com:diversen/nopostfiles.git',
+  ),
+  26 => 
+  array (
+    'id' => '43',
+    'module_name' => 'share',
+    'module_version' => '1.81',
+    'menu_item' => '1',
+    'run_level' => '0',
+    'load_on' => NULL,
+    'parent' => NULL,
+    'is_shell' => NULL,
+    'public_clone_url' => 'git://github.com/diversen/share.git',
+    'private_clone_url' => 'git@github.com:diversen/share.git',
   ),
 );
 
@@ -374,7 +387,7 @@ $_PROFILE_TEMPLATES = array (
   array (
     'public_clone_url' => 'git://github.com/diversen/fancybox.git',
     'private_clone_url' => 'git@github.com:diversen/fancybox.git',
-    'module_version' => '1.81',
+    'module_version' => '1.91',
     'module_name' => 'fancybox',
   ),
   5 => 
