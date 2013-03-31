@@ -1,5 +1,32 @@
 <?php
 
+/**
+ * If you want to use this as a standalone script you will need to 
+ * modify it slightly as it uses the coscms framework. 
+ * 
+ * or clone the coscms:
+ * 
+ * and edit config/config.ini 
+ * 
+ * set: 
+ * 
+ * url = "mysql:dbname=mydatabase;host=localhost"
+ * username = "user"
+ * password = "password"
+ * 
+ * run it then as: php scripts/latin1_to_uft8.php 
+ * 
+ * This will transform all of your broken chars like: 
+ * 
+ * Ã¡ = á
+ * Ã© = é
+ * Ã­- = í
+ * Ã³ = ó
+ * Ã± = ñ
+ * Ã¡ = Á
+ */
+
+
 define('_COS_PATH', realpath('.'));
 include_once "coslib/coslibSetup.php";
 
@@ -56,20 +83,14 @@ foreach ($tables as $table ) {
 
     foreach ($create as $column) {
         if (column_has_text($column)) {
-            //print_r($column);
+
             
             echo "Fixing $table:  column $column[Field]\n";
-            $query = "ALTER TABLE $table MODIFY $column[Field] $column[Type] character set latin1;";
-            $query.= "ALTER TABLE $table MODIFY $column[Field] $column[Type] blob;";
-            $query.= "ALTER TABLE $table MODIFY $column[Field] $column[Type] character set utf8;";
-            //die;
+            $query = "ALTER TABLE `$table` MODIFY `$column[Field]` $column[Type] character set latin1;";
+            $query.= "ALTER TABLE `$table` MODIFY `$column[Field]` BLOB;";
+            $query.= "ALTER TABLE `$table` MODIFY `$column[Field]` $column[Type] character set utf8;";
             $db->rawQuery($query);
             
-            //print($column['Type']) . "\n";               
-            
         }
-    }
-
-    //}
-    
+    }    
 }
