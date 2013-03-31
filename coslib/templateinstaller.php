@@ -116,7 +116,7 @@ class templateinstaller extends moduleinstaller {
             
             
         } else {
-            cos_cli_print ("Notice: No module dir: $module_dir\n");
+            cos_cli_print ("Notice: No module dir: $template_dir\n");
         }
     }
     
