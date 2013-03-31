@@ -1,6 +1,7 @@
 <?php
 
 /**
+ * 
  * If you want to use this as a standalone script you will need to 
  * modify it slightly as it uses the coscms framework. 
  * 
@@ -37,7 +38,6 @@
  * 
  * There was a few problem with indexes, but they were solved 
  * by running the latin1 -> blob -> utf8 in one query 
- * .)
  * 
  */
 
