@@ -1,4 +1,4 @@
 ssh_port = ""
 ssh_host = ""
-prod_path = "/home/dennis/www/os-cms.net"
-locale_path = "/home/dennis/www/os-cms.net"
+prod_path = "/home/dennis/www/demo.coscms.org"
+locale_path = "/home/dennis/www/demo.coscms.org"

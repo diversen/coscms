@@ -43,29 +43,53 @@ class config {
     
     /**
      * method for getting a main ini setting found in config/config.ini
+     * or in database override
      * @param   string  $key the ini setting key to get
      * @return  mixed   $val the value of the setting or null if not found. 
      *                       If 0 is found we also reutnr null
      */    
     public static function getMainIni($key) {
-        if (!isset(config::$vars['coscms_main'][$key])){
+          return self::getMainIniFromHolder($key);
+    }
+    
+    /**
+     * method for getting a main ini setting found in config/config.ini
+     * @param   string  $key the ini setting key to get
+     * @return  mixed   $val the value of the setting or null if not found. 
+     *                       If 0 is found we also reutnr null
+     */    
+    public static function getMainIniFromFile ($key) {
+        //print_r(config::$vars['coscms_main_file']);
+        return self::getMainIniFromHolder($key, 'coscms_main_file');
+    } 
+    
+    /**
+     * return main ini from placeholder
+     * @param string $key
+     * @param string $holder
+     * @return mixed $val
+     */
+    private static function getMainIniFromHolder ($key, $holder = 'coscms_main') {
+        if (!isset(config::$vars[$holder][$key])){
             return null;
         }
         
-        if (config::$vars['coscms_main'][$key] == '0'){
+        if (config::$vars[$holder][$key] == '0'){
             return null;
         }
         
         
-        if (config::$vars['coscms_main'][$key] == 'true') {
+        if (config::$vars[$holder][$key] == 'true') {
             return true;
         }
         
-        if (config::$vars['coscms_main'][$key] == 'false') {
+        if (config::$vars[$holder][$key] == 'false') {
             return false;
         }
-        return config::$vars['coscms_main'][$key];      
-    }
+        return config::$vars[$holder][$key];    
+    } 
+    
+
     
     /**
      * method for getting a main ini setting found in config/config.ini
@@ -217,6 +241,9 @@ class config {
             return;
         } else {
             config::$vars['coscms_main'] = config::getIniFileArray($config_file, true);
+            // set them in coscms_main_file, so it is possbile
+            // to get original value without db override. 
+            config::$vars['coscms_main_file'] = config::$vars['coscms_main'];
             if ( config::$vars['coscms_main']['server_name'] ==
                     $_SERVER['SERVER_NAME'] ) {
                     self::$vars['coscms_main']['development'] = 'real';

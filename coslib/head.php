@@ -71,6 +71,7 @@ if (!config::isCli()){
                 config::$vars['coscms_main'],
                 $ini
             );
+        
     }
     
     

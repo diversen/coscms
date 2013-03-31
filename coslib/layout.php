@@ -262,6 +262,11 @@ class layout {
         }        
     }
     
+    
+    public static function getAllTemplates () {
+        return file::getFileList(_COS_HTDOCS . "/templates", array ('dir_only' => true));
+    }
+    
     /**
      * return a whole block which can be used in templates. 
      * e.g. blocks_top will return all blocks in section blocks_top
