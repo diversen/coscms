@@ -4,7 +4,11 @@
  * If you want to use this as a standalone script you will need to 
  * modify it slightly as it uses the coscms framework. 
  * 
- * or clone the coscms:
+ * Or just clone the coscms (you will need php):
+ * 
+ * git clone git://github.com/diversen/coscms.git
+ * 
+ * cp config/config.ini-dist config/config.ini
  * 
  * and edit config/config.ini 
  * 
@@ -14,7 +18,9 @@
  * username = "user"
  * password = "password"
  * 
- * run it then as: php scripts/latin1_to_uft8.php 
+ * then run 
+ * 
+ * php scripts/latin1_to_uft8.php 
  * 
  * This will transform all of your broken chars like: 
  * 
@@ -24,6 +30,11 @@
  * Ã³ = ó
  * Ã± = ñ
  * Ã¡ = Á
+ * 
+ * To proper utf8
+ * 
+ * It 
+ * 
  */
 
 
