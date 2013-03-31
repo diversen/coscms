@@ -4,7 +4,7 @@
  * If you want to use this as a standalone script you will need to 
  * modify it slightly as it uses the coscms framework. 
  * 
- * Or just clone the coscms (you will need php):
+ * Or just clone the coscms (you will need php >= 5.3):
  * 
  * git clone git://github.com/diversen/coscms.git
  * 
@@ -33,7 +33,11 @@
  * 
  * To proper utf8
  * 
- * It 
+ * Only testet on my own setup, so backup your database
+ * 
+ * There was a few problem with indexes, but they were solved 
+ * by running the latin1 -> blob -> utf8 in one query 
+ * .)
  * 
  */
 
