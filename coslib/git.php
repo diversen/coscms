@@ -47,7 +47,7 @@ function git_get_local_tags ($module, $type = 'module'){
     }
     
     $command = "cd $path && git tag -l";
-    $ret = cos_exec($command);
+    $ret = cos_exec($command, array (), 0);
     
     // ok
     if ($ret == 0) {
