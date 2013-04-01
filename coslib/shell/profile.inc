@@ -78,6 +78,59 @@ function upgrade_from_profile ($options){
 }
 
 
+/**
+ * 
+ * @param type $options 
+ */
+function upgrade_from_profile_web ($options){
+    // use profile object
+    $pro = new profile();
+    $pro->setProfileInfo($options['profile']);
+
+    // install modules
+    foreach ($pro->profileModules as $key => $val){
+             
+        
+        
+        $val['repo'] = $val['public_clone_url'];
+        $val['version'] = $val['module_version'];
+        //if (isset(config::$vars['profile_use_master'])) {
+        //    $val['version'] = 'master';
+            //$val['module_version'] = 'master';
+        //}
+               
+        $val['module'] = $val['module_name'];
+        
+        
+        $module = new moduleinstaller();
+        $module->setInstallInfo($val);
+
+        if ($module->isInstalled($val['module_name'])){
+            upgrade_module($val);
+        } else {
+            install_module($val);
+        }
+    }
+
+    // install templates
+    foreach ($pro->profileTemplates as $key => $val){
+
+        /*
+        $val['repo'] = $val['public_clone_url'];
+        $val['version'] = $val['module_version'];
+
+        if (isset(config::$vars['profile_use_master'])) {
+            $val['version'] = 'master';
+        }
+
+        // no db operations. Just clone version.
+        cos_git_install($val, 'template');
+         * 
+         */
+    }
+}
+
+
 function install_from_profile ($options){
 
     $pro = new profile();

@@ -23,6 +23,9 @@ if (DIRECTORY_SEPARATOR != '/') {
 
 define('_COS_PATH',  $path);
 define('_COS_HTDOCS',  ".");
+define('_COS_MOD_DIR', 'modules');
+define('_COS_MOD_PATH',  _COS_HTDOCS . "/modules");
+
 
 // include config.php for reading config files etc.
 include_once $config;
@@ -140,7 +143,7 @@ if (!$password || !isset($_GET['password'])) {
     die("Set ini_setting 'upgrade_password'='password' password in config/config.ini, and visit $url");
 } else {
     if ($password == $_GET['password']) {
-        install_from_profile(array ('profile' => 'default'));
+        upgrade_from_profile_web(array ('profile' => 'default'));
 
         // reload language
         $reload = new moduleinstaller();
