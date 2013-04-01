@@ -393,7 +393,7 @@ $_PROFILE_TEMPLATES = array (
   ),
 );
 
-$_PROFILE_TEMPLATE = 'clean';
+$_PROFILE_TEMPLATE = 'zimpleza';
 
 $_PROFILE_USE_HOME = 0;
 
