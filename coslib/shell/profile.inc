@@ -105,6 +105,7 @@ function upgrade_from_profile_web ($options){
         $module = new moduleinstaller();
         $module->setInstallInfo($val);
 
+       
         if ($module->isInstalled($val['module_name'])){
             upgrade_module($val);
         } else {

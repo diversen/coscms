@@ -187,7 +187,7 @@ class moduleinstaller extends db {
     public function isInstalled($module = null){
         // test if a module with $this->installInfo['MODULE_NAME']
         // already is installed.
-        if (!empty($this->installInfo)){
+        if (!isset($module)){
             $module = $this->installInfo['NAME'];
         }
 

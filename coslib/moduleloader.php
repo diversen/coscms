@@ -192,8 +192,12 @@ class moduleloader {
      * @return boolean $res boolean
      */
     public static function isInstalledModule($module){  
-        static $installed = array ();
-        if (isset($installed[$module])) return true;
+        //static $installed = array ();
+        //if (isset($installed[$module])) return true;
+        if (empty(self::$modules)) {
+            $mod = new moduleloader();
+            self::$modules = $mod->getAllModules();
+        }
         foreach (self::$modules as $val){
             if ($val['module_name'] == $module){
                 $installed[$module] = true;
