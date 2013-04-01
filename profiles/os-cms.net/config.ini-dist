@@ -35,7 +35,9 @@ captcha_image_module = 1
 media_width = 600
 blocks_all = "blocks_top,blocks"
 blocks_top[0] = "/system/blocks/system_admin_menu_top.inc"
-blocks[1] = "/content/blocks/content_tree_keep_state.inc"
+blocks[0] = "/content/blocks/content_tree_keep_state.inc"
+blocks[1] = "/share/blocks/facebook_likebox.inc"
+blocks[2] = "/share/blocks/google_plusone.inc"
 filters_allow_files = 1
 [development]
 debug = 1
