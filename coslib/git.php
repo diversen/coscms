@@ -68,7 +68,7 @@ function git_get_local_tags ($module, $type = 'module'){
 }
 
 function git_get_local_tag_latest($module, $type = 'module') {
-    git_get_local_tags($module, $type);
+    //git_get_local_tags($module, $type);
 }
 
 /**
