@@ -226,12 +226,29 @@ function cos_git_tag_all ($options){
     $version = cos_readline('Enter tag version to use ');
     $modules = profile::getModules();
     foreach ($modules as $key => $val){
+        continue;
+        $tags = git_get_local_tags($val['module_name'], 'module');
+        if (in_array($version, $tags)) {
+            cos_cli_print_status('NOTICE', 'y', "Tag already exists for module '$val[module_name]'. Skipping");
+            continue;
+        }
+        
         $val['new_version'] = $version;
         cos_git_tag($val, 'module');
     }
 
     $templates = profile::getAllTemplates();
     foreach ($templates as $key => $val){
+        
+        $tags = git_get_local_tags($val['module_name'], 'template');
+        //print_r($tags);
+        if (in_array($version, $tags)) {
+            cos_cli_print_status('NOTICE', 'y', "Tag already exists for template '$val[module_name]'. Skipping");
+            continue;
+        }
+        
+        //die;
+        
         $val['new_version'] = $version;
         cos_git_tag($val, 'template');
     }
@@ -259,8 +276,10 @@ function cos_git_tag ($val, $type = 'module'){
     if (!cos_confirm_readline("You are about to tag module: $val[module_name]. Continue?")){
         return;
     }
+    
+    
 
-    $git_command = "cd $repo_path && git tag -a \"$val[new_version]\"";
+    $git_command = "cd $repo_path && git tag -a \"$val[new_version]\" -m \"New tag\"";
     proc_close(proc_open($git_command, array(0 => STDIN, 1 => STDOUT, 2 => STDERR), $pipes));
 
     $git_command = "cd $repo_path && git push --tags $val[private_clone_url]";

@@ -67,6 +67,10 @@ function git_get_local_tags ($module, $type = 'module'){
     return $tags;
 }
 
+function git_get_local_tag_latest($module, $type = 'module') {
+    git_get_local_tags($module, $type);
+}
+
 /**
  * following function are sligtly modified from:
  * https://github.com/troelskn/pearhub

@@ -186,8 +186,9 @@ function cos_cli_print($mes, $color = null){
 /**
  * echos a colored status message
  * @param string $mes (e.g. UPGRADE, NOTICE, ERROR)
- * @param type $color the color to print, e.g. 'y', 'r', 'g'
- * @param type $status the status message to be appended to e.g. STATUS
+ * @param char $color the color to print, e.g. 'y', 'r', 'g'
+ * @param string $status the status message to be appended to e.g. 
+ *               'module upgrade failed'
  * @return void
  */
 function cos_cli_print_status ($mes, $color, $status) {
