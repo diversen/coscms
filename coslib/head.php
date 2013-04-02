@@ -13,6 +13,7 @@
  * @ignore
  */
 
+
 // set some common register vars
 config::$vars['coscms_base'] = _COS_PATH;
 config::$vars['coscms_main'] = array();
@@ -23,7 +24,11 @@ config::$vars['coscms_debug']['timer']['start'] = microtime(true);
 config::$vars['coscms_debug']['coscms_base']  = config::$vars['coscms_base'];
 config::$vars['coscms_debug']['include_path'] = ini_get('include_path');
 
-config::loadMain();
+if (!config::isCli()) {
+    config::loadMain();
+} else {
+    config::loadMainCli();
+}
 
 $htdocs_path = config::getMainIni('htdocs_path');
 

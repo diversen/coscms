@@ -47,10 +47,6 @@ function coslib_autoloader($classname) {
 spl_autoload_register('coslib_autoloader');
 
 
-// include bootstrap file. 
-//include _COS_PATH . "/coslib/head.php";
-
-
 include_once "coslib/head.php";
 include_once 'Console/CommandLine.php';
 include_once "coslib/shell/common.inc";
