@@ -363,14 +363,17 @@ class template {
             
             // create file if it does not exist
             if (!file_exists($full_file_path)) {
-                //$str = csspacker::packcss($str);                
+                $str = csspacker::packcss($str);                
                 file_put_contents($full_file_path, $str);
             }
             
             self::setCss($web_path . "$file");   
         } 
         
-
+        ksort(self::$noCacheCss);
+        foreach (self::$noCacheCss as $val) {
+            self::setCss($val);
+        }
         return self::getCss();
     }
     
@@ -690,6 +693,7 @@ class template {
         ksort(self::$inlineCss);
         foreach (self::$inlineCss as $key => $val){
             $str.= "<style type=\"text/css\">$val</style>\n";
+            unset(self::$inlineCss[$key]);
         }
         return $str;
     }
