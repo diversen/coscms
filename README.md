@@ -37,6 +37,8 @@ Login with admin / admin. A simple demo with a blog (blog module),
 and a CMS (content module) and a comment module (comment), 
 and a few more modules. 
 
+### Questions?
+
 [Q&A](http://www.coscms.org/questions/index) 
 
 
@@ -47,8 +49,6 @@ It is the system which runs the demo.
 
 [Easy install](http://www.coscms.org/content/article/view/37/Easy-Install)
 
-
-
 ### Dependencies when building: 
 
 [Dependencies](http://www.coscms.org/content/article/view/43/Dependencies)
@@ -56,8 +56,6 @@ It is the system which runs the demo.
 ### Build Install Linux / Unix 
 
 [Ubuntu / Debian / Linux Install](http://www.coscms.org/content/article/view/26/Debian--Ubuntu-install)
-
-[Step by Step](http://www.coscms.org/content/article/view/1/Step-by-Step-Linux-Install)
 
 ### Windows
 
