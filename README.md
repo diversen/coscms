@@ -42,7 +42,7 @@ and a few more modules.
 [Q&A](http://www.coscms.org/questions/index) 
 
 
-### Easy install (New)
+### One package install
 
 Intended for people who could not care about a shell command. 
 It is the system which runs the demo. 
