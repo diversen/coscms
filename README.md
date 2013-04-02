@@ -37,7 +37,7 @@ Login with admin / admin. A simple demo with a blog (blog module),
 and a CMS (content module) and a comment module (comment), 
 and a few more modules. 
 
-[Forum Site](http://forum.coscms.org/) 
+[Q&A](http://www.coscms.org/questions/index) 
 
 
 ### Easy install (New)
