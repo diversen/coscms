@@ -315,8 +315,9 @@ class template {
         $str = "";
         ksort(self::$css);
         
-        foreach (self::$css as $val){
+        foreach (self::$css as $key => $val){
             $str.= "<link rel=\"stylesheet\" type=\"text/css\" href=\"$val\" />\n";
+            unset(self::$css[$key]);
         }
         
         return $str;
@@ -362,17 +363,14 @@ class template {
             
             // create file if it does not exist
             if (!file_exists($full_file_path)) {
-                $str = csspacker::packcss($str);                
+                //$str = csspacker::packcss($str);                
                 file_put_contents($full_file_path, $str);
             }
             
             self::setCss($web_path . "$file");   
         } 
         
-        ksort(self::$noCacheCss);
-        foreach (self::$noCacheCss as $val) {
-            self::setCss($val);
-        }
+
         return self::getCss();
     }
     
