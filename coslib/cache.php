@@ -111,6 +111,9 @@ class cache {
 
         $db = new db();
         $search = array ('id' => $id);
+        //print_r($search);
         return $db->delete('system_cache', null, $search);
+        
+        //die;
     }
 }

@@ -218,6 +218,7 @@ class dbQ  {
         self::$query.= '(' . implode(', ', $rest) . ')';
         foreach ($values as $field => $value ){           
             if (isset($bind[$field])) {
+
                 self::$bind[] = array ('value' => $value, 'bind' => $bind[$field]);
             } else {
                 self::$bind[] = array ('value' => $value, 'bind' => null);
@@ -242,6 +243,7 @@ class dbQ  {
         }
 
         self::$query.= " $filter ? ";
+        
         self::$bind[] = array ('value' => $value, 'bind' => $bind);
         return new dbQ();
     }
@@ -339,7 +341,11 @@ class dbQ  {
         if (self::$bind){
             $i = 1;
             foreach (self::$bind as $key => $val){
-                self::$stmt->bindValue ($i, $val['value'], $val['bind']);
+                if (isset($val['bind'])) {
+                    self::$stmt->bindValue ($i, $val['value'], $val['bind']);
+                } else {
+                    self::$stmt->bindValue ($i, $val['value']);
+                }
                 $i++;
             }
         }
@@ -388,16 +394,18 @@ class dbQ  {
      * @return boolean true on success and false on failure. 
      */
     public static function exec() {
+        
         self::$debug[] = self::$query;    
         self::$stmt = self::$dbh->prepare(self::$query);
         try {
-            self::prepare();       
+            self::prepare(); 
             $res = self::$stmt->execute();
         } catch (Exception $e) {
-            $message = $e->getTraceAsString();
-            log::error($message);
+            $message = $e->getMessage();
+            $message.= $e->getTraceAsString();
+            log::debug($message);
             $last = self::getLastDebug();
-            log::error($last);
+            log::debug($last);
             die;
             
         }
