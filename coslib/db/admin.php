@@ -9,7 +9,7 @@
  * dbadmin 
  * @package
  */
-class dbadmin extends db {
+class db_admin extends db {
     
     /**
      *  changes database we are working on

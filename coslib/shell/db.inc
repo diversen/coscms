@@ -10,19 +10,17 @@
  * @package     shell
  */
 
-include_once "coslib/dbadmin.php";
-include_once "coslib/shell/common.inc";
 /*
  *
  * @return array $database containing array('name' => database, 'host' => 'host')
  */
 
 function get_db_info(){
-    return dbadmin::getDbInfo();
+    return db_admin::getDbInfo();
 }
 
 function db_show_con_info ($options) {
-    $info = dbadmin::getDbInfo();
+    $info = db_admin::getDbInfo();
     print_r($info);
 }
 
@@ -34,7 +32,7 @@ function db_show_con_info ($options) {
  */
 function create_db($options = array()){
 
-    $db = dbadmin::getDbInfo();
+    $db = db_admin::getDbInfo();
     $command = 
         "mysqladmin -u" . config::$vars['coscms_main']['username'] .
         " -p" . config::$vars['coscms_main']['password'] . " -h$db[host] ";
@@ -54,7 +52,7 @@ function create_db($options = array()){
  */
 function drop_db_default($options = array()){
     define ('NO_DB', 1);    
-    $db = dbadmin::getDbInfo();
+    $db = db_admin::getDbInfo();
     $command = 
         "mysqladmin -f -u" . config::$vars['coscms_main']['username'] .
         " -p" . config::$vars['coscms_main']['password'] . " -h$db[host] ";
@@ -73,7 +71,7 @@ function load_db_default(){
     // silence when dropping db. 
     drop_db_default($options = array ('silence' => 1));
     create_db();
-    $db = dbadmin::getDbInfo();
+    $db = db_admin::getDbInfo();
     $command = 
         "mysql -u" . config::$vars['coscms_main']['username'] .
         " -p" . config::$vars['coscms_main']['password'] ." $db[name] < scripts/default.sql";
@@ -90,7 +88,7 @@ function load_db_default(){
  * @return  int     the executed commands shell status 0 on success.
  */
 function connect_db(){
-    $db = dbadmin::getDbInfo();
+    $db = db_admin::getDbInfo();
     $command = 
         "mysql --default-character-set=utf8 -u" . config::$vars['coscms_main']['username'] .
         " -p" . config::$vars['coscms_main']['password'] . " $db[name]";
@@ -116,7 +114,7 @@ function dump_db_file ($options = null){
         $dump_name = $options['File'];
      }
     
-    $db = dbadmin::getDbInfo();
+    $db = db_admin::getDbInfo();
     $command = 
         "mysqldump --opt -u" . config::$vars['coscms_main']['username'] .
         " -p" . config::$vars['coscms_main']['password'];
@@ -143,7 +141,7 @@ function load_db_file($options){
             cos_cli_abort("No such file: $file");
         }
     }
-    $db = dbadmin::getDbInfo();
+    $db = db_admin::getDbInfo();
     $command = 
         "mysql --default-character-set=utf8  -u" . config::$vars['coscms_main']['username'] .
         " -p" . config::$vars['coscms_main']['password'] . " $db[name] < $file";
