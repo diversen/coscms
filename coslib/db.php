@@ -264,37 +264,21 @@ class db {
      */
     public function delete($table, $fieldname, $search){
         
-        dbQ::setDelete($table);//filter($table, $value);
-        //$sql = "DELETE FROM `$table` WHERE ";
+        dbQ::setDelete($table);
 
         if (is_array($search)){
             $num = count($search);
             foreach ($search as $key => $val){
                 $num--;
-                //$params[] ="`$key`= " . self::$dbh->quote($val);
                 dbQ::filter("$key = ", $val);
                 if ($num) dbQ::condition ('AND');
             }
-            //$params = implode(' AND ', $params);
-            //$sql .= $params;
-        } else {
-            //$search = self::$dbh->quote($search);
-            dbQ::filter("$fieldname = ", $search);
-            //$sql .= " `$fieldname` = $search";
-        }
 
-        
-        //self::$debug[]  = "Trying to prepare update sql: " . dbQ::getLastDebug();
-        //$stmt = self::$dbh->prepare($sql);
-        //echo dbQ::getLastDebug();
+        } else {
+            dbQ::filter("$fieldname = ", $search);
+        }
         
         return dbQ::exec();
-        if (is_array($search)){
-            $ret = $stmt->execute($search);
-        } else {
-            $ret = $stmt->execute();
-        }
-        return $ret;
     }
 
     /**
@@ -401,30 +385,9 @@ class db {
      *                  array ('username' => PDO::STRING)
      * @return  boolean $res true on success or false on failure
      */
-    public function insert($table, $values, $bind = null){
-        //$fieldnames = array_keys($values);
-        //$sql = "INSERT INTO $table";
-        //$fields = '( ' . implode(' ,', $fieldnames) . ' )';
-        //$bound = '(:' . implode(', :', $fieldnames) . ' )';
-        //$sql .= $fields.' VALUES '.$bound;
-        //self::$debug[]  = "Trying to prepare insert sql: $sql";
-        //$stmt = self::$dbh->prepare($sql);
-        // bind speciel params
-        //if (isset($bind) && is_array($bind)){
-        //    foreach ($values as $key => $val){
-        //        if (isset($bind[$key])){
-        //            $stmt->bindParam(":".$key, $values[$key], $bind[$key]);
-        //        } else {
-        //            $stmt->bindParam(":".$key, $values[$key]);
-        //        }
-        //    }
-        //    $ret = $stmt->execute();
-        //} else {
-        //    $ret = $stmt->execute($values);
-        //}
-        
+    public function insert($table, $values, $bind = null){        
         return dbQ::setInsert($table)->setInsertValues($values, $bind)->exec();
-        //return $ret;
+
     }
     /**
      * Method for doing a simple full-text mysql search in a database table
