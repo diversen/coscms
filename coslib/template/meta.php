@@ -1,12 +1,57 @@
 <?php
 
-class template_meta  {
+/**
+ * File containing class for adding meta tags
+ * 
+ * @package template_meta
+ */
+
+/**
+ * 
+ * class used for parsing meta tags
+ * @package template_meta
+ */
+
+class template_meta extends template  {
     
+        
     /**
      * holding meta tags
      * @var array $meta  
      */
-    static $meta = array();
+    public static $meta = array();
+    
+    /**
+     * var holding meta tags strings
+     * @var string $metaStr
+     */
+    public static $metaStr = '';
+  
+    /**
+     * method for setting meta tags. The tags will be special encoded
+     * @param   array   $ary of metatags e.g. 
+     *                         <code>array('description' => 'content of description meta tags')</code>
+     *                         or string which will be set direct. E.g. 
+     *                         
+     */
+    public static function setMeta($ary){
+
+        foreach($ary as $key => $val){
+            if (isset(self::$meta[$key])){
+                continue;
+            }
+            self::$meta[$key] = html::specialEncode($val);
+        }
+    }
+    
+    /**
+     * sets meta tags directly. 
+     * @param string $str e.g. <code><meta name="description" content="test" /></code>
+     */
+    public static function setMetaAsStr ($str) {
+        self::$metaStr.= $str;
+    }
+    
     /**
      * method for getting the meta tags as a string
      * You can specifiy meta keywords and description global in config.ini

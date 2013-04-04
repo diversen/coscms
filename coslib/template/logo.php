@@ -1,5 +1,16 @@
 <?php
 
+/**
+ * File containing class getting logo
+ * @package template_meta
+ */
+
+/**
+ * 
+ * File containing class getting logo
+ * @package template_meta
+ */
+
 class template_logo {
     
         /**
