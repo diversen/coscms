@@ -30,6 +30,7 @@ if (!config::isCli()) {
     config::loadMainCli();
 }
 
+// deinfe all constant - based on _COS_PATH and config.ini
 config::defineCommon();
 
 
@@ -55,21 +56,18 @@ if (!config::isCli()){
             );
         
     }
-    
-    
-    
+        
+    // check if we are in debug mode and display errors
+    if (config::getMainIni('debug')) {
+        ini_set('display_errors', 1);
+    }
 
-    
     // if site is being updaing we send temporarily headers
     // and display an error message
     if (config::getMainIni('site_update')) {
         http::temporarilyUnavailable();
     }
 
-    
-    if (config::getMainIni('debug')) {
-        ini_set('display_errors', 1);
-    }
     
     // set a unified server_name if not set in config file. 
     $server_name = config::getMainIni('server_name');
