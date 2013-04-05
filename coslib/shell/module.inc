@@ -13,21 +13,24 @@
  */
 function install_module($options, $return_output = null){
 
-    $install = new moduleinstaller();
-    $install->setInstallInfo($options);
-    
-    $str = '';
-    $ret = $install->install();
-    if (!$ret) {
-        $str.=$install->error;
+    $in = new moduleinstaller();
+    $proceed = $in->setInstallInfo($options);
+    if ($proceed === false) {
+        cos_cli_print($in->error);
     } else {
-        $str.=$install->confirm;
-    }
-    
-    if ($return_output) {
-        return $str;
-    } else { 
-        cos_cli_print($str);
+        $str = '';
+        $ret = $in->install();
+        if (!$ret) {
+            $str.=$in->error;
+        } else {
+            $str.=$in->confirm;
+        }
+
+        if ($return_output) {
+            return $str;
+        } else { 
+            cos_cli_print($str);
+        }
     }
 }
 
@@ -64,13 +67,18 @@ function upgrade_all(){
  * @param   array  options
  */
 function uninstall_module($options){
-    $uninstall = new moduleinstaller();
-    $uninstall->setInstallInfo($options);
-    $ret = $uninstall->uninstall();
-    if (!$ret) {
-        cos_cli_print($uninstall->error);
+    $un = new moduleinstaller();
+    $proceed = $un->setInstallInfo($options);
+    
+    if ($proceed === false) {
+        cos_cli_print($un->error);
     } else {
-        cos_cli_print($uninstall->confirm);
+        $ret = $un->uninstall();
+        if ($ret) {
+            cos_cli_print($un->confirm);
+        } else {
+            cos_cli_print($un->error);
+        }
     }
 }
 
@@ -108,24 +116,28 @@ function purge_module($options){
  * @param  array   options for the module to be upgraded
  */
 function upgrade_module($options){
+    
     // check if module exists in modules dir
-    $module_path = _COS_MOD_PATH . '/' . $options['module'];
-    if (!file_exists($module_path)){
-        cos_cli_print("module $options[module] does not exists in modules dir. Try to install first.");
+    //$module_path = _COS_MOD_PATH . '/' . $options['module'];
+    //if (!file_exists($module_path)){
+        
+    //}
+
+    // module exists.
+    $upgrade = new moduleinstaller($options);
+    $proceed = $upgrade->setInstallInfo($options);
+    if ($proceed === false) {
+        cos_cli_print("No such module '$options[module]' exists in modules dir.");
         cos_cli_print("This means that module exists in modules table. Try uninstall");
         return;
     }
-
-    // module exists, compare with remote server
-    $upgrade = new moduleinstaller($options);
+    
     $ret = $upgrade->upgrade($options['version']);
     if (!$ret) {
         echo $upgrade->error . NEW_LINE;
     } else {
         echo $upgrade->confirm . NEW_LINE;
     }
-    
-    //update_ini_file($options);
 }
 
 

@@ -84,57 +84,69 @@ class moduleinstaller extends db {
      * @param   array $options
      */
     public function setInstallInfo($options){
-          
+        
+        // set module name
+        // set module dir
+        // set ini 
+        // set ini dist
+        
         $module_name = $options['module'];
         $module_dir = _COS_MOD_PATH . "/$module_name";
         $ini_file = $module_dir . "/$module_name.ini";
         $ini_file_dist = $module_dir . "/$module_name.ini-dist";
 
-        // if profile is set - we use profile ini-dist
+        // if profile we use profile's module ini-dist
         if (isset($options['profile'])){
             $ini_file_dist = _COS_PATH . "/profiles/$options[profile]/$module_name.ini-dist";
         }
 
-        // check for an ini file - and load ini settings if found
-        if (!file_exists($ini_file)){
-            if (file_exists($ini_file_dist)){
-                copy ($ini_file_dist, $ini_file);
-                config::$vars['coscms_main']['module'] = config::getIniFileArray($ini_file);
-            } 
-        } else {
-            config::$vars['coscms_main']['module'] = config::getIniFileArray($ini_file);
-        }
-
-        
-        // check for install.inc in module dir
+        // check if module dir exists 
         if (file_exists($module_dir)){
+            
+            // check for an existing ini file
+            // copy if we found if ini is found
+            if (!file_exists($ini_file)){
+                if (file_exists($ini_file_dist)){
+                    copy ($ini_file_dist, $ini_file);
+                    config::$vars['coscms_main']['module'] = config::getIniFileArray($ini_file);
+                } 
+            } else {
+                config::$vars['coscms_main']['module'] = config::getIniFileArray($ini_file);
+            }
+            
+            // load install.inc if exists
             $install_file = "$module_dir/install.inc";
             if (!file_exists($install_file)){
                 $status = "Notice: No install file '$install_file' found in: '$module_dir'";
                 cos_cli_print_status('NOTICE', 'y', $status);
-                cos_cli_print("Notice: No install file '$install_file' found in: '$module_dir'");
             }
-              
+            
+            // set a defaukt module_name - which is the module dir
             $this->installInfo['NAME'] = $module_name;
             
+            // load install.inc if found
             if (file_exists($install_file)) {
                 include $install_file;
 
                 $this->installInfo = $_INSTALL;
                 $this->installInfo['NAME'] = $module_name;
                 
+                // is menu item
                 if (empty($this->installInfo['MAIN_MENU_ITEM'])){
                     $this->installInfo['menu_item'] = 0;
                 } else {
                     $this->installInfo['menu_item'] = 1;
                 }
 
+                // run levels
                 if (empty($this->installInfo['RUN_LEVEL'])){
                     $this->installInfo['RUN_LEVEL'] = 0;
                 }
             } 
             
-             // if no version we check if this is a git repo
+            // if no version we check if this is a git repo
+            // as there is no version from a install.inc file
+            // we always just use the latest tag
             if (!isset($this->installInfo['VERSION']) && defined('_COS_CLI')) {
                 
                 $command = "cd " . _COS_MOD_PATH . "/"; 
@@ -142,10 +154,7 @@ class moduleinstaller extends db {
                 $command.= "&& git config --get remote.origin.url";
 
                 $git_url = shell_exec($command);
-                // git config --get remote.origin.url
                 $tags = git_get_remote_tags($git_url);
-                
-                //git_get_latest_remote_tag($repo);
 
                 if (empty($tags)) {
                     $latest = 'master';
@@ -154,11 +163,7 @@ class moduleinstaller extends db {
                 }
 
                 $this->installInfo['VERSION'] = $latest;
-
             }
-            
-            
-            
         } else {
             $status = "No module dir: $module_dir";
             cos_cli_print_status('NOTICE', 'y', $status);
@@ -830,7 +835,7 @@ class moduleinstaller extends db {
 
         
         if ($current_version == $specific) {
-            $this->confirm = "Module '" . $this->installInfo['NAME'] ."' version is $specific and registry has same version. No upgrade to perform";
+            $this->error = "Module '" . $this->installInfo['NAME'] ."' version is $specific and registry has same version. No upgrade to perform";
             return;
         }
         
