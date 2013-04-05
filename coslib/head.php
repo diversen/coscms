@@ -30,30 +30,7 @@ if (!config::isCli()) {
     config::loadMainCli();
 }
 
-$htdocs_path = config::getMainIni('htdocs_path');
-
-// default htdocs path
-if (!$htdocs_path) {
-    define('_COS_HTDOCS', _COS_PATH . '/htdocs');
-}
-
-// if coslib path is the same as the cos htdocs path
-if ($htdocs_path == '_COS_PATH') {
-    define('_COS_HTDOCS', _COS_PATH);
-}
-
-/**
- * define path to modules
- */
-
-$mod_dir = config::getMainIni('module_dir');
-
-if (!$mod_dir) {
-    $mod_dir = 'modules';
-}
-
-define ('_COS_MOD_DIR', $mod_dir);
-define ('_COS_MOD_PATH', _COS_PATH . '/' . _COS_MOD_DIR);
+config::defineCommon();
 
 
 // This is only if commandline mode is not specified  

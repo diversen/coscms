@@ -81,3 +81,64 @@ function cos_check_files_dir () {
         echo "We can write to files dir.OK<br>";
     }
 }
+
+
+function web_install_add_user () {
+
+    $layout = new layout('zimpleza');
+    $errors = array ();
+    
+    if (isset($_POST['submit'])) {
+        $_POST = html::specialEncode($_POST);
+        if (empty($_POST['pass1'])) {
+            $errors[] = 'Please enter a password';
+        }
+        
+        if ($_POST['pass1'] != $_POST['pass2']) {
+            $errors[] = 'Not same passwords';
+        }
+        if (empty ($_POST['email'])) {
+            $errors[] = 'Please enter an email';
+        }
+        
+        if (!empty($errors)){
+            html::errors($errors);
+        } else {
+            $db = new db();
+            
+            $_POST = html::specialDecode($_POST);
+            $values = array ();
+            
+            $values['email'] = $_POST['email'];
+            $values['password'] = md5($_POST['pass1']); // MD5
+            $values['username'] = $_POST['email'];
+            $values['verified'] = 1;
+            $values['admin'] = 1;
+            $values['super'] = 1;
+            $values['type'] = 'email';
+
+            $db->insert('account', $values);
+            http::locationHeader("/account/login/index", 
+                    'Account created. You may log in');
+            //web_install_add_user();
+        }
+    }
+
+    web_install_user_form ();
+}
+
+function web_install_user_form () {
+    $form = new html();
+    $form->formStart();
+    $form->init(null, 'submit');
+    $form->legend('Add User');
+    $form->label('email', 'Enter email of user:');
+    $form->text('email');
+    $form->label('pass1', 'Enter password');
+    $form->password('pass1');
+    $form->label('pass2', 'Retype password');
+    $form->password('pass2');
+    $form->submit('submit', 'Submit');
+    $form->formEnd();
+    echo $form->getStr();
+}
