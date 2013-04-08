@@ -179,7 +179,11 @@ function cos_cli_print($mes, $color = null){
         echo color_output($mes . "\n", $color);
         return;
     }
-    echo $mes . "\n";
+    if (config::isCli()) {
+        echo $mes . NEW_LINE;
+    } else {
+        echo $mes . "<br />\n";
+    }
     return;
 }
 
@@ -192,8 +196,12 @@ function cos_cli_print($mes, $color = null){
  * @return void
  */
 function cos_cli_print_status ($mes, $color, $status) {
-    echo color_output(cos_get_color_status("[$mes]"), $color);
-    echo $status . "\n";
+    if (config::isCli()) {
+        echo color_output(cos_get_color_status("[$mes]"), $color);
+        echo $status . "\n";
+    } else {
+        cos_cli_print($status);
+    }
     return;
 }
 

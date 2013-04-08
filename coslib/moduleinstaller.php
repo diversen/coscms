@@ -836,7 +836,7 @@ class moduleinstaller extends db {
         
         if ($current_version == $specific) {
             $this->confirm = "Module '" . $this->installInfo['NAME'] ."' version is $specific and registry has same version. No upgrade to perform";
-            return;
+            return true;
         }
         
           // echo ;

@@ -29,7 +29,7 @@ class installDb extends db {
     }
 }
 
-function cos_check_Version () {
+function cos_check_version () {
     $version = "5.3.0";
     if (version_compare( $version, phpversion(), ">=")) {
         echo "We need PHP version $version or higher, my version: " . PHP_VERSION . " ERROR<br>";

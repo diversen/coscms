@@ -16,7 +16,8 @@ function install_module($options, $return_output = null){
     $in = new moduleinstaller();
     $proceed = $in->setInstallInfo($options);
     if ($proceed === false) {
-        cos_cli_print($in->error);
+        //cos_cli_print($in->error);
+        return false;
     } else {
         $str = '';
         $ret = $in->install();
@@ -117,11 +118,6 @@ function purge_module($options){
  */
 function upgrade_module($options){
     
-    // check if module exists in modules dir
-    //$module_path = _COS_MOD_PATH . '/' . $options['module'];
-    //if (!file_exists($module_path)){
-        
-    //}
 
     // module exists.
     $upgrade = new moduleinstaller($options);
