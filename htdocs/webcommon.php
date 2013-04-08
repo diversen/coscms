@@ -49,3 +49,4 @@ try {
     echo "Could not connect to db with the data given in config/config.ini. Error";
     die();
 }
+
