@@ -492,7 +492,8 @@ class config {
      * @return  string $hostname
      */
     public static function getHostnameFromCli () {
-        return trim(shell_exec('hostname'));
+        return gethostname();
+        //return trim(shell_exec('hostname'));
     }
     
     
