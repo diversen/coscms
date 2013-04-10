@@ -114,3 +114,4 @@ function parse_user_agent( $u_agent = null ) {
 	return $data;
 
 }
+
