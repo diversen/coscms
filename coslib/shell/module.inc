@@ -203,6 +203,15 @@ function module_ini_all_up ($options = array ()) {
 
 }
 
+/**
+ * will list lal modules in db table modules
+ */
+function module_list_all () {
+    $ml = new moduleloader();
+    $modules = $ml->getAllModules();
+    print_r($modules);
+}
+
 if (cos_is_cli()){
 mainCli::setCommand('module', array(
     'description' => '
@@ -249,10 +258,16 @@ mainCli::setOption('update_ini_file', array(
     'description' => 'Will update specified modules ini settings from ini-dist to ini',
     'action'      => 'StoreTrue'
 ));
-//()
+
 mainCli::setOption('module_ini_all_up', array(
     'long_name'   => '--ini-all-up',
     'description' => 'Will update all ini settings for installed modules',
+    'action'      => 'StoreTrue'
+));
+
+mainCli::setOption('module_list_all', array(
+    'long_name'   => '--list',
+    'description' => 'Will list all modules present in DB',
     'action'      => 'StoreTrue'
 ));
 
