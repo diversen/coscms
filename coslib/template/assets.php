@@ -267,8 +267,9 @@ class template_assets extends template {
         }
         return self::getCss();
     }
+
     
-        /**
+    /**
      * Will load the js as file and place and add it to array which can
      * be parsed in user templates.
      * 
