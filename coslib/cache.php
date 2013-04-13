@@ -62,7 +62,7 @@ class cache {
     public static function get ($module, $id, $max_life_time = null) {
         $id = self::generateId($module, $id);
         
-        $row = dbQ::setSelect('system_cache')->filter('id =', $id)->fetchSingle();
+        $row = db_q::setSelect('system_cache')->filter('id =', $id)->fetchSingle();
 
         if (!$row) {
             return null;

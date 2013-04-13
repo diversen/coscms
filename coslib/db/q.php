@@ -2,16 +2,16 @@
 
 /**
  * contains dbQ class fro creating db queries fairly simply
- * @package dbQ
+ * @package coslib
  */
 
 /**
  * class containg a simpler way for doing more complex queries (yet simple)
  * you may use the alternative name dbQ
  * 
- * @package dbQ
+ * @package db_q
  */
-class dbQ  {
+class db_q  {
     /**
      * holder for query being built
      * @var string $query holding query 

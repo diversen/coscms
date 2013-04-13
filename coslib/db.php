@@ -264,21 +264,21 @@ class db {
      */
     public function delete($table, $fieldname, $search){
         
-        dbQ::setDelete($table);
+        db_q::setDelete($table);
 
         if (is_array($search)){
             $num = count($search);
             foreach ($search as $key => $val){
                 $num--;
-                dbQ::filter("$key = ", $val);
-                if ($num) dbQ::condition ('AND');
+                db_q::filter("$key = ", $val);
+                if ($num) db_q::condition ('AND');
             }
 
         } else {
-            dbQ::filter("$fieldname = ", $search);
+            db_q::filter("$fieldname = ", $search);
         }
         
-        return dbQ::exec();
+        return db_q::exec();
     }
 
     /**
@@ -386,7 +386,7 @@ class db {
      * @return  boolean $res true on success or false on failure
      */
     public function insert($table, $values, $bind = null){        
-        return dbQ::setInsert($table)->setInsertValues($values, $bind)->exec();
+        return db_q::setInsert($table)->setInsertValues($values, $bind)->exec();
 
     }
     /**

@@ -9,7 +9,7 @@
 
 
 function cache_clear_db ($options = null) {
-    $res = dbQ::setDelete('system_cache')->filter('1 =', 1)->exec();
+    $res = db_q::setDelete('system_cache')->filter('1 =', 1)->exec();
     if ($res) return 0;
     return 1;
 }

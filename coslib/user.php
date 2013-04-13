@@ -32,7 +32,7 @@ class user {
      * @return array|false $row if row was found else false
      */
     public static function ownID ($table, $id, $user_id) {
-        $row = dbQ::setSelect($table)->
+        $row = db_q::setSelect($table)->
                 filter('id =', $id)->
                 condition('AND')->
                 filter('user_id = ', $user_id)->
