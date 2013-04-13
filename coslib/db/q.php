@@ -1,8 +1,8 @@
 <?php
 
 /**
- * contains dbQ class fro creating db queries fairly simply
- * @package coslib
+ * contains db_q class fro creating db queries fairly simply
+ * @package db_q
  */
 
 /**
