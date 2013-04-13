@@ -1,0 +1,5 @@
+<?php
+
+define('GITHUB_ID', 'github_id');
+define('GITHUB_SECRET', 'github_secret');
+define('GITHUB_CALLBACK_URL', 'http://cos/test/github/callback.php');
