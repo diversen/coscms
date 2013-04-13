@@ -11,7 +11,7 @@ include_once "coslib/shell/useradd.inc";
  * @return int
  */
 function useradd_direct_add ($options = null){
-//print_r($options);
+
     $values['email'] = $options['email'];
     $values['password'] = $options['password']; // MD5
     $values['username'] = $values['email'];

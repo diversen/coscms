@@ -102,8 +102,7 @@ class file {
      */
     public static function getFilename ($file, $options = array())  {
         if (isset($options['utf8'])) {
-            include_once "coslib/file/pathinfo_utf8.php";
-            $info = pathinfo_utf8($file);
+            $info = file_path::utf8($file);
         } else {
             $info = pathinfo($file);
         }

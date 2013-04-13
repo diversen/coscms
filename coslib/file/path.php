@@ -1,5 +1,11 @@
 <?php
 
+class file_path {
+    function utf8 ($path) {
+        return pathinfo_utf8($path); 
+    }
+}
+
 /**
  * File contains single function for getting utf8 about a path. 
  * works in the same way as the native function pathinfo
