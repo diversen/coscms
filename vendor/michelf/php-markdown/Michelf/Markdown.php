@@ -12,17 +12,6 @@
 #
 namespace Michelf;
 
-#
-# The following two constants are deprecated: avoid using them, they'll
-# disappear when the Lib branch becomes the only one to be updated.
-#
-# You can get the parser's version using the constant inside of the parser
-# class: \Michelf\Markdown::MARKDOWNLIB_VERSION.
-#
-
-const  MARKDOWN_VERSION  =  "1.0.1p";  # Sun 13 Jan 2013
-const  MARKDOWNEXTRA_VERSION  =  "1.2.6";  # Sun 13 Jan 2013
-
 
 #
 # Markdown Parser Class
@@ -32,7 +21,7 @@ class Markdown {
 
 	### Version ###
 
-	const  MARKDOWNLIB_VERSION  =  "1.3-rc2";
+	const  MARKDOWNLIB_VERSION  =  "1.3";
 
 	### Simple Function Interface ###
 
