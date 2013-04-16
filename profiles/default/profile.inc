@@ -6,7 +6,7 @@ $_PROFILE_MODULES = array (
     'id' => '1',
     'module_name' => 'system',
     'module_version' => '2.1',
-    'menu_item' => '1',
+    'menu_item' => '0',
     'run_level' => '0',
     'load_on' => NULL,
     'parent' => NULL,
@@ -19,7 +19,7 @@ $_PROFILE_MODULES = array (
     'id' => '2',
     'module_name' => 'settings',
     'module_version' => '2.1',
-    'menu_item' => '1',
+    'menu_item' => '0',
     'run_level' => '0',
     'load_on' => NULL,
     'parent' => NULL,
@@ -81,7 +81,7 @@ $_PROFILE_MODULES = array (
   ),
   6 => 
   array (
-    'id' => '11',
+    'id' => '7',
     'module_name' => 'comment',
     'module_version' => '2.1',
     'menu_item' => '1',
@@ -94,7 +94,7 @@ $_PROFILE_MODULES = array (
   ),
   7 => 
   array (
-    'id' => '13',
+    'id' => '8',
     'module_name' => 'blog',
     'module_version' => '2.1',
     'menu_item' => '1',
@@ -107,7 +107,7 @@ $_PROFILE_MODULES = array (
   ),
   8 => 
   array (
-    'id' => '14',
+    'id' => '9',
     'module_name' => 'remote',
     'module_version' => '2.1',
     'menu_item' => '0',
@@ -120,7 +120,7 @@ $_PROFILE_MODULES = array (
   ),
   9 => 
   array (
-    'id' => '15',
+    'id' => '10',
     'module_name' => 'rss',
     'module_version' => '2.1',
     'menu_item' => '0',
@@ -133,7 +133,7 @@ $_PROFILE_MODULES = array (
   ),
   10 => 
   array (
-    'id' => '16',
+    'id' => '11',
     'module_name' => 'addthis',
     'module_version' => '2.1',
     'menu_item' => '0',
@@ -146,7 +146,7 @@ $_PROFILE_MODULES = array (
   ),
   11 => 
   array (
-    'id' => '18',
+    'id' => '12',
     'module_name' => 'configdb',
     'module_version' => '2.1',
     'menu_item' => '0',
@@ -159,7 +159,7 @@ $_PROFILE_MODULES = array (
   ),
   12 => 
   array (
-    'id' => '19',
+    'id' => '13',
     'module_name' => 'vote',
     'module_version' => '2.11',
     'menu_item' => '0',
@@ -172,7 +172,7 @@ $_PROFILE_MODULES = array (
   ),
   13 => 
   array (
-    'id' => '20',
+    'id' => '14',
     'module_name' => 'jquerysort',
     'module_version' => '2.1',
     'menu_item' => '0',
@@ -185,7 +185,7 @@ $_PROFILE_MODULES = array (
   ),
   14 => 
   array (
-    'id' => '21',
+    'id' => '15',
     'module_name' => 'menus',
     'module_version' => '2.1',
     'menu_item' => '1',
@@ -198,7 +198,7 @@ $_PROFILE_MODULES = array (
   ),
   15 => 
   array (
-    'id' => '22',
+    'id' => '16',
     'module_name' => 'image',
     'module_version' => '2.1',
     'menu_item' => '0',
@@ -211,7 +211,7 @@ $_PROFILE_MODULES = array (
   ),
   16 => 
   array (
-    'id' => '24',
+    'id' => '17',
     'module_name' => 'locales',
     'module_version' => '2.1',
     'menu_item' => '1',
@@ -224,7 +224,7 @@ $_PROFILE_MODULES = array (
   ),
   17 => 
   array (
-    'id' => '27',
+    'id' => '18',
     'module_name' => 'block_manip',
     'module_version' => '2.1',
     'menu_item' => '1',
@@ -237,7 +237,7 @@ $_PROFILE_MODULES = array (
   ),
   18 => 
   array (
-    'id' => '31',
+    'id' => '19',
     'module_name' => 'image_captcha',
     'module_version' => '2.1',
     'menu_item' => '0',
@@ -250,7 +250,7 @@ $_PROFILE_MODULES = array (
   ),
   19 => 
   array (
-    'id' => '32',
+    'id' => '20',
     'module_name' => 'flood',
     'module_version' => '2.1',
     'menu_item' => '0',
@@ -263,10 +263,10 @@ $_PROFILE_MODULES = array (
   ),
   20 => 
   array (
-    'id' => '34',
+    'id' => '21',
     'module_name' => 'gallery',
     'module_version' => '2.1',
-    'menu_item' => '0',
+    'menu_item' => '1',
     'run_level' => '0',
     'load_on' => NULL,
     'parent' => NULL,
@@ -276,7 +276,7 @@ $_PROFILE_MODULES = array (
   ),
   21 => 
   array (
-    'id' => '37',
+    'id' => '22',
     'module_name' => 'share',
     'module_version' => '2.1',
     'menu_item' => '1',
@@ -289,7 +289,7 @@ $_PROFILE_MODULES = array (
   ),
   22 => 
   array (
-    'id' => '38',
+    'id' => '23',
     'module_name' => 'rewrite',
     'module_version' => '2.1',
     'menu_item' => '0',
@@ -302,7 +302,7 @@ $_PROFILE_MODULES = array (
   ),
   23 => 
   array (
-    'id' => '39',
+    'id' => '24',
     'module_name' => 'google_analytics',
     'module_version' => '2.1',
     'menu_item' => '1',
@@ -315,7 +315,7 @@ $_PROFILE_MODULES = array (
   ),
   24 => 
   array (
-    'id' => '40',
+    'id' => '25',
     'module_name' => 'tags',
     'module_version' => '2.11',
     'menu_item' => '1',
@@ -328,7 +328,7 @@ $_PROFILE_MODULES = array (
   ),
   25 => 
   array (
-    'id' => '43',
+    'id' => '26',
     'module_name' => 'counter',
     'module_version' => '2.1',
     'menu_item' => '0',
@@ -341,7 +341,7 @@ $_PROFILE_MODULES = array (
   ),
   26 => 
   array (
-    'id' => '44',
+    'id' => '27',
     'module_name' => 'account_profile',
     'module_version' => '2.1',
     'menu_item' => '1',
