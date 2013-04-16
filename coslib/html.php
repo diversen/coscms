@@ -627,9 +627,16 @@ EOF;
     public static function fileWithLabel ($filename, $max_bytes, $options = array()) {        
         html::hidden('MAX_FILE_SIZE', $max_bytes);
         
+        
+        $bytes = upload::getNativeMaxUpload();
+        if ($max_bytes < $bytes) {
+            $bytes = $max_bytes;
+        } 
+        
+        
         $label = lang::system('system_form_label_file') . ". ";
         $label.= lang::system('system_file_allowed_maxsize');
-        $size = bytesToSize($max_bytes);
+        $size = upload::bytesToGreek($bytes);
         $label.= $size;
         
         html::label($filename, $label );

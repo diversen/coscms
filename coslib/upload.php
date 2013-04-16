@@ -7,90 +7,27 @@
  */
 
 /**
- * return php.ini ini file size in bytes.
- *
- * @param   string  e.g. 2M as size set in php.ini
- * @return  string  e.g. e.g. bytes size of 2M
+ * 
+ * @ignore
  */
 function return_bytes($val) {
-    $val = trim($val);
-    $last = strtolower($val[strlen($val)-1]);
-    switch($last) {
-        // The 'G' modifier is available since PHP 5.1.0
-        case 'g':
-            $val *= 1024;
-        case 'm':
-            $val *= 1024;
-        case 'k':
-            $val *= 1024;
-    }
-
-    return $val;
+    return upload::getBytesFromGreek($val);
 }
 
 /**
- * found on:
  * 
- * http://codeaid.net/php/convert-size-in-bytes-to-a-human-readable-format-%28php%29
- * 
- * Convert bytes to human readable format
- *
- * @param int $bytes Size in bytes to convert
- * @param int $precision 
- * @return string $bytes as string
+ * @ignore
  */
-function bytesToSize($bytes, $precision = 2)
-{	
-	$kilobyte = 1024;
-	$megabyte = $kilobyte * 1024;
-	$gigabyte = $megabyte * 1024;
-	$terabyte = $gigabyte * 1024;
-	
-	if (($bytes >= 0) && ($bytes < $kilobyte)) {
-		return $bytes . ' B';
-
-	} elseif (($bytes >= $kilobyte) && ($bytes < $megabyte)) {
-		return round($bytes / $kilobyte, $precision) . ' KB';
-
-	} elseif (($bytes >= $megabyte) && ($bytes < $gigabyte)) {
-		return round($bytes / $megabyte, $precision) . ' MB';
-
-	} elseif (($bytes >= $gigabyte) && ($bytes < $terabyte)) {
-		return round($bytes / $gigabyte, $precision) . ' GB';
-
-	} elseif ($bytes >= $terabyte) {
-		return round($bytes / $terabyte, $precision) . ' TB';
-	} else {
-		return $bytes . ' B';
-	}
+function bytesToSize($bytes, $precision = 2){
+    return upload::bytesToGreek($bytes, $precision);
 }
 
 /**
- * get a human error message on failed upload
- * @param int $error_code error code returned by bad file upload
- * @return string $message translations of the error codes.
+ * 
+ * @ignore
  */
 function file_upload_error_message($error_code) {
-    switch ($error_code) {
-        case UPLOAD_ERR_INI_SIZE:
-            return lang::system('system_file_exceeds_php_ini');
-        case UPLOAD_ERR_FORM_SIZE:
-            return lang::system('system_file_exceeds_max_file_size');
-        case UPLOAD_ERR_PARTIAL:
-            return lang::system('system_file_partially_uploaded');
-        case UPLOAD_ERR_NO_FILE:
-            return lang::system('system_file_no_file_uploaded');
-        case UPLOAD_ERR_NO_TMP_DIR:
-            return lang::system('system_file_missing_tmp_folder');
-        case UPLOAD_ERR_CANT_WRITE:
-            return lang::system('system_file_no_write_to_disk');
-        case UPLOAD_ERR_EXTENSION:
-            return lang::system ('system_file_wrong_ext');
-        case UPLOAD_ERR_OK;
-            return 0;
-        default:
-            return lang::system('system_file_unknown_error');
-    }
+    return upload::getNativeErrorMessage($error_code);
 }
 
 /**
@@ -147,6 +84,106 @@ class upload {
      */
     public static function setOptions ($options) {
         self::$options = $options;
+    }
+    
+    /**
+     * return bytes from greek e.g. 2M or 100K
+     * @param type $val
+     * @return int $val bytes
+     */
+    public static function getBytesFromGreek ($val) {
+        $val = trim($val);
+        $last = strtolower($val[strlen($val)-1]);
+        switch($last) {
+        // The 'G' modifier is available since PHP 5.1.0
+            case 'g':
+                $val *= 1024;
+            case 'm':
+                $val *= 1024;
+            case 'k':
+                $val *= 1024;
+        }
+
+        return $val;
+    }
+    
+   /**
+    * found on:
+    * 
+    * http://codeaid.net/php/convert-size-in-bytes-to-a-human-readable-format-%28php%29
+    * 
+    * Convert bytes to human readable format
+    *
+    * @param int $bytes Size in bytes to convert
+    * @param int $precision 
+    * @return string $bytes as string
+    */
+    public static function bytesToGreek($bytes, $precision = 2){	
+	$kilobyte = 1024;
+	$megabyte = $kilobyte * 1024;
+	$gigabyte = $megabyte * 1024;
+	$terabyte = $gigabyte * 1024;
+	
+	if (($bytes >= 0) && ($bytes < $kilobyte)) {
+		return $bytes . ' B';
+
+	} elseif (($bytes >= $kilobyte) && ($bytes < $megabyte)) {
+		return round($bytes / $kilobyte, $precision) . ' KB';
+
+	} elseif (($bytes >= $megabyte) && ($bytes < $gigabyte)) {
+		return round($bytes / $megabyte, $precision) . ' MB';
+
+	} elseif (($bytes >= $gigabyte) && ($bytes < $terabyte)) {
+		return round($bytes / $gigabyte, $precision) . ' GB';
+
+	} elseif ($bytes >= $terabyte) {
+		return round($bytes / $terabyte, $precision) . ' TB';
+	} else {
+		return $bytes . ' B';
+	}
+    }
+    
+    /**
+     * return max size for file upload in bytes
+     * @return int $bytes
+     */
+    public static function getNativeMaxUpload () {
+        $upload_max_filesize = upload::getBytesFromGreek(ini_get('upload_max_filesize'));
+        $post_max_size = upload::getBytesFromGreek(ini_get('post_max_size'));
+        if ($upload_max_filesize >= $post_max_size) {
+            return $post_max_size;
+        } else {
+            return $upload_max_filesize;
+        }
+        
+    }
+    
+   /**
+    * get a human error message on failed upload
+    * @param int $error_code error code returned by bad file upload
+    * @return string $message translations of the error codes.
+    */
+    public static function getNativeErrorMessage($error_code) {
+        switch ($error_code) {
+            case UPLOAD_ERR_INI_SIZE:
+                return lang::system('system_file_exceeds_php_ini');
+            case UPLOAD_ERR_FORM_SIZE:
+                return lang::system('system_file_exceeds_max_file_size');
+            case UPLOAD_ERR_PARTIAL:
+                return lang::system('system_file_partially_uploaded');
+            case UPLOAD_ERR_NO_FILE:
+                return lang::system('system_file_no_file_uploaded');
+            case UPLOAD_ERR_NO_TMP_DIR:
+                return lang::system('system_file_missing_tmp_folder');
+            case UPLOAD_ERR_CANT_WRITE:
+                return lang::system('system_file_no_write_to_disk');
+            case UPLOAD_ERR_EXTENSION:
+                return lang::system ('system_file_wrong_ext');
+            case UPLOAD_ERR_OK;
+                return 0;
+            default:
+                return lang::system('system_file_unknown_error');
+        }
     }
     
     
