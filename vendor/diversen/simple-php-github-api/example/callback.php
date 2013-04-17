@@ -1,10 +1,10 @@
 <?php
 
-session_start();
-
-include_once "mycurl.php";
-include_once "github_api.php";
 include_once "config.php";
+
+use diversen\githubapi as githubApi;
+
+session_start();
 
 /*
  * we are back from github and the user has accepted our
@@ -23,7 +23,7 @@ $post = array (
     'client_secret' => GITHUB_SECRET,
 );
 
-$api = new githubapi();
+$api = new githubApi();
 $res = $api->setAccessToken($post);
 
 if ($res) {

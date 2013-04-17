@@ -1,18 +1,18 @@
 {
-    "hash": "32273728f41cd6add862cca14be700cc",
+    "hash": "a5458e16efa761f27d18a7441f5c2234",
     "packages": [
         {
             "name": "diversen/simple-php-github-api",
-            "version": "1.0.1",
+            "version": "1.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/diversen/simple-php-github-api.git",
-                "reference": "1.0.1"
+                "reference": "1.0.2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/diversen/simple-php-github-api/zipball/1.0.1",
-                "reference": "1.0.1",
+                "url": "https://api.github.com/repos/diversen/simple-php-github-api/zipball/1.0.2",
+                "reference": "1.0.2",
                 "shasum": ""
             },
             "require": {
@@ -38,13 +38,13 @@
             "description": "simple php github api",
             "homepage": "http://github.com/diversen/simple-php-github-api",
             "keywords": [
-                "markdown"
+                "github"
             ],
             "support": {
-                "source": "https://github.com/diversen/simple-php-github-api/tree/1.0.1",
+                "source": "https://github.com/diversen/simple-php-github-api/tree/1.0.2",
                 "issues": "https://github.com/diversen/simple-php-github-api/issues"
             },
-            "time": "2013-04-11 15:00:51"
+            "time": "2013-04-17 14:48:25"
         },
         {
             "name": "facebook/php-sdk",
@@ -95,12 +95,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/michelf/php-markdown.git",
-                "reference": "1.3"
+                "reference": "53f638871750d6cfc66daf61d0741d75df838aad"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/michelf/php-markdown/zipball/1.3",
-                "reference": "1.3",
+                "url": "https://api.github.com/repos/michelf/php-markdown/zipball/53f638871750d6cfc66daf61d0741d75df838aad",
+                "reference": "53f638871750d6cfc66daf61d0741d75df838aad",
                 "shasum": ""
             },
             "require": {
@@ -138,7 +138,7 @@
             "keywords": [
                 "markdown"
             ],
-            "time": "2013-04-11 18:53:11"
+            "time": "2013-04-13 19:18:58"
         },
         {
             "name": "pear-pear.php.net/Archive_Tar",

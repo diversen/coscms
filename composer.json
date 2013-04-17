@@ -18,7 +18,7 @@
 
     "require": { 
 
-        "diversen/simple-php-github-api": "1.0.1",
+        "diversen/simple-php-github-api": "1.0.2",
 	"pear-pear/PEAR": "1.9.4",
 	"pear-pear/Pager": "2.4.8",
 	"pear-pear/Validate": "0.8.5",

@@ -1,10 +1,9 @@
 <?php
 
-session_start();
-
 include_once "config.php";
-include_once "mycurl.php";
-include_once "githubapi.php";
+
+use diversen\githubapi as githubApi;
+session_start();
 
 /**
  * this is the config used for creating a url to github.com
@@ -12,6 +11,9 @@ include_once "githubapi.php";
  * the scope of our application. 
  * 
  * You can edit scope. 
+ * 
+ * This is set to empty, but you could e.g. set it to 'user'
+ * where ask for permissions to write to repos. 
  * 
  * We press the url and we move to the github site where
  * the user will be able to accept that this app uses some
@@ -23,10 +25,10 @@ $access_config = array (
     'redirect_uri' => GITHUB_CALLBACK_URL,
     'client_id' => GITHUB_ID,
     'state' =>  md5(uniqid()),
-    'scope' => 'user'
+    /*'scope' => 'user' */
 );
 
-$api = new githubapi();
+$api = new githubApi();
 
 $url = $api->getAccessUrl($access_config);
 echo "<a href=\"$url\">Github Login</a>";

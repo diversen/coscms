@@ -1,18 +1,16 @@
 <?php
 
+
+include_once "config.php";
+use diversen\githubapi as githubApi;
+
 session_start();
 
-include_once "mycurl.php";
-include_once "githubapi.php";
-include_once "config.php";
-
 // we have a access token and we can now call the api: 
-$api = new githubapi();
+$api = new githubApi();
 
-// simple call
-
-//$command = '/legacy/repos/search/coscms';
-$command = "/users";
+// simple call - get current users credentials
+$command = "/user";
 
 $res = $api->apiCall($command);
 if (!$res) {

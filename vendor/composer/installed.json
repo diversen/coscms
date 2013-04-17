@@ -674,24 +674,71 @@
         ]
     },
     {
+        "name": "diversen/simple-php-github-api",
+        "version": "1.0.2",
+        "version_normalized": "1.0.2.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/diversen/simple-php-github-api.git",
+            "reference": "1.0.2"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/diversen/simple-php-github-api/zipball/1.0.2",
+            "reference": "1.0.2",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.3.0"
+        },
+        "time": "2013-04-17 14:48:25",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-0": {
+                "diversen": ""
+            }
+        },
+        "license": [
+            "BSD-3-Clause"
+        ],
+        "authors": [
+            {
+                "name": "Dennis Iversen",
+                "email": "dennis.iversen@gmail.com",
+                "homepage": "http://os-cms.net/",
+                "role": "Developer"
+            }
+        ],
+        "description": "simple php github api",
+        "homepage": "http://github.com/diversen/simple-php-github-api",
+        "keywords": [
+            "github"
+        ],
+        "support": {
+            "source": "https://github.com/diversen/simple-php-github-api/tree/1.0.2",
+            "issues": "https://github.com/diversen/simple-php-github-api/issues"
+        }
+    },
+    {
         "name": "michelf/php-markdown",
         "version": "dev-lib",
         "version_normalized": "dev-lib",
         "source": {
             "type": "git",
             "url": "https://github.com/michelf/php-markdown.git",
-            "reference": "1.3"
+            "reference": "53f638871750d6cfc66daf61d0741d75df838aad"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/michelf/php-markdown/zipball/1.3",
-            "reference": "1.3",
+            "url": "https://api.github.com/repos/michelf/php-markdown/zipball/53f638871750d6cfc66daf61d0741d75df838aad",
+            "reference": "53f638871750d6cfc66daf61d0741d75df838aad",
             "shasum": ""
         },
         "require": {
             "php": ">=5.3.0"
         },
-        "time": "2013-04-11 18:53:11",
+        "time": "2013-04-13 19:18:58",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -725,52 +772,5 @@
         "keywords": [
             "markdown"
         ]
-    },
-    {
-        "name": "diversen/simple-php-github-api",
-        "version": "1.0.1",
-        "version_normalized": "1.0.1.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/diversen/simple-php-github-api.git",
-            "reference": "1.0.1"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/diversen/simple-php-github-api/zipball/1.0.1",
-            "reference": "1.0.1",
-            "shasum": ""
-        },
-        "require": {
-            "php": ">=5.3.0"
-        },
-        "time": "2013-04-11 15:00:51",
-        "type": "library",
-        "installation-source": "dist",
-        "autoload": {
-            "psr-0": {
-                "diversen": ""
-            }
-        },
-        "license": [
-            "BSD-3-Clause"
-        ],
-        "authors": [
-            {
-                "name": "Dennis Iversen",
-                "email": "dennis.iversen@gmail.com",
-                "homepage": "http://os-cms.net/",
-                "role": "Developer"
-            }
-        ],
-        "description": "simple php github api",
-        "homepage": "http://github.com/diversen/simple-php-github-api",
-        "keywords": [
-            "markdown"
-        ],
-        "support": {
-            "source": "https://github.com/diversen/simple-php-github-api/tree/1.0.1",
-            "issues": "https://github.com/diversen/simple-php-github-api/issues"
-        }
     }
 ]
