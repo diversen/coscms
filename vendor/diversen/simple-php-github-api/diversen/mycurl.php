@@ -1,4 +1,6 @@
 <?php
+
+namespace diversen;
 /**
  * File contains a wrapper for curl.
  * class found on php.net

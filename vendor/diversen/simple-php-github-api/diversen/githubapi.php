@@ -1,5 +1,8 @@
 <?php
 
+namespace diversen;
+
+use diversen\mycurl as mycurl;
 /**
  * contains simple class for using oauth with github
  * @package githubapi
