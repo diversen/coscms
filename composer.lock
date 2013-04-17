@@ -1,5 +1,5 @@
 {
-    "hash": "a5458e16efa761f27d18a7441f5c2234",
+    "hash": "a5007f4381f3d9116ea13b8d54fe41cc",
     "packages": [
         {
             "name": "diversen/simple-php-github-api",
@@ -24,6 +24,7 @@
                     "diversen": ""
                 }
             },
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "BSD-3-Clause"
             ],
@@ -40,10 +41,6 @@
             "keywords": [
                 "github"
             ],
-            "support": {
-                "source": "https://github.com/diversen/simple-php-github-api/tree/1.0.2",
-                "issues": "https://github.com/diversen/simple-php-github-api/issues"
-            },
             "time": "2013-04-17 14:48:25"
         },
         {
