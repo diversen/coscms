@@ -127,10 +127,18 @@ class db {
         }
 
         try {
+            
+            if (config::getMainIni('db_dont_persist') == 1) {
+                die;
+            }
+            $options = array ('PDO::ATTR_PERSISTENT' => true);
+            
+            
             self::$dbh = new \PDO(
                 $url,
                 $username,
-                $password
+                $password, 
+                    $options
             );
             self::$dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             if (isset(config::$vars['coscms_main']['db_init'])) {
