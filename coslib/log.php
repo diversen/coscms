@@ -67,7 +67,11 @@ function cos_error_log ($message, $write_file = 1) {
     }
     
     if ($write_file){
-        error_log($message);
+        if (config::isCli()) {
+            error_log($message, 3,_COS_PATH . "/logs/coscms.log");
+        } else {
+            error_log($message);
+        }
     }
 }
 
