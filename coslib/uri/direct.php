@@ -45,9 +45,11 @@ class URI_direct {
     }
     
     /**
-     * get base path of url, e.g. from /test/me?test=10 you will get /test/me
-     * @param string|null $url
-     * @return string
+     * get base path of url, e.g. from /test/me?test=10 you will get /test/me'
+     * using parse_url to get 'path'
+     * @param string|null $url a url. If empty $_SERVER[*REQUEST_URI'] will
+     *                    be used 
+     * @return string $parsed the base 'path'
      */
     public static function path ($url = null) {
         if (!$url) $url = $_SERVER['REQUEST_URI'];
@@ -84,7 +86,5 @@ class URI_direct {
         } else {
             return null;
         }
-    }
-    
-    
+    }  
 }
