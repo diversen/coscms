@@ -259,18 +259,18 @@ class imap {
      * @return array $parts 
      */
     function getAllParts ($message) {
-              
+             
         $parts = array ();
-        foreach (new RecursiveIteratorIterator($message) as $part) {
-            try {
+
+        try {
+            foreach (new RecursiveIteratorIterator($message) as $part) {
                 $type = $this->getContentType($part);
                 $parts[$type][] = $part->getContent();
-                
-                
-            } catch (Exception $e) {
+            } 
+        } catch (Exception $e) {
+                log::error($e->getTraceAsString());
                 log::error($e->getMessage());
-            }
-        } 
+        }
         return $parts;
     }
     

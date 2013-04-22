@@ -1,7 +1,7 @@
 <?php
 
 /**
- * a simple mail bouncer
+ * a simple mail bounce parser
  * only tested with postfix
  */
 
@@ -33,31 +33,36 @@ class cosmail_bounce {
         $i->connect($connect);
         $c = $i->countMessages();
 
-        echo "Num messages: $c\n";	    
+        // write to log file
+        log::error( "Num messages: $c");
+        
+        // keep alive
         $i->mail->noop();
 
-        // reverse - we start with latest message = $c
+        // Fetch all message we start with latest message. = $c
         for ($x = $c; $x >= 1; $x--) { 
-            echo "ID: $x\n";
+
             $email = null;
             $message = $i->mail->getMessage($x);
 
             // we need original return path. Should be <> 
             $return_path = $message->getHeader('return-path', 'string');
 
-            $i->mail->noop(); // keep alive
+            // keep alive
+            $i->mail->noop(); 
 
-            echo "Gettings parts\n";
             $parts = $i->getAllParts($message);
+            
+            // check for [message/delivery-status] part
             if (isset($parts['message/delivery-status'][0])) {
-                echo "Exmaine delivery-status\n";         
+ 
+                // search for email contained in delivery status
                 $email = $this->parseDeliveryStatus($parts['message/delivery-status'][0]);
-
                 if ($email) {
 
-                    echo "Storing bean\n";
+                    // we got a message/delivery-status and a email.
                     $bean = cosRB::getBean('cosmailBounce');
-
+                    $bean->email = $email; 
                     // get bounce code
                     $bounce_code = getStatusCode ($parts['message/delivery-status'][0]);
                     if ($bounce_code) {
@@ -66,7 +71,6 @@ class cosmail_bounce {
                         $bean->minor = $bounce_ary[1];
                         $bean->part = $bounce_ary[2];
                         $bean->bouncecode = $bounce_code;
-
                     } else {
                         $bean->bouncecode = null;
                     }
@@ -75,7 +79,7 @@ class cosmail_bounce {
                     $bean->message = $parts['message/delivery-status'][0];
                     $bean->returnpath = $return_path;
                     R::store($bean);                    
-                    echo "Stored email: $email \n";  
+                    
                 } else {
                     echo "did not get a mail from message: " . $parts['message/delivery-status'][0] . "\n";
                 }
