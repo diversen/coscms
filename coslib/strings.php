@@ -121,6 +121,8 @@ class strings {
         return $content;
     } 
     
+
+    
     /**
      * simple sanitize function where only thing removed is /
      * in order to not confuse the url
