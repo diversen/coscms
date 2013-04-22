@@ -14,7 +14,9 @@
 class log {
     
     /**
-     * logs an error
+     * logs an error. Will always be written to log file
+     * if using a web server it will be logged to the default
+     * error file. If CLI it will be placed in logs/coscms.log
      * @param string $message
      * @param boolean $write_file
      */
@@ -68,7 +70,7 @@ function cos_error_log ($message, $write_file = 1) {
     
     if ($write_file){
         if (config::isCli()) {
-            error_log($message, 3,_COS_PATH . "/logs/coscms.log");
+            error_log($message . "\n", 3,_COS_PATH . "/logs/coscms.log");
         } else {
             error_log($message);
         }
