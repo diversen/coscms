@@ -701,7 +701,7 @@ class moduleloader {
                         config::$vars['coscms_main']['module'],
                         $module_ini['development']
                     );
-                die('ok');
+
             //}
         }
         
@@ -713,7 +713,7 @@ class moduleloader {
                         config::$vars['coscms_main']['module'],
                         $module_ini['stage']
                     );
-                die('stage');
+
             //}
         }
         
