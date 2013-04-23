@@ -219,10 +219,9 @@ class config {
     public static function getEnv () {
         
         if (!config::isCli()) {
-            
-        
+
             if ( config::$vars['coscms_main']['server_name'] ==
-                        $_SERVER['SERVER_NAME'] ) {
+                    $_SERVER['SERVER_NAME'] ) {
                 return 'production';
             }
 
@@ -241,8 +240,6 @@ class config {
                     }
             }
 
-
-
             return null;
         } else {
             
@@ -260,6 +257,8 @@ class config {
         }
 
     }
+    
+    
     
     /**
      * Function for loading the main config file
@@ -294,6 +293,7 @@ class config {
             // to get original value without db override. 
             config::$vars['coscms_main_file'] = config::$vars['coscms_main'];
             if ( config::getEnv() == 'production' ) {
+
                     self::$vars['coscms_main']['development'] = 'real';
                     // We are on REAL server and exits without
                     // adding additional settings for stage or development

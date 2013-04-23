@@ -694,7 +694,7 @@ class moduleloader {
         
         // check if development settings exists.
         if (isset($module_ini['development']) ) {
-            if ( config::getEnv() =='development' ){
+            if ( @config::$vars['coscms_main']['development']['server_name'] == @$_SERVER['SERVER_NAME']){
                 config::$vars['coscms_main']['module'] =
                         array_merge(
                         config::$vars['coscms_main']['module'],
@@ -705,7 +705,7 @@ class moduleloader {
         
         // check if stage settings exists.
         if (isset($module_ini['stage'])){
-            if ( config::getEnv() =='stage' ){
+            if ( @config::$vars['coscms_main']['stage']['server_name']  == @$_SERVER['SERVER_NAME'] ){
                 config::$vars['coscms_main']['module'] =
                         array_merge(
                         config::$vars['coscms_main']['module'],
