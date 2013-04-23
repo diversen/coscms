@@ -693,7 +693,7 @@ class moduleloader {
 
         
         // check if development settings exists.
-        echo config::$env;
+        //echo config::$env;
         if (isset($module_ini['development']) && config::getEnv() =='development' ) {
             //if ( @config::$vars['coscms_main']['development']['server_name'] == @$_SERVER['SERVER_NAME']){
                 config::$vars['coscms_main']['module'] =
