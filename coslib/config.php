@@ -303,8 +303,6 @@ class config {
 
             // Test if we are on stage server. 
             // Overwrite register settings with stage settings
-            // Note that ini settings for development will
-            // NOT take effect on CLI ini settings
             if ( config::getEnv() == 'stage') {
 
                     // we are on development, merge and overwrite normal settings with
@@ -320,8 +318,6 @@ class config {
             }
             // We are on development server. 
             // Overwrite register settings with development settings
-            // Development settings will ALSO be added to CLI
-            // ini settings
             if (config::getEnv() == 'development') {
 
                     config::$vars['coscms_main'] =
@@ -331,6 +327,68 @@ class config {
                     );
                     self::$vars['coscms_main']['development'] = 'development';
 
+            }
+        }
+    }
+    
+        
+    /**
+     * load main cli configuration
+     */
+    public static function loadMainCli () {
+        $config_file = config::getConfigFileName();
+        
+    
+        if (!file_exists($config_file)){
+            return;
+        } else {
+            config::$vars['coscms_main'] = config::getIniFileArray($config_file, true);
+            
+            // as 'production' often is on the same server as 'stage', we 
+            // need to set: 
+            // 
+            // production= 1
+            // 
+            // in locale.ini in order to know if we are on production or on
+            // stage. 
+            // 
+            self::mergeSharedIni();
+            //if (config::getMainIni('production') == 1){
+                    // We are on REAL server and exists without
+                    // If this is set. 
+                    // adding additional settings for stage or development
+                    // or CLI mode
+            //        return; 
+            //}
+
+            // Test if we are on stage server. 
+            // Overwrite register settings with stage settings
+            // Note that ini settings for development will
+            // NOT take effect on CLI ini settings
+            if (config::getEnv() == 'stage'){
+
+                    // we are on development, merge and overwrite normal settings with
+                    // development settings and return
+                    config::$vars['coscms_main'] =
+                    array_merge(
+                        config::$vars['coscms_main'],
+                        config::$vars['coscms_main']['stage']
+                    );
+                    return;
+                //}
+            }
+            // We are on development server. 
+            // Overwrite register settings with development settings
+            // Development settings will ALSO be added to CLI
+            // ini settings
+            if (config::getEnv() =='development') {
+
+                    config::$vars['coscms_main'] =
+                    array_merge(
+                        config::$vars['coscms_main'],
+                        config::$vars['coscms_main']['development']
+                    );
+                //}
             }
         }
     }
@@ -425,67 +483,7 @@ class config {
                     );
         }
     }
-    
-    /**
-     * load main cli configuration
-     */
-    public static function loadMainCli () {
-        $config_file = config::getConfigFileName();
-        
-    
-        if (!file_exists($config_file)){
-            return;
-        } else {
-            config::$vars['coscms_main'] = config::getIniFileArray($config_file, true);
-            
-            // as 'production' often is on the same server as 'stage', we 
-            // need to set: 
-            // 
-            // production= 1
-            // 
-            // in locale.ini in order to know if we are on production or on
-            // stage. 
-            // 
-            self::mergeSharedIni();
-            if (config::getMainIni('production') == 1){
-                    // We are on REAL server and exists without
-                    // If this is set. 
-                    // adding additional settings for stage or development
-                    // or CLI mode
-                    return; 
-            }
 
-            // Test if we are on stage server. 
-            // Overwrite register settings with stage settings
-            // Note that ini settings for development will
-            // NOT take effect on CLI ini settings
-            if (config::getEnv() == 'stage'){
-
-                    // we are on development, merge and overwrite normal settings with
-                    // development settings and return
-                    config::$vars['coscms_main'] =
-                    array_merge(
-                        config::$vars['coscms_main'],
-                        config::$vars['coscms_main']['stage']
-                    );
-                    return;
-                //}
-            }
-            // We are on development server. 
-            // Overwrite register settings with development settings
-            // Development settings will ALSO be added to CLI
-            // ini settings
-            if (config::getEnv() =='development') {
-
-                    config::$vars['coscms_main'] =
-                    array_merge(
-                        config::$vars['coscms_main'],
-                        config::$vars['coscms_main']['development']
-                    );
-                //}
-            }
-        }
-    }
     
     /**
      * loads a config file were there is a PHP array
