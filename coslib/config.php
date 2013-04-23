@@ -218,26 +218,47 @@ class config {
      */
     public static function getEnv () {
         
-        if ( config::$vars['coscms_main']['server_name'] ==
-                    $_SERVER['SERVER_NAME'] ) {
-            return 'production';
-        }
+        if (!config::isCli()) {
+            
         
-    
-        if (isset(config::$vars['coscms_main']['stage'])){
-                if ( config::$vars['coscms_main']['stage']['server_name'] ==
-                        $_SERVER['SERVER_NAME']) {
-                    return 'stage';
-                }
-        }
-        
-        if (isset(config::$vars['coscms_main']['development'])){
-                if ( config::$vars['coscms_main']['development']['server_name'] ==
-                        $_SERVER['SERVER_NAME']) {
+            if ( config::$vars['coscms_main']['server_name'] ==
+                        $_SERVER['SERVER_NAME'] ) {
+                return 'production';
+            }
+
+
+            if (isset(config::$vars['coscms_main']['stage'])){
+                    if ( config::$vars['coscms_main']['stage']['server_name'] ==
+                            $_SERVER['SERVER_NAME']) {
+                        return 'stage';
+                    }
+            }
+
+            if (isset(config::$vars['coscms_main']['development'])){
+                    if ( config::$vars['coscms_main']['development']['server_name'] ==
+                            $_SERVER['SERVER_NAME']) {
+                        return 'development';
+                    }
+            }
+
+
+
+            return null;
+        } else {
+            
+            if (isset(config::$vars['coscms_main']['development'])){
+                if (in_array(config::getHostnameFromCli(), config::getHostnameFromIni('development') ) ) {
                     return 'development';
                 }
+            }
+            
+            if (isset(config::$vars['coscms_main']['stage'])){
+                if (in_array(config::getHostnameFromCli(), config::getHostnameFromIni('stage')) ) {
+                    return 'stage';
+                }
+            }
         }
-        return null;
+
     }
     
     /**
@@ -438,10 +459,7 @@ class config {
             // Overwrite register settings with stage settings
             // Note that ini settings for development will
             // NOT take effect on CLI ini settings
-            if (isset(config::$vars['coscms_main']['stage'])){
-                if (in_array(config::getHostnameFromCli(), config::getHostnameFromIni('stage')))
-                        
-                    {
+            if (config::getEnv() == 'stage'){
 
                     // we are on development, merge and overwrite normal settings with
                     // development settings and return
@@ -451,21 +469,20 @@ class config {
                         config::$vars['coscms_main']['stage']
                     );
                     return;
-                }
+                //}
             }
             // We are on development server. 
             // Overwrite register settings with development settings
             // Development settings will ALSO be added to CLI
             // ini settings
-            if (isset(config::$vars['coscms_main']['development'])){
-                if (in_array(config::getHostnameFromCli(), config::getHostnameFromIni('development'))) {
+            if (config::getEnv() =='development') {
 
                     config::$vars['coscms_main'] =
                     array_merge(
                         config::$vars['coscms_main'],
                         config::$vars['coscms_main']['development']
                     );
-                }
+                //}
             }
         }
     }
