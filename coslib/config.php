@@ -212,31 +212,45 @@ class config {
         return $config_file;
     }
     
+    public static $env = null;
+    
     /**
      * get environemnt - production, stage, or development
+     * This is called just after main ini has been loaded
+     * We set the static var self::$env after first load as 
+     * new server_name will be set if we use e.g. stage or development
+     * In this way we can always know the correct env if we need it. 
      * @return string|null production, stage, or development - or null if not set
      */
     public static function getEnv () {
+        
+        
+        if (self::$env) {
+            return self::$env;
+        }
         
         if (!config::isCli()) {
 
             if ( config::$vars['coscms_main']['server_name'] ==
                     $_SERVER['SERVER_NAME'] ) {
-                return 'production';
+                self::$env = 'production';
+                return       'production';
             }
 
 
             if (isset(config::$vars['coscms_main']['stage'])){
                     if ( config::$vars['coscms_main']['stage']['server_name'] ==
                             $_SERVER['SERVER_NAME']) {
-                        return 'stage';
+                        self::$env = 'stage';
+                        return       'stage';
                     }
             }
 
             if (isset(config::$vars['coscms_main']['development'])){
                     if ( config::$vars['coscms_main']['development']['server_name'] ==
                             $_SERVER['SERVER_NAME']) {
-                        return 'development';
+                        self::$env = 'development';
+                        return       'development';
                     }
             }
 
@@ -344,15 +358,16 @@ class config {
         } else {
             config::$vars['coscms_main'] = config::getIniFileArray($config_file, true);
             
-            // as 'production' often is on the same server as 'stage', we 
+            // AS 'production' often is on the same server as 'stage', we 
             // need to set: 
             // 
             // production= 1
             // 
-            // in locale.ini in order to know if we are on production or on
+            // in config/shared.ini in order to know if we are on production or on
             // stage. 
             // 
             self::mergeSharedIni();
+            
             if (config::getMainIni('production') == 1){
                     // We are on REAL server and exists without
                     // If this is set. 

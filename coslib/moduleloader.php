@@ -693,25 +693,28 @@ class moduleloader {
 
         
         // check if development settings exists.
-        if (isset($module_ini['development']) ) {
-            if ( @config::$vars['coscms_main']['development']['server_name'] == @$_SERVER['SERVER_NAME']){
+        echo config::$env;
+        if (isset($module_ini['development']) && config::getEnv() =='development' ) {
+            //if ( @config::$vars['coscms_main']['development']['server_name'] == @$_SERVER['SERVER_NAME']){
                 config::$vars['coscms_main']['module'] =
                         array_merge(
                         config::$vars['coscms_main']['module'],
                         $module_ini['development']
                     );
-            }
+                die('ok');
+            //}
         }
         
         // check if stage settings exists.
-        if (isset($module_ini['stage'])){
-            if ( @config::$vars['coscms_main']['stage']['server_name']  == @$_SERVER['SERVER_NAME'] ){
+        if ((isset($module_ini['stage']) && config::getEnv() =='stage' ) ){
+            //if ( @config::$vars['coscms_main']['stage']['server_name']  == @$_SERVER['SERVER_NAME'] ){
                 config::$vars['coscms_main']['module'] =
                         array_merge(
                         config::$vars['coscms_main']['module'],
                         $module_ini['stage']
                     );
-            }
+                die('stage');
+            //}
         }
         
         // check for a locale ini file which only
