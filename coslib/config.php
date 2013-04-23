@@ -353,13 +353,13 @@ class config {
             // stage. 
             // 
             self::mergeSharedIni();
-            //if (config::getMainIni('production') == 1){
+            if (config::getMainIni('production') == 1){
                     // We are on REAL server and exists without
                     // If this is set. 
                     // adding additional settings for stage or development
                     // or CLI mode
-            //        return; 
-            //}
+                    return; 
+            }
 
             // Test if we are on stage server. 
             // Overwrite register settings with stage settings
