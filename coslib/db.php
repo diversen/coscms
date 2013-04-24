@@ -129,9 +129,10 @@ class db {
         try {
             
             if (config::getMainIni('db_dont_persist') == 1) {
-                die;
+                $con_options = array ();
+            } else {
+                $con_options = array ('PDO::ATTR_PERSISTENT' => true);
             }
-            $options = array ('PDO::ATTR_PERSISTENT' => true);
             
             
             self::$dbh = new \PDO(
