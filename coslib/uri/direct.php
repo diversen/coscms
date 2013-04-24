@@ -1,6 +1,6 @@
 <?php
 
-class URI_direct {
+class uri_direct {
     
     /**
      * flag to prevent to many url parts
