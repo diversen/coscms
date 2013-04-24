@@ -24,7 +24,6 @@ function db_show_con_info ($options) {
     print_r($info);
 }
 
-// {{{ create_db() 
 /**
  * function for creating a database for creds in config.ini
  *
@@ -42,9 +41,6 @@ function create_db($options = array()){
     return $ret = cos_exec($command, $options);
 }
 
-// }}}
-// {{{ drop_db
-
 /**
  * function for dropping database specified in config.ini
  *
@@ -60,8 +56,7 @@ function drop_db_default($options = array()){
     return $ret = cos_exec($command, $options);
 }
 
-// }}}
-// {{{ load_db
+
 /**
  * function for loading db with install sql found in scripts/default.sql
  *
@@ -112,7 +107,7 @@ function dump_db_file ($options = null){
         $dump_name = "backup/sql/" . time() . ".sql";
     } else {
         $dump_name = $options['File'];
-     }
+    }
     
     $db = db_admin::getDbInfo();
     $command = 
@@ -133,6 +128,10 @@ function load_db_file($options){
     if (!isset($options['File'])){
         cos_cli_print('You did not specify file to load. We use latest!');
         $latest = get_latest_db_dump();
+        if ($latest == 0) {
+            cos_cli_abort('Yet no database dumps');
+        }
+        
         $latest = "backup/sql/" . $latest . ".sql";
         $file = $latest;
     } else {
@@ -146,13 +145,15 @@ function load_db_file($options){
         "mysql --default-character-set=utf8  -u" . config::$vars['coscms_main']['username'] .
         " -p" . config::$vars['coscms_main']['password'] . " $db[name] < $file";
     return $ret = cos_exec($command);
-
 }
 
 /**
- * function for getting latest timestamp for dumps found in backup/sql
+ * function for getting latest timestamp for dumps
+ * 
+ * default to backup/sql but you can specify a dir. 
  *
- * @return  int     the executed commands shell status 0 on success.
+ * @param   string  $dir
+ * @return  int     $timestamp
  */
 function get_latest_db_dump($dir = null, $num_files = null){
     if (!$dir){
@@ -171,7 +172,6 @@ function get_latest_db_dump($dir = null, $num_files = null){
     return $time_stamp;
 }
 
-// }}}
 
 if (cos_is_cli()){
 
