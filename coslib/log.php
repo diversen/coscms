@@ -58,19 +58,23 @@ class log {
  * @param boolean $write_file
  */
 function cos_error_log ($message, $write_file = 1) {
-    
-    
+      
     if (!is_string($message)) {
         $message = var_export($message, true);
     }
     
     if (config::getMainIni('debug')) {
-        echo $message;
+        if (config::isCli()) {
+            echo $message . PHP_EOL;
+        } else {
+            echo $message;
+        }
     }
     
     if ($write_file){
         if (config::isCli()) {
-            error_log($message . "\n", 3,_COS_PATH . "/logs/coscms.log");
+            $path = _COS_PATH . "/logs/coscms.log";
+            error_log($message . PHP_EOL, 3, $path);
         } else {
             error_log($message);
         }
