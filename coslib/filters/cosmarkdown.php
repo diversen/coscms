@@ -15,7 +15,7 @@ class cosmarkdown {
      * @param  string     string to markdown.
      * @return string
      */
-    public function filter($text){
+    public static function filter($text){
 
         static $md = null;
         if (!$md){

@@ -12,7 +12,7 @@ class cosmarkdownext {
      * @param array     array of elements to filter.
      * @return <type>
      */
-    public function filter($text){
+    public static function filter($text){
 
 
         static $md;

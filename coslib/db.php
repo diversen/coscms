@@ -403,8 +403,8 @@ class db {
      *
      * @param   string  $table the table to search e.g. 'article'
      * @param   string  $match what to match, e.g 'title, content'
-     * @param   string  $search what to select e.g. '*'
-     * @param   string  $select what to search for e.g 'some search words'
+     * @param   string  $search what to search for e.g 'some search words'
+     * @param   string  $select what to select e.g. '*'
      * @param   int     $from where to start getting the results
      * @param   int     $limit how many results to fetch e.g. 20
      * @return  array   $rows array of rows
@@ -416,7 +416,7 @@ class db {
         }
         $query.= "$select, ";
         $query.= "MATCH ($match) ";
-        $query.= "AGAINST (:search) AS score ";
+        $query.= "AGAINST (:search WITH QUERY EXPANSION) AS score ";
         $query.= "FROM $table ";
         $query.= "WHERE MATCH ($match) AGAINST (:search) ";
         $query.= "ORDER BY score DESC ";
@@ -549,7 +549,7 @@ class db {
      * @return  mixed   $rows array the rows found. Or false on failure. 
      *
      */
-    public function selectQuery($sql){
+    public static function selectQuery($sql){
         self::$debug[]  = "Trying to prepare selectQuery sql: $sql";
         $stmt = self::$dbh->query($sql);
         $ret = $stmt->execute();
@@ -565,8 +565,8 @@ class db {
      * @return  mixed   $rows array the rows found. Or false on failure. 
      *
      */
-    public function selectQueryOne($sql){
-        $rows = $this->selectQuery($sql);
+    public static function selectQueryOne($sql){
+        $rows = self::selectQuery($sql);
         if (isset($rows[0])) return $rows[0];
         return array ();
     }

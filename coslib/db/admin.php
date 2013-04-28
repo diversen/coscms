@@ -38,4 +38,36 @@ class db_admin extends db {
         $database['host'] = $host[1];
         return $database;
     }
+    
+    public static function dublicateTable ($source, $dest, $drop = true) {
+        if ($drop) {
+            $sql = "DROP TABLE IF EXISTS $dest";
+            $res = self::rawQuery($sql);
+            if (!$res) {
+                return false;
+            }
+        }
+        
+        $sql = "CREATE TABLE $dest LIKE $source; INSERT $dest SELECT * FROM $source";
+        return self::rawQuery($sql);
+    }
+    
+    public static function generateIndex($table, $columns) {
+        $sql = "ALTER TABLE $table ENGINE = MyISAM";
+        $res = self::rawQuery($sql);
+        if (!$res) {
+            return false;
+        }
+        
+        $cols = implode(',', $columns);
+        
+        $sql = "ALTER TABLE $table ADD FULLTEXT($cols)";
+        return self::rawQuery($sql);
+    }
+    
+    public static function tableExists($table) {
+        $q = "SHOW TABLES LIKE '$table'";
+        $rows = db::selectQueryOne($q);
+        return $rows;
+    }
 }
