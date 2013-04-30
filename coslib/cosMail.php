@@ -240,6 +240,15 @@ class cosMail {
         }
         return true;
     }
+    
+    /**
+     * when doing bulk mail it is a wise idea to destroy the socket connected
+     * to a mail host and generate a new one, e.g. after sending 1000 mails
+     * to one domain.
+     */
+    public static function unsetMailObj () {
+        self::$mail = null;
+    }
         
     /**
      *
