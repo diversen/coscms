@@ -10,7 +10,6 @@
  * logging
  * @package log
  */
-
 class log {
     
     /**
@@ -21,16 +20,41 @@ class log {
      * @param boolean $write_file
      */
     public static function error ($message, $write_file = true) {
-        cos_error_log($message, $write_file);
+              
+        if (!is_string($message)) {
+            $message = var_export($message, true);
+        }
+
+        if (config::getMainIni('debug')) {
+            if (config::isCli()) {
+                echo $message . PHP_EOL;
+            } else {
+                echo $message;
+            }
+        }
+
+        if ($write_file){
+            if (config::isCli()) {
+                $path = _COS_PATH . "/logs/coscms.log";
+                error_log($message . PHP_EOL, 3, $path);
+            } else {
+                error_log($message);
+            }
+        }
+
     }
     
     
     /**
-     * debug a message
+     * debug a message. Writes to stdout and to log file 
+     * if debug = 1 is set in config
      * @param string $message 
      */
-    public static function debug ($message) {
-        cos_debug($message);
+    public static function debug ($message) {       
+        if (config::getMainIni('debug')) {
+            log::error($message);
+            return;
+        } 
     }
     
     /**
@@ -58,38 +82,15 @@ class log {
  * @param boolean $write_file
  */
 function cos_error_log ($message, $write_file = 1) {
-      
-    if (!is_string($message)) {
-        $message = var_export($message, true);
-    }
-    
-    if (config::getMainIni('debug')) {
-        if (config::isCli()) {
-            echo $message . PHP_EOL;
-        } else {
-            echo $message;
-        }
-    }
-    
-    if ($write_file){
-        if (config::isCli()) {
-            $path = _COS_PATH . "/logs/coscms.log";
-            error_log($message . PHP_EOL, 3, $path);
-        } else {
-            error_log($message);
-        }
-    }
+    log::error($message, $write_file);
 }
 
 /**
  * simple debug which write to error log if 'debug' is set in main config.ini
+ * Else it will not write to log file
  * @param mixed $message
  * @return void 
  */
 function cos_debug ($message) {
-
-    if (config::getMainIni('debug')) {
-        cos_error_log($message);
-        return;
-    }  
+    log::debug($message);
 }
