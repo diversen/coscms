@@ -235,7 +235,7 @@ class cosMail {
 
         $res = self::$mail->send($to, $mime_headers, $body);
         if (PEAR::isError($res)) {
-            log::debug($res->getMessage());
+            log::error($res->getMessage());
             return false;
         }
         return true;
