@@ -109,7 +109,7 @@ class template_assets extends template {
             }          
         } else {
             $str = file_get_contents($css); 
-            file_put_contents($cached_asset, $str);
+            file_put_contents($cached_asset, $str, LOCK_EX);
 
             if ($type == 'css') {
                 self::setCss("$cache_dir/$md5.$type", $order);
@@ -255,7 +255,7 @@ class template_assets extends template {
             // create file if it does not exist
             if (!file_exists($full_file_path)) {
                 $str = csspacker::packcss($str);                
-                file_put_contents($full_file_path, $str);
+                file_put_contents($full_file_path, $str, LOCK_EX);
             }
             
             self::setCss($web_path . "$file");   
@@ -365,7 +365,7 @@ class template_assets extends template {
                 //$packer = new JavaScriptPacker($str, 0, false, false);
                 //$packer = new JavaScriptPacker($_script, $_encoding, $_fastDecode, $_specialChars);
                 //$str = $packer->pack();
-                file_put_contents($full_file_path, $str);
+                file_put_contents($full_file_path, $str, LOCK_EX);
             }
             self::setJs($web_path . $file);
         }
