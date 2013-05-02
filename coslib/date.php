@@ -127,7 +127,7 @@ function dateGetDateNowFromTimestamp ($options = array ()) {
     } else {
         $ts = null;
     }
-    $date = date($format );
+    $date = date($format, $ts );
     return $date;
 }
 
