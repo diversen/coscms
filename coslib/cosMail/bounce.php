@@ -91,7 +91,7 @@ function mailer_cron_bounce () {
     }
 
     log::error ("deleting bounces");
-    mailer_bounces_delete();
+    // mailer_bounces_delete();
 }
 
 
