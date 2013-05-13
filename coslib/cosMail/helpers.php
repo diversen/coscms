@@ -8,6 +8,5 @@ class cosMail_helpers {
             return $ary[1];
         }
         return false;
-    }
-    
+    }  
 }

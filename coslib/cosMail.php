@@ -163,7 +163,7 @@ class cosMail {
         
         
         $headers = cosMail::getHeaders($to, $subject, $from, $reply_to, $more);
-        $mime = new cosMailMime();
+        $mime = new cosMail_mime();
         if (is_array($message)) {
 
             if (isset($message['txt'])) {
@@ -205,7 +205,7 @@ class cosMail {
     public static function text($to, $subject, $message, $from = null, $reply_to=null, $more = array ()) {
         $headers = cosMail::getHeaders($to, $subject, $from, $reply_to, $more);
         
-        $mime = new cosMailMime();
+        $mime = new cosMail_mime();
         $mime->setTxt($message);
 
         $body = $mime->getBody();
@@ -223,7 +223,7 @@ class cosMail {
     */
     public static function send ($to, $mime_headers, $body) {
         if (self::$que) {
-            return cosMailQue::addToQue ($to, $mime_headers, $body);
+            return cosMail_que::addToQue ($to, $mime_headers, $body);
         }
         
         $options = cosMail::init();
