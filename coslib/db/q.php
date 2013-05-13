@@ -264,9 +264,6 @@ class db_q  {
         return new db_q();
     }
     
-    
-    
-
     /**
      * filter for creating IN queries where we use an array of values
      * to create our filter from. 
