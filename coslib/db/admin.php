@@ -7,12 +7,12 @@
 
 /**
  * dbadmin 
- * @package
+ * @package coslib
  */
 class db_admin extends db {
     
     /**
-     *  changes database we are working on
+     * changes database we are working on
      * @param string $database
      */
     public static function changeDB ($database = null) {
@@ -39,6 +39,13 @@ class db_admin extends db {
         return $database;
     }
     
+    /**
+     * dublicate a table 
+     * @param string $source source table name
+     * @param string $dest destination table name
+     * @param boolean $drop should we drop table if destination exists 
+     * @return boolean $res result of query
+     */
     public static function dublicateTable ($source, $dest, $drop = true) {
         if ($drop) {
             $sql = "DROP TABLE IF EXISTS $dest";
@@ -53,7 +60,7 @@ class db_admin extends db {
     }
     
     /**
-     * alter table to include a full text index
+     * Alter table to include a full text index
      * @param string $table
      * @param string $columns (e.g. firstname, lastname)
      * @return boolean $res result
