@@ -52,6 +52,12 @@ class db_admin extends db {
         return self::rawQuery($sql);
     }
     
+    /**
+     * alter table to include a full text index
+     * @param string $table
+     * @param string $columns (e.g. firstname, lastname)
+     * @return boolean $res result
+     */
     public static function generateIndex($table, $columns) {
         $sql = "ALTER TABLE $table ENGINE = MyISAM";
         $res = self::rawQuery($sql);
@@ -65,8 +71,34 @@ class db_admin extends db {
         return self::rawQuery($sql);
     }
     
+    /**
+     * check if a table with specified name exists
+     * @param string $table
+     * @return array $rows
+     */
     public static function tableExists($table) {
         $q = "SHOW TABLES LIKE '$table'";
+        $rows = db::selectQueryOne($q);
+        return $rows;
+    }
+    
+    /**
+     * get indexes on the table
+     * @param string $table the table name
+     * @return array $rows
+     */
+    public static function getKeys ($table) {
+        $q = "SHOW KEYS FROM $table";
+        $rows = db::selectQuery($q);
+        return $rows;
+    }
+    
+    /**
+     * check if a specified key exists
+     * 
+     */
+    public static function keyExists ($table, $key) {
+        $q = "SHOW KEYS FROM $table WHERE Key_name='$key'";
         $rows = db::selectQueryOne($q);
         return $rows;
     }
