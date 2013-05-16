@@ -375,9 +375,9 @@ class db {
     public function replace ($table, $values, $search) {
         $row = $this->getNumRows($table, $search);
         if (!$row){
-            $res = $this->insert('users', $values);
+            $res = $this->insert($table, $values);
         } else {
-            $res = $this->update('users', $values, $search);
+            $res = $this->update($table, $values, $search);
         }
         return $res;
     }
