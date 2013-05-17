@@ -6,10 +6,10 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
-    'diversen' => $vendorDir . '/diversen/simple-php-github-api/',
-    'Zend\\Stdlib\\' => $vendorDir . '/zendframework/zend-stdlib/',
-    'Zend\\Mime\\' => $vendorDir . '/zendframework/zend-mime/',
-    'Zend\\Mail\\' => $vendorDir . '/zendframework/zend-mail/',
-    'Zend\\Loader\\' => $vendorDir . '/zendframework/zend-loader/',
-    'Michelf' => $vendorDir . '/michelf/php-markdown/',
+    'diversen' => array($vendorDir . '/diversen/simple-php-github-api'),
+    'Zend\\Stdlib\\' => array($vendorDir . '/zendframework/zend-stdlib'),
+    'Zend\\Mime\\' => array($vendorDir . '/zendframework/zend-mime'),
+    'Zend\\Mail\\' => array($vendorDir . '/zendframework/zend-mail'),
+    'Zend\\Loader\\' => array($vendorDir . '/zendframework/zend-loader'),
+    'Michelf' => array($vendorDir . '/michelf/php-markdown'),
 );

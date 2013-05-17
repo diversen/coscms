@@ -319,34 +319,6 @@
         "description": "Package to validate various datas. It includes :\n    - numbers (min/max, decimal or not)\n    - email (syntax, domain check, rfc822)\n    - string (predifined type alpha upper and/or lowercase, numeric,...)\n    - date (min, max, rfc822 compliant)\n    - uri (RFC2396)\n    - possibility valid multiple data with a single method call (::multiple)"
     },
     {
-        "name": "pear-pear.php.net/Net_Socket",
-        "version": "1.0.10",
-        "version_normalized": "1.0.10.0",
-        "dist": {
-            "type": "file",
-            "url": "http://pear.php.net/get/Net_Socket-1.0.10.tgz",
-            "reference": null,
-            "shasum": null
-        },
-        "require": {
-            "php": ">=4.0.0.0"
-        },
-        "replace": {
-            "pear-pear/net_socket": "== 1.0.10.0"
-        },
-        "type": "pear-library",
-        "installation-source": "dist",
-        "autoload": {
-            "classmap": [
-                ""
-            ]
-        },
-        "include-path": [
-            "/"
-        ],
-        "description": "Net_Socket is a class interface to TCP sockets.  It provides blocking\n  and non-blocking operation, with different reading and writing modes\n  (byte-wise, block-wise, line-wise and special formats like network\n  byte-order ip addresses)."
-    },
-    {
         "name": "pear-pear.php.net/Net_SMTP",
         "version": "1.6.1",
         "version_normalized": "1.6.1.0",
@@ -769,5 +741,33 @@
         "keywords": [
             "github"
         ]
+    },
+    {
+        "name": "pear-pear.php.net/Net_Socket",
+        "version": "1.0.12",
+        "version_normalized": "1.0.12.0",
+        "dist": {
+            "type": "file",
+            "url": "http://pear.php.net/get/Net_Socket-1.0.12.tgz",
+            "reference": null,
+            "shasum": null
+        },
+        "require": {
+            "php": ">=4.3.0.0"
+        },
+        "replace": {
+            "pear-pear/net_socket": "== 1.0.12.0"
+        },
+        "type": "pear-library",
+        "installation-source": "dist",
+        "autoload": {
+            "classmap": [
+                ""
+            ]
+        },
+        "include-path": [
+            "/"
+        ],
+        "description": "Net_Socket is a class interface to TCP sockets.  It provides blocking\n  and non-blocking operation, with different reading and writing modes\n  (byte-wise, block-wise, line-wise and special formats like network\n  byte-order ip addresses)."
     }
 ]
