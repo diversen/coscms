@@ -124,7 +124,8 @@ class db_q  {
         self::$query = "SELECT $fields FROM `$table` ";
         return new db_q;
     }
-        
+    
+    
     /**
      * sets select statement for numrows
      * @param type $table
@@ -135,6 +136,8 @@ class db_q  {
         self::$query = "SELECT count(*) as num_rows FROM $table ";
         return new db_q;
     }
+    
+
     
     /**
      * prepare for a delete query
@@ -387,6 +390,16 @@ class db_q  {
     }
     
     /**
+     * sets a raw query
+     * @param string $query e.g. "SELECT * FROM mytable";
+     * @return object $db_q
+     */
+    public static function query ($query) {
+        self::$query = $query;
+        return new db_q();
+    }
+    
+    /**
      * method to execute a query, insert update or delte. 
      * @return boolean true on success and false on failure. 
      */
@@ -421,6 +434,14 @@ class db_q  {
             return $rows[0];
         }
         return array();
+    }
+    
+    /**
+     * short hand of fetchSingle
+     * @return array $row
+     */
+    public static function one () {
+        return self::fetchSingle();
     }
     
     /**
