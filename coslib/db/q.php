@@ -396,7 +396,7 @@ class db_q  {
      */
     public static function query ($query) {
         self::$query = $query;
-        return new db_q();
+        return new db_q;
     }
     
     /**
