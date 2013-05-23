@@ -102,7 +102,15 @@ class user {
         return self::$profile_object->getProfileInfo($user);
     }
     
+    /**
+     * get all profile info where special chars are encoded
+     * @param mixed $user (account row or user_id)
+     * @return array $row 
+     */
     public static function getProfileInfoEscaped ($user) {
+        if (!is_array($user)) {
+            $user = user::getAccount($user);
+        }
         $profile = self::getProfileInfo($user);
         return html::specialEncode($profile);
     }
