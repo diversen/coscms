@@ -102,6 +102,11 @@ class user {
         return self::$profile_object->getProfileInfo($user);
     }
     
+    public static function getProfileInfoEscaped ($user) {
+        $profile = self::getProfileInfo($user);
+        return html::specialEncode($profile);
+    }
+    
     /**
      * method for getting html for logging out a user. 
      * @param param $row
