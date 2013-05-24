@@ -95,10 +95,6 @@ class user {
      */
     public static function getProfileInfo ($user){
         self::initProfile();
-        if (!is_array($user)) {
-            $user = user::getAccount($user);
-        }
-
         return self::$profile_object->getProfileInfo($user);
     }
     
@@ -108,9 +104,6 @@ class user {
      * @return array $row 
      */
     public static function getProfileInfoEscaped ($user) {
-        if (!is_array($user)) {
-            $user = user::getAccount($user);
-        }
         $profile = self::getProfileInfo($user);
         return html::specialEncode($profile);
     }

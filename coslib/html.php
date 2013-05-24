@@ -704,7 +704,7 @@ EOF;
      * @param array $extra set extras e.g. array ('class' => 'action')
      * @return string 
      */
-    public static function checkboxClean ($name, $value = '1', $extra = array ()) {        
+    public static function checkboxClean ($name, $value = 0, $extra = array ()) {        
         $value = self::setValue($name, $value);
         if ($value){
             $extra['checked'] = "yes";
@@ -1101,7 +1101,7 @@ EOF;
      * @param mixed $values
      * @return mixed $values special encoded
      */
-    public static function specialEncode(&$values, $negative = array ()){
+    public static function specialEncode($values, $negative = array ()){
         if (is_array($values)){
             foreach($values as $key => $val){
                 if (in_array($key, $negative)) continue;
@@ -1125,7 +1125,7 @@ EOF;
      * @param mixed $values the values to be decoded
      * @return mixed $values the values decoded 
      */
-    public static function specialDecode(&$values){
+    public static function specialDecode($values){
         if (is_array($values)){
             foreach($values as $key => $val){
                 if (is_array($val)) {
@@ -1147,7 +1147,7 @@ EOF;
      * @param mixed $values the var to entity encode
      * @return mixed $values the encoded var
      */
-    public static function entitiesEncode(&$values){
+    public static function entitiesEncode($values){
         if (is_array($values)){
             foreach($values as $key => $val){
                 if (is_array($val)) {
@@ -1169,7 +1169,7 @@ EOF;
      * @param mixed $values the vars to decode
      * @return mixed $values the decoded vars 
      */
-    public static function entitiesDecode(&$values){
+    public static function entitiesDecode($values){
         if (is_array($values)){
             foreach($values as $key => $val){
                 if (is_array($val)) {
