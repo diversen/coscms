@@ -215,7 +215,57 @@ class template_assets extends template {
         return $str;
     }
     
-        /**
+    /**
+     * gets all css as a single string
+     * @return string $css
+     */
+    public static function getCssAsSingleStr () {
+        $str = '';
+        foreach (self::$css as $key => $val){
+            if (!strstr($val, "http://" || !strstr($val, 'https://')) ) {
+                unset(self::$css[$key]);
+                    
+                $file = _COS_HTDOCS . "$val";
+                    
+                $str.= "\n/* Caching $file*/\n";
+                if (!config::getMainIni('cache_disable')) {
+                    $str.= file::getCachedFile($file) ."\n\n\n";
+                } else {
+                    $str.= file_get_contents($file);
+                }
+            } 
+        }
+        
+        if (config::getMainIni('cached_assets_pack')) {
+            $str = csspacker::packcss($str);  
+        }
+        return $str;
+    }
+    
+    /**
+     * puts all css into one file, place this file in `cached_assets`
+     * sets the new css path
+     */
+    public static function setCssAsSingleFile () {
+        $str = self::getCssAsSingleStr ();
+            
+        $md5 = md5($str);
+        $domain = config::getDomain();
+            
+        $web_path = "/files/$domain/cached_assets"; 
+        $file = "/css_all-$md5.css";
+           
+        $full_path = _COS_HTDOCS . "/$web_path";
+        $full_file_path = $full_path . $file;
+            
+        // create file if it does not exist
+        if (!file_exists($full_file_path)) {                  
+            file_put_contents($full_file_path, $str, LOCK_EX);
+        }            
+        self::setCss($web_path . "$file"); 
+    }
+    
+    /**
      * takes all CSS and puts in one file. It works the same way as 
      * template::getCss. You can sepcify this in your ini settings by using
      * cached_assets_compress = 1
@@ -224,41 +274,11 @@ class template_assets extends template {
      */
     public static function getCompressedCss(){
         
-        $str = "";
+        //$str = "";
         ksort(self::$css);
         
         if (config::getMainIni('cached_assets_compress')) {
-            foreach (self::$css as $key => $val){
-                if (!strstr($val, "http://" || !strstr($val, 'https://')) ) {
-                    unset(self::$css[$key]);
-                    
-                    $file = _COS_HTDOCS . "$val";
-                    
-                    $str.= "\n/* Caching $file*/\n";
-                    if (!config::getMainIni('cache_disable')) {
-                        $str.= file::getCachedFile($file) ."\n\n\n";
-                    } else {
-                        $str.= file_get_contents($file);
-                    }
-                } 
-            }
-            
-            $md5 = md5($str);
-            $domain = config::getDomain();
-            
-            $web_path = "/files/$domain/cached_assets"; 
-            $file = "/css_all-$md5.css";
-           
-            $full_path = _COS_HTDOCS . "/$web_path";
-            $full_file_path = $full_path . $file;
-            
-            // create file if it does not exist
-            if (!file_exists($full_file_path)) {
-                $str = csspacker::packcss($str);                
-                file_put_contents($full_file_path, $str, LOCK_EX);
-            }
-            
-            self::setCss($web_path . "$file");   
+            self::setCssAsSingleFile();  
         } 
         
         ksort(self::$noCacheCss);
@@ -330,27 +350,23 @@ class template_assets extends template {
         return $str;
     }
     
-        /**
-     * takes all JS and puts them in one file. It works the same way as 
-     * template::getJs (except you only get one file) 
-     * You can sepcify this in your ini settings by using
-     * cached_assets_compress = 1
-     * Usefull if you have many JS files. 
-     * @return string $str
+    /**
+     * gets all css as a single string
+     * @return string $css
      */
-    public static function getCompressedJs(){
-        
-        $str = "";
-        ksort(self::$js);
-        
-        if (config::getMainIni('cached_assets_compress')) {
-            foreach (self::$js as $key => $val){
-                if (!strstr($val, "http://") ) {
+    public static function getJsAsSingleStr () {
+        $str = '';
+        foreach (self::$js as $key => $val){
+                if (!strstr($val, "http://") || !strstr($val, "https://")) {
                     unset(self::$js[$key]);
                     $str.= file::getCachedFile(_COS_HTDOCS . "/$val") ."\n\n\n";
                 }
             }
-            
+            return $str;
+    }
+    
+    public static function setJsAsSingleFile () {
+        $str = self::getJsAsSingleStr();
             $md5 = md5($str);
             $domain = config::getDomain();
             
@@ -368,6 +384,23 @@ class template_assets extends template {
                 file_put_contents($full_file_path, $str, LOCK_EX);
             }
             self::setJs($web_path . $file);
+    }
+    /**
+     * takes all JS and puts them in one file. It works the same way as 
+     * template::getJs (except you only get one file) 
+     * You can sepcify this in your ini settings by using
+     * cached_assets_compress = 1
+     * Usefull if you have many JS files. 
+     * @return string $str
+     */
+    public static function getCompressedJs(){
+        
+        $str = "";
+        ksort(self::$js);
+        
+        if (config::getMainIni('cached_assets_compress')) {
+            self::setJsAsSingleFile();
+            
         }
                  
         return self::getJs();    
