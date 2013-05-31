@@ -5,7 +5,7 @@ $_PROFILE_MODULES = array (
   array (
     'id' => '1',
     'module_name' => 'system',
-    'module_version' => '2.1',
+    'module_version' => '2.12',
     'menu_item' => '0',
     'run_level' => '0',
     'load_on' => NULL,
@@ -263,7 +263,7 @@ $_PROFILE_MODULES = array (
   ),
   20 => 
   array (
-    'id' => '22',
+    'id' => '21',
     'module_name' => 'share',
     'module_version' => '2.1',
     'menu_item' => '1',
@@ -276,7 +276,7 @@ $_PROFILE_MODULES = array (
   ),
   21 => 
   array (
-    'id' => '23',
+    'id' => '22',
     'module_name' => 'rewrite',
     'module_version' => '2.1',
     'menu_item' => '0',
@@ -289,7 +289,7 @@ $_PROFILE_MODULES = array (
   ),
   22 => 
   array (
-    'id' => '24',
+    'id' => '23',
     'module_name' => 'google_analytics',
     'module_version' => '2.1',
     'menu_item' => '1',
@@ -302,7 +302,7 @@ $_PROFILE_MODULES = array (
   ),
   23 => 
   array (
-    'id' => '25',
+    'id' => '24',
     'module_name' => 'tags',
     'module_version' => '2.11',
     'menu_item' => '1',
@@ -315,7 +315,7 @@ $_PROFILE_MODULES = array (
   ),
   24 => 
   array (
-    'id' => '26',
+    'id' => '25',
     'module_name' => 'counter',
     'module_version' => '2.1',
     'menu_item' => '0',
@@ -328,7 +328,7 @@ $_PROFILE_MODULES = array (
   ),
   25 => 
   array (
-    'id' => '27',
+    'id' => '26',
     'module_name' => 'account_profile',
     'module_version' => '2.1',
     'menu_item' => '1',
@@ -338,19 +338,6 @@ $_PROFILE_MODULES = array (
     'is_shell' => NULL,
     'public_clone_url' => 'git://github.com/diversen/account_profile.git',
     'private_clone_url' => 'git@github.com:diversen/account_profile.git',
-  ),
-  26 => 
-  array (
-    'id' => '31',
-    'module_name' => 'gallery',
-    'module_version' => '2.11',
-    'menu_item' => '1',
-    'run_level' => '0',
-    'load_on' => NULL,
-    'parent' => NULL,
-    'is_shell' => NULL,
-    'public_clone_url' => 'git://github.com/diversen/gallery.git',
-    'private_clone_url' => 'git@github.com:diversen/gallery.git',
   ),
 );
 
