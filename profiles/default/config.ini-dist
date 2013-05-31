@@ -37,5 +37,4 @@ server_redirect = "defpro"
 [development]
 cache_disable = 0
 cached_assets_reload = 1
-;server_redirect = "osnet"
 hostname = "dennis-Rev-1-0"

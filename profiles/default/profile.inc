@@ -339,6 +339,19 @@ $_PROFILE_MODULES = array (
     'public_clone_url' => 'git://github.com/diversen/account_profile.git',
     'private_clone_url' => 'git@github.com:diversen/account_profile.git',
   ),
+  26 => 
+  array (
+    'id' => '27',
+    'module_name' => 'gallery',
+    'module_version' => '2.11',
+    'menu_item' => '1',
+    'run_level' => '0',
+    'load_on' => NULL,
+    'parent' => NULL,
+    'is_shell' => NULL,
+    'public_clone_url' => 'git://github.com/diversen/gallery.git',
+    'private_clone_url' => 'git@github.com:diversen/gallery.git',
+  ),
 );
 
 $_PROFILE_TEMPLATES = array (
