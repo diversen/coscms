@@ -222,7 +222,7 @@ class template_assets extends template {
     public static function getCssAsSingleStr () {
         $str = '';
         foreach (self::$css as $key => $val){
-            if (!strstr($val, "http://" || !strstr($val, 'https://')) ) {
+            if (!preg_match('/^(http|https):/', $val) ) {
                 unset(self::$css[$key]);
                     
                 $file = _COS_HTDOCS . "$val";
@@ -357,7 +357,7 @@ class template_assets extends template {
     public static function getJsAsSingleStr () {
         $str = '';
         foreach (self::$js as $key => $val){
-                if (!strstr($val, "http://") || !strstr($val, "https://")) {
+                if (!preg_match('/^(http|https):/', $val) ) {
                     unset(self::$js[$key]);
                     $str.= file::getCachedFile(_COS_HTDOCS . "/$val") ."\n\n\n";
                 }
