@@ -577,10 +577,19 @@ class config {
     */
     public static function getFullFilesPath ($file = null) {
         $domain = config::getMainIni('domain');
-        if ($domain == 'default') {
-            $files_path = _COS_HTDOCS . "/files/default";
+        
+        // check if special files_storage config is set
+        $storage = config::getMainIni('files_storage');
+        if ($storage) {
+            $files_path = $storage;
         } else {
-            $files_path = _COS_HTDOCS . "/files/$domain";
+            $files_path = _COS_HTDOCS . "/files";
+        }
+        
+        if ($domain == 'default') {
+            $files_path.= "/default";
+        } else {
+            $files_path.= "/$domain";
         }
         
         if ($file) {
