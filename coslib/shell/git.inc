@@ -132,7 +132,7 @@ function cos_git_clone($options, $type){
         $git_folder = $repo_dir . "/.git";
         if (file_exists($git_folder)){
             // repo exists. We pull changes and set version
-            $git_command = "cd $repo_dir && git pull && git checkout $checkout";
+            $git_command = "cd $repo_dir && git checkout master && git pull && git checkout $checkout";
         } else {
             // no git repo - empty dir we presume.
             $git_command = "cd $clone_path && git clone $options[repo] && cd $module_name && git checkout $checkout";
