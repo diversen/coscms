@@ -33,6 +33,7 @@ media_width = 600
 blocks_all = "blocks_top,blocks"
 blocks_top[0] = "/system/blocks/system_admin_menu_top.inc"
 blocks[1] = "/content/blocks/content_tree_keep_state.inc"
+server_redirect = "default"
 [development]
 cache_disable = 0
 cached_assets_reload = 1

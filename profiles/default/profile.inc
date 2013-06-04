@@ -5,7 +5,7 @@ $_PROFILE_MODULES = array (
   array (
     'id' => '1',
     'module_name' => 'system',
-    'module_version' => '2.3',
+    'module_version' => '2.31',
     'menu_item' => '0',
     'run_level' => '0',
     'load_on' => NULL,
@@ -18,7 +18,7 @@ $_PROFILE_MODULES = array (
   array (
     'id' => '2',
     'module_name' => 'settings',
-    'module_version' => '2.3',
+    'module_version' => '2.31',
     'menu_item' => '0',
     'run_level' => '0',
     'load_on' => NULL,
@@ -44,7 +44,7 @@ $_PROFILE_MODULES = array (
   array (
     'id' => '4',
     'module_name' => 'content',
-    'module_version' => '2.3',
+    'module_version' => '2.31',
     'menu_item' => '1',
     'run_level' => '0',
     'load_on' => NULL,
@@ -315,7 +315,7 @@ $_PROFILE_MODULES = array (
   ),
   24 => 
   array (
-    'id' => '26',
+    'id' => '25',
     'module_name' => 'account_profile',
     'module_version' => '2.3',
     'menu_item' => '1',
@@ -328,7 +328,7 @@ $_PROFILE_MODULES = array (
   ),
   25 => 
   array (
-    'id' => '27',
+    'id' => '26',
     'module_name' => 'gallery',
     'module_version' => '2.3',
     'menu_item' => '1',
@@ -341,7 +341,7 @@ $_PROFILE_MODULES = array (
   ),
   26 => 
   array (
-    'id' => '28',
+    'id' => '27',
     'module_name' => 'counter',
     'module_version' => '2.3',
     'menu_item' => '0',
