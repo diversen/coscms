@@ -274,15 +274,16 @@ function cos_git_tag ($val, $type = 'module'){
         return;
     }
     
+    $git_command = "cd $repo_path && git add . && git commit -m \"$val[new_version]\" && git push $val[private_clone_url]";
+    proc_close(proc_open($git_command, array(0 => STDIN, 1 => STDOUT, 2 => STDERR), $pipes));
     
-
-    $git_command = "cd $repo_path && git tag -a \"$val[new_version]\"";
+    $git_command = "cd $repo_path && git tag -a \"$val[new_version]\" -m \"$val[new_version]\"";
     proc_close(proc_open($git_command, array(0 => STDIN, 1 => STDOUT, 2 => STDERR), $pipes));
 
     $git_command = "cd $repo_path && git push --tags $val[private_clone_url]";
     passthru($git_command);
 
-    print "\n---\n";
+    echo "\n---\n";
 }
 
 /**
