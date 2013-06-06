@@ -202,10 +202,12 @@ EOF;
             // database than the default. E.g.: multi domains.
 
             $verbose = $result->options['verbose'];
-            config::setMainIni('verbose', $verbose);
+            config::$vars['verbose'] = $verbose;
 
             // check domain
-            $domain = $result->options['domain'];            
+            $domain = $result->options['domain'];
+            config::$vars['domain'] = $domain;
+         
             
             if ($domain != 'default' || empty($domain)) {
                 $domain_ini = _COS_PATH . "/config/multi/$domain/config.ini";
