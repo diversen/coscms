@@ -221,6 +221,7 @@ class config {
      */
     public static function serverMatch ($server_name) {
         if(!function_exists('fnmatch')) {
+            // From: http://www.php.net/manual/en/function.fnmatch.php#71725
             function fnmatch($pattern, $string) {
                 return preg_match("#^".strtr(preg_quote($pattern, '#'), array('\*' => '.*', '\?' => '.'))."$#i", $string);
             } 
