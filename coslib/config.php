@@ -215,6 +215,27 @@ class config {
     public static $env = null;
     
     /**
+     * try to match ini settings server name with $_SERVER['SERVER_NAME'] 
+     * @param string $domain e.g. *.testserver or *.realserver.com
+     * @return boolean $res true if there is a wildcard match else false
+     */
+    public static function serverMatch ($server_name) {
+        if(!function_exists('fnmatch')) {
+            function fnmatch($pattern, $string) {
+                return preg_match("#^".strtr(preg_quote($pattern, '#'), array('\*' => '.*', '\?' => '.'))."$#i", $string);
+            } 
+        } 
+        
+        if ($server_name == $_SERVER['SERVER_NAME']) {
+            return true;
+        }
+        
+        if (fnmatch("*.$server_name", $_SERVER['SERVER_NAME'])) {
+            return true;
+        }
+        return false;
+    }
+    /**
      * get environemnt - production, stage, or development
      * This is called just after main ini has been loaded
      * We set the static var self::$env after first load as 
@@ -231,24 +252,21 @@ class config {
         
         if (!config::isCli()) {
 
-            if ( config::$vars['coscms_main']['server_name'] ==
-                    $_SERVER['SERVER_NAME'] ) {
+            if ( self::serverMatch(config::$vars['coscms_main']['server_name']) ) {
                 self::$env = 'production';
                 return       'production';
             }
 
 
             if (isset(config::$vars['coscms_main']['stage'])){
-                    if ( config::$vars['coscms_main']['stage']['server_name'] ==
-                            $_SERVER['SERVER_NAME']) {
+                    if ( self::serverMatch(config::$vars['coscms_main']['stage']['server_name'])) {
                         self::$env = 'stage';
                         return       'stage';
                     }
             }
 
             if (isset(config::$vars['coscms_main']['development'])){
-                    if ( config::$vars['coscms_main']['development']['server_name'] ==
-                            $_SERVER['SERVER_NAME']) {
+                    if ( self::serverMatch(config::$vars['coscms_main']['development']['server_name'])) {
                         self::$env = 'development';
                         return       'development';
                     }
@@ -269,10 +287,7 @@ class config {
                 }
             }
         }
-
     }
-    
-    
     
     /**
      * Function for loading the main config file
