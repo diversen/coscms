@@ -1017,7 +1017,9 @@ EOF;
     }
 
     /**
-     * method for creating a html link
+     * method for creating a html link. It will check with the rewrite module
+     * to see if the url has been rewritten (if the module is installed). Use
+     * createLinkSimple if you just need a link without any side effects. 
      * @param string $url the a href attribute
      * @param string $title the value of the link
      * @param array  $options e.g. css class or javascript actions, e.g. ('class' => 'error')
@@ -1049,8 +1051,14 @@ EOF;
         }
 
         $options = self::parseExtra($options);
-        $str = "<a href=\"$url\" $options>$title</a>";
-        return $str;
+        $link = "<a href=\"$url\" $options>$title</a>";
+        return $link;
+    }
+    
+    public static function createLinkSimple ($url, $title, $options = array ()) {
+        $options = self::parseExtra($options);
+        $link = "<a href=\"$url\" $options>$title</a>";
+        return $link;
     }
 
     /**
