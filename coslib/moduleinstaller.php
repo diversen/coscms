@@ -266,8 +266,7 @@ class moduleinstaller extends db {
      */
     public function reloadConfig () {
         $modules = $this->getModules();
-        foreach ($modules as $key => $val){
-            //@include config::getModulePath($val['module_name']) . "/install.inc";
+        foreach ($modules as $val){
             $this->setInstallInfo($options = array ('module' => $val['module_name']));
             if (isset($this->installInfo['IS_SHELL']) && $this->installInfo['IS_SHELL'] == '1') {
                 $this->update(

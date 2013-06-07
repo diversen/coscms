@@ -1,17 +1,16 @@
 <?php
 
 /**
- * File containing documentation functions for shell mode
+ * File contains shell commands for apache2 on Debian systems for fast
+ * creating of apache2 web hosts
  *
  * @package     shell
  */
-// {{{ function create_logs ()
+
 /**
  * create apache log files
  */
-function cos_create_logs(){
-    
-    
+function cos_create_logs(){ 
     touch(_COS_PATH . '/logs/access.log');
     touch(_COS_PATH . '/logs/error.log');
 }
@@ -19,8 +18,8 @@ function cos_create_logs(){
 /**
  * create apache2 configuration string
  * Note: we don't use the _COS_HTDOCS path. 
- * @param   string  name of host to enable
- * @return  string  a apache2 configuration string.
+ * @param   string  $server_name the host to enable
+ * @return  string  $config an apache2 configuration string.
  */
 function cos_create_a2_conf($SERVER_NAME){
     $current_dir = getcwd();
@@ -29,19 +28,14 @@ function cos_create_a2_conf($SERVER_NAME){
     
     if (isset(config::$vars['a2_use_ssl'])) {
         include "scripts/apache2/apache2-ssl.inc";
-
-        
     } else {
         include "scripts/apache2/apache2.inc";
     }
-    
     return $apache_str;
 }
-// }}}
 
-// {{{ a2_enable_site($options)
 /**
- * function for enabling a apche2 site
+ * function for enabling a aapche2 site
  * the script does the following:
  *
  * - create access.log and error.log in ./logs
@@ -73,23 +67,12 @@ function cos_a2_enable_site($options){
         $new_hosts_file_str = $host_str . $hosts_file_str;
         file_put_contents("tmp/hosts", $new_hosts_file_str);
         cos_exec("cp -f tmp/hosts /etc/hosts");
-        //cos_exec("rm tmp/hosts tmp/$hostname"); 
     }
-    
     cos_exec("/etc/init.d/apache2 restart");
-    
 }
 
-
-
 /**
- * function for enabling a apche2 site
- * the script does the following:
- *
- * - create access.log and error.log in ./logs
- * - create virtual configuration and put it in sites-available
- * - enable new site
- * - create new /etc/hosts file
+ * function for disabling an apache2 site
  *
  * @param   array   options only options is $options[sitename] 
  */
@@ -104,11 +87,9 @@ function cos_a2_disable_site($options){
     $ret = cos_exec("rm -f $apache2_conf_file");
 
     // create new hosts file and reload server
-
     $host_file_str = '';
     $hosts_file_str = file("/etc/hosts");
 
-    
     $host_search = "127.0.0.1\t$hostname\n";
     $str="";
     foreach ($hosts_file_str as $key => $val){
@@ -120,11 +101,13 @@ function cos_a2_disable_site($options){
     }
     file_put_contents("tmp/hosts", $host_file_str);
     cos_exec("cp -f tmp/hosts /etc/hosts");
-    cos_exec("/etc/init.d/apache2 restart");
-    //cos_exec("rm tmp/hosts"); 
 
 }
-// }}}
+
+/**
+ * sets a flag indicating to use apache2 with SSL
+ * @param array $options
+ */
 function cos_a2_use_ssl ($options) {
     config::$vars['a2_use_ssl'] = true;
 }
@@ -150,8 +133,6 @@ mainCli::setOption('cos_a2_disable_site', array(
     'description' => 'Will disable current directory as an apache2 virtual host, and remove sitename from /etc/hosts files',
     'action'      => 'StoreTrue'
 ));
-
-
 
 mainCli::setArgument(
     'hostname',

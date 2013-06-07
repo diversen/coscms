@@ -176,9 +176,6 @@ mainCli::setOption('cos_config_reload', array(
     'action'      => 'StoreTrue'
 ));
 
-
-
-
 mainCli::setArgument('profile',
     array('description'=> 'specify the profile to install',
           'optional' => true));

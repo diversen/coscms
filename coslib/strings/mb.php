@@ -1,7 +1,13 @@
 <?php
 
 /**
- * specific mb helper methods
+ * File contains contains class for converting between charset
+ * @package strings
+ */
+
+/**
+ * Class contains contains class for converting between charset
+ * @package strings
  */
 class strings_mb {
     
@@ -18,18 +24,22 @@ class strings_mb {
         return strtolower($str);
     }
     
+    /**
+     * get all built-in encodings as array
+     * @return array $ary
+     */
     public static function getEncodingsAry () {
-        static $list = null;
-        if (!$list) {
-            $list = mb_list_encodings();
+        static $ary = null;
+        if (!$ary) {
+            $ary = mb_list_encodings();
         }
-        return $list;
+        return $ary;
     }
     
     /**
-     * get encoding of a string
+     * get encoding of a single string
      * @param string $str
-     * @return encoding $res e.g. ISO-8859-1 or UTF8
+     * @return mixed $res encoding (e.g. ISO-8859-1 or UTF8) or false
      */
     public static function getEncoding ($str) {
         $list = self::getEncodingsAry();
@@ -38,10 +48,10 @@ class strings_mb {
     }
     
     /**
-     * convets from UTF-8 to given charset
+     * convets a string from UTF-8 to given charset
      * @param string $content UTF-8 string
      * @param string $charset e.g. ISO-8859-1
-     * @return type
+     * @return string $content the string converted to specified charset
      */
     public static function toCharset($content, $charset) {
         $content = mb_convert_encoding($content, $charset, 'UTF-8');
@@ -49,16 +59,15 @@ class strings_mb {
     } 
     
     /**
-     * 
+     * converts a array of strings to utf8
      * @param array $ary input array
-     * @return array  $ary utf8 arrau
+     * @return array  $ary utf8 array
      */
     public static function toUTF8Ary ($ary) {
         $new = array ();
         foreach ($ary as $key => $val) {
             $new[$key] = strings::toUTF8($val);
         }
-        return $new;
-        
+        return $new;       
     }
 }

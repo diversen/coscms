@@ -21,12 +21,12 @@
  * in the options array, the archive will be named after current timestamp, e.g.
  * backup/full/1264168904.tar
  *
- * @param   array   options to parser, e.g.
+ * @param   array   $options options to parser, e.g.
  *                  <code>array('File' => 'backup/full/latest.tar')</code> This will create
  *                  the backup file backup/full/latest.tar
  *                  Leave options empty if you want to use current timestamp for 
  *                  your achive.
- * @return  int     the executed commands shell status 0 on success. 
+ * @return  int     $int the executed commands shell status. 0 on success. 
  */
 function backup_backup($options){
     cos_needs_root();
@@ -43,12 +43,8 @@ function backup_backup($options){
 }
 
 /**
- * function for generaing tar archives
+ * function for generaing tar archives of files
  *
- * All file settings are preserved. Archive will be placed in /backup/full dir.
- * You can specifiy an exact filename in options. If you don't use a filename
- * in the options array, the archive will be named after current timestamp, e.g.
- * backup/full/1264168904.tar
  *
  * @param   array   options to parser, e.g.
  *                  <code>array('File' => 'backup/full/latest.tar')</code> This will create

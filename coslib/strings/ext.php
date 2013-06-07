@@ -1,5 +1,15 @@
 <?php
 
+/**
+ * File contains contains with few extension of the base string class
+ * @package strings
+ */
+
+/**
+ * Class contains contains with few extension of the base string class
+ * @package strings
+ */
+
 class strings_ext {
     
     /** 
