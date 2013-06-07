@@ -19,13 +19,13 @@ class log {
      * @param string $message
      * @param boolean $write_file
      */
-    public static function error ($message, $write_file = true) {
+    public static function error ($message, $write_file = true, $echo = true) {
               
         if (!is_string($message)) {
             $message = var_export($message, true);
         }
 
-        if (config::getMainIni('debug')) {
+        if (config::getMainIni('debug') && $echo == true) {
             if (config::isCli()) {
                 echo $message . PHP_EOL;
             } else {

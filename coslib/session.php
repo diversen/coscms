@@ -19,9 +19,8 @@ class session {
      */
     public static function initSession(){
         
-        session::setSessionIni();
-        session::setSessinHandler();
-
+        session::setSessionIni(); 
+        session::setSessionHandler();
         session_start();
         session::checkSystemCookie();
 
@@ -50,27 +49,46 @@ class session {
      */
     public static function setSessionIni () {
         
-        // figure out session time
+        // session host. Use .example.com if you want to allow session
+        // accross sub domains. Interesting: You can not use testserver
+        // server without country part)
+        
+        $session_host = config::getMainIni('session_host');
+        if ($session_host){
+            ini_set("session.cookie_domain", $session_host);
+        }
+        
+        // session time
         $session_time = config::getMainIni('session_time');
         if (!$session_time) $session_time = '0';
         ini_set("session.cookie_lifetime", $session_time);
 
+        // session path
         $session_path = config::getMainIni('session_path');
         if ($session_path) {
             ini_set("session.cookie_path", $session_path);
         }
 
-        $session_host = config::getMainIni('session_host');
-        if ($session_host){
-            ini_set("session.cookie_domain", $session_host);
+        // secure session
+        $session_secure = config::getMainIni('session_secure');
+        if ($session_secure) { 
+            ini_set("session.cookie_secure", true);
+        } else {
+            ini_set("session.cookie_secure", false);
         }
+
+        // set a session name. You need this if the session 
+        // should cross sub domains
+        $session_name = config::getMainIni('session_name');
+        if ($session_name) session_name($session_name);
+        
     }
     
     /**
      * sets session handler. 
      * only memcahce if supported
      */
-    public static function setSessinHandler () {
+    public static function setSessionHandler () {
         
         // use memcache if available
         $handler = config::getMainIni('session_handler');
@@ -105,7 +123,7 @@ class session {
     public static function checkSystemCookie(){
         
         if (isset($_COOKIE['system_cookie'])){
-
+            
             // user is in session. Can only be this after first request. 
             if (isset($_SESSION['in_session'])){
                 return;
@@ -139,11 +157,9 @@ class session {
                 
                 // update new cookie id in db
                 $db->update('system_cookie', $values, $search);
+
                 
-                // update browser cookie
-                $cookie_time = session::getCookiePersistentSecs();              
-                $timestamp = time() + $cookie_time;
-                setcookie('system_cookie', $new_cookie_id, $timestamp, '/');
+                self::setCookie('system_cookie', $new_cookie_id);
                 
                 // get account which is connected to account id
                 $account = $db->selectOne('account', 'id', $row['account_id']);
@@ -172,9 +188,29 @@ class session {
                     $_SESSION['type'] = 'anon';
                 }
             } 
-        } else {
-            
         }
+    }
+    
+    /**
+     * sets a cookie based on main configuration
+     * @param string $name
+     * @param string $value
+     * @param string $path
+     */
+    public static function setCookie ($name, $value, $path = '/') {
+
+        $cookie_time = session::getCookiePersistentSecs();              
+        $timestamp = time() + $cookie_time;        
+        $session_host = config::getMainIni('session_host');
+        
+        // secure session
+        $session_secure = config::getMainIni('session_secure');
+        if ($session_secure) { 
+            $secure = true;
+        } else {
+            $secure = false;
+        }        
+        setcookie($name, $value, $timestamp, $path, $session_host, $secure);
     }
 
     /**
@@ -184,17 +220,10 @@ class session {
      */
     public static function setSystemCookie($user_id){
 
-        $uniqid = random::md5();  
-        
-        $cookie_time = session::getCookiePersistentSecs();              
-        
-        $timestamp = time() + $cookie_time;
-        setcookie('system_cookie', $uniqid, $timestamp, '/');
+        $uniqid = random::md5();
+        self::setCookie('system_cookie', $uniqid);
         
         $db = new db();
-        
-        // cookie_id is indexed with KEY `cookie_id_index` (`cookie_id`)
-        $row = $db->selectOne ('system_cookie', 'cookie_id', @$_COOKIE['system_cookie']);
 
         // place cookie in system cookie table
         // last login is auto updated
