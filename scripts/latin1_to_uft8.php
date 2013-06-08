@@ -10,7 +10,9 @@
  * git clone git://github.com/diversen/coscms.git
  * 
  * cp config/config.ini-dist config/config.ini
- * 
+ *  
+ * cd coscms
+ *
  * and edit config/config.ini 
  * 
  * set: 
