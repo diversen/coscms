@@ -415,6 +415,7 @@ class profile  {
             'ssh_host',
             'ssh_port',
             'account_facebook_api_secret',
+            'account_github_secret',
             'imap_user',
             'imap_password'           
         );
