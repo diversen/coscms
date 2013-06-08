@@ -113,9 +113,9 @@ class user {
      * @param param $row
      * @return string $html
      */
-    public static function getLogoutHTML ($row, $type = null) {        
+    public static function getLogoutHTML ($row) {        
         self::initProfile();
-        return self::$profile_object->getLogoutHTML($row, $type);
+        return self::$profile_object->getLogoutHTML($row);
     }
     
     /**

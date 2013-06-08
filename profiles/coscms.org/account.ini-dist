@@ -1,13 +1,18 @@
 account_allow_edit = "super"
-account_show_menu = ""
 account_show_admin_link = "super"
-account_default_url = "/account/login/index"
+account_default_url = "/account/lightopenid/index"
 account_facebook_api_secret = ""
-account_facebook_api_appid = 269965633048607
+account_facebook_api_appid = "appid"
+account_github_id = "1ebdb8c1e2d239019a27"
+account_github_secret = "44cee0311a019745e4a6159ecedc6d471ed3be26"
+account_github_scope = ""
 account_allow_create = "anon"
 account_disable_admin_interface = 0
 account_admin_only = 0
-account_logins[0] = "email"
-account_logins[1] = "lightopenid"
-account_auto_merge[0] = "facebook.com"
-account_auto_merge[1] = "google.com"
+account_needs_email = 0
+account_logins[0] = "lightopenid"
+account_logins[1] = "email"
+account_logins[2] = "github"
+account_auto_merge[2] = "github.com"
+[development]
+account_needs_email = 0
