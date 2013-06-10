@@ -478,6 +478,11 @@ class layout {
 
 
             $str.="<li>";
+            
+            if (isset($v['canonical'])) {
+                $v['url'] = config::getMainIni('server_name_canonical') . $v['url'];
+            }
+            
             $link = html::createLink( $v['url'], $v['title']);
             $str.=  $link;
             if (isset($v['sub'])){
