@@ -3,19 +3,27 @@
 /**
  * file contains function for getting dial code info from 
  * country filter
- * @package intl phone 
+ * @package intl 
  */
 
 /**
- * function for getting country information about dial code used
- * 
- * http://ninetwozero.com/2011/12/04/php-country-array-with-dial-codes/
- * 
- * @param type $filter short country name or country name
- * @return array $dial_code info
+ * class contains function for getting dial code info from 
+ * country filter
+ * @package intl 
  */
-function getCountryInformation($filter = '') {
- 
+
+class intl_phone {
+
+    /**
+     * function for getting country information about dial code used
+     * 
+     * http://ninetwozero.com/2011/12/04/php-country-array-with-dial-codes/
+     * 
+     * @param type $filter short country name or country name
+     * @return array $dial_code info
+     */
+    public static function getCountryInformation($filter = '') {
+
             //Let's define the array
             $countryArray = array(
                 'AD' => array(
@@ -941,3 +949,4 @@ function getCountryInformation($filter = '') {
                 isset($countryArray[$filter]) ? $countryArray[$filter] : null
             );
         }
+}
