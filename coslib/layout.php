@@ -514,6 +514,12 @@ class layout {
             if ($num_items && ($num_items != $ex) ){
                 $str .= MENU_SUB_SEPARATOR;
             }
+            
+            
+            if (isset($v['canonical'])) {
+                $v['url'] = config::getMainIni('server_name_canonical') . $v['url'];
+            }
+            
             $num_items--;       
             $str .= html::createLink($v['url'], $v['title']);
             $str.= "</li>\n";
@@ -540,7 +546,7 @@ class layout {
         $str = '';              
         $num_items = $ex = count(self::$menu['extra']);
 
-        foreach(self::$menu['extra'] as $k => $v){         
+        foreach(self::$menu['extra'] as $v){         
             $str.= "<li>";
             if ($num_items && ($num_items != $ex) ){
                 $str .= MENU_SUB_SEPARATOR;
