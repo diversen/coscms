@@ -469,7 +469,7 @@ class layout {
         $menu = array();
         $menu = self::$menu['main'];
         $str = $css = '';
-        foreach($menu as $k => $v){
+        foreach($menu as $v){
             if ( !empty($v['auth'])){
                 if (!session::isUser()) continue;
                 if (!session::isAdmin() && $v['auth'] == 'admin') continue;
