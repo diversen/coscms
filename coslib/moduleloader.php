@@ -903,11 +903,11 @@ class moduleloader {
         // new include style
         $module_file = _COS_MOD_PATH . "/$module/module.php";
         if (file_exists($module_file)) {
+            $modules[$module] = true;
             include_once $module_file;
             return true;
         }
         
-            
         // old include style
         $module_path = _COS_MOD_PATH . '/' . $module;
 
@@ -915,11 +915,10 @@ class moduleloader {
         $model_file = $module_path . '/' . "model.$load.inc";  
         $view_file = $module_path . '/' . "view.$load.inc";
         
-        if (file_exists($view_file)){
-            include_once $view_file;
-        }
-        
-        if (file_exists($model_file)){  
+        if (file_exists($model_file)){           
+            if (file_exists($view_file)){
+                include_once $view_file;
+            }
             include_once $model_file;
             $modules[$module] = true;            
             return true;
