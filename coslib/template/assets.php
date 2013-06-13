@@ -301,17 +301,21 @@ class template_assets extends template {
     public static function setStringJs($js, $order = null, $options = array()){
         
         if (isset($options['search'])){
-            $js = str_replace($options['search'], $options['replace'], $str);
+            $js = str_replace($options['search'], $options['replace'], $js);
         }
         
         if (isset($order)){
+            if (isset(self::$inlineJs[$order])) {
+                self::setStringJs($js, $order +1);
+            }
             self::$inlineJs[$order] = $js;
+            
         } else {
             self::$inlineJs[] = $js;
         }
     }
     
-        /**
+    /**
      * method for setting js files to be used by user templates. This is
      * used with javascripts which are placed in web space.
      * @param   string   $js_url pointing to the path of the javascript
@@ -334,6 +338,10 @@ class template_assets extends template {
         } else {
             self::$js[] = $js_url;
         }
+    }
+    
+    public static function setJsHead ($js_url, $order = null) {
+        self::setJs($js_url, $order, array ('head' => true));
     }
     
     /**

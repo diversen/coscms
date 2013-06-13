@@ -4,10 +4,10 @@
 class autolink {
 
     /**
-*
-* @param strin $text to filter
-* @return string $text
-*/
+    *
+    * @param strin $text to filter
+    * @return string $text
+    */
     public static function filter($text){
         
        $text = self::setLinks($text);

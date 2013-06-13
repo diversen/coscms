@@ -1074,7 +1074,7 @@ class moduleloader {
             }
             return $content;
         }
-    return '';;
+    return '';
     }
 }
 
