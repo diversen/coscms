@@ -5,7 +5,7 @@ $_PROFILE_MODULES = array (
   array (
     'id' => '1',
     'module_name' => 'system',
-    'module_version' => '2.1',
+    'module_version' => '2.31',
     'menu_item' => '1',
     'run_level' => '0',
     'load_on' => NULL,
@@ -18,7 +18,7 @@ $_PROFILE_MODULES = array (
   array (
     'id' => '2',
     'module_name' => 'settings',
-    'module_version' => '2.1',
+    'module_version' => '2.31',
     'menu_item' => '1',
     'run_level' => '0',
     'load_on' => NULL,
@@ -31,7 +31,7 @@ $_PROFILE_MODULES = array (
   array (
     'id' => '3',
     'module_name' => 'error',
-    'module_version' => '2.1',
+    'module_version' => '2.3',
     'menu_item' => '0',
     'run_level' => '0',
     'load_on' => NULL,
@@ -44,7 +44,7 @@ $_PROFILE_MODULES = array (
   array (
     'id' => '4',
     'module_name' => 'content',
-    'module_version' => '2.1',
+    'module_version' => '2.32',
     'menu_item' => '1',
     'run_level' => '0',
     'load_on' => NULL,
@@ -57,7 +57,7 @@ $_PROFILE_MODULES = array (
   array (
     'id' => '5',
     'module_name' => 'files',
-    'module_version' => '2.1',
+    'module_version' => '2.3',
     'menu_item' => '0',
     'run_level' => '0',
     'load_on' => NULL,
@@ -70,7 +70,7 @@ $_PROFILE_MODULES = array (
   array (
     'id' => '6',
     'module_name' => 'account',
-    'module_version' => '2.1',
+    'module_version' => '2.3',
     'menu_item' => '1',
     'run_level' => '0',
     'load_on' => NULL,
@@ -83,7 +83,7 @@ $_PROFILE_MODULES = array (
   array (
     'id' => '7',
     'module_name' => 'google_analytics',
-    'module_version' => '2.1',
+    'module_version' => '2.3',
     'menu_item' => '0',
     'run_level' => '5',
     'load_on' => NULL,
@@ -96,7 +96,7 @@ $_PROFILE_MODULES = array (
   array (
     'id' => '8',
     'module_name' => 'account_profile',
-    'module_version' => '2.1',
+    'module_version' => '2.3',
     'menu_item' => '0',
     'run_level' => '0',
     'load_on' => NULL,
@@ -109,7 +109,7 @@ $_PROFILE_MODULES = array (
   array (
     'id' => '14',
     'module_name' => 'comment',
-    'module_version' => '2.1',
+    'module_version' => '2.3',
     'menu_item' => '1',
     'run_level' => '0',
     'load_on' => NULL,
@@ -122,7 +122,7 @@ $_PROFILE_MODULES = array (
   array (
     'id' => '15',
     'module_name' => 'tags',
-    'module_version' => '2.1',
+    'module_version' => '2.3',
     'menu_item' => '1',
     'run_level' => '0',
     'load_on' => NULL,
@@ -135,7 +135,7 @@ $_PROFILE_MODULES = array (
   array (
     'id' => '16',
     'module_name' => 'blog',
-    'module_version' => '2.1',
+    'module_version' => '2.3',
     'menu_item' => '1',
     'run_level' => '0',
     'load_on' => NULL,
@@ -148,7 +148,7 @@ $_PROFILE_MODULES = array (
   array (
     'id' => '17',
     'module_name' => 'remote',
-    'module_version' => '2.1',
+    'module_version' => '2.3',
     'menu_item' => '0',
     'run_level' => '0',
     'load_on' => NULL,
@@ -161,7 +161,7 @@ $_PROFILE_MODULES = array (
   array (
     'id' => '18',
     'module_name' => 'rss',
-    'module_version' => '2.1',
+    'module_version' => '2.3',
     'menu_item' => '0',
     'run_level' => '0',
     'load_on' => NULL,
@@ -174,7 +174,7 @@ $_PROFILE_MODULES = array (
   array (
     'id' => '19',
     'module_name' => 'addthis',
-    'module_version' => '2.1',
+    'module_version' => '2.3',
     'menu_item' => '0',
     'run_level' => '0',
     'load_on' => NULL,
@@ -187,7 +187,7 @@ $_PROFILE_MODULES = array (
   array (
     'id' => '23',
     'module_name' => 'image_captcha',
-    'module_version' => '2.1',
+    'module_version' => '2.3',
     'menu_item' => '0',
     'run_level' => '0',
     'load_on' => NULL,
@@ -200,7 +200,7 @@ $_PROFILE_MODULES = array (
   array (
     'id' => '26',
     'module_name' => 'configdb',
-    'module_version' => '2.1',
+    'module_version' => '2.3',
     'menu_item' => '0',
     'run_level' => '2',
     'load_on' => NULL,
@@ -213,7 +213,7 @@ $_PROFILE_MODULES = array (
   array (
     'id' => '27',
     'module_name' => 'block_manip',
-    'module_version' => '2.1',
+    'module_version' => '2.3',
     'menu_item' => '1',
     'run_level' => '0',
     'load_on' => NULL,
@@ -226,7 +226,7 @@ $_PROFILE_MODULES = array (
   array (
     'id' => '28',
     'module_name' => 'locales',
-    'module_version' => '2.1',
+    'module_version' => '2.3',
     'menu_item' => '1',
     'run_level' => '0',
     'load_on' => NULL,
@@ -239,7 +239,7 @@ $_PROFILE_MODULES = array (
   array (
     'id' => '29',
     'module_name' => 'menus',
-    'module_version' => '2.1',
+    'module_version' => '2.3',
     'menu_item' => '1',
     'run_level' => '0',
     'load_on' => NULL,
@@ -252,7 +252,7 @@ $_PROFILE_MODULES = array (
   array (
     'id' => '31',
     'module_name' => 'vote',
-    'module_version' => '2.1',
+    'module_version' => '2.3',
     'menu_item' => '0',
     'run_level' => '0',
     'load_on' => NULL,
@@ -265,7 +265,7 @@ $_PROFILE_MODULES = array (
   array (
     'id' => '33',
     'module_name' => 'video',
-    'module_version' => '2.1',
+    'module_version' => '2.31',
     'menu_item' => '0',
     'run_level' => '0',
     'load_on' => NULL,
@@ -278,7 +278,7 @@ $_PROFILE_MODULES = array (
   array (
     'id' => '34',
     'module_name' => 'image',
-    'module_version' => '2.1',
+    'module_version' => '2.3',
     'menu_item' => '0',
     'run_level' => '0',
     'load_on' => NULL,
@@ -291,7 +291,7 @@ $_PROFILE_MODULES = array (
   array (
     'id' => '35',
     'module_name' => 'jquerysort',
-    'module_version' => '2.1',
+    'module_version' => '2.3',
     'menu_item' => '0',
     'run_level' => '0',
     'load_on' => NULL,
@@ -317,7 +317,7 @@ $_PROFILE_MODULES = array (
   array (
     'id' => '38',
     'module_name' => 'gallery',
-    'module_version' => '2.1',
+    'module_version' => '2.3',
     'menu_item' => '1',
     'run_level' => '0',
     'load_on' => NULL,
@@ -328,7 +328,20 @@ $_PROFILE_MODULES = array (
   ),
   25 => 
   array (
-    'id' => '42',
+    'id' => '43',
+    'module_name' => 'share',
+    'module_version' => '2.3',
+    'menu_item' => '1',
+    'run_level' => '0',
+    'load_on' => NULL,
+    'parent' => NULL,
+    'is_shell' => NULL,
+    'public_clone_url' => 'git://github.com/diversen/share.git',
+    'private_clone_url' => 'git@github.com:diversen/share.git',
+  ),
+  26 => 
+  array (
+    'id' => '44',
     'module_name' => 'nopostfiles',
     'module_version' => '2.1',
     'menu_item' => '0',
@@ -339,19 +352,6 @@ $_PROFILE_MODULES = array (
     'public_clone_url' => 'git://github.com/diversen/nopostfiles.git',
     'private_clone_url' => 'git@github.com:diversen/nopostfiles.git',
   ),
-  26 => 
-  array (
-    'id' => '43',
-    'module_name' => 'share',
-    'module_version' => '2.1',
-    'menu_item' => '1',
-    'run_level' => '0',
-    'load_on' => NULL,
-    'parent' => NULL,
-    'is_shell' => NULL,
-    'public_clone_url' => 'git://github.com/diversen/share.git',
-    'private_clone_url' => 'git@github.com:diversen/share.git',
-  ),
 );
 
 $_PROFILE_TEMPLATES = array (
@@ -359,49 +359,35 @@ $_PROFILE_TEMPLATES = array (
   array (
     'public_clone_url' => 'git://github.com/diversen/clean.git',
     'private_clone_url' => 'git@github.com:diversen/clean.git',
-    'module_version' => '2.1',
+    'module_version' => '2.31',
     'module_name' => 'clean',
   ),
   1 => 
   array (
     'public_clone_url' => 'git://github.com/diversen/zimpleza.git',
     'private_clone_url' => 'git@github.com:diversen/zimpleza.git',
-    'module_version' => '2.1',
+    'module_version' => '2.31',
     'module_name' => 'zimpleza',
   ),
   2 => 
   array (
-    'public_clone_url' => 'git://github.com/diversen/flowplayer.git',
-    'private_clone_url' => 'git@github.com:diversen/flowplayer.git',
-    'module_version' => '2.1',
-    'module_name' => 'flowplayer',
+    'public_clone_url' => 'git://github.com/diversen/fancybox.git',
+    'private_clone_url' => 'git@github.com:diversen/fancybox.git',
+    'module_version' => '2.3',
+    'module_name' => 'fancybox',
   ),
   3 => 
   array (
-    'public_clone_url' => 'git://github.com/diversen/1kbgrid.git',
-    'private_clone_url' => 'git@github.com:diversen/1kbgrid.git',
-    'module_version' => '2.1',
-    'module_name' => '1kbgrid',
+    'public_clone_url' => 'git://github.com/diversen/js-toc.git',
+    'private_clone_url' => 'git@github.com:diversen/js-toc.git',
+    'module_version' => '2.3',
+    'module_name' => 'js-toc',
   ),
   4 => 
   array (
-    'public_clone_url' => 'git://github.com/diversen/fancybox.git',
-    'private_clone_url' => 'git@github.com:diversen/fancybox.git',
-    'module_version' => '2.1',
-    'module_name' => 'fancybox',
-  ),
-  5 => 
-  array (
-    'public_clone_url' => 'git://github.com/diversen/js-toc.git',
-    'private_clone_url' => 'git@github.com:diversen/js-toc.git',
-    'module_version' => '2.1',
-    'module_name' => 'js-toc',
-  ),
-  6 => 
-  array (
     'public_clone_url' => 'git://github.com/diversen/jquery-markedit.git',
     'private_clone_url' => 'git@github.com:diversen/jquery-markedit.git',
-    'module_version' => '2.1',
+    'module_version' => '2.3',
     'module_name' => 'jquery-markedit',
   ),
 );
