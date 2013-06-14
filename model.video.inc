@@ -302,8 +302,10 @@ class video {
             $title.= $val['title'];
             
             $link_options = array ('title' => $val['abstract']); 
+            
+            $path = config::getWebFilesPath();
             $str.= html::createLink(
-                       "/video/download/$val[id]/$val[title]", 
+                       "$val[web_path_mp4]", 
                        $title, 
                        $link_options
                    );
