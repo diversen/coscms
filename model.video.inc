@@ -102,17 +102,17 @@ class video {
         $db = new db();
         $res = $this->uploadVideo();
         if ($res) {
-            try {
-                $db->begin();
+
+            $db->begin();
            
-                $values['parent_id'] = self::$options['parent_id'];
-                $values['reference'] = self::$options['reference'];
-                $values['title'] = $_FILES['file']['name'];
-                $values['mimetype'] = $_FILES['file']['type'];
-                $values['full_path'] = self::$options['flv_file_path'];
-                $values['web_path'] = self::$options['flv_web_path'];
-                $values['full_path_mp4'] = self::$options['mp4_file_path'];
-                $values['web_path_mp4'] = self::$options['mp4_web_path'];
+            $values['parent_id'] = self::$options['parent_id'];
+            $values['reference'] = self::$options['reference'];
+            $values['title'] = $_FILES['file']['name'];
+            $values['mimetype'] = $_FILES['file']['type'];
+            $values['full_path'] = self::$options['flv_file_path'];
+            $values['web_path'] = self::$options['flv_web_path'];
+                //$values['full_path_mp4'] = self::$options['mp4_file_path'];
+                //$values['web_path_mp4'] = self::$options['mp4_web_path'];
                 $res = $db->insert(self::$fileTable, $values);
                 if ($res) {
                     $db->commit();
@@ -120,15 +120,9 @@ class video {
                     $db->rollback(); 
                 }
 
-            } catch (Exception $e) {
-                log::error($e->getMessage());
-                return 0;
-            }
-        } else {
-            return false;
-        }
+        } 
         
-        return 1;
+        return $res;
     }
     
     public static function subModuleInlineContent($options){
@@ -137,6 +131,13 @@ class video {
         $info = video::getAllVideoInfo($options);
 
         $str = '';
+        $str.= <<<EOF
+   <script>
+    flowplayer.conf={
+        engine:'flash'
+    };
+</script>
+EOF;
         foreach ($info as $video) {            
             $str.= flowplayer_get_html($video);
         }
@@ -164,21 +165,13 @@ class video {
         
         // transform to flv
         $tmp_flv = $flv_file = null;
-        if (isset($_FILES['file'])) { 
+        if (isset($_FILES['file'])) {
+            
             $flv_file = file::getFilename($_FILES['file']['name']) . ".flv";
-            $tmp_flv = "/tmp/" . $flv_file; 
+            $tmp_flv = "/tmp/" . $flv_file;
             $res = $this->transformToFlv($_FILES['file']['tmp_name'], $tmp_flv);
             
             if (!$res) {
-                self::$errors[] = lang::translate('video_could_not_transform_to_flv');
-                return false;
-            } 
-            
-            $mp4_file = file::getFilename($_FILES['file']['name']) . ".mp4";
-            $tmp_mp4 = "/tmp/" . $mp4_file; 
-            $mp4_res = $this->transformToMpeg4($tmp_flv, $tmp_mp4);
-            
-            if (!$mp4_res) {
                 self::$errors[] = lang::translate('video_could_not_transform_to_flv');
                 return false;
             } 
@@ -186,7 +179,7 @@ class video {
         
         $web_dir = "/video/" . self::$options['reference'] . "/" . self::$options['parent_id'];        
         $web_dir = config::getWebFilesPath($web_dir);
-        $full_path = _COS_HTDOCS . "" . $web_dir;
+        $full_path = _COS_HTDOCS . $web_dir;
         if (!file_exists($full_path)) {
             mkdir($full_path, 0777, true);
         }
@@ -194,52 +187,27 @@ class video {
         $flv_web_path = $web_dir . "/" . $flv_file;
         $flv_full_path = $full_path . "/" . $flv_file;
         
-        $res = copy($tmp_flv, $flv_full_path);
+        $copied = copy($tmp_flv, $flv_full_path);
         unlink($tmp_flv);
-        
-        $mp4_web_path = $web_dir . "/" . $mp4_file;
-        $mp4_full_path = $full_path . "/" . $mp4_file;
-        
-        $res = copy($tmp_mp4, $mp4_full_path);
-        unlink($tmp_mp4);
+
         self::$options['flv_file_path'] = $flv_full_path;
         self::$options['flv_web_path'] = $flv_web_path;
-        self::$options['mp4_file_path'] = $mp4_full_path;
-        self::$options['mp4_web_path'] = $mp4_web_path;
-        
-        unlink ($tmp_mp4);
-        return $res;
+
+        return $copied;
     }
     
     function transformToFlv ($full_filename, $full_filename_flv) { 
         set_time_limit(0);
-        //$ffmpeg_command = "ffmpeg -i \"$full_filename\" -ar 44100 -ab 96 -f flv \"$full_filename_flv\";";
-        $ffmpeg_command = "ffmpeg -i \"$full_filename\" -ar 22050 -qscale 10 -f flv \"$full_filename_flv\";";
-        //
+        $ffmpeg_command = "ffmpeg -i \"$full_filename\" -ar 44100 -ab 96 -f flv \"$full_filename_flv\";";
         $output = array();
         exec($ffmpeg_command, $output, $ret);
         if ($ret) {
-            unlink($full_filename);
             return false;
         }
         
         return true;
     }
     
-    function transformToMpeg4 ($full_filename, $full_filename_mp4) { 
-
-        $ffmpeg_command = "ffmpeg -i \"$full_filename\" -ar 22050 -qscale 10 -f flv \"$full_filename_mp4\";";
-        //
-        $output = array();
-        exec($ffmpeg_command, $output, $ret);
-        if ($ret) {
-            unlink($full_filename);
-            return false;
-        }
-
-        
-        return true;
-    }
 
     /**
      * method for validating a post before insert
@@ -315,9 +283,9 @@ class video {
             //print_r($options);
             $options['id'] = $val['id'];
             if (isset($options['admin'])){
-                $str.= MENU_SUB_SEPARATOR_SEC;
+
                 $url = moduleloader::buildReferenceURL('/video/edit', $options);
-                $str.= html::createLink($url, lang::translate('video_edit'));
+                //$str.= html::createLink($url, lang::translate('video_edit'));
                 $str.= MENU_SUB_SEPARATOR;
                 $url = moduleloader::buildReferenceURL('/video/delete', $options);
                 $str.= html::createLink($url, lang::translate('video_delete'));
@@ -384,7 +352,7 @@ class video {
         $values['abstract'] = html::specialDecode($_POST['abstract']);
 
         $db = new db();
-        if (!empty($_video['file']['name']) ){
+        if (!empty($_FILES['file']['name']) ){
             
             $options = array ();
             $options['filename'] = 'file';
@@ -490,10 +458,12 @@ function flowplayer_include () {
 function flowplayer_get_html ($row) {
 
     $str = <<<EOF
+   
+   
 <div class="flowplayer">
    <video>
-      <source type="video/mp4" src="$row[web_path_mp4]">
-      <source type="video/flv" src="$row[web_path_mp4]">
+    <source type="video/flv" src="$row[web_path]">  
+      
    </video>
 </div>
 EOF;
