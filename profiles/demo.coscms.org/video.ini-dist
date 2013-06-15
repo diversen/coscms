@@ -1,2 +1,2 @@
 video_allow_edit = "admin"
-video_max_size = 600000000
+video_max_size = 60000000

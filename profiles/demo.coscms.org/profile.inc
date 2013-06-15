@@ -330,7 +330,7 @@ $_PROFILE_MODULES = array (
   array (
     'id' => '45',
     'module_name' => 'video',
-    'module_version' => '2.31',
+    'module_version' => '2.311',
     'menu_item' => '0',
     'run_level' => '0',
     'load_on' => NULL,
