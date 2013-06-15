@@ -263,19 +263,6 @@ $_PROFILE_MODULES = array (
   ),
   20 => 
   array (
-    'id' => '33',
-    'module_name' => 'video',
-    'module_version' => '2.31',
-    'menu_item' => '0',
-    'run_level' => '0',
-    'load_on' => NULL,
-    'parent' => NULL,
-    'is_shell' => NULL,
-    'public_clone_url' => 'git://github.com/diversen/video.git',
-    'private_clone_url' => 'git@github.com:diversen/video.git',
-  ),
-  21 => 
-  array (
     'id' => '34',
     'module_name' => 'image',
     'module_version' => '2.3',
@@ -287,7 +274,7 @@ $_PROFILE_MODULES = array (
     'public_clone_url' => 'git://github.com/diversen/image.git',
     'private_clone_url' => 'git@github.com:diversen/image.git',
   ),
-  22 => 
+  21 => 
   array (
     'id' => '35',
     'module_name' => 'jquerysort',
@@ -300,7 +287,7 @@ $_PROFILE_MODULES = array (
     'public_clone_url' => 'git://github.com/diversen/jquerysort.git',
     'private_clone_url' => 'git@github.com:diversen/jquerysort.git',
   ),
-  23 => 
+  22 => 
   array (
     'id' => '36',
     'module_name' => 'reload_site',
@@ -313,7 +300,7 @@ $_PROFILE_MODULES = array (
     'public_clone_url' => 'git://github.com/diversen/reload_site.git',
     'private_clone_url' => 'git@github.com:diversen/reload_site.git',
   ),
-  24 => 
+  23 => 
   array (
     'id' => '38',
     'module_name' => 'gallery',
@@ -326,7 +313,7 @@ $_PROFILE_MODULES = array (
     'public_clone_url' => 'git://github.com/diversen/gallery.git',
     'private_clone_url' => 'git@github.com:diversen/gallery.git',
   ),
-  25 => 
+  24 => 
   array (
     'id' => '43',
     'module_name' => 'share',
@@ -339,18 +326,18 @@ $_PROFILE_MODULES = array (
     'public_clone_url' => 'git://github.com/diversen/share.git',
     'private_clone_url' => 'git@github.com:diversen/share.git',
   ),
-  26 => 
+  25 => 
   array (
-    'id' => '44',
-    'module_name' => 'nopostfiles',
-    'module_version' => '2.1',
+    'id' => '45',
+    'module_name' => 'video',
+    'module_version' => '2.31',
     'menu_item' => '0',
-    'run_level' => '1',
+    'run_level' => '0',
     'load_on' => NULL,
     'parent' => NULL,
     'is_shell' => NULL,
-    'public_clone_url' => 'git://github.com/diversen/nopostfiles.git',
-    'private_clone_url' => 'git@github.com:diversen/nopostfiles.git',
+    'public_clone_url' => 'git://github.com/diversen/video.git',
+    'private_clone_url' => 'git@github.com:diversen/video.git',
   ),
 );
 
