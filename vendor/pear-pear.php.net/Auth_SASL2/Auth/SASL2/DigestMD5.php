@@ -43,9 +43,9 @@
 * @package Auth_SASL
 */
 
-require_once('Auth/SASL/Common.php');
+require_once('Auth/SASL2/Common.php');
 
-class Auth_SASL_DigestMD5 extends Auth_SASL_Common
+class Auth_SASL2_DigestMD5 extends Auth_SASL2_Common
 {
     /**
     * Provides the (main) client response for DIGEST-MD5
@@ -81,7 +81,7 @@ class Auth_SASL_DigestMD5 extends Auth_SASL_Common
                 return sprintf('username="%s"' . $authzid_string  . ',nonce="%s",cnonce="%s",nc=00000001,qop=auth,digest-uri="%s",response=%s,maxbuf=%d', $authcid, $challenge['nonce'], $cnonce, $digest_uri, $response_value, $challenge['maxbuf']);
             }
         } else {
-            return PEAR::raiseError('Invalid digest challenge');
+            throw new InvalidateArgumentException('Invalid digest challenge');
         }
     }
     

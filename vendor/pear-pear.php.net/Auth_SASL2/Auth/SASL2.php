@@ -40,12 +40,9 @@
 * @author  Richard Heyes <richard@php.net>
 * @access  public
 * @version 1.0
-* @package Auth_SASL
+* @package Auth_SASL2
 */
-
-require_once('PEAR.php');
-
-class Auth_SASL
+class Auth_SASL2
 {
     /**
     * Factory class. Returns an object of the request
@@ -58,35 +55,35 @@ class Auth_SASL
     *                             SCRAM-* (any mechanism of the SCRAM family)
     *                     Types are not case sensitive
     */
-    function &factory($type)
+    function factory($type)
     {
         switch (strtolower($type)) {
             case 'anonymous':
-                $filename  = 'Auth/SASL/Anonymous.php';
-                $classname = 'Auth_SASL_Anonymous';
+                $filename  = 'Auth/SASL2/Anonymous.php';
+                $classname = 'Auth_SASL2_Anonymous';
                 break;
 
             case 'login':
-                $filename  = 'Auth/SASL/Login.php';
-                $classname = 'Auth_SASL_Login';
+                $filename  = 'Auth/SASL2/Login.php';
+                $classname = 'Auth_SASL2_Login';
                 break;
 
             case 'plain':
-                $filename  = 'Auth/SASL/Plain.php';
-                $classname = 'Auth_SASL_Plain';
+                $filename  = 'Auth/SASL2/Plain.php';
+                $classname = 'Auth_SASL2_Plain';
                 break;
 
             case 'external':
-                $filename  = 'Auth/SASL/External.php';
-                $classname = 'Auth_SASL_External';
+                $filename  = 'Auth/SASL2/External.php';
+                $classname = 'Auth_SASL2_External';
                 break;
 
             case 'crammd5':
                 // $msg = 'Deprecated mechanism name. Use IANA-registered name: CRAM-MD5.';
                 // trigger_error($msg, E_USER_DEPRECATED);
             case 'cram-md5':
-                $filename  = 'Auth/SASL/CramMD5.php';
-                $classname = 'Auth_SASL_CramMD5';
+                $filename  = 'Auth/SASL2/CramMD5.php';
+                $classname = 'Auth_SASL2_CramMD5';
                 break;
 
             case 'digestmd5':
@@ -95,8 +92,8 @@ class Auth_SASL
             case 'digest-md5':
                 // $msg = 'DIGEST-MD5 is a deprecated SASL mechanism as per RFC-6331. Using it could be a security risk.';
                 // trigger_error($msg, E_USER_NOTICE);
-                $filename  = 'Auth/SASL/DigestMD5.php';
-                $classname = 'Auth_SASL_DigestMD5';
+                $filename  = 'Auth/SASL2/DigestMD5.php';
+                $classname = 'Auth_SASL2_DigestMD5';
                 break;
 
             default:
@@ -104,22 +101,24 @@ class Auth_SASL
                 if (preg_match($scram, $type, $matches))
                 {
                     $hash = $matches[1];
-                    $filename = dirname(__FILE__) .'/SASL/SCRAM.php';
-                    $classname = 'Auth_SASL_SCRAM';
+                    $filename = dirname(__FILE__) .'/SASL2/SCRAM.php';
+                    $classname = 'Auth_SASL2_SCRAM';
                     $parameter = $hash;
                     break;
                 }
-                return PEAR::raiseError('Invalid SASL mechanism type');
+                throw new InvalidArgumentException('Invalid SASL mechanism type');
                 break;
         }
 
-        require_once($filename);
-        if (isset($parameter))
+        require_once $filename;
+        if (isset($parameter)) {
             $obj = new $classname($parameter);
-        else
+        } else {
             $obj = new $classname();
+        }
+
         return $obj;
     }
 }
 
-?>
+

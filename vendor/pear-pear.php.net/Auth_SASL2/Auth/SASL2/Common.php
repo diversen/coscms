@@ -40,10 +40,10 @@
 * @author  Richard Heyes <richard@php.net>
 * @access  public
 * @version 1.0
-* @package Auth_SASL
+* @package Auth_SASL2
 */
 
-class Auth_SASL_Common
+class Auth_SASL2_Common
 {
     /**
     * Function which implements HMAC MD5 digest

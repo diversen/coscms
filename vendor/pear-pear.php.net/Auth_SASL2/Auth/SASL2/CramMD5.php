@@ -35,7 +35,7 @@
 // $Id$
 
 /**
-* Implmentation of ANONYMOUS SASL mechanism
+* Implmentation of CRAM-MD5 SASL mechanism
 *
 * @author  Richard Heyes <richard@php.net>
 * @access  public
@@ -43,29 +43,26 @@
 * @package Auth_SASL
 */
 
-require_once('Auth/SASL/Common.php');
+require_once('Auth/SASL2/Common.php');
 
-class Auth_SASL_Anonymous extends Auth_SASL_Common
+class Auth_SASL2_CramMD5 extends Auth_SASL2_Common
 {
     /**
-    * Not much to do here except return the token supplied.
-    * No encoding, hashing or encryption takes place for this
-    * mechanism, simply one of:
-    *  o An email address
-    *  o An opaque string not containing "@" that can be interpreted
-    *    by the sysadmin
-    *  o Nothing
+    * Implements the CRAM-MD5 SASL mechanism
+    * This DOES NOT base64 encode the return value,
+    * you will need to do that yourself.
     *
-    * We could have some logic here for the second option, but this
-    * would by no means create something interpretable.
+    * @param string $user      Username
+    * @param string $pass      Password
+    * @param string $challenge The challenge supplied by the server.
+    *                          this should be already base64_decoded.
     *
-    * @param  string $token Optional email address or string to provide
-    *                       as trace information.
-    * @return string        The unaltered input token
+    * @return string The string to pass back to the server, of the form
+    *                "<user> <digest>". This is NOT base64_encoded.
     */
-    function getResponse($token = '')
+    function getResponse($user, $pass, $challenge)
     {
-        return $token;
+        return $user . ' ' . $this->_HMAC_MD5($pass, $challenge);
     }
 }
 ?>

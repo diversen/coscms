@@ -1,6 +1,6 @@
 <?php
 // +-----------------------------------------------------------------------+ 
-// | Copyright (c) 2008 Christoph Schulz                                   | 
+// | Copyright (c) 2002-2003 Richard Heyes                                 | 
 // | All rights reserved.                                                  | 
 // |                                                                       | 
 // | Redistribution and use in source and binary forms, with or without    | 
@@ -29,35 +29,43 @@
 // | OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.  | 
 // |                                                                       | 
 // +-----------------------------------------------------------------------+ 
-// | Author: Christoph Schulz <develop@kristov.de>                         | 
+// | Author: Richard Heyes <richard@php.net>                               | 
 // +-----------------------------------------------------------------------+ 
 // 
 // $Id$
 
 /**
-* Implmentation of EXTERNAL SASL mechanism
+* Implmentation of ANONYMOUS SASL mechanism
 *
-* @author  Christoph Schulz <develop@kristov.de>
+* @author  Richard Heyes <richard@php.net>
 * @access  public
-* @version 1.0.3
-* @package Auth_SASL
+* @version 1.0
+* @package Auth_SASL2
 */
 
-require_once('Auth/SASL/Common.php');
+require_once 'Auth/SASL2/Common.php';
 
-class Auth_SASL_External extends Auth_SASL_Common
+class Auth_SASL2_Anonymous extends Auth_SASL2_Common
 {
     /**
-    * Returns EXTERNAL response
-    *
-    * @param  string $authcid   Authentication id (username)
-    * @param  string $pass      Password
-    * @param  string $authzid   Autorization id
-    * @return string            EXTERNAL Response
-    */
-    function getResponse($authcid, $pass, $authzid = '')
+     * Not much to do here except return the token supplied.
+     * No encoding, hashing or encryption takes place for this
+     * mechanism, simply one of:
+     *  o An email address
+     *  o An opaque string not containing "@" that can be interpreted
+     *    by the sysadmin
+     *  o Nothing
+     *
+     * We could have some logic here for the second option, but this
+     * would by no means create something interpretable.
+     *
+     * @param  string $token Optional email address or string to provide
+     *                       as trace information.
+     * @return string        The unaltered input token
+     */
+    public function getResponse($token = '')
     {
-        return $authzid;
+        return $token;
     }
 }
-?>
+

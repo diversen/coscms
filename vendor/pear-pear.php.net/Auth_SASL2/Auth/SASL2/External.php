@@ -1,6 +1,6 @@
 <?php
 // +-----------------------------------------------------------------------+ 
-// | Copyright (c) 2002-2003 Richard Heyes                                 | 
+// | Copyright (c) 2008 Christoph Schulz                                   | 
 // | All rights reserved.                                                  | 
 // |                                                                       | 
 // | Redistribution and use in source and binary forms, with or without    | 
@@ -29,37 +29,35 @@
 // | OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.  | 
 // |                                                                       | 
 // +-----------------------------------------------------------------------+ 
-// | Author: Richard Heyes <richard@php.net>                               | 
+// | Author: Christoph Schulz <develop@kristov.de>                         | 
 // +-----------------------------------------------------------------------+ 
 // 
 // $Id$
 
 /**
-* This is technically not a SASL mechanism, however
-* it's used by Net_Sieve, Net_Cyrus and potentially
-* other protocols , so here is a good place to abstract
-* it.
+* Implmentation of EXTERNAL SASL mechanism
 *
-* @author  Richard Heyes <richard@php.net>
+* @author  Christoph Schulz <develop@kristov.de>
 * @access  public
-* @version 1.0
-* @package Auth_SASL
+* @version 1.0.3
+* @package Auth_SASL2
 */
 
-require_once('Auth/SASL/Common.php');
+require_once('Auth/SASL2/Common.php');
 
-class Auth_SASL_Login extends Auth_SASL_Common
+class Auth_SASL2_External extends Auth_SASL2_Common
 {
     /**
-    * Pseudo SASL LOGIN mechanism
+    * Returns EXTERNAL response
     *
-    * @param  string $user Username
-    * @param  string $pass Password
-    * @return string       LOGIN string
+    * @param  string $authcid   Authentication id (username)
+    * @param  string $pass      Password
+    * @param  string $authzid   Autorization id
+    * @return string            EXTERNAL Response
     */
-    function getResponse($user, $pass)
+    function getResponse($authcid, $pass, $authzid = '')
     {
-        return sprintf('LOGIN %s %s', $user, $pass);
+        return $authzid;
     }
 }
 ?>

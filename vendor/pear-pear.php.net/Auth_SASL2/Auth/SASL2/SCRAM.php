@@ -43,23 +43,24 @@
 * @author  Jehan <jehan.marmottard@gmail.com>
 * @access  public
 * @version 1.0
-* @package Auth_SASL
+* @package Auth_SASL2
 */
 
-require_once('Auth/SASL/Common.php');
+require_once 'Auth/SASL2/Common.php';
 
-class Auth_SASL_SCRAM extends Auth_SASL_Common
+class Auth_SASL2_SCRAM extends Auth_SASL2_Common
 {
     /**
-    * Construct a SCRAM-H client where 'H' is a cryptographic hash function.
-    *
-    * @param string $hash The name cryptographic hash function 'H' as registered by IANA in the "Hash Function Textual
-    * Names" registry.
-    * @link http://www.iana.org/assignments/hash-function-text-names/hash-function-text-names.xml "Hash Function Textual
-    * Names"
-    * format of core PHP hash function.
-    * @access public
-    */
+     * Construct a SCRAM-H client where 'H' is a cryptographic hash function.
+     *
+     * @param string $hash The name cryptographic hash function 'H' as registered by IANA in the "Hash Function Textual
+     * Names" registry.
+     * @link http://www.iana.org/assignments/hash-function-text-names/hash-function-text-names.xml "Hash Function Textual
+     * Names"
+     * format of core PHP hash function.
+     * @access public
+     * @throws InvalidArgumentException
+     */
     function __construct($hash)
     {
         // Though I could be strict, I will actually also accept the naming used in the PHP core hash framework.
@@ -92,8 +93,9 @@ class Auth_SASL_SCRAM extends Auth_SASL_Common
             $this->hash = create_function('$data', 'return sha1($data, true);');
             $this->hmac = array($this, '_HMAC_SHA1');
         }
-        else
-            return PEAR::raiseError('Invalid SASL mechanism type');
+        else {
+            throw new InvalidArgumentException('Invalid SASL mechanism type');
+        }
     }
 
     /**

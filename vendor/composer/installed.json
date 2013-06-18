@@ -376,231 +376,6 @@
         "description": "You can use Console_Color::convert to transform colorcodes like %r into ANSI\ncontrol codes. print Console_Color::convert(&amp;amp;quot;%rHello World!%n&amp;amp;quot;); would print\n&amp;amp;quot;Hello World&amp;amp;quot; in red, for example."
     },
     {
-        "name": "pear-pear.php.net/Auth_SASL",
-        "version": "1.0.6",
-        "version_normalized": "1.0.6.0",
-        "dist": {
-            "type": "file",
-            "url": "http://pear.php.net/get/Auth_SASL-1.0.6.tgz",
-            "reference": null,
-            "shasum": null
-        },
-        "require": {
-            "php": ">=4.2.0.0"
-        },
-        "replace": {
-            "pear-pear/auth_sasl": "== 1.0.6.0"
-        },
-        "type": "pear-library",
-        "installation-source": "dist",
-        "autoload": {
-            "classmap": [
-                ""
-            ]
-        },
-        "include-path": [
-            "/"
-        ],
-        "description": "Provides code to generate responses to common SASL mechanisms, including:\n- Digest-MD5\n- Cram-MD5\n- Plain\n- Anonymous\n- Login (Pseudo mechanism)\n- SCRAM"
-    },
-    {
-        "name": "zendframework/zend-stdlib",
-        "version": "2.1.3",
-        "version_normalized": "2.1.3.0",
-        "target-dir": "Zend/Stdlib",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/zendframework/Component_ZendStdlib.git",
-            "reference": "release-2.1.3"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://packages.zendframework.com/composer/zendframework-zend-stdlib-2.1.3-release-2.1.3-fe0874.zip",
-            "reference": "2.1.3",
-            "shasum": "66f869a3e885feae6fcaa762f5783604f14b7ddd"
-        },
-        "require": {
-            "php": ">=5.3.3"
-        },
-        "suggest": {
-            "pecl-weakref": "Implementation of weak references for Stdlib\\CallbackHandler"
-        },
-        "time": "2013-02-21 15:56:33",
-        "type": "library",
-        "extra": {
-            "branch-alias": {
-                "dev-master": "2.1-dev",
-                "dev-develop": "2.2-dev"
-            }
-        },
-        "installation-source": "dist",
-        "autoload": {
-            "psr-0": {
-                "Zend\\Stdlib\\": ""
-            },
-            "files": [
-                "Zend/Stdlib/compatibility/autoload.php"
-            ]
-        },
-        "license": [
-            "BSD-3-Clause"
-        ],
-        "description": " ",
-        "keywords": [
-            "stdlib",
-            "zf2"
-        ],
-        "support": {
-            "source": "https://github.com/zendframework/Component_ZendStdlib/tree/release-2.1.3"
-        }
-    },
-    {
-        "name": "zendframework/zend-mime",
-        "version": "2.1.3",
-        "version_normalized": "2.1.3.0",
-        "target-dir": "Zend/Mime",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/zendframework/Component_ZendMime.git",
-            "reference": "release-2.1.4"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://packages.zendframework.com/composer/zendframework-zend-mime-2.1.3-release-2.1.4-36f64f.zip",
-            "reference": "2.1.3",
-            "shasum": "6e6a327626e0d4995847ba1d90daf33e849ee684"
-        },
-        "require": {
-            "php": ">=5.3.3",
-            "zendframework/zend-stdlib": "self.version"
-        },
-        "time": "2013-02-14 14:56:52",
-        "type": "library",
-        "extra": {
-            "branch-alias": {
-                "dev-master": "2.1-dev",
-                "dev-develop": "2.2-dev"
-            }
-        },
-        "installation-source": "dist",
-        "autoload": {
-            "psr-0": {
-                "Zend\\Mime\\": ""
-            }
-        },
-        "license": [
-            "BSD-3-Clause"
-        ],
-        "description": " ",
-        "keywords": [
-            "mime",
-            "zf2"
-        ],
-        "support": {
-            "source": "https://github.com/zendframework/Component_ZendMime/tree/release-2.1.2"
-        }
-    },
-    {
-        "name": "zendframework/zend-loader",
-        "version": "2.1.3",
-        "version_normalized": "2.1.3.0",
-        "target-dir": "Zend/Loader",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/zendframework/Component_ZendLoader.git",
-            "reference": "release-2.1.4"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://packages.zendframework.com/composer/zendframework-zend-loader-2.1.3-release-2.1.4-36f64f.zip",
-            "reference": "2.1.3",
-            "shasum": "b44bed8cb91d38e8fa34f3869f25a90c50fb18ae"
-        },
-        "require": {
-            "php": ">=5.3.3"
-        },
-        "suggest": {
-            "zendframework/zend-stdlib": "Zend\\Stdlib component"
-        },
-        "time": "2013-02-19 16:57:42",
-        "type": "library",
-        "extra": {
-            "branch-alias": {
-                "dev-master": "2.1-dev",
-                "dev-develop": "2.2-dev"
-            }
-        },
-        "installation-source": "dist",
-        "autoload": {
-            "psr-0": {
-                "Zend\\Loader\\": ""
-            }
-        },
-        "license": [
-            "BSD-3-Clause"
-        ],
-        "description": " ",
-        "keywords": [
-            "loader",
-            "zf2"
-        ],
-        "support": {
-            "source": "https://github.com/zendframework/Component_ZendLoader/tree/release-2.1.2"
-        }
-    },
-    {
-        "name": "zendframework/zend-mail",
-        "version": "2.1.3",
-        "version_normalized": "2.1.3.0",
-        "target-dir": "Zend/Mail",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/zendframework/Component_ZendMail.git",
-            "reference": "release-2.1.4"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://packages.zendframework.com/composer/zendframework-zend-mail-2.1.3-release-2.1.4-36f64f.zip",
-            "reference": "2.1.3",
-            "shasum": "7074446da61c1aa406a0574a86b66dc989b5282b"
-        },
-        "require": {
-            "php": ">=5.3.3",
-            "zendframework/zend-loader": "self.version",
-            "zendframework/zend-mime": "self.version",
-            "zendframework/zend-stdlib": "self.version"
-        },
-        "suggest": {
-            "zendframework/zend-servicemanager": "Zend\\ServiceManager component",
-            "zendframework/zend-validator": "Zend\\Validator component"
-        },
-        "time": "2013-02-19 21:16:41",
-        "type": "library",
-        "extra": {
-            "branch-alias": {
-                "dev-master": "2.1-dev",
-                "dev-develop": "2.2-dev"
-            }
-        },
-        "installation-source": "dist",
-        "autoload": {
-            "psr-0": {
-                "Zend\\Mail\\": ""
-            }
-        },
-        "license": [
-            "BSD-3-Clause"
-        ],
-        "description": "provides generalized functionality to compose and send both text and MIME-compliant multipart e-mail messages",
-        "keywords": [
-            "mail",
-            "zf2"
-        ],
-        "support": {
-            "source": "https://github.com/zendframework/Component_ZendMail/tree/release-2.1.2"
-        }
-    },
-    {
         "name": "facebook/php-sdk",
         "version": "v3.2.2",
         "version_normalized": "3.2.2.0",
@@ -744,11 +519,11 @@
     },
     {
         "name": "pear-pear.php.net/Net_Socket",
-        "version": "1.0.12",
-        "version_normalized": "1.0.12.0",
+        "version": "1.0.14",
+        "version_normalized": "1.0.14.0",
         "dist": {
             "type": "file",
-            "url": "http://pear.php.net/get/Net_Socket-1.0.12.tgz",
+            "url": "http://pear.php.net/get/Net_Socket-1.0.14.tgz",
             "reference": null,
             "shasum": null
         },
@@ -756,7 +531,7 @@
             "php": ">=4.3.0.0"
         },
         "replace": {
-            "pear-pear/net_socket": "== 1.0.12.0"
+            "pear-pear/net_socket": "== 1.0.14.0"
         },
         "type": "pear-library",
         "installation-source": "dist",
@@ -769,5 +544,228 @@
             "/"
         ],
         "description": "Net_Socket is a class interface to TCP sockets.  It provides blocking\n  and non-blocking operation, with different reading and writing modes\n  (byte-wise, block-wise, line-wise and special formats like network\n  byte-order ip addresses)."
+    },
+    {
+        "name": "pear-pear.php.net/Auth_SASL2",
+        "version": "0.1.0",
+        "version_normalized": "0.1.0.0",
+        "dist": {
+            "type": "file",
+            "url": "http://pear.php.net/get/Auth_SASL2-0.1.0.tgz",
+            "reference": null,
+            "shasum": null
+        },
+        "require": {
+            "php": ">=5.0.0.0"
+        },
+        "replace": {
+            "pear-pear/auth_sasl2": "== 0.1.0.0"
+        },
+        "type": "pear-library",
+        "installation-source": "dist",
+        "autoload": {
+            "classmap": [
+                ""
+            ]
+        },
+        "include-path": [
+            "/"
+        ],
+        "description": "Provides code to generate responses to common SASL mechanisms, including:\n- Digest-MD5\n- Cram-MD5\n- Plain\n- Anonymous\n- Login (Pseudo mechanism)\n- SCRAM"
+    },
+    {
+        "name": "zendframework/zend-stdlib",
+        "version": "2.2.1",
+        "version_normalized": "2.2.1.0",
+        "target-dir": "Zend/Stdlib",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/zendframework/Component_ZendStdlib.git",
+            "reference": "release-2.2.1"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://packages.zendframework.com/composer/zendframework-zend-stdlib-2.2.1-release-2.2.1-8597ab.zip",
+            "reference": "2.2.1",
+            "shasum": "e21a7b98b5b28d9113e874a2ebbe176fb4947320"
+        },
+        "require": {
+            "php": ">=5.3.3"
+        },
+        "suggest": {
+            "zendframework/zend-eventmanager": "To support aggregate hydrator usage",
+            "zendframework/zend-servicemanager": "To support hydrator plugin manager usage"
+        },
+        "time": "2013-06-12 19:46:58",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "2.2-dev",
+                "dev-develop": "2.3-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-0": {
+                "Zend\\Stdlib\\": ""
+            }
+        },
+        "license": [
+            "BSD-3-Clause"
+        ],
+        "description": " ",
+        "keywords": [
+            "stdlib",
+            "zf2"
+        ],
+        "support": {
+            "source": "https://github.com/zendframework/Component_ZendStdlib/tree/release-2.2.1"
+        }
+    },
+    {
+        "name": "zendframework/zend-mime",
+        "version": "2.2.1",
+        "version_normalized": "2.2.1.0",
+        "target-dir": "Zend/Mime",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/zendframework/Component_ZendMime.git",
+            "reference": "release-2.2.1"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://packages.zendframework.com/composer/zendframework-zend-mime-2.2.1-release-2.2.1-8597ab.zip",
+            "reference": "2.2.1",
+            "shasum": "e328dd7421c847b72662fc61921c2d101ad90ff5"
+        },
+        "require": {
+            "php": ">=5.3.3",
+            "zendframework/zend-stdlib": "self.version"
+        },
+        "time": "2013-06-12 19:45:46",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "2.2-dev",
+                "dev-develop": "2.3-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-0": {
+                "Zend\\Mime\\": ""
+            }
+        },
+        "license": [
+            "BSD-3-Clause"
+        ],
+        "description": " ",
+        "keywords": [
+            "mime",
+            "zf2"
+        ],
+        "support": {
+            "source": "https://github.com/zendframework/Component_ZendMime/tree/release-2.2.1"
+        }
+    },
+    {
+        "name": "zendframework/zend-loader",
+        "version": "2.2.1",
+        "version_normalized": "2.2.1.0",
+        "target-dir": "Zend/Loader",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/zendframework/Component_ZendLoader.git",
+            "reference": "release-2.2.1"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://packages.zendframework.com/composer/zendframework-zend-loader-2.2.1-release-2.2.1-8597ab.zip",
+            "reference": "2.2.1",
+            "shasum": "7d6638cd2fae18dc07228ecc09b10e0375c49f6a"
+        },
+        "require": {
+            "php": ">=5.3.3"
+        },
+        "suggest": {
+            "zendframework/zend-stdlib": "Zend\\Stdlib component"
+        },
+        "time": "2013-05-01 21:53:24",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "2.2-dev",
+                "dev-develop": "2.3-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-0": {
+                "Zend\\Loader\\": ""
+            }
+        },
+        "license": [
+            "BSD-3-Clause"
+        ],
+        "description": " ",
+        "keywords": [
+            "loader",
+            "zf2"
+        ],
+        "support": {
+            "source": "https://github.com/zendframework/Component_ZendLoader/tree/release-2.2.0rc1"
+        }
+    },
+    {
+        "name": "zendframework/zend-mail",
+        "version": "2.2.1",
+        "version_normalized": "2.2.1.0",
+        "target-dir": "Zend/Mail",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/zendframework/Component_ZendMail.git",
+            "reference": "release-2.2.1"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://packages.zendframework.com/composer/zendframework-zend-mail-2.2.1-release-2.2.1-8597ab.zip",
+            "reference": "2.2.1",
+            "shasum": "116eb153d9e9875c9a5729a9f42dc425fef557d3"
+        },
+        "require": {
+            "php": ">=5.3.3",
+            "zendframework/zend-loader": "self.version",
+            "zendframework/zend-mime": "self.version",
+            "zendframework/zend-stdlib": "self.version"
+        },
+        "suggest": {
+            "zendframework/zend-servicemanager": "Zend\\ServiceManager component",
+            "zendframework/zend-validator": "Zend\\Validator component"
+        },
+        "time": "2013-06-12 19:45:42",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "2.2-dev",
+                "dev-develop": "2.3-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-0": {
+                "Zend\\Mail\\": ""
+            }
+        },
+        "license": [
+            "BSD-3-Clause"
+        ],
+        "description": "provides generalized functionality to compose and send both text and MIME-compliant multipart e-mail messages",
+        "keywords": [
+            "mail",
+            "zf2"
+        ],
+        "support": {
+            "source": "https://github.com/zendframework/Component_ZendMail/tree/release-2.2.1"
+        }
     }
 ]

@@ -35,34 +35,29 @@
 // $Id$
 
 /**
-* Implmentation of CRAM-MD5 SASL mechanism
+* Implmentation of PLAIN SASL mechanism
 *
 * @author  Richard Heyes <richard@php.net>
 * @access  public
 * @version 1.0
-* @package Auth_SASL
+* @package Auth_SASL2
 */
 
-require_once('Auth/SASL/Common.php');
+require_once('Auth/SASL2/Common.php');
 
-class Auth_SASL_CramMD5 extends Auth_SASL_Common
+class Auth_SASL2_Plain extends Auth_SASL2_Common
 {
     /**
-    * Implements the CRAM-MD5 SASL mechanism
-    * This DOES NOT base64 encode the return value,
-    * you will need to do that yourself.
+    * Returns PLAIN response
     *
-    * @param string $user      Username
-    * @param string $pass      Password
-    * @param string $challenge The challenge supplied by the server.
-    *                          this should be already base64_decoded.
-    *
-    * @return string The string to pass back to the server, of the form
-    *                "<user> <digest>". This is NOT base64_encoded.
+    * @param  string $authcid   Authentication id (username)
+    * @param  string $pass      Password
+    * @param  string $authzid   Autorization id
+    * @return string            PLAIN Response
     */
-    function getResponse($user, $pass, $challenge)
+    function getResponse($authcid, $pass, $authzid = '')
     {
-        return $user . ' ' . $this->_HMAC_MD5($pass, $challenge);
+        return $authzid . chr(0) . $authcid . chr(0) . $pass;
     }
 }
 ?>

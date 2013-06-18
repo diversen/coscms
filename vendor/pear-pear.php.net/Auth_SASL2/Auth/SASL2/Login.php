@@ -35,29 +35,31 @@
 // $Id$
 
 /**
-* Implmentation of PLAIN SASL mechanism
+* This is technically not a SASL mechanism, however
+* it's used by Net_Sieve, Net_Cyrus and potentially
+* other protocols , so here is a good place to abstract
+* it.
 *
 * @author  Richard Heyes <richard@php.net>
 * @access  public
 * @version 1.0
-* @package Auth_SASL
+* @package Auth_SASL2
 */
 
-require_once('Auth/SASL/Common.php');
+require_once('Auth/SASL2/Common.php');
 
-class Auth_SASL_Plain extends Auth_SASL_Common
+class Auth_SASL2_Login extends Auth_SASL2_Common
 {
     /**
-    * Returns PLAIN response
+    * Pseudo SASL LOGIN mechanism
     *
-    * @param  string $authcid   Authentication id (username)
-    * @param  string $pass      Password
-    * @param  string $authzid   Autorization id
-    * @return string            PLAIN Response
+    * @param  string $user Username
+    * @param  string $pass Password
+    * @return string       LOGIN string
     */
-    function getResponse($authcid, $pass, $authzid = '')
+    function getResponse($user, $pass)
     {
-        return $authzid . chr(0) . $authcid . chr(0) . $pass;
+        return sprintf('LOGIN %s %s', $user, $pass);
     }
 }
 ?>
