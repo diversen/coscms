@@ -222,7 +222,7 @@ class template_assets extends template {
     public static function getCssAsSingleStr () {
         $str = '';
         foreach (self::$css as $key => $val){
-            if (!preg_match('/^(http|https):/', $val) ) {
+            if (!preg_match('/^(http|https):/', $val) AND !preg_match('#^(//)#', $val) ) {
                 unset(self::$css[$key]);
                     
                 $file = _COS_HTDOCS . "$val";
@@ -274,9 +274,7 @@ class template_assets extends template {
      */
     public static function getCompressedCss(){
         
-        //$str = "";
         ksort(self::$css);
-        
         if (config::getMainIni('cached_assets_compress')) {
             self::setCssAsSingleFile();  
         } 
@@ -365,12 +363,13 @@ class template_assets extends template {
     public static function getJsAsSingleStr () {
         $str = '';
         foreach (self::$js as $key => $val){
-                if (!preg_match('/^(http|https):/', $val) ) {
-                    unset(self::$js[$key]);
-                    $str.= file::getCachedFile(_COS_HTDOCS . "/$val") ."\n\n\n";
-                }
+            if (!preg_match('#^(http|https)://#', $val) AND !preg_match('#^(//)#', $val) ) {
+                unset(self::$js[$key]);
+                $str.= file::getCachedFile(_COS_HTDOCS . "/$val") ."\n\n\n";
             }
-            return $str;
+        }
+            
+        return $str;
     }
     
     public static function setJsAsSingleFile () {
