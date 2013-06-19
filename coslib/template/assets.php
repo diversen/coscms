@@ -372,25 +372,25 @@ class template_assets extends template {
         return $str;
     }
     
+    /**
+     * sets js as a single file in js-all file 
+     */
     public static function setJsAsSingleFile () {
         $str = self::getJsAsSingleStr();
-            $md5 = md5($str);
-            $domain = config::getDomain();
+        $md5 = md5($str);
+        $domain = config::getDomain();
             
-            $web_path = "/files/$domain/cached_assets"; 
-            $file = "/js_all-$md5.js";
+        $web_path = "/files/$domain/cached_assets"; 
+        $file = "/js_all-$md5.js";
            
-            $full_path = _COS_HTDOCS . "/$web_path";
-            $full_file_path = $full_path . $file;
+        $full_path = _COS_HTDOCS . "/$web_path";
+        $full_file_path = $full_path . $file;
             
-            // create file if it does not exist
-            if (!file_exists($full_file_path)) {
-                //$packer = new JavaScriptPacker($str, 0, false, false);
-                //$packer = new JavaScriptPacker($_script, $_encoding, $_fastDecode, $_specialChars);
-                //$str = $packer->pack();
-                file_put_contents($full_file_path, $str, LOCK_EX);
-            }
-            self::setJs($web_path . $file);
+        // create file if it does not exist
+        if (!file_exists($full_file_path)) {
+            file_put_contents($full_file_path, $str, LOCK_EX);
+        }
+        self::setJs($web_path . $file);
     }
     /**
      * takes all JS and puts them in one file. It works the same way as 
