@@ -392,6 +392,7 @@ class template_assets extends template {
         }
         self::setJs($web_path . $file);
     }
+    
     /**
      * takes all JS and puts them in one file. It works the same way as 
      * template::getJs (except you only get one file) 
@@ -403,8 +404,7 @@ class template_assets extends template {
     public static function getCompressedJs(){
         
         $str = "";
-        ksort(self::$js);
-        
+        ksort(self::$js);        
         if (config::getMainIni('cached_assets_compress')) {
             self::setJsAsSingleFile();
             
