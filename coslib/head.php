@@ -30,6 +30,15 @@ if (!config::isCli()) {
     config::loadMainCli();
 }
 
+$module_dir = config::getMainIni('module_dir');
+if (!$module_dir) $module_dir ='modules';
+
+$ini_path = ini_get('include_path');
+ini_set('include_path', 
+    _COS_PATH . PATH_SEPARATOR . 
+    _COS_PATH . "/$module_dir" . PATH_SEPARATOR . 
+        $ini_path . PATH_SEPARATOR);
+
 // deinfe all constant - based on _COS_PATH and config.ini
 config::defineCommon();
 
