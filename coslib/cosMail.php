@@ -161,7 +161,6 @@ class cosMail {
      */
     public static function multipart ($to, $subject, $message, $from = null, $reply_to = null, $more = array ()){
         
-        
         $headers = cosMail::getHeaders($to, $subject, $from, $reply_to, $more);
         $mime = new cosMail_mime();
         if (is_array($message)) {
