@@ -1101,13 +1101,11 @@ EOF;
         $str = self::createImage($image_src, $options);
         return "<a href=\"$href\">$str</a>";
     }
-
-
-
+    
     /**
      * special encodes an array or string 
-     * @param mixed $values
-     * @return mixed $values special encoded
+     * @param array|string $values
+     * @return array|string $values
      */
     public static function specialEncode($values, $negative = array ()){
         if (is_array($values)){
@@ -1130,8 +1128,8 @@ EOF;
 
     /**
      * special decodes array or string 
-     * @param mixed $values the values to be decoded
-     * @return mixed $values the values decoded 
+     * @param array|string $values
+     * @return array|string $values
      */
     public static function specialDecode($values){
         if (is_array($values)){
@@ -1152,8 +1150,8 @@ EOF;
 
     /**
      * encodes entites in array or string for secure display
-     * @param mixed $values the var to entity encode
-     * @return mixed $values the encoded var
+     * @param string|array $values
+     * @return string|array $values
      */
     public static function entitiesEncode($values){
         if (is_array($values)){
@@ -1174,8 +1172,8 @@ EOF;
 
     /**
      * decodes entites in array or string
-     * @param mixed $values the vars to decode
-     * @return mixed $values the decoded vars 
+     * @param string|array $values
+     * @return string|array $values
      */
     public static function entitiesDecode($values){
         if (is_array($values)){
@@ -1224,11 +1222,11 @@ EOF;
         $sub = array ('', '', '');
         $clean = trim(str_replace($strip, $sub, strip_tags($string)));
         return $clean;
-        
     }
     
-        /**
-     * template function for printing a headline
+    /**
+     * echo a html headline. Defaults to h3. 
+     * can be overridden in template. 
      * @param type $message
      * @param type $tag
      */
@@ -1237,57 +1235,114 @@ EOF;
             mainTemplate::headline($message, $tag);
             return;
         }
-        echo "<!-- headline_message -->\n";
-        echo "<div class=\"headline\">\n";
-        echo "<$tag>$message</$tag>\n";
-        echo "</div>\n";
+        echo self::getHeadline($message, $tag);
+    }
+    
+    /**
+     * gets a html headline message. Default to h3
+     * @param string $message
+     * @param string $tag
+     * @return string $html
+     */
+    public static function getHeadline ($message, $tag = 'h3') {
+        if (method_exists('mainTemplate', 'getHeadline')) {
+            return mainTemplate::getHeadline($message, $tag);
+        }
+        $str = "<!-- headline_message -->\n";
+        $str.= "<div class=\"headline\">\n";
+        $str.= "<$tag>$message</$tag>\n";
+        $str.= "</div>\n";
+        return $str;
     }
 
     /**
      * template function for printing form errors
-     * @param  array $errors to display on wrong form submit
+     * @param  array $errors 
      */
     public static function errors($errors){
-        
-        // if method exists in loaded template we use that. 
-        
+        // if method exists in loaded template we use that.    
         if (method_exists('mainTemplate', 'errors')) {
             mainTemplate::errors($errors);
             return;
         } 
         
+        echo self::getErrors($errors);
+    }
+    
+     /**
+     * gets html error messages from array or string. can be overridden in template
+     * @param  string|array $html
+     */
+    public static function getErrors($errors){
+
+        if (method_exists('mainTemplate', 'getErrors')) {
+            return mainTemplate::getErrors($errors);
+        } 
+        
         if (is_string($errors)){
-            html::error($errors);
-            return;
+            return html::getError($errors);
         }
-        echo "<!-- view_form_errors -->\n";
-        echo "<div id=\"form_error\"><ul>\n";
+        $str = "<!-- view_form_errors -->\n";
+        $str.= "<div id=\"form_error\"><ul>\n";
         foreach($errors as $error){
-            echo "<li>$error</li>\n";
+            $str.= "<li>$error</li>\n";
         }
-        echo "</ul></div>\n";
-        echo "<!-- / end form_error -->\n";
+        $str.= "</ul></div>\n";
+        $str.= "<!-- / end form_error -->\n";
+        return $str;
     }
 
     /**
-     * function for displaying an confirm message
-     * @param   string  $message positive confirmation on correct filled form
+     * echos a confirm message. Can be overridden in template. 
+     * @param  string  $message positive confirmation on correct filled form
      */
     public static function confirm($message){
-        echo "<!-- view_confirm -->\n";
-        echo "<div id=\"form_confirm\">\n";
-        echo "<ul><li>$message</li></ul>\n";
-        echo "</div>\n";
+        if (method_exists('mainTemplate', 'confirm')) {
+            mainTemplate::confirm($message);
+        } 
+        echo self::getConfirm($message);
+    }
+    
+    /**
+     * gets a html confirm message. Can be overridden in template
+     * @param type $message
+     * @return string $html
+     */
+    public static function getConfirm ($message) {
+        if (method_exists('mainTemplate', 'getConfirm')) {
+            return mainTemplate::getConfirm($message);
+        }
+        $str = "<!-- view_confirm -->\n";
+        $str.= "<div id=\"form_confirm\">\n";
+        $str.= "<ul><li>$message</li></ul>\n";
+        $str.= "</div>\n";
+        return $str;
     }
 
     /**
-     * print a single error
+     * echo an html error message. This can be overridden in template
      * @param string $error message
      */
     public static function error($message){
-        echo "<!-- view_error -->\n";
-        echo "<div id=\"form_error\">\n";
-        echo "<ul><li>$message</li></ul>\n";
-        echo "</div>\n";
+        if (method_exists('mainTemplate', 'error')) {
+            mainTemplate::error($message);
+        }
+        echo self::getError($message);
+    }
+    
+    /**
+     * gets a error message. This can be overridden in template
+     * @param string $message
+     * @return string $html error message
+     */
+    public static function getError($message) {
+        if (method_exists('mainTemplate', 'getError')) {
+            return mainTemplate::getError($message);
+        }
+        $str = "<!-- view_error -->\n";
+        $str.= "<div id=\"form_error\">\n";
+        $str.= "<ul><li>$message</li></ul>\n";
+        $str.= "</div>\n";
+        return $str;
     }
 }
