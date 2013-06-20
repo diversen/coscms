@@ -512,6 +512,8 @@ class moduleloader {
      */
     public static function modulePathToClassName ($path){
 
+        return str_replace('/', '_', $path);
+        /*
         $ary = explode('/', $path);
         if (count($ary) == 1){
             $class = $path;
@@ -527,7 +529,7 @@ class moduleloader {
         if (count($ary) == 2){
             $str = $ary[0] . ucfirst($ary[1]);
             return $str;
-        }
+        }*/
     }
     
     /**

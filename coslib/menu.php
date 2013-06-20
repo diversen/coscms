@@ -169,7 +169,7 @@ class menu {
 
             $str.="<li>" .
             html::createLink(
-                    contentArticle::getArticleUrl(
+                    content_article::getArticleUrl(
                             $val['id'], $val['title']),
                     html::specialEncode($val['title']));
 
@@ -228,7 +228,7 @@ class menu {
             if (empty($val['title'])) continue;
             $str.="<li id=\"list_$val[id]\"><div>";
             $str.= html::createLink(
-                    contentArticle::getArticleUrl(
+                    content_article::getArticleUrl(
                             $val['id'], $val['title']),
                     html::specialEncode($val['title']));
             $str.= "</div>";
@@ -256,7 +256,7 @@ class menu {
     public static function generateTreeFromAjax ($input_ary){
         $list = array();
         foreach ($input_ary as $key => $val){
-            $art = new contentArticle();
+            $art = new content_article();
             $art = $art->getArticleFromId($key);
 
             if ($val == 'root'){
