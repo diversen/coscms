@@ -8,3 +8,5 @@ account_allow_create = "super"
 account_disable_admin_interface = 0
 account_admin_only = 0
 account_logins[0] = "email"
+account_logins[1] = "lightopenid"
+account_auto_merge[0] = "google.com"
