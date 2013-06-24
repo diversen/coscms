@@ -12,11 +12,11 @@
  * @package coslib
  */
 class gravatar {
-    public static function get_gravatar( $email, $s = 80, $d = 'identicon', $r = 'g', $img = false, $atts = array() ) {
+    public static function getGravatar( $email, $s = 80, $d = 'identicon', $r = 'g', $img = false, $atts = array() ) {
         return get_gravatar($email, $s, $d, $r, $img, $atts);
     }
     
-    public static function get_gravatar_img ($email, $s = 80, $d = 'identicon', $r = 'g', $img = true, $atts = array()) {
+    public static function getGravatarImg ($email, $s = 80, $d = 'identicon', $r = 'g', $img = true, $atts = array()) {
         return get_gravatar_img($email, $s, $d, $r, $img, $atts);
     }
 }
