@@ -30,7 +30,7 @@ class autolinkext {
       $callback = function($matches) { 
           $url       = array_shift($matches);
           $url_parts = parse_url($url);
-          $deny = filters_autolink::getDenyHosts();
+          $deny = filters_autolinkext::getDenyHosts();
 
           // check for links that we will be transformed from link
           // to inline content, e.g. youtube
@@ -60,4 +60,4 @@ class autolinkext {
 /**
  * added for autoloading
  */
-class filters_autolink extends autolink {}
+class filters_autolinkext extends autolinkext {}
