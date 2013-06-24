@@ -47,7 +47,6 @@ function create_module_skeleton_v1($args){
         $files.= $module_path . "/$module_name.ini ";
         $files.= $module_path . "/$module_name.ini-dist ";
         $files.= $module_path . "/model.$module_name.inc ";
-        $files.= $module_path . "/views.phtml ";
         $files.= $lang_dir_en . "/system.inc ";
         $files.= $lang_dir_en . "/language.inc ";
     } else {
@@ -89,7 +88,7 @@ function create_module_skeleton($args){
         cos_exec('mkdir ' . $lang_dir_en);
 
         $files = $module_path . "/menu.inc ";
-        $files.= $module_path . "/index.php ";
+        $files.= $module_path . "/views.php ";
         $files.= $module_path . "/README.md ";
         $files.= $module_path . "/install.inc ";
         $files.= $module_path . "/$module_name.ini ";
