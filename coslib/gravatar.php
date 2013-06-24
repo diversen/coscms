@@ -1,8 +1,26 @@
 <?php
 
 /**
+ * contians simple methods and functions for getting a fravatar image from
+ * gravatar.com 
  * @package coslib
  */
+
+/**
+ * contians simple methods and functions for getting a fravatar image from
+ * gravatar.com 
+ * @package coslib
+ */
+class gravatar {
+    public static function get_gravatar( $email, $s = 80, $d = 'identicon', $r = 'g', $img = false, $atts = array() ) {
+        return get_gravatar($email, $s, $d, $r, $img, $atts);
+    }
+    
+    public static function get_gravatar_img ($email, $s = 80, $d = 'identicon', $r = 'g', $img = true, $atts = array()) {
+        return get_gravatar_img($email, $s, $d, $r, $img, $atts);
+    }
+}
+
 
 /**
  * Get either a Gravatar URL or complete image tag for a specified email address.
