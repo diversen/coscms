@@ -1,0 +1,36 @@
+<VirtualHost *:80>
+    ServerAdmin webmaster@example.com
+    ServerName  coscms
+
+    # Indexes + Directory Root.
+    DirectoryIndex index.php
+    DocumentRoot /home/dennis/www/coscms/htdocs
+  
+    <Directory /home/dennis/www/coscms/htdocs>
+        RewriteEngine on
+        RewriteBase /
+        RewriteCond %{REQUEST_FILENAME} !-f
+        RewriteCond %{REQUEST_FILENAME} !-d
+        RewriteRule ^(.*)$ index.php?q=$1 [L,QSA]
+    </Directory>
+
+<Files *.inc>
+deny from all
+</Files>
+
+<Files info.php>
+deny from all
+allow from 127.0.0.1
+</Files>
+
+<Files *.sql>
+deny from all
+</Files>
+
+<Files *.ini>
+deny from all
+</Files>
+   
+    ErrorLog  /home/dennis/www/coscms/logs/error.log
+    CustomLog /home/dennis/www/coscms/logs/access.log combined
+</VirtualHost>

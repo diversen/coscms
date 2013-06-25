@@ -1,0 +1,94 @@
+#system_admin_menu { 
+    position: absolute;
+    height: 0px; 
+    top:0px;
+    width: 400px;
+} 
+
+
+/* 
+ * LEVEL ONE
+*/
+ul.system_admin_menu_dropdown { 
+    position: absolute; 
+    z-index: 1; 
+    list-style: none outside none;
+    padding: 0 0 0 0;
+
+}
+
+ul.system_admin_menu_dropdown li {  
+    font-weight: bold; 
+    padding: 4px 8px;
+    float: left;  
+    background: #ccc;
+}
+
+ul.system_admin_menu_dropdown a:hover { 
+    color: #000; 
+}
+
+ul.system_admin_menu_dropdown a:active { 
+    color: #ffa500;
+}
+
+ul.system_admin_menu_dropdown li a { 
+    display: block; 
+    padding: 4px 8px; 
+    border-right: 1px solid #333;
+    color: #222;
+}
+
+ul.system_admin_menu_dropdown li:last-child a { 
+    border-right: none; 
+} /* Doesn't work in IE */
+
+ul.system_admin_menu_dropdown li.hover, ul.system_admin_menu_dropdown li:hover { 
+    background: #fff; 
+    color: black; 
+    position: relative; 
+}
+
+ul.system_admin_menu_dropdown li.hover a { 
+    color: black;
+}
+
+
+/* 
+	LEVEL TWO
+*/
+ul.system_admin_menu_dropdown ul { 
+    list-style: none; 
+    width: 220px; 
+    visibility: hidden; 
+    position: absolute; 
+    top: 100%; 
+    left: -40px; 
+}
+
+ul.system_admin_menu_dropdown ul li { 
+    font-weight: normal; 
+    background: #f6f6f6; 
+
+    border-bottom: 1px solid #ccc; 
+    float: none; 
+}
+									  
+/* IE 6 & 7 Needs Inline Block */
+ul.system_admin_menu_dropdown ul li a { 
+    border-right: none; 
+    width: 100%; 
+    display: inline-block; 
+} 
+
+/* 
+	LEVEL THREE
+*/
+ul.system_admin_menu_dropdown ul ul { 
+    left: 100%; 
+    top: 0;
+}
+
+ul.system_admin_menu_dropdown li:hover > ul { 
+    visibility: visible; 
+}

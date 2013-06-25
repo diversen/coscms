@@ -1,0 +1,27 @@
+.vote_response {
+    font-size: 120%;
+    font-weight: bolder;
+    vertical-align:bottom;
+}
+
+/*
+button {
+    cursor: pointer;
+}*/
+
+
+.vote_up {
+    background:url(/images/up.gif) no-repeat;
+    cursor:pointer;
+    height: 25px;
+    width: 25px;
+    border: none;
+}
+
+.vote_down {
+    background:url(/images/down.gif) no-repeat;
+    cursor:pointer;
+    height: 25px;
+    width: 25px;
+    border: none;
+}
