@@ -487,7 +487,7 @@ class db_q  {
      * @param array $bind array with types to bind values to
      */
     public static function values ($values, $bind = array()) {
-        return self::setInsertValues($values, $bind);
+        return self::setValues($values, $bind);
     }
     
     
