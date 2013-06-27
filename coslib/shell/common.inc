@@ -6,6 +6,17 @@
  * @package     shell
  */
 
+if (!config::isCli()){
+    $new_line = "<br />";
+} else {
+    $new_line = PHP_EOL;
+}
+
+/**
+ * define new line if not cli
+ */
+
+define('NEW_LINE', $new_line);
 define('COS_CLI_STATUS_LENGTH', 12);
 /**
  * readline

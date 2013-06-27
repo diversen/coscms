@@ -308,17 +308,20 @@ EOF;
     public static function loadBaseModules () {
         
         $options = array ('search' => '.inc');
-        $command_path = _COS_PATH . '/coslib/shell';
-        $file_list = glob("$command_path/*.inc");
+        echo $command_path = _COS_PATH . '/coslib/shell';
         
-        foreach ($file_list as $val){
-            include_once $val;
+        $base_list = file::getFileList($command_path, array ('search' => '.inc'));
+
+        foreach ($base_list as $val){
+            include_once $command_path . "/$val";
         }
         
-        $command_path = _COS_PATH . '/coslib/shell/locale';
-        $file_list = glob("$command_path/*.inc");
+        $locale_path = _COS_PATH . '/coslib/shell/locale';
         
-        foreach ($file_list as $val){
+        $locale_list = file::getFileList($locale_path, array ('search' => '.inc'));
+        //$locale_list = glob("$command_path/*.inc");
+        
+        foreach ($locale_list as $val){
             include_once $val;
         }
     }

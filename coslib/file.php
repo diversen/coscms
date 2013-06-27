@@ -19,7 +19,8 @@ class file {
      * @param   string  the path to the directory where we want to create a filelist
      * @param   array   if $options['dir_only'] isset only return directories.
      *                  if $options['search'] isset then only files containing
-     *                  search string will be returned
+     *                  search string will be returned. Superficial as we will 
+     *                  use strstr
      * @return  array   entries of all files array (0 => 'file.txt', 1 => 'test.php')
      */
     public static function getFileList ($dir, $options = null) {

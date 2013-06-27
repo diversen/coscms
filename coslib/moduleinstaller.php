@@ -7,18 +7,12 @@
  *
  * @package    moduleinstaller
  */
-if (!config::isCli()){
-    $new_line = "<br />";
-} else {
-    $new_line = PHP_EOL;
-}
 
 /**
- * define new line if not cli
+ * used for add newline definiton, when doing web - or shell install of modules.
  */
-
 include_once "coslib/shell/common.inc";
-define('NEW_LINE', $new_line);
+
 /**
  * class for installing a module or upgrading it.
  * base actions are:
