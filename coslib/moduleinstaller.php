@@ -10,15 +10,15 @@
 if (!config::isCli()){
     $new_line = "<br />";
 } else {
-    $new_line = "\n";
+    $new_line = PHP_EOL;
 }
 
 /**
  * define new line if not cli
  */
-define('NEW_LINE', $new_line);
-include_once "coslib/shell/common.inc";
 
+include_once "coslib/shell/common.inc";
+define('NEW_LINE', $new_line);
 /**
  * class for installing a module or upgrading it.
  * base actions are:
