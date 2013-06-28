@@ -241,6 +241,10 @@ class template_assets extends template {
         return $str;
     }
     
+    public static function getCssLinkRel ($css) {
+        return "<link rel=\"stylesheet\" type=\"text/css\" href=\"$css\" />\n";
+    } 
+    
     /**
      * gets all css as a single string
      * @return string $css
