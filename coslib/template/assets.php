@@ -170,7 +170,11 @@ class template_assets extends template {
                 self::$noCacheCss[$order] = $css_url;
             }
         } else {
-            self::$noCacheCss[] = $css_url;
+            $next = self::getNextCount();
+            if (isset(self::$css[$next])) {
+                self::setCss($css_url, $order + 1, $options);
+            }
+            self::$noCacheCss[$next] = $css_url;
         }
     }
     
@@ -194,8 +198,30 @@ class template_assets extends template {
                 self::$css[$order] = $css_url;
             }
         } else {
-            self::$css[] = $css_url;
+            $next = self::getNextCount();
+            if (isset(self::$css[$next])) {
+                self::setCss($css_url, $order + 1, $options);
+            }
+            self::$css[$next] = $css_url;
         }
+    }
+    
+    /**
+     * var for keep count of css been set. 
+     * why: because if we set a css with a order of e.g. 20000
+     * then the next css without a order  will be set to 20001
+     * Therefor: we use an internal counter of all css were it does not
+     * matter what order they are loaded in
+     * @var int $count
+     */
+    private static $count = 1;
+    
+    /**
+     * 
+     * @return int $count next available css placeholder
+     */
+    private static function getNextCount() {
+        return self::$count++;
     }
     
     /**
