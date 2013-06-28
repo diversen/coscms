@@ -526,14 +526,9 @@ class moduleloader {
      * @return string the parsed modules html
      */
     public function getParsedModule(){
-        
-
-        
+     
         $action_str = $this->getParsedModuleAction();  
-        
-        
-        
-        
+ 
         if (!file_exists($this->info['controller_file']) && !$this->info['module_action_exists'] ){ 
             self::$status[404] = 1;
             $this->setErrorModuleInfo(); 
