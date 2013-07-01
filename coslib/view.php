@@ -136,11 +136,25 @@ class view {
      * @return string $parsed the parsed template view  
      */
     public static function get ($module, $view, $vars = null) {
+        $view = $view . ".inc";
+        return self::getFile($module, $view, $vars);
+    }
+    
+    /**
+     * shorthand for includeModuleView. Will always return the parsed template 
+     * instead of printing to standard output. 
+     * 
+     * @param string $module the module to include view from
+     * @param string $view the view to use
+     * @param mixed $vars the vars to use in the template
+     * @return string $parsed the parsed template view  
+     */
+    public static function getFile ($module, $view, $vars = null) {
        
         // only template who has set name will be able to override this way
         $template = config::getModuleIni('template_name');
         if ($template) {
-            $override = _COS_HTDOCS . "/templates/$template/$module/$view.inc";
+            $override = _COS_HTDOCS . "/templates/$template/$module/$view";
             if (is_file($override)) {
                 return self::getFileView($override, $vars);
             }
