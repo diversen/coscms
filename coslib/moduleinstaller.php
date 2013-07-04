@@ -868,10 +868,12 @@ class moduleinstaller extends db {
                                 'up');
                     $sql_ary = explode ("\n\n", $sql);
                     foreach ($sql_ary as  $sql_val) {
+                        if (empty($sql_val)) continue;
                         try {
                             self::$dbh->query($sql_val);
                         } catch (Exception $e) {
                             echo 'Caught exception: ',  $e->getMessage(), "\n";
+                            echo "SQL = $sql_val\n";
                             echo "version of sql: $version";
                             die;
                         }
