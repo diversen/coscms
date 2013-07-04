@@ -136,7 +136,7 @@ class view {
      * @return string $parsed the parsed template view  
      */
     public static function get ($module, $view, $vars = null) {
-        $view = $view . ".inc";
+        $view = "views/$view.inc";
         return self::getFile($module, $view, $vars);
     }
     
