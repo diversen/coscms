@@ -136,7 +136,7 @@ class view {
      * @return string $parsed the parsed template view  
      */
     public static function get ($module, $view, $vars = null) {
-        $view = "views/$view.inc";
+        $view = $view . ".inc";
         return self::getFile($module, $view, $vars);
     }
     
@@ -159,7 +159,7 @@ class view {
                 return self::getFileView($override, $vars);
             }
         }
-        $file = _COS_MOD_PATH . "/$module/$view";
+        $file = _COS_MOD_PATH . "/$module/views/$view";
         return self::getFileView($file, $vars);
     }
     
