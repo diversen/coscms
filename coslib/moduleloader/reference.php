@@ -35,6 +35,7 @@ class moduleloader_reference extends moduleloader {
         }
         
         $res = moduleloader::includeModule($reference);
+        
         if ($res) {
             // transform a reference (e.g. content/article) into a class name
             // (content_article_module)
@@ -44,13 +45,15 @@ class moduleloader_reference extends moduleloader {
             self::$referenceId = $reference_id;
             
             // we only need this if we just need a link to point to 'parent' module
-            if (method_exists($class, 'getLinkFromId')) {            
+            if (@method_exists($class, 'getLinkFromId')) {            
                 self::$referenceLink = $class::getLinkFromId(
                     self::$referenceId, self::$referenceOptions);
             }
             
+            
+            
             // we need this if we want to redirect if a submission was valid
-            if (method_exists($class, 'getRedirect')) {
+            if (@method_exists($class, 'getRedirect')) {
                 self::$referenceRedirect = $class::getRedirect(
                     self::$referenceId, self::$referenceOptions);
                 
@@ -59,6 +62,7 @@ class moduleloader_reference extends moduleloader {
             }
             return true;
         }
+        
         return false;
     }
     
