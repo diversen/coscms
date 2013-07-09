@@ -16,7 +16,7 @@ class date_helpers {
      */
     public static function yearCurrentInt () {
         return strftime("%Y");
-}
+    }
     
     /**
      * return last 12 months starting with param start
