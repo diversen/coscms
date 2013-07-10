@@ -639,10 +639,12 @@ class moduleloader {
             );
         }
 
-        
+        if (config::getMainIni('production') == 1) {
         // check if development settings exists.
         //echo config::$env;
-        if (isset($module_ini['development']) && config::getEnv() =='development' ) {
+        }
+        
+        else if (isset($module_ini['development']) && config::getEnv() =='development' ) {
             //if ( @config::$vars['coscms_main']['development']['server_name'] == @$_SERVER['SERVER_NAME']){
                 config::$vars['coscms_main']['module'] =
                         array_merge(
@@ -654,7 +656,7 @@ class moduleloader {
         }
         
         // check if stage settings exists.
-        if ((isset($module_ini['stage']) && config::getEnv() =='stage' ) ){
+        else if ((isset($module_ini['stage']) && config::getEnv() =='stage' ) ){
             //if ( @config::$vars['coscms_main']['stage']['server_name']  == @$_SERVER['SERVER_NAME'] ){
                 config::$vars['coscms_main']['module'] =
                         array_merge(
