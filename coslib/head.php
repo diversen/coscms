@@ -42,6 +42,17 @@ ini_set('include_path',
 // deinfe all constant - based on _COS_PATH and config.ini
 config::defineCommon();
 
+    $shared_ini = _COS_PATH . '/config/shared.ini';
+    if (file_exists($shared_ini)) {
+        $ini = config::getIniFileArray($shared_ini, true);
+        config::$vars['coscms_main'] =
+            array_merge(
+                config::$vars['coscms_main'],
+                $ini
+            );
+        
+    }
+
 
 // This is only if commandline mode is not specified  
 if (!config::isCli()){
@@ -54,17 +65,6 @@ if (!config::isCli()){
     // e.g. when updating all sites, it is a good idea to set the following flag
     // site_update = 1
     // this flag will send correct 503 headers, when we are updating our site. 
-    
-    $shared_ini = _COS_PATH . '/config/shared.ini';
-    if (file_exists($shared_ini)) {
-        $ini = config::getIniFileArray($shared_ini, true);
-        config::$vars['coscms_main'] =
-            array_merge(
-                config::$vars['coscms_main'],
-                $ini
-            );
-        
-    }
         
     // check if we are in debug mode and display errors
     if (config::getMainIni('debug')) {
