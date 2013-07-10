@@ -275,11 +275,6 @@ class config {
 
             return null;
         } else {
-            if (isset(config::$vars['coscms_main']['production'])){
-                if (in_array(config::getHostnameFromCli(), config::getHostnameFromIni('development') ) ) {
-                    return 'production';
-                }
-            }
             
             if (isset(config::$vars['coscms_main']['development'])){
                 if (in_array(config::getHostnameFromCli(), config::getHostnameFromIni('development') ) ) {
@@ -373,7 +368,6 @@ class config {
     public static function loadMainCli () {
         $config_file = config::getConfigFileName();
         
-    
         if (!file_exists($config_file)){
             return;
         } else {
@@ -418,7 +412,6 @@ class config {
             // Development settings will ALSO be added to CLI
             // ini settings
             if (config::getEnv() =='development') {
-
                     config::$vars['coscms_main'] =
                     array_merge(
                         config::$vars['coscms_main'],
