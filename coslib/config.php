@@ -275,6 +275,11 @@ class config {
 
             return null;
         } else {
+            if (isset(config::$vars['coscms_main']['production'])){
+                if (in_array(config::getHostnameFromCli(), config::getHostnameFromIni('development') ) ) {
+                    return 'production';
+                }
+            }
             
             if (isset(config::$vars['coscms_main']['development'])){
                 if (in_array(config::getHostnameFromCli(), config::getHostnameFromIni('development') ) ) {
