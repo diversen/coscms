@@ -493,9 +493,9 @@ class session {
 
     /**
      * checks $_SESSION['id'] and if set it will return 
-     * method for getting a users id
+     * method for getting a users id - remember that 0 is anon user.
      *
-     * @return  mixed false if no user id or the users id. 
+     * @return  mixed $res false if no user id or the users id. 
      */
     static public function getUserId(){
         if ( !isset($_SESSION['id']) || empty($_SESSION['id']) ){
