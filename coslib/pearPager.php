@@ -106,7 +106,8 @@ class pearPager {
             'totalItems' => $num_items,
         );
 
-        $pager = Pager::factory($pager_options);
+        //$p = new Pager();
+        $pager =  @Pager::factory($pager_options);
         return "<div class =\"pager\">" . $pager->links . "</div>\n" ;
 
     }
