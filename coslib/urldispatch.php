@@ -25,7 +25,7 @@ class urldispatch {
     /**
      * parses pathinfo with parse_url
      */
-    public function parse () {       
+    public static function parse () {       
         self::$pathInfo = parse_url($_SERVER['REQUEST_URI']);
     }
    

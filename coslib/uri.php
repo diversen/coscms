@@ -316,7 +316,7 @@ class uri {
      *
      * @return array    getting all info collected in constructor
      */
-    public function getInfo(){
+    public static function getInfo(){
         return self::$info;
     }
 

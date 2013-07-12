@@ -22,7 +22,7 @@ class layout2 extends layout {
      * @param   array   $menu menu to parse
      * @return  string  containing menu in html form ul li
      */
-    public static function parseModuleMenu($menu){
+    public static function parseModuleMenu($menu, $options = array ()){
         $str = '';
         $str.= MENU_LIST_START . "\n";
         $num_items = $ex = count($menu);
