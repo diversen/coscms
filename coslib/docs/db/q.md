@@ -1,20 +1,22 @@
 db_q
 ====
 
-Simple ORM for doing basic CRUD
+Simple CRUD object for doing basic DB operations
+in a simplistic way. There is no support for joins, as I think
+in most CRUD objects Joins does not become more easy to use and understand. 
+Using SQL joins is as easy. 
 
 ### Connect
 
-Connection is made in the db class
+Connection is made in the db class. If writing a module, you will be connected
+per auto. 
 
     $db = new db($options);
     $db->connect();
 
 ### Read (Select)
+ 
 
-Select all rows: 
-
-    //$q = new dbQ;
     $rows = db_q->select('account')->
             filter('id > ', '10')->
             condition('AND')->
@@ -35,7 +37,7 @@ Select one row:
 
 ### Delete
 
-    $res = db_q->delete('account')->
+S    $res = db_q->delete('account')->
             filter('id =', 21)->
             exec();
 

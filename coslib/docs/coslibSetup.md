@@ -16,7 +16,7 @@ include_once "coslib/coslibSetup.php";
 // Load a configuration file (found in config/config.ini)
 config::loadMainCli();
 
-// Do something
+// Do something - but almost anytime you will need a db connection. 
 $db = new db();
 $db->connect();
 

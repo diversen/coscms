@@ -27,7 +27,7 @@ function create_docs(){
 
     $command = "phpdoc run ";
     $command.= "-d coslib ";
-    $command.= "-t " . _COS_PATH . "/htdocs/phpdocs ";
+    $command.= "--template old-ocean -t " . _COS_PATH . "/htdocs/phpdocs ";
     cos_system($command);
 }
 

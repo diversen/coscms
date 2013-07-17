@@ -33,4 +33,4 @@ class simplelink {
 
 }
 
-class filter_simplelink extends simplelink {}
+class filters_simplelink extends simplelink {}
