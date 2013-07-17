@@ -3,13 +3,13 @@
 /**
  * contians simple methods and functions for getting a fravatar image from
  * gravatar.com 
- * @package coslib
+ * @package gravatar
  */
 
 /**
  * contians simple methods and functions for getting a fravatar image from
  * gravatar.com 
- * @package coslib
+ * @package gravatar
  */
 class gravatar {
     public static function getGravatar( $email, $s = 80, $d = 'identicon', $r = 'g', $img = false, $atts = array() ) {

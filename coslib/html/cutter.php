@@ -1,5 +1,15 @@
 <?php
 
+/**
+ * File containing class for cutting html
+ * @package html 
+ */
+
+/**
+ * Class for cutting html
+ * @package html
+ */
+
 // from: https://code.google.com/p/htmlcutting/
 // 
 class html_cutter{

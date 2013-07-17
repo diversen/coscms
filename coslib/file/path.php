@@ -8,7 +8,7 @@
 
 /**
  * class version of pathinfo_utf8
- * @package file_path
+ * @package file
  */
 
 class file_path {

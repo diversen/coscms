@@ -2,17 +2,17 @@
 
 /**
  * File containing class for parsing template assets. 
- * 
- * @package template_assets
- */
-
-/**
- * 
- * class used for parsing assets (css and js) and caching them
- * @package template_assets
+ * @package template
  */
 
 include_once "csspacker.php";
+
+/**
+ * class used for parsing assets (css and js) and caching them
+ * @package template
+ */
+
+
 
 // Nice find but does not work properly
 // include_once "class.JavaScriptPacker.php";

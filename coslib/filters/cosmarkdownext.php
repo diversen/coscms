@@ -1,9 +1,17 @@
 <?php
-use \Michelf\MarkdownExtra;
+
+
 /**
- * markdownExt filter.
+ * markdownext filter. using Michelf markdown extra
+ * @package    filters
+ */
+
+use \Michelf\MarkdownExtra;
+
+/**
+ * markdownext filter.
  *
- * @package    filter_markdownExt
+ * @package    filters
  */
 class cosmarkdownext {
 

@@ -1,6 +1,14 @@
 <?php
 
+/**
+ * autolink filter
+ * @package    filters
+ */
 
+/**
+ * autolink filter
+ * @package    filters
+ */
 class autolink {
 
     /**

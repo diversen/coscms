@@ -4,7 +4,12 @@ include_once "rb.php";
 /**
  * File contains RB (Redbeans) helpers for easy connecting to CosCMS 
  * DB using Redbeans
- * @package rb_helpers 
+ * @package cosRB
+ */
+
+/**
+ * override default RB model formatter
+ * @package cosRB
  */
 class MyModelFormatter implements RedBean_IModelFormatter {
         public function formatModel($model) {
@@ -22,7 +27,7 @@ class MyModelFormatter implements RedBean_IModelFormatter {
  * dbQ you can get diffrences in the UTF-8 output. E.g. inserts with dbQ
  * and selects with R or RB. 
  *
- * @package rb_helpers
+ * @package cosRB
  */
 
 class cosRB {

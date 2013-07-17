@@ -2,12 +2,12 @@
 
 /**
  * File contains comon methods when working in db adin mode. 
- * @package coslib 
+ * @package db 
  */
 
 /**
  * dbadmin 
- * @package coslib
+ * @package db
  */
 class db_admin extends db {
     

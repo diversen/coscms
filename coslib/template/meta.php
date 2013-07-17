@@ -3,13 +3,13 @@
 /**
  * File containing class for adding meta tags
  * 
- * @package template_meta
+ * @package template
  */
 
 /**
  * 
  * class used for parsing meta tags
- * @package template_meta
+ * @package template
  */
 
 class template_meta extends template  {

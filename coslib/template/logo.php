@@ -2,13 +2,13 @@
 
 /**
  * File containing class getting logo
- * @package template_meta
+ * @package template
  */
 
 /**
  * 
  * File containing class getting logo
- * @package template_meta
+ * @package template
  */
 
 class template_logo {

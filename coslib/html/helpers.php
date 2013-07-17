@@ -1,5 +1,15 @@
 <?php
 
+/**
+ * File containing class for html helpers
+ * @package html 
+ */
+
+/**
+ * Class for html helpers
+ * @package html
+ */
+
 class html_helpers {
         
     /**

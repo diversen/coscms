@@ -1,5 +1,14 @@
 <?php
 
+/**
+ * File containing class for building tables
+ * @package html 
+ */
+
+/**
+ * Class for building tables
+ * @package html
+ */
 class html_table {
     
     public static $str;

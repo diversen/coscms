@@ -2,13 +2,13 @@
 
 /**
  * File containing class getting favicon
- * @package template_meta
+ * @package template
  */
 
 /**
  * 
  * File containing class getting favicon
- * @package template_meta
+ * @package template
  */
 
 class template_favicon {

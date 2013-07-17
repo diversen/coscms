@@ -1,12 +1,16 @@
 <?php
 
+/**
+ * markdown filter. use Michelf markdown
+ * @package    filters
+ */
 
 use \Michelf\Markdown;
 
 /**
  * markdown filter.
  *
- * @package    filter_markdown
+ * @package    filters
  */
 class cosmarkdown {
 
