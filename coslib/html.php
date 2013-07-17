@@ -959,7 +959,7 @@ EOF;
      * with element for day, month and year
      */
     public static function selectBirthday () {        
-        $date = formHelpers::birthdayDropdown();
+        $date = html_helpers::birthdayDropdown();
         self::$fields[] = array ('value' => $date['day']);
         self::$fields[] = array ('value' => $date['month']);
         $year = $date['year'] . self::$br . "\n";
