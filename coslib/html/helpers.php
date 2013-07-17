@@ -1,6 +1,6 @@
 <?php
 
-class html_helpers extends html_helpers {
+class html_helpers {
         
     /**
      * method for getting admin options
