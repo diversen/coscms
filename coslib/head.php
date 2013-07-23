@@ -185,6 +185,7 @@ if (!config::isCli()){
     if (isset($route['method'])) {
         $str = urldispatch::call($route['method']);       
     } else {
+        //die('ok');
         // or we use default module loading
         $str = $moduleloader->getParsedModule();
     }

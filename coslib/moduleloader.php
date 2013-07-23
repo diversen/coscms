@@ -248,7 +248,7 @@ class moduleloader {
         }
         $this->info['controller_file'] = $controller_file;
         $this->info['controller'] = 'index';
-        $this->info['module_class'] = $this->info['module_name'] . "_module";
+        $this->info['module_class'] = $this->info['module_name'] . "";
 
     }
     
@@ -528,7 +528,6 @@ class moduleloader {
     public function getParsedModule(){
      
         $action_str = $this->getParsedModuleAction();  
- 
         if (!file_exists($this->info['controller_file']) && !$this->info['module_action_exists'] ){ 
             self::$status[404] = 1;
             $this->setErrorModuleInfo(); 
@@ -572,12 +571,12 @@ class moduleloader {
      */
     
     public function getParsedModuleAction () {
-
+        
         $controller = $this->info['controller'];
         $action = $controller. 'Action';
         $module_class = $this->info['module_class'];
-        $action_exists = @method_exists($module_class, $action);
-        
+        $action_exists = @is_callable(array ($module_class, $action));
+
         // We need is a controller
         if (!$action_exists){
             $this->info['module_action_exists'] = false;
