@@ -109,4 +109,24 @@ class db_admin extends db {
         $rows = db::selectQueryOne($q);
         return $rows;
     }
+    
+    public static function cloneDB($database, $newDatabase){
+        $db = new db();
+        $rows = $db->selectQuery('show tables');
+        $tables = array();
+        foreach ($rows as $table) {
+            $tables[] = array_pop($table);
+        }
+
+        $db->rawQuery("CREATE DATABASE `$newDatabase` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci");
+        foreach($tables as $cTable){
+            self::changeDB ( $newDatabase );
+            $create     =   $db->rawQuery("CREATE TABLE $cTable LIKE ".$database.".".$cTable);
+            if(!$create) {
+                $error  =   true;
+            }
+            $db->rawQuery("INSERT INTO $cTable SELECT * FROM ".$database.".".$cTable);
+        }
+        return !isset($error) ? true : false;
+    }
 }

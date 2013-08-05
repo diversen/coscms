@@ -172,6 +172,16 @@ function get_latest_db_dump($dir = null, $num_files = null){
     return $time_stamp;
 }
 
+function clone_db ($options = array ()) {
+    if (!isset($options['File'])){
+        cos_cli_abort('Specify new database name');
+    }
+    $db = db_admin::getDbInfo();
+    $old = $db['name'];
+    $new_name = $options['File'];
+    db_admin::cloneDB($old, $new_name);
+}
+
 
 if (cos_is_cli()){
 
@@ -215,6 +225,12 @@ if (cos_is_cli()){
         'description' => 'Connects to database specified in config/config.ini using the mysql shell',
         'action'      => 'StoreTrue'
     ));
+    
+    mainCli::setOption('clone_db', array(
+        'long_name'   => '--clone',
+        'description' => 'Clone database. Specify name',
+        'action'      => 'StoreTrue'
+    ));
 
     mainCli::setOption ('dump_db_file', array(
         'long_name'   => '--dump-db-file',
@@ -223,6 +239,6 @@ if (cos_is_cli()){
     ));
 
     mainCli::setArgument('File',
-        array('description'=> 'Optional: Specify a path to a file to load into db',
+        array('description'=> 'Optional: Specify a path to a file to load into db or DB',
               'optional' => true));
 }
