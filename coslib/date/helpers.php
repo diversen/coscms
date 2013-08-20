@@ -137,4 +137,38 @@ class date_helpers {
         }
         return $year_diff;
     }
+    
+    /**
+     * add or subtract days from timestamp (mysql like)
+     * @param int $days e.g. 10 or -10
+     * @param string $from e.g. 2013-10-10. Default to now
+     * @return string $stamp e.g. 2013-10-20
+     */
+    public static function daysToTimestamp ($days, $from = null) {
+        
+        if (!$from) { 
+            $from = self::nowTimestamp ();
+        }
+        
+        $date = strtotime("$from $days days");
+        $date = date("Y-m-d", $date );
+        return $date;
+    }
+
+    /**
+     * get currenct date
+     * @param array $options if we need hms then set hms => 1
+     * @return string $date
+     */
+    public static function nowTimestamp ($options = array ()) {
+
+        if (isset($options['hms'])) {
+            $format = 'Y-m-d G:i:s';
+        } else {
+            $format = 'Y-m-d';
+        }
+        $date = date($format );
+        return $date;
+
+    }
 }
