@@ -16,7 +16,14 @@
  * 
  * You really only need to use one function call: 
  * 
- * mail_multipart_utf8($to, $subject, $message, $from, $reply_to);
+ * 
+ <code>
+   $message = array (
+  'txt' => 'message', 
+  'html' => '<h3>html message</h3>',                       
+  'attachments => array ('/path/to/file', '/path/to/another/file'));
+   cosMail::multipart($to, $subject, $message);
+ </code>
  * 
  * with this command you can send mails as txt, html (or both) and 
  * add attachments by only setting the attachment part of the message array
