@@ -144,7 +144,7 @@ class db_q  {
      * @param string $table the table to delete from
      */
     public static function setDelete ($table){
-        self::$method == 'delete';
+        self::$method = 'delete';
         self::$query = "DELETE FROM $table ";
         return new db_q;
     }
@@ -165,7 +165,7 @@ class db_q  {
      * @param type $table the table to insert values into
      */
     public static function setInsert ($table) {
-        self::$method = 'INSERT';
+        self::$method = 'insert';
         self::$query = "INSERT INTO $table ";
         return new db_q;
     }
@@ -239,16 +239,39 @@ class db_q  {
      * @param string $bind  if we want to bind the value to a type. 
      */
     public static function filter ($filter, $value, $bind = null) {
-
+        self::setWhere();
+        self::$query.= " $filter ? ";
+        self::$bind[] = array ('value' => $value, 'bind' => $bind);
+        return new db_q();
+    }
+    
+    /**
+     * prepares a query as string
+     * @param string $str the filter to use e.g. 'id > ? OR email = ?'
+     * @param array  $values the value to filter from e.g. '2'
+     * @param array  $bind  if we want to bind the value to a type. 
+     */
+    public static function filterString ($str, $values, $bind = null) {
+        self::setWhere();
+        self::$query.= " $str ";
+        foreach ($values as $key => $val) {
+            if (isset($bind[$key])) {
+                self::$bind[] = array ('value' => $val, 'bind' => $bind[$key]);
+            } else {
+                self::$bind[] = array ('value' => $val, 'bind' => null);
+            }
+        }
+        return new db_q();
+    }
+    
+    /**
+     * sets WHERE if a WHERE condition has not been set
+     */
+    public static function setWhere () {
         if (!self::$where) {
             self::$where = 1;
             self::$query.= "WHERE ";
         }
-
-        self::$query.= " $filter ? ";
-        
-        self::$bind[] = array ('value' => $value, 'bind' => $bind);
-        return new db_q();
     }
     
     /**
@@ -256,14 +279,8 @@ class db_q  {
      * @param string $sql e.g. "id >= 3"
      */
     public static function sql ($sql) {
-
-        if (!self::$where) {
-            self::$where = 1;
-            self::$query.= "WHERE ";
-        }
-
+        self::setWhere();
         self::$query.= " $sql ";
-
         return new db_q();
     }
     
@@ -274,11 +291,7 @@ class db_q  {
      * @param array $values the values which we will use, e.g. array(1, 2, 3) 
      */
     public static function filterIn ($filter, $values) {
-
-        if (!self::$where) {
-            self::$where = 1;
-            self::$query.= "WHERE ";
-        }
+        self::setWhere();
 
         self::$query.= " $filter ";
         self::$query.= "(";
@@ -305,16 +318,15 @@ class db_q  {
 
     /**
      * set ordering of the values which we tries to fetch
-     * 
+     * remember to escape the order when using user input!
      * @param string $column column to order by, e.g. title
      * @param string $order (e.g. ASC or DESC)
      */
-    public static function order ($column, $order = 'ASC', $options = array ()){
-        
+    public static function order ($column, $order = 'ASC', $options = array ()){      
         if (!self::$isset) { 
-            self::$query.= " ORDER BY $column $order ";
+            self::$query.= " ORDER BY `$column` $order ";
         } else {
-            self::$query.= ", $column $order ";
+            self::$query.= ", `$column` $order ";
         }   
         self::$isset = true;
         return new db_q;
