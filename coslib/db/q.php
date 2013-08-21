@@ -319,14 +319,14 @@ class db_q  {
     /**
      * set ordering of the values which we tries to fetch
      * remember to escape the order when using user input!
-     * @param string $column column to order by, e.g. title
+     * @param string $column column to order by, e.g. title (remember to escape this!)
      * @param string $order (e.g. ASC or DESC)
      */
     public static function order ($column, $order = 'ASC', $options = array ()){      
         if (!self::$isset) { 
-            self::$query.= " ORDER BY `$column` $order ";
+            self::$query.= " ORDER BY $column $order ";
         } else {
-            self::$query.= ", `$column` $order ";
+            self::$query.= ", $column $order ";
         }   
         self::$isset = true;
         return new db_q;
