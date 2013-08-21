@@ -29,7 +29,8 @@ include_once "Mail.php";
 class cosMail {
     
     public static $mail = null;
-    public static  $params = array ();
+    public static $params = array ();
+    public static $queueParams = array ();
     
     /**
      * sets type of mailing to do
@@ -221,8 +222,8 @@ class cosMail {
     * @return boolean $res true on success and false on failure
     */
     public static function send ($to, $mime_headers, $body) {
-        if (self::$que) {
-            return cosMail_que::addToQue ($to, $mime_headers, $body);
+        if (self::$queue) {
+            return cosMail_queue::add ($to, $mime_headers, $body);
         }
         
         $options = cosMail::init();
@@ -251,21 +252,21 @@ class cosMail {
         
     /**
      *
-     * @var boolean $que if true que is enabled else que is not enabled
+     * @var boolean $queue if true queue is enabled else queue is not enabled
      */
-    public static $que = false;
+    public static $queue = false;
     
     /**
-     * enables mail que
+     * enables mail queue
      */
-    public static function enableQue () {
-        self::$que = true;
+    public static function enableQueue ($params = array ()) {
+        self::$queue = true;
     }
     
     /**
-     * disables mail que
+     * disables mail queue
      */
-    public static function disableQue () {
-        self::$que = true;
+    public static function disableQueue () {
+        self::$queue = false;
     }
 }
