@@ -38,7 +38,7 @@ class cosRB {
     public static function connect () {
         static $connected = null;
         
-        if (!$connected){
+        if (!$connected){           
             
             $url = config::getMainIni('url');
             $username = config::getMainIni('username');
@@ -46,7 +46,11 @@ class cosRB {
             R::setStrictTyping(false); 
             $formatter = new MyModelFormatter;
             RedBean_ModelHelper::setModelFormatter($formatter);
+            
             R::setup($url, $username,$password); //mysql
+            if (config::getMainIni('rb_freeze')) {
+                R::freeze(true);
+            }
             $connected = true;
         } 
     }
