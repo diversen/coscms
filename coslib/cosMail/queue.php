@@ -88,8 +88,11 @@ class cosMail_queue {
     
     /**
      * method for processing mail queue
+     * @param array $params 
+     *                  array ('sleep' => 3, 'per_domain' => false); 
      */
-    public static function process () {
+    public static function process ($params) {
+        
         
     }
 }
