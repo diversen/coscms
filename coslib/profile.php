@@ -216,7 +216,7 @@ class profile  {
                 }
                 
                 $templates[$key]['module_name'] = $val;
-                $templates[$key]['public_clone_url'] = $git_url;
+                $templates[$key]['public_clone_url'] = trim($git_url);
 
             }
 
