@@ -27,11 +27,6 @@ function translate($options){
         cos_cli_abort('No such module dir: ' . $module_dir);
     }
 
-
-    if (file_exists($module_dir)){
-
-    }
-
     // get all files  from modules dir
     $file_list = file::getFileListRecursive($module_dir);
     

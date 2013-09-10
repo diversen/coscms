@@ -56,6 +56,7 @@ class gtranslate {
         $url.= "target=" . self::$options['target'] . "&";
         $url.= "source=" . self::$options['source'] . "&";
         $url.= "q=" . urlencode($str);
+
         $str = file_get_contents($url);
         $ary = json_decode($str, true);
         return $ary;
