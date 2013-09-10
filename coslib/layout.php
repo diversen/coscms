@@ -105,7 +105,10 @@ class layout {
         $template_path = _COS_HTDOCS. "/templates/" .
             $template;
         
-        include_once $template_path . "/common.inc";
+        $common = $template_path . "/common.inc";
+        if (file_exists($common)) {
+            include_once $common;
+        }
         include_once $template_path . "/template.inc";
     }
     

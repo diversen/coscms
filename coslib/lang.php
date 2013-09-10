@@ -4,13 +4,13 @@
 /**
  * File contains contains class creating simple translation
  *
- * @package    lang
+ * @package    coslib
  */
 
 /**
  * Class for doing simple translations
  *
- * @package    lang
+ * @package    coslib
  */
 class lang {
 
@@ -119,8 +119,8 @@ class lang {
      * Loads a module language (modules/yourmodule/lang/en_GB/language.inc). 
      * The module language will only be loaded when a module is loaded, while
      * the system language (modules/yourmodule/lang/en_GB/system.inc) is put
-     * into db on installm, and therefor always loaded. 
-     * @param   string   the base module to load (e.g. content or account)
+     * into db on install, and therefor always loaded. 
+     * @param   string  $module the base module to load (e.g. content or account)
      */
     static function loadModuleLanguage($module){
         static $loaded = array();
@@ -143,6 +143,37 @@ class lang {
         }
 
         $loaded[$module] = true;
+    }
+    
+        /**
+     *
+     * Loads a template language (templates/mytemplate/lang/en_GB/language.inc). 
+     * The template language will only be loaded when atemplate is loaded, while
+     * the system language (templates/mytemplate/lang/en_GB/system.inc) is put
+     * into db on install, and therefor always loaded. 
+     * @param   string  $template the base module to load (e.g. content or account)
+     */
+    static function loadTemplateLanguage($template){
+        static $loaded = array();
+        
+        if (isset($loaded[$template])) {
+            return;
+        }
+
+        $base = _COS_HTDOCS . '/templates';
+        $language_file =
+            $base . "/$template" . '/lang/' .
+            config::$vars['coscms_main']['language'] .
+            '/language.inc';
+
+        if (file_exists($language_file)){
+            include $language_file;
+            if (isset($_COS_LANG_MODULE)){
+                self::$dict+= $_COS_LANG_MODULE;
+            }
+        }
+
+        $loaded[$template] = true;
     }
 
     /**

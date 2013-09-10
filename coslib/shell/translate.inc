@@ -9,7 +9,6 @@
  * to be translated in a module by traversing all files
  * in the module.
  *
- * Could easily be refined to check if strings are translated
  * So far it is as it is .)
  *
  * @param array $options
@@ -20,11 +19,18 @@ function translate($options){
     $strings_all = array();
     $strings_all[] = '';
 
-    $module_dir = _COS_MOD_PATH . "/$options[module]";
+    if (isset($options['template'])) {
+        $module_dir = _COS_HTDOCS . '/templates/' . $options['module'];
+        $lang_dir = _COS_HTDOCS . "/templates/$options[module]/lang/$options[Language]";
+    } else {
+        $module_dir = _COS_MOD_PATH . "/$options[module]";
+        $lang_dir = _COS_MOD_PATH . "/$options[module]/lang/$options[Language]";
+    }
+    
     
     // don't translate if we don't have a module dir.
     if (!file_exists($module_dir)){
-        cos_cli_abort('No such module dir: ' . $module_dir);
+        cos_cli_abort('No such dir: ' . $module_dir);
     }
 
     // get all files  from modules dir
@@ -34,6 +40,10 @@ function translate($options){
     $str = $sys_str = "<?php\n\n";
     foreach ($file_list as $key => $val){
         $file_str = file_get_contents($val);
+        
+        if (!translate_is_text($val)) {
+            continue;
+        }
 
         // find all strings matching inside lang::translate('[]')
         $search = '/lang::translate\(\'([^\']+)\'\)/s';
@@ -74,7 +84,6 @@ function translate($options){
 
     }
 
-    $lang_dir = _COS_MOD_PATH . "/$options[module]/lang/$options[Language]";
     if (!file_exists($lang_dir)){
         $res = mkdir($lang_dir);
         if ($res){
@@ -99,6 +108,20 @@ function translate($options){
     // final: write the translation file
     $write_sys_file = $lang_dir . "/system.inc";
     file_put_contents($write_sys_file, $sys_str);
+}
+
+function translate_temp($options){ 
+    $options['template'] = true;
+    translate($options);
+}
+
+function translate_is_text ($val) {
+    $str = file::getMime($val);
+    $ary = explode('/', $str);
+    if ($ary[0] == 'text') {
+        return true;
+    }
+    return false;
 }
 
 /**
@@ -210,11 +233,23 @@ mainCli::setOption('translate_update', array(
     'action'      => 'StoreTrue'
 ));
 
+mainCli::setOption('translate_temp', array(
+    'long_name'   => '--temp-tr',
+    'description' => 'Create a translation file for a template from all strings that can be translated.',
+    'action'      => 'StoreTrue'
+));
+
+mainCli::setOption('translate_temp_update', array(
+    'long_name'   => '--temp-tr',
+    'description' => 'Update a translation file with new strings being found.',
+    'action'      => 'StoreTrue'
+));
+
 mainCli::setArgument('module',
-    array('description'=> 'Specicify the module for which you will make a translation',
+    array('description'=> 'Specicify the module or template for which you will make a translation',
           'optional' => false));
 
 mainCli::setArgument('Language',
-    array('description'=> 'Specicify the folder in lang which will serve as language, e.g. en_GB or da_DK',
+    array('description'=> 'Specicify the folder in lang which will serve as language, e.g. en_GB or da_DK or en or da',
           'optional' => false));
 
