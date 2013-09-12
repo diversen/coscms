@@ -170,6 +170,12 @@ class strings {
         return $sub;
     }
     
+    /**
+     * checks if mb_stlen is available. 
+     * If not we use strlen
+     * @param string $str
+     * @return int $strlen
+     */
     public static function strlen ($str) {
         if (function_exists('mb_strlen')) {
             return mb_strlen($str, 'UTF-8');
