@@ -92,7 +92,7 @@ class lang {
             if (isset(config::$vars['coscms_main']['translate_ignore'])) {
                 return $sentence;
             } else {
-                return "NT: '$sentence'";
+                return "NT: $sentence";
             }
         }
     }
