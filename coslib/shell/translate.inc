@@ -171,8 +171,6 @@ function translate_update($options){
         return;
     }
     
-    //print_r($options); die;
-    
     
     $translate_dir = $module_dir . "/lang/$options[language]";
     $translate_file = $translate_dir . "/language.inc";
@@ -205,10 +203,10 @@ function translate_update($options){
     $file_list = file::getFileListRecursive($module_dir);
 
     // compose a php file
-    foreach ($file_list as $key => $val){
+    foreach ($file_list as $val){
         $file_str = file_get_contents($val);
 
-        // find all strings matching inside lang::translate('[]')
+        // find all strings matching lang::translate
         $search = '/lang::translate\(\'([^\']+)\'\)/s';
         preg_match_all($search, $file_str, $out);
         $strings = $out[1];
@@ -216,10 +214,9 @@ function translate_update($options){
         // no strings we continue
         if (empty($strings)) continue;
         $strings = array_unique($strings);
-        // we add the file info to translation as comment
-        //$str.="// Auto updated translation " . " $val\n\n";
 
-        // and we add all strings in that file
+        // and we add all strings
+        // all menus are added to system translation
         if (strstr($val, 'menu.inc')){
             foreach ($strings as $trans){
                 if (!isset($_COS_LANG_MODULE[$trans])){
@@ -234,8 +231,6 @@ function translate_update($options){
             }
         }
     }
-
-
 
     $lang_dir = _COS_MOD_PATH . "/$options[module]/lang/$options[language]";
     if (!file_exists($lang_dir)){
@@ -269,7 +264,7 @@ mainCli::setOption('translate', array(
 
 mainCli::setOption('translate_update', array(
     'long_name'   => '--update',
-    'description' => 'Create a translation file from all strings that should be translated.',
+    'description' => 'Updates a translation file from all strings that should be translated.',
     'action'      => 'StoreTrue'
 ));
 
