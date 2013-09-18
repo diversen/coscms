@@ -51,7 +51,7 @@ function cos_install($options = false) {
     // install templates
     foreach ($pro->profileTemplates as $key => $val){
         
-        if (isset(config::$vars['git_use_master'])){
+        if (config::getMainIni('git_use_master')){
             $tag = 'master';
         } else {
             $tag = $val['module_version'];
