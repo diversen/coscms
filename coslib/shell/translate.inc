@@ -25,8 +25,7 @@ function translate($options){
         $module_dir = _COS_MOD_PATH . "/$options[module]";
         $lang_dir = _COS_MOD_PATH . "/$options[module]/lang/$options[language]";
     }
-    
-    
+        
     if (!file_exists($module_dir)){
         cos_cli_print_status('Notice', 'y', "No such module dir. Skipping: $module_dir");
         return;
@@ -139,6 +138,11 @@ function translate_temp($options){
     translate($options);
 }
 
+function translate_temp_update($options){ 
+    $options['template'] = true;
+    translate_update($options);
+}
+
 /**
  * check if prim mime type is text
  * @param string $filename
@@ -165,12 +169,22 @@ function translate_is_text ($val) {
  */
 function translate_update($options){
 
-    $module_dir = _COS_MOD_PATH . "/$options[module]";
-    if (!file_exists($module_dir)){
-        cos_cli_print_status('Notice', 'y', "No such module dir. Skipping: $module_dir");
-        return;
+    //$module_dir = _COS_MOD_PATH . "/$options[module]";
+    
+    
+    
+    if (isset($options['template'])) {
+        $module_dir = _COS_HTDOCS . '/templates/' . $options['module'];
+        $lang_dir = _COS_HTDOCS . "/templates/$options[module]/lang/$options[language]";
+    } else {
+        $module_dir = _COS_MOD_PATH . "/$options[module]";
+        $lang_dir = _COS_MOD_PATH . "/$options[module]/lang/$options[language]";
     }
     
+    if (!file_exists($module_dir)){
+        cos_cli_print_status('Notice', 'y', "No such module|template dir. Skipping: $module_dir");
+        return;
+    }
     
     $translate_dir = $module_dir . "/lang/$options[language]";
     $translate_file = $translate_dir . "/language.inc";
@@ -232,7 +246,7 @@ function translate_update($options){
         }
     }
 
-    $lang_dir = _COS_MOD_PATH . "/$options[module]/lang/$options[language]";
+    $lang_dir = $module_dir . "/lang/$options[language]";
     if (!file_exists($lang_dir)){
         $res = mkdir($lang_dir);
         if ($res){
