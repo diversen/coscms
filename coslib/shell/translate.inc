@@ -45,8 +45,7 @@ function translate($options){
     // compose a php file
     $str = $sys_str = "<?php\n\n";
     foreach ($file_list as $val){
-
-        
+  
         if (!translate_is_text($val)) {
             continue;
         }
@@ -125,12 +124,11 @@ function translate($options){
 function translate_all_update ($options) {
     $mods = moduleloader::getAllModules();
     foreach ($mods as $mod) {
-        cos_cli_print_status('Notice', 'y', "Translating $options[module]");
-        $options['module'] = $mod['module_name'];      
+        cos_cli_print_status('Notice', 'y', "Translating $mod[module_name]");
+        $options['module'] = $mod['module_name'];
         translate_update($options);
     }
 }
-
 
 function translate_temp($options){ 
     $options['template'] = true;
@@ -166,11 +164,7 @@ function translate_is_text ($file) {
  * @param array $options
  */
 function translate_update($options){
-
-    //$module_dir = _COS_MOD_PATH . "/$options[module]";
-    
-    
-    
+   
     if (isset($options['template'])) {
         $module_dir = _COS_HTDOCS . '/templates/' . $options['module'];
         $lang_dir = _COS_HTDOCS . "/templates/$options[module]/lang/$options[language]";
@@ -264,18 +258,91 @@ function translate_update($options){
 
 }
 
+function translate_collect ($options) {
+    //print_r($options);
+    $mods = moduleloader::getAllModules();
+    $system = array ();
+    $language = array ();
+    
+    foreach ($mods as $mod) {
+        
+        $mod_lang = _COS_MOD_PATH . "/$mod[module_name]/lang/$options[language]";
+        $system_file = $mod_lang . "/system.inc";
+        $language_file = $mod_lang . "/language.inc";
+        if (file_exists($system_file)) {
+            include $system_file;
+            if (isset($_COS_LANG_MODULE)) {        
+                $system= array_merge($system, $_COS_LANG_MODULE);
+            }
+            $_COS_LANG_MODULE = array();
+        }
+        
+        if (file_exists($language_file)) {
+            include $language_file;
+            if (isset($_COS_LANG_MODULE)) {       
+                $language= array_merge($language, $_COS_LANG_MODULE);
+            }
+            $_COS_LANG_MODULE = array();
+        }
+    }
+
+
+    $temps = layout::getAllTemplates();
+    foreach ($temps as $temp) {
+        $mod_lang = _COS_HTDOCS . "/templates/$mod[module_name]/lang/$options[language]";
+        $system_file = $mod_lang . "/system.inc";
+        $language_file = $mod_lang . "/language.inc";
+        if (file_exists($system_file)) {
+            include $system_file;
+            if (isset($_COS_LANG_MODULE)) {        
+                $system= array_merge($system, $_COS_LANG_MODULE);
+            }
+            $_COS_LANG_MODULE = array();
+        }
+        
+        if (file_exists($language_file)) {
+            include $language_file;
+            if (isset($_COS_LANG_MODULE)) {       
+                $language= array_merge($language, $_COS_LANG_MODULE);
+            }
+            $_COS_LANG_MODULE = array();
+        }
+    }
+    
+    // write out string
+    $str = "<?php\n\n";
+    foreach ($language as $key => $val) {
+        $str.= "\$_COS_LANG_MODULE['$key'] = '$val';" . "\n";
+    }
+    
+    foreach ($system as $key => $val) {
+        $str.= "\$_COS_LANG_MODULE['$key'] = '$val';" . "\n";
+    }
+    
+    $mod_lang = _COS_HTDOCS . "/templates/$options[module]/lang/$options[language]";
+    $lang_all = $mod_lang . "/language-all.inc";
+    
+    file_put_contents($lang_all, $str);
+    //echo $str;
+    
+    //print_r($language);
+}
+
+
 mainCli::setCommand('translate', array(
     'description' => 'Will create a translation file for specified language for a module|template by extracting all lang::translate(\'strings\')',
 ));
 
 mainCli::setOption('translate', array(
     'long_name'   => '--translate',
+    'short_name'   => '-t',
     'description' => 'Create a translation file from all strings that should be translated.',
     'action'      => 'StoreTrue'
 ));
 
 mainCli::setOption('translate_update', array(
     'long_name'   => '--update',
+    'short_name'   => '-u',
     'description' => 'Updates a translation file from all strings that should be translated.',
     'action'      => 'StoreTrue'
 ));
@@ -298,11 +365,17 @@ mainCli::setOption('translate_all_update', array(
     'action'      => 'StoreTrue'
 ));
 
+mainCli::setOption('translate_collect', array(
+    'long_name'   => '--collect',
+    'description' => 'Collected all translations for a language in a single file in a specified module',
+    'action'      => 'StoreTrue'
+));
+
 mainCli::setArgument('module',
-    array('description'=> 'Specicify the module or template for which you will make a translation',
+    array('description'=> 'Specicify the module or template for which you will make a translation. If spcified in collect command, then the module is where the collected translation are found',
           'optional' => false));
 
 mainCli::setArgument('language',
-    array('description'=> 'Specicify the folder in lang which will serve as language, e.g. en_GB or da_DK or en or da',
+    array('description'=> 'Specicify the folder in lang which will serve as language, e.g. en_GB or da_DK or en or da. Also the language which will be collected',
           'optional' => false));
 

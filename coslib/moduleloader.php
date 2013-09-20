@@ -346,18 +346,9 @@ class moduleloader {
 
     /**
      * method for initing a module
-     * Loads ini file if exists. If ini file exists. 
-     * Check for PHP ini PHP config exists. 
-     * Sets module template if specified. 
-     * Sets controller specific template if specified. 
-     * 
-     * Then loads the model file model.module_name.inc if exists
-     * Then loads the view file view.module_name.inc if exists
-     * Then load language if exists
-     * 
-     * If any module then have to be called. We init any modules
-     * from information found in the module table. These modules
-     * has the flag load_on set 
+     * loads module
+     * set module specific template
+     * set controller specific page
      */
     public function initModule(){
         

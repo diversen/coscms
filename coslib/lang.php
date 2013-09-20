@@ -13,24 +13,30 @@
  * @package    coslib
  */
 class lang {
+    
+    /**
+     * flag indicating if all translations are loaded from single file
+     * @var type 
+     */
+    public static $allLoaded = false;
 
     /**
      * var holding the language to use for a site
      * @var string $language 
      */
-    static public $language = '';
+    public static $language = '';
 
     /**
      * var holding the translation table
      * @var array $dict
      */
-    static public $dict = array ();
+    public static $dict = array ();
 
     /**
      * method for getting the language of the site. 
      * @return string $language the language to be used
      */
-    static function getLanguage (){
+    public static function getLanguage (){
         return self::$language;
     }
     
@@ -40,6 +46,7 @@ class lang {
      * 
      */
     public static function init(){
+        
         self::$language = config::getMainIni('language');
 
         $system_lang = array();
@@ -123,8 +130,11 @@ class lang {
      * @param   string  $module the base module to load (e.g. content or account)
      */
     static function loadModuleLanguage($module){
-        static $loaded = array();
+        if (self::$allLoaded) {
+            return;
+        }
         
+        static $loaded = array();
         if (isset($loaded[$module])) {
             return;
         }
@@ -175,6 +185,33 @@ class lang {
 
         $loaded[$template] = true;
     }
+    
+    /**
+     * Loads a template all language (templates/mytemplate/lang/en_GB/language-all.inc). 
+     * It is based on the main ini setting language_all which should contain
+     * The language-all.inc can be collected by using
+     * <code>./coscli.sh translate --collect template en_GB</code>
+     */
+    static function loadTemplateAllLanguage(){
+        
+        $template = config::getMainIni('language_all');
+        self::$allLoaded = true;
+        
+        $base = _COS_HTDOCS . '/templates';
+        $language_file =
+            $base . "/$template" . '/lang/' .
+            config::$vars['coscms_main']['language'] .
+            '/language-all.inc';
+
+        if (file_exists($language_file)){
+            include $language_file;
+            if (isset($_COS_LANG_MODULE)){
+                self::$dict+= $_COS_LANG_MODULE;
+            }
+        }
+
+        $loaded[$template] = true;
+    }
 
     /**
      *
@@ -182,6 +219,7 @@ class lang {
      * @param   string   the base module to load (e.g. content or account)
      */
     static function loadModuleSystemLanguage($module){
+
         $base = _COS_PATH . "/modules";
 
         $language_file =

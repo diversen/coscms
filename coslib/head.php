@@ -126,7 +126,15 @@ if (!config::isCli()){
     $moduleloader->runLevel(2);
     
     // load languages.
-    lang::init();  
+    
+    
+        
+    $lang_all = config::getMainIni('language_all');
+    if (!$lang_all) {
+        lang::init();
+    } else {
+        lang::loadTemplateAllLanguage();
+    }
     
 
     // find out what locales we are using
@@ -165,12 +173,15 @@ if (!config::isCli()){
         $controller = $route['controller'];
     } 
     
-    // load module
+    // set module info
     $moduleloader->setModuleInfo($controller);
+    
+    // load module
     $moduleloader->initModule();
 
     // include template class found in _COS_HTDOCS . '/templates'
     // only from here we should use template class. 
+    // template translation will override module translations
     $layout = new layout();
 
     // we first load menus here so we can se what happened when we
@@ -185,8 +196,7 @@ if (!config::isCli()){
     if (isset($route['method'])) {
         $str = urldispatch::call($route['method']);       
     } else {
-        //die('ok');
-        // or we use default module loading
+        // or we use default ('old') module loading
         $str = $moduleloader->getParsedModule();
     }
     
