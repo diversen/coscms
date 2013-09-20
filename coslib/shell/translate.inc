@@ -126,8 +126,7 @@ function translate_all_update ($options) {
     $mods = moduleloader::getAllModules();
     foreach ($mods as $mod) {
         cos_cli_print_status('Notice', 'y', "Translating $options[module]");
-        $options['module'] = $mod['module_name'];
-        
+        $options['module'] = $mod['module_name'];      
         translate_update($options);
     }
 }
@@ -148,10 +147,9 @@ function translate_temp_update($options){
  * @param string $filename
  * @return boolean $res true if text else false
  */
-function translate_is_text ($val) {
-    $str = file::getMime($val);
-    $ary = explode('/', $str);
-    if ($ary[0] == 'text') {
+function translate_is_text ($file) {
+    $prim_mime = file::getPrimMime($file);
+    if ($prim_mime == 'text') {
         return true;
     }
     return false;
@@ -267,7 +265,7 @@ function translate_update($options){
 }
 
 mainCli::setCommand('translate', array(
-    'description' => 'Will create a translation file for specified language for a module',
+    'description' => 'Will create a translation file for specified language for a module|template by extracting all lang::translate(\'strings\')',
 ));
 
 mainCli::setOption('translate', array(

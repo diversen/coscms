@@ -134,6 +134,17 @@ class file {
     }
     
     /**
+     * returns prim mime
+     * @param string $file
+     * @return string $mime
+     */
+    public static function getPrimMime ($file) {
+        $str = file::getMime($file);
+        $ary = explode('/', $str);
+        return $ary[0];
+    }
+    
+    /**
      * method for getting first path were coslib exists
      * @return string $path the full coslib path
      */
