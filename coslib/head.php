@@ -126,6 +126,7 @@ if (!config::isCli()){
     $lang_all = config::getMainIni('language_all');
     if ($lang_all) {
         lang::loadTemplateAllLanguage();
+        
     } else {
         lang::init();
     } 

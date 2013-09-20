@@ -155,7 +155,7 @@ class lang {
         $loaded[$module] = true;
     }
     
-        /**
+    /**
      *
      * Loads a template language (templates/mytemplate/lang/en_GB/language.inc). 
      * The template language will only be loaded when atemplate is loaded, while
@@ -198,11 +198,11 @@ class lang {
      */
     static function loadTemplateAllLanguage(){
         
-        $template = config::getMainIni('language_all');
-        if (!$template) {
+        if (self::$allLoaded) {
             return;
         }
         
+        $template = config::getMainIni('language_all');
         self::$allLoaded = true;
         
         $base = _COS_HTDOCS . '/templates';

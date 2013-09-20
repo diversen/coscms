@@ -195,10 +195,12 @@ function translate_update($options){
         $lang = $_COS_LANG_MODULE;
     }
         
-    $translation_str = file_get_contents($translate_file) . "\n";
+    //$translation_str = file_get_contents($translate_file) . "\n";
 
     $system_file = $translate_dir . "/system.inc";
 
+    // compose a php file
+    $translation_str = $translation_sys_str = "<?php\n\n";
     if (file_exists($system_file)){
         $translation_sys_str = file_get_contents($system_file) ."\n";
         include $system_file;
@@ -289,7 +291,7 @@ function translate_collect ($options) {
 
     $temps = layout::getAllTemplates();
     foreach ($temps as $temp) {
-        $mod_lang = _COS_HTDOCS . "/templates/$mod[module_name]/lang/$options[language]";
+        $mod_lang = _COS_HTDOCS . "/templates/$temp/lang/$options[language]";
         $system_file = $mod_lang . "/system.inc";
         $language_file = $mod_lang . "/language.inc";
         if (file_exists($system_file)) {
@@ -312,10 +314,12 @@ function translate_collect ($options) {
     // write out string
     $str = "<?php\n\n";
     foreach ($language as $key => $val) {
+        $val = addcslashes($val, "''");
         $str.= "\$_COS_LANG_MODULE['$key'] = '$val';" . "\n";
     }
     
     foreach ($system as $key => $val) {
+        $val = addcslashes($val, "''");
         $str.= "\$_COS_LANG_MODULE['$key'] = '$val';" . "\n";
     }
     

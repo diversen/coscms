@@ -183,6 +183,14 @@ EOF;
             
             config::loadMainCli();
             
+            // load language
+            $lang_all = config::getMainIni('language_all');
+            if ($lang_all) {
+                lang::loadTemplateAllLanguage();
+            } else {
+                lang::init();
+            } 
+            
             // load all modules
             if (!isset($options['disable_base_modules'])) {
                 mainCli::loadBaseModules();
@@ -282,6 +290,9 @@ EOF;
         
         $mod_loader = new moduleloader();
         $modules = moduleloader::getAllModules();
+        
+
+        
         foreach ($modules as $val){     
             if (isset($val['is_shell']) && $val['is_shell'] == 1){
                 moduleloader::includeModule($val['module_name']);
