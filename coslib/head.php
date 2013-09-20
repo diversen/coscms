@@ -108,9 +108,6 @@ if (!config::isCli()){
     // installed modules
     $db = new db();
     $moduleloader = new moduleloader();
-    
-
-    
     $moduleloader->runLevel(1);
 
     // select all db settings and merge them with ini file settings
@@ -125,18 +122,14 @@ if (!config::isCli()){
     // See module configdb for example. 
     $moduleloader->runLevel(2);
     
-    // load languages.
-    
-    
-        
+    // init language from DB if we did not load all language as a single file
     $lang_all = config::getMainIni('language_all');
-    if (!$lang_all) {
-        lang::init();
-    } else {
+    if ($lang_all) {
         lang::loadTemplateAllLanguage();
-    }
+    } else {
+        lang::init();
+    } 
     
-
     // find out what locales we are using
     if (isset(config::$vars['coscms_main']['locale'])){
         $locale = config::$vars['coscms_main']['locale'];

@@ -166,6 +166,10 @@ class lang {
     static function loadTemplateLanguage($template){
         static $loaded = array();
         
+        if (self::$allLoaded) {
+            return;
+        }
+        
         if (isset($loaded[$template])) {
             return;
         }
@@ -195,6 +199,10 @@ class lang {
     static function loadTemplateAllLanguage(){
         
         $template = config::getMainIni('language_all');
+        if (!$template) {
+            return;
+        }
+        
         self::$allLoaded = true;
         
         $base = _COS_HTDOCS . '/templates';
