@@ -65,7 +65,7 @@ function translate($options){
         if (strstr($val, 'menu.inc')){
             // system translation
             // we add the file info to translation as comment
-            $sys_str.="// Translation of menu file $val\n\n";
+            $sys_str.="// Translation of file $val\n\n";
 
             // and we add all strings in that file
             foreach ($strings as $trans){
@@ -180,6 +180,7 @@ function translate_update($options){
     
     $translate_dir = $module_dir . "/lang/$options[language]";
     $translate_file = $translate_dir . "/language.inc";
+    $system_file = $translate_dir . "/system.inc";
     
     // just do start translation if file does not exists
     if (!file_exists($translate_file)){
@@ -188,30 +189,33 @@ function translate_update($options){
     }
 
     include $translate_file;
-
     if (!isset($_COS_LANG_MODULE)) {
-        $_COS_LANG_MODULE = $lang = array ();
+        $org_lang = $_COS_LANG_MODULE = array ();
     } else {
-        $lang = $_COS_LANG_MODULE;
+        $org_lang = $_COS_LANG_MODULE;
     }
         
-    //$translation_str = file_get_contents($translate_file) . "\n";
+    if (file_exists($system_file)){
+        include $system_file;
+        $org_lang = array_merge($_COS_LANG_MODULE, $org_lang);
+    }
 
-    $system_file = $translate_dir . "/system.inc";
 
     // compose a php file
     $translation_str = $translation_sys_str = "<?php\n\n";
-    if (file_exists($system_file)){
-        $translation_sys_str = file_get_contents($system_file) ."\n";
-        include $system_file;
-        $_COS_LANG_MODULE = array_merge($lang, $_COS_LANG_MODULE);
-    }
+    
+    
     
     // get all files  from modules dir
     $file_list = file::getFileListRecursive($module_dir);
 
     // compose a php file
     foreach ($file_list as $val){
+        
+        if (!translate_is_text($val)) {
+            continue;
+        }
+        
         $file_str = file_get_contents($val);
 
         // find all strings matching lang::translate
@@ -226,15 +230,31 @@ function translate_update($options){
         // and we add all strings
         // all menus are added to system translation
         if (strstr($val, 'menu.inc')){
+            
+            $file = str_replace(_COS_PATH, '', $val);
+            $translation_sys_str.="\n// Translation of file $file\n\n";
+            
             foreach ($strings as $trans){
-                if (!isset($_COS_LANG_MODULE[$trans])){
+                
+                // if string is not set in _COS_LANG_MODULE
+                if (!isset($org_lang[$trans])){
                     $translation_sys_str.= "\$_COS_LANG_MODULE['$trans'] = '$trans';" . "\n";
+                } else {
+                    $new_str = $org_lang[$trans];
+                    $translation_sys_str.= "\$_COS_LANG_MODULE['$trans'] = '$new_str';" . "\n";
                 }
             }
         } else {
+            
+            $file = str_replace(_COS_PATH, '', $val);
+            $translation_str.="\n// Translation of file $file\n\n";
+            
             foreach ($strings as $trans){
-                if (!isset($_COS_LANG_MODULE[$trans])){
+                if (!isset($org_lang[$trans])){
                     $translation_str.= "\$_COS_LANG_MODULE['$trans'] = '$trans';" . "\n";
+                } else {
+                    $new_str = $org_lang[$trans];
+                    $translation_str.= "\$_COS_LANG_MODULE['$trans'] = '$new_str';" . "\n";
                 }
             }
         }
@@ -333,8 +353,8 @@ function translate_collect ($options) {
 }
 
 
-mainCli::setCommand('translate', array(
-    'description' => 'Will create a translation file for specified language for a module|template by extracting all lang::translate(\'strings\')',
+mainCli::setCommand('trans-extract', array(
+    'description' => 'Will extract a translation file for specified language for a module|template by extracting all lang::translate(\'strings\')',
 ));
 
 mainCli::setOption('translate', array(
