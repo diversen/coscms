@@ -352,19 +352,6 @@ $_PROFILE_MODULES = array (
     'public_clone_url' => 'git://github.com/diversen/comment.git',
     'private_clone_url' => 'git@github.com:diversen/comment.git',
   ),
-  27 => 
-  array (
-    'id' => '45',
-    'module_name' => 'google_translate',
-    'module_version' => '2.31',
-    'menu_item' => '0',
-    'run_level' => '0',
-    'load_on' => NULL,
-    'parent' => NULL,
-    'is_shell' => '1',
-    'public_clone_url' => 'git://github.com/diversen/google_translate.git',
-    'private_clone_url' => 'git@github.com:diversen/google_translate.git',
-  ),
 );
 
 $_PROFILE_TEMPLATES = array (
