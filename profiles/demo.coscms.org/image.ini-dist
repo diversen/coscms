@@ -3,3 +3,5 @@ image_scale_width_thumb = 200
 image_allow_edit = "admin"
 image_submodule_disable_insert = 1
 image_max_size = 6000000
+image_captcha_font = "fonts/captcha.ttf"
+image_captcha_method = "stringrandom"
