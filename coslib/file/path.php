@@ -12,7 +12,7 @@
  */
 
 class file_path {
-    function utf8 ($path) {
+    public static function utf8 ($path) {
         return pathinfo_utf8($path); 
     }
 }
