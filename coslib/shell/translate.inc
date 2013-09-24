@@ -210,6 +210,8 @@ function translate_update($options){
     $file_list = file::getFileListRecursive($module_dir);
 
     // compose a php file
+    
+    $done_system = array ();
     foreach ($file_list as $val){
         
         if (!translate_is_text($val)) {
@@ -229,12 +231,16 @@ function translate_update($options){
 
         // and we add all strings
         // all menus are added to system translation
-        if (strstr($val, 'menu.inc')){
+        
+        if (strstr($val, 'menu.inc') || strstr($val, 'system_lang.inc') ){
             
             $file = str_replace(_COS_PATH, '', $val);
             $translation_sys_str.="\n// Translation of file $file\n\n";
             
+            
             foreach ($strings as $trans){
+                if (isset($done_system[$trans])) continue;
+                $done_system[$trans] = 1;
                 
                 // if string is not set in _COS_LANG_MODULE
                 if (!isset($org_lang[$trans])){
@@ -353,7 +359,7 @@ function translate_collect ($options) {
 }
 
 
-mainCli::setCommand('trans-extract', array(
+mainCli::setCommand('translate', array(
     'description' => 'Will extract a translation file for specified language for a module|template by extracting all lang::translate(\'strings\')',
 ));
 
