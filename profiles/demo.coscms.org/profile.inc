@@ -172,19 +172,6 @@ $_PROFILE_MODULES = array (
   ),
   13 => 
   array (
-    'id' => '23',
-    'module_name' => 'image_captcha',
-    'module_version' => '2.3',
-    'menu_item' => '0',
-    'run_level' => '0',
-    'load_on' => NULL,
-    'parent' => NULL,
-    'is_shell' => NULL,
-    'public_clone_url' => 'git://github.com/diversen/image_captcha.git',
-    'private_clone_url' => 'git@github.com:diversen/image_captcha.git',
-  ),
-  14 => 
-  array (
     'id' => '26',
     'module_name' => 'configdb',
     'module_version' => '2.3',
@@ -196,7 +183,7 @@ $_PROFILE_MODULES = array (
     'public_clone_url' => 'git://github.com/diversen/configdb.git',
     'private_clone_url' => 'git@github.com:diversen/configdb.git',
   ),
-  15 => 
+  14 => 
   array (
     'id' => '27',
     'module_name' => 'block_manip',
@@ -209,7 +196,7 @@ $_PROFILE_MODULES = array (
     'public_clone_url' => 'git://github.com/diversen/block_manip.git',
     'private_clone_url' => 'git@github.com:diversen/block_manip.git',
   ),
-  16 => 
+  15 => 
   array (
     'id' => '28',
     'module_name' => 'locales',
@@ -222,7 +209,7 @@ $_PROFILE_MODULES = array (
     'public_clone_url' => 'git://github.com/diversen/locales.git',
     'private_clone_url' => 'git@github.com:diversen/locales.git',
   ),
-  17 => 
+  16 => 
   array (
     'id' => '29',
     'module_name' => 'menus',
@@ -235,7 +222,7 @@ $_PROFILE_MODULES = array (
     'public_clone_url' => 'git://github.com/diversen/menus.git',
     'private_clone_url' => 'git@github.com:diversen/menus.git',
   ),
-  18 => 
+  17 => 
   array (
     'id' => '31',
     'module_name' => 'vote',
@@ -248,7 +235,7 @@ $_PROFILE_MODULES = array (
     'public_clone_url' => 'git://github.com/diversen/vote.git',
     'private_clone_url' => 'git@github.com:diversen/vote.git',
   ),
-  19 => 
+  18 => 
   array (
     'id' => '33',
     'module_name' => 'video',
@@ -261,7 +248,7 @@ $_PROFILE_MODULES = array (
     'public_clone_url' => 'git://github.com/diversen/video.git',
     'private_clone_url' => 'git@github.com:diversen/video.git',
   ),
-  20 => 
+  19 => 
   array (
     'id' => '34',
     'module_name' => 'image',
@@ -274,7 +261,7 @@ $_PROFILE_MODULES = array (
     'public_clone_url' => 'git://github.com/diversen/image.git',
     'private_clone_url' => 'git@github.com:diversen/image.git',
   ),
-  21 => 
+  20 => 
   array (
     'id' => '35',
     'module_name' => 'jquerysort',
@@ -287,7 +274,7 @@ $_PROFILE_MODULES = array (
     'public_clone_url' => 'git://github.com/diversen/jquerysort.git',
     'private_clone_url' => 'git@github.com:diversen/jquerysort.git',
   ),
-  22 => 
+  21 => 
   array (
     'id' => '36',
     'module_name' => 'reload_site',
@@ -300,7 +287,7 @@ $_PROFILE_MODULES = array (
     'public_clone_url' => 'git://github.com/diversen/reload_site.git',
     'private_clone_url' => 'git@github.com:diversen/reload_site.git',
   ),
-  23 => 
+  22 => 
   array (
     'id' => '38',
     'module_name' => 'gallery',
@@ -313,7 +300,7 @@ $_PROFILE_MODULES = array (
     'public_clone_url' => 'git://github.com/diversen/gallery.git',
     'private_clone_url' => 'git@github.com:diversen/gallery.git',
   ),
-  24 => 
+  23 => 
   array (
     'id' => '42',
     'module_name' => 'nopostfiles',
@@ -326,7 +313,7 @@ $_PROFILE_MODULES = array (
     'public_clone_url' => 'git://github.com/diversen/nopostfiles.git',
     'private_clone_url' => 'git@github.com:diversen/nopostfiles.git',
   ),
-  25 => 
+  24 => 
   array (
     'id' => '43',
     'module_name' => 'share',
@@ -339,7 +326,7 @@ $_PROFILE_MODULES = array (
     'public_clone_url' => 'git://github.com/diversen/share.git',
     'private_clone_url' => 'git@github.com:diversen/share.git',
   ),
-  26 => 
+  25 => 
   array (
     'id' => '44',
     'module_name' => 'comment',
