@@ -8,7 +8,7 @@
 
 
 /**
- * function for installing a CosCMS from a profile
+ * function for installing coscms from a profile
  */
 function cos_install($options = false) {
 
@@ -136,7 +136,7 @@ function cos_check_root ($options = null) {
 
 
 mainCli::setCommand('install', array(
-    'description' => 'install CosCMS from a specified profile [prompt-install is recommended for install]]',
+    'description' => 'install CosCMS from a specified profile [prompt-install is recommended for normal install]]',
 ));
 
 mainCli::setOption('cos_install_use_master', array(

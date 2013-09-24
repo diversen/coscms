@@ -5,6 +5,8 @@
  * @param type $options
  */
 function cos_upgrade_post ($options = array ()) {
+    
+    // check root
     cos_check_root();
     
     // reload menus

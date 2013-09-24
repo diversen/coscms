@@ -9,7 +9,6 @@
  * to be translated in a module by traversing all files
  * in the module.
  *
- * So far it is as it is .)
  *
  * @param array $options
  */
@@ -204,14 +203,11 @@ function translate_update($options){
     // compose a php file
     $translation_str = $translation_sys_str = "<?php\n\n";
     
-    
-    
     // get all files  from modules dir
     $file_list = file::getFileListRecursive($module_dir);
 
-    // compose a php file
-    
-    $done_system = array ();
+    // arrays to use if we know if some strings are extracted
+    $done_system = $done_lang = array ();
     foreach ($file_list as $val){
         
         if (!translate_is_text($val)) {
@@ -237,7 +233,6 @@ function translate_update($options){
             $file = str_replace(_COS_PATH, '', $val);
             $translation_sys_str.="\n// Translation of file $file\n\n";
             
-            
             foreach ($strings as $trans){
                 if (isset($done_system[$trans])) continue;
                 $done_system[$trans] = 1;
@@ -256,6 +251,10 @@ function translate_update($options){
             $translation_str.="\n// Translation of file $file\n\n";
             
             foreach ($strings as $trans){
+                
+                if (isset($done_lang[$trans])) continue;
+                $done_lang[$trans] = 1;
+                
                 if (!isset($org_lang[$trans])){
                     $translation_str.= "\$_COS_LANG_MODULE['$trans'] = '$trans';" . "\n";
                 } else {
