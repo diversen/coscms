@@ -659,6 +659,25 @@ class config {
     * @return  string    $str ini string readable by parse_ini_file
     */
     public static function arrayToIniFile ($ary) {
+        
+        // almost always installed but we test anyway
+        if (moduleloader::isInstalledModule('locales')) {
+            $locales = locales_module::getLanguages();
+        }
+        
+        // check for locales in config array, e.g. en or en_GB or da
+        $locale_sections = '';
+        foreach ($locales as $row) {
+            $lang = $row['language'];
+            if (isset($ary[$lang])) {
+                $locale_sections.= "[$lang]\n";
+                $locale_sections.= self::parseIniSection($ary[$lang]);
+                unset($ary[$lang]);
+            }
+        }
+        
+        
+        
         if (isset($ary['stage'])) {
             $stage = $ary['stage'];
             unset($ary['stage']);
@@ -671,6 +690,10 @@ class config {
         
         
         $content = self::parseIniSection($ary);
+        if (!empty($locale_sections)) {
+            $content.=$locale_sections;
+        }
+        
         if (isset($stage)) {
             $content.= "[stage]\n";
             $content.= self::parseIniSection($stage);

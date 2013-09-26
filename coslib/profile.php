@@ -344,7 +344,7 @@ class profile  {
         foreach ($modules as $key => $val){
 
             $source = _COS_MOD_PATH . "/$val[module_name]/$val[module_name].ini";
-            
+
             // if no ini we just skip           
             if (!file_exists($source)) continue;
             

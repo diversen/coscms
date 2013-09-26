@@ -23,7 +23,7 @@ class intl_phone {
      * @return array $dial_code info
      */
     public static function getCountryInformation($filter = '') {
-
+            $filter = strtoupper($filter);
             //Let's define the array
             $countryArray = array(
                 'AD' => array(
