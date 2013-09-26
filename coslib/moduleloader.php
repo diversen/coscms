@@ -628,33 +628,32 @@ class moduleloader {
                 $module_ini
             );
         }
-
-        if (config::getMainIni('production') == 1) {
-        // check if development settings exists.
-        //echo config::$env;
-        }
         
         else if (isset($module_ini['development']) && config::getEnv() =='development' ) {
-            //if ( @config::$vars['coscms_main']['development']['server_name'] == @$_SERVER['SERVER_NAME']){
                 config::$vars['coscms_main']['module'] =
                         array_merge(
                         config::$vars['coscms_main']['module'],
                         $module_ini['development']
                     );
-
-            //}
         }
         
         // check if stage settings exists.
         else if ((isset($module_ini['stage']) && config::getEnv() =='stage' ) ){
-            //if ( @config::$vars['coscms_main']['stage']['server_name']  == @$_SERVER['SERVER_NAME'] ){
                 config::$vars['coscms_main']['module'] =
                         array_merge(
                         config::$vars['coscms_main']['module'],
                         $module_ini['stage']
                     );
-
-            //}
+        }
+        
+        // load language specific configuration, e.g. en_GB or en or sv
+        $language = config::getMainIni('language');
+        if (isset($module_ini[$language])) {
+                config::$vars['coscms_main']['module'] =
+                        array_merge(
+                        config::$vars['coscms_main']['module'],
+                        $module_ini[$language]
+                    );
         }
         
         // check for a locale ini file which only

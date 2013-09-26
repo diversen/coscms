@@ -632,6 +632,11 @@ class config {
         return $server_name;     
     }
     
+    /**
+     * returns http|https:://server_name
+     * based on configuration
+     * @return string $str server name with http|https scheme
+     */
     public static function getSchemeWithServerName () {
         return config::getHttpScheme() . "://" . config::getServerName();
     }
@@ -678,6 +683,11 @@ class config {
         return $content;
     }
     
+    /**
+     * parses a ini section
+     * @param array $ary
+     * @return string $content a .ini string
+     */
     public static function parseIniSection ($ary) {
         $content = '';
         foreach ($ary as $key => $val){

@@ -114,6 +114,7 @@ if (!config::isCli()){
     $db_settings = $db->selectOne('settings', 'id', 1);
 
     // merge db settings with config/config.ini settings
+    // db settings override ini file settings
     config::$vars['coscms_main'] =
         array_merge(config::$vars['coscms_main'] , $db_settings);
       
@@ -122,11 +123,10 @@ if (!config::isCli()){
     // See module configdb for example. 
     $moduleloader->runLevel(2);
     
-    // init language from DB if we did not load all language as a single file
+    // load a language_all file or just load all module system language
     $lang_all = config::getMainIni('language_all');
     if ($lang_all) {
-        lang::loadTemplateAllLanguage();
-        
+        lang::loadTemplateAllLanguage();       
     } else {
         lang::init();
     } 
