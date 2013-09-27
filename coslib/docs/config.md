@@ -10,8 +10,8 @@ in any modules.
 
 The format is old style .ini setting. 
 
-my_setting_1 = 'test'
-my_setting_2 = 1232
+    my_setting_1 = 'test'
+    my_setting_2 = 1232
 
 This format has good and bad sides. The good is that a .ini file is easy 
 to manipulate in programs. The bad side is that it is difficult to e.g. add
