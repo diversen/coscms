@@ -4,6 +4,7 @@ If you want to use the base lib it is quite easy to set it up
 
 Example: 
 
+[hl:php]
 <?php
 
 // You will need a base path and then you will need to include the 
@@ -28,3 +29,4 @@ foreach ($row as $key => $val) {
 }
 
 ?>
+[/hl:php]
