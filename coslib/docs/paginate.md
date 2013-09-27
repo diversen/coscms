@@ -1,5 +1,5 @@
-Paginate
-========
+Pager
+=====
 
 You can use the `paginate` class for pagination 
 The paginate class is just an empty extension of the 
@@ -15,14 +15,14 @@ will be the next page in the set.
      $per_page = 50;   
      
      // initialize the paginate class
-     $pager = new paginate($num_rows, $per_page);
+     $p = new paginate($num_rows, $per_page);
 
      // the rows to display
      $rows = db_q::setSelect('mailer_archive')->
             order('send_date', 'DESC')->
             order('send_time', 'DESC')->
-            limit($pager->from, $per_page)->
+            limit($p->from, $per_page)->
             fetch();
 
     // display rows in some way, and then print the paginator
-    echo $pager->getPagerHTML();
+    echo $p->getPagerHTML();
