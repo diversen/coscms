@@ -80,21 +80,7 @@ class html {
      * @param string $trigger the trigger value which tells the object to
      *               stop using the initial set values 
      */
-    public static function init ($values = array (), $trigger = null) {
-        /*
-        //echo $_SESSION['csrf_age'];
-        if(!empty($_POST) && isset($_SESSION['csrf_age'])) {
-        //Here we parse the form
-            if(!isset( $_SESSION['csrf']) || 
-                    ($_SESSION['csrf'] != $_POST['csrf']) || 
-                    ($_SESSION['csrf_age'] < time() ) )
-                throw new RuntimeException('CSRF attack');
- 
-            //Do the rest of the processing here
-        } else {
-            echo "ok";
-        } */
-        
+    public static function init ($values = array (), $trigger = null) {        
         
         if (isset($trigger)) {
             self::$autoLoadTrigger = $trigger;

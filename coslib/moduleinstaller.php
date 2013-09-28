@@ -332,20 +332,20 @@ class moduleinstaller extends db {
             $module = $this->installInfo['NAME'];
         }
         
-        $language_path = _COS_PATH . "/lang/$module/lang";
-        if (file_exists($language_path) ) {
+        //$language_path = _COS_PATH . "/lang/$module/lang";
+        //if (file_exists($language_path) ) {
             // system language
             // e.g. all filters
             // cosmarkdown, cosmedia
          
-        } else {
+        //} else {
             // module language
             $language_path =
                 _COS_PATH .
                 '/' . _COS_MOD_DIR . '/' .
                 $module .
                 '/lang';
-        }
+        //}
         
         $dirs = file::getFileList($language_path);
         if ($dirs == false){
@@ -462,16 +462,14 @@ class moduleinstaller extends db {
      * @return  boolean true on success false on failure
      */
     public function insertRegistry (){
-        
-
           
-          if (!isset($this->installInfo['menu_item'])) {
-              $this->installInfo['menu_item'] = 0;
-          }
+        if (!isset($this->installInfo['menu_item'])) {
+            $this->installInfo['menu_item'] = 0;
+        }
           
-          if (!isset($this->installInfo['RUN_LEVEL'])) {
-              $this->installInfo['RUN_LEVEL'] = 0;
-          }
+        if (!isset($this->installInfo['RUN_LEVEL'])) {
+            $this->installInfo['RUN_LEVEL'] = 0;
+        }
 
         $values = array (
             'module_version' => $this->installInfo['VERSION'],
@@ -511,9 +509,7 @@ class moduleinstaller extends db {
 
         if (!empty($this->installInfo['MAIN_MENU_ITEM'])){
             $values = $this->installInfo['MAIN_MENU_ITEM'];
-            //$values['title'] = lang::translate($values['title']);
             $values['title'] = $values['title'];
-
             $res = $this->insert('menus', $values);
         }
 
@@ -527,11 +523,8 @@ class moduleinstaller extends db {
         if (!empty($this->installInfo['SUB_MENU_ITEM'])){
             $values = $this->installInfo['SUB_MENU_ITEM'];
             $values['title'] = $values['title'];
-            //$values['parent'] = $this->installInfo['PARENT_MENU_ITEM'];
             $res = $this->insert('menus', $values);
         }
-
-
         return $res;
     }
 
@@ -557,8 +550,8 @@ class moduleinstaller extends db {
     /**
      * method for updating version of module in module registry
      *
-     * @param <float> $new_version the version to upgrade to
-     * @param <int> $id the id of the module to be upgraded
+     * @param float $new_version the version to upgrade to
+     * @param int $id the id of the module to be upgraded
      * @return boolean true or throws an error on failure
      */
     public function updateRegistry ($new_version, $id){

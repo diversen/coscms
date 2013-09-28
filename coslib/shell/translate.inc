@@ -11,12 +11,12 @@
  */
 function translate_match ($str) {
     // find all strings matching inside lang::translate('e.g. Here is a sentense')
-    $search = "/lang::translate\('([^']+)'\)/s";
+    $search = "/lang::translate\('([^']+)'/s";
     preg_match_all($search, $str, $out);
     $strings = $out[1];
     $strings = array_unique($strings);
     
-    $search = '/lang::translate\("([^"]+)"\)/s';
+    $search = '/lang::translate\("([^"]+)"/s';
     preg_match_all($search, $str, $out2);
     $strings2 = $out2[1];
     $strings = array_merge($strings, $strings2);
@@ -48,11 +48,8 @@ function translate_with_quote ($key, $value = '') {
     } else {
         $str.= "'$value';" . "\n";
     }
-    
-    
-    
+        
     return $str;
-    //return "\$_COS_LANG_MODULE['$key'] = '$value';" . "\n";
 }
 
 /**
@@ -94,6 +91,7 @@ function translate($options){
     
     // compose a php file
     $str = $sys_str = "<?php\n\n";
+    
     foreach ($file_list as $val){
   
         if (!translate_is_text($val)) {
@@ -107,10 +105,11 @@ function translate($options){
         // no strings we continue
         if (empty($strings)) continue;
 
-        if (strstr($val, 'menu.inc') || strstr($val, 'system_lang.inc') ){
+        if (strstr($val, 'menu.inc') || strstr($val, 'install.inc') ||  strstr($val, 'system_lang.inc') ){
             // system translation
             // we add the file info to translation as comment
-            $sys_str.="// Translation of file $val\n\n";
+            $file = str_replace(_COS_PATH, '', $val);
+            $sys_str.="// Translation of file $file\n\n";
 
             // and we add all strings in that file
             foreach ($strings as $trans){
@@ -119,7 +118,8 @@ function translate($options){
         } else {
 
             // we add the file info to translation as comment
-            $str.="// Translation of file $val\n\n";
+            $file = str_replace(_COS_PATH, '', $val);
+            $str.="// Translation of file $file\n\n";
 
             // and we add all strings in that file
             foreach ($strings as $trans){
@@ -161,6 +161,7 @@ function translate($options){
     $write_sys_file = $lang_dir . "/system.inc";
     file_put_contents($write_sys_file, rtrim($sys_str) . "\n");
 }
+
 
 /**
  * will update all translation files in specified language
@@ -280,7 +281,7 @@ function translate_update($options){
         // and we add all strings
         // all menus are added to system translation
         
-        if (strstr($val, 'menu.inc') || strstr($val, 'system_lang.inc') ){
+        if (strstr($val, 'menu.inc') || strstr($val, 'install.inc') ||  strstr($val, 'system_lang.inc') ){
             
             $file = str_replace(_COS_PATH, '', $val);
             $translation_sys_str.="\n// Translation of file $file\n\n";

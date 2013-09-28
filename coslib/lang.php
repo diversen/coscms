@@ -83,7 +83,10 @@ class lang {
      *                  the string suplied will have "NT: " prepended. 
      *                  (Not Translated)
      */
-    public static function translate($sentence, $substitute = array()){
+    public static function translate($sentence, $substitute = array(), $options = array ()){
+        if (isset($options['no_translate'])) {
+            return $sentence;
+        }
         if (isset(self::$dict[$sentence])){
             if (!empty($substitute)){
                 $i = 1;
