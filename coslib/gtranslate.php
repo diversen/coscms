@@ -70,7 +70,8 @@ class gtranslate {
     public static function translateSingle ($str) {
         $ary = self::translateString($str);
         if (isset($ary['data']['translations'][0]['translatedText'])){
-            return $ary['data']['translations'][0]['translatedText'];
+            $text = $ary['data']['translations'][0]['translatedText'];
+            return urldecode($text);
         }
         return null;
     }
