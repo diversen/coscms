@@ -493,7 +493,37 @@ class db_q  {
         return self::setInsert($table);
     }
     
-        /**
+    /**
+     * set conditions as a array 
+     * @param string $ary array('user_id =' => 20, 'username =' => 'myname); 
+     * @return \db_q
+     */
+    public static function filterArray ($ary) {
+        $i = count($ary);
+        foreach ($ary as $key => $val) {
+            $i--;
+            self::filter($key, $val);
+            if ($i) self::condition('AND');
+        }
+        return new db_q();
+    }
+    
+    /**
+     * replace a row in a table
+     * @param string $table
+     * @param array $values update|insert values
+     * @param array $search e.g. array('user_id =' => 20, 'username =' => 'myname); 
+     */
+    public static function replace ($table, $values, $search) {
+        $num_rows = db_q::numRows($table)->filterArray($search)->fetch();
+        if (!$num_rows){
+            return db_q::insert($table)->values($values)->exec();
+        } else {
+            return db_q::update($table)->values($values)->filterArray($search)->exec();
+        }
+    }
+    
+    /**
      * set values for insert or update. 
      * @param array $values the values to insert
      * @param array $bind array with types to bind values to
