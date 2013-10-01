@@ -58,16 +58,16 @@ class html_helpers {
      * @param string $submit text of the submit
      * @return string $form the confirm form.
      */
-    public static function confirmForm ($legend, $submit = null) {
+    public static function confirmForm ($legend, $submit_value = null, $submit_name = 'submit') {
         
         $html = new HTML ();
         $html->setAutoEncode(true);
         $html->formStart('custom_delete_form');
         $html->legend($legend);
-        if (!$submit) {
-            $submit = lang::translate('submit');
+        if (!$submit_value) {
+            $submit_value = lang::translate('submit');
         }
-        $html->submit('submit', $submit);
+        $html->submit($submit_name, $submit_value);
         $html->formEnd(); 
         return $html->getStr();
     }   
