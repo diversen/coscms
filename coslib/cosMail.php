@@ -35,6 +35,7 @@ include_once "Mail.php";
 
 class cosMail {
     
+    public static $wordwrap = 72;
     public static $mail = null;
     public static $params = array ();
     public static $queueParams = array ();
@@ -149,7 +150,7 @@ class cosMail {
         return $res = cosMail::text(
             $to, 
             $subject, 
-            $message, 
+            wordwrap($message, 72,  "\r\n"), 
             $from, 
             $reply_to,
             $more);
@@ -174,7 +175,7 @@ class cosMail {
         if (is_array($message)) {
 
             if (isset($message['txt'])) {
-                $mime->setTxt($message['txt']);
+                $mime->setTxt(wordwrap($message['txt'], self::$wordwrap,  "\r\n"));
             }
             if (isset($message['html'])) {
                 if (strlen($message['html']) != 0) {
@@ -213,7 +214,7 @@ class cosMail {
         $headers = cosMail::getHeaders($to, $subject, $from, $reply_to, $more);
         
         $mime = new cosMail_mime();
-        $mime->setTxt($message);
+        $mime->setTxt(wordwrap($message, self::$wordwrap,  "\r\n"));
 
         $body = $mime->getBody();
         $mime_headers = $mime->getHeaders($headers);
