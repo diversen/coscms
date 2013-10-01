@@ -35,7 +35,7 @@ include_once "Mail.php";
 
 class cosMail {
     
-    public static $wordwrap = 72;
+    public static $wordwrap = 0;
     public static $mail = null;
     public static $params = array ();
     public static $queueParams = array ();
@@ -150,10 +150,15 @@ class cosMail {
         return $res = cosMail::text(
             $to, 
             $subject, 
-            wordwrap($message, 72,  "\r\n"), 
+            self::wrapText($message), 
             $from, 
             $reply_to,
             $more);
+    }
+    
+    public static function wrapText ($message) {
+        if (!self::$wordwrap) return $message;
+        return wordwrap($message, self::$wordwrap,  "\r\n");
     }
 
     /**
@@ -175,8 +180,13 @@ class cosMail {
         if (is_array($message)) {
 
             if (isset($message['txt'])) {
-                $mime->setTxt(wordwrap($message['txt'], self::$wordwrap,  "\r\n"));
+                $mime->setTxt(self::wrapText($message['txt']));
             }
+            
+            if (isset($message['text'])) {
+                $mime->setTxt(self::wrapText($message['text']));
+            }
+            
             if (isset($message['html'])) {
                 if (strlen($message['html']) != 0) {
                     $mime->setHTML($message['html']);
@@ -214,7 +224,7 @@ class cosMail {
         $headers = cosMail::getHeaders($to, $subject, $from, $reply_to, $more);
         
         $mime = new cosMail_mime();
-        $mime->setTxt(wordwrap($message, self::$wordwrap,  "\r\n"));
+        $mime->setTxt(self::wrapText($message));
 
         $body = $mime->getBody();
         $mime_headers = $mime->getHeaders($headers);
