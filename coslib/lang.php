@@ -51,16 +51,18 @@ class lang {
 
         $system_lang = array();
         $db = new db();
-        
         $system_language = db_q::select('language')->
                 filter('language =', config::$vars['coscms_main']['language'])->
                 condition('AND')->
                 filter('module_name != ', 'language_all')->
                 fetch();
+                
+
+        
 
         // create system lanugage for all modules
         if (!empty($system_language)){
-            foreach($system_language as $key => $val){
+            foreach($system_language as $val){
                 $module_lang = unserialize($val['translation']);
                 
                 $system_lang+= $module_lang;
@@ -86,18 +88,24 @@ class lang {
      *                  (Not Translated)
      */
     public static function translate($sentence, $substitute = array(), $options = array ()){
+        
         if (isset($options['no_translate'])) {
             return $sentence;
         }
+        
         if (isset(self::$dict[$sentence])){
             if (!empty($substitute)){
                 foreach ($substitute as $key => $val) {
-                    self::$dict[$sentence] = str_replace("{$key}", $val, self::$dict[$sentence]);
+                    self::$dict[$sentence] = str_replace('{'.$key.'}', $val, self::$dict[$sentence]);
                 }
             }
-            
             return self::$dict[$sentence];
         } else {
+            if (!empty($substitute)){
+                foreach ($substitute as $key => $val) {
+                    $sentence = str_replace('{'.$key.'}', $val, $sentence);
+                }
+            }
             // don't add NT
             if (isset(config::$vars['coscms_main']['translate_ignore'])) {
                 return $sentence;
