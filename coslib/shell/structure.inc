@@ -21,7 +21,14 @@ function cos_structure_dump_table ($options) {
     $user = config::getMainIni('username');
     $password = config::getMainIni('password');
     
-    $command = "mysqldump -d -h $ary[host] -u $user -p$password $ary[name] $options[table]";
+    $dump_dir = "backup/sql/$options[table]";
+    if (!file_exists($dump_dir)) {
+        mkdir($dump_dir);
+    }
+    
+    $dump_name = "backup/sql/$options[table]/" . time() . ".sql";
+    
+    $command = "mysqldump -d -h $ary[host] -u $user -p$password $ary[name] $options[table] > $dump_name";
     cos_exec($command);
 }
 
