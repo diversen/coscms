@@ -9,11 +9,8 @@ function cos_upgrade_post ($options = array ()) {
     // check root
     cos_check_root();
     
-    // reload menus
+    // reload menus. cos_menu_lang_reload also reloads language
     cos_menu_lang_reload();
-    
-    // reload all language
-    cos_reload_language();
     
     // reload config
     cos_config_reload();

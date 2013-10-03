@@ -207,14 +207,22 @@ class lang {
      * The language-all.inc can be collected by using
      * <code>./coscli.sh translate --collect template en_GB</code>
      */
-    static function loadTemplateAllLanguage(){
+    public static function loadTemplateAllLanguage(){
         
         if (self::$allLoaded) {
             return;
         }
         
+        //  template which we load from
         $template = config::getMainIni('language_all');
         self::$allLoaded = true;
+        
+        // check if there is a template_load_all
+        if (moduleloader::isInstalledModule('locales')) {
+            include_module('locales');
+            self::$dict = locales_db::loadLanguageFromDb(config::$vars['coscms_main']['language']);
+            return;
+        }
         
         $base = _COS_HTDOCS . '/templates';
         $language_file =
@@ -238,7 +246,10 @@ class lang {
      * @param   string   the base module to load (e.g. content or account)
      */
     static function loadModuleSystemLanguage($module){
-
+        if (self::$allLoaded) {
+            return;
+        }
+        
         $base = _COS_PATH . "/modules";
 
         $language_file =

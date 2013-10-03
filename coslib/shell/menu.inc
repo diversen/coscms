@@ -36,8 +36,6 @@ function cos_menu_install_all (){
     $mods = moduleinstaller::getModules();
     foreach ($mods as $key => $val){
         $options = array('module' => $val['module_name']);
-        //$mod = new moduleInstaller($options);
-        //$mod->insertMenuItem();
         cos_menu_install_menu($options);
     }
     return 1;
