@@ -30,9 +30,13 @@ if (!config::isCli()) {
     config::loadMainCli();
 }
 
+// set module dir or use default 'modules'
 $module_dir = config::getMainIni('module_dir');
-if (!$module_dir) $module_dir ='modules';
+if (!$module_dir) { 
+    $module_dir ='modules';
+}
 
+// set include path
 $ini_path = ini_get('include_path');
 ini_set('include_path', 
     _COS_PATH . PATH_SEPARATOR . 
@@ -91,7 +95,6 @@ if (!config::isCli()){
         http::redirectHeaders($server_redirect);
     }
     
-    
     // redirect to https is set in config.in
     // force anything into ssl mode
     $server_force_ssl = config::getMainIni('server_force_ssl');
@@ -108,6 +111,8 @@ if (!config::isCli()){
     // installed modules
     $db = new db();
     $moduleloader = new moduleloader();
+    
+    // runlevel 1: merge db config
     $moduleloader->runLevel(1);
 
     // select all db settings and merge them with ini file settings
@@ -118,18 +123,8 @@ if (!config::isCli()){
     config::$vars['coscms_main'] =
         array_merge(config::$vars['coscms_main'] , $db_settings);
       
-    // run level 2: Just after configuration from file have been set
-    // in order to change e.g. file settings you can change the now.
-    // See module configdb for example. 
+    // run level 2: set locales 
     $moduleloader->runLevel(2);
-    
-    // load a language_all file or just load all module system language
-    $lang_all = config::getMainIni('language_all');
-    if ($lang_all) {
-        lang::loadTemplateAllLanguage();       
-    } else {
-        lang::init();
-    } 
     
     // find out what locales we are using
     if (isset(config::$vars['coscms_main']['locale'])){
@@ -143,18 +138,29 @@ if (!config::isCli()){
     // according to locales
     setlocale(LC_TIME, $locale);
     setlocale(LC_MONETARY, $locale);
-
-    $moduleloader->runLevel(4);
-    
     
     // set default timezone
     date_default_timezone_set(config::$vars['coscms_main']['date_default_timezone']);
+    
+    // runlevel 3 - init session
+    $moduleloader->runLevel(3);
 
     // start session
     session::initSession();
+    
+    // run level 4 - load language
+    $moduleloader->runLevel(4);
+
+    // load a language_all file or just load all module system language
+    $lang_all = config::getMainIni('language_all');
+    if ($lang_all) {
+        lang::loadTemplateAllLanguage();       
+    } else {
+        lang::init();
+    } 
+
 
     $moduleloader->runLevel(5);
-    
     
     // load url routes if any
     urldispatch::setDbRoutes();

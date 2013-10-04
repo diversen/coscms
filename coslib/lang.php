@@ -47,6 +47,7 @@ class lang {
      */
     public static function init(){
         
+        self::setAdminLanguage();
         self::$language = config::getMainIni('language');
 
         $system_lang = array();
@@ -57,14 +58,10 @@ class lang {
                 filter('module_name != ', 'language_all')->
                 fetch();
                 
-
-        
-
         // create system lanugage for all modules
         if (!empty($system_language)){
             foreach($system_language as $val){
-                $module_lang = unserialize($val['translation']);
-                
+                $module_lang = unserialize($val['translation']);               
                 $system_lang+= $module_lang;
             }
         }      
@@ -115,6 +112,13 @@ class lang {
         }
     }
     
+    public static function setAdminLanguage () {
+        if (session::isAdmin() && config::getMainIni('language_admin')) {
+            $language_admin = config::getMainIni('language_admin'); 
+            config::$vars['coscms_main']['language'] = $language_admin;
+        }
+    }
+    
     /**
      * method for doing translations. The method calls translate. 
      * and it is an alias. But: In order to auto translate modules, 
@@ -141,6 +145,8 @@ class lang {
      * @param   string  $module the base module to load (e.g. content or account)
      */
     static function loadModuleLanguage($module){
+        
+        self::setAdminLanguage();
         if (self::$allLoaded) {
             return;
         }
@@ -149,11 +155,13 @@ class lang {
         if (isset($loaded[$module])) {
             return;
         }
+        
+        
 
         $base = _COS_PATH . '/' . _COS_MOD_DIR;
         $language_file =
             $base . "/$module" . '/lang/' .
-            config::$vars['coscms_main']['language'] .
+            config::getMainIni('language') .
             '/language.inc';
 
         if (file_exists($language_file)){
@@ -175,6 +183,8 @@ class lang {
      * @param   string  $template the base module to load (e.g. content or account)
      */
     static function loadTemplateLanguage($template){
+        
+        self::setAdminLanguage();
         static $loaded = array();
         
         if (self::$allLoaded) {
@@ -188,7 +198,7 @@ class lang {
         $base = _COS_HTDOCS . '/templates';
         $language_file =
             $base . "/$template" . '/lang/' .
-            config::$vars['coscms_main']['language'] .
+            config::getMainIni('language') .
             '/language.inc';
 
         if (file_exists($language_file)){
@@ -209,6 +219,8 @@ class lang {
      */
     public static function loadTemplateAllLanguage(){
         
+        self::setAdminLanguage();
+        //echo config::getMainIni('language');die;
         if (self::$allLoaded) {
             return;
         }
@@ -220,14 +232,14 @@ class lang {
         // check if there is a template_load_all
         if (moduleloader::isInstalledModule('locales')) {
             include_module('locales');
-            self::$dict = locales_db::loadLanguageFromDb(config::$vars['coscms_main']['language']);
+            self::$dict = locales_db::loadLanguageFromDb(config::getMainIni('language'));
             return;
         }
         
         $base = _COS_HTDOCS . '/templates';
         $language_file =
             $base . "/$template" . '/lang/' .
-            config::$vars['coscms_main']['language'] .
+            config::getMainIni('language') .
             '/language-all.inc';
 
         if (file_exists($language_file)){
@@ -246,6 +258,7 @@ class lang {
      * @param   string   the base module to load (e.g. content or account)
      */
     static function loadModuleSystemLanguage($module){
+        self::setAdminLanguage();
         if (self::$allLoaded) {
             return;
         }
@@ -254,7 +267,7 @@ class lang {
 
         $language_file =
             $base . "/$module" . '/lang/' .
-            config::$vars['coscms_main']['language'] .
+            config::getMainIni('language') .
             '/system.inc';
 
         if (file_exists($language_file)){
