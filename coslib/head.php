@@ -152,6 +152,7 @@ if (!config::isCli()){
     $moduleloader->runLevel(4);
 
     // load a language_all file or just load all module system language
+    //lang::setAdminLanguage();
     $lang_all = config::getMainIni('language_all');
     if ($lang_all) {
         lang::loadTemplateAllLanguage();       

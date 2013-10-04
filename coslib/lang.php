@@ -113,7 +113,7 @@ class lang {
     }
     
     public static function setAdminLanguage () {
-        if (session::isAdmin() && config::getMainIni('language_admin')) {
+        if (session::isAdmin() && config::getMainIni('language_admin')) {    
             $language_admin = config::getMainIni('language_admin'); 
             config::$vars['coscms_main']['language'] = $language_admin;
         }
@@ -146,7 +146,6 @@ class lang {
      */
     static function loadModuleLanguage($module){
         
-        self::setAdminLanguage();
         if (self::$allLoaded) {
             return;
         }
@@ -155,8 +154,6 @@ class lang {
         if (isset($loaded[$module])) {
             return;
         }
-        
-        
 
         $base = _COS_PATH . '/' . _COS_MOD_DIR;
         $language_file =
@@ -182,9 +179,8 @@ class lang {
      * into db on install, and therefor always loaded. 
      * @param   string  $template the base module to load (e.g. content or account)
      */
-    static function loadTemplateLanguage($template){
-        
-        self::setAdminLanguage();
+    public static function loadTemplateLanguage($template){
+
         static $loaded = array();
         
         if (self::$allLoaded) {
@@ -218,9 +214,7 @@ class lang {
      * <code>./coscli.sh translate --collect template en_GB</code>
      */
     public static function loadTemplateAllLanguage(){
-        
-        self::setAdminLanguage();
-        //echo config::getMainIni('language');die;
+
         if (self::$allLoaded) {
             return;
         }
@@ -258,7 +252,6 @@ class lang {
      * @param   string   the base module to load (e.g. content or account)
      */
     static function loadModuleSystemLanguage($module){
-        self::setAdminLanguage();
         if (self::$allLoaded) {
             return;
         }
