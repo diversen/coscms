@@ -66,6 +66,14 @@ class date {
     public static function getCurrentYear () {
         return strftime("%Y");
     }
+    
+    /**
+     * get current month
+     * @return int $month the current month
+     */
+    public static function getCurrentMonth () {
+        return strftime("%m");
+    }
 
     /**
      * get dates as array between two SQL dates
