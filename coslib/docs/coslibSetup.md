@@ -4,7 +4,6 @@ If you want to use the base lib it is quite easy to set it up
 
 Example: 
 
-[hl:php]
 <?php
 
 // You will need a base path and then you will need to include the 
@@ -15,7 +14,7 @@ define('_COS_PATH', '.');
 include_once "coslib/coslibSetup.php";
 
 // Load a configuration file (found in config/config.ini)
-config::loadMainCli();
+config::loadMain();
 
 // Do something - but almost anytime you will need a db connection. 
 $db = new db();
@@ -29,4 +28,3 @@ foreach ($row as $key => $val) {
 }
 
 ?>
-[/hl:php]
