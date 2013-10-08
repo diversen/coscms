@@ -373,7 +373,7 @@ function dateGetWeekInRange ($from, $to) {
  * @ignore
  */
 function dateGetWeek($date) {
-        return date::getWeek($date);
+    return date::getWeek($date);
 }
 
 /**

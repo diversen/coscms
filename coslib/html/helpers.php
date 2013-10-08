@@ -91,7 +91,7 @@ class html_helpers {
                 'value' =>  dateGetMonthName($i)
             );
         }
-        $currentYear = dateGetCurrentYear();
+        $currentYear = date::getCurrentYear();
         $goBack = 120;
         //for ($i = $goBack; $goBack < $currentYear;  $currentYear-- ) {
         while($goBack) {
