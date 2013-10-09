@@ -192,7 +192,9 @@ class moduleloader {
      * @return boolean $res boolean
      */
     public static function isInstalledModule($module){  
-        if (!db::$con == true) {
+        var_dump(db::$con);
+        
+        if (db::$con == false) {
             return;
         }
         
