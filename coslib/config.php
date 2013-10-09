@@ -658,11 +658,14 @@ class config {
     * @param   array     $ary array read from ini file with parse_ini_file
     * @return  string    $str ini string readable by parse_ini_file
     */
-    public static function arrayToIniFile ($ary) {
+    public static function arrayToIniFile ($ary, $check_lang = true) {
+        
         
         // almost always installed but we test anyway
-        if (moduleloader::isInstalledModule('locales')) {
-            $locales = locales_module::getLanguages();
+        if ($check_lang) {
+            if (moduleloader::isInstalledModule('locales')) {
+                $locales = locales_module::getLanguages();
+            }
         }
         
         // check for locales in config array, e.g. en or en_GB or da

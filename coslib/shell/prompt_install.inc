@@ -57,7 +57,7 @@ function prompt_install(){
     config::$vars['coscms_main']['server_redirect'] = $server_name;
 
     // write it to ini file
-    $content = config::arrayToIniFile(config::$vars['coscms_main']);
+    $content = config::arrayToIniFile(config::$vars['coscms_main'], false);
     $path = _COS_PATH . "/config/config.ini";
     file_put_contents($path, $content);
 

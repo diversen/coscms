@@ -192,11 +192,6 @@ class moduleloader {
      * @return boolean $res boolean
      */
     public static function isInstalledModule($module){  
-        var_dump(db::$con);
-        
-        if (db::$con == false) {
-            return;
-        }
         
         if (empty(self::$modules)) {
             $mod = new moduleloader();
