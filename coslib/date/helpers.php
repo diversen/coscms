@@ -1,5 +1,14 @@
 <?php
 
+/**
+ * File contains helper methods connected to date
+ * @package date 
+ */
+
+/**
+ * Class contains helper methods connected to date
+ * @package date
+ */
 class date_helpers {
     
 
