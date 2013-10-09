@@ -15,8 +15,9 @@ class date_helpers {
     
     /**
      * return last 12 months starting with param start
-     * @param int $start
-     * @return array $ary array with last 12 moinths as ints
+     * @param string $date e.g. '2012-12-30'
+     * @return array $ary last 12 moinths and years as ints
+     *                in assoc array with arrays with values('year' => 2013, 'month' => 7) etc.
      */
     public static function last12Months ($date) {
         if (!$date) {
@@ -102,7 +103,7 @@ class date_helpers {
 
     
     /**
-     * add or subtract days from timestamp (mysql like)
+     * add or subtract days from timestamp (SQL like)
      * @param int $days e.g. 10 or -10
      * @param string $from e.g. 2013-10-10. Default to now
      * @return string $stamp e.g. 2013-10-20
