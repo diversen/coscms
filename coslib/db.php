@@ -16,19 +16,21 @@
  * @package    db
  */
 class db {
+    
+    public static $con = false;
     /**
      * Database handle for the database connection. 
      *
      * static $dbh that holds the connection to the database
      * @var false|object
      */
-    static $dbh = false;
+    public static $dbh = false;
 
     /**
      * holds all sqlstatements
      * @var  array  $debug
      */
-    static $debug = array();
+    public static $debug = array();
 
     /**
      * gets a db object. Mostly so that we can use the db class in the static 
@@ -154,10 +156,12 @@ class db {
                 if (isset($options['dont_die'])){
                     self::$debug[] = $e->getMessage();
                     self::$debug[] = 'No connection';
+
                     return "NO_DB_CONN";
                 }
             }
         }
+        self::$con = true;
         self::$debug[]  = 'Connected!';
     }
     
