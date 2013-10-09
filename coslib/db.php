@@ -156,7 +156,6 @@ class db {
                 if (isset($options['dont_die'])){
                     self::$debug[] = $e->getMessage();
                     self::$debug[] = 'No connection';
-
                     return "NO_DB_CONN";
                 }
             }
