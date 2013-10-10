@@ -1,6 +1,5 @@
 <?php
 
-
 /**
  * File contains contains class creating simple translation
  *
@@ -47,7 +46,6 @@ class lang {
      */
     public static function init(){
         
-        self::setAdminLanguage();
         self::$language = config::getMainIni('language');
 
         $system_lang = array();
@@ -215,10 +213,6 @@ class lang {
      */
     public static function loadTemplateAllLanguage(){
 
-        if (self::$allLoaded) {
-            return;
-        }
-        
         //  template which we load from
         $template = config::getMainIni('language_all');
         self::$allLoaded = true;
@@ -226,7 +220,8 @@ class lang {
         // check if there is a template_load_all
         if (moduleloader::isInstalledModule('locales')) {
             include_module('locales');
-            self::$dict = locales_db::loadLanguageFromDb(config::getMainIni('language'));
+            $language = config::getMainIni('language');
+            self::$dict = locales_db::loadLanguageFromDb($language);
             return;
         }
         
