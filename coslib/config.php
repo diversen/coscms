@@ -666,6 +666,8 @@ class config {
             if (moduleloader::isInstalledModule('locales')) {
                 $locales = locales_module::getLanguages();
             }
+        } else {
+            $locales = array();
         }
         
         // check for locales in config array, e.g. en or en_GB or da
