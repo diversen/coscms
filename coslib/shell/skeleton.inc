@@ -98,7 +98,7 @@ function create_module_skeleton($args){
         $files.= $lang_dir_en . "/language.inc ";
     } 
     cos_cli_print('Creating files: ');
-    echo $res = cos_exec('touch ' . $files);
+    $res = cos_exec('touch ' . $files);
     
     if (!$res) {
         // add a version
@@ -107,7 +107,7 @@ function create_module_skeleton($args){
 \$_INSTALL['VERSION'] = 1.71; 
 ";
         $res = file_put_contents($module_path . "/install.inc", $str);
-        echo $res;
+        $res;
         
     }
 }
