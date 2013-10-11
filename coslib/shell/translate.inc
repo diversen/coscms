@@ -42,7 +42,7 @@ function translate_with_quote ($key, $value = '') {
     }
     
     // and also for the value
-    $apo_val = strpos($key, "'");
+    $apo_val = strpos($value, "'");
     if ($apo_val) {
         $str.= '"'.$value.'";' . "\n";
     } else {
