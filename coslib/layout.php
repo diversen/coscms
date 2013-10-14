@@ -171,13 +171,7 @@ class layout {
         // get base menu from file. Base menu is always loaded if found.
         // we decide this from num fragments in uri. 
         $module = uri::getInstance()->fragment(0);
-        if ($num >= 2){
-            
-            $menu = self::getBaseModuleMenu($module);
-            //print_r($menu);
-            //print_r(self::$menu['module']);
-            //self::$menu['module']= array_merge(self::$menu['module'], $menu);
-            
+        if ($num >= 2){           
             $menu = self::getBaseModuleMenu($module);
             self::$menu['module'] = array_merge(self::$menu['module'], $menu);
         }
