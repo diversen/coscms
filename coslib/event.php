@@ -39,6 +39,7 @@
 
 class event {
     
+    
     /**
      * gets results from triggered event as an array, where each
      * methods results are placed in the next key => value pair
@@ -48,9 +49,11 @@ class event {
      */
     public static function getTriggerEvent ($methods, $args = null) {
         
-        if (!is_array($methods)) return array ();
-        $methods = self::prepareMethods($methods);
+        if (!is_array($methods)) { 
+            return array ();
+        }
         
+        $methods = self::prepareMethods($methods);
         $ret = array();
         foreach ($methods as $val) {
             $ary = explode('::', $val);
@@ -62,9 +65,7 @@ class event {
                 if ($ret_val) {
                     $ret[] = $ret_val; 
                 }
-            } else {
-                log::debug("No such static method: $class::$method");
-            }
+            } 
         }
         return $ret;
     }
