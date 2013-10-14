@@ -59,7 +59,7 @@ class layout2 extends layout {
             if (!self::checkMenuAuth($v)) {
                 continue;
             }
-
+            
             $options = self::getMenuLinkOptions($v);
             
             $str.="<li>";

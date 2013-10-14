@@ -16,6 +16,7 @@
  */
 class layout {
 
+    public static $current = array ();
     /**
      * var holding menus
      * @var array $menu
@@ -195,8 +196,19 @@ class layout {
         } else {
             return;
         }
+        
         $menu = self::getMenuFromFile($module);
         self::$menu['module'] = array_merge(self::$menu['module'], $menu);
+    }
+    
+    /**
+     * sets the self::$current array with an entry
+     * Then we can set menu items and set the class 'current'
+     * @paran string $current the current module
+     * @param string $module the module menu which should be set
+     */
+    public static function setCurrentModuleMenu ($key, $module) {
+        self::$current[$key] = $module;
     }
     
     /**
@@ -420,13 +432,21 @@ class layout {
         $module_base = uri::$info['module_base'];
         $options = array ();
 
-        // set attr class as current when module coresponds to first part of uri
         $url = explode('/', $menu['url']);
         if (isset($url[1]) && isset($module_base)) {
-            if ("/$url[1]" == $module_base) {
-               $options['class'] = 'current';
-            } 
+            
+            if ("/$url[1]"== $module_base) {
+               $options['class'] = 'current';        
+            }
+            
+            if (!empty(self::$current)) {
+                $module_base_name = uri::$info['module_base_name'];
+                if (isset(self::$current[$module_base_name]) && $url[1] == self::$current[$module_base_name] ) {
+                    $options['class'] = 'current';
+                }
+            }
         }
+
         return $options;
     }
 
@@ -442,9 +462,6 @@ class layout {
      * @return string $admin_menu as a str li ... li
      */
     public static function parseAdminMenuList ($options = array()){
-
-        
-
 
         $menu = array();
         if (!isset(self::$menu['admin'])) return;
@@ -488,12 +505,10 @@ class layout {
                 continue;
             }
 
-            $str.="<li>";            
-            if (isset($v['canonical'])) {
-                $v['url'] = config::getMainIni('server_name_canonical') . $v['url'];
-            }
+            $str.="<li>";
             
-            $link = html::createLink( $v['url'], $v['title']);
+            $options = self::getMenuLinkOptions($v);
+            $link = html::createLink( $v['url'], $v['title'], $options);
             $str.=  $link;
             if (isset($v['sub'])){
                 $str .= self::parseMainMenuList($v['sub']);
@@ -514,7 +529,7 @@ class layout {
      * @return string $str containing menu in html form, an ul with li elements
      */
     public static function parseModuleMenu($menu, $options = null){
-
+        
         $str = '';              
         $num_items = $ex = count($menu);
 
@@ -528,19 +543,23 @@ class layout {
                 $str .= MENU_SUB_SEPARATOR;
             }
             
-            
+            /*
             if (isset($v['canonical'])) {
                 $v['url'] = config::getMainIni('server_name_canonical') . $v['url'];
-            }
+            }*/
+            
+            $options = self::getMenuLinkOptions($v);
             
             $num_items--;       
             $str .= html::createLink($v['url'], $v['title']);
             $str.= "</li>\n";
         }
         
-        if (empty($str)) return '';
-        
-        return "<ul>\n$str</ul>\n";
+        if (empty($str)) { 
+            return '';
+        } else {
+            return "<ul>\n$str</ul>\n";
+        }
     }
     
     /**
