@@ -151,21 +151,22 @@ class moduleloader {
 
     /**
      * method for getting a modules parent name.
-     * 
+     * @deprecated 2.4
      * @param string    $module the module to examine for a parent
      * @return mixed    $res if a parent module is found we return the parent module name
      *                       else we return null
      */
     public static function getParentModule ($module){        
         static $parent = null;
-        if (isset($parent)) return $parent;
+        if (isset($parent)) { 
+            return $parent;
+        }
         foreach (self::$modules as $val){
             if ($val['module_name'] != $module) { 
                 continue;
             } else {
                 if (isset($val['parent'])){
-                    $parent = $val['parent'];
-                    return $parent;
+                    return $val['parent'];
                 }
             }
         }

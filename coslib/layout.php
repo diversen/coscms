@@ -149,8 +149,6 @@ class layout {
 
         // always a module menu in web mode
         self::$menu['main'] = $db->selectQuery("SELECT * FROM `menus` WHERE  ( `parent` = '0') AND `admin_only` = 0 ORDER BY `weight` ASC");
-
-        //self::setMainMenuTitles();
         
         // admin item are special
         if (session::isAdmin()){
@@ -183,12 +181,22 @@ class layout {
                    uri::getInstance()->fragment(1);
             self::$menu['sub'] = self::getSubMenu($sub);
         }
-        
-        // check if module being loaded is a child module to a parent module
-        $parent = moduleloader::getParentModule($module);
-        if (isset($parent)) {
-            self::$menu['sub'] = self::getMenuFromFile($module);
+    }
+    
+    /**
+     * sets a module menu from module name
+     * implemented when I needed to use a parent module's menu in a 
+     * sub module. 
+     * @param string $module
+     */
+    public static function setModuleMenu ($module) {
+        if (moduleloader::moduleExists($module)) {
+            moduleloader::includeModule($module);
+        } else {
+            return;
         }
+        $menu = self::getMenuFromFile($module);
+        self::$menu['module'] = array_merge(self::$menu['module'], $menu);
     }
     
     /**
@@ -224,13 +232,14 @@ class layout {
     public static function setMainMenuTitles () {
         foreach (self::$menu['main'] as &$val) {
             $val['title'] = lang::translate($val['title']);
-            if (!empty($val['title_human'])) $val['title'] = $val['title_human'];
+            if (!empty($val['title_human'])) { 
+                $val['title'] = $val['title_human'];
+            }
         }
         
         if (session::isAdmin()) {
             foreach (self::$menu['admin'] as &$val) {
                 $val['title'] = lang::translate($val['title']);
-                //if (!empty($val['title_human'])) $val['title'] = $val['title_human'];
             }    
         }
     }
@@ -250,16 +259,20 @@ class layout {
     public static function initBlocks () {
         
         $blocks = config::getMainIni('blocks_all');
-        if (!isset($blocks)) return;
-        //print_r($blocks); die;
+        if (!isset($blocks)) { 
+            return;
+        }
+        
         $blocks = explode(',', $blocks);
-
         foreach ($blocks as $val) {
             self::$blocksContent[$val] = self::parseBlock($val);
         }        
     }
     
-    
+    /**
+     * returns a array of all templates found in template_dir
+     * @return array $templates
+     */
     public static function getAllTemplates () {
         return file::getFileList(_COS_HTDOCS . "/templates", array ('dir_only' => true));
     }
@@ -300,8 +313,7 @@ class layout {
      * @return array    $menu as array
      */
     public static function getMenuFromFile ($module){
-        $module_menu =
-        _COS_PATH . '/' . _COS_MOD_DIR . '/' . $module . '/menu.inc';
+        $module_menu = _COS_PATH . '/' . _COS_MOD_DIR . '/' . $module . '/menu.inc';
 
         if (file_exists($module_menu)){
             include $module_menu;
@@ -346,13 +358,7 @@ class layout {
     public static function getBaseModuleMenu($module){
         $menu = array();
 
-        $parent = moduleloader::getParentModule($module);
-        if (isset($parent)) { 
-            $module = $parent;
-        }
-
-        $module_menu = self::getMenuFromFile($module);
-        
+        $module_menu = self::getMenuFromFile($module);   
         $children_menu = self::getChildrenMenus($module);
         $module_menu = array_merge($module_menu, $children_menu);  
         
@@ -364,7 +370,6 @@ class layout {
                 $module_menu = self::setDbConfigMenuItem ($module_menu, $module);
             }
         }
-        
         return $module_menu;
     }
     
@@ -402,6 +407,28 @@ class layout {
     public static function getSubMenu ($sub) {
         return (self::getMenuFromFile($sub));
     }
+    
+        
+    /**
+     * check a menu array and set options['class'] as 'current' 
+     * to link creation
+     * @param array $menu a menu item
+     * @return array $options options to be given to html::createLink
+     */
+    public static function getMenuLinkOptions ($menu) {
+
+        $module_base = uri::$info['module_base'];
+        $options = array ();
+
+        // set attr class as current when module coresponds to first part of uri
+        $url = explode('/', $menu['url']);
+        if (isset($url[1]) && isset($module_base)) {
+            if ("/$url[1]" == $module_base) {
+               $options['class'] = 'current';
+            } 
+        }
+        return $options;
+    }
 
 
 
@@ -416,11 +443,8 @@ class layout {
      */
     public static function parseAdminMenuList ($options = array()){
 
-        $module_base = uri::$info['module_base'];
-        $parent = moduleloader::getParentModule($module_base);
-        if ($parent){
-            $module_base = "/" . $parent;
-        }
+        
+
 
         $menu = array();
         if (!isset(self::$menu['admin'])) return;
@@ -432,18 +456,11 @@ class layout {
         
         $str = $css = '';
         foreach($menu as $k => $v){
-            if ( !empty($v['auth'])){
-                if (!session::isUser() && $v['auth'] == 'user') continue;
-                if (!session::isAdmin() && $v['auth'] == 'admin') continue;
-                if (!session::isSuper()  && $v['auth'] == 'super') continue;
+            if (!self::checkMenuAuth($v)) {
+                continue;
             }
-            
-            $options = array();
-            if (isset($v['url']) && !empty($module_base)){
-                if (strstr($v['url'], $module_base)){
-                    $options['class'] = 'current';
-                } 
-            }
+
+            $options = self::getMenuLinkOptions($v);
 
             $str.="<li>";
             $link = html::createLink( $v['url'], $v['title'], $options);
@@ -465,17 +482,13 @@ class layout {
     public static function parseMainMenuList (){
         $menu = array();
         $menu = self::$menu['main'];
-        $str = $css = '';
+        $str = $css = $str = '';
         foreach($menu as $v){
-            if ( !empty($v['auth'])){
-                if (!session::isUser()) continue;
-                if (!session::isAdmin() && $v['auth'] == 'admin') continue;
-                if (!session::isSuper()  && $v['auth'] == 'super') continue;
+            if (!self::checkMenuAuth($v)) {
+                continue;
             }
 
-
-            $str.="<li>";
-            
+            $str.="<li>";            
             if (isset($v['canonical'])) {
                 $v['url'] = config::getMainIni('server_name_canonical') . $v['url'];
             }
@@ -506,10 +519,8 @@ class layout {
         $num_items = $ex = count($menu);
 
         foreach($menu as $v){         
-            if ( !empty($v['auth'])){
-                if (!session::isUser() && $v['auth'] == 'user') continue;
-                if (!session::isAdmin() && $v['auth'] == 'admin') continue;
-                if (!session::isSuper()  && $v['auth'] == 'super') continue;
+            if (!self::checkMenuAuth($v)) {
+                continue;
             }
             
             $str.= "<li>";
@@ -531,6 +542,32 @@ class layout {
         
         return "<ul>\n$str</ul>\n";
     }
+    
+    /**
+     * checks if menu should be displayed to the user depending 
+     * on the users credentials
+     * @param array $item menu item
+     * @return boolean $res true if we display and false if we don't
+     */
+    public static function checkMenuAuth ($item = array ()) {
+        if ( !empty($item['auth'])){
+            // if set we need at least a user
+            if (!session::isUser()) { 
+                return false;
+            }
+            // if admin is set we need admin
+            if (!session::isAdmin() && $item['auth'] == 'admin') { 
+                return false;
+            }
+            // we need super
+            if (!session::isSuper()  && $item['auth'] == 'super') { 
+                return false;
+            }
+            return true;
+        }
+        return true;
+    }
+    
     
     /**
      * method for adding extra menu items to a menu
