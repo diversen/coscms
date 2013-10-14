@@ -23,7 +23,8 @@ class lang {
      * var holding the language to use for a site
      * @var string $language 
      */
-    public static $language = '';
+    public static $language = null;
+
 
     /**
      * var holding the translation table
@@ -36,6 +37,12 @@ class lang {
      * @return string $language the language to be used
      */
     public static function getLanguage (){
+        $user_language = cache::get('account_locales_language', session::getUserId());
+        if ($user_language) {
+            self::$language = $user_language;
+        } else {
+            self::$language = config::getMainIni('language');
+        }
         return self::$language;
     }
     
@@ -45,13 +52,13 @@ class lang {
      * 
      */
     public static function init(){
-        
-        self::$language = config::getMainIni('language');
+            
+        $language = self::getLanguage();
 
         $system_lang = array();
         $db = new db();
         $system_language = db_q::select('language')->
-                filter('language =', config::$vars['coscms_main']['language'])->
+                filter('language =', $language)->
                 condition('AND')->
                 filter('module_name != ', 'language_all')->
                 fetch();
@@ -110,12 +117,6 @@ class lang {
         }
     }
     
-    public static function setAdminLanguage () {
-        if (session::isAdmin() && config::getMainIni('language_admin')) {    
-            $language_admin = config::getMainIni('language_admin'); 
-            config::$vars['coscms_main']['language'] = $language_admin;
-        }
-    }
     
     /**
      * method for doing translations. The method calls translate. 
@@ -152,11 +153,13 @@ class lang {
         if (isset($loaded[$module])) {
             return;
         }
+        
+        $language = self::getLanguage();
 
         $base = _COS_PATH . '/' . _COS_MOD_DIR;
         $language_file =
             $base . "/$module" . '/lang/' .
-            config::getMainIni('language') .
+            $language .
             '/language.inc';
 
         if (file_exists($language_file)){
@@ -188,11 +191,13 @@ class lang {
         if (isset($loaded[$template])) {
             return;
         }
+        
+        $language = self::getLanguage();
 
         $base = _COS_HTDOCS . '/templates';
         $language_file =
             $base . "/$template" . '/lang/' .
-            config::getMainIni('language') .
+            $language .
             '/language.inc';
 
         if (file_exists($language_file)){
@@ -217,10 +222,12 @@ class lang {
         $template = config::getMainIni('language_all');
         self::$allLoaded = true;
         
+        $language = self::getLanguage();
+        
         // check if there is a template_load_all
         if (moduleloader::isInstalledModule('locales')) {
             include_module('locales');
-            $language = config::getMainIni('language');
+            
             self::$dict = locales_db::loadLanguageFromDb($language);
             return;
         }
@@ -228,7 +235,7 @@ class lang {
         $base = _COS_HTDOCS . '/templates';
         $language_file =
             $base . "/$template" . '/lang/' .
-            config::getMainIni('language') .
+            $language .
             '/language-all.inc';
 
         if (file_exists($language_file)){
@@ -251,11 +258,12 @@ class lang {
             return;
         }
         
+        $language = self::getLanguage();
         $base = _COS_PATH . "/modules";
 
         $language_file =
             $base . "/$module" . '/lang/' .
-            config::getMainIni('language') .
+            $language .
             '/system.inc';
 
         if (file_exists($language_file)){

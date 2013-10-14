@@ -40,6 +40,7 @@
  */
 class cache {
 
+    public static $table = 'system_cache';
     /**
      * generate a system cache id
      * @param   string    $module
@@ -57,12 +58,12 @@ class cache {
      * @param   string    $module
      * @param   int       $id
      * @param   int       $max_life_time in secs
-     * @return  string    $str
+     * @return  mixed     $data unserialized data
      */
     public static function get ($module, $id, $max_life_time = null) {
         $id = self::generateId($module, $id);
         
-        $row = db_q::setSelect('system_cache')->filter('id =', $id)->fetchSingle();
+        $row = db_q::select(self::$table)->filter('id =', $id)->fetchSingle();
 
         if (!$row) {
             return null;
@@ -89,15 +90,18 @@ class cache {
      * @return  strin   $str
      */
     public static function set ($module, $id, $data) {
+        
+        $db = new db();
+        $db->begin();
         self::delete($module, $id);
 
-        //db::$dbh->tansaction
         $id = self::generateId($module, $id);
-        $db = new db();
+        
         
         $values = array ('id' => $id, 'unix_ts' => time());
         $values['data'] = serialize($data);
-        return $db->insert('system_cache', $values);
+        $db->insert(self::$table, $values);
+        return $db->commit();
     }
 
     /**
@@ -108,12 +112,8 @@ class cache {
      */
     public static function delete ($module, $id) {
         $id = self::generateId($module, $id);
-
         $db = new db();
         $search = array ('id' => $id);
-        //print_r($search);
-        return $db->delete('system_cache', null, $search);
-        
-        //die;
+        return $db->delete(self::$table, null, $search);
     }
 }
