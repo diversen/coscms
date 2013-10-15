@@ -12,5 +12,4 @@ return array(
     'Zend\\Mail\\' => array($vendorDir . '/zendframework/zend-mail'),
     'Zend\\Loader\\' => array($vendorDir . '/zendframework/zend-loader'),
     'Michelf' => array($vendorDir . '/michelf/php-markdown'),
-    'Console_Color2' => array($vendorDir . '/pear/console_color2'),
 );

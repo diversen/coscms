@@ -138,7 +138,7 @@ function color_output ($output, $color_code = 'g') {
     
     if (!isset(config::$vars['coscms_main']['color_shell_disable'])) {
         if (!$color) {
-            $color = new Console_Color2();
+            $color = new Console_Color();
         }
         $ret = $color->convert("%$color_code$output%n");    
     } 

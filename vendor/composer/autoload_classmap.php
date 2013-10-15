@@ -17,6 +17,7 @@ return array(
     'Auth_SASL2_Plain' => $vendorDir . '/pear-pear.php.net/Auth_SASL2/Auth/SASL2/Plain.php',
     'Auth_SASL2_SCRAM' => $vendorDir . '/pear-pear.php.net/Auth_SASL2/Auth/SASL2/SCRAM.php',
     'BaseFacebook' => $vendorDir . '/facebook/php-sdk/src/base_facebook.php',
+    'Console_Color' => $vendorDir . '/pear-pear.php.net/Console_Color/Console/Color.php',
     'Console_CommandLine' => $vendorDir . '/pear-pear.php.net/Console_CommandLine/Console/CommandLine.php',
     'Console_CommandLine_Action' => $vendorDir . '/pear-pear.php.net/Console_CommandLine/Console/CommandLine/Action.php',
     'Console_CommandLine_Action_Callback' => $vendorDir . '/pear-pear.php.net/Console_CommandLine/Console/CommandLine/Action/Callback.php',
