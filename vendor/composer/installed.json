@@ -493,57 +493,6 @@
         "description": "Provides code to generate responses to common SASL mechanisms, including:\n- Digest-MD5\n- Cram-MD5\n- Plain\n- Anonymous\n- Login (Pseudo mechanism)\n- SCRAM"
     },
     {
-        "name": "pear/console_color2",
-        "version": "dev-master",
-        "version_normalized": "9999999-dev",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/pear/Console_Color2.git",
-            "reference": "771a5a4acc850ad874527798f60e030b8aa47dec"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/pear/Console_Color2/zipball/771a5a4acc850ad874527798f60e030b8aa47dec",
-            "reference": "771a5a4acc850ad874527798f60e030b8aa47dec",
-            "shasum": ""
-        },
-        "require": {
-            "php": ">=5.0.0"
-        },
-        "time": "2012-10-23 11:50:08",
-        "type": "library",
-        "installation-source": "source",
-        "autoload": {
-            "psr-0": {
-                "Console_Color2": ""
-            }
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "MIT"
-        ],
-        "authors": [
-            {
-                "name": "Daniel O'Connor",
-                "email": "daniel.oconnor@gmail.com",
-                "role": "Pear Developer"
-            },
-            {
-                "name": "Stefan Walk",
-                "email": "et@php.net"
-            },
-            {
-                "name": "Scott Mattocks",
-                "email": "scottmattocks@php.net"
-            }
-        ],
-        "description": "This Class allows you to easily use ANSI console colors in your application.",
-        "homepage": "https://github.com/pear/Console_Color2",
-        "keywords": [
-            "console"
-        ]
-    },
-    {
         "name": "michelf/php-markdown",
         "version": "dev-lib",
         "version_normalized": "dev-lib",
@@ -790,5 +739,56 @@
         "support": {
             "source": "https://github.com/zendframework/Component_ZendMail/tree/release-2.2.1"
         }
+    },
+    {
+        "name": "pear/console_color2",
+        "version": "dev-master",
+        "version_normalized": "9999999-dev",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/pear/Console_Color2.git",
+            "reference": "771a5a4acc850ad874527798f60e030b8aa47dec"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/pear/Console_Color2/zipball/771a5a4acc850ad874527798f60e030b8aa47dec",
+            "reference": "771a5a4acc850ad874527798f60e030b8aa47dec",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.0.0"
+        },
+        "time": "2012-10-23 11:50:08",
+        "type": "library",
+        "installation-source": "source",
+        "autoload": {
+            "psr-0": {
+                "Console_Color2": ""
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Daniel O'Connor",
+                "email": "daniel.oconnor@gmail.com",
+                "role": "Pear Developer"
+            },
+            {
+                "name": "Stefan Walk",
+                "email": "et@php.net"
+            },
+            {
+                "name": "Scott Mattocks",
+                "email": "scottmattocks@php.net"
+            }
+        ],
+        "description": "This Class allows you to easily use ANSI console colors in your application.",
+        "homepage": "https://github.com/pear/Console_Color2",
+        "keywords": [
+            "console"
+        ]
     }
 ]
