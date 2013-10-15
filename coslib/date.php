@@ -2,9 +2,13 @@
 
 /**
  * File contains common function for doing date math
- * @package coslib   
+ * @package date 
  */
 
+/**
+ * Class contains common function for doing date math with SQL
+ * @package date
+ */
 class date {
     
     /**

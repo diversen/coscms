@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "b24e5c9c0c285410dfb9aef06273bdf1",
+    "hash": "fefa364c005247596fbc56c73354e891",
     "packages": [
         {
             "name": "diversen/simple-php-github-api",
@@ -96,12 +96,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/michelf/php-markdown.git",
-                "reference": "53f638871750d6cfc66daf61d0741d75df838aad"
+                "reference": "9dbd8352deac7d3a00ba9e2360b0d9f1c31b4b4c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/michelf/php-markdown/zipball/53f638871750d6cfc66daf61d0741d75df838aad",
-                "reference": "53f638871750d6cfc66daf61d0741d75df838aad",
+                "url": "https://api.github.com/repos/michelf/php-markdown/zipball/9dbd8352deac7d3a00ba9e2360b0d9f1c31b4b4c",
+                "reference": "9dbd8352deac7d3a00ba9e2360b0d9f1c31b4b4c",
                 "shasum": ""
             },
             "require": {
@@ -139,7 +139,7 @@
             "keywords": [
                 "markdown"
             ],
-            "time": "2013-04-13 19:18:58"
+            "time": "2013-08-02 10:50:14"
         },
         {
             "name": "pear-pear.php.net/Archive_Tar",
@@ -192,32 +192,6 @@
                 "/"
             ],
             "description": "Provides code to generate responses to common SASL mechanisms, including:\n- Digest-MD5\n- Cram-MD5\n- Plain\n- Anonymous\n- Login (Pseudo mechanism)\n- SCRAM"
-        },
-        {
-            "name": "pear-pear.php.net/Console_Color",
-            "version": "1.0.3",
-            "dist": {
-                "type": "file",
-                "url": "http://pear.php.net/get/Console_Color-1.0.3.tgz",
-                "reference": null,
-                "shasum": null
-            },
-            "require": {
-                "php": ">=4.0.0.0"
-            },
-            "replace": {
-                "pear-pear/console_color": "== 1.0.3.0"
-            },
-            "type": "pear-library",
-            "autoload": {
-                "classmap": [
-                    ""
-                ]
-            },
-            "include-path": [
-                "/"
-            ],
-            "description": "You can use Console_Color::convert to transform colorcodes like %r into ANSI\ncontrol codes. print Console_Color::convert(&amp;amp;quot;%rHello World!%n&amp;amp;quot;); would print\n&amp;amp;quot;Hello World&amp;amp;quot; in red, for example."
         },
         {
             "name": "pear-pear.php.net/Console_CommandLine",
@@ -544,6 +518,55 @@
             "description": "Selection of methods that are often needed when working with XML documents.  Functionality includes creating of attribute lists from arrays, creation of tags, validation of XML names and more."
         },
         {
+            "name": "pear/console_color2",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/pear/Console_Color2.git",
+                "reference": "771a5a4acc850ad874527798f60e030b8aa47dec"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/pear/Console_Color2/zipball/771a5a4acc850ad874527798f60e030b8aa47dec",
+                "reference": "771a5a4acc850ad874527798f60e030b8aa47dec",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.0.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Console_Color2": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Daniel O'Connor",
+                    "email": "daniel.oconnor@gmail.com",
+                    "role": "Pear Developer"
+                },
+                {
+                    "name": "Stefan Walk",
+                    "email": "et@php.net"
+                },
+                {
+                    "name": "Scott Mattocks",
+                    "email": "scottmattocks@php.net"
+                }
+            ],
+            "description": "This Class allows you to easily use ANSI console colors in your application.",
+            "homepage": "https://github.com/pear/Console_Color2",
+            "keywords": [
+                "console"
+            ],
+            "time": "2012-10-23 11:50:08"
+        },
+        {
             "name": "zendframework/zend-loader",
             "version": "2.2.1",
             "target-dir": "Zend/Loader",
@@ -739,6 +762,7 @@
     ],
     "minimum-stability": "stable",
     "stability-flags": {
+        "pear/console_color2": 20,
         "michelf/php-markdown": 20
     },
     "platform": [

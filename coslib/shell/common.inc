@@ -131,12 +131,16 @@ function cos_get_color_status ($status) {
  * @return string $colorered output
  */
 function color_output ($output, $color_code = 'g') {
+    static $color = null;
     if (!config::isCli()) {
         return $output;
     }
     
     if (!isset(config::$vars['coscms_main']['color_shell_disable'])) {
-        $ret = @Console_Color::convert("%$color_code$output%n");    
+        if (!$color) {
+            $color = new Console_Color2();
+        }
+        $ret = $color->convert("%$color_code$output%n");    
     } 
     return $ret;
 }
