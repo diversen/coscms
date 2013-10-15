@@ -520,7 +520,7 @@ class session {
      *                  false if not. 
      * 
      */
-    static public function checkAccessControl($allow, $setErrorModule = true){
+    public static function checkAccessControl($allow, $setErrorModule = true){
         
         // we check to see if we have a ini setting for 
         // the type to be allowed to an action
@@ -562,6 +562,17 @@ class session {
         } else {
             return true;
         }
+    }
+    
+    /**
+     * better name for checkAccessControl
+     * @param string $allow the module ini settings we read from e.g. blog_allow
+     * @param boolean $setErrorModule notify moduleloader
+     * @return boolean $res true if access allowed else false
+     */
+    public static function checkAccessFromModuleIni ($allow, $setErrorModule = true){
+        return self::checkAccessControl($allow, $setErrorModule);
+        
     }
     
     /**
