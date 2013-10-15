@@ -196,6 +196,7 @@ class imap {
         $parts['images'] = array ();
         $parts['movies'] = array ();
         $parts['unknown'] = array ();
+
         try {
             $parts['date'] = $message->getHeader('Date', 'string');
             $from = $message->getHeader('From', 'string');
