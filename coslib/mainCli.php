@@ -49,6 +49,7 @@ spl_autoload_register('coslib_autoloader');
 
 include_once "coslib/head.php";
 include_once 'Console/CommandLine.php';
+include_once 'Console/Color2.php';
 include_once "coslib/shell/common.inc";
 
 /**
