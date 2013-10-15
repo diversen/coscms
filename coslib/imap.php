@@ -197,12 +197,10 @@ class imap {
         $parts['movies'] = array ();
         $parts['unknown'] = array ();
 
-        try {
+
             $parts['date'] = $message->getHeader('Date', 'string');
             $from = $message->getHeader('From', 'string');
-        } catch (Exception $ex) {
-            log::error('Could not parse header: ' . $ex->getMessage() . " " . $ex->getTraceAsString());
-        }
+
         
         $parts['from'] = trim($this->extractMailFrom($from));
         $parts['html'] = array ();
