@@ -598,19 +598,19 @@
     },
     {
         "name": "zendframework/zend-stdlib",
-        "version": "2.2.4",
-        "version_normalized": "2.2.4.0",
+        "version": "2.2.1",
+        "version_normalized": "2.2.1.0",
         "target-dir": "Zend/Stdlib",
         "source": {
             "type": "git",
             "url": "https://github.com/zendframework/Component_ZendStdlib.git",
-            "reference": "7c87ce4e840957596bf3401fa4ae4fb0355682e2"
+            "reference": "a9ebb65a610f2ed61af389db4644d8a3470f5a68"
         },
         "dist": {
             "type": "zip",
-            "url": "https://packages.zendframework.com/composer/zendframework-zend-stdlib-7c87ce4e840957596bf3401fa4ae4fb0355682e2-zip-ac5a1a.zip",
-            "reference": "2.2.4",
-            "shasum": "eda09687763db7ad8ce8908a7f89f3ce0daa9f1d"
+            "url": "https://packages.zendframework.com/composer/zendframework-zend-stdlib-a9ebb65a610f2ed61af389db4644d8a3470f5a68-zip-a21152.zip",
+            "reference": "2.2.1",
+            "shasum": "29db73d14a5c9f5380cd1bbe9171ef1fb7937188"
         },
         "require": {
             "php": ">=5.3.3"
@@ -619,7 +619,7 @@
             "zendframework/zend-eventmanager": "To support aggregate hydrator usage",
             "zendframework/zend-servicemanager": "To support hydrator plugin manager usage"
         },
-        "time": "2013-08-21 17:08:07",
+        "time": "2013-06-12 19:46:58",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -642,30 +642,30 @@
             "zf2"
         ],
         "support": {
-            "source": "https://github.com/zendframework/Component_ZendStdlib/tree/release-2.2.3"
+            "source": "https://github.com/zendframework/Component_ZendStdlib/tree/release-2.2.1"
         }
     },
     {
         "name": "zendframework/zend-mime",
-        "version": "2.2.4",
-        "version_normalized": "2.2.4.0",
+        "version": "2.2.1",
+        "version_normalized": "2.2.1.0",
         "target-dir": "Zend/Mime",
         "source": {
             "type": "git",
             "url": "https://github.com/zendframework/Component_ZendMime.git",
-            "reference": "34f88da8dc21bc89fce030c4b7f7b0155f59fb99"
+            "reference": "9163b71ee211f10fe33e2079cd3cfc8f81745456"
         },
         "dist": {
             "type": "zip",
-            "url": "https://packages.zendframework.com/composer/zendframework-zend-mime-34f88da8dc21bc89fce030c4b7f7b0155f59fb99-zip-170710.zip",
-            "reference": "2.2.4",
-            "shasum": "4bc5c8a12519fde68e86db7ae9bfcabf78ea1315"
+            "url": "https://packages.zendframework.com/composer/zendframework-zend-mime-9163b71ee211f10fe33e2079cd3cfc8f81745456-zip-71a019.zip",
+            "reference": "2.2.1",
+            "shasum": "38e363ccdecb9637b39ef9c71e76cb8b3b3a0f2e"
         },
         "require": {
             "php": ">=5.3.3",
             "zendframework/zend-stdlib": "self.version"
         },
-        "time": "2013-08-21 17:07:24",
+        "time": "2013-06-12 19:45:46",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -688,24 +688,24 @@
             "zf2"
         ],
         "support": {
-            "source": "https://github.com/zendframework/Component_ZendMime/tree/release-2.2.3"
+            "source": "https://github.com/zendframework/Component_ZendMime/tree/release-2.2.1"
         }
     },
     {
         "name": "zendframework/zend-loader",
-        "version": "2.2.4",
-        "version_normalized": "2.2.4.0",
+        "version": "2.2.1",
+        "version_normalized": "2.2.1.0",
         "target-dir": "Zend/Loader",
         "source": {
             "type": "git",
             "url": "https://github.com/zendframework/Component_ZendLoader.git",
-            "reference": "11a952589d37879d92fee78e70eed731c1073ed3"
+            "reference": "f9dfc8fbe4149768a7e36c0a66c6390b7e76f743"
         },
         "dist": {
             "type": "zip",
-            "url": "https://packages.zendframework.com/composer/zendframework-zend-loader-11a952589d37879d92fee78e70eed731c1073ed3-zip-3d70cc.zip",
-            "reference": "2.2.4",
-            "shasum": "cfae59e01f6aeda1aaea343e3e66846bbb6c29d9"
+            "url": "https://packages.zendframework.com/composer/zendframework-zend-loader-f9dfc8fbe4149768a7e36c0a66c6390b7e76f743-zip-71c405.zip",
+            "reference": "2.2.1",
+            "shasum": "b7764989676521af63263a0a0a911a48887b3129"
         },
         "require": {
             "php": ">=5.3.3"
@@ -713,7 +713,7 @@
         "suggest": {
             "zendframework/zend-stdlib": "Zend\\Stdlib component"
         },
-        "time": "2013-08-21 17:07:14",
+        "time": "2013-05-01 21:53:24",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -736,172 +736,27 @@
             "zf2"
         ],
         "support": {
-            "source": "https://github.com/zendframework/Component_ZendLoader/tree/release-2.2.3"
-        }
-    },
-    {
-        "name": "zendframework/zend-servicemanager",
-        "version": "2.2.4",
-        "version_normalized": "2.2.4.0",
-        "target-dir": "Zend/ServiceManager",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/zendframework/Component_ZendServiceManager.git",
-            "reference": "e05c29f8d7da6e2c26d2d8b334324932a73afa78"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://packages.zendframework.com/composer/zendframework-zend-servicemanager-e05c29f8d7da6e2c26d2d8b334324932a73afa78-zip-f7214e.zip",
-            "reference": "2.2.4",
-            "shasum": "6949fad3959afa679f877c06facfc9ecaa0f89b8"
-        },
-        "require": {
-            "php": ">=5.3.3"
-        },
-        "suggest": {
-            "zendframework/zend-di": "Zend\\Di component"
-        },
-        "time": "2013-08-21 17:07:36",
-        "type": "library",
-        "extra": {
-            "branch-alias": {
-                "dev-master": "2.2-dev",
-                "dev-develop": "2.3-dev"
-            }
-        },
-        "installation-source": "dist",
-        "autoload": {
-            "psr-0": {
-                "Zend\\ServiceManager\\": ""
-            }
-        },
-        "license": [
-            "BSD-3-Clause"
-        ],
-        "description": " ",
-        "keywords": [
-            "servicemanager",
-            "zf2"
-        ],
-        "support": {
-            "source": "https://github.com/zendframework/Component_ZendServiceManager/tree/release-2.2.3"
-        }
-    },
-    {
-        "name": "zendframework/zend-math",
-        "version": "2.2.4",
-        "version_normalized": "2.2.4.0",
-        "target-dir": "Zend/Math",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/zendframework/Component_ZendMath.git",
-            "reference": "8f932ad8b47477a8ef71e0ade1f21c4e683c99e0"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://packages.zendframework.com/composer/zendframework-zend-math-8f932ad8b47477a8ef71e0ade1f21c4e683c99e0-zip-a878a2.zip",
-            "reference": "2.2.4",
-            "shasum": "83d0c5c19ef3efa59c82e08a07bcb20d25c540f4"
-        },
-        "require": {
-            "php": ">=5.3.3"
-        },
-        "suggest": {
-            "ircmaxell/random-lib": "Fallback random byte generator for Zend\\Math\\Rand if OpenSSL/Mcrypt extensions are unavailable"
-        },
-        "time": "2013-08-21 17:07:20",
-        "type": "library",
-        "extra": {
-            "branch-alias": {
-                "dev-master": "2.2-dev",
-                "dev-develop": "2.3-dev"
-            }
-        },
-        "installation-source": "dist",
-        "autoload": {
-            "psr-0": {
-                "Zend\\Math\\": ""
-            }
-        },
-        "license": [
-            "BSD-3-Clause"
-        ],
-        "description": " ",
-        "keywords": [
-            "math",
-            "zf2"
-        ],
-        "support": {
-            "source": "https://github.com/zendframework/Component_ZendMath/tree/release-2.2.3"
-        }
-    },
-    {
-        "name": "zendframework/zend-crypt",
-        "version": "2.2.4",
-        "version_normalized": "2.2.4.0",
-        "target-dir": "Zend/Crypt",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/zendframework/Component_ZendCrypt.git",
-            "reference": "97755b496cda7889887adf1d283f8d32c86674b9"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://packages.zendframework.com/composer/zendframework-zend-crypt-97755b496cda7889887adf1d283f8d32c86674b9-zip-5040e1.zip",
-            "reference": "2.2.4",
-            "shasum": "ea223b914733e0df3316f09931fd0dd7e8edc8f0"
-        },
-        "require": {
-            "php": ">=5.3.3",
-            "zendframework/zend-math": "self.version",
-            "zendframework/zend-servicemanager": "self.version",
-            "zendframework/zend-stdlib": "self.version"
-        },
-        "time": "2013-06-12 19:48:13",
-        "type": "library",
-        "extra": {
-            "branch-alias": {
-                "dev-master": "2.2-dev",
-                "dev-develop": "2.3-dev"
-            }
-        },
-        "installation-source": "dist",
-        "autoload": {
-            "psr-0": {
-                "Zend\\Crypt\\": ""
-            }
-        },
-        "license": [
-            "BSD-3-Clause"
-        ],
-        "description": " ",
-        "keywords": [
-            "crypt",
-            "zf2"
-        ],
-        "support": {
-            "source": "https://github.com/zendframework/Component_ZendCrypt/tree/release-2.2.1"
+            "source": "https://github.com/zendframework/Component_ZendLoader/tree/release-2.2.0rc1"
         }
     },
     {
         "name": "zendframework/zend-mail",
-        "version": "2.2.4",
-        "version_normalized": "2.2.4.0",
+        "version": "2.2.1",
+        "version_normalized": "2.2.1.0",
         "target-dir": "Zend/Mail",
         "source": {
             "type": "git",
             "url": "https://github.com/zendframework/Component_ZendMail.git",
-            "reference": "30975a5f9509518594be719f2f539df794e6191d"
+            "reference": "ebe5c3a7af4c7c2b285df480d644c2e09d1ba0fb"
         },
         "dist": {
             "type": "zip",
-            "url": "https://packages.zendframework.com/composer/zendframework-zend-mail-30975a5f9509518594be719f2f539df794e6191d-zip-051f00.zip",
-            "reference": "2.2.4",
-            "shasum": "83e3da99fe7f57e9dd54cffe4ac220db77eaed0c"
+            "url": "https://packages.zendframework.com/composer/zendframework-zend-mail-ebe5c3a7af4c7c2b285df480d644c2e09d1ba0fb-zip-88433b.zip",
+            "reference": "2.2.1",
+            "shasum": "4fbdc3d93d291cca6386f924df8268c3ce623a8a"
         },
         "require": {
             "php": ">=5.3.3",
-            "zendframework/zend-crypt": "self.version",
             "zendframework/zend-loader": "self.version",
             "zendframework/zend-mime": "self.version",
             "zendframework/zend-stdlib": "self.version"
@@ -910,7 +765,7 @@
             "zendframework/zend-servicemanager": "Zend\\ServiceManager component",
             "zendframework/zend-validator": "Zend\\Validator component"
         },
-        "time": "2013-08-21 17:07:18",
+        "time": "2013-06-12 19:45:42",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -933,7 +788,7 @@
             "zf2"
         ],
         "support": {
-            "source": "https://github.com/zendframework/Component_ZendMail/tree/release-2.2.3"
+            "source": "https://github.com/zendframework/Component_ZendMail/tree/release-2.2.1"
         }
     }
 ]

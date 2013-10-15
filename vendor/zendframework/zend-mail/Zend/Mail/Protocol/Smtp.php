@@ -348,7 +348,6 @@ class Smtp extends AbstractProtocol
     public function quit()
     {
         if ($this->sess) {
-            $this->auth = false;
             $this->_send('QUIT');
             $this->_expect(221, 300); // Timeout set for 5 minutes as per RFC 2821 4.5.3.2
             $this->_stopSession();
