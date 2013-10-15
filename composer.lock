@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "fefa364c005247596fbc56c73354e891",
+    "hash": "384b5fdfdaee49c8c71de63e0c39d96a",
     "packages": [
         {
             "name": "diversen/simple-php-github-api",
