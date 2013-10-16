@@ -877,7 +877,7 @@ class moduleinstaller extends db {
 
         // perform SQL upgrades - 2. method
         if (isset($this->installInfo['VERSIONS'])) {
-            $perform_next = 0;
+            $perform_next = 1;
             foreach ($this->installInfo['VERSIONS'] as $val) {
                 if ($perform_next) {
                     $this->installInfo['INSTALL']($val);
@@ -885,7 +885,7 @@ class moduleinstaller extends db {
                 }
                     
                 if ($val == $current_version) { 
-                    $perform_next = 1;
+                    $perform_next = 0;
                     continue;
                 }        
             }
