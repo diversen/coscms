@@ -570,6 +570,10 @@ class layout {
      */
     public static function checkMenuAuth ($item = array ()) {
         if ( !empty($item['auth'])){
+            
+            if ($item['auth'] == 'anon') {
+                return true;
+            }
             // if set we need at least a user
             if (!session::isUser()) { 
                 return false;
