@@ -59,8 +59,8 @@ class cosMail_queue {
      * @return type
      */
     public static function add ($to, $mime_headers, $body) {
-        cosRB::connect();
-        $bean = cosRB::getBean('cosmail_queue');
+        db_rb::connect();
+        $bean = db_rb::getBean('cosmail_queue');
         $bean->to = $to;
         $bean->mimeheaders = serialize($mime_headers);
         $bean->body = $body;
