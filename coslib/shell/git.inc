@@ -554,6 +554,17 @@ mainCli::setOption('cos_git_coscms_pull', array(
     'action'      => 'StoreTrue'
 ));
 
+mainCli::setOption('git_test', array(
+    'long_name'   => '--test',
+    'description' => 'test',
+    'action'      => 'StoreTrue',
+        'action'      => 'StoreTrue'
+));
+
+function git_test ($options) {
+    print_r($options);
+}
+
 mainCli::setArgument(
     'repo',
     array('description'=> 'Specify the git repo to be used',
