@@ -46,6 +46,13 @@ ini_set('include_path',
 // deinfe all constant - based on _COS_PATH and config.ini
 config::defineCommon();
 
+// Important!
+// 
+// No runLevels are run in Cli mode
+// So if you have e.g. the configdb module installed
+// this will not affect settings in any way
+// If you run commands, e.g. cron jobs, that depends on 'e.g.' language
+// you will need to set language in config/config.ini
 
 // This is only if commandline mode is not specified  
 if (!config::isCli()){
