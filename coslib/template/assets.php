@@ -83,7 +83,7 @@ class template_assets extends template {
      * @param type $order
      * @param type $type 
      */
-    public static function cacheAsset ($css, $order, $type) {
+    public static function cacheAsset ($asset, $order, $type, $options = array ()) {
         static $cacheChecked = false;
         
         if (!$cacheChecked) {
@@ -95,7 +95,7 @@ class template_assets extends template {
             $cacheChecked = true;
         }
         
-        $md5 = md5($css);        
+        $md5 = md5($asset);        
         $cached_asset = config::getFullFilesPath() . "/cached_assets/$md5.$type";
         $cache_dir = config::getWebFilesPath('/cached_assets');
         if (file_exists($cached_asset && !config::getMainIni('cached_assets_reload'))) {
@@ -108,7 +108,12 @@ class template_assets extends template {
                 self::setJs("$cache_dir/$md5.$type", $order);
             }          
         } else {
-            $str = file_get_contents($css); 
+            
+            $str = file_get_contents($asset); 
+            if (isset($options['search'])) {
+                $str = self::searchReplace($str, $options);
+            }
+            
             file_put_contents($cached_asset, $str, LOCK_EX);
 
             if ($type == 'css') {
@@ -455,7 +460,18 @@ class template_assets extends template {
         return $str;
     }
     
-        /**
+    
+    /**
+     * search and replace in a asset, e.g. js or css
+     * @param string $str asset
+     * @param type $options array ('search' => 'SEARCH STRING', 'replace' => 'REPLACE STRING')
+     * @return string $str asset
+     */
+    public static function searchReplace($str, $options) {
+        $str = str_replace($options['search'], $options['replace'], $str);
+        return $str;
+    }
+    /**
      * Will load the js as file and place and add it to array which can
      * be parsed in user templates. This is used with js files that exists
      * outside webspace, e.g. in modules
@@ -466,15 +482,14 @@ class template_assets extends template {
      * @param array $options
      */
     public static function setInlineJs($js, $order = null, $options = array()){
-        
         if (config::getMainIni('cached_assets') && !isset($options['no_cache'])) {
-            self::cacheAsset ($js, $order, 'js');
+            self::cacheAsset ($js, $order, 'js', $options);
             return;
         }
         
         $str = file_get_contents($js);
         if (isset($options['search'])){
-            $str = str_replace($options['search'], $options['replace'], $str);
+            $str = self::searchReplace($str, $options);
         }
         
         if (isset($order)){
