@@ -229,8 +229,7 @@ function cos_git_tag_all ($options){
 
         $tags = git_get_local_tags($val['module_name'], 'module');
         if (in_array($version, $tags)) {
-            cos_cli_print_status('NOTICE', 'y', "Tag already exists local for module '$val[module_name]'. Skipping");
-            //continue;
+            cos_cli_print_status('NOTICE', 'y', "Tag already exists local for module '$val[module_name]'.");
         }
         
         $val['new_version'] = $version;
@@ -242,8 +241,7 @@ function cos_git_tag_all ($options){
         
         $tags = git_get_local_tags($val['module_name'], 'template');
         if (in_array($version, $tags)) {
-            cos_cli_print_status('NOTICE', 'y', "Tag already exists local for template '$val[module_name]'. Skipping");
-            //continue;
+            cos_cli_print_status('NOTICE', 'y', "Tag already exists local for template '$val[module_name]'");
         }
         
         $val['new_version'] = $version;
@@ -371,7 +369,6 @@ function cos_git_commit ($val, $type = 'module'){
     cos_cli_print_status('COMMIT', 'g', "Module: '$val[module_name]'");
     
     $git_add = "cd $repo_path && git add . ";
-    //passthru($git_command);
     cos_exec($git_add);
 
     $git_command = "cd $repo_path && git commit ";
@@ -542,16 +539,16 @@ mainCli::setOption('cos_git_tag_all_files', array(
     'action'      => 'StoreTrue'
 ));
 
-//help_name
-
+/*
+ * How to specify an options like this --test=test
 mainCli::setOption('cos_master',    array(
        'long_name'   => '--message',
        'description' => 'Commit message (used with all* commands)',
        'action'      => 'StoreString',
-       'default'     => '',
+       'default'     => 'test',
        'help_name'   => 'commit message') 
     
-);
+);*/
 
 mainCli::setOption('cos_git_echo_remote_tags', array(
     'long_name'   => '--echo-remote-tags',
