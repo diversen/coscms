@@ -229,8 +229,8 @@ function cos_git_tag_all ($options){
 
         $tags = git_get_local_tags($val['module_name'], 'module');
         if (in_array($version, $tags)) {
-            cos_cli_print_status('NOTICE', 'y', "Tag already exists for module '$val[module_name]'. Skipping");
-            continue;
+            cos_cli_print_status('NOTICE', 'y', "Tag already exists local for module '$val[module_name]'. Skipping");
+            //continue;
         }
         
         $val['new_version'] = $version;
@@ -242,8 +242,8 @@ function cos_git_tag_all ($options){
         
         $tags = git_get_local_tags($val['module_name'], 'template');
         if (in_array($version, $tags)) {
-            cos_cli_print_status('NOTICE', 'y', "Tag already exists for template '$val[module_name]'. Skipping");
-            continue;
+            cos_cli_print_status('NOTICE', 'y', "Tag already exists local for template '$val[module_name]'. Skipping");
+            //continue;
         }
         
         $val['new_version'] = $version;
@@ -538,9 +538,20 @@ mainCli::setOption('cos_git_tag_all', array(
 
 mainCli::setOption('cos_git_tag_all_files', array(
     'long_name'   => '--all-tag-files',
-    'description' => 'Will tag and push tags for all modules and templates in one try.',
+    'description' => 'Will tag all install files with new version.',
     'action'      => 'StoreTrue'
 ));
+
+//help_name
+
+mainCli::setOption('cos_master',    array(
+       'long_name'   => '--message',
+       'description' => 'Commit message (used with all* commands)',
+       'action'      => 'StoreString',
+       'default'     => '',
+       'help_name'   => 'commit message') 
+    
+);
 
 mainCli::setOption('cos_git_echo_remote_tags', array(
     'long_name'   => '--echo-remote-tags',
