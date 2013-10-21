@@ -505,6 +505,7 @@ class moduleinstaller extends db {
     public function insertMenuItem(){
         $res = null;
 
+        moduleloader::setModuleIniSettings($this->installInfo['NAME']);
         lang::loadModuleSystemLanguage($this->installInfo['NAME']);
 
         if (!empty($this->installInfo['MAIN_MENU_ITEM'])){
@@ -691,14 +692,9 @@ class moduleinstaller extends db {
         
         // insert into registry. Set menu item and insert language.
         $this->insertRegistry();
-        
-        
-        
         $this->insertLanguage();
         $this->insertMenuItem();
         $this->insertRoutes();
-
-        
         
         $this->confirm = "module '" . $this->installInfo['NAME'] . "' ";
         $this->confirm.= "version '"  . $this->installInfo['VERSION'] . "' ";
