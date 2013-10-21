@@ -1,5 +1,0 @@
-;tester_igen = 'asd'
-template_rel_css[] = 'http://fonts.googleapis.com/css?family=Lobster'
-template_rel_css[] = 'http://fonts.googleapis.com/css?family=Cabin'
-;;template_js[] = '/js/image.full_link.js'
-
