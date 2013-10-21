@@ -1,7 +1,7 @@
 account_allow_edit = "super"
 account_show_menu = ""
 account_show_admin_link = "super"
-account_default_url = "/account/login/index"
+account_default_url = "/account/lightopenid/index"
 account_facebook_api_secret = ""
 account_facebook_api_appid = 269965633048607
 account_allow_create = "anon"
