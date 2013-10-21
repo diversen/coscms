@@ -109,7 +109,7 @@ $_PROFILE_MODULES = array (
   array (
     'id' => '9',
     'module_name' => 'addthis',
-    'module_version' => '2.3',
+    'module_version' => '2.41',
     'menu_item' => '0',
     'run_level' => '0',
     'load_on' => NULL,
