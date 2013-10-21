@@ -1,5 +1,5 @@
 comment_view_filter[0] = "cosmarkdown"
-comment_allow_anon_post = 1
+comment_allow_anon_post = 0
 comment_anon_post_verify = 1
 comment_user_post_verify = 0
 comment_use_akismet = 0
