@@ -10,43 +10,7 @@
  * @ignore
  */
 
-$ini_path = ini_get('include_path');
-ini_set('include_path', 
-    _COS_PATH . PATH_SEPARATOR . 
-    _COS_PATH . '/vendor' . PATH_SEPARATOR .
-    _COS_PATH . "/coslib" . PATH_SEPARATOR . 
-    _COS_PATH . '/modules' . PATH_SEPARATOR .  
-    $ini_path . PATH_SEPARATOR);
-
-
-/**
- * specific composer autoload
- */
-include 'vendor/autoload.php';
-
-/**
- * coslib autoloader
- * @param type $classname
- */
-function coslib_autoloader($classname) {
-    $classname = ltrim($classname, '\\');
-    $filename  = '';
-    $namespace = '';
-    if ($lastnspos = strripos($classname, '\\')) {
-        $namespace = substr($classname, 0, $lastnspos);
-        $classname = substr($classname, $lastnspos + 1);
-        $filename  = str_replace('\\', '/', $namespace) . '/';
-    }
-    $filename = str_replace('_', '/', $classname) . '.php';
-    include $filename;
-}
-
-/**
- * register the autoload on the stack
- */
-spl_autoload_register('coslib_autoloader');
-
-
+include_once "coslib/coslibSetup.php";
 include_once "coslib/head.php";
 include_once "coslib/shell/common.inc";
 
@@ -213,8 +177,7 @@ EOF;
             if ($domain != 'default' || empty($domain)) {
                 $domain_ini = _COS_PATH . "/config/multi/$domain/config.ini";
                 if (!file_exists($domain_ini)) {
-                    echo $domain_ini;
-                    cos_cli_abort('No such domain - no configuration found');
+                    cos_cli_abort("No such domain - no configuration found: It should be placed here $domain_ini");
                 } else {
                     
                     // if a not standard domain is given - we now need to load
@@ -233,7 +196,7 @@ EOF;
                 if (isset($result->command->options)){
                     foreach ($result->command->options as $key => $val){
                         // command option if set run call back
-                        if ($val == 1){                              
+                        if ($val == 1){                             
                             if (function_exists($key)){                    
                                 $ret = $key($result->command->args);
                             } else {

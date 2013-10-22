@@ -9,22 +9,15 @@
 
 
 function cache_clear_db ($options = null) {
-    $res = db_q::setDelete('system_cache')->filter('1 =', 1)->exec();
-    if ($res) return 0;
-    return 1;
+    return cache_clear::db();
 }
 
 function cache_clear_assets ($options = null) {
-    cos_needs_root();
-    $path = _COS_PATH . "/htdocs/files/default/cached_assets/*";
-    $command = "rm -rf $path";
-    cos_exec($command);
+    return cache_clear::assets();
 }
 
 function cache_clear_all ($options = null) {
-    cos_needs_root();
-    cache_clear_assets();
-    cache_clear_db();
+    return cache_clear::all();
 }
 
 
