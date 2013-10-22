@@ -83,7 +83,9 @@ function cos_a2_disable_site($options){
 
     $apache2_conf_file = "/etc/apache2/sites-available/$hostname";
     $ret = cos_exec("a2dissite $hostname");
-    if ($ret) return false;
+    if ($ret) { 
+        return false;
+    }
     $ret = cos_exec("rm -f $apache2_conf_file");
 
     // create new hosts file and reload server

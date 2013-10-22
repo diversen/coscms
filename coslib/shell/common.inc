@@ -259,9 +259,10 @@ function cos_needs_root ($str = '') {
         $output.="\nsudo $str";
     }
 
+    
     if (!cos_is_root()) {
         echo $output . PHP_EOL;
-        exit(128);
+        mainCli::exitInt(128);
     }
     return 0;
 }

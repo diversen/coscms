@@ -12,9 +12,7 @@ class cache_clear {
     }
 
     public static function assets ($options = null) {
-        if (config::isCli()) {
-            cos_needs_root();
-        }
+
         $path = _COS_PATH . "/htdocs/files/default/cached_assets";
         if (file_exists($path)) {
             file::rrmdir($path);
@@ -23,9 +21,7 @@ class cache_clear {
     }
 
     public static function all ($options = null) {
-        if (config::isCli()) {
-            cos_needs_root();
-        }
+
         self::assets();
         self::db();
         return 1;

@@ -39,13 +39,22 @@ class mainCli {
      */
     static $command;
 
+    
+    
     /**
      * var holding ini settings for modules
      * @var array $ini
      */
     public static $ini = array();
 
-    // {{{ init ()
+        
+    /**
+     * exit code
+     * @var int
+     */
+    public static function exitInt($code) {
+        exit($code);
+    }
     /**
      * constructor
      * static function for initing command parser
