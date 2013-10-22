@@ -301,8 +301,10 @@ class profile  {
         $ini_file = _COS_HTDOCS . "/templates/$this->profileTemplate/$this->profileTemplate.ini";
         $ini_file_dist = $ini_file . "-dist";
 
-        if (file_exists($ini_file_dist)){
-            copy($ini_file_dist, $ini_file);
+        if (config::isCli()) {
+            if (file_exists($ini_file_dist)){
+                copy($ini_file_dist, $ini_file);
+            }
         }
         $values = array('template' => $this->profileTemplate);
         return $db->update('settings', $values, 1);        
