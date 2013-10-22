@@ -9,15 +9,20 @@
 
 
 function cache_clear_db ($options = null) {
-    return cache_clear::db();
+    if (cache_clear::db()) {
+        return 0;
+    }
+    return 1;
 }
 
 function cache_clear_assets ($options = null) {
-    return cache_clear::assets();
+    cache_clear::assets();
+    return 0;
 }
 
 function cache_clear_all ($options = null) {
-    return cache_clear::all();
+    cache_clear::all();
+    return 0;
 }
 
 

@@ -2,12 +2,13 @@
 
 class cache_clear {
 
-    public static function db ($options = null) {
-        $res = db_q::setDelete('system_cache')->filter('1 =', 1)->exec();
-        if ($res) {
-            return 0;
-        }
-        return 1;
+    /**
+     * clears system_cache table
+     * @return int  
+     */
+    public static function db () {
+        $res = db_q::delete('system_cache')->filter('1 =', 1)->exec();
+        return $res;
     }
 
     public static function assets ($options = null) {
@@ -15,7 +16,10 @@ class cache_clear {
             cos_needs_root();
         }
         $path = _COS_PATH . "/htdocs/files/default/cached_assets";
-        return file::rrmdir($path);
+        if (file_exists($path)) {
+            file::rrmdir($path);
+        }
+        return 1;
     }
 
     public static function all ($options = null) {
@@ -24,5 +28,6 @@ class cache_clear {
         }
         self::assets();
         self::db();
+        return 1;
     }
 }
