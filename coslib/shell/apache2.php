@@ -8,7 +8,10 @@ class shell_apache2 {
      */
     public static function isInstalled() {    
         exec("which apache2", $ary, $ret);
-        return $ret;
+        if ($ret == 0) {
+            return true;
+        }
+        return false;
     }
 
     
