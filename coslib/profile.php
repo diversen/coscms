@@ -206,7 +206,6 @@ class profile  {
                 $git_url = shell_exec($command);
                 $tags = git_get_local_tags($val, 'template');
                 
-                
                 $latest = array_pop($tags);
                 
                 if (!self::$master){

@@ -321,6 +321,11 @@ function cos_git_tag_install_file ($val, $type = 'module'){
     }
 
     $install_file = $repo_path . "/install.inc";
+    if (!file_exists($install_file)) {
+        cos_cli_print_status('NOTICE', 'y', "No install file exists ($install_file). We can not set a version");
+        return;
+    }
+    
     $handle = @fopen($install_file, "r");
     $str = '';
     if ($handle) {
