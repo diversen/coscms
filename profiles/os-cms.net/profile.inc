@@ -317,7 +317,7 @@ $_PROFILE_MODULES = array (
   array (
     'id' => '25',
     'module_name' => 'counter',
-    'module_version' => '2.41',
+    'module_version' => '2.411',
     'menu_item' => '0',
     'run_level' => '0,6',
     'load_on' => NULL,
