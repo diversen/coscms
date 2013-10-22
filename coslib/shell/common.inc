@@ -254,14 +254,11 @@ function cos_needs_root ($str = '') {
     
     $output = '';
 
-    $output.= "Current command needs to be run as root. Eg. with sudo: ";
+    $output.= "Current command needs to be run as root. E.g. with sudo: ";
     if (!empty($str)) {
         $output.="\nsudo $str";
     }
-    //$output.= "Do the command with sudo or any other similar way\n";
-     
-    
-    
+
     if (!cos_is_root()) {
         echo $output . PHP_EOL;
         exit(128);
