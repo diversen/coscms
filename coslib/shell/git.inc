@@ -64,13 +64,6 @@ function cos_git_clone_template($options){
     return;
 }
 
-/**
- * function for cloning a profile repo
- * @param array $options
- */
-function cos_git_clone_profile($options){
-    cos_git_clone($options, 'profile');
-}
 
 /**
  * function used for cloning a repo
@@ -544,8 +537,8 @@ function cos_git_echo_remote_tags ($options){
     if (empty($options['repo']))  {
         cos_cli_abort('You need to specify a repo');
     }
+    
     $tags = git_get_remote_tags($options['repo']);
-
     if (empty($tags)) {
         cos_cli_abort('No tags');
     }
@@ -583,6 +576,12 @@ mainCli::setOption('cos_git_clone_template', array(
     'action'      => 'StoreTrue'
 ));
 
+mainCli::setOption('cos_git_upgrade_all', array(
+    'long_name'   => '--all-up',
+    'description' => 'Will check latest remote versions of modules, templates and profiles, and compare with locale version. If remote is higher it will be checked out and system will be upgraded',
+    'action'      => 'StoreTrue'
+));
+
 mainCli::setOption('cos_git_upgrade_module_single', array(
     'long_name'   => '--mod-up',
     'description' => 'Will check latest remote version and compare with locale version. If remote is higher it will be checked out and installed',
@@ -592,18 +591,6 @@ mainCli::setOption('cos_git_upgrade_module_single', array(
 mainCli::setOption('cos_git_upgrade_template_single', array(
     'long_name'   => '--temp-up',
     'description' => 'Will check out latest tag of a template. If remote is higher it will be checked out',
-    'action'      => 'StoreTrue'
-));
-
-mainCli::setOption('cos_git_clone_profile', array(
-    'long_name'   => '--pro-in',
-    'description' => 'Will clone remote profile with latest version',
-    'action'      => 'StoreTrue'
-));
-
-mainCli::setOption('cos_git_upgrade_all', array(
-    'long_name'   => '--all-up',
-    'description' => 'Will check latest remote versions of modules, templates and profiles, and compare with locale version. If remote is higher it will be checked out and system will be upgraded',
     'action'      => 'StoreTrue'
 ));
 
@@ -637,12 +624,13 @@ mainCli::setOption('cos_git_tag_all_files', array(
     'action'      => 'StoreTrue'
 ));
 
+/*
 mainCli::setOption('cos_git_echo_remote_tags', array(
     'long_name'   => '--remote-tags',
     'description' => 'Will echo remote tags',
     'action'      => 'StoreTrue'
 ));
-
+*/
 mainCli::setArgument(
     'repo',
     array('description'=> 'Specify the git repo | module to be used',
