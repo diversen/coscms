@@ -242,9 +242,6 @@ function cos_git_upgrade_all ($options){
     }
 }
 
-
-
-
 /**
  * function for adding and commiting all modules and templates
  * @param   array   options from cli env
@@ -504,17 +501,7 @@ function cos_git_upgrade ($val, $tag = 'master', $type = 'module'){
         upgrade_module($val);
     }
     
-    if ($type == 'template'){
-        // TODO: What to do on template upgrade. 
-        //$val['module'] = $val['module_name'];
-
-        // when version is set to null we upgrade to latest possible
-        //$val['version'] = null;
-        //upgrade_module($val);
-    }
-
-    // no need to upgrade template, as there is no sql. 
-    // print "\n---\n";
+    // templates have no registry - they are tag based only in version
 }
 
 function cos_git_is_repo($path){

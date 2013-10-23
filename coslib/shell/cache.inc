@@ -16,8 +16,9 @@ function cache_clear_db ($options = null) {
 }
 
 function cache_clear_assets ($options = null) {
+    
     if (config::isCli()) {
-        return cos_needs_root();
+        cos_needs_root();
     }
     cache_clear::assets();
     return 0;
@@ -25,8 +26,9 @@ function cache_clear_assets ($options = null) {
 
 function cache_clear_all ($options = null) {
     if (config::isCli()) {
-        return cos_needs_root();
+        cos_needs_root();
     }
+    
     cache_clear::all();
     return 0;
 }
