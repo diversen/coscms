@@ -90,7 +90,9 @@ class moduleloader {
         }
         
         static $modules = null;
-        if ($modules) return $modules;
+        if ($modules) { 
+            return $modules;
+        }
         
         // we connect here because this should be 
         // the first time we use the database

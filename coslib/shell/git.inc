@@ -204,7 +204,6 @@ function cos_git_upgrade_module ($val, $tag = null) {
     }
 
     if ( ($tag == 'master') OR  ($tag != $val['module_version'])) { 
-        $status = "Will upgrade $val[module_name]";
         cos_git_upgrade ($val, $tag, 'module');
     } else {
         cos_cli_print_status('NOTICE', 'y', "Nothing to upgrade: Version is: $tag");
@@ -235,14 +234,16 @@ function cos_git_upgrade_template($val) {
  * @param   array   options from cli env
  */
 function cos_git_upgrade_all ($options){
+
+    $profile = new profile();
     
-    $modules = profile::getModules();
+    $modules = $profile->getModules();
+    
     foreach ($modules as $key => $val){
         cos_git_upgrade_module($val);
     }
-    
-    $templates = profile::getAllTemplates();
-
+        
+    $templates = $profile->getTemplates();
     foreach ($templates as $key => $val){
         cos_git_upgrade_template($val);
     }
@@ -257,13 +258,15 @@ function cos_git_upgrade_all ($options){
  */
 function cos_git_commit_all ($options){
 
-    $modules = profile::getModules();
+    $profile = new profile();
+    $modules = $profile->getModules();
     foreach ($modules as $key => $val){
         cos_git_commit($val, 'module');
 
     }
 
-    $templates = profile::getAllTemplates();
+    
+    $templates = $profile->getTemplates();
     foreach ($templates as $key => $val){
         cos_git_commit($val, 'template');
     }
@@ -305,9 +308,9 @@ function cos_git_commit_template_single ($options){
  * @param   array   options from cli env
  */
 function cos_git_tag_all ($options){
-
+    $profile = new profile();
     $version = cos_readline('Enter tag version to use ');
-    $modules = profile::getModules();
+    $modules = $profile->getModules();
     foreach ($modules as $key => $val){
 
         $tags = git_get_local_tags($val['module_name'], 'module');
@@ -319,7 +322,8 @@ function cos_git_tag_all ($options){
         cos_git_tag($val, 'module');
     }
 
-    $templates = profile::getAllTemplates();
+    $profile = new profile();
+    $templates = $profile->getTemplates();
     foreach ($templates as $key => $val){
         
         $tags = git_get_local_tags($val['module_name'], 'template');
@@ -374,14 +378,15 @@ function cos_git_tag ($val, $type = 'module'){
 function cos_git_tag_all_files ($options){
     $version = cos_readline('Enter tag version to use ');
 
-    $modules = profile::getModules();
+    $profile = new profile();
+    $modules = $profile->getModules();
     foreach ($modules as $key => $val){
         $val['module'] = $val['module_name'];
         $val['new_version'] = $version;
         cos_git_tag_install_file($val, 'module');
     }
 
-    $templates = profile::getAllTemplates();
+    $templates = $profile->getTemplates();
     foreach ($templates as $key => $val){
         $val['module'] = $val['module_name'];
         $val['new_version'] = $version;

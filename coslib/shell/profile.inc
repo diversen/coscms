@@ -146,6 +146,10 @@ function install_from_profile ($options){
     return $final;
 }
 
+/**
+ * will purge module not found in a profile
+ * @param array $options
+ */
 function cos_purge_from_profile ($options) {
     $pro = new profile();
     $pro->setProfileInfo($options['profile']);

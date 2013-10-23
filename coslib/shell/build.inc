@@ -71,7 +71,9 @@ function cos_build_simple ($options = null) {
     
     // reset database password
     $ary = config::getIniFileArray("./config/config.ini");
-    $ary = profile::removeIniSecretsFromArray($ary);
+    $profile = new profile();
+    
+    $ary = $profile->removeIniSecretsFromArray($ary);
     
     if (isset($ary['password'])) {
         $ary['password'] = '';

@@ -55,6 +55,12 @@ class profile  {
      * @var object $db
      */
     public $db = null;
+    
+    /**
+     * hide default secrets like url, user, password etc when building profile
+     * @var int $hideSecrets
+     */
+    public static $hideSecrets = 1;
 
     /**
      * are we using git master
@@ -76,12 +82,6 @@ class profile  {
     function setMaster (){
         self::$master = 1;
     }
-    
-    /**
-     * hide default secrets like url, user, password etc when building profile
-     * @var int $hideSecrets
-     */
-    public static $hideSecrets = 1;
     
     /**
      * method for setting master
@@ -162,11 +162,11 @@ class profile  {
      * @return array|false $ary array with info if template exists else false
      */
     public function getTemplate ($template) {
-        $mods = $this->getAllTemplates();
+        $temps = $this->getTemplates();
         
-        foreach ($mods as $mod) {
-            if ($mod['module_name'] == $template) {
-                return $mod;
+        foreach ($temps as $temp) {
+            if ($temp['module_name'] == $template) {
+                return $temp;
             }
         }
         return false;
@@ -206,7 +206,7 @@ class profile  {
      * method for getting all templates located in _COS_HTDOCS/template
      * used for settings current templates in profiles/profile/profile.inc file
      */
-    public static function getAllTemplates (){
+    public function getTemplates (){
         $dir = _COS_HTDOCS . "/templates";
         $templates = file::getFileList($dir, array('dir_only' => true));
 
@@ -271,7 +271,7 @@ class profile  {
         
         $module_str = var_export($modules, true);
         
-        $templates = $this->getAllTemplates();
+        $templates = $this->getTemplates();
         $template_str = var_export($templates, true);
         
         $profile_str = '<?php ' . "\n\n";
@@ -294,7 +294,7 @@ class profile  {
      *
      * @return  string  name of profiles template extracted from database settings.
      */
-    private function getProfileTemplate (){
+    public function getProfileTemplate (){
         $db = new db();
         $db->connect();
         $row = $db->selectOne('settings', 'id', 1);
@@ -307,7 +307,7 @@ class profile  {
      *
      * return   int     1 on yes and 0 on no
      */
-    private function getProfileUseHome (){
+    public function getProfileUseHome (){
         $db = new db();
         $db->connect();
         $row = $db->selectOne('menus', 'url', '/');
@@ -399,7 +399,7 @@ class profile  {
 
         }
         
-        $templates = $this->getAllTemplates();
+        $templates = $this->getTemplates();
         foreach ($templates as $key => $val){
             //$template_ini_file = _COS_PATH . "/templates/$val[module_name]/$val[module_name].ini";
             $source = _COS_HTDOCS . "/templates/$val[module_name]/$val[module_name].ini";
@@ -435,7 +435,7 @@ class profile  {
      * @param array $ary
      * @return array $ary
      */
-    public static function removeIniSecretsFromArray ($ary) {
+    public function removeIniSecretsFromArray ($ary) {
        
         if (!self::$hideSecrets) {
             return $ary;
