@@ -13,7 +13,7 @@ class cache_clear {
 
     public static function assets ($options = null) {
 
-        echo $path = _COS_PATH . "/htdocs/files/default/cached_assets";
+        $path = _COS_PATH . "/htdocs/files/default/cached_assets";
         if (file_exists($path)) {
             file::rrmdir($path);
         }
@@ -21,7 +21,6 @@ class cache_clear {
     }
 
     public static function all ($options = null) {
-        echo "ok";
         self::assets();
         self::db();
         return 1;
