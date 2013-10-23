@@ -73,7 +73,6 @@ function cos_build_simple ($options = null) {
     $ary = config::getIniFileArray("./config/config.ini");
     $ary = profile::removeIniSecretsFromArray($ary);
     
-    profile::getModules();
     if (isset($ary['password'])) {
         $ary['password'] = '';
     }

@@ -77,6 +77,10 @@ class profile  {
         self::$master = 1;
     }
     
+    /**
+     * hide default secrets like url, user, password etc when building profile
+     * @var int $hideSecrets
+     */
     public static $hideSecrets = 1;
     
     /**
@@ -87,10 +91,9 @@ class profile  {
     }
 
     /**
-     * method for getting all installed modules
+     * method for getting all installed modules with repo info set
      * which we will base our profile on.
-     *
-     * @return array    assoc array of all modules
+     * @return array $ary assoc array of all modules
      */
     public static function getModules(){
         $db = new db();
@@ -134,9 +137,39 @@ class profile  {
             if (self::$master){
                 $modules[$key]['module_version'] = 'master';
             }
-
         }
         return $modules;
+    }
+    
+    /**
+     * get a single module from modules table with repo info set
+     * @param string $module
+     * @return array|false $ary array with info if module exists else false
+     */
+    public function getModule ($module) {
+        $mods = $this->getModules();
+        foreach ($mods as $mod) {
+            if ($mod['module_name'] == $module) {
+                return $mod;
+            }
+        }
+        return false;
+    }
+    
+    /**
+     * get a single template from templates dir with repo info set
+     * @param string $module
+     * @return array|false $ary array with info if template exists else false
+     */
+    public function getTemplate ($template) {
+        $mods = $this->getAllTemplates();
+        
+        foreach ($mods as $mod) {
+            if ($mod['module_name'] == $template) {
+                return $mod;
+            }
+        }
+        return false;
     }
 
     /**

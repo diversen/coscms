@@ -18,7 +18,6 @@ function cos_git_install ($options, $type = 'module'){
 
     $ret = cos_git_clone ($options, $type);
     if ($type == 'module'){
-        //die;
         $str = install_module($options, true);
         cos_cli_print($str);
         return;
@@ -72,8 +71,6 @@ function cos_git_clone_template($options){
 function cos_git_clone_profile($options){
     cos_git_clone($options, 'profile');
 }
-
-
 
 /**
  * function used for cloning a repo
@@ -159,40 +156,95 @@ function cos_git_use_master ($options){
     config::$vars['git_use_master'] = 1;
 }
 
+
+
+/**
+ * updates a single module
+ * @param array $options
+ */
+function cos_git_upgrade_template_single($options) {
+    
+    $path = _COS_HTDOCS . "/templates/$options[repo]";
+    $p = new profile();
+    if (cos_git_is_repo($path)) {
+        $mod = $p->getTemplate($options['repo']);
+        cos_git_upgrade_template ($mod);
+    } else {
+        cos_cli_print_status('ERROR', 'r', "--temp-up needs a template name, e.g. 'clean'. The module must exists in the module dir");
+    }
+}
+
+/**
+ * updates a single module
+ * Notice: You can not set version. It will just checkout the latest tag. 
+ * @param array $options
+ */
+function cos_git_upgrade_module_single($options) {
+    
+    $path = _COS_MOD_PATH . "/$options[repo]";
+    $p = new profile();
+    if (cos_git_is_repo($path)) {
+        $mod = $p->getModule($options['repo']);        
+        cos_git_upgrade_module ($mod);
+    } else {
+        cos_cli_print_status('ERROR', 'r', "--mod-up needs a module name, e.g. 'settings'. The module must exists in the module dir");
+    }
+}
+
+/**
+ * 
+ * @param array $val module array with public repo path set
+ * @param string $version
+ */
+function cos_git_upgrade_module ($val, $tag = null) {
+    if (isset(config::$vars['git_use_master'])){
+        $tag = 'master';
+    } else {
+        $tag = git_get_latest_remote_tag($val['public_clone_url'], true);
+    }
+
+    if ( ($tag == 'master') OR  ($tag != $val['module_version'])) { 
+        $status = "Will upgrade $val[module_name]";
+        cos_git_upgrade ($val, $tag, 'module');
+    } else {
+        cos_cli_print_status('NOTICE', 'y', "Nothing to upgrade: Version is: $tag");
+    }
+}
+
+/**
+ * upgrade a template
+ * @param type $val
+ */
+function cos_git_upgrade_template($val) {
+    if (isset(config::$vars['git_use_master'])){
+        $tag = 'master';
+    } else {
+        $tag = git_get_latest_remote_tag($val['public_clone_url'], true);
+    }
+
+    if ( ($tag == 'master') OR  ($tag != $val['module_version'])) {
+        cos_git_upgrade ($val, $tag, 'template');
+    } else {
+        cos_cli_print_status('NOTICE', 'y', "Nothing to upgrade: Version is: $tag");
+    }
+}
+
 /**
  * get latest tag for modules and templates and
  * upgrade according to latest tag
  * @param   array   options from cli env
  */
 function cos_git_upgrade_all ($options){
-
+    
     $modules = profile::getModules();
     foreach ($modules as $key => $val){
-        if (isset(config::$vars['git_use_master'])){
-            $tag = 'master';
-        } else {
-            $tag = git_get_latest_remote_tag($val['public_clone_url'], true);
-        }
-
-        if ( ($tag == 'master') OR  ($tag != $val['module_version'])) { 
-            $status = "Will upgrade $val[module_name]";
-            cos_cli_print_status('UPGRADE', 'g', $status);
-            cos_git_upgrade ($val, $tag, 'module');
-        }
+        cos_git_upgrade_module($val);
     }
     
     $templates = profile::getAllTemplates();
 
     foreach ($templates as $key => $val){
-        if (isset(config::$vars['git_use_master'])){
-            $tag = 'master';
-        } else {
-            $tag = git_get_latest_remote_tag($val['public_clone_url'], true);
-        }
-
-        if ( ($tag == 'master') OR  ($tag > $val['module_version'])) {
-            cos_git_upgrade ($val, $tag, 'template');
-        }
+        cos_git_upgrade_template($val);
     }
 }
 
@@ -215,6 +267,37 @@ function cos_git_commit_all ($options){
     foreach ($templates as $key => $val){
         cos_git_commit($val, 'template');
     }
+}
+
+/**
+ * function for adding and commiting all modules and templates
+ * @param   array   options from cli env
+ */
+function cos_git_commit_module_single ($options){
+
+    $path = _COS_MOD_PATH . "/$options[repo]";
+    if (!cos_git_is_repo($path)) {
+        cos_cli_abort("Module: $options[repo] is not a git repo. Specify installed module name (e.g. 'settings') when commiting");
+    }
+    
+    $p = new profile();
+    $mod = $p->getModule($options['repo']);
+    cos_git_commit($mod, 'module');
+}
+
+/**
+ * shell callback function for commiting a single template
+ * @param array $options array ('repo')
+ */
+function cos_git_commit_template_single ($options){
+    $path = _COS_HTDOCS . "/templates/$options[repo]";
+    if (!cos_git_is_repo($path)) {
+        cos_cli_abort("Template: $options[repo] is not a git repo. Specify installed template (e.g. 'clean') name when commiting");
+    }
+    
+    $p = new profile();
+    $mod = $p->getTemplate($options['repo']);
+    cos_git_commit($mod, 'template');
 }
 
 /**
@@ -465,13 +548,6 @@ function cos_git_echo_remote_tags ($options){
     cos_cli_print("Latest is: $latest");
 }
 
-function cos_git_coscms_pull ($version = null) {
-    $command = 'git pull';
-    passthru($command);
-}
-
-
-
 mainCli::setCommand('git', array(
     'description' => 'Commands for using git. Can be used for installing and uninstalling modules from git repos (remote)',
 ));
@@ -502,21 +578,21 @@ mainCli::setOption('cos_git_clone_template', array(
     'action'      => 'StoreTrue'
 ));
 
-mainCli::setOption('cos_git_upgrade_template', array(
+mainCli::setOption('cos_git_upgrade_module_single', array(
+    'long_name'   => '--mod-up',
+    'description' => 'Will check latest remote version and compare with locale version. If remote is higher it will be checked out and installed',
+    'action'      => 'StoreTrue'
+));
+
+mainCli::setOption('cos_git_upgrade_template_single', array(
     'long_name'   => '--temp-up',
-    'description' => 'Will check latest remote version and compare with locale version. If remote is higher it will be checked out',
+    'description' => 'Will check out latest tag of a template. If remote is higher it will be checked out',
     'action'      => 'StoreTrue'
 ));
 
 mainCli::setOption('cos_git_clone_profile', array(
     'long_name'   => '--pro-in',
     'description' => 'Will clone remote profile with latest version',
-    'action'      => 'StoreTrue'
-));
-
-mainCli::setOption('cos_git_upgrade', array(
-    'long_name'   => '--mod-up',
-    'description' => 'Will check latest remote version and compare with locale version. If remote is higher it will be checked out and system will be upgraded',
     'action'      => 'StoreTrue'
 ));
 
@@ -532,6 +608,18 @@ mainCli::setOption('cos_git_commit_all', array(
     'action'      => 'StoreTrue'
 ));
 
+mainCli::setOption('cos_git_commit_module_single', array(
+    'long_name'   => '--mod-commit',
+    'description' => 'Will try and commint single module',
+    'action'      => 'StoreTrue'
+));
+
+mainCli::setOption('cos_git_commit_template_single', array(
+    'long_name'   => '--temp-commit',
+    'description' => 'Will try and commint single module',
+    'action'      => 'StoreTrue'
+));
+
 mainCli::setOption('cos_git_tag_all', array(
     'long_name'   => '--all-tag',
     'description' => 'Will tag and push tags for all modules and templates in one try.',
@@ -544,43 +632,15 @@ mainCli::setOption('cos_git_tag_all_files', array(
     'action'      => 'StoreTrue'
 ));
 
-/*
- * How to specify an options like this --test=test
-mainCli::setOption('cos_master',    array(
-       'long_name'   => '--message',
-       'description' => 'Commit message (used with all* commands)',
-       'action'      => 'StoreString',
-       'default'     => 'test',
-       'help_name'   => 'commit message') 
-    
-);*/
-
 mainCli::setOption('cos_git_echo_remote_tags', array(
-    'long_name'   => '--echo-remote-tags',
-    'description' => 'Will list remote tags',
+    'long_name'   => '--remote-tags',
+    'description' => 'Will echo remote tags',
     'action'      => 'StoreTrue'
 ));
-
-mainCli::setOption('cos_git_coscms_pull', array(
-    'long_name'   => '--pull-base',
-    'description' => 'Will pull latest master of CosCMS',
-    'action'      => 'StoreTrue'
-));
-
-mainCli::setOption('git_test', array(
-    'long_name'   => '--test',
-    'description' => 'test',
-    'action'      => 'StoreTrue',
-        'action'      => 'StoreTrue'
-));
-
-function git_test ($options) {
-    print_r($options);
-}
 
 mainCli::setArgument(
     'repo',
-    array('description'=> 'Specify the git repo to be used',
+    array('description'=> 'Specify the git repo | module to be used',
         'optional' => true,
 ));
 

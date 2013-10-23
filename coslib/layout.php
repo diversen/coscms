@@ -100,7 +100,10 @@ class layout {
         }
     }
     
-    public static function includeTemplateCommon($template) {
+    public static function includeTemplateCommon($template = null) {
+        if (!$template) { 
+            return;
+        }
         // load template. This is done before parsing the modules. Then the 
         // modules still can effect the template. Set header, css, js etc. 
         $template_path = _COS_HTDOCS. "/templates/" .
