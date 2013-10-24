@@ -68,7 +68,7 @@ function cos_a2_enable_site($options){
         file_put_contents("tmp/hosts", $new_hosts_file_str);
         cos_exec("cp -f tmp/hosts /etc/hosts");
     }
-    cos_exec("/etc/init.d/apache2 restart");
+    cos_exec("/etc/init.d/apache2 reload");
 }
 
 /**
@@ -102,6 +102,7 @@ function cos_a2_disable_site($options){
     }
     file_put_contents("tmp/hosts", $host_file_str);
     cos_exec("cp -f tmp/hosts /etc/hosts");
+    cos_exec("/etc/init.d/apache2 reload");
 
 }
 
