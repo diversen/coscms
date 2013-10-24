@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * File contains a simple class for clearing caches
+ * @package cache_clear
+ */
+
 class cache_clear {
 
     /**

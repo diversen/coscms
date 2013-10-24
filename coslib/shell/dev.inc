@@ -3,13 +3,8 @@
 /**
  * File containing documentation functions for shell mode
  *
- * @package     shell
+ * @package     shell_dev
  */
-
-/**
- * @ignore
- */
-include_once "coslib/mycurl.php";
 
 /**
  * function for checking if your are denying people 
@@ -29,7 +24,7 @@ function dev_test_access($options = null){
         $curl->createCurl();
        
         echo $curl->getHttpStatus();
-        echo cos_cli_print(" Status code recieved on: $url");       
+        cos_cli_print(" Status code recieved on: $url");       
    }
 }
 

@@ -3,7 +3,7 @@
 /**
  * File contains shell commands for apache2 on Debian systems for fast
  * creating of apache2 web hosts
- *
+ * 
  * @package     shell
  */
 
@@ -27,9 +27,9 @@ function cos_create_a2_conf($SERVER_NAME){
     $APACHE_LOG_ROOT = $current_dir . '/logs';
     
     if (isset(config::$vars['a2_use_ssl'])) {
-        include "scripts/apache2/apache2-ssl.inc";
+        $apache_str = apache2::getConf($SERVER_NAME, $DOCUMENT_ROOT, $APACHE_LOG_ROOT);
     } else {
-        include "scripts/apache2/apache2.inc";
+        $apache_str = apache2::getConfSSL($SERVER_NAME, $DOCUMENT_ROOT, $APACHE_LOG_ROOT);
     }
     return $apache_str;
 }
@@ -43,7 +43,7 @@ function cos_create_a2_conf($SERVER_NAME){
  * - enable new site
  * - create new /etc/hosts file
  *
- * @param   array   options only options is $options[sitename] 
+ * @param array $options only options is $options[sitename] 
  */
 function cos_a2_enable_site($options){
     $hostname = trim($options['hostname']);
@@ -73,8 +73,7 @@ function cos_a2_enable_site($options){
 
 /**
  * function for disabling an apache2 site
- *
- * @param   array   options only options is $options[sitename] 
+ * @param array $options only options is $options[sitename] 
  */
 function cos_a2_disable_site($options){
     

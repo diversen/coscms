@@ -4,21 +4,17 @@
  * File containing database functions for shell mode
  *
  * shell database commands are used when using the shell command
- * <code>$ coscli.sh db</code>
+ * <code>./coscli.sh db</code>
  * Use -h for help about implemented commands.
  *
- * @package     shell
+ * @package     shell_db
  */
 
-/*
- *
- * @return array $database containing array('name' => database, 'host' => 'host')
+/**
+ * shell callback
+ * print_r db info
+ * @param type $options
  */
-
-function get_db_info(){
-    return db_admin::getDbInfo();
-}
-
 function db_show_con_info ($options) {
     $info = db_admin::getDbInfo();
     print_r($info);
@@ -26,8 +22,7 @@ function db_show_con_info ($options) {
 
 /**
  * function for creating a database for creds in config.ini
- *
- * @return  int     the executed commands shell status 0 on success.
+ * @return int $res  the executed commands shell status 0 on success.
  */
 function create_db($options = array()){
 
@@ -43,8 +38,7 @@ function create_db($options = array()){
 
 /**
  * function for dropping database specified in config.ini
- *
- * @return  int     the executed commands shell status 0 on success. 
+ * @return int $res the executed commands shell status 0 on success. 
  */
 function drop_db_default($options = array()){
     define ('NO_DB', 1);    
@@ -59,11 +53,10 @@ function drop_db_default($options = array()){
 
 /**
  * function for loading db with install sql found in scripts/default.sql
- *
- * @return  int     the executed commands shell status 0 on success. 
+ * this function will also drop database if it exists
+ * @return int $res the executed commands shell status 0 on success. 
  */
 function load_db_default(){
-    // silence when dropping db. 
     drop_db_default($options = array ('silence' => 1));
     create_db();
     $db = db_admin::getDbInfo();
@@ -71,15 +64,13 @@ function load_db_default(){
         "mysql -u" . config::$vars['coscms_main']['username'] .
         " -p" . config::$vars['coscms_main']['password'] ." $db[name] < scripts/default.sql";
     // TODO: why don't we return anything
-    $ret = cos_exec($command);
+    return cos_exec($command);
 }
 
 
 /**
  * function for opening a connection to the database specified in config.ini
- *
  * opens up the mysql command line tool
- *
  * @return  int     the executed commands shell status 0 on success.
  */
 function connect_db(){
