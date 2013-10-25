@@ -557,7 +557,8 @@ class moduleinstaller extends db {
      */
     public function updateRegistry ($new_version, $id){
         $values = array (
-            'module_version' => $new_version);
+            'module_version' => $new_version,
+            'run_level' => $this->installInfo['RUN_LEVEL']);
 
         try {
             $result = $this->update('modules', $values, $id);
@@ -871,19 +872,12 @@ class moduleinstaller extends db {
             }   
         }
 
-        // perform SQL upgrades - 2. method
+        // perform function based upgrades
         if (isset($this->installInfo['VERSIONS'])) {
-            $perform_next = 1;
             foreach ($this->installInfo['VERSIONS'] as $val) {
-                if ($perform_next) {
+                if ($val > $current_version) {
                     $this->installInfo['INSTALL']($val);
-                    continue;
-                }
-                    
-                if ($val == $current_version) { 
-                    $perform_next = 0;
-                    continue;
-                }        
+                }       
             }
         } 
        
