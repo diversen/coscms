@@ -75,9 +75,12 @@ function load_db_default(){
  */
 function connect_db(){
     $db = db_admin::getDbInfo();
+
     $command = 
         "mysql --default-character-set=utf8 -u" . config::$vars['coscms_main']['username'] .
-        " -p" . config::$vars['coscms_main']['password'] . " $db[name]";
+        " -p" . config::$vars['coscms_main']['password'] .
+        " -h" . $db['host'] . 
+        " $db[name]";
 
     $ret = array();
     proc_close(proc_open($command, array(0 => STDIN, 1 => STDOUT, 2 => STDERR), $pipes));
