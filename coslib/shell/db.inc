@@ -106,7 +106,8 @@ function dump_db_file ($options = null){
     $db = db_admin::getDbInfo();
     $command = 
         "mysqldump --opt -u" . config::$vars['coscms_main']['username'] .
-        " -p" . config::$vars['coscms_main']['password'];
+        " -p" . config::$vars['coscms_main']['password'] . 
+        " -h" . $db['host'];
     $command.= " $db[name] > $dump_name";
     cos_exec($command);
 }
