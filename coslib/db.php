@@ -144,7 +144,9 @@ class db {
                     $options
             );
             self::$dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            if (isset(config::$vars['coscms_main']['db_init'])) {
+            
+            self::setSsl();
+	    if (isset(config::$vars['coscms_main']['db_init'])) {
                 self::$dbh->exec(config::$vars['coscms_main']['db_init']);
 
             }
@@ -163,7 +165,16 @@ class db {
         self::$con = true;
         self::$debug[]  = 'Connected!';
     }
-    
+
+    public static function setSsl () {
+
+	    $attr = config::getMainIni('mysql_attr');
+            if (isset($attr['mysql_attr'])) {
+                self::$dbh->setAttribute(PDO::MYSQL_ATTR_SSL_KEY, $attr['ssl_key']);
+                self::$dbh->setAttribute(PDO::MYSQL_ATTR_SSL_CERT, $attr['ssl_cert']);
+                self::$dbh->setAttribute(PDO::MYSQL_ATTR_SSL_CA, $attr['ssl_ca']);
+            }   
+    }    
     /**
      * checks if a field exists in a table
      * @param string $table the db table
