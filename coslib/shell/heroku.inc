@@ -118,7 +118,7 @@ function heroku_prompt_install () {
     load_db_default();
     cos_cli_print('Installing all modules. This may take minutes. Be patient'); 
     install_from_profile(array ('profile' => 'default'));
-    cos_exec("./coscli.sh useradd --add");
+    useradd_add();
     
 }
 
