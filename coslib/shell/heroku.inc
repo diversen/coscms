@@ -41,8 +41,10 @@ EOF;
 
 function heroku_enable_addons () {
     $command = "heroku addons:add cleardb";
+    cos_exec($command);
     heroku_set_cleardb_conf();
     $command = "heroku addons:add sendgrid";
+    cos_exec($command);
     heroku_set_sendgrid_conf();
 }
 
@@ -105,13 +107,13 @@ function heroku_install () {
 }
 
 function heroku_prompt_install () {
-    cos_exec('git clone git clone git://github.com/diversen/coscms-package.git');
-    cos_exec("cp -rf coscms-package/* . ");
+    //cos_exec('git clone git clone git://github.com/diversen/coscms-package.git');
+    //cos_exec("cp -rf coscms-package/* . ");
     heroku_enable_addons();
     heroku_download_extensions();
     cos_exec("cp misc/htaccess .htaccess");
-    cos_exex("mkdir -r files/default");
-    cos_exex("chmod -R 777 files");
+    cos_exec("mkdir -p files/default");
+    cos_exec("chmod -R 777 files");
     cos_exec("touch files/default/dummy.txt");
     load_db_default();
     cos_cli_print('Installing all modules. This may take minutes. Be patient'); 

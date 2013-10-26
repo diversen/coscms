@@ -69,6 +69,12 @@ function cos_build_simple ($options = null) {
     $sql_scripts = "cp -rf scripts ./build/$name";
     cos_exec($sql_scripts);
     
+    $cli = "cp -rf coscli.sh ./build/$name";
+    cos_exec($cli);
+    
+    $misc_scripts = "cp -rf misc ./build/$name";
+    cos_exec($misc_scripts);
+    
     // reset database password
     $ary = config::getIniFileArray("./config/config.ini");
     $profile = new profile();
@@ -83,7 +89,7 @@ function cos_build_simple ($options = null) {
     $ary['htdocs_path'] = '_COS_PATH';
     
     $ini_settings = config::arrayToIniFile($ary);
-    file_put_contents("./build/$name/config/config.ini", $ini_settings);
+    file_put_contents("./build/$name/config/config.ini-dist", $ini_settings);
     
     $coslib = "cp -rf coslib ./build/$name";
     cos_exec($coslib);
