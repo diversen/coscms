@@ -9,6 +9,45 @@ function heroku_get_setting ($setting) {
     return $ary[0];
 }
 
+function heroku_download_extensions () {
+    $command = "wget https://github.com/wuputah/heroku-libraries/raw/master/php/mbstring/mbstring.so";
+    exec($command, $ary, $ret);
+    if ($ret) {
+        echo "We could not download mbstring.so\n";
+        return false;
+    }
+    
+    $command = "wget https://github.com/alkhoo/heroku-cedar-php-extension/raw/master/ext/apc.so";
+    exec($command, $ary, $ret);
+    if ($ret) {
+        echo "We could not download apc.so\n";
+        return false;
+    }
+    
+    $command = "wget https://github.com/alkhoo/heroku-cedar-php-extension/raw/master/ext/imagick.so";
+    exec($command, $ary, $ret);
+    if ($ret) {
+        echo "We could not download imagick.so\n";
+        return false;
+    }
+    
+    $php_ini = <<<EOF
+extension=/app/www/mbstring.so
+extension=/app/www/imagick.so
+apc.rfc1867 = 1
+EOF;
+    file_put_contents('php.ini', $php_ini);
+}
+
+function heroku_enable_addons () {
+    $command = "heroku addons:add cleardb";
+    heroku_set_cleardb_conf();
+    $command = "heroku addons:add sendgrid";
+    heroku_set_sendgrid_conf();
+}
+
+
+
 function heroku_set_cleardb_conf () {
     $url_str = heroku_get_setting('CLEARDB_DATABASE_URL');
     $url = parse_url($url_str);
@@ -32,7 +71,7 @@ function heroku_set_cleardb_conf () {
 function heroku_get_config_filename () {
     $config_file = _COS_PATH . "/config/config.ini";
     if (!file_exists($config_file)) {
-        $config_file = $config_file . "-dist";
+        $config_file = _COS_PATH . "/scripts/heroku.ini";
     }
     return $config_file;
 }
@@ -61,13 +100,25 @@ function heroku_set_sendgrid_conf () {
     }
 }
 
-function heroku_set_servername () {
-    //echo dirname(__FILE__);
-    $cur_dir = explode('\\', getcwd());
-    echo $cur_dir[count($cur_dir)-1];
+function heroku_install () {
+        install_from_profile(array ('profile' => 'default'));
 }
 
-
+function heroku_prompt_install () {
+    cos_exec('git clone git clone git://github.com/diversen/coscms-package.git');
+    cos_exec("cp -rf coscms-package/* . ");
+    heroku_enable_addons();
+    heroku_download_extensions();
+    cos_exec("cp misc/htaccess .htaccess");
+    cos_exex("mkdir -r files/default");
+    cos_exex("chmod -R 777 files");
+    cos_exec("touch files/default/dummy.txt");
+    load_db_default();
+    cos_cli_print('Installing all modules. This may take minutes. Be patient'); 
+    install_from_profile(array ('profile' => 'default'));
+    cos_exec("./coscli.sh useradd --add");
+    
+}
 
 mainCli::setCommand('heroku', array(
     'description' => 'Commands for heroku',
@@ -76,6 +127,18 @@ mainCli::setCommand('heroku', array(
 mainCli::setOption('heroku_set_servername', array(
     'long_name'   => '--set-servername',
     'description' => 'Sets correct servername in config/config.ini',
+    'action'      => 'StoreTrue'
+));
+
+mainCli::setOption('heroku_prompt_install', array(
+    'long_name'   => '--prompt-install',
+    'description' => 'Sets correct servername in config/config.ini',
+    'action'      => 'StoreTrue'
+));
+
+mainCli::setOption('heroku_install', array(
+    'long_name'   => '--install',
+    'description' => 'Install default profile',
     'action'      => 'StoreTrue'
 ));
 
