@@ -57,13 +57,14 @@ function drop_db_default($options = array()){
  * @return int $res the executed commands shell status 0 on success. 
  */
 function load_db_default(){
-    drop_db_default($options = array ('silence' => 1));
-    create_db();
+
     $db = db_admin::getDbInfo();
     $command = 
-        "mysql -u" . config::$vars['coscms_main']['username'] .
-        " -p" . config::$vars['coscms_main']['password'] ." $db[name] < scripts/default.sql";
-    // TODO: why don't we return anything
+        "mysql -u" . config::$vars['coscms_main']['username'] . ' ' .
+        "-p" . config::$vars['coscms_main']['password'] . ' ' .
+        "-h$db[host] " . ' ' .
+        "$db[name] < scripts/default.sql";
+
     return cos_exec($command);
 }
 

@@ -20,6 +20,9 @@ function cos_install($options = false) {
     // create files - logs/ - files/
     cos_create_files();
 
+    drop_db_default($options = array ('silence' => 1));
+    
+    create_db();
     // load default base sql.
     load_db_default();
 

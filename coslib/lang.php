@@ -37,6 +37,7 @@ class lang {
      * @return string $language the language to be used
      */
     public static function getLanguage (){
+        if (config::isCli()) return;
         $user_language = cache::get('account_locales_language', session::getUserId());
         if ($user_language) {
             self::$language = $user_language;
@@ -54,7 +55,6 @@ class lang {
     public static function init(){
             
         $language = self::getLanguage();
-
         $system_lang = array();
         $db = new db();
         $system_language = db_q::select('language')->
