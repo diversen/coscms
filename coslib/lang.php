@@ -37,9 +37,10 @@ class lang {
      * @return string $language the language to be used
      */
     public static function getLanguage (){
-        if (config::isCli()) return;
-        $user_language = cache::get('account_locales_language', session::getUserId());
-        if ($user_language) {
+        if (!config::isCli()) {
+            $user_language = cache::get('account_locales_language', session::getUserId());
+        }
+        if (isset($user_language)) {
             self::$language = $user_language;
         } else {
             self::$language = config::getMainIni('language');
