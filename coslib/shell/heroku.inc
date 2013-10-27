@@ -3,7 +3,7 @@
 function heroku_get_setting ($setting) {
     exec("heroku config:get $setting", $ary, $ret);
     if ($ret) {
-        echo "We could not get cleardb url\n";
+        echo "We could not get setting:$setting\n";
         return false;
     }
     return $ary[0];
@@ -34,6 +34,7 @@ function heroku_download_extensions () {
     $php_ini = <<<EOF
 extension=/app/www/mbstring.so
 extension=/app/www/imagick.so
+extension=/app/www/apc.so
 apc.rfc1867 = 1
 EOF;
     file_put_contents('php.ini', $php_ini);

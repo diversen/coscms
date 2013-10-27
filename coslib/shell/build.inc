@@ -60,7 +60,7 @@ function cos_build_simple ($options = null) {
     $files_rm = "rm -rf ./build/$name/files/$domain/*";
     cos_exec($files_rm);
     
-    $config = "cp -rf config ./build/$name";
+    $config = "mkdir ./build/$name/config";
     cos_exec($config);
     
     $profiles = "cp -rf profiles ./build/$name";
