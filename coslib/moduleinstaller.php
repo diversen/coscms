@@ -108,6 +108,18 @@ class moduleinstaller extends db {
                 config::$vars['coscms_main']['module'] = config::getIniFileArray($ini_file);
             }
             
+            // check for a locale ini file which only
+            // can be added by end user. 
+            $ini_locale = $module_dir . "/locale.ini";
+            if (file_exists($ini_locale)) {
+                $locale = config::getIniFileArray($ini_locale, true);
+                config::$vars['coscms_main']['module'] =
+                    array_merge(
+                    config::$vars['coscms_main']['module'],
+                    $locale
+                );
+            }
+            
             // load install.inc if exists
             $install_file = "$module_dir/install.inc";
             if (!file_exists($install_file)){
@@ -275,6 +287,8 @@ class moduleinstaller extends db {
                         array ('module_name' => NULL)
                         );
             }
+            $this->deleteMenuItem();
+            $this->insertMenuItem();
             $this->insertRoutes();
         }
     }
