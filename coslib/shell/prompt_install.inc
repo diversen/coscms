@@ -71,6 +71,8 @@ function prompt_install(){
     $options = array();
     $options['profile'] = $profile;
     
+    print_r($options);
+    
     
     if ($tag == 'master'){
         $options['master'] = true;
