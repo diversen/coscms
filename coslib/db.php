@@ -409,9 +409,30 @@ class db {
      * @return  boolean $res true on success or false on failure
      */
     public function insert($table, $values, $bind = null){        
-        return db_q::setInsert($table)->setInsertValues($values, $bind)->exec();
-
+        $fieldnames = array_keys($values);
+        $sql = "INSERT INTO $table";
+        $fields = '( ' . implode(' ,', $fieldnames) . ' )';
+        $bound = '(:' . implode(', :', $fieldnames) . ' )';
+        $sql .= $fields.' VALUES '.$bound;
+        self::$debug[]  = "Trying to prepare insert sql: $sql";
+        $stmt = self::$dbh->prepare($sql);
+        // bind speciel params
+        if (isset($bind) && is_array($bind)){
+            foreach ($values as $key => $val){
+                if (isset($bind[$key])){
+                    $stmt->bindParam(":".$key, $values[$key], $bind[$key]);
+                } else {
+                    $stmt->bindParam(":".$key, $values[$key]);
+                }
+            }
+            $ret = $stmt->execute();
+        } else {
+            $ret = $stmt->execute($values);
+        }
+        return $ret;
     }
+
+    
     /**
      * Method for doing a simple full-text mysql search in a database table
      *
