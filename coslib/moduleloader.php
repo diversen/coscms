@@ -622,7 +622,6 @@ class moduleloader {
             return;
         }
         
-       
         $module_ini = config::getIniFileArray($ini_file, true);
         if (is_array($module_ini)){
             config::$vars['coscms_main']['module'] = array_merge(
@@ -631,12 +630,13 @@ class moduleloader {
             );
         }
         
-        else if (isset($module_ini['development']) && config::getEnv() =='development' ) {
-                config::$vars['coscms_main']['module'] =
-                        array_merge(
-                        config::$vars['coscms_main']['module'],
-                        $module_ini['development']
-                    );
+        
+        if (isset($module_ini['development']) && config::getEnv() =='development' ) {
+            config::$vars['coscms_main']['module'] =
+                    array_merge(
+                    config::$vars['coscms_main']['module'],
+                    $module_ini['development']
+                );
         }
         
         // check if stage settings exists.
