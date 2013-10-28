@@ -123,9 +123,25 @@ class http {
             save_post($post_id);
         }
 
+        if (isset($_SESSION['return_to'])) {
+            $location = $_SESSION['return_to'];
+            unset($_SESSION['return_to']);
+        }
+        
         $header = "Location: $location";
         header($header);
+        
+        if (self::$returnTo) {
+            $_SESSION['return_to'] = self::$returnTo;
+            
+        }
+        
         exit;    
+    }
+    
+    public static $returnTo = null;
+    public static function setReturnTo ($return_to) {
+        self::$returnTo = $return_to;
     }
     
     /**

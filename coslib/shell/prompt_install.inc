@@ -35,7 +35,7 @@ function prompt_install(){
     }
 
     // select profile and load it
-    $profile = cos_readline('Enter profile, and hit return: ');
+    echo $profile = cos_readline('Enter profile, and hit return: ');
     load_profile(array('profile' => $profile, 'config_only' => true));
     cos_cli_print("Main config file (config/config.ini) for $profile is loaded");
 
