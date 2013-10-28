@@ -35,7 +35,8 @@ function prompt_install(){
     }
 
     // select profile and load it
-    echo $profile = cos_readline('Enter profile, and hit return: ');
+    $profile = cos_readline('Enter profile, and hit return: ');
+    echo $profile;
     load_profile(array('profile' => $profile, 'config_only' => true));
     cos_cli_print("Main config file (config/config.ini) for $profile is loaded");
 
@@ -69,6 +70,8 @@ function prompt_install(){
 
     $options = array();
     $options['profile'] = $profile;
+    
+    
     if ($tag == 'master'){
         $options['master'] = true;
     }

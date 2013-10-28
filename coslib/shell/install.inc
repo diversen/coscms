@@ -13,6 +13,7 @@
 function cos_install($options = false) {
 
     // we need a profile specified
+    print_r($options);
     if (!isset($options['profile'])){
         cos_cli_abort('You need to specifiy a profile');
     }
