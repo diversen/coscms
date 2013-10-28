@@ -475,7 +475,7 @@ class profile  {
      * @param string    profile name
      */
     public function setProfileInfo($profile){
-        echo $profile_dir = _COS_PATH . "/profiles/$profile";
+        $profile_dir = _COS_PATH . "/profiles/$profile";
         include $profile_dir . "/profile.inc";
         $this->profileModules = $_PROFILE_MODULES;
         $this->profileTemplates = $_PROFILE_TEMPLATES;

@@ -13,7 +13,6 @@
 function cos_install($options = false) {
 
     // we need a profile specified
-    print_r($options);
     if (!isset($options['profile'])){
         cos_cli_abort('You need to specifiy a profile');
     }
@@ -21,7 +20,7 @@ function cos_install($options = false) {
     // create files - logs/ - files/
     cos_create_files();
 
-    drop_db_default($options = array ('silence' => 1));
+    drop_db_default($ary = array ('silence' => 1));
     
     create_db();
     // load default base sql.
