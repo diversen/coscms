@@ -29,12 +29,12 @@ class defaultProfile {
     public static function getLogoutHTML ($id = null, $type = '') {
         $logout_url = "/account/login/index/1";
         $db = new db();
-        $profile = $db->selectOne('account', 'id', $id);        
+        //$profile = $db->selectOne('account', 'id', $id);        
         $link = lang::translate('system_profile_logout');
         $str = html::createLink(
                 $logout_url, 
                 $link);
-        $str.= " ($profile[email])";
+        //$str.= " ($profile[email])";
         return $str;
     } 
     
