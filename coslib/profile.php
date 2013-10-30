@@ -210,8 +210,6 @@ class profile  {
         $dir = _COS_HTDOCS . "/templates";
         $templates = file::getFileList($dir, array('dir_only' => true));
 
-
-        
         foreach ($templates as $key => $val){
             $install = $dir . "/$val/install.inc";
             if (file_exists($install)){

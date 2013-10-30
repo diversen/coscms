@@ -243,7 +243,7 @@ class moduleinstaller extends db {
     }
 
     /**
-     * method to reload all languages
+     * method to reload all languages in all modules and template
      * gets all modules
      * reloads language files one after another.
      */
@@ -252,7 +252,22 @@ class moduleinstaller extends db {
         foreach ($modules as $key => $val){
             $this->installInfo['NAME'] = $val['module_name'];
             $this->insertLanguage($val['module_name']);
-        }
+        } 
+        
+        
+        
+        $templates = $this->getTemplates();
+        foreach ($templates as $key => $val){
+            $this->installInfo['NAME'] = $val;
+            $this->insertLanguage($val, 'template');
+        } 
+        
+    }
+    
+    public function getTemplates () {
+        $dir = _COS_HTDOCS . "/templates";
+        $templates = file::getFileList($dir, array('dir_only' => true));
+        return $templates;
     }
     
     /**
@@ -341,25 +356,23 @@ class moduleinstaller extends db {
      * @param string $module
      * @return  boolean $res false if no language file exists. Else return true.
      */
-    public function insertLanguage($module = null){
+    public function insertLanguage($module = null, $type = 'module'){
         if (!$module) {
             $module = $this->installInfo['NAME'];
         }
-        
-        //$language_path = _COS_PATH . "/lang/$module/lang";
-        //if (file_exists($language_path) ) {
-            // system language
-            // e.g. all filters
-            // cosmarkdown, cosmedia
-         
-        //} else {
-            // module language
+
+        if ($type == 'module') {
             $language_path =
                 _COS_PATH .
                 '/' . _COS_MOD_DIR . '/' .
                 $module .
                 '/lang';
-        //}
+        } else {
+            $language_path =
+                _COS_HTDOCS . '/templates/' .
+                $module .
+                '/lang';
+        }
         
         $dirs = file::getFileList($language_path);
         if ($dirs == false){
