@@ -286,22 +286,28 @@ class db {
      * @return  boolean true on succes or false on failure
      */
     public function delete($table, $fieldname, $search){
-        
-        db_q::setDelete($table);
+        $sql = "DELETE FROM `$table` WHERE ";
 
         if (is_array($search)){
-            $num = count($search);
             foreach ($search as $key => $val){
-                $num--;
-                db_q::filter("$key = ", $val);
-                if ($num) db_q::condition ('AND');
+                $params[] ="`$key`= " . self::$dbh->quote($val);;
             }
-
+            $params = implode(' AND ', $params);
+            $sql .= $params;
         } else {
-            db_q::filter("$fieldname = ", $search);
+            $search = self::$dbh->quote($search);
+            $sql .= " `$fieldname` = $search";
         }
-        
-        return db_q::exec();
+
+        self::$debug[]  = "Trying to prepare update sql: $sql";
+        $stmt = self::$dbh->prepare($sql);
+
+        if (is_array($search)){
+            $ret = $stmt->execute($search);
+        } else {
+            $ret = $stmt->execute();
+        }
+        return $ret;
     }
 
     /**

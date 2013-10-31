@@ -73,10 +73,9 @@ class db_q  {
      * @param array $options 
      */
     public static function init($options = null) {
-        //static $db = null;
-        if (!self::$dbh) {
-            $db = db::init();
-            //$db = new db();
+        static $db = null;
+        if (!isset($db)) {
+            $db = new db();
             self::$dbh = db::$dbh;  
         } 
     }
