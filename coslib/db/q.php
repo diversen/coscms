@@ -75,7 +75,8 @@ class db_q  {
     public static function init($options = null) {
         //static $db = null;
         if (!self::$dbh) {
-            $db = new db();
+            $db = db::init();
+            //$db = new db();
             self::$dbh = db::$dbh;  
         } 
     }
