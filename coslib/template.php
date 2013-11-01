@@ -44,8 +44,19 @@ class template {
      */
     public static $templateName = null;
 
+    public static $render = 'all';
 
-    
+    /**
+     * what to render of the template
+     * 
+     * 'all' => default 
+     * 'basic' => leave body out, only render <html> ... <body> and
+     *                                        </body> ... </html>
+     *                                            
+     */
+    public static function render ($render = 'all') {
+        self::$render = $render;
+    }
 
     
     /**
