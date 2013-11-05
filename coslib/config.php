@@ -335,12 +335,8 @@ class config {
      * the default settings. Same goes for development 
      */    
     public static function loadMain () {
-        if (config::isCli()) {
-            return;
-        }
         
-        $config_file = config::getConfigFileName();
-    
+        $config_file = config::getConfigFileName();    
         if (!file_exists($config_file)){
             return;
         } else {
@@ -348,6 +344,8 @@ class config {
             // set them in coscms_main_file, so it is possbile
             // to get original value without db override. 
             config::$vars['coscms_main_file'] = config::$vars['coscms_main'];
+            
+            config::mergeSharedIni();
             if ( config::getEnv() == 'production' ) {
 
                     self::$vars['coscms_main']['development'] = 'real';

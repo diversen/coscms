@@ -67,6 +67,7 @@ if (!config::isCli()){
     // site_update = 1
     // this flag will send correct 503 headers, when we are updating our site. 
     
+    /*
     $shared_ini = _COS_PATH . '/config/shared.ini';
     if (file_exists($shared_ini)) {
         $ini = config::getIniFileArray($shared_ini, true);
@@ -76,7 +77,7 @@ if (!config::isCli()){
                 $ini
             );
         
-    }
+    }*/
         
     // check if we are in debug mode and display errors
     if (config::getMainIni('debug')) {
