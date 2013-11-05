@@ -28,6 +28,13 @@ function dev_test_access($options = null){
    }
 }
 
+function dev_env($options = null){
+
+    echo config::getEnv() . "\n";
+    moduleloader::includeModule('payment');
+    echo config::getModuleIni('payment_env');
+}
+
 
 
 mainCli::setCommand('dev', array(
@@ -37,5 +44,11 @@ mainCli::setCommand('dev', array(
 mainCli::setOption('dev_test_access', array(
     'long_name'   => '--http-return-codes',
     'description' => 'Will check all web access points and give return code, e.g. 200 or 403 or 404',
+    'action'      => 'StoreTrue'
+));
+
+mainCli::setOption('dev_env', array(
+    'long_name'   => '--env',
+    'description' => 'Displays which env you are in (development, stage or production)',
     'action'      => 'StoreTrue'
 ));

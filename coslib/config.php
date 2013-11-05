@@ -236,6 +236,61 @@ class config {
         }
         return false;
     }
+    
+    /**
+     * returns server env (development, stage, production)
+     * based on SERVER_NAME and server_name in config file
+     * @return string|null $env
+     */
+    public static function getEnvServer () {
+        if (self::serverMatch(config::$vars['coscms_main']['server_name'])) {
+            self::$env = 'production';
+            return 'production';
+        }
+
+
+        if (isset(config::$vars['coscms_main']['stage'])) {
+            if (self::serverMatch(config::$vars['coscms_main']['stage']['server_name'])) {
+                self::$env = 'stage';
+                return 'stage';
+            }
+        }
+
+        if (isset(config::$vars['coscms_main']['development'])) {
+            if (self::serverMatch(config::$vars['coscms_main']['development']['server_name'])) {
+                self::$env = 'development';
+                return 'development';
+            }
+        }
+
+        return 'production';
+    }
+    
+    /**
+     * returns cli env (development, stage, production)
+     * based on 'hostname'
+     * @return string $env
+     */
+    public static function getEnvCli () {
+                    
+        if (config::getMainIni('production') == 1) {
+            return 'production';
+        }
+
+        if (isset(config::$vars['coscms_main']['development'])) {
+            if (in_array(config::getHostnameFromCli(), config::getHostnameFromIni('development'))) {
+                return 'development';
+            }
+        }
+
+        if (isset(config::$vars['coscms_main']['stage'])) {
+            if (in_array(config::getHostnameFromCli(), config::getHostnameFromIni('stage'))) {
+                return 'stage';
+            }
+        }
+        return 'production';
+    }
+    
     /**
      * get environemnt - production, stage, or development
      * This is called just after main ini has been loaded
@@ -252,41 +307,9 @@ class config {
         }
         
         if (!config::isCli()) {
-
-            if ( self::serverMatch(config::$vars['coscms_main']['server_name']) ) {
-                self::$env = 'production';
-                return       'production';
-            }
-
-
-            if (isset(config::$vars['coscms_main']['stage'])){
-                    if ( self::serverMatch(config::$vars['coscms_main']['stage']['server_name'])) {
-                        self::$env = 'stage';
-                        return       'stage';
-                    }
-            }
-
-            if (isset(config::$vars['coscms_main']['development'])){
-                    if ( self::serverMatch(config::$vars['coscms_main']['development']['server_name'])) {
-                        self::$env = 'development';
-                        return       'development';
-                    }
-            }
-
-            return null;
+            return self::getEnvServer();
         } else {
-            
-            if (isset(config::$vars['coscms_main']['development'])){
-                if (in_array(config::getHostnameFromCli(), config::getHostnameFromIni('development') ) ) {
-                    return 'development';
-                }
-            }
-            
-            if (isset(config::$vars['coscms_main']['stage'])){
-                if (in_array(config::getHostnameFromCli(), config::getHostnameFromIni('stage')) ) {
-                    return 'stage';
-                }
-            }
+            return self::getEnvCli();
         }
     }
     

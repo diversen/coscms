@@ -155,8 +155,6 @@ EOF;
             
             config::loadMainCli();
             
-            
-            
             // load all modules
             if (!isset($options['disable_base_modules'])) {
                 mainCli::loadBaseModules();
