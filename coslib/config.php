@@ -348,7 +348,7 @@ class config {
             config::mergeSharedIni();
             if ( config::getEnv() == 'production' ) {
 
-                    self::$vars['coscms_main']['development'] = 'real';
+                    //self::$vars['coscms_main']['development'] = 'real';
                     // We are on REAL server and exits without
                     // adding additional settings for stage or development
                     // or CLI mode. 
