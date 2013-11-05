@@ -59,7 +59,6 @@ class config {
      *                       If 0 is found we also reutnr null
      */    
     public static function getMainIniFromFile ($key) {
-        //print_r(config::$vars['coscms_main_file']);
         return self::getMainIniFromHolder($key, 'coscms_main_file');
     } 
     
@@ -238,9 +237,10 @@ class config {
     }
     
     /**
-     * returns server env (development, stage, production)
-     * based on SERVER_NAME and server_name in config file
-     * @return string|null $env
+     * returns server env (development, stage, production) from match
+     * between $_SERVER['SERVER_NAME'] and main ini settings
+     * If no match we return production 
+     * @return string $env
      */
     public static function getEnvServer () {
         if (self::serverMatch(config::$vars['coscms_main']['server_name'])) {
@@ -267,8 +267,11 @@ class config {
     }
     
     /**
-     * returns cli env (development, stage, production)
-     * based on 'hostname'
+     * returns cli env (development, stage, production) based on unix command 'hostname'
+     * If production = 1 in config/shared.ini then this will return 'production'
+     * and development or stage settings will not be loaded
+     * If production is not set, then we determine env from hostname match
+     * and load ini settings given there
      * @return string $env
      */
     public static function getEnvCli () {
