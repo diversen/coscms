@@ -341,14 +341,16 @@ class config {
             return;
         } else {
             config::$vars['coscms_main'] = config::getIniFileArray($config_file, true);
+            
             // set them in coscms_main_file, so it is possbile
-            // to get original value without db override. 
+            // to get original value without db viewing e.g. db override. 
             config::$vars['coscms_main_file'] = config::$vars['coscms_main'];
             
+            // check if any shared.ini settings should be merged
             config::mergeSharedIni();
+            
             if ( config::getEnv() == 'production' ) {
 
-                    //self::$vars['coscms_main']['development'] = 'real';
                     // We are on REAL server and exits without
                     // adding additional settings for stage or development
                     // or CLI mode. 
@@ -491,7 +493,7 @@ class config {
      * @return array $hostnames array with hostnames
      *               hostnames are set in config/config.ini in ini setting 'hostname'
      *               you can add multiple hosts e.g. for development by seperating
-     *               them with a :
+     *               them with a ':' e.g. dennis-desktop:dennis-laptop
      */
     public static function getHostnameFromIni ($section = null) {
         if (!$section) {
