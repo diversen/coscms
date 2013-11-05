@@ -24,6 +24,11 @@ config::$vars['coscms_debug']['timer']['start'] = microtime(true);
 config::$vars['coscms_debug']['coscms_base']  = config::$vars['coscms_base'];
 config::$vars['coscms_debug']['include_path'] = ini_get('include_path');
 
+// Note: If Cli mode there is no runLevels
+// Therefore: config from database which are merged with config settings
+// from file is NOT loaded in Cli mode: You will need to set these
+// settings in config.ini
+
 if (!config::isCli()) {
     config::loadMain();
 } else {
