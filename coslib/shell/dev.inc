@@ -29,10 +29,7 @@ function dev_test_access($options = null){
 }
 
 function dev_env($options = null){
-
     echo config::getEnv() . "\n";
-    moduleloader::includeModule('payment');
-    echo config::getModuleIni('payment_env');
 }
 
 
