@@ -477,7 +477,6 @@ class config {
         /**
          * define path to modules
          */
-
         $mod_dir = config::getMainIni('module_dir');
 
         if (!$mod_dir) {
