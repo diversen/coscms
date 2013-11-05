@@ -629,16 +629,15 @@ class moduleloader {
                 $module_ini
             );
         }
-        
-        
-        if (isset($module_ini['development']) && config::getEnv() =='development' ) {
-            config::$vars['coscms_main']['module'] =
-                    array_merge(
-                    config::$vars['coscms_main']['module'],
-                    $module_ini['development']
-                );
+
+        else if (isset($module_ini['development']) && config::getEnv() =='development' ) {
+                config::$vars['coscms_main']['module'] =
+                        array_merge(
+                        config::$vars['coscms_main']['module'],
+                        $module_ini['development']
+                    );
         }
-        
+
         // check if stage settings exists.
         else if ((isset($module_ini['stage']) && config::getEnv() =='stage' ) ){
                 config::$vars['coscms_main']['module'] =
@@ -647,6 +646,7 @@ class moduleloader {
                         $module_ini['stage']
                     );
         }
+
         
         // load language specific configuration, e.g. en_GB or en or sv
         $language = config::getMainIni('language');
