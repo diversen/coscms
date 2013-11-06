@@ -1,7 +1,7 @@
 <?php
 
 /**
- * contains methods for getting config settings. 
+ * contains methods for getting and setting configuration. 
  * @package config
  */
 
@@ -177,16 +177,16 @@ class config {
      * config/config.ini. 
      * 
      * If in CLI mode the --domain options need to be set in order to fetch
-     * the correcgt virtual host. E.g. config/multi/domain/config.ini
-     * where domain is the domain flag. 
+     * the correct virtual host. E.g. config/multi/www.testsite.com/config.ini
+     * where domain is www.testsite.com . 
      * 
-     * In normal mode the domain name is checked using $_SERVER['SERVER_NAME'].
+     * In normal mode the domain name is checked against $_SERVER['SERVER_NAME'].
      * If this name matches file config/multi/domain/config.ini then this
      * file will be used. 
      * 
-     * If file not set it is the normal config/config.ini which will be included. 
+     * If file is not set it is the normal config/config.ini which will be included. 
      * 
-     * @return string $filename the filname of the config file.  
+     * @return string $filename the filname of the config file we should load.  
      */
     
     public static function getConfigFileName () {
@@ -214,17 +214,13 @@ class config {
     public static $env = null;
     
     /**
-     * try to match ini settings server name with $_SERVER['SERVER_NAME'] 
-     * @param string $domain e.g. *.testserver or *.realserver.com
-     * @return boolean $res true if there is a wildcard match else false
+     * try to match ini settings server name with $_SERVER['SERVER_NAME']
+     * This is used in order to determine if we are on development, stage,
+     * or production server in web mode 
+     * @param string $domain e.g. *.testserver.com or www.testserver.com
+     * @return boolean $res true if there is match else false
      */
     public static function serverMatch ($server_name) {
-        if(!function_exists('fnmatch')) {
-            // From: http://www.php.net/manual/en/function.fnmatch.php#71725
-            function fnmatch($pattern, $string) {
-                return preg_match("#^".strtr(preg_quote($pattern, '#'), array('\*' => '.*', '\?' => '.'))."$#i", $string);
-            } 
-        } 
         
         if ($server_name == $_SERVER['SERVER_NAME']) {
             return true;
@@ -238,16 +234,17 @@ class config {
     
     /**
      * returns server env (development, stage, production) from match
-     * between $_SERVER['SERVER_NAME'] and main ini settings
-     * If no match we return production 
-     * @return string $env
+     * between $_SERVER['SERVER_NAME'] and main ini server_name setting
+     * If no match we return production. Notice that self::$env will
+     * be set and base system only calls this function once.  
+     * @return string $env development, stage, production - if no match
+     *                      function will return production
      */
     public static function getEnvServer () {
         if (self::serverMatch(config::$vars['coscms_main']['server_name'])) {
             self::$env = 'production';
             return 'production';
         }
-
 
         if (isset(config::$vars['coscms_main']['stage'])) {
             if (self::serverMatch(config::$vars['coscms_main']['stage']['server_name'])) {
@@ -262,17 +259,16 @@ class config {
                 return 'development';
             }
         }
-
         return 'production';
     }
     
     /**
-     * returns cli env (development, stage, production) based on unix command 'hostname'
+     * returns cli env (development, stage, production) based on php function 'gethostname'
      * If production = 1 in config/shared.ini then this will return 'production'
+     * We can set production in shared.ini as many developers use the same 
+     * server for production and stage, and then this will override the hostname
      * and development or stage settings will not be loaded
-     * If production is not set, then we determine env from hostname match
-     * and load ini settings given there
-     * @return string $env
+     * @return string $env development, stage, production
      */
     public static function getEnvCli () {
                     
@@ -295,15 +291,12 @@ class config {
     }
     
     /**
-     * get environemnt - production, stage, or development
+     * get environemnt - production, stage, or development for Cli og server
      * This is called just after main ini has been loaded
-     * We set the static var self::$env after first load as 
-     * new server_name will be set if we use e.g. stage or development
      * In this way we can always know the correct env if we need it. 
-     * @return string|null production, stage, or development - or null if not set
+     * @return string production, stage, or development
      */
     public static function getEnv () {
-        
         
         if (self::$env) {
             return self::$env;
@@ -321,7 +314,6 @@ class config {
      * found in config/config.ini
      * 
      * You can place global configuration in this file. 
-     * 
      * In order to set settiings for development or stage server 
      * 
      * Add to the [development] or [stage] section the server_name
@@ -457,7 +449,7 @@ class config {
      * 
      *  Except: 
      * 
-     *  _COS_PATH
+     *  _COS_PATH which all other defines are based on
      */
     
     public static function defineCommon () {
@@ -488,9 +480,11 @@ class config {
     }
     
     /**
-     * 
+     * gets the hostname from ini settings. You can use multiple hostnames 
+     * in order to work on diffrent machines in the same environment. 
+     * The hostname is set in the ini settings hostname
      * @param type $section if normal default section. Else stage or development
-     * @return array $hostnames array with hostnames
+     * @return array $hostnames array with all hostnames
      *               hostnames are set in config/config.ini in ini setting 'hostname'
      *               you can add multiple hosts e.g. for development by seperating
      *               them with a ':' e.g. dennis-desktop:dennis-laptop
@@ -580,18 +574,16 @@ class config {
     }
     
     /**
-     * get computers hostname from command line
+     * get the computers hostname from command line
      * @return  string $hostname
      */
     public static function getHostnameFromCli () {
         return gethostname();
-        //return trim(shell_exec('hostname'));
     }
     
     
     /**
      * method for getting a path to a module
-     *
      * @param   string  $module the module
      * @return  string  $path the module path
      */
@@ -601,7 +593,6 @@ class config {
     
     /**
      * method for getting a path to a template
-     *
      * @param   string  $template the template
      * @return  string  $path the template path
      */
@@ -639,7 +630,7 @@ class config {
     }
 
     /**
-     * method for getting domain. 
+     * method for getting domain.
      * @return string $domain the current domain
      */
     public static function getDomain () {
@@ -653,7 +644,9 @@ class config {
      */
     public static function getServerName () {
         $server_name = config::getMainIni('server_name');
-        if (!$server_name) $server_name = $_SERVER['SERVER_NAME'];
+        if (!$server_name) { 
+            $server_name = $_SERVER['SERVER_NAME'];
+        }
         return $server_name;     
     }
     
@@ -679,14 +672,16 @@ class config {
     }
     
    /**
-    * transform an array into a ini file string
-    * @param   array     $ary array read from ini file with parse_ini_file
+    * transform an array into a ini file string. It takes into account what
+    * environment we are in, development, stage or production. It also 
+    * takes into account if language is used for transforming the ini string.  
+    * @param   array     $ary an array parsed with with parse_ini_file
     * @return  string    $str ini string readable by parse_ini_file
     */
     public static function arrayToIniFile ($ary, $check_lang = true) {
         
-        
-        // almost always installed but we test anyway
+        // locales are almost always installed but we test anyway
+        // sort of a base module
         if ($check_lang) {
             if (moduleloader::isInstalledModule('locales')) {
                 $locales = locales_module::getLanguages();
@@ -705,9 +700,7 @@ class config {
                 unset($ary[$lang]);
             }
         }
-        
-        
-        
+
         if (isset($ary['stage'])) {
             $stage = $ary['stage'];
             unset($ary['stage']);
