@@ -110,10 +110,16 @@ class cosMail {
     * @param string $content_type
     * @return array $headers
     */
-    public static function getHeaders ($to, $subject, $from, $reply_to, $more = array ()) {
-        if (!$from) $from = config::getMainIni('site_email');
-        if (!$reply_to) $reply_to = config::getMainIni ('site_email_reply');
-        if (!$reply_to) $reply_to = $from;
+    public static function getHeaders ($to, $subject, $from = null, $reply_to = null, $more = array ()) {
+        if (!$from) { 
+            $from = config::getMainIni('site_email');
+        }
+        if (!$reply_to) { 
+            $reply_to = config::getMainIni ('site_email_reply');
+        }
+        if (!$reply_to) { 
+            $reply_to = $from;
+        }
 
         $headers = array(
             'To'            => $to,
