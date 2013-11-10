@@ -554,7 +554,7 @@ class layout {
             $options = self::getMenuLinkOptions($v);
             
             $num_items--;       
-            $str .= html::createLink($v['url'], $v['title']);
+            $str.= html::createLink($v['url'], $v['title']);
             $str.= "</li>\n";
         }
         
