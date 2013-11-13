@@ -54,6 +54,7 @@ class config {
     
     /**
      * method for getting a main ini setting found in config/config.ini
+     * without database override. E.g. with the modules settings and locales
      * @param   string  $key the ini setting key to get
      * @return  mixed   $val the value of the setting or null if not found. 
      *                       If 0 is found we also reutnr null

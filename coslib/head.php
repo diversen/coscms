@@ -145,19 +145,12 @@ if (!config::isCli()){
     // start session
     session::initSession();
 
-    
     // run level 4 - load language
     $moduleloader->runLevel(4);
     
-    
-
-    // load a language_all file or just load all module system language
-    $lang_all = config::getMainIni('language_all');
-    if ($lang_all) {
-        lang::loadTemplateAllLanguage();       
-    } else {
-        lang::init();
-    } 
+    // load a 'language_all' file or load all module system language
+    // depending on configuration
+    lang::loadLanguage();
 
 
     $moduleloader->runLevel(5);

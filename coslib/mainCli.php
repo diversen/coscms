@@ -251,13 +251,9 @@ EOF;
             return;
         }
         
-        // load language
-        $lang_all = config::getMainIni('language_all');
-        if ($lang_all) {
-            lang::loadTemplateAllLanguage();
-        } else {
-            lang::init();
-        } 
+        // load a 'language_all' file or load all module system language
+        // depending on configuration
+        lang::loadLanguage();
         
         $mod_loader = new moduleloader();
         $modules = moduleloader::getAllModules();

@@ -24,28 +24,77 @@ class lang {
      * @var string $language 
      */
     public static $language = null;
-
+    
+    /**
+     * var holding user language if set
+     * @var string $userLanguage
+     */
+    public static $userLanguage = null;
 
     /**
      * var holding the translation table
      * @var array $dict
      */
     public static $dict = array ();
+    
+    /**
+     * var holding loaded modules
+     * @var array $loadedModules
+     */
+    public static $loadedModules = array ();
 
     /**
      * method for getting the language of the site. 
      * @return string $language the language to be used
      */
     public static function getLanguage (){
-        if (!config::isCli()) {
-            $user_language = cache::get('account_locales_language', session::getUserId());
+        
+        if (self::$userLanguage) {
+            return self::$userLanguage;
         }
-        if (isset($user_language)) {
-            self::$language = $user_language;
+        
+        // in cli mode there is no option for loading users individual language
+        if (!config::isCli()) {
+            self::$userLanguage = cache::get('account_locales_language', session::getUserId());
+        }
+        
+        // if user language is loaded we will use user language
+        if (isset(self::$userLanguage)) {
+            self::$language = self::$userLanguage;
         } else {
             self::$language = config::getMainIni('language');
         }
+        
         return self::$language;
+    }
+    
+    /**
+     * loads all system languages or loads language_all (from file or
+     * from database)
+     */
+    public static function loadLanguage ($language = null) {
+        $lang_all = config::getMainIni('language_all');
+        if ($lang_all) {
+            lang::loadTemplateAllLanguage($language);       
+        } else {
+            lang::loadSystemLanguage($language);
+        } 
+    }
+    
+    /**
+     * method for loading main language. This will load the 
+     * main language of the site. It is used if a user has set 
+     * a language (e.g. admin needs to admin interface in his own language,
+     * but needs to send e.g. mails to users in users own language).
+     */
+    public static function loadMainLanguage () {
+        self::$allLoaded = false;
+        $language = config::getMainIni('language');
+        self::loadLanguage($language);
+        self::$loadedModules = array ();
+        foreach (moduleloader::$loadedModules['base'] as $key => $val) {
+            self::loadModuleLanguage($key, $language);
+        }
     }
     
     /**
@@ -53,9 +102,11 @@ class lang {
      * includes translations found in database (system)
      * 
      */
-    public static function init(){
-            
-        $language = self::getLanguage();
+    public static function loadSystemLanguage($language = null){
+        
+        if (!$language) {
+            $language = self::getLanguage();
+        }
         $system_lang = array();
         $db = new db();
         $system_language = db_q::select('language')->
@@ -83,8 +134,7 @@ class lang {
      * @param   array   $substitute array with substitution to perform on sentence.
      *                  e.g. array ('100$', 'username')
      *                  in the string to be translated you will then have e.g.
-     *                  $_COS_LANG_MODULE['module_string'] = 
-     *                  "You will be charged %1% dear %2%"
+     *                  $_COS_LANG_MODULE['module_string'] = "You will be charged {AMOUNT} dear {USER_NAME}"
      * @return  string  $str translated string
      *                  if no translation is found in translation registry,
      *                  the string suplied will have "NT: " prepended. 
@@ -144,18 +194,20 @@ class lang {
      * into db on install, and therefor always loaded. 
      * @param   string  $module the base module to load (e.g. content or account)
      */
-    static function loadModuleLanguage($module){
+    static function loadModuleLanguage($module, $language = null){
         
         if (self::$allLoaded) {
+            
             return;
         }
         
-        static $loaded = array();
-        if (isset($loaded[$module])) {
+        if (isset(self::$loadedModules[$module])) {
             return;
         }
         
-        $language = self::getLanguage();
+        if (!$language) {
+            $language = self::getLanguage();
+        }
 
         $base = _COS_PATH . '/' . _COS_MOD_DIR;
         $language_file =
@@ -170,7 +222,7 @@ class lang {
             }
         }
 
-        $loaded[$module] = true;
+        self::$loadedModules[$module] = true;
     }
     
     /**
@@ -212,23 +264,27 @@ class lang {
     }
     
     /**
-     * Loads a template all language (templates/mytemplate/lang/en_GB/language-all.inc). 
+     * Loads a template all language, e.g. (templates/mytemplate/lang/en_GB/language-all.inc). 
      * It is based on the main ini setting language_all which should contain
      * The language-all.inc can be collected by using
      * <code>./coscli.sh translate --collect template en_GB</code>
+     * It also checks for the locales module. If the locales module exists
+     * there is a check for database modifications found in locales table
      */
-    public static function loadTemplateAllLanguage(){
+    public static function loadTemplateAllLanguage($language = null){
 
         //  template which we load from
         $template = config::getMainIni('language_all');
         self::$allLoaded = true;
         
-        $language = self::getLanguage();
+
+        if (!$language) {
+            $language = self::getLanguage();
+        }
         
         // check if there is a template_load_all
         if (moduleloader::isInstalledModule('locales')) {
-            include_module('locales');
-            
+            include_module('locales');    
             self::$dict = locales_db::loadLanguageFromDb($language);
             return;
         }

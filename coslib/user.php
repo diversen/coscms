@@ -202,7 +202,7 @@ class user {
      * @return string $str profile html.  
      */
     public static function getProfileSimple($user, $text = '') {
-        
+
         self::initProfile();
         if (!is_array($user)) {
             $user = user::getAccount($user);

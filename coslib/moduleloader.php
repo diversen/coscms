@@ -21,6 +21,12 @@ class moduleloader {
      */
     public static $modules = array();
 
+    
+    /**
+     * var holding all loaded modules
+     * @var array $modules 
+     */
+    public static $loadedModules = array();
     /**
      * holding different run leve
      * @var array $lvelsls
@@ -826,8 +832,7 @@ class moduleloader {
      * @retur boolean true on success and false on failure
      */
     public static function includeModule ($module) {
-        static $modules = array ();
-        if (isset($modules[$module])){
+        if (isset(self::$loadedModules['loaded'][$module])){
             return true;
         }
         
@@ -861,10 +866,23 @@ class moduleloader {
                 include_once $view_file;
             }
             include_once $model_file;
-            $modules[$module] = true;            
+            self::$loadedModules['loaded'][$module] = true;
+            $base = self::getBaseModuleFromModuleName ($module);
+            self::$loadedModules['base'][$base] = true;
             return true;
         } 
         return false;
+    }
+    
+    /**
+     * gets ase module from a sub module or a base module, e.g. shop/cart
+     * returns shop
+     * @param string $module
+     * @return string $base
+     */
+    public static function getBaseModuleFromModuleName ($module) {
+        $ary = explode('/', $module);
+        return $ary[0];
     }
     
     /**
