@@ -26,6 +26,19 @@ class apache2 {
     }
     
     public static function getConf ($SERVER_NAME, $DOCUMENT_ROOT, $APACHE_LOG_ROOT) {
+        $version = apache2::getVersion();
+        $version = strings_version::getSemanticAry($version);
+        
+        if ($version['minor'] >= 4) {
+            $VERSION_2_4_x = <<<EOF
+        Options Indexes FollowSymLinks
+        AllowOverride All
+        Require all granted
+EOF;
+        } else {
+            $VERSION_2_4_x = '';
+        }
+        
         return $apache_str = <<<EOD
 <VirtualHost *:80>
     ServerAdmin webmaster@example.com
@@ -36,6 +49,7 @@ class apache2 {
     DocumentRoot {$DOCUMENT_ROOT}
   
     <Directory {$DOCUMENT_ROOT}>
+        {$VERSION_2_4_x}
         RewriteEngine on
         RewriteBase /
         RewriteCond %{REQUEST_FILENAME} !-f
@@ -66,7 +80,33 @@ deny from all
 EOD;
     }
     
+    /**
+     * difference in conf files in version 2.4.x
+     * @return type
+     */
+    public static function get2_4_conf () {
+        $str = <<<EOF
+    Options Indexes FollowSymLinks
+    AllowOverride All
+    Require all granted
+EOF;
+        return $str;
+    }
+    
     public static function getConfSSL ($SERVER_NAME, $DOCUMENT_ROOT, $APACHE_LOG_ROOT) {
+        $version = apache2::getVersion();
+        $version = strings_version::getSemanticAry($version);
+        
+        if ($version['minor'] >= 4) {
+            $VERSION_2_4_x = <<<EOF
+        Options Indexes FollowSymLinks
+        AllowOverride All
+        Require all granted
+EOF;
+        } else {
+            $VERSION_2_4_x = '';
+        }
+        
         return $apache_str = <<<EOD
 <VirtualHost *:80>
     ServerAdmin webmaster@example.com
@@ -77,6 +117,7 @@ EOD;
     DocumentRoot {$DOCUMENT_ROOT}
   
     <Directory {$DOCUMENT_ROOT}>
+        {$VERSION_2_4_x}
         RewriteEngine on
         RewriteBase /
         RewriteCond %{REQUEST_FILENAME} !-f

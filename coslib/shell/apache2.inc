@@ -56,11 +56,23 @@ function cos_a2_enable_site($options){
     $tmp_file = _COS_PATH . "/tmp/$hostname";
     file_put_contents($tmp_file, $apache2_conf);
     $apache2_conf_file = "/etc/apache2/sites-available/$hostname";
+    
+    // some changes in apache 2.4.x from apache 2.2.x
+    // se http://httpd.apache.org/docs/current/upgrading.html
+    
+    $version = apache2::getVersion();
+    $version = strings_version::getSemanticAry($version);
+    
+    if ($version['minor'] >= 4) {
+        $apache2_conf_file.= ".conf";
+    }
+    
     cos_exec("cp -f tmp/$hostname $apache2_conf_file");
     cos_exec("a2ensite $hostname");
 
     // create new hosts file and reload server
     // not very exact match
+    
     $hosts_file_str = file_get_contents("/etc/hosts");
     $host_str = "127.0.0.1\t$hostname\n";
     if (!strstr($hosts_file_str, $host_str)){
@@ -85,6 +97,14 @@ function cos_a2_disable_site($options){
     if ($ret) { 
         return false;
     }
+    
+    $version = apache2::getVersion();
+    $version = strings_version::getSemanticAry($version);
+    
+    if ($version['minor'] >= 4) {
+        $apache2_conf_file.= ".conf";
+    }
+    
     $ret = cos_exec("rm -f $apache2_conf_file");
 
     // create new hosts file and reload server
