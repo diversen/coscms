@@ -1,5 +1,4 @@
 blog_per_page = 10
-
 blog_filters[0] = "cosmarkdown"
 blog_filters[1] = "cosmedia"
 blog_abstract_length = 250

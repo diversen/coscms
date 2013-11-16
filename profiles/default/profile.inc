@@ -135,7 +135,7 @@ $_PROFILE_MODULES = array (
   array (
     'id' => '11',
     'module_name' => 'vote',
-    'module_version' => '2.41',
+    'module_version' => '2.411',
     'menu_item' => '0',
     'run_level' => '0',
     'load_on' => NULL,
@@ -278,9 +278,9 @@ $_PROFILE_MODULES = array (
   array (
     'id' => '22',
     'module_name' => 'counter',
-    'module_version' => '2.411',
+    'module_version' => '2.45',
     'menu_item' => '0',
-    'run_level' => '0,6',
+    'run_level' => '0,5',
     'load_on' => NULL,
     'parent' => NULL,
     'is_shell' => NULL,
@@ -351,52 +351,51 @@ $_PROFILE_TEMPLATES = array (
   ),
   1 => 
   array (
+    'public_clone_url' => 'git://github.com/diversen/zimpleza.git',
+    'private_clone_url' => 'git@github.com:diversen/zimpleza.git',
+    'module_version' => '2.41',
+    'module_name' => 'zimpleza',
+  ),
+  2 => 
+  array (
+    'module_version' => 'v2.1.5',
+    'module_name' => 'fancyBox',
+    'public_clone_url' => 'git://github.com/fancyapps/fancyBox.git',
+  ),
+  3 => 
+  array (
     'public_clone_url' => 'git://github.com/diversen/clean.git',
     'private_clone_url' => 'git@github.com:diversen/clean.git',
     'module_version' => '2.41',
     'module_name' => 'clean',
   ),
-  2 => 
+  4 => 
   array (
     'public_clone_url' => 'git://github.com/diversen/flowplayer.git',
     'private_clone_url' => 'git@github.com:diversen/flowplayer.git',
     'module_version' => '2.41',
     'module_name' => 'flowplayer',
   ),
-  3 => 
-  array (
-    'public_clone_url' => 'git://github.com/diversen/jquery-markedit.git',
-    'private_clone_url' => 'git@github.com:diversen/jquery-markedit.git',
-    'module_version' => '2.41',
-    'module_name' => 'jquery-markedit',
-  ),
-  4 => 
-  array (
-    'public_clone_url' => 'git://github.com/diversen/fancybox.git',
-    'private_clone_url' => 'git@github.com:diversen/fancybox.git',
-    'module_version' => '2.41',
-    'module_name' => 'fancybox',
-  ),
   5 => 
-  array (
-    'public_clone_url' => 'git://github.com/diversen/zimpleza.git',
-    'private_clone_url' => 'git@github.com:diversen/zimpleza.git',
-    'module_version' => '2.41',
-    'module_name' => 'zimpleza',
-  ),
-  6 => 
   array (
     'public_clone_url' => 'git://github.com/diversen/js-toc.git',
     'private_clone_url' => 'git@github.com:diversen/js-toc.git',
     'module_version' => '2.41',
     'module_name' => 'js-toc',
   ),
-  7 => 
+  6 => 
   array (
     'public_clone_url' => 'git://github.com/diversen/1kbgrid.git',
     'private_clone_url' => 'git@github.com:diversen/1kbgrid.git',
     'module_version' => '2.41',
     'module_name' => '1kbgrid',
+  ),
+  7 => 
+  array (
+    'public_clone_url' => 'git://github.com/diversen/jquery-markedit.git',
+    'private_clone_url' => 'git@github.com:diversen/jquery-markedit.git',
+    'module_version' => '2.41',
+    'module_name' => 'jquery-markedit',
   ),
 );
 
