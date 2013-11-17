@@ -315,7 +315,7 @@ $_PROFILE_MODULES = array (
   ),
   24 => 
   array (
-    'id' => '30',
+    'id' => '33',
     'module_name' => 'video',
     'module_version' => '2.41',
     'menu_item' => '0',
@@ -328,7 +328,7 @@ $_PROFILE_MODULES = array (
   ),
   25 => 
   array (
-    'id' => '31',
+    'id' => '34',
     'module_name' => 'rewrite',
     'module_version' => '2.41',
     'menu_item' => '0',
