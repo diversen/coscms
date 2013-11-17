@@ -1,4 +1,4 @@
-url = "mysql:dbname=default;host=localhost;charset=utf8"
+url = "mysql:dbname=demosite;host=localhost;charset=utf8"
 db_init = "SET NAMES utf8"
 username = ""
 password = ""
