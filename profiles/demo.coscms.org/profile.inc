@@ -339,6 +339,32 @@ $_PROFILE_MODULES = array (
     'public_clone_url' => 'git://github.com/diversen/rewrite.git',
     'private_clone_url' => 'git@github.com:diversen/rewrite.git',
   ),
+  26 => 
+  array (
+    'id' => '36',
+    'module_name' => 'nopostfiles',
+    'module_version' => '2.41',
+    'menu_item' => '0',
+    'run_level' => '1',
+    'load_on' => NULL,
+    'parent' => NULL,
+    'is_shell' => NULL,
+    'public_clone_url' => 'git://github.com/diversen/nopostfiles.git',
+    'private_clone_url' => 'git@github.com:diversen/nopostfiles.git',
+  ),
+  27 => 
+  array (
+    'id' => '37',
+    'module_name' => 'reload_site',
+    'module_version' => '2.41',
+    'menu_item' => '0',
+    'run_level' => '0',
+    'load_on' => NULL,
+    'parent' => NULL,
+    'is_shell' => '1',
+    'public_clone_url' => 'git://github.com/diversen/reload_site.git',
+    'private_clone_url' => 'git@github.com:diversen/reload_site.git',
+  ),
 );
 
 $_PROFILE_TEMPLATES = array (
