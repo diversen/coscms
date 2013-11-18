@@ -80,6 +80,18 @@ class cosValidate {
         return false;
     }
     
+    public static function validateEmailAndDomainVerbose ($email) {
+        $options = array(
+                'check_domain' => 'true',
+                'fullTLDValidation' => 'true',
+                'use_rfc822' => 'true',
+                'VALIDATE_GTLD_EMAILS' => 'true',
+                'VALIDATE_CCTLD_EMAILS' => 'true',
+                'VALIDATE_ITLD_EMAILS' => 'true',
+            );
+        return self::validateEmailAndDomain($email, $options);
+    }
+    
     /**
      * chech a password length
      * @param string $password
