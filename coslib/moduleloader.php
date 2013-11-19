@@ -815,6 +815,22 @@ class moduleloader {
     }
     
     /**
+     * returns running modules reference info which is an array e.g.
+     * array ('reference' => 'content/article', 'parent_id' => 24);
+     * @return array $ary e.g. array ('reference' => 'content/article', 'parent_id' => 24);
+     */
+    public static function getRunningModuleReferenceInfo () {
+        // get module running
+        $module = moduleloader::$running;
+        moduleloader::includeModule($module);
+        $class_name = moduleloader::modulePathToClassName($module);
+        
+        // get reference info (reference, parent_id) from running module
+        $obj = new $class_name();
+        return $obj->getReferenceInfo();
+    }
+    
+    /**
      * include a module from a static call e.g. account::create will include 
      * module account
      * @param string $call the static call

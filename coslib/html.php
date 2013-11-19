@@ -186,6 +186,26 @@ class html {
         $name = 'form', $method ='post', $action = '#!',
         $enctype = "multipart/form-data", $options = array()) {
         
+        if (!$name) {
+            $name = 'form';
+        }
+        
+        if (!$method) {
+            $method = 'post';
+        }
+        
+        if (!$action) {
+            $action = '#!';
+        }
+        
+        if (!$enctype) {
+            $enctype = 'multipart/form-data';
+        }
+        
+        if (!$options) {
+            $options = array ();
+        }
+        
         $str = self::formStartClean(
                 $name, 
                 $method, 
