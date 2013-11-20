@@ -622,7 +622,25 @@ class config {
     }
 
     /**
-     * method for getting domain.
+     * method for getting "domain". Domain should not be confused with
+     * server_name. Domain is used when multiple server_names share the 
+     * same code base. 
+     * 
+     * Inside config/ folder there is a dir (or make it) called
+     * multi. If you have two hosts pointing to the same document root, e.g. 
+     * default and default2 you can make a folder called multi/default2 and
+     * add a file called config.ini inside this folder. When a client request
+     * http:://domain2/ this will be served from the confiuration file 
+     * multi/default2/config.ini 
+     * 
+     * In Cli Env you can specify -d as first argument,
+     * e.g. ./coscli.sh -d default2 db --con and the default2 config file 
+     * will be used. All sub domains will also respond to diffrent environment, 
+     * stage, development, production (speicifed as sections in config.ini 
+     * settings)
+     * 
+     * If no domain is given, the default config/config.ini will be loaded. 
+     *  
      * @return string $domain the current domain
      */
     public static function getDomain () {
