@@ -171,7 +171,7 @@ class http {
         if (isset($options['message'])) {
             session::setActionMessage($options['message']);
         }
-        if ($_SERVER['REQUEST_URI'] != $url) {
+        if ($_SERVER['REQUEST_URI'] != $redirect) {
             header("HTTP/1.1 301 Moved Permanently");
             self::locationHeader($redirect);
         }
