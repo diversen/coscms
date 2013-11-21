@@ -125,17 +125,7 @@ class http {
         
         $header = "Location: $location";
         header($header);
-        
-        if (self::$returnTo) {
-            $_SESSION['return_to'] = self::$returnTo;           
-        }
-        
-        exit;    
-    }
-    
-    public static $returnTo = null;
-    public static function setReturnTo ($return_to) {
-        self::$returnTo = $return_to;
+        die();    
     }
     
     /**
@@ -145,10 +135,8 @@ class http {
         if ($_SERVER['SERVER_PORT'] != 443){
             $redirect = "https://" . $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI'];
             header("HTTP/1.1 301 Moved Permanently");
-            header("Location: $redirect");
-            die();
-        }
-        
+            self::locationHeader($redirect);
+        }     
     }
     
    /**
@@ -169,8 +157,7 @@ class http {
 
             $redirect = $scheme . $server_redirect . $_SERVER['REQUEST_URI'];
             header("HTTP/1.1 301 Moved Permanently");
-            header("Location: $redirect");
-            die();
+            self::locationHeader($redirect);
         }
     }
     
@@ -182,14 +169,13 @@ class http {
      * @param string $url the rul to check against and redirect to.
      * @param array $options set a action message with array ('message' => 'message');  
      */
-    public static function permMovedHeader ($url, $options = array()) {
+    public static function permMovedHeader ($redirect, $options = array()) {
         if (isset($options['message'])) {
             session::setActionMessage($options['message']);
         }
         if ($_SERVER['REQUEST_URI'] != $url) {
             header("HTTP/1.1 301 Moved Permanently");
-            header("Location: $url");
-            exit;
+            self::locationHeader($redirect);
         }
     }
     
