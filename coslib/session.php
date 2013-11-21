@@ -12,6 +12,7 @@
  * @package    session
  */
 class session {
+    
     /**
      * method for initing a session
      * set in_session and start_time of session
@@ -612,10 +613,10 @@ class session {
      * @param string $message 
      */
     public static function loginThenRedirect ($message){
-        unset($_SESSION['redirect_on_login']);
+        unset($_SESSION['return_to']);
         if (!session::isUser()){
             moduleloader::includeModule('account');
-            $_SESSION['redirect_on_login'] = $_SERVER['REQUEST_URI'];
+            $_SESSION['return_to'] = $_SERVER['REQUEST_URI'];
             session::setActionMessage($message);
             account::redirectDefault();
             die;
