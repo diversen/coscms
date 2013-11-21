@@ -122,18 +122,12 @@ class http {
         if (isset($post_id)) {
             save_post($post_id);
         }
-
-        if (isset($_SESSION['return_to'])) {
-            $location = $_SESSION['return_to'];
-            unset($_SESSION['return_to']);
-        }
         
         $header = "Location: $location";
         header($header);
         
         if (self::$returnTo) {
-            $_SESSION['return_to'] = self::$returnTo;
-            
+            $_SESSION['return_to'] = self::$returnTo;           
         }
         
         exit;    
