@@ -27,9 +27,8 @@ class http {
             $_SESSION['REQUEST_URI'] = $_SERVER['REQUEST_URI'];
 
             header("HTTP/1.1 303 See Other");
-            $header = "Location: " . $_SERVER['REDIRECT_URL'] . '?prg=1&uniqid=' . $uniqid;
-            header($header);
-            die;
+            $location = $_SERVER['REDIRECT_URL'] . '?prg=1&uniqid=' . $uniqid;
+            self::locationHeader($location);
         }
 
         
@@ -68,9 +67,8 @@ class http {
             $_SESSION['REQUEST_URI'] = $_SERVER['REQUEST_URI'];
 
             header("HTTP/1.1 303 See Other");
-            $header = "Location: " . $_SERVER['REDIRECT_URL'] . '?prg=1&uniqid=' . $uniqid;
-            header($header);
-            die;
+            $location = $_SERVER['REDIRECT_URL'] . '?prg=1&uniqid=' . $uniqid;
+            self::locationHeader($location);
         }
 
         
