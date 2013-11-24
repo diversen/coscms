@@ -432,6 +432,7 @@ class layout {
      */
     public static function getMenuLinkOptions ($menu) {
 
+        
         $module_base = uri::$info['module_base'];
         $options = array ();
 
@@ -621,6 +622,16 @@ class layout {
             $str.= "</li>\n";
         }
         return "<ul>\n$str</ul>\n";
+    }
+    
+    public static function attachMenus ($type, $menu) {
+        if ($type == 'module') {
+            self::$menu['module']+=$menu;
+        }
+        
+        if ($type == 'sub') {
+            self::$menu['sub']+=$menu;
+        }
     }
 
     /**
