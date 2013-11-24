@@ -25,6 +25,19 @@ class strings_mb {
     }
     
     /**
+     * wrapper to get URF8 string length
+     * fallback to normal strlen if mb_strlen does not exists 
+     * @param string $str
+     * @return int $strlen
+     */
+    public static function strlen ($str) {
+        if (function_exists('mb_strlen')) {
+            return mb_strlen($str, 'UTF-8');
+        }
+        return strlen($str);
+    }
+    
+    /**
      * get all built-in encodings as array
      * @return array $ary
      */

@@ -204,6 +204,14 @@ class layout {
         self::$menu['module'] = array_merge(self::$menu['module'], $menu);
     }
     
+    public static function setParentModuleMenu ($parent, $running = null) {
+        if (!$running) {
+            $running = moduleloader::$running;
+        }
+        layout::setCurrentModuleMenu($running, $parent);
+        layout::setModuleMenu($parent);
+    }
+    
     /**
      * sets the self::$current array with an entry
      * Then we can set menu items and set the class 'current'
