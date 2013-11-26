@@ -1289,7 +1289,7 @@ EOF;
             return html::getError($errors);
         }
         $str = "<!-- view_form_errors -->\n";
-        $str.= "<div id=\"form_error\"><ul>\n";
+        $str.= "<div class=\"form_error\"><ul>\n";
         foreach($errors as $error){
             $str.= "<li>$error</li>\n";
         }
@@ -1319,7 +1319,7 @@ EOF;
             return mainTemplate::getConfirm($message);
         }
         $str = "<!-- view_confirm -->\n";
-        $str.= "<div id=\"form_confirm\">\n";
+        $str.= "<div class=\"form_confirm\">\n";
         $str.= "<ul><li>$message</li></ul>\n";
         $str.= "</div>\n";
         return $str;
@@ -1346,7 +1346,7 @@ EOF;
             return mainTemplate::getError($message);
         }
         $str = "<!-- view_error -->\n";
-        $str.= "<div id=\"form_error\">\n";
+        $str.= "<div class=\"form_error\">\n";
         $str.= "<ul><li>$message</li></ul>\n";
         $str.= "</div>\n";
         return $str;
