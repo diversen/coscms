@@ -44,7 +44,7 @@ $_PROFILE_MODULES = array (
   array (
     'id' => '4',
     'module_name' => 'files',
-    'module_version' => '2.41',
+    'module_version' => '2.52',
     'menu_item' => '0',
     'run_level' => '0',
     'load_on' => NULL,
@@ -174,7 +174,7 @@ $_PROFILE_MODULES = array (
   array (
     'id' => '14',
     'module_name' => 'image',
-    'module_version' => '2.41',
+    'module_version' => '2.52',
     'menu_item' => '0',
     'run_level' => '0',
     'load_on' => NULL,
@@ -224,7 +224,7 @@ $_PROFILE_MODULES = array (
   ),
   17 => 
   array (
-    'id' => '20',
+    'id' => '18',
     'module_name' => 'tags',
     'module_version' => '2.41',
     'menu_item' => '1',
@@ -237,7 +237,7 @@ $_PROFILE_MODULES = array (
   ),
   18 => 
   array (
-    'id' => '21',
+    'id' => '19',
     'module_name' => 'gallery',
     'module_version' => '2.41',
     'menu_item' => '1',
@@ -250,7 +250,7 @@ $_PROFILE_MODULES = array (
   ),
   19 => 
   array (
-    'id' => '23',
+    'id' => '20',
     'module_name' => 'content',
     'module_version' => '2.41',
     'menu_item' => '1',
@@ -263,7 +263,7 @@ $_PROFILE_MODULES = array (
   ),
   20 => 
   array (
-    'id' => '24',
+    'id' => '21',
     'module_name' => 'account_profile',
     'module_version' => '2.41',
     'menu_item' => '1',
@@ -276,7 +276,7 @@ $_PROFILE_MODULES = array (
   ),
   21 => 
   array (
-    'id' => '25',
+    'id' => '22',
     'module_name' => 'google_analytics',
     'module_version' => '2.41',
     'menu_item' => '1',
@@ -289,7 +289,7 @@ $_PROFILE_MODULES = array (
   ),
   22 => 
   array (
-    'id' => '26',
+    'id' => '23',
     'module_name' => 'comment',
     'module_version' => '2.41',
     'menu_item' => '1',
@@ -302,7 +302,7 @@ $_PROFILE_MODULES = array (
   ),
   23 => 
   array (
-    'id' => '27',
+    'id' => '24',
     'module_name' => 'share',
     'module_version' => '2.41',
     'menu_item' => '1',
@@ -315,7 +315,7 @@ $_PROFILE_MODULES = array (
   ),
   24 => 
   array (
-    'id' => '35',
+    'id' => '25',
     'module_name' => 'counter',
     'module_version' => '2.45',
     'menu_item' => '0',
@@ -331,17 +331,17 @@ $_PROFILE_MODULES = array (
 $_PROFILE_TEMPLATES = array (
   0 => 
   array (
-    'public_clone_url' => 'git://github.com/diversen/openid-selector.git',
-    'private_clone_url' => 'git@github.com:diversen/openid-selector.git',
+    'public_clone_url' => 'git://github.com/diversen/clean.git',
+    'private_clone_url' => 'git@github.com:diversen/clean.git',
     'module_version' => '2.41',
-    'module_name' => 'openid-selector',
+    'module_name' => 'clean',
   ),
   1 => 
   array (
-    'public_clone_url' => 'git://github.com/diversen/zimpleza.git',
-    'private_clone_url' => 'git@github.com:diversen/zimpleza.git',
+    'public_clone_url' => 'git://github.com/diversen/1kbgrid.git',
+    'private_clone_url' => 'git@github.com:diversen/1kbgrid.git',
     'module_version' => '2.41',
-    'module_name' => 'zimpleza',
+    'module_name' => '1kbgrid',
   ),
   2 => 
   array (
@@ -351,33 +351,19 @@ $_PROFILE_TEMPLATES = array (
   ),
   3 => 
   array (
-    'public_clone_url' => 'git://github.com/diversen/clean.git',
-    'private_clone_url' => 'git@github.com:diversen/clean.git',
+    'public_clone_url' => 'git://github.com/diversen/openid-selector.git',
+    'private_clone_url' => 'git@github.com:diversen/openid-selector.git',
     'module_version' => '2.41',
-    'module_name' => 'clean',
+    'module_name' => 'openid-selector',
   ),
   4 => 
   array (
-    'public_clone_url' => 'git://github.com/diversen/flowplayer.git',
-    'private_clone_url' => 'git@github.com:diversen/flowplayer.git',
+    'public_clone_url' => 'git://github.com/diversen/zimpleza.git',
+    'private_clone_url' => 'git@github.com:diversen/zimpleza.git',
     'module_version' => '2.41',
-    'module_name' => 'flowplayer',
+    'module_name' => 'zimpleza',
   ),
   5 => 
-  array (
-    'public_clone_url' => 'git://github.com/diversen/js-toc.git',
-    'private_clone_url' => 'git@github.com:diversen/js-toc.git',
-    'module_version' => '2.41',
-    'module_name' => 'js-toc',
-  ),
-  6 => 
-  array (
-    'public_clone_url' => 'git://github.com/diversen/1kbgrid.git',
-    'private_clone_url' => 'git@github.com:diversen/1kbgrid.git',
-    'module_version' => '2.41',
-    'module_name' => '1kbgrid',
-  ),
-  7 => 
   array (
     'public_clone_url' => 'git://github.com/diversen/jquery-markedit.git',
     'private_clone_url' => 'git@github.com:diversen/jquery-markedit.git',

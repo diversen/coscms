@@ -36,6 +36,7 @@ hostname = "mail.os-cms.dk"
 media_width = 600
 debug = 1
 server_name = "default"
+server_redirect = "default"
 [development]
 hostname = "dennis-Rev-1-0:dennis-E122X"
 url = "mysql:dbname=default;host=localhost;charset=utf8"
