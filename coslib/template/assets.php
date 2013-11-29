@@ -598,6 +598,29 @@ class template_assets extends template {
         return $str;
     }
     
+    public static function getGalleryBgCssRandom () {
+        if (!moduleloader::moduleExists('gallery')) {
+            return '';
+        }
+        moduleloader::includeModule('gallery');
+        $g = new gallery();
+        $random_img = $g->getRandomImageURL();
+        if (empty($random_img)) {
+            return '';
+        }
+        
+        $css = <<<EOF
+<style>
+body {
+    background: url("{$random_img}") no-repeat fixed center center / cover rgba(0, 0, 0, 0);
+    overflow: scroll;
+}
+
+</style>
+EOF;
+    return $css;
+
+    }
         
     /**
      * load assets specified in ini settings from template
