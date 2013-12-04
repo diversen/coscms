@@ -3,7 +3,14 @@ var system = require('system');
 var url = 'http://twitter.com/search/javascript';
 var timeout = 8000;  
 
-page.settings.userAgent = 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/536.5 (KHTML, like Gecko) Chrome/19.0.1084.9 Safari/536.5';
+page.settings.userAgent = 'Opera/9.20 (Macintosh; Intel Mac OS X; U; en)';
+
+page.viewportSize = { width: 1024, height: 800 };
+
+/*
+if (height) {
+page.viewportSize.height = height;
+}*/
 
 function displayHelp () {
     console.log('Usage:');
@@ -53,6 +60,9 @@ page.open(url, function (status) {
         //page.injectJs("http://code.jquery.com/jquery-latest.min.js", function() {
     // jQuery is loaded, now manipulate the DOM
         //});
+        
+        page.viewportSize = { width: 1024, height: 800 };
+        page.render("test.jpg", { format: "jpg" });
         getFullDom();
     } else {
        console.log('failure open page');
