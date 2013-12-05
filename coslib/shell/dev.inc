@@ -32,6 +32,10 @@ function dev_env($options = null){
     echo config::getEnv() . "\n";
 }
 
+function dev_log($options = null){
+    log::error('Hello world');
+}
+
 
 
 mainCli::setCommand('dev', array(
@@ -47,5 +51,11 @@ mainCli::setOption('dev_test_access', array(
 mainCli::setOption('dev_env', array(
     'long_name'   => '--env',
     'description' => 'Displays which env you are in (development, stage or production)',
+    'action'      => 'StoreTrue'
+));
+
+mainCli::setOption('dev_log', array(
+    'long_name'   => '--log',
+    'description' => 'Test log file. Will write hello world into logs/coscms.log',
     'action'      => 'StoreTrue'
 ));

@@ -34,6 +34,7 @@ class log {
         }
 
         if ($write_file){
+            $message = strftime(config::getMainIni('date_format_long')) . ": " . $message;
             if (config::isCli()) {
                 $path = _COS_PATH . "/logs/coscms.log";
                 error_log($message . PHP_EOL, 3, $path);
