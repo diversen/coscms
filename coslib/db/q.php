@@ -81,6 +81,30 @@ class db_q  {
     }
     
     /**
+     * begin transaction
+     * @return boolean $res
+     */
+    public static function begin () {
+        return self::$dbh->beginTransaction();
+    }
+    
+    /**
+     * commit transaction
+     * @return boolean $res 
+     */
+    public static function commit () {
+        return self::$dbh->commit();
+    }
+
+    /**
+     * roolback transaction
+     * @returres boolean $res 
+     */
+    public static function rollback () {
+        return self::$dbh->rollBack();
+    }
+    
+    /**
      * 
      * @return string $debug
      */
