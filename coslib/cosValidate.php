@@ -54,6 +54,11 @@ class cosValidate {
         return true;
     }
     
+    /**
+     * validate email rfc822
+     * @param string $email
+     * @return boolean $res true if ok else false
+     */
     public static function emailRfc822 ($email) {
         if (Validate::email($email, array('use_rfc822' => true))) {
             return true;
