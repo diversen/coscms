@@ -283,6 +283,10 @@ class template_assets extends template {
      */
     public static function setCssAsSingleFile () {
         $str = self::getCssAsSingleStr ();
+        if (config::getMainIni('cached_assets_minify')) {
+            $cssp = new csspacker();
+            $str =$cssp->packcss($str);
+        }
             
         $md5 = md5($str);
         $domain = config::getDomain();
@@ -412,6 +416,10 @@ class template_assets extends template {
      */
     public static function setJsAsSingleFile () {
         $str = self::getJsAsSingleStr();
+        if (config::getMainIni('cached_assets_minify')) {
+            $str = JSMin::minify($str);
+        }
+        
         $md5 = md5($str);
         $domain = config::getDomain();
             
