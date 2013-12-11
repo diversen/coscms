@@ -519,18 +519,47 @@ class db_q  {
     
     /**
      * set conditions as a array 
-     * @param string $ary array('user_id =' => 20, 'username =' => 'myname); 
-     * @return \db_q
+     * @param array $ary array('user_id =' => 20, 'username =' => 'myname); 
+     * @param string $condition e.g. 'AND', 'OR' 
+     * @return \db_q object
      */
-    public static function filterArray ($ary) {
+    public static function filterArray ($ary, $condition = 'AND') {
         $i = count($ary);
         foreach ($ary as $key => $val) {
             $i--;
             self::filter($key, $val);
-            if ($i) self::condition('AND');
+            if ($i) { 
+                self::condition($condition);
+            }
         }
         return new db_q();
     }
+    
+    /**
+     * set conditions as a array, but do not include =, <, or something else as array key param
+     * @param string $ary array('user_id' => 20, 'username' => 'myname);
+     * @param string $condition e.g. 'AND', 'OR' 
+     * @param string $operator e.g. (=)
+     * @return \db_q object
+     */
+    public static function filterArrayDirect ($ary, $condition = 'AND', $operator = '=') {
+        $i = count($ary);
+        foreach ($ary as $key => $val) {
+            $i--;
+            $key.= $operator; 
+            self::filter($key, $val);
+            if ($i) { 
+                self::condition($condition);
+            }
+        }
+        return new db_q();
+    }
+    
+    public static function prepareArray ($ary, $operator) {
+        
+    }
+    
+    
     
     /**
      * replace a row in a table
