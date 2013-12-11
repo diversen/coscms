@@ -234,7 +234,7 @@ class db_q  {
      * @param array $bind the values to bind values with
      */
     public static function setInsertValues ($values, $bind = array ()) {
-        
+        $rest = array ();
         $fieldnames = array_keys($values);
         $fields = '( ' . implode(' ,', $fieldnames) . ' )';
         self::$query.= $fields . ' VALUES ';
