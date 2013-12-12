@@ -554,12 +554,7 @@ class db_q  {
         }
         return new db_q();
     }
-    
-    public static function prepareArray ($ary, $operator) {
         
-    }
-    
-    
     
     /**
      * replace a row in a table
