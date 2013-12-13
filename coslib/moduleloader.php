@@ -500,7 +500,7 @@ class moduleloader {
      * @param string $path
      * @return string $reference 
      */
-    public static function moduleeReferenceToTable ($path) {
+    public static function moduleReferenceToTable ($path) {
         return str_replace('/', '_', $path);
     }
 
