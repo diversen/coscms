@@ -1,8 +1,8 @@
 {
-	"name": "diversen/simple-php-github-api",
+	"name": "diversen/simple-php-classes",
 	"type": "library",
-	"description": "simple php github api",
-	"homepage": "http://github.com/diversen/simple-php-github-api",
+	"description": "A collection of simle PHP classes",
+	"homepage": "http://github.com/diversen/simple-php-classes",
 	"keywords": ["github"],
 	"license": "BSD-3-Clause",
 	"authors": [
@@ -20,6 +20,4 @@
         "psr-0": { "diversen": "" }
     }
 }
-
-
 

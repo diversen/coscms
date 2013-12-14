@@ -2,7 +2,7 @@
 
 Very simple github API for PHP using OAuth
 
-### Example
+### A github app
 
 Make an github app under your github account -> edit profile -> apps
 
@@ -16,7 +16,7 @@ Callback URL:
 
     http://cos/test/github/example/callback.php
 
-### Example Usage
+### Example without composer
 
 Clone the source or download it into a web directory
 
@@ -39,7 +39,7 @@ go to http://cos/test/github/github.php (or your web path).
 This example will show the user his basic profile info.
 This could be used to make e.g. a login system. 
 
-### More info
+### More github API info
 
 For full listing of all API calls check: 
 
@@ -54,14 +54,16 @@ You can include the lib into a vendor library
 
 edit you `composer.json` file
 
-add the following to repos :
+add the following to repos (after I added this to packagist I believe you
+don't need it anymore):
 
-                    {
-                        "type": "vcs",
-                        "url": "https://github.com/diversen/simple-php-github-api"
-                    }
+    {
+        "type": "vcs",
+        "url": "https://github.com/diversen/simple-php-github-api"
+    }
+
+
 
 add the following to the require section: 
 
-                    "diversen/simple-php-github-api": "1.0.2",
-
+    "diversen/simple-php-github-api": "1.0.2"

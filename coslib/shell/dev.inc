@@ -1,5 +1,7 @@
 <?php
 
+use diversen\mycurl;
+
 /**
  * File containing documentation functions for shell mode
  *

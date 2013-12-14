@@ -8,14 +8,18 @@
 		    {
             		"type": "pear",
             		"url": "http://pear.php.net"
-        	    }
+        	    },
+		{
+                    "type": "vcs",
+                    "url": "https://github.com/diversen/simple-php-classes"
+                }
 
                     
                 ],
 
     "require": { 
         "tpyo/amazon-s3-php-class": "v0.5.0",
-        "diversen/simple-php-github-api": "1.0.2",
+        "diversen/simple-php-classes": "1.0.2",
 	"pear-pear/PEAR": "1.9.4",
 	"pear-pear/Pager": "2.4.8",
 	"pear-pear/Validate": "0.8.5",

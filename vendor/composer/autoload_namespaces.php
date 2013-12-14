@@ -6,7 +6,7 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
-    'diversen' => array($vendorDir . '/diversen/simple-php-github-api'),
+    'diversen' => array($vendorDir . '/diversen/simple-php-classes'),
     'Zend\\Stdlib\\' => array($vendorDir . '/zendframework/zend-stdlib'),
     'Zend\\Mime\\' => array($vendorDir . '/zendframework/zend-mime'),
     'Zend\\Mail\\' => array($vendorDir . '/zendframework/zend-mail'),

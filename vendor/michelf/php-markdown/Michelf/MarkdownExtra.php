@@ -36,3 +36,5 @@ class MarkdownExtra extends \Michelf\_MarkdownExtra_TmpImpl {
 
 }
 
+
+?>
