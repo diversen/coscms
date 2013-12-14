@@ -1,5 +1,6 @@
 <?php
 
+namespace diversen;
 /**
  * File contains a simple class for doing translations with google 
  * translate API
@@ -76,3 +77,4 @@ class gtranslate {
         return null;
     }
 }
+
