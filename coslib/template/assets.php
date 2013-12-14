@@ -606,13 +606,18 @@ class template_assets extends template {
         return $str;
     }
     
-    public static function getGalleryBgCssRandom () {
+    
+    /**
+     * gets css style for a random gallery image 
+     * @return string $str
+     */
+    public static function getGalleryBgCssRandom ($interval = 7) {
         if (!moduleloader::moduleExists('gallery')) {
             return '';
         }
         moduleloader::includeModule('gallery');
         $g = new gallery();
-        $random_img = $g->getRandomImageURL();
+        $random_img = $g->getShiftingImageURL();
         if (empty($random_img)) {
             return '';
         }
@@ -622,8 +627,8 @@ class template_assets extends template {
 body {
     background: url("{$random_img}") no-repeat fixed center center / cover rgba(0, 0, 0, 0);
     overflow: scroll;
+    
 }
-
 </style>
 EOF;
     return $css;
