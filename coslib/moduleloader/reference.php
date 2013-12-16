@@ -2,6 +2,12 @@
 
 class moduleloader_reference extends moduleloader {
             
+    
+    public static function getParentEditUrlFromOptions ($options) {
+        $str = '/' . $options['reference'] . "/edit/$options[parent_id]";
+        return $str;
+    }
+    
     /**
      * method for including a reference module
      * @param int $frag_reference_id
