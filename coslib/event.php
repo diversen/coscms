@@ -105,6 +105,18 @@ class event {
         return $str;
     }
     
+    public static function includeModules ($methods = array ()) {
+        foreach ($methods as $val) {
+            $ary = explode('::', $val);
+            $module = $class = $ary[0];
+            //$method = $ary[1];
+            if (moduleloader::isInstalledModule($module)) {
+                moduleloader::includeModule($module);
+            }
+        }
+        return;
+    }
+    
     /**
      * prepare methods if a method is empty it will be removed
      * @param array $methods
