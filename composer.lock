@@ -3,20 +3,20 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "7844ce1369a9b08034229d51e3c3d6d7",
+    "hash": "af54be8d5bb3f822912be09186b5e70e",
     "packages": [
         {
             "name": "diversen/simple-php-classes",
-            "version": "1.0.2",
+            "version": "1.0.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/diversen/simple-php-classes.git",
-                "reference": "c2d55ecaa5635fadcf79bd857277232c6ae603ca"
+                "reference": "e12274656fa0559a319bfc3c7f38c9074150bebe"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/diversen/simple-php-classes/zipball/c2d55ecaa5635fadcf79bd857277232c6ae603ca",
-                "reference": "c2d55ecaa5635fadcf79bd857277232c6ae603ca",
+                "url": "https://api.github.com/repos/diversen/simple-php-classes/zipball/e12274656fa0559a319bfc3c7f38c9074150bebe",
+                "reference": "e12274656fa0559a319bfc3c7f38c9074150bebe",
                 "shasum": ""
             },
             "require": {
@@ -45,10 +45,10 @@
                 "github"
             ],
             "support": {
-                "source": "https://github.com/diversen/simple-php-classes/tree/1.0.2",
+                "source": "https://github.com/diversen/simple-php-classes/tree/1.0.3",
                 "issues": "https://github.com/diversen/simple-php-classes/issues"
             },
-            "time": "2013-12-14 09:58:43"
+            "time": "2013-12-17 12:35:39"
         },
         {
             "name": "facebook/php-sdk",
