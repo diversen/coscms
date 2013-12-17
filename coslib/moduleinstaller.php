@@ -703,7 +703,9 @@ class moduleinstaller extends db {
         }
 
         $res = $this->createSQL () ;
-        if (!$res) return false;
+        if (!$res) { 
+            return false;
+        }
         
         if (isset($this->installInfo['VERSIONS'])) {
             // run anonymous functions for each version
