@@ -661,14 +661,14 @@ class db {
      * @param array $keys keys to use from request
      * @return array $ary array with post array we will use 
      */
-    public static function prepareToPostArray ($keys, $null_values = true) {
+    public static function prepareToPostArray ($keys, $null_values = true, $null_is = NULL) {
         $ary = array ();
         foreach ($keys as $val) {
             if (isset($_POST[$val])) {
                 $ary[$val] = $_POST[$val];
             } else {
                 if ($null_values) {
-                    $ary[$val] = NULL;
+                    $ary[$val] = $null_is;
                 }
             }
         }
