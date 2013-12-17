@@ -701,22 +701,53 @@ class moduleloader {
     }
     
     /**
-     * method for getting modules pre content. pre content is content shown
-     * before the real content of a page. E.g. admin options if any. 
+     * method for getting sub modules admin options as an array of links
      * 
      * @param array $modules the modules which we want to get pre content from
      * @param array $options spseciel options to be send to the sub module
-     * @return string   the parsed modules pre content as a string
+     * @return array $ary array containing submodule links
      */
     public static function subModuleGetAdminOptions ($modules, $options) {
         $str = '';
         $ary = array();
         
-        if (!is_array($modules)) return array ();
+        if (!is_array($modules)) { 
+            return array ();
+        }
+        
         foreach ($modules as $val){
             if (@method_exists($val, 'subModuleAdminOption') && moduleloader::isInstalledModule($val)){
                 $str = $val::subModuleAdminOption($options);
-                if (!empty($str)) $ary[] = $str;
+                if (!empty($str)) { 
+                    $ary[] = $str;
+                }
+            }
+        }
+        return $ary;
+    }
+    
+    /**
+     * method for getting sub modules admin options as an array of arrays containging
+     * array ('url', 'text' ,'link')
+     * 
+     * @param array $modules the modules which we want to get pre content from
+     * @param array $options spseciel options to be send to the sub module
+     * @return array $ary array containing submodule links
+     */
+    public static function subModuleGetAdminOptionsExtended ($modules, $options) {
+        $str = '';
+        $ary = array();
+        
+        if (!is_array($modules)) { 
+            return array ();
+        }
+        
+        foreach ($modules as $val){
+            if (@method_exists($val, 'subModuleAdminOption') && moduleloader::isInstalledModule($val)){
+                $a = $val::subModuleAdminOptionAry($options);
+                if (!empty($a)) { 
+                    $ary[] = $a;
+                }
             }
         }
         return $ary;
