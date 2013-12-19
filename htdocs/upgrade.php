@@ -13,8 +13,6 @@ if (!$password || !isset($_GET['password'])) {
 
         // reload language
         $reload = new moduleinstaller();
-        $reload->reloadCosLanguages();
         $reload->reloadLanguages();
-        
     }
 }

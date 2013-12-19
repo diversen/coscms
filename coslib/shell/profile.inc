@@ -139,10 +139,6 @@ function install_from_profile ($options){
     
     // set template
     $pro->setProfileTemplate();
-    
-    // reload language
-    $reload = new moduleinstaller();
-    $reload->reloadCosLanguages();
     return $final;
 }
 

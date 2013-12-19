@@ -73,10 +73,6 @@ function cos_install($options = false) {
 
     // set template
     $pro->setProfileTemplate();
-    
-    // insert all base translations
-    $md = new moduleinstaller();
-    $md->reloadCosLanguages();
 
 }
 
@@ -102,7 +98,6 @@ function cos_reset_install (){
  */
 function cos_reload_language(){
     $reload = new moduleinstaller();
-    $reload->reloadCosLanguages();
     $reload->reloadLanguages();
 }
 

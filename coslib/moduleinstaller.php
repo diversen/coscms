@@ -274,6 +274,7 @@ class moduleinstaller extends db {
      * method to reload all languages for system
      * These language files are placed in lang/
      * reloads language files one after another.
+     * @deprecated since 2.42 all language files in lang/ are now in system module
      */
     public function reloadCosLanguages(){        
         $modules = file::getFileList(_COS_PATH . "/lang/", array ('dir_only' => true));
