@@ -194,7 +194,7 @@ if (!config::isCli()){
     }
     
     mainTemplate::printHeader();
-    echo $str;
+    echo '<div id="content_module">'.$str.'</div>';
 
     $moduleloader->runLevel(6);
     mainTemplate::printFooter();   

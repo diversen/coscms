@@ -21,8 +21,6 @@ class cosgeshi {
      */
     public function filter($article){
         
-        //self::init();
-        
         if (config::getMainIni('filters_allow_files')) {
             $article = self::filterGeshiFile($article);
         }
