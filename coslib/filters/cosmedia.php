@@ -86,6 +86,7 @@ function vimeoCallback ($text) {
     $embed_code = $text[1];
     
     $str = <<<EOF
+<div class="media_container">
 <iframe 
     src="http://player.vimeo.com/video/$embed_code?title=0&amp;byline=0&amp;portrait=0"
     width="$width" 
@@ -93,6 +94,7 @@ function vimeoCallback ($text) {
     frameborder="0" 
     webkitAllowFullScreen mozallowfullscreen allowFullScreen>
 </iframe>
+</div>
 EOF;
     return $str;
 }
@@ -128,21 +130,23 @@ function linkifyYouTubeURLs2($text) {
 function youtubeCallback ($text) {
     $embed_code = $text[1];
     $ratio = cosmedia::videoRatio(420);
-    
-    //
+
     $width =420;
     $height = 315;
     $width = ceil($ratio * $width);
-    $height = ceil($ratio * $height); 
+    $height = ceil($ratio * $height);
+
     
     $str = <<<EOF
+<div class="media_container">
 <iframe 
     width="$width" 
-    height="$height"
+            height="$height"
     src="http://www.youtube.com/embed/$embed_code" 
     frameborder="0" 
     allowfullscreen>
 </iframe>
+</div>
 EOF;
     return $str;
 }
