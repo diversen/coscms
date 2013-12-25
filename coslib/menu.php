@@ -38,7 +38,9 @@ class menu {
     public static function getSystemMenuArray ($name){
         $db = new db();
         $row = $db->selectOne('system_menu', 'name', $name);
-        if (empty($row)) return array();
+        if (empty($row)) { 
+            return array();
+        }
         $ary = unserialize($row['menu_array']);
         return $ary;
     }
@@ -225,7 +227,9 @@ class menu {
 
         foreach ($ary as $val){
             // no title - item has been deleted.
-            if (empty($val['title'])) continue;
+            if (empty($val['title'])) { 
+                continue;
+            }
             $str.="<li id=\"list_$val[id]\"><div>";
             $str.= html::createLink(
                     content_article::getArticleUrl(
