@@ -978,7 +978,7 @@ class moduleloader {
         if (!$filter) return;
         
         $file_path = _COS_PATH . "/coslib/filters/$filter.php";
-        if (file_exists($file_path)) {             
+        if (file_exists($file_path)) {
             include_once "coslib/filters/$filter.php";
             return;
         }

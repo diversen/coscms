@@ -4,7 +4,7 @@
  *
  * class for highlighting source code. Uses geshi filter. 
  */
-class tab {
+class mdhighlight {
 
     /**
      *
@@ -21,9 +21,9 @@ class tab {
     public function filter($article){
         
         if (config::getMainIni('filters_allow_files')) {
-            $article = self::filterGeshiFile($article);
+            $article = self::filterFile($article);
         }
-        $article = self::filterGeshiInline($article);
+        $article = self::filterInline($article);
         return $article;
         
     }
@@ -32,7 +32,7 @@ class tab {
      * @param string $article
      * @return string $str
      */
-    public function filterGeshiInline ($article) {
+    public function filterInline ($article) {
         // find all codes of type [hl:lang]
         $reg_ex = "{(\[hl:[a-z\]]+)}i";
         preg_match_all($reg_ex, $article, $match);
@@ -56,7 +56,7 @@ class tab {
      * @param string $article
      * @return string $str
      */
-    public function filterGeshiFile ($article) {
+    public function filterFile ($article) {
         // find all codes of type [hl:lang]
         $reg_ex = "{(\[hl_file:[a-z\]]+)}i";
         preg_match_all($reg_ex, $article, $match);
@@ -111,11 +111,11 @@ class tab {
         $lines = strings_normalize::newlinesToUnix($str);
         $ary = explode("\n", $lines);
         
-        $newstr = '```' . $this->lang;
-        foreach($ary as $key => $val) {
-            $newstr.= "    $val\n";
+        $newstr = '```' . $this->lang . "\n";
+        foreach($ary as  $val) {
+            $newstr.= "$val\n";
         }
-        $newstr = '```';
+        $newstr.= '```';
         return $newstr;
     }
     
@@ -135,12 +135,13 @@ class tab {
         $lines = strings_normalize::newlinesToUnix($str);
         $ary = explode("\n", $lines);
         
-        $newstr = '';
-        foreach($ary as $val) {
-            $newstr.= "    $val\n";
+        $newstr = '```' . $this->lang . "\n";
+        foreach($ary as  $val) {
+            $newstr.= "$val\n";
         }
+        $newstr.= '```';
         return $newstr;
     }
 }
 
-class filters_tab extends tab {}
+class filters_mdhighlight extends mdhighlight {}
