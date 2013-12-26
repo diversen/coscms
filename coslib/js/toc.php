@@ -10,7 +10,7 @@ class js_toc {
         template::setJs('/js/js-toc/jquery.toc-1.1.4.js');
         //template::setCss('/js/js-toc/toc.css');
         if (!isset($options['exclude'])) {
-            //$options['exclude'] = 'h1';
+            $options['exclude'] = '';
         }
         if (!isset($options['context'])) {
             $options['context'] = '#content';
