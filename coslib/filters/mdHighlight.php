@@ -4,7 +4,7 @@
  *
  * class for highlighting source code. Uses geshi filter. 
  */
-class mdhighlight {
+class mdHighlight {
 
     /**
      *
@@ -144,4 +144,4 @@ class mdhighlight {
     }
 }
 
-class filters_mdhighlight extends mdhighlight {}
+class filters_mdHighlight extends mdHighlight {}

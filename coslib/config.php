@@ -649,8 +649,10 @@ class config {
     }
     
     /**
-     * method for getting domain. 
-     * @return string $domain the current domain
+     * method for getting server name. If not set in config.ini ('server_name')
+     * $_SERVER['SERVER_NAME'] will be used
+     * @return string $server_name the server name.  
+     *                
      */
     public static function getServerName () {
         $server_name = config::getMainIni('server_name');
