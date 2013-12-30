@@ -60,7 +60,6 @@ class uri_direct {
     
     /**
      * get a query part ?test=1&test=2
-     * @staticvar null $query_parts
      * @param string $part
      * @param string $url
      * @return string|null $query the query if set or null
