@@ -14,6 +14,8 @@ include_once "coslib/coslibSetup.php";
 include_once "coslib/head.php";
 include_once "coslib/shell/common.inc";
 
+intl::setLocale();
+
 /**
  * class shell is a wrapper function around PEAR::commandLine
  *

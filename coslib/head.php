@@ -123,21 +123,8 @@ if (!config::isCli()){
     // run level 2: set locales 
     $moduleloader->runLevel(2);
     
-    // find out what locales we are using
-    if (isset(config::$vars['coscms_main']['locale'])){
-        $locale = config::$vars['coscms_main']['locale'];
-    } else {
-        $locale = config::$vars['coscms_main']['language'].'.UTF8';
-    }
-
-    // set locale for time and monetary
-    // if the array locale is not sepcified we set time and money
-    // according to locales
-    setlocale(LC_TIME, $locale);
-    setlocale(LC_MONETARY, $locale);
-    
-    // set default timezone
-    date_default_timezone_set(config::$vars['coscms_main']['date_default_timezone']);
+    // set locales
+    intl::setLocale ();
     
     // runlevel 3 - init session
     $moduleloader->runLevel(3);

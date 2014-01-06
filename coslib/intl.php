@@ -12,6 +12,52 @@
 class intl {
     
     /**
+     * set locale according to configuration
+     */
+    public static function setLocale () {
+        
+        $locale = self::getLocale();
+        // set locale for time and monetary
+        // if the array locale is not sepcified we set time and money
+        // according to locales
+        setlocale(LC_TIME, $locale);
+        setlocale(LC_MONETARY, $locale);
+
+        // set default timezone
+        date_default_timezone_set(config::$vars['coscms_main']['date_default_timezone']);
+    }
+ 
+    /**
+     * best guess for getting locales
+     * If locale is set directly in configuration (or db override) we will
+     * use this locale. 
+     * @return string
+     */
+    public static function getLocale () {
+        // check in main config setting 'locale'
+        if (isset(config::$vars['coscms_main']['locale'])){
+            return config::$vars['coscms_main']['locale'];
+        }
+        
+        // if locale is not set we use language .utf8
+        if (isset(config::$vars['coscms_main']['language'])){
+            return config::$vars['coscms_main']['language'] . ".utf8";
+        }
+        
+        // return system locale (e.g. 'C')
+        return self::getSystemLocale();
+    }
+    
+    /**
+     * get machines system locales
+     * @return string $locale
+     */
+    public static function getSystemLocale () {
+        return setlocale(LC_CTYPE, 0);
+    }
+    
+    
+    /**
      * get unix system locales
      * @return array $ary array of system locales
      */
