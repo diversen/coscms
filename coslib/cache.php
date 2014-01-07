@@ -100,6 +100,8 @@ class cache {
         
         $values = array ('id' => $id, 'unix_ts' => time());
         $values['data'] = serialize($data);
+        
+        
         $db->insert(self::$table, $values);
         return $db->commit();
     }
@@ -108,12 +110,16 @@ class cache {
      * delete a string from cache
      * @param   string  $module
      * @param   int     $id
-     * @return  string  $str
+     * @return  boolean $res db result
      */
     public static function delete ($module, $id) {
         $id = self::generateId($module, $id);
         $db = new db();
         $search = array ('id' => $id);
-        return $db->delete(self::$table, null, $search);
+        
+        $row = $db->select(self::$table, null, $search);
+        if (!empty($row)) {
+            return $db->delete(self::$table, null, $search);
+        }
     }
 }

@@ -433,6 +433,9 @@ class db {
             }
             $ret = $stmt->execute();
         } else {
+            //print_r($values);
+            //die;
+            // Array ( [account_id] => 2 [cookie_id] => 4b6b5e5d57cc656aca3b465f2bfacfdc ) 
             $ret = $stmt->execute($values);
         }
         return $ret;

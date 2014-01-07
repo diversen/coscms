@@ -135,6 +135,8 @@ class menu {
             }
         }
     }
+    
+    public static $parsedTree = null;
 
     /**
      * recursive method for getting article tree as HTML
@@ -146,30 +148,29 @@ class menu {
     public static function getTreeHTML($menu, $name, $id){
         static $stack = null;
         static $first_done = null;
-
+        //self::$parsedTree = '';
+        
         if (!isset($stack)){
             $stack = self::getStack($name, $id);
             $stack = array_keys($stack);
         }
 
-        static $str = '';
-
         if (!empty($menu)){
             if (isset(self::$options['first_ul'])  && !isset($first_done)){
-                $str.= self::$options['first_ul'];
+                self::$parsedTree.= self::$options['first_ul'];
                 $first_done = 1;
             } else if (!isset($first_done)) {
-                $str.="<ul class=\"content_tree\">\n";
+                self::$parsedTree.="<ul class=\"content_tree\">\n";
              
             } else {
-                $str.="<ul class=\"content_tree\">\n";
+                self::$parsedTree.="<ul class=\"content_tree\">\n";
             }
         }
 
         $element = array_shift($stack);
         foreach ($menu as $val){
 
-            $str.="<li>" .
+            self::$parsedTree.="<li>" .
             html::createLink(
                     content_article::getArticleUrl(
                             $val['id'], $val['title']),
@@ -179,17 +180,17 @@ class menu {
                 if ( $element == $val['id']){
                     self::getTreeHTML($val['sub'], $name, $element);
                 } else {
-                    $str.="</li>\n";
+                    self::$parsedTree.="</li>\n";
                 }
             } else {
-                $str.="</li>\n";
+                self::$parsedTree.="</li>\n";
             }
         }
         
         if (!empty($menu)) {
-            $str.= "</ul>\n";
+            self::$parsedTree.= "</ul>\n";
         }
-        return $str;
+        return self::$parsedTree;
     }
 
 

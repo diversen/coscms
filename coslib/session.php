@@ -141,32 +141,37 @@ class session {
             // we got a cookie that equals one found in database
             if (!empty($row)){
                 $days = session::getCookiePersistentDays();
+                
                 // delete system_cookies that are out of date. 
+                $now = date::getDateNow();
+                $last = date::substractDaysFromTimestamp($now, $days);
                 
                 $sql = "
                     DELETE FROM `system_cookie` WHERE 
                         account_id = '$row[account_id]' AND 
-                        last_login < now() - interval $days day";
+                        last_login < '$last'";
                 $db->rawQuery($sql);
                 
-                // on every cookie login we update the cookie id and
-                // delete every user cookie that is older than 1 month
+                // on every cookie login we update the cookie id
+                
                 
                 $new_cookie_id = random::md5();
-                $values = array ('cookie_id' => $new_cookie_id);
+                $values = array (
+                    'cookie_id' => $new_cookie_id,
+                    'last_login' => date::getDateNow(array('hms' => true)));
                 $search = array ('cookie_id' => $_COOKIE['system_cookie']);
                 
                 // update new cookie id in db
                 $db->update('system_cookie', $values, $search);
 
-                
+                // set the new cookie
                 self::setCookie('system_cookie', $new_cookie_id);
                 
                 // get account which is connected to account id
                 $account = $db->selectOne('account', 'id', $row['account_id']);
                 
                 // user with account
-                if ($account){
+                if (!empty($account)){
                     
                     $_SESSION['id'] = $account['id'];
                     $_SESSION['admin'] = $account['admin'];
@@ -230,7 +235,9 @@ class session {
         // last login is auto updated
         $values = array (
             'account_id' => $user_id, 
-            'cookie_id' => $uniqid);
+            'cookie_id' => $uniqid,
+            'last_login' => date::getDateNow(array ('hms' => true))
+                );
         
         return $db->insert('system_cookie', $values);
     }
@@ -258,7 +265,7 @@ class session {
         return $cookie_time;
     }
     
-        /**
+    /**
      * return persistent cookie time in secs
      * @return int $time in secs
      */
