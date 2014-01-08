@@ -148,7 +148,6 @@ class menu {
     public static function getTreeHTML($menu, $name, $id){
         static $stack = null;
         static $first_done = null;
-        //self::$parsedTree = '';
         
         if (!isset($stack)){
             $stack = self::getStack($name, $id);
