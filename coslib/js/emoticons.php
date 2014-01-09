@@ -1,15 +1,20 @@
 <?php
 
-
-/* 
- * cd htdocs/templates
- * git clone git://github.com/JangoSteve/jQuery-CSSEmoticons.git emoticons
- * 
- * if you build a profile then the repo will be enabled, when rebuilding
- * your profile.
+/**
+ * file contains class for adding js emoticons
+ * to a document
+ * @package js
  */
 
-class coslib_emoticons {
+/**
+ * You will need this: 
+ * cd htdocs/templates
+ * git clone git://github.com/JangoSteve/jQuery-CSSEmoticons.git emoticons
+ * file contains class for adding js emoticons to a document
+ * @package js
+ */
+
+class js_emoticons {
     public static function setAssets($select = '#content'){
             
           template_assets::setCss("/templates/emoticons/stylesheets/jquery.cssemoticons.css");

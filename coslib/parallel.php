@@ -1,5 +1,16 @@
 <?php
 
+/**
+ * work in progress
+ * @ignore
+ * @package parallel
+ */
+
+/**
+ * work in progress
+ * @ignore
+ * @package parallel
+ */
 class parallel {
     
     

@@ -2,8 +2,7 @@
 
 /**
  * File contains contains class for doing paging
- *
- * @package    pager
+ * @package    paginate
  */
 
 /**
@@ -19,7 +18,7 @@ if (!defined('PAGER_PER_PAGE')){
 /**
  * class for doing paging. It is a wrapper around PEAR::Pager
  *
- * @package    pager
+ * @package    paginate
  */
 class pearPager {
     /**

@@ -1,19 +1,39 @@
 <?php
 
+/**
+ * File containing class for building a simple table from db
+ * @package html 
+ */
+
+/**
+ * class containing methods for building a very simple table from db
+ * @package html
+ */
+
 class html_table_db {
     
-    
+    /**
+     * get table definition
+     * @param string $table
+     * @return array $rows
+     */
     public function getShowTable ($table) {
         $db = new db();
         $sql = "DESCRIBE `$table`";
         $rows = $db->selectQuery($sql);       
-        return $rows;
-        
+        return $rows;        
     } 
     
+    /**
+     * get the table
+     * @param string $table
+     * @param int $from
+     * @param int $limit
+     * @return string $html
+     */
     public function getTable($table, $from, $limit = 100) {
         $total = db_q::numRows('account')->fetch();
-        $p = new pearPager($total);
+        $p = new paginate($total);
         $rows = db_q::select($table)->limit($p->from, $limit)->fetch();
         $str = "<table border =1><tr>";
         $str.= $this->getTableHeaders($table);
@@ -23,7 +43,12 @@ class html_table_db {
         return $str;
     }
     
-    public function getTableHeaders($table) {
+    /**
+     * get table headers
+     * @param string $table
+     * @return string $html
+     */
+    protected function getTableHeaders($table) {
         $rows = $this->getShowTable($table);
         $str = '';
         foreach($rows as $row) {
@@ -32,7 +57,12 @@ class html_table_db {
         return $str;
     }
     
-    public function getTableRows ($rows) {
+    /**
+     * get all the table rows
+     * @param array $rows
+     * @return string $html
+     */
+    protected function getTableRows ($rows) {
         $str = '';
         foreach ($rows as $row) {
             $str.= "<tr>\n";
@@ -47,6 +77,12 @@ class html_table_db {
         return $str;
     }
     
+    /**
+     * get td data
+     * @param string $str
+     * @param boolean $bool display headers
+     * @return string $html
+     */
     public function getTd($str, $header = false) {
         if ($header) {
             $td = "<th>"; $td_end = "</th>";
@@ -55,13 +91,4 @@ class html_table_db {
         }
         return $td . $str. $td_end . "\n";
     }
-    
-    public function getTableAsHtmlTable ($table) {
-        
-        
-        
-    }
-    
-    
-    
 }

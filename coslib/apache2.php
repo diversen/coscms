@@ -1,5 +1,14 @@
 <?php
 
+/**
+ * file contains class for doing insall, removal of apache2 virtual hosts
+ * @package apache2
+ */
+
+/**
+ * class contains class for doing insall, removal of apache2 virtual hosts
+ * @package apache2
+ */
 class apache2 {
     
     /**
@@ -14,7 +23,10 @@ class apache2 {
         return false;
     }
 
-    
+    /**
+     * gets apache2 version running
+     * @return string
+     */
     public static function getVersion() {
         exec('apache2 -v', $ary, $ret);
         $line = $ary[0];
@@ -25,6 +37,15 @@ class apache2 {
         return $matches[0];  
     }
     
+    /**
+     * gets a configuration file
+     * it knows about apache2 changes in 2_4_x
+     * where conf files needs to end on .conf
+     * @param string $SERVER_NAME
+     * @param string $DOCUMENT_ROOT
+     * @param string $APACHE_LOG_ROOT
+     * @return string $conf a apache2 conf file
+     */
     public static function getConf ($SERVER_NAME, $DOCUMENT_ROOT, $APACHE_LOG_ROOT) {
         $version = apache2::getVersion();
         $version = strings_version::getSemanticAry($version);
@@ -82,7 +103,7 @@ EOD;
     
     /**
      * difference in conf files in version 2.4.x
-     * @return type
+     * @return string
      */
     public static function get2_4_conf () {
         $str = <<<EOF
@@ -93,6 +114,13 @@ EOF;
         return $str;
     }
     
+    /**
+     * get apache2 with ssl configuration
+     * @param string $SERVER_NAME
+     * @param string $DOCUMENT_ROOT
+     * @param string $APACHE_LOG_ROOT
+     * @return string $conf apache2 ssl configuration
+     */
     public static function getConfSSL ($SERVER_NAME, $DOCUMENT_ROOT, $APACHE_LOG_ROOT) {
         $version = apache2::getVersion();
         $version = strings_version::getSemanticAry($version);

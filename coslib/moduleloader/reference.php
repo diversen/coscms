@@ -1,5 +1,15 @@
 <?php
 
+/**
+ * File contains class for getting module references
+ * @package    moduleloader
+ */
+
+/**
+ * Class contains methods for getting module references
+ * @package    moduleloader
+ */
+
 class moduleloader_reference extends moduleloader {
             
     

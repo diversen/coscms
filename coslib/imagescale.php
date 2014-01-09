@@ -2,7 +2,7 @@
 
 /**
  * File for scaling imagescale class
- * @package imagescale
+ * @package image
  */
 
 
@@ -13,7 +13,7 @@ include_once 'Image/Transform.php';
 
 /**
  * class imagescale is a simple wrapper around pear::Image_Transform
- * @package imagescale
+ * @package image
  */
 class imagescale {
     

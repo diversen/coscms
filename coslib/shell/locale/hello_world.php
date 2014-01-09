@@ -1,10 +1,16 @@
 <?php
 
-
+/**
+ * @ignore
+ */
 function hello_world_output () {
     echo "Hello world" . "\n";
 }
 
+/**
+ * @ignore
+ * @param type $params
+ */
 function hello_world_something ($params) {
     echo $params['sentence'] . "\n";
 }
@@ -31,4 +37,3 @@ mainCli::setArgument(
     array('description'=> 'Say something else',
         'optional' => true,
 ));
-

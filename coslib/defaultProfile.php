@@ -2,13 +2,13 @@
 
 /**
  * File contains methods when no user profile system is in place
- * @package defaultProfile
+ * @package user
  */
 
 /**
- * class for generating default_profile html and info when no user profile
+ * class for generating user html and info when no user profile
  * system is specified. 
- * @package defaultProfile
+ * @package user
  */
 
 class defaultProfile {

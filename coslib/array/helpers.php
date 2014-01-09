@@ -1,6 +1,15 @@
 <?php
 
-class coslib_array {
+/**
+ * file contains array helpers
+ * @package array
+ */
+
+/**
+ * class contains array helpers
+ * @package array
+ */
+class array_helpers {
     /**
      * prepares an array for db post where we specify keys to use 
      * @param array $keys keys to use from POST request

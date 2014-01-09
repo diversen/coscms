@@ -143,10 +143,10 @@ if (!config::isCli()){
     $moduleloader->runLevel(5);
     
     // load url routes if any
-    urldispatch::setDbRoutes();
+    uri_dispatch::setDbRoutes();
 
     $controller = null;
-    $route = urldispatch::getMatchRoutes();
+    $route = uri_dispatch::getMatchRoutes();
     if ($route) {
         // if any route is found we get controller from match
         // else we load module in default way
@@ -174,7 +174,7 @@ if (!config::isCli()){
 
     // if any matching route was found we check for a method or funciton
     if (isset($route['method'])) {
-        $str = urldispatch::call($route['method']);       
+        $str = uri_dispatch::call($route['method']);       
     } else {
         // or we use default ('old') module loading
         $str = $moduleloader->getParsedModule();

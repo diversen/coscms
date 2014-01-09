@@ -1,12 +1,14 @@
 <?php
 
+/**
+ * class contains simple imap class
+ * @package imap
+ */
 
 use Zend\Mail\Storage\Imap as ZendImap;
 //include_once "Zend/Mail/Storage/Imap.php";
 
-/**
- * Wrapper around Zend Mail Storage Imap 
- */
+
 
 /*
 Example: 
@@ -46,9 +48,19 @@ foreach ($parts['images'] as $key => $image) {
 
 */
 
-
+/**
+ * 
+ * Wrapper around Zend Mail Storage Imapfor opening, reading, deleting
+ * mail messages from imap
+ *  
+ * See example in coslib/imap
+ */
 class imap {
     
+    /**
+     * object holding Zend imap object
+     * @var object $mail
+     */
     public $mail = null;
     
     
@@ -71,6 +83,10 @@ class imap {
         }   
     }
     
+    /**
+     * connect. Se construct
+     * @param array $connect
+     */
     public function connect ($connect = null) {
         //print_r($connect); die ('t');
         $this->mail = new ZendImap($connect);
@@ -103,7 +119,7 @@ class imap {
     }
     
     /**
-     * gets from email from a message
+     * gets 'from' email from a message
      * @param int $num the message number
      * @return string $email_from
      */

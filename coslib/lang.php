@@ -3,13 +3,13 @@
 /**
  * File contains contains class creating simple translation
  *
- * @package    coslib
+ * @package    lang
  */
 
 /**
  * Class for doing simple translations
  *
- * @package    coslib
+ * @package    lang
  */
 class lang {
     

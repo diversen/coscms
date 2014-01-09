@@ -1,5 +1,14 @@
 <?php
 
+/**
+ * file contains strings_normalize
+ * @package strings
+ */
+
+/**
+ * class contains a method to normalize newlines
+ * @package strings
+ */
 class strings_normalize {
     // found on: http://darklaunch.com/2009/05/06/php-normalize-newlines-line-endings-crlf-cr-lf-unix-windows-mac
     public static function newlinesToUnix($s) {

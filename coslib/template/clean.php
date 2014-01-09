@@ -1,7 +1,21 @@
 <?php
 
+/**
+ * file contains a clean template, which can be used
+ * if we need to print a clean page
+ * @package template
+ */
+
+/**
+ * class contains a clean template, which can be used
+ * if we need to print a clean page
+ * @package template
+ */
 class template_clean {
     
+    /**
+     * echo the header
+     */
     public static function header () { ?>
 <!doctype html>
 <html lang="<?=config::$vars['coscms_main']['lang']?>">
@@ -37,6 +51,9 @@ echo template_assets::getInlineCss();
 <body><?php
     }
 
+    /**
+     * eho the footer
+     */
     public static function footer () {
 
 echo template::getEndHTML();

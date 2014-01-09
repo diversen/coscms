@@ -1,5 +1,15 @@
 <?php
 
+/**
+ * file contains class for parsing a user agent
+ * @package useragent
+ */
+
+/**
+ * class useragent contains a single call which will return 
+ * usefull info about the user agent
+ * @package useragent
+ */
 class useragent {
     /**
      * Parses a user agent string into its important parts
@@ -18,7 +28,7 @@ class useragent {
 
 /**
 * Parses a user agent string into its important parts
-* 
+* @ignore
 * @author Jesse G. Donat <donatj@gmail.com>
 * @link https://github.com/donatj/PhpUserAgent
 * @link http://donatstudios.com/PHP-Parser-HTTP_USER_AGENT

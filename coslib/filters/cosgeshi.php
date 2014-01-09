@@ -1,23 +1,44 @@
 <?php
 
-include_once "geshi/geshi.php";
+
 /**
- *
- * class for highlighting source code. Uses geshi filter. 
+ * file contains filter for higlighting using geshi
+ * You will need to have a recent version of geshi
+ * where it can be inclued from
+ * 
+ * @package    filters
  */
+
+/**
+ * @ignore
+ */
+include_once "geshi/geshi.php";
+
+/**
+ * file contains filter for higlighting using geshi
+ * You will need to have a recent version of geshi
+ * where it can be inclued from
+ * 
+ * @package    filters
+ */
+
+
+
 class cosgeshi {
 
     /**
      *
-     * @var <string> $language - the language to use.
+     * @var string $language - the language to use.
      */
     private $lang;
 
 
     /**
-     *
-     * @param string $article string to filter.
-     * @return 
+     * highlight a text using geshi. 
+     * in your text you will need, e.g. for PHP,
+     * <code>[hl:php]<?php echo "hello world";?>[/hl:php]</code>
+     * @param string $text string to filter.
+     * @return string $text the filtered text
      */
     public function filter($article){
         
@@ -129,4 +150,7 @@ class cosgeshi {
     }
 }
 
+/**
+ * added for autoloading purpose
+ */
 class filters_cosgeshi extends cosgeshi {}

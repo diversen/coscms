@@ -3,13 +3,13 @@
 /**
  * file contains class for creating simple paging 
  * for e.g. images with prev next
- * @package pager
+ * @package paginate
  */
 
 /**
  * class for creating simple paging 
  * for e.g. images with prev next
- * @package pager 
+ * @package paginate
  */
 class pageSets {
     

@@ -1,30 +1,44 @@
 <?php
 
+/**
+ * File containing media filter
+ * @package filters
+ */
 
 /**
- * class for substituing youtube links with inline videos.
+ * class that create inline vimeo, youtaube, and soundcloud from URLs
+ * @package filters
  */
 class cosmedia {
 
     /**
-     *
-     * @param   string    string to filter.
-     * @return  string    string with html with inline videos.
+     * do the filtering
+     * @param   string  $text text to filter.
+     * @return  string  $text text (html) with inline videos.
      */
-    public static function filter($text){
-        $text =  self::replaceYoutube($text);
+    public static function filter($text) {
+        $text = self::doAll($text);
         return $text;
     }
 
-    public static function replaceYoutube ($text){
-        $text = linkifyVimeo($text);
-        $text = linkifyYouTubeURLs2($text);
-        $text = linkifySoundcloud($text);
+    /**
+     * do all filters
+     * @param string $text
+     * @return string $text
+     */
+    public static function doAll($text) {
+        $text = self::linkifyVimeo($text);
+        $text = self::linkifyYouTubeURLs2($text);
+        $text = self::linkifySoundcloud($text);
         return $text;
     }
     
-    public static function videoRatio ($default = 600) {
-        
+    /**
+     * calculate a video ratio
+     * @param int $default
+     * @return int $ratio the ratio
+     */
+    public static function videoRatio($default = 600) {
         $width = config::getMainIni('media_width');
         if ($width) {
             return $ratio = $width / $default;
@@ -32,60 +46,68 @@ class cosmedia {
             return 1;
         }
     }
-}
 
-class filters_cosmedia extends cosmedia {}
-
-function linkifyVimeo ($text) {
-    //$link = 'http://vimeo.com/10638288';
-    $text = preg_replace_callback('~
+    /**
+     * make inline vimeo videos
+     * @param string $text
+     * @return string $text
+     */
+    function linkifyVimeo($text) {
+        //$link = 'http://vimeo.com/10638288';
+        $text = preg_replace_callback('~
         # Match non-linked youtube URL in the wild. (Rev:20111012)
         https?://         # Required scheme. Either http or https.
         vimeo\.com/      # or vimeo.com followed by
         (\d+)             # a number of digits
-        ~ix',
-            
+        ~ix', array('self', 'vimeoCallback'), $text);
+        return $text;
+    }
 
-            'vimeoCallback', 
-            $text);
-    return $text;
+    /**
+     * make inline soundcloud media from urls
+     * @param type $text
+     * @return type
+     */
+    function linkifySoundcloud($text) {
+        include_once "soundcloud.php";
+        $regex = '~https?://soundcloud\.com/[\-a-z0-9_]+/[\-a-z0-9_]+~ix';
+        $text = preg_replace_callback($regex, array('self', 'soundcloudCallback'), $text);
+        return $text;
+    }
 
+    /**
+     * soundcloud callback
+     * @param array $match
+     * @return string
+     */
+    function soundcloudCallback($match) {
+        $url = $match[0];
 
-}
-
-function linkifySoundcloud ($text) {
-
-    $regex = '~https?://soundcloud\.com/[\-a-z0-9_]+/[\-a-z0-9_]+~ix';
-    $text = preg_replace_callback($regex,
-            'soundcloudCallback', 
-            $text);
-    return $text;
-}
-
-function soundcloudCallback ($match) {
-    $url = $match[0];
+        //include_once "soundcloud.php";
+        //$atts = 'soundcloud params="color=33e040&theme_color=80e4a0&iframe=true';
+        $atts = array(
+            'color' => '33e040',
+            'theme_color' => '80e4a0',
+            'iframe' => true
+        );
+        return soundcloud_shortcode($atts, $url);
+    }
     
-    include_once "soundcloud.php";
-    //$atts = 'soundcloud params="color=33e040&theme_color=80e4a0&iframe=true';
-    $atts = array (
-        'color' => '33e040',
-        'theme_color' => '80e4a0',
-        'iframe' => true
-        
-            );
-    return soundcloud_shortcode($atts, $url);
-}
+    /**
+     * vimeo callback
+     * @param array $matches
+     * @return string $text
+     */
+    function vimeoCallback($matches) {
 
-function vimeoCallback ($text) {
+        $ratio = cosmedia::videoRatio(400);
+        $width = 400;
+        $height = 225;
+        $width = ceil($ratio * $width);
+        $height = ceil($ratio * $height);
+        $embed_code = $matches[1];
 
-    $ratio = cosmedia::videoRatio(400);
-    $width =400;
-    $height = 225;
-    $width = ceil($ratio * $width);
-    $height = ceil($ratio * $height);    
-    $embed_code = $text[1];
-    
-    $str = <<<EOF
+        $str = <<<EOF
 <div class="media_container">
 <iframe 
     src="http://player.vimeo.com/video/$embed_code?title=0&amp;byline=0&amp;portrait=0"
@@ -96,12 +118,16 @@ function vimeoCallback ($text) {
 </iframe>
 </div>
 EOF;
-    return $str;
-}
+        return $str;
+    }
 
-// Linkify youtube URLs which are not already links.
-function linkifyYouTubeURLs2($text) {
-    $text = preg_replace_callback('~
+    /**
+     * make inline youtube videos from links
+     * @param string $text
+     * @return string $text
+     */
+    function linkifyYouTubeURLs2($text) {
+        $text = preg_replace_callback('~
         # Match non-linked youtube URL in the wild. (Rev:20111012)
         https?://         # Required scheme. Either http or https.
         (?:[0-9A-Z-]+\.)? # Optional subdomain.
@@ -121,23 +147,26 @@ function linkifyYouTubeURLs2($text) {
           )               # End recognized pre-linked alts.
         )                 # End negative lookahead assertion.
         [?=&+%\w\-]*      # Consume any URL (query) remainder.
-        ~ix', 
-        'youtubeCallback',
-        $text);
-    return $text;
-}
+        ~ix', array('self', 'youtubeCallback'), $text);
+        return $text;
+    }
 
-function youtubeCallback ($text) {
-    $embed_code = $text[1];
-    $ratio = cosmedia::videoRatio(420);
+    /**
+     * youtube callback
+     * @param array $matches
+     * @return string $text
+     */
+    function youtubeCallback($matches) {
+        $embed_code = $matches[1];
+        $ratio = cosmedia::videoRatio(420);
 
-    $width =420;
-    $height = 315;
-    $width = ceil($ratio * $width);
-    $height = ceil($ratio * $height);
+        $width = 420;
+        $height = 315;
+        $width = ceil($ratio * $width);
+        $height = ceil($ratio * $height);
 
-    
-    $str = <<<EOF
+
+        $str = <<<EOF
 <div class="media_container">
 <iframe 
     width="$width" 
@@ -148,8 +177,15 @@ function youtubeCallback ($text) {
 </iframe>
 </div>
 EOF;
-    return $str;
+        return $str;
+    }
+
 }
 
-
-
+/**
+ * extension of cosmedia for autoload purpose only
+ * @package filters
+ */
+class filters_cosmedia extends cosmedia {
+    
+}

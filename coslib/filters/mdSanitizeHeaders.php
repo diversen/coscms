@@ -1,12 +1,23 @@
 <?php
 
 /**
- * sanitize markdown headers according to a header. 
- * e.g. 1 (h1)
- * You will need to use mdSanitizeHeaders::filter($text, $level)
+ * file contains class for sanitizing markdown headers according
+ * to a level (1-6)
+ * @package filters
+ */
+
+/**
+ * file contains class for sanitizing markdown headers according
+ * to a level (1-6)
+ * @package filters
  */
 
 class mdSanitizeHeaders {
+    
+    /**
+     * level
+     * @var int $level (1-6)
+     */
     public $level = null;
     
     /**
@@ -15,7 +26,7 @@ class mdSanitizeHeaders {
      * @param int $level header level (1-6)
      * @return string $text markdown text
      */
-    function filter ($text, $level) {
+    public function filter ($text, $level) {
         $this->level = $level;
         $text = preg_replace('{\r\n?}', "\n", $text);
         return $this->doHeaders($text); 
@@ -71,4 +82,8 @@ class mdSanitizeHeaders {
 	}
 }
 
+/**
+ * class only for auto loading purpose
+ * @package filters
+ */
 class filters_mdSanitizeHeaders extends mdSanitizeHeaders {}

@@ -2,7 +2,7 @@
 
 /**
  * simple url dispatch class
- * @package urldispatch 
+ * @package uri 
  */
 
 /**
@@ -12,9 +12,9 @@
  * file as the urlmatching patterns are stored in database. Example from 
  * a install.inc file: 
  * 
- * @package urldispatch 
+ * @package uri 
  */
-class urldispatch {
+class uri_dispatch {
     
     /**
      * var holding pathInfo

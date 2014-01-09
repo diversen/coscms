@@ -1,10 +1,19 @@
 <?php
 
-include_once "Mail/mime.php";
-
+/**
+ * file contains mail mime 
+ * @package cosMail
+ */
 
 /**
+ * @ignore
+ */
+include_once "Mail/mime.php";
+
+/**
+ * class contains mail mime helpers
  * thin wrapper around Mail::Mime
+ * @package cosMail
  */
 class cosMail_mime {
     /**

@@ -4,7 +4,6 @@
 /**
  * File contains contains class for connecting to a mysql database
  * with PDO and doing basic crud operations and simple search operations. 
- *
  * @package    db
  */
 

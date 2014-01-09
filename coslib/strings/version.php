@@ -1,7 +1,13 @@
 <?php
 
 /**
- * get a semantic version from a string
+ * file contains strings_version
+ * @package strings
+ */
+
+/**
+ * class contains a method to get versions from strings
+ * @package strings
  */
 class strings_version {
     /**

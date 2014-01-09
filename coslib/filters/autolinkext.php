@@ -1,8 +1,15 @@
 <?php
 
+/**
+ * file contains filter for creating links from urls
+ * @package    filters
+ */
 
 /**
- * autolinking filter
+ * class contains method for creating links from urls
+ * much the same as autolink class, but this is better
+ * as there is a options for setting links not to be linkified
+ * @package    filters
  */
 class autolinkext {
 
@@ -12,19 +19,19 @@ class autolinkext {
      * @return string $text
      */
     public static function filter($text){        
-       $text = self::auto_link_text($text);
+       $text = self::autoLink($text);
        return $text;
     }
     
    /**
-    * // found on: http://stackoverflow.com/questions/1925455/how-to-mimic-stackoverflow-auto-link-behavior
-    * // from http://daringfireball.net/2009/11/liberal_regex_for_matching_urls
+    * found on: http://stackoverflow.com/questions/1925455/how-to-mimic-stackoverflow-auto-link-behavior
+    * from http://daringfireball.net/2009/11/liberal_regex_for_matching_urls
     * Replace links in text with html links
     *
     * @param  string $text
-    * @return string
+    * @return string $string
     */
-   public static function auto_link_text($text)
+   private static function autoLink($text)
    {
       $pattern  = '#\b(([\w-]+://?|www[.])[^\s()<>]+(?:\([\w\d]+\)|([^[:punct:]\s]|/)))#';
       $callback = function($matches) { 
@@ -52,12 +59,13 @@ class autolinkext {
       return preg_replace_callback($pattern, $callback, $text);
     }
     
-    public static function getDenyhosts () {
+    private static function getDenyhosts () {
         return array ('www.vimeo.com', 'soundcloud.com', 'youtu.be', 'www.youtu.be', 'www.youtube.com', 'youtube.com');
     }
 }
 
 /**
- * added for autoloading
+ * added for autoloading purpose
+ * @package filters
  */
 class filters_autolinkext extends autolinkext {}

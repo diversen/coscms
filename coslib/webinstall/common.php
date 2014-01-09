@@ -7,12 +7,15 @@
  * htdocs/install.php
  * htdocs/upgrade.php
  * 
+ * @package webinstall
+ * 
  */
 
 /**
  * class installDb
  * Only method change is connect.
  * We don't try and catch in the class
+ * @package webinstall
  */
 class installDb extends db {
     public $sql;
@@ -29,6 +32,10 @@ class installDb extends db {
     }
 }
 
+/**
+ * function that checks for ok version to use
+ * @package webinstall
+ */
 function cos_check_version () {
     $version = "5.3.0";
     if (version_compare( $version, phpversion(), ">=")) {
@@ -38,7 +45,10 @@ function cos_check_version () {
     }
 }
 
-
+/**
+ * function that checks for pdo mysql version to use
+ * @package webinstall
+ */
 
 function cos_check_pdo_mysql () {
     $ary = get_loaded_extensions();
@@ -55,6 +65,10 @@ function cos_check_pdo_mysql () {
     }
 }
 
+/**
+ * function that checks for magic gpc off
+ * @package webinstall
+ */
 function cos_check_magic_gpc () {
     if (get_magic_quotes_gpc()){
         echo "magic_quotes_gpc is on. Error";
@@ -64,6 +78,10 @@ function cos_check_magic_gpc () {
     }
 }
 
+/**
+ * function that checks for files dir,
+ * and also checks is it is writable
+ */
 function cos_check_files_dir () {
     clearstatcache();
     $files_dir = _COS_HTDOCS . "/files";
@@ -82,7 +100,9 @@ function cos_check_files_dir () {
     }
 }
 
-
+/**
+ * function that alllows the install to add a user
+ */
 function web_install_add_user () {
 
     $layout = new layout('zimpleza');
@@ -127,6 +147,9 @@ function web_install_add_user () {
     web_install_user_form ();
 }
 
+/**
+ * function that displays user add form
+ */
 function web_install_user_form () {
     $form = new html();
     $form->formStart();

@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * file contains a simple image captcha class
+ * @package image
+ */
+
 // folowing class is modified from: 
 
 // -------------------------------------------------------------------
@@ -11,6 +16,11 @@
 // -------------------------------------------------------------------
 
 //if(!defined("INSITE")) { die("No direct access allowed!"); }
+
+/**
+ * class contains simple image captcha methods
+ * @package image
+ */
 
 class image_captcha {
 
