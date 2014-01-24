@@ -1,5 +1,15 @@
 <?php
 
+/**
+ * file containing some tests for date
+ * @ignore
+ */
+
+/**
+ * file containing some tests for date
+ * @ignore
+ */
+
 define('_COS_PATH', '.');
 include_once "coslib/coslibSetup.php";
 

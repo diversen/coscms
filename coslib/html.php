@@ -78,7 +78,8 @@ class html {
      * @param array $values initial values for the form e.g. 
      *              array ('name' => 'test')
      * @param string $trigger the trigger value which tells the object to
-     *               stop using the initial set values 
+     *               stop using the initial set values. Normal 'submit' as
+     *               this is normal the name of submit buttom
      */
     public static function init ($values = array (), $trigger = null) {        
         

@@ -165,14 +165,14 @@ if (!config::isCli()){
     $layout = new layout();
 
     // we first load menus here so we can se what happened when we
-    // inited module. In case of a 404 not found error we don't want
+    // init our module. In case of a 404 not found error we don't want
     // to load module menus
     $layout->loadMenus();
     
     // init blocks
     $layout->initBlocks();
 
-    // if any matching route was found we check for a method or funciton
+    // if any matching route was found we check for a method or function
     if (isset($route['method'])) {
         $str = uri_dispatch::call($route['method']);       
     } else {

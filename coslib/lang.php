@@ -284,7 +284,7 @@ class lang {
         
         // check if there is a template_load_all
         if (moduleloader::isInstalledModule('locales')) {
-            include_module('locales');    
+            moduleloader::includeModule('locales');    
             self::$dict = locales_db::loadLanguageFromDb($language);
             return;
         }

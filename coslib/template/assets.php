@@ -84,6 +84,9 @@ class template_assets extends template {
      * @param type $type 
      */
     public static function cacheAsset ($asset, $order, $type, $options = array ()) {
+        if (config::isCli()) {
+            return;
+        }
         static $cacheChecked = false;
         
         if (!$cacheChecked) {

@@ -173,13 +173,23 @@ class layout {
         // get base menu from file. Base menu is always loaded if found.
         // we decide this from num fragments in uri. 
         $module = uri::getInstance()->fragment(0);
+        
+        // if no module it must be 'frontpage_module' set
+        // in configuration
+        if (!$module) {
+            $module = config::getMainIni('frontpage_module');
+            $menu = self::getBaseModuleMenu($module);
+            self::$menu['module'] = array_merge(self::$menu['module'], $menu);
+            return;
+        }
+        
+        // main module, e.g content
         if ($num >= 2){           
             $menu = self::getBaseModuleMenu($module);
             self::$menu['module'] = array_merge(self::$menu['module'], $menu);
         }
 
-        // with num fragments larger then two we know there may be a sub module
-        // parse sub level module menu if a such exists
+        // sub module e.g. content/article
         if ($num > 2){
             $sub = uri::getInstance()->fragment(0). '/' . 
                    uri::getInstance()->fragment(1);
@@ -215,7 +225,7 @@ class layout {
     /**
      * sets the self::$current array with an entry
      * Then we can set menu items and set the class 'current'
-     * @paran string $current the current module
+     * @param string $current the current module
      * @param string $module the module menu which should be set
      */
     public static function setCurrentModuleMenu ($key, $module) {
@@ -555,15 +565,14 @@ class layout {
                 $str .= MENU_SUB_SEPARATOR;
             }
             
-            /*
-            if (isset($v['canonical'])) {
-                $v['url'] = config::getMainIni('server_name_canonical') . $v['url'];
-            }*/
-            
             $options = self::getMenuLinkOptions($v);
             
-            $num_items--;       
-            $str.= html::createLink($v['url'], $v['title']);
+            $num_items--; 
+            
+            if (!isset($v['extra'])) {
+                $v['extra'] = array ();
+            }
+            $str.= html::createLink($v['url'], $v['title'], $v['extra']);
             $str.= "</li>\n";
         }
         
@@ -737,5 +746,54 @@ class layout {
             }
         }
         return $ret_blocks;
+    }
+    
+    /**
+     * generates a standard menu list from an array
+     * @param array $options
+     * @return string $str
+     */
+    public static function parseMenuArray ($options) {
+        
+        $str = '';
+        $i = count($options);
+        foreach ($options as $option) {
+            $i--;
+            
+            // if option is a stand menu item
+            if (is_array($option)) {
+                $add = self::parseMenuLinkFromArray($option);
+                if (!$add) {
+                    continue;
+                } else {
+                    $str.=$add;
+                }
+            } else {
+                $str.=$option;
+            }
+            if ($i) {
+                $str.= MENU_SUB_SEPARATOR;
+            }
+        }
+        return $str;
+    }
+    
+    /**
+     * transforms a menu array into a menu link
+     * @param array $menu
+     * @return string $str
+     */
+    public static function parseMenuLinkFromArray ($menu) {
+        if (!isset($menu['extra'])) {
+            $menu['extra'] = array ();
+        }
+        if (isset($menu['auth']) && !empty($menu['auth'])) {
+            if (!session::checkAccessClean($menu['auth'])) {
+                return false;
+            }
+            return html::createLink($menu['url'], $menu['title'], $menu['extra']);
+        } else {
+            return html::createLink($menu['url'], $menu['title'], $menu['extra']);
+        }
     }
 }

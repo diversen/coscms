@@ -458,6 +458,14 @@ class db_q  {
         self::unsetVars();
         return $res;
     }
+    
+    /**
+     * get last inset id
+     * @return int $id last insert id
+     */
+    public static function lastInsertId () {
+        return self::$dbh->lastInsertId();
+    }
 
     /**
      * fetch a single row, first in line

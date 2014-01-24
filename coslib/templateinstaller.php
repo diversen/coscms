@@ -1,6 +1,11 @@
 <?php
 
 /**
+ * file contains the template installer
+ * @package installer
+ */
+
+/**
  * class for installing a templates or upgrading it.
  * base actions are:
  *
@@ -11,7 +16,7 @@
  *
  * If more upgrades exist. Upgrade all one after one.
  * 
- * @package    moduleinstaller
+ * @package    installer
  */
 
 class templateinstaller extends moduleinstaller {
@@ -27,7 +32,7 @@ class templateinstaller extends moduleinstaller {
      * constructor which will take the template to install, upgrade or delete
      * as param
      *
-     * @param string name of template to do operations on
+     * @param array $options
      */
     function __construct($options = null){
         if (isset($options)){

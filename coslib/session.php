@@ -81,8 +81,9 @@ class session {
         // set a session name. You need this if the session 
         // should cross sub domains
         $session_name = config::getMainIni('session_name');
-        if ($session_name) session_name($session_name);
-        
+        if ($session_name) { 
+            session_name($session_name);
+        }
     }
     
     /**
@@ -589,6 +590,18 @@ class session {
      * @return boolean $res true if admin else false. 
      */
     public static function checkAccess ($type = null) {
+        $res = self::checkAccessClean($type);
+        
+        if (!$res) {
+            moduleloader::$status[403] = 1;
+            return false;
+        } else {
+            return true;
+        }
+    }
+    
+    
+    public static function checkAccessClean ($type = null) {
         $res = false;
         if ($type == 'user') {
             $res = session::isUser();
@@ -601,16 +614,8 @@ class session {
         if ($type == 'super') {
             $res = session::isSuper();
         }
-        
-        if (!$res) {
-            moduleloader::$status[403] = 1;
-            return false;
-        } else {
-            return true;
-        }
+        return $res;
     }
-    
-    
 
     /**
      * method for relocate user to login, and after correct login 

@@ -5,7 +5,7 @@
  * *
  * File which contains class for installing modules
  *
- * @package    moduleinstaller
+ * @package    installer
  */
 
 /**
@@ -26,7 +26,7 @@ include_once "coslib/shell/common.inc";
  *
  * remove: removes the module from the modules table
  * and also tables connected to module.
- * @package    moduleinstaller
+ * @package    installer
  */
 class moduleinstaller extends db {
 
@@ -668,10 +668,16 @@ class moduleinstaller extends db {
                     
                     // all sql statements are executed one after one. 
                     // in your sql file any statement is seperated with \n\n
-                    $sql_ary = explode ("\n\n", $sql);
-                    
-                    foreach ($sql_ary as $sql_key => $sql_val){
-                        $result = self::$dbh->exec($sql_val);
+                    $sql_ary = explode("\n\n", $sql);
+
+                    foreach ($sql_ary as $sql_key => $sql_val) {
+                        try {
+                            $result = self::$dbh->exec($sql_val);
+                        } catch (Exception $e) {
+                            echo "Error in install $val: ";
+                            echo $e->getMessage();
+                            die();
+                        }
                         if ($result === false) {
                             die("error");
                         }
@@ -777,7 +783,14 @@ class moduleinstaller extends db {
                     if (isset($sql)) {
                         $sql_ary = explode ("\n\n", $sql);
                         foreach ($sql_ary as $sql_key => $sql_val){
-                            $result = self::$dbh->query($sql_val);
+                            try {
+                                $result = self::$dbh->query($sql_val);
+                            } catch (Exception $e) {
+                                echo "Error in uninstall $version: ";
+                                echo $e->getMessage();
+                                
+                                die();
+                            }
                         }
                         
                     $commit = true;

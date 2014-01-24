@@ -1,7 +1,11 @@
 <?php
 
 /**
- * File contains a simple class for clearing caches
+ * File contains methods for clearing all or some of the cached assets
+ */
+
+/**
+ * Class contains a simple class for clearing caches
  * @package cache_clear
  */
 

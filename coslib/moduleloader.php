@@ -236,6 +236,7 @@ class moduleloader {
     public function setHomeModuleInfo(){
         
         $frontpage_module = config::getMainIni('frontpage_module');
+        $this->info['is_frontpage'] = true;
         $this->info['module_name'] = $frontpage_module;
         $this->info['module_base_name'] = $frontpage_module;
         $this->info['base'] = $base = _COS_MOD_PATH;
@@ -255,7 +256,7 @@ class moduleloader {
         $this->info['controller_file'] = $controller_file;
         $this->info['controller'] = 'index';
         $this->info['module_class'] = $this->info['module_name'] . "";
-
+        
     }
     
     /**
@@ -344,7 +345,7 @@ class moduleloader {
             $this->info['module_class'] = self::modulePathToClassName($this->info['module_name']);
         }
         
-        if (!moduleloader::isInstalledModule($this->info['module_base_name'])){          
+        if (!self::isInstalledModule($this->info['module_base_name'])){          
             self::$status[404] = 1;
             $this->setErrorModuleInfo(); 
         } 
@@ -360,11 +361,8 @@ class moduleloader {
         
         $module = $this->info['module_name'];  
         self::$running = $module;
-        moduleloader::includeModule($module);
+        self::includeModule($module);
         
-        
-
-
         // set module template if specified
         // e.g. in account.ini:
         // template = 'clean'
@@ -459,25 +457,7 @@ class moduleloader {
      * @return string   $classname (e.g. accountProfile)
      */
     public static function modulePathToClassName ($path){
-
         return str_replace('/', '_', $path);
-        /*
-        $ary = explode('/', $path);
-        if (count($ary) == 1){
-            $class = $path;
-        }
-        if (count($ary) == 2){
-            $class = $ary[0] . ucfirst($ary[1]);
-        }
-
-        $ary = explode('_', $class);
-        if (count($ary) == 1){
-            return $ary[0];
-        }
-        if (count($ary) == 2){
-            $str = $ary[0] . ucfirst($ary[1]);
-            return $str;
-        }*/
     }
     
     /**
@@ -688,7 +668,7 @@ class moduleloader {
         if (!is_array($modules)) return array ();
         foreach ($modules as $val){
             $str = '';
-            if (@method_exists($val, 'subModulePreContent') && moduleloader::isInstalledModule($val)){
+            if (@method_exists($val, 'subModulePreContent') && self::isInstalledModule($val)){
                 $str = $val::subModulePreContent($options);
                 if (!empty($str)) {
                     $ary[] = $str;
@@ -714,7 +694,7 @@ class moduleloader {
         }
         
         foreach ($modules as $val){
-            if (@method_exists($val, 'subModuleAdminOption') && moduleloader::isInstalledModule($val)){
+            if (@method_exists($val, 'subModuleAdminOption') && self::isInstalledModule($val)){
                 $str = $val::subModuleAdminOption($options);
                 if (!empty($str)) { 
                     $ary[] = $str;
@@ -741,7 +721,7 @@ class moduleloader {
         }
         
         foreach ($modules as $val){
-            if (@method_exists($val, 'subModuleAdminOption') && moduleloader::isInstalledModule($val)){
+            if (@method_exists($val, 'subModuleAdminOption') && self::isInstalledModule($val)){
                 $a = $val::subModuleAdminOptionAry($options);
                 if (!empty($a)) { 
                     $ary[] = $a;
@@ -803,7 +783,7 @@ class moduleloader {
         $ary = array ();
         if (!is_array($modules)) return $ary;
         foreach ($modules as $val){
-            if (method_exists($val, 'subModuleInlineContent') && moduleloader::isInstalledModule($val)){
+            if (method_exists($val, 'subModuleInlineContent') && self::isInstalledModule($val)){
                 $str = $val::subModuleInlineContent($options);
                 if (!empty($str)) $ary[] = $str;
             }
@@ -822,7 +802,7 @@ class moduleloader {
         $ary = array ();
         if (!is_array($modules)) return $ary;
         foreach ($modules as $val){
-            if (@method_exists($val, 'subModulePostContent') && moduleloader::isInstalledModule($val)){
+            if (@method_exists($val, 'subModulePostContent') && self::isInstalledModule($val)){
                 $str = $val::subModulePostContent($options);
                 if (!empty($str)) $ary[] = $str;
             }
@@ -839,7 +819,7 @@ class moduleloader {
     public static function includeModules ($modules) {
         if (!is_array($modules)) return false;
         foreach ($modules as $val) {
-            moduleloader::includeModule ($val);
+            self::includeModule ($val);
         }
     }
     
@@ -850,9 +830,9 @@ class moduleloader {
      */
     public static function getRunningModuleReferenceInfo () {
         // get module running
-        $module = moduleloader::$running;
-        moduleloader::includeModule($module);
-        $class_name = moduleloader::modulePathToClassName($module);
+        $module = self::$running;
+        self::includeModule($module);
+        $class_name = self::modulePathToClassName($module);
         
         // get reference info (reference, parent_id) from running module
         $obj = new $class_name();
@@ -867,7 +847,7 @@ class moduleloader {
     public static function includeModuleFromStaticCall ($call){
         $call = explode ('::', $call);
         $module = $call[0];
-        return moduleloader::includeModule($module);
+        return self::includeModule($module);
     }
      
     /**
@@ -889,12 +869,12 @@ class moduleloader {
         
         // lang and ini only exists in base module
         lang::loadModuleLanguage($base_module);
-        moduleloader::setModuleIniSettings($base_module);
+        self::setModuleIniSettings($base_module);
         
         // new include style
         $module_file = _COS_MOD_PATH . "/$module/module.php";
         if (file_exists($module_file)) {
-            $modules[$module] = true;
+            self::$loadedModules['loaded'][$module] = true;
             include_once $module_file;
             return true;
         }
@@ -973,7 +953,9 @@ class moduleloader {
     public static function initFilter ($filter) {
         
         // check for filter in coslib first. 
-        if (!$filter) return;
+        if (!$filter) { 
+            return;
+        }
         
         $file_path = _COS_PATH . "/coslib/filters/$filter.php";
         if (file_exists($file_path)) {
@@ -984,7 +966,7 @@ class moduleloader {
 
         $class_path = _COS_MOD_PATH . "/$filter/$filter.inc";
         include_once $class_path;
-        moduleloader::setModuleIniSettings("$filter");
+        self::setModuleIniSettings("$filter");
     }
     
     /**
@@ -1016,7 +998,7 @@ class moduleloader {
     public static function getFiltersHelp ($filters) {
         if (empty($filters)) return '';
         
-        moduleloader::includeFilters($filters);
+        self::includeFilters($filters);
         $str = '<span class="small-font">';
         $i = 1;
 
@@ -1047,7 +1029,7 @@ class moduleloader {
         
         if (!is_array($filter)){
 
-            moduleloader::includeFilters($filter);
+            self::includeFilters($filter);
             $class = $filter;
             $filter_class = new $class;
 
@@ -1065,7 +1047,7 @@ class moduleloader {
         if (!empty ($filter)){
 
             foreach($filter as $key => $val){
-                moduleloader::includeFilters($val);
+                self::includeFilters($val);
                 $class = $val; 
                 $filter_class = new $class;
                 if (is_array($content)){
@@ -1080,78 +1062,4 @@ class moduleloader {
         }
     return '';
     }
-}
-
-
-/**
- * @ignore
- * @param type $template
- */
-function include_template_inc ($template){
-    moduleloader::includeTemplateCommon($template);
-}
-
-/**
- * includes a module
- * @ignore
- * @param string $module
- * @return boolean $res true on success and false on failure
- */
-function include_module($module){
-    return moduleloader::includeModule($module);
-}
-
-/**
- * function for including the model file only
- * @ignore
- * @param   string   $module the module where the model file exists 
- *                   e.g. (content/article)
- */
-function include_model($model){
-    moduleloader::includeModel($model);
-}
-
-
-
-/**
- * function for including a controller
- * @ignore
- * @param string    $controller the controller to include (e.g. content/article/add)
- */
-function include_controller($controller){
-    moduleloader::includeController($controller);
-}
-
-/**
- * function for including a filter module
- * @ignore
- * @param   array|string   $filter string or array of string with 
- *                         filters to include
- *
- */
-function include_filters ($filter){
-    moduleloader::includeFilters($filter);
-}
-
-/**
- * function for getting filters help string
- * @ignore
- * @param string|array $filters the filter or filters from were we wnat to get
- *                     help strings
- * @return string $string the help strings of all filters. 
- */
-function get_filters_help ($filters) {
-    moduleloader::getFiltersHelp($filters);
-    
-}
-
-/**
- * function for getting filtering content
- * @ignore
- * @param  string|array    $filter the string or array of filters to use
- * @param  string|array    $content the string or array (to use filters on)
- * @return string|array    $content the filtered string or array of strings
- */
-function get_filtered_content ($filter, $content){   
-    return moduleloader::getFilteredContent($filter, $content);
 }

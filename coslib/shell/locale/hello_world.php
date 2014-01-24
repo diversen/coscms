@@ -1,6 +1,11 @@
 <?php
 
 /**
+ * File containing an example shell command 
+ */
+
+/**
+ * example shell command
  * @ignore
  */
 function hello_world_output () {
@@ -8,6 +13,7 @@ function hello_world_output () {
 }
 
 /**
+ * example shell command
  * @ignore
  * @param type $params
  */
