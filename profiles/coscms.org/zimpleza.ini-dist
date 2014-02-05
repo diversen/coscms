@@ -1,1 +1,2 @@
 template_js[] = '/js/image.full_link.js'
+;template_js[] = '/js/jquery.external.js'
