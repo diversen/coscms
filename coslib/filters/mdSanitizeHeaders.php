@@ -69,6 +69,9 @@ class mdSanitizeHeaders {
 	}
         
 	protected function _doHeaders_callback_setext($matches) {
+            
+            
+            
             $level = $this->level;
             $header = str_repeat('#', $level) . " ";
             return $header . $matches[1] . "\n\n";
@@ -76,6 +79,8 @@ class mdSanitizeHeaders {
 	}
         
 	protected function _doHeaders_callback_atx($matches) {
+
+            
             $level = $this->level;
             $header = str_repeat('#', $level) . " ";
             return $header . $matches[2] . "\n\n";
