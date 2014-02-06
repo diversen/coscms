@@ -92,7 +92,7 @@ class user {
      * Gets user profile info if a profile system is in place.
      * E.g. to be showed on login page when logged in. 
      *
-     * @param   array   $user options
+     * @param   mixed array|int   $user options
      * @return  string  $str html or text showing info about the profile
      */
     public static function getProfileInfo ($user){
