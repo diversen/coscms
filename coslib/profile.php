@@ -449,7 +449,8 @@ class profile  {
             'account_facebook_api_secret',
             'account_github_secret',
             'imap_user',
-            'imap_password'           
+            'imap_password',
+            'google_translate_key'
         );
         
         foreach ($ary as $key => &$val) {
