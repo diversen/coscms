@@ -168,6 +168,11 @@ function translate($options){
  * @param array $options
  */
 function translate_all_update ($options) {
+
+    if ($options['module'] != 'all') {
+        cos_cli_abort("Specify 'all' as module when updating all modules");
+    }
+    
     $mods = moduleloader::getAllModules();
     foreach ($mods as $mod) {
         cos_cli_print_status('Notice', 'g', "Translating $mod[module_name]");
