@@ -1,4 +1,4 @@
-google_translate_key = "your api key"
+google_translate_key = ""
 google_translate_lang[0] = "da_DK"
 google_translate_lang[1] = "de"
 google_translate_lang[2] = "fi"
