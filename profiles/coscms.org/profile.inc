@@ -326,31 +326,37 @@ $_PROFILE_MODULES = array (
     'public_clone_url' => 'git://github.com/diversen/google_translate.git',
     'private_clone_url' => 'git@github.com:diversen/google_translate.git',
   ),
+  25 => 
+  array (
+    'id' => '260',
+    'module_name' => 'counter',
+    'module_version' => '2.45',
+    'menu_item' => '0',
+    'run_level' => '0,5',
+    'load_on' => NULL,
+    'parent' => NULL,
+    'is_shell' => NULL,
+    'public_clone_url' => 'git://github.com/diversen/counter.git',
+    'private_clone_url' => 'git@github.com:diversen/counter.git',
+  ),
 );
 
 $_PROFILE_TEMPLATES = array (
   0 => 
-  array (
-    'public_clone_url' => 'git://github.com/diversen/js-toc.git',
-    'private_clone_url' => 'git@github.com:diversen/js-toc.git',
-    'module_version' => '2.41',
-    'module_name' => 'js-toc',
-  ),
-  1 => 
   array (
     'public_clone_url' => 'git://github.com/diversen/openid-selector.git',
     'private_clone_url' => 'git@github.com:diversen/openid-selector.git',
     'module_version' => '2.41',
     'module_name' => 'openid-selector',
   ),
-  2 => 
+  1 => 
   array (
     'public_clone_url' => 'git://github.com/diversen/zimpleza.git',
     'private_clone_url' => 'git@github.com:diversen/zimpleza.git',
     'module_version' => '2.41',
     'module_name' => 'zimpleza',
   ),
-  3 => 
+  2 => 
   array (
     'public_clone_url' => 'git://github.com/diversen/jquery-markedit.git',
     'private_clone_url' => 'git@github.com:diversen/jquery-markedit.git',

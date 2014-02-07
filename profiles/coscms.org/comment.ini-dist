@@ -1,4 +1,4 @@
-comment_view_filter[0] = "mdNormalizeLinks"
+comment_view_filter[0] = "cosmarkdownNoFollow"
 comment_allow_anon_post = 0
 comment_anon_post_verify = 1
 comment_user_post_verify = 0

@@ -1,5 +1,5 @@
 questions_allow_ask = "user"
-questions_filters[0] = "cosmarkdown"
+questions_filters[0] = "cosmarkdownNoFollow"
 questions_sub_modules[0] = "counter"
 questions_sub_modules[1] = "comment"
 questions_tags_per_page = 10
