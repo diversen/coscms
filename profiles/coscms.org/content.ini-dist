@@ -17,5 +17,5 @@ content_article_jquery_markedit = 1
 content_article_events[0] = "tags::events"
 content_article_hide_user_info = 0
 content_export = 1
-content_book_formats = "pdf,epub,mobi,doxc,html"
+content_book_formats = "pdf,epub,mobi,docx,html"
 content_article_latest_menu = 1
