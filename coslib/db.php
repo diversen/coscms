@@ -181,13 +181,29 @@ class db {
      * @return boolean $res true if the field exists false if not. 
      */
     public function fieldExists($table, $field) {
-        $sql = "SHOW COLUMNS FROM `$table` LIKE '$field'";
-
-        $rows = $this->selectQuery($sql);
-        if (!empty($rows)) {
-            return true;
-        } else {
-            return false;
+        
+        
+        $info = db_admin::getDbInfo();
+        
+        if ($info['scheme'] == 'mysql' || $info['scheme'] == 'mysqli') {
+            $sql = "SHOW COLUMNS FROM `$table` LIKE '$field'";
+            $rows = $this->selectQuery($sql);
+            if (!empty($rows)) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+        
+        if ($info['scheme'] == 'sqlite') {
+            $stmt = $this->rawQuery("SELECT * FROM $table LIMIT 1");
+            $fields = array_keys($stmt->fetch(PDO::FETCH_ASSOC));
+            
+            if (in_array($field, $fields)) {
+                return true;
+            } else {
+                return false;
+            }
         }
     }
     
@@ -593,7 +609,9 @@ class db {
         self::$debug[]  = "Trying to prepare selectQuery sql: $sql";
         $stmt = self::$dbh->query($sql);
         $ret = $stmt->execute();
-        if (!$ret) return false;
+        if (!$ret) { 
+            return false;
+        }
         $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
         return $rows;
     }

@@ -236,19 +236,8 @@ EOF;
      * loads all modules in database
      */
     public static function loadDbModules (){        
-        
-        $db = new db();
-        
-        $ret = @$db->connect(array('dont_die' => 1));
-        
-        if ($ret == 'NO_DB_CONN'){
-
-            // if no db conn we exists before loading any more modules.
-            return;
-        }
-        $rows = $db->selectQuery("SHOW TABLES");
-
-        if (empty($rows)){
+          
+        if (!self::tablesExists()) {
             cos_cli_print('No tables exists. We can not load all modules');
             return;
         }
@@ -274,9 +263,40 @@ EOF;
                 self::$ini[$val['module_name']] = config::getIniFileArray($ini);                
             }
         }
+    }
+    
+    /**
+     * checks if any table exist in database
+     * @return boolean
+     */
+    public static function tablesExists () {
+
+        $db = new db();
+        $ret = @$db->connect(array('dont_die' => 1));
+        if ($ret == 'NO_DB_CONN'){
+            // if no db conn we exists before loading any more modules.
+            return;
+        }
         
+        $info = db_admin::getDbInfo();
+        if ($info['scheme'] == 'mysql' || $info['scheme'] == 'mysqli') {
+            $rows = $db->selectQuery("SHOW TABLES");
+            if (empty($rows)){
+                return false; 
+            }
+            return true;
+        }
         
-        //db::$dbh = null;
+        if ($info['scheme'] == 'sqlite')  {
+            $sql = "SELECT name FROM sqlite_master WHERE type='table' AND name='modules'";
+            $rows = $db->selectQuery($sql);
+            
+            if (empty($rows)){
+                return false; 
+            }
+            return true;
+            
+        }
     }
     
     /**

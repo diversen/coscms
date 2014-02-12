@@ -30,13 +30,18 @@ class db_admin extends db {
      */
     public static function getDbInfo() {
         $url = parse_url(config::$vars['coscms_main']['url']);
+        
         $ary = explode (';', $url['path']);
-        $db = explode ("=", $ary[0]);
-        $database = array();
-        $database['name'] = $db[1];
-        $host = explode ("=", $ary[1]);
-        $database['host'] = $host[1];
-        return $database;
+
+        if (count($ary) > 1) {
+            $db = explode ("=", $ary[0]);
+            $url['database'] = $db[1];
+            $url['name'] = $db[1];
+            $host = explode ("=", $ary[1]);
+            $url['host'] = $host[1];
+        }
+        //print_r($url);
+        return $url;
     }
     
     /**

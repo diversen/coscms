@@ -182,7 +182,7 @@ function clone_db ($options = array ()) {
 if (cos_is_cli()){
 
     mainCli::setCommand('db', array(
-        'description' => 'Will manipulate database in different ways: Backup, restore datbase, open connection etc.',
+        'description' => 'Will manipulate MySQL database in different ways: Backup, restore datbase, open connection etc.',
     ));
     
     mainCli::setOption('db_show_con_info', array(

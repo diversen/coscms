@@ -46,6 +46,21 @@ class user {
     }
     
     /**
+     * checks if a user if locked
+     * if locked set 403 error
+     * @return boolean $res true if locked else false
+     */
+    public static function lockedSet403 () {
+        $user = user::getAccount();
+        if ($user['locked'] == 1) {
+            moduleloader::$status['403'] = true;
+            error_module::$message = lang::translate('You can not access this page, because your account has been locked!');
+            return true;
+        }
+        return false;
+    }
+    
+    /**
      * function for getting an account
      * @param int $id user_id 
      * @return array $row from account 

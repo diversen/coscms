@@ -13,6 +13,7 @@ config/config.ini
 config/shared.ini
 config/multi/*
 logs/*.log*
+sqlite/*
 nbproject/*
 profiles/*
 modules/*
