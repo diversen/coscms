@@ -144,6 +144,8 @@ class cosMail {
     
    /**
     * sends a mail to primary system user
+    * if system_mail is not set we will use site_email (normal the reply to and 
+    * from email)
     * @param string $subject
     * @param string $message
     * @param string $from (optional)
@@ -153,7 +155,11 @@ class cosMail {
     */
     public static function systemUser ($subject, $message, $from = null, $reply_to = null, $more = array ()) {
         
-        $to = config::getMainIni('site_email');
+        
+        $to = config::getMainIni('system_email');
+        if (!$to) {
+            $to = config::getMainIni('site_email');
+        }
         return $res = cosMail::text(
             $to, 
             $subject, 
