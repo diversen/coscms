@@ -30,6 +30,7 @@
         "pear-pear/Console_Color": "1.0.3",
 	"pear-pear/Mail_Mime": "1.8.7",
 	"pear-pear/Mail": "1.2.0",
+	"pear-pear/Services_Akismet2": "0.3.1",
 	"michelf/php-markdown": "1.4.0",
 	"facebook/php-sdk": "3.2.2",
 	"zendframework/zend-mail": "2.2.1"

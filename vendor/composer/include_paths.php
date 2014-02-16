@@ -21,4 +21,7 @@ return array(
     $vendorDir . '/pear-pear.php.net/Net_Socket',
     $vendorDir . '/pear-pear.php.net/Auth_SASL2',
     $vendorDir . '/pear-pear.php.net/Console_Color',
+    $vendorDir . '/pear-pear.php.net/Net_URL2',
+    $vendorDir . '/pear-pear.php.net/HTTP_Request2',
+    $vendorDir . '/pear-pear.php.net/Services_Akismet2',
 );
