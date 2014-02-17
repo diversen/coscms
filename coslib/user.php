@@ -51,13 +51,20 @@ class user {
      * @return boolean $res true if locked else false
      */
     public static function lockedSet403 ($message = null) {
-        $user = user::getAccount();
-        if ($user['locked'] == 1) {
+        if (self::locked()) {
             moduleloader::$status['403'] = true;
             if (!$message) {
                 $message = lang::translate('You can not access this page, because your account has been locked!');
             }
             error_module::$message = $message;
+            return true;
+        }
+        return false;
+    }
+    
+    public static function locked () {
+        $user = user::getAccount();
+        if ($user['locked'] == 1) {
             return true;
         }
         return false;
