@@ -27,9 +27,10 @@ class defaultProfile {
      * @return string $str html logout link 
      */
     public static function getLogoutHTML ($id = null, $type = '') {
-        $logout_url = "/account/login/index/1";
-        $db = new db();
-        //$profile = $db->selectOne('account', 'id', $id);        
+        $logout_url = "/account/logout";
+        $redirect = $_SERVER['REQUEST_URI'];
+        $logout_url.= "?redirect=" . rawurlencode($redirect);
+              
         $link = lang::translate('system_profile_logout');
         $str = html::createLink(
                 $logout_url, 
