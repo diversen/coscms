@@ -1,4 +1,4 @@
-account_profile_filters[0] = "cosmarkdown"
+account_profile_filters[0] = "cosmarkdownNoFollow"
 account_profile_cache_identicon = 1
 account_profile_image_size_small = 45
 account_profile_image_size_large = 160

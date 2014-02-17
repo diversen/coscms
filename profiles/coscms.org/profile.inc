@@ -265,7 +265,7 @@ $_PROFILE_MODULES = array (
   array (
     'id' => '249',
     'module_name' => 'questions',
-    'module_version' => '2.41',
+    'module_version' => '2.52',
     'menu_item' => '1',
     'run_level' => '0',
     'load_on' => NULL,
@@ -329,15 +329,15 @@ $_PROFILE_MODULES = array (
   25 => 
   array (
     'id' => '260',
-    'module_name' => 'counter',
-    'module_version' => '2.45',
+    'module_name' => 'follow',
+    'module_version' => '2.51',
     'menu_item' => '0',
-    'run_level' => '0,5',
+    'run_level' => '0',
     'load_on' => NULL,
     'parent' => NULL,
     'is_shell' => NULL,
-    'public_clone_url' => 'git://github.com/diversen/counter.git',
-    'private_clone_url' => 'git@github.com:diversen/counter.git',
+    'public_clone_url' => 'https://github.com/diversen/follow.git
+',
   ),
 );
 
