@@ -52,7 +52,7 @@ class cosmedia {
      * @param string $text
      * @return string $text
      */
-    function linkifyVimeo($text) {
+    public static function linkifyVimeo($text) {
         //$link = 'http://vimeo.com/10638288';
         $text = preg_replace_callback('~
         # Match non-linked youtube URL in the wild. (Rev:20111012)
@@ -68,7 +68,7 @@ class cosmedia {
      * @param type $text
      * @return type
      */
-    function linkifySoundcloud($text) {
+    public static function linkifySoundcloud($text) {
         include_once "soundcloud.php";
         $regex = '~https?://soundcloud\.com/[\-a-z0-9_]+/[\-a-z0-9_]+~ix';
         $text = preg_replace_callback($regex, array('self', 'soundcloudCallback'), $text);
@@ -80,7 +80,7 @@ class cosmedia {
      * @param array $match
      * @return string
      */
-    function soundcloudCallback($match) {
+    public static function soundcloudCallback($match) {
         $url = $match[0];
 
         //include_once "soundcloud.php";
@@ -98,7 +98,7 @@ class cosmedia {
      * @param array $matches
      * @return string $text
      */
-    function vimeoCallback($matches) {
+    public static function vimeoCallback($matches) {
 
         $ratio = cosmedia::videoRatio(400);
         $width = 400;
@@ -126,7 +126,7 @@ EOF;
      * @param string $text
      * @return string $text
      */
-    function linkifyYouTubeURLs2($text) {
+    public static function linkifyYouTubeURLs2($text) {
         $text = preg_replace_callback('~
         # Match non-linked youtube URL in the wild. (Rev:20111012)
         https?://         # Required scheme. Either http or https.
@@ -156,7 +156,7 @@ EOF;
      * @param array $matches
      * @return string $text
      */
-    function youtubeCallback($matches) {
+    public static function youtubeCallback($matches) {
         $embed_code = $matches[1];
         $ratio = cosmedia::videoRatio(420);
 
