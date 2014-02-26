@@ -37,10 +37,12 @@ include_once "coslib/shell/profile.inc";
 include_once "coslib/webinstall/common.php";
 
 // check if system is sane
-cos_check_version();
-cos_check_pdo_mysql();
-cos_check_magic_gpc();
-cos_check_files_dir();
+if (!isset($_GET['ignore'])) {
+    cos_check_version();
+    cos_check_pdo_mysql();
+    cos_check_magic_gpc();
+    cos_check_files_dir();
+}
 
 // try if we can connect to db given in config.ini
 try {
