@@ -17,8 +17,15 @@ if ($num_rows == 0){
     $res = $db->rawQuery($sql);
 
     // if positive we install base modules.
+    
+    if (isset($_GET['profile'])) {
+        $profile = $_GET['profile'];
+    } else {
+        $profile = 'default';
+    }
+    
     if ($res){
-        install_from_profile(array ('profile' => 'default'));
+        install_from_profile(array ('profile' =>  $profile));
     }
     echo "Base system installed.<br />";
 } else {

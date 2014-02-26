@@ -1,0 +1,46 @@
+application: cos-cms
+version: 1
+runtime: php
+api_version: 1
+
+handlers:
+
+#- url: /(.*\.(htm|html|css|js))$
+#  static_files: wordpress/\1
+#  upload: wordpress/.*\.(htm|html|css|js)$
+#  application_readable: true
+
+- url: /templates
+  static_dir: templates
+
+- url: /files/default
+  static_dir: files/default
+
+- url: /js
+  static_dir: js
+
+#- url: /.*\.(htm$|html$|css$|js$|gif$|png$)
+#  static_files: htdocs/\1
+#  upload: htdocs/.*\.(htm$|html$|css$|js$|gif$|png$)
+#  application_readable: true
+
+#- url: /(.*\.(ico$|jpg$|png$|gif$))
+#  static_files: /\1
+#  upload: htdocs/.*\.(ico$|jpg$|png$|gif$)
+#  application_readable: true
+
+#- url: /(.*\.(png$))
+#  static_files: htdocs/\1
+#  upload: htdocs/download/.*\.(png$)
+#  application_readable: true
+
+- url: /upload.php
+  script: upload.php
+
+- url: /install.php
+  script: install.php
+
+- url: /.*
+  script: index.php
+
+

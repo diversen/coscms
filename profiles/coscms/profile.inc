@@ -313,32 +313,7 @@ $_PROFILE_MODULES = array (
     'public_clone_url' => 'git://github.com/diversen/block_manip.git',
     'private_clone_url' => 'git@github.com:diversen/block_manip.git',
   ),
-  24 => 
-  array (
-    'id' => '259',
-    'module_name' => 'google_translate',
-    'module_version' => '2.41',
-    'menu_item' => '0',
-    'run_level' => '0',
-    'load_on' => NULL,
-    'parent' => NULL,
-    'is_shell' => '1',
-    'public_clone_url' => 'git://github.com/diversen/google_translate.git',
-    'private_clone_url' => 'git@github.com:diversen/google_translate.git',
-  ),
-  25 => 
-  array (
-    'id' => '260',
-    'module_name' => 'follow',
-    'module_version' => '2.51',
-    'menu_item' => '0',
-    'run_level' => '0',
-    'load_on' => NULL,
-    'parent' => NULL,
-    'is_shell' => NULL,
-    'public_clone_url' => 'https://github.com/diversen/follow.git
-',
-  ),
+
 );
 
 $_PROFILE_TEMPLATES = array (
