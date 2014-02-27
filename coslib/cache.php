@@ -40,46 +40,55 @@
  */
 class cache {
 
-    public static $table = 'system_cache';
+    
+    
+
+
+    public static $driver = null;
+    /**
+     * sets the cache engine
+     * @param string $engine
+     */
+    public static function setDriver($driver) {
+        self::$driver = $driver;
+    }
+    
+    /**
+     * gets the cache engine
+     * @return 
+     */
+    public static function getDriver () {
+        if (!self::$driver) {
+            self::$driver = 'db';
+        }
+        return self::$driver;
+    }
+
     /**
      * generate a system cache id
      * @param   string    $module
      * @param   int       $id
      * @return  string    $str (md5)
      */
-    public static function generateId ($module, $id){
+    public static function generateId($module, $id) {
         $str = $module . '_' . $id;
         return md5($str);
-
     }
 
     /**
-     * get a cached string
+     * get a cached string from a module and an id
+     * the module and the id can be anything, but for the sake of not 
+     * cluttering the cache namespace, this is a standard that can be used
      * @param   string    $module
      * @param   int       $id
      * @param   int       $max_life_time in secs
      * @return  mixed     $data unserialized data
      */
-    public static function get ($module, $id, $max_life_time = null) {
-        $id = self::generateId($module, $id);
-        
-        $row = db_q::select(self::$table)->filter('id =', $id)->fetchSingle();
+    public static function get($module, $id, $max_life_time = null) {
+        $driver = self::getDriver();
+        $class = "cache_driver_$driver";
+        return $class::get($module, $id, $max_life_time);
 
-        if (!$row) {
-            return null;
-        }
-        if ($max_life_time){
-            $expire = $row['unix_ts'] + $max_life_time;
-            if ($expire < time()){
-                self::delete($module, $id);
-                return null;
-            } else {
-                return unserialize($row['data']);
-            }
-        } else {
-            return unserialize($row['data']);
-        }
-        return null;
     }
 
     /**
@@ -87,23 +96,14 @@ class cache {
      * @param   string  $module
      * @param   int     $id
      * @param   string  $data
-     * @return  strin   $str
+     * @return  string   $str
      */
-    public static function set ($module, $id, $data) {
+    public static function set($module, $id, $data) {
+        $driver = self::getDriver();
+        $class = "cache_driver_$driver";
+        return $class::get($module, $id, $data);
         
-        $db = new db();
-        $db->begin();
-        self::delete($module, $id);
 
-        $id = self::generateId($module, $id);
-        
-        
-        $values = array ('id' => $id, 'unix_ts' => time());
-        $values['data'] = serialize($data);
-        
-        
-        $db->insert(self::$table, $values);
-        return $db->commit();
     }
 
     /**
@@ -112,14 +112,10 @@ class cache {
      * @param   int     $id
      * @return  boolean $res db result
      */
-    public static function delete ($module, $id) {
-        $id = self::generateId($module, $id);
-        $db = new db();
-        $search = array ('id' => $id);
-        
-        $row = $db->select(self::$table, null, $search);
-        if (!empty($row)) {
-            return $db->delete(self::$table, null, $search);
-        }
+    public static function delete($module, $id) {
+        $driver = self::getDriver();
+        $class = "cache_driver_$driver";
+        return $class::delete($module, $id) ;
     }
+
 }
