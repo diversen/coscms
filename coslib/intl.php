@@ -63,6 +63,9 @@ class intl {
      */
     public static function getSystemLocales () {
         $ary = array ();
+        if (!function_exists('exec')) {
+            return false;
+        }
         exec ('locale -a', $ary);
         return $ary;
     }
@@ -73,6 +76,9 @@ class intl {
      */
     public static function getSystemLocalesUTF8 () {
         $all = self::getSystemLocales();
+        if (!$all) {
+            return false;
+        }
         $ary = array();
         foreach ($all as $locale) {
             if (strstr($locale, 'utf8')) {
@@ -89,6 +95,9 @@ class intl {
      */
     public static function validLocaleUTF8 ($locale) {
         $locales = self::getSystemLocalesUTF8();
+        if (!$locales) {
+            return false;
+        }
         foreach ($locales as $val) {
             if ($val['id'] == $locale) {
                 return true;
