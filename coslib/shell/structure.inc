@@ -8,7 +8,7 @@ function cos_structure_dump () {
     $ary = db_admin::getDbInfo();
     $user = config::getMainIni('username');
     $password = config::getMainIni('password');
-    $command = "mysqldump -d -h $ary[host] -u $user -p$password $ary[name]";
+    $command = "mysqldump -d -h $ary[host] -u $user -p$password $ary[dbname]";
     cos_exec($command);
 }
 
@@ -28,7 +28,7 @@ function cos_structure_dump_table ($options) {
     
     $dump_name = "backup/sql/$options[table]/" . time() . ".sql";
     
-    $command = "mysqldump -d -h $ary[host] -u $user -p$password $ary[name] $options[table] > $dump_name";
+    $command = "mysqldump -d -h $ary[host] -u $user -p$password $ary[dbname] $options[table] > $dump_name";
     cos_exec($command);
 }
 
@@ -58,7 +58,7 @@ function cos_db_dump_table ($options = null){
     $command = 
         "mysqldump --opt -u" . config::$vars['coscms_main']['username'] .
         " -p" . config::$vars['coscms_main']['password'];
-    $command.= " $db[name] $options[table] > $dump_name";
+    $command.= " $db[dbname] $options[table] > $dump_name";
     cos_exec($command);
 }
 
@@ -92,7 +92,7 @@ function cos_db_load_table($options){
     $db = db_admin::getDbInfo();
     $command = 
         "mysql --default-character-set=utf8  -u" . config::$vars['coscms_main']['username'] .
-        " -p" . config::$vars['coscms_main']['password'] . " $db[name] < $latest";
+        " -p" . config::$vars['coscms_main']['password'] . " $db[dbname] < $latest";
     return $ret = cos_exec($command);
 }
 

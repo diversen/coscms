@@ -38,7 +38,7 @@ function useradd_add ($options = null){
 function useradd_db_insert ($values){
     $database = db_admin::getDbInfo();
     
-    db_admin::changeDB($database['name']);
+    db_admin::changeDB($database['dbname']);
     $db = new db();
     $res = $db->insert('account', $values);
     return $res;

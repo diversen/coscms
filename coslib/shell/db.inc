@@ -32,7 +32,7 @@ function create_db($options = array()){
         " -p" . config::$vars['coscms_main']['password'] . " -h$db[host] ";
     
     $command.= "--default-character-set=utf8 ";
-    $command.= "CREATE $db[name]";
+    $command.= "CREATE $db[dbname]";
     return $ret = cos_exec($command, $options);
 }
 
@@ -46,7 +46,7 @@ function drop_db_default($options = array()){
     $command = 
         "mysqladmin -f -u" . config::$vars['coscms_main']['username'] .
         " -p" . config::$vars['coscms_main']['password'] . " -h$db[host] ";
-    $command.= "DROP $db[name]";
+    $command.= "DROP $db[dbname]";
     return $ret = cos_exec($command, $options);
 }
 
@@ -63,7 +63,7 @@ function load_db_default(){
         "mysql -u" . config::$vars['coscms_main']['username'] . ' ' .
         "-p" . config::$vars['coscms_main']['password'] . ' ' .
         "-h$db[host] " . ' ' .
-        "$db[name] < scripts/default.sql";
+        "$db[dbname] < scripts/default.sql";
 
     return cos_exec($command);
 }
@@ -81,7 +81,7 @@ function connect_db(){
         "mysql --default-character-set=utf8 -u" . config::$vars['coscms_main']['username'] .
         " -p" . config::$vars['coscms_main']['password'] .
         " -h" . $db['host'] . 
-        " $db[name]";
+        " $db[dbname]";
 
     $ret = array();
     proc_close(proc_open($command, array(0 => STDIN, 1 => STDOUT, 2 => STDERR), $pipes));
@@ -109,7 +109,7 @@ function dump_db_file ($options = null){
         "mysqldump --opt -u" . config::$vars['coscms_main']['username'] .
         " -p" . config::$vars['coscms_main']['password'] . 
         " -h" . $db['host'];
-    $command.= " $db[name] > $dump_name";
+    $command.= " $db[dbname] > $dump_name";
     cos_exec($command);
 }
 
@@ -139,7 +139,7 @@ function load_db_file($options){
     $db = db_admin::getDbInfo();
     $command = 
         "mysql --default-character-set=utf8  -u" . config::$vars['coscms_main']['username'] .
-        " -p" . config::$vars['coscms_main']['password'] . " $db[name] < $file";
+        " -p" . config::$vars['coscms_main']['password'] . " $db[dbname] < $file";
     return $ret = cos_exec($command);
 }
 
@@ -173,7 +173,7 @@ function clone_db ($options = array ()) {
         cos_cli_abort('Specify new database name');
     }
     $db = db_admin::getDbInfo();
-    $old = $db['name'];
+    $old = $db['dbname'];
     $new_name = $options['File'];
     db_admin::cloneDB($old, $new_name);
 }

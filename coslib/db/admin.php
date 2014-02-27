@@ -18,7 +18,7 @@ class db_admin extends db {
     public static function changeDB ($database = null) {
         if (!$database) {
             $db_curr = db_admin::getDbInfo(); 
-            $database = $db_curr['name'];  
+            $database = $db_curr['dbname'];  
         }
         $sql = "USE `$database`";
         self::rawQuery($sql);
@@ -28,20 +28,24 @@ class db_admin extends db {
      * gets database info from cinfuguration
      * @return array $ary array ('name' => 'my_db, 'host' => 'localhost')
      */
-    public static function getDbInfo() {
-        $url = parse_url(config::$vars['coscms_main']['url']);
-        
-        $ary = explode (';', $url['path']);
-
-        if (count($ary) > 1) {
-            $db = explode ("=", $ary[0]);
-            $url['database'] = $db[1];
-            $url['name'] = $db[1];
-            $host = explode ("=", $ary[1]);
-            $url['host'] = $host[1];
+    public static function getDbInfo($url = null) {
+        if (!$url) {
+            $url = config::$vars['coscms_main']['url']; ;
         }
+        
+        $url = parse_url($url);
         //print_r($url);
+        $ary = explode (';', $url['path']);
+        foreach ($ary as $val) {
+            //print_r($val);
+            $a = explode ("=", $val);
+            //print_r($a);
+            if (isset($a[0], $a[1])) {
+                $url[$a[0]] = $a[1];
+            }
+        }
         return $url;
+
     }
     
     /**
