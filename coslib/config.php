@@ -218,6 +218,10 @@ class config {
             return true;
         }
         
+        if ($server_name == $_SERVER['SERVER_NAME'] . ":" . $_SERVER['SERVER_PORT']) {
+            return true;
+        }
+        
         if (fnmatch("*.$server_name", $_SERVER['SERVER_NAME'])) {
             return true;
         }
