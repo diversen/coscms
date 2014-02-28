@@ -31,13 +31,13 @@ class autolinkext {
     * @param  string $text
     * @return string $string
     */
-   private static function autoLink($text)
+   public static function autoLink($text)
    {
       $pattern  = '#\b(([\w-]+://?|www[.])[^\s()<>]+(?:\([\w\d]+\)|([^[:punct:]\s]|/)))#';
       $callback = function($matches) { 
           $url       = array_shift($matches);
           $url_parts = parse_url($url);
-          $deny = filters_autolinkext::getDenyHosts();
+          $deny = autolinkext::getDenyHosts();
 
           // check for links that we will be transformed from link
           // to inline content, e.g. youtube
@@ -53,13 +53,13 @@ class autolinkext {
               $text = substr($text, 0, $last) . "&hellip;";
           }
 
-          return sprintf('<a target="_blank" href="%s">%s</a>', $url, $text);
+          return sprintf('<a target="_blank" rel="nofollow" href="%s">%s</a>', $url, $text);
       };
 
       return preg_replace_callback($pattern, $callback, $text);
     }
     
-    private static function getDenyhosts () {
+    public static function getDenyhosts () {
         return array ('www.vimeo.com', 'soundcloud.com', 'youtu.be', 'www.youtu.be', 'www.youtube.com', 'youtube.com');
     }
 }

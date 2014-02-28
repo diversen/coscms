@@ -260,12 +260,14 @@ class imap {
             }
         } 
         
-
-        if ($gen_sub) {
-            $parts['subject'] = strings::substr2($parts['plain'], 20, 3, false);
-            
+        if (empty($parts['plain'])) {
+            $parts['plain'] = lang::system('no_title');           
         }
 
+        if ($gen_sub) {
+            $parts['subject'] = strings::substr2($parts['plain'], 20, 3, false);           
+        }
+        
         return $parts;
     }
     
