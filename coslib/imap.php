@@ -206,8 +206,12 @@ class imap {
         
         $parts = array ();
         
-        $parts['subject'] = $message->subject;
-    
+        $gen_sub = false;
+        try {
+            $parts['subject'] = $message->subject;
+        } catch (Exception $e) {
+            $gen_sub = true;
+        }
         $parts['plain'] = '';
         $parts['images'] = array ();
         $parts['movies'] = array ();
@@ -257,8 +261,11 @@ class imap {
         } 
         
 
+        if ($gen_sub) {
+            $parts['subject'] = strings::substr2($parts['plain'], 20, 3, false);
             
-       // print_r($parts); die;
+        }
+
         return $parts;
     }
     
