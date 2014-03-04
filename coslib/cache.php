@@ -101,7 +101,7 @@ class cache {
     public static function set($module, $id, $data) {
         $driver = self::getDriver();
         $class = "cache_driver_$driver";
-        return $class::get($module, $id, $data);
+        return $class::set($module, $id, $data);
         
 
     }
