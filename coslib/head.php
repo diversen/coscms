@@ -144,6 +144,8 @@ if (!config::isCli()){
     
     // load url routes if any
     uri_dispatch::setDbRoutes();
+    
+    $moduleloader->runLevel(6);
 
     $controller = null;
     $route = uri_dispatch::getMatchRoutes();
@@ -183,13 +185,13 @@ if (!config::isCli()){
     mainTemplate::printHeader();
     echo '<div id="content_module">'.$str.'</div>';
 
-    $moduleloader->runLevel(6);
+    $moduleloader->runLevel(7);
     mainTemplate::printFooter();   
     config::$vars['final_output'] = ob_get_contents();
     ob_end_clean();
 
     // Last divine intervention
     // e.g. Dom or Tidy
-    $moduleloader->runLevel(7); 
+    $moduleloader->runLevel(8); 
     echo config::$vars['final_output'];
 }
