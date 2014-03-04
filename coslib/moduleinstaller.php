@@ -303,6 +303,14 @@ class moduleinstaller extends db {
                         array ('module_name' => NULL)
                         );
             }
+            
+            if (isset($this->installInfo['RUN_LEVEL'])) {
+                $this->update(
+                        'modules', 
+                        array('run_level' => $this->installInfo['RUN_LEVEL']), 
+                        array('module_name' => $val['module_name']));
+            }
+            
             $this->deleteMenuItem();
             $this->insertMenuItem();
             $this->insertRoutes();
