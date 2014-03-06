@@ -10,6 +10,11 @@
  */
 
 /**
+ * @ignore
+ */
+include_once "coslib/upload.php";
+
+/**
  * Class used when building forms and various methods used when creating forms
  * for escaping in different ways. 
  * @package html
@@ -59,6 +64,12 @@ class html {
      * @var boolean  
      */
     public static $autoEncode = false;
+    
+    /**
+     * flag to indicate if we do uploads
+     * @var boolean 
+     */
+    public static $doUpload = false;
     
     /**
      * method for getting form string build. 
@@ -155,16 +166,23 @@ class html {
             $options['id'] = 'form';
         }
         
+        if (!isset($options['accept-charset'])) {
+            $options['accept-charset'] = 'utf-8';
+        }
+        
+        //accept-charset
+        
         self::$internal['form_id'] = $options['id'];
 
         if (!isset($options['method'])) {
             $options['method'] = 'post';
         }
         
+        // get all extra attr except action
         $extra = self::parseExtra($options);
-        if (!isset($options['action'])) {
-            $extra.= "action =\"\"";
-        }
+
+        // get action
+        $extra.= self::getActionFromAry($options);
         
         $str = '';  
         $str.= "<form $extra>\n";
@@ -174,6 +192,35 @@ class html {
         return $str;
     }
 
+    
+    /**
+     * get default action attr
+     * @param array|string|null $options
+     * @return string $action
+     */
+    public static function getActionFromAry ($options = null) {
+        
+        // check any special storage
+        $storage = config::getMainIni('file_storage');
+        
+        // google cloud storage
+        if ($storage == 'gcs' && self::$doUpload == true) {
+            $gcs = new upload_gcs();
+            $action = $gcs->createUploadUrl($options);
+            return "action =\"$action\"";
+            
+        }
+        
+        if (!isset($options['action'])) {
+            $action = "action =\"#!\"";
+        } else {
+            $action = "action =\"$options[action]\"";
+        }
+        
+        return $action;
+    }
+
+   
     /**
      * method for starting a html form
      * @param string $name name of the form
@@ -193,10 +240,6 @@ class html {
         
         if (!$method) {
             $method = 'post';
-        }
-        
-        if (!$action) {
-            $action = '#!';
         }
         
         if (!$enctype) {
@@ -235,6 +278,7 @@ class html {
         }
         self::$internal['form_id'] = $options['id'];
         $extra = self::parseExtra($options);
+
         
         $str = "";   
         $str.= "<form action=\"$action\" method=\"$method\" name=\"$name\" $extra enctype = \"$enctype\">\n";
@@ -631,14 +675,17 @@ EOF;
      * @param int $max_bytes
      * @param array $options
      */
-    public static function fileWithLabel ($filename, $max_bytes, $options = array()) {        
-        html::hidden('MAX_FILE_SIZE', $max_bytes);
+    public static function fileWithLabel ($filename, $max_bytes, $options = array()) { 
+    
+        
         
         
         $bytes = upload::getNativeMaxUpload();
         if ($max_bytes < $bytes) {
             $bytes = $max_bytes;
         } 
+        
+        html::hidden('MAX_FILE_SIZE', $bytes);
         
         
         $label = lang::system('system_form_label_file') . ". ";
@@ -819,6 +866,12 @@ EOF;
         foreach ($extra as $key => $val){
             if ($key == 'checked') {
                 $str = ' checked ';
+                continue;
+            }
+            
+            // action is special - e.g. for cloud storage, so this is parsed in 
+            // getAction
+            if ($key == 'action') {
                 continue;
             }
             $str.= " $key = \"$val\" ";

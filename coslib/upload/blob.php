@@ -7,8 +7,7 @@
 class upload_blob extends upload {
 
     /**
-     * 
-     *gets file pointer
+     * gets file pointer
      * @param array $filename
      * @param array $options
      * @return mixed $fp file pointer | true | false
@@ -23,19 +22,25 @@ class upload_blob extends upload {
             
             // check native
             $res = self::checkUploadNative($filename);
-            if (!$res) return false;
+            if (!$res) { 
+                return false;
+            }
             
             // check mime
             if (isset(self::$options['allow_mime'])) {
                 $res = self::checkAllowedMime($filename);
-                if (!$res) return false;                
+                if (!$res) { 
+                    return false;                
+                }
             }
 
             // check maxsize. Note: Will overrule php ini settings
             if (isset(self::$options['maxsize'])) {
                 
                 $res = self::checkMaxSize($filename);
-                if (!$res) return false;
+                if (!$res) { 
+                    return false;
+                }
             }
 
             $fp = fopen($_FILES[$filename]['tmp_name'], 'rb');
@@ -53,7 +58,10 @@ class upload_blob extends upload {
      */
     public static function getFPFromFile($filename, $options = array()){
 
-        if (isset($options)) self::$options = $options;
+        if (isset($options)) { 
+            self::$options = $options;
+        }
+        
         if (!file_exists($filename)) {
             self::$errors[] = 
             lang::translate('system_upload_get_fp_file_does_not_exists')
@@ -79,7 +87,7 @@ class upload_blob extends upload {
             $type = file::getMime($options['filename']);
             if (!in_array($type, $options['allow_mime'])) {
                 self::$errors[] = lang::translate('system_class_upload_file_format_not_allowed') .
-                ": " . $type;
+                MENU_SUB_SEPARATOR_SEC . $type;
                 return false;
                 
             }
