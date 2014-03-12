@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
@@ -316,7 +316,7 @@ abstract class AbstractProtocol
      * Parse server response for successful codes
      *
      * Read the response from the stream and check for expected return code.
-     * Throws a Zend\Mail\Protocol\Exception if an unexpected code is returned.
+     * Throws a Zend\Mail\Protocol\Exception\ExceptionInterface if an unexpected code is returned.
      *
      * @param  string|array $code One or more codes that indicate a successful response
      * @param  int $timeout Per-request timeout value if applicable

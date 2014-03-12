@@ -33,6 +33,7 @@
 	"pear-pear/Services_Akismet2": "0.3.1",
 	"michelf/php-markdown": "1.4.0",
 	"facebook/php-sdk": "3.2.2",
-	"zendframework/zend-mail": "2.2.1"
+	"zendframework/zend-mail": "2.*",
+	"zendframework/zend-dom": "2.*"
     }
 }

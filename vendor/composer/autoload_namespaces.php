@@ -8,8 +8,12 @@ $baseDir = dirname($vendorDir);
 return array(
     'diversen' => array($vendorDir . '/diversen/simple-php-classes'),
     'Zend\\Stdlib\\' => array($vendorDir . '/zendframework/zend-stdlib'),
+    'Zend\\ServiceManager\\' => array($vendorDir . '/zendframework/zend-servicemanager'),
     'Zend\\Mime\\' => array($vendorDir . '/zendframework/zend-mime'),
+    'Zend\\Math\\' => array($vendorDir . '/zendframework/zend-math'),
     'Zend\\Mail\\' => array($vendorDir . '/zendframework/zend-mail'),
     'Zend\\Loader\\' => array($vendorDir . '/zendframework/zend-loader'),
+    'Zend\\Dom\\' => array($vendorDir . '/zendframework/zend-dom'),
+    'Zend\\Crypt\\' => array($vendorDir . '/zendframework/zend-crypt'),
     'Michelf' => array($vendorDir . '/michelf/php-markdown'),
 );
