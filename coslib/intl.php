@@ -24,6 +24,10 @@ class intl {
         setlocale(LC_MONETARY, $locale);
 
         // set default timezone
+        if (!isset(config::$vars['coscms_main']['date_default_timezone'])) {
+            config::$vars['coscms_main']['date_default_timezone'] = 'Europe/Copenhagen';
+        }
+        
         date_default_timezone_set(config::$vars['coscms_main']['date_default_timezone']);
     }
  
