@@ -20,6 +20,7 @@ function cos_menu_install_menu($options){
     $module_path = config::getModulePath($options['module']);
     if (!file_exists($module_path)){
         cos_cli_print("module $options[module] does not exists in modules dir. ");
+        return;
     }
 
     $mod = new moduleinstaller($options);
@@ -35,6 +36,7 @@ function cos_menu_install_all (){
 
     $mods = moduleinstaller::getModules();
     foreach ($mods as $key => $val){
+        
         $options = array('module' => $val['module_name']);
         cos_menu_install_menu($options);
     }
@@ -69,7 +71,6 @@ function cos_menu_uninstall_menu($options){
     $res = $menu->deleteMenuItem($options['module']);
     
     if ($res) {
-        //echo "ok";
         if (config::getMainIni('verbose') ) {
             cos_cli_print("Main menu item for '$options[module]' deleted");
         }

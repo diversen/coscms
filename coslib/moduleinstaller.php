@@ -167,7 +167,6 @@ class moduleinstaller extends db {
                 } else {
                     $latest = array_pop($tags);
                 }
-
                 $this->installInfo['VERSION'] = $latest;
             }
         } else {
@@ -543,25 +542,38 @@ class moduleinstaller extends db {
 
         moduleloader::setModuleIniSettings($this->installInfo['NAME']);
         lang::loadModuleSystemLanguage($this->installInfo['NAME']);
-
+        
         if (!empty($this->installInfo['MAIN_MENU_ITEM'])){
             $values = $this->installInfo['MAIN_MENU_ITEM'];
             $values['title'] = $values['title'];
+            if (empty($values['title_human'])) {
+                $values['title_human'] = '';
+            }
             $res = $this->insert('menus', $values);
         }
 
-        if (!empty($this->installInfo['MAIN_MENU_ITEMS'])){
-            foreach ($this->installInfo['MAIN_MENU_ITEMS'] as $val){
+        
+        if (!empty($this->installInfo['MAIN_MENU_ITEMS'])) {
+            foreach ($this->installInfo['MAIN_MENU_ITEMS'] as $val) {
                 $val['title'] = $val['title'];
+                if (empty($val['title_human'])) {
+                    $val['title_human'] = '';
+                }
                 $res = $this->insert('menus', $val);
             }
         }
 
+        
         if (!empty($this->installInfo['SUB_MENU_ITEM'])){
             $values = $this->installInfo['SUB_MENU_ITEM'];
             $values['title'] = $values['title'];
+            
+            if (empty($values['title_human'])) {
+                $values['title_human'] = '';
+            }
             $res = $this->insert('menus', $values);
         }
+        
         return $res;
     }
 

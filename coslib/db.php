@@ -305,13 +305,12 @@ class db {
 
         if (is_array($search)){
             foreach ($search as $key => $val){
-                $params[] ="`$key`= " . self::$dbh->quote($val);;
+                $params[] ="`$key`= " . self::$dbh->quote($val);
             }
             $params = implode(' AND ', $params);
             $sql .= $params;
         } else {
-            $search = self::$dbh->quote($search);
-            $sql .= " `$fieldname` = $search";
+            $sql .= " `$fieldname` = " . self::$dbh->quote($search);
         }
 
         self::$debug[]  = "Trying to prepare update sql: $sql";

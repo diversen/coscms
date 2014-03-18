@@ -13,7 +13,6 @@ class cache_driver_db  {
      * @return  mixed     $data unserialized data
      */
     public static function get($module, $id, $max_life_time = null) {
-        
         $id = cache::generateId($module, $id);
         $row = db_q::select(self::$table)->filter('id =', $id)->fetchSingle();
 
@@ -42,20 +41,12 @@ class cache_driver_db  {
      * @return  strin   $str
      */
     public static function set($module, $id, $data) {
-
-        $db = new db();
-        $db->begin();
         self::delete($module, $id);
-
         $id = cache::generateId($module, $id);
-
-
         $values = array('id' => $id, 'unix_ts' => time());
         $values['data'] = serialize($data);
-
-
-        $db->insert(self::$table, $values);
-        return $db->commit();
+        return db_q::insert(self::$table)->values($values)->exec();
+        
     }
 
     /**
@@ -66,12 +57,13 @@ class cache_driver_db  {
      */
     public static function delete($module, $id) {
         $id = cache::generateId($module, $id);
-        $db = new db();
-        $search = array('id' => $id);
-
-        $row = $db->select(self::$table, null, $search);
+        $row = db_q::select(self::$table)->
+                filter('id =', $id)->
+                fetchSingle();
         if (!empty($row)) {
-            return $db->delete(self::$table, null, $search);
+            return db_q::delete(self::$table)->
+                    filter('id =', $id)->
+                    exec();
         }
     }
 }

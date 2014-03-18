@@ -14,20 +14,32 @@
  * php your-install-dir.phar
  *
  */
+
+$error = null;
 if (isset($argv[1])) {
     $dir = $argv[1];
 } else {
-    $dir = 'coscms';
+    $error = 1;
 }
 
+
 if (!file_exists($dir)){
-    $str = "The CosCMS {$dir} source not found in current directory\n";
-    $str.= "You can set source folder by doing a phar_create.php folder\n";
+    $error = 1;
+}
+
+if ($error) {
+    $str.= "Usage: $argv[0] coscms-path";
+    $str.= "The CosCMS {$dir} source not found in current directory\n";
     die($str); 
 }
+
 
 $phar = new Phar("$dir.phar", 0, "$dir.phar");
 $phar->interceptFileFuncs();
 $phar->buildFromDirectory(dirname(__FILE__) . "/$dir");
-$phar->setStub($phar->createDefaultStub('phar_stub.php'));
+$stub = $phar->createDefaultStub('index.php');
+$phar->setStub($stub);
+$phar->stopBuffering();
 
+echo "web phar created. Make it executable and run it with: ./$dir.phar\n";
+exit(0);

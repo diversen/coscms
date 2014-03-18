@@ -50,7 +50,7 @@ class captcha {
             if (config::getMainIni('captcha_image_module')) {
                 return self::createCaptchaImage();
             }
-            return "* " . $_SESSION['cstr'];
+            return "* " . lang::system('captcha_numbers') . $_SESSION['cstr'];
         }
         $num_1 = mt_rand  ( 20  , 40  );
         $num_2 = mt_rand  ( 20  , 40  );
@@ -62,7 +62,7 @@ class captcha {
         if (config::getMainIni('captcha_image_module')) {
             return self::createCaptchaImage();
         }
-        return "* " . $str;
+        return "* " . lang::system('captcha_numbers') . $str;
     }
 
     /**
@@ -83,7 +83,7 @@ class captcha {
             if (config::getMainIni('captcha_image_module')) {
                 return self::createCaptchaImage();
             }
-            return "* " . $_SESSION['cstr'];
+            return "* " . lang::system('captcha_numbers') . MENU_SUB_SEPARATOR_SEC . $_SESSION['cstr'];
         }
         
         $_SESSION['cstr'] = $str = self::genRandomString();
@@ -92,7 +92,7 @@ class captcha {
         if (config::getMainIni('captcha_image_module')) {
             return self::createCaptchaImage();
         }
-        return "* " . $str;
+        return "* " . lang::system('captcha_numbers') . MENU_SUB_SEPARATOR_SEC  . $str;
     }
 
     /**
