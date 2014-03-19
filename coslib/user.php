@@ -64,6 +64,9 @@ class user {
     
     public static function locked () {
         $user = user::getAccount();
+        if (empty($user)) {
+            return false;
+        }
         if ($user['locked'] == 1) {
             return true;
         }
