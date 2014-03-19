@@ -54,8 +54,6 @@ function coslib_autoloader($classname) {
     include $filename;
 }
 
-
-
 /**
  * register the autoload on the stack
  */

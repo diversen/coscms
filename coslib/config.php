@@ -473,6 +473,16 @@ class config {
 
         define ('_COS_MOD_DIR', $mod_dir);
         define ('_COS_MOD_PATH', _COS_PATH . '/' . _COS_MOD_DIR);
+        
+        /**
+         * define path to htdocs files (uploads)
+         */
+        $files_dir = config::getMainIni('htdocs_files');
+        if (!$files_dir) {
+            define('_COS_FILES',  'files');
+        } else {
+            define('_COS_FILES',  $files_dir);
+        }
     }
     
     /**
