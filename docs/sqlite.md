@@ -6,9 +6,9 @@ install sequel, sqlite, mysql:
 
     sudo aptitude install ruby-sequel
     sudo aptitude install libsqlite3-ruby
-    sudo aptitude install libsmysql-ruby
+    sudo aptitude install libmysql-ruby
 
-sequel mysql://root:password@localhost/default -C sqlite://sqlite/database.sql
+sequel mysql://root:password@localhost/database -C sqlite://sqlite/database.sql
 
 change database url in config/config.ini
 
@@ -16,4 +16,6 @@ change database url in config/config.ini
 
 Make sure sqlite/databse.sql is writable and readable: 
 
-    chmod -R 777 sqlite
+    chmod -R 777 sqlite/database.sql
+
+If the database is in the web space you may consider which group can read and write, e.g. apache2 (www-data)
