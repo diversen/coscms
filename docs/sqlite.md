@@ -1,5 +1,7 @@
 ### Sqlite
 
+> Notice: This will only work with very recent versions of ruby-sequel
+
 It is easy to convert CosCMS to sqlite or postgresql project using the ruby tool sequel. 
 
 install sequel, sqlite, mysql:
