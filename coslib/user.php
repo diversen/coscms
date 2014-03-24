@@ -240,6 +240,16 @@ class user {
         return self::$profile_object->getProfileSimple($user, $text);       
     }
     
+    public static function getProfileURL($user_id) {
+        self::initProfile();
+        return self::$profile_object->getProfileUrl($user_id);       
+    }
+    
+     public static function getProfileScreenname($user_id) {
+        self::initProfile();
+        return self::$profile_object->getProfileScreenname($user_id);       
+    }
+    
     /**
      * Gets user profile link if a profile system is in place.
      * Profile systems must be set in main config/config.ini
@@ -251,6 +261,7 @@ class user {
     public static function getProfileEditLink ($user_id){
         self::initProfile();
         return self::$profile_object->getProfileEditLink($user_id);
-    }    
+    }   
+
 }
 
