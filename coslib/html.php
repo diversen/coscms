@@ -1099,7 +1099,7 @@ EOF;
         }
 
         $url = $rewritten_url;
-        if ($_SERVER['REQUEST_URI'] == $url){
+        if (isset($_SERVER['REQUEST_URI']) && ( $_SERVER['REQUEST_URI'] == $url)) {
             if (!isset($options['class'])){
                 $options['class'] = 'current';
             }
