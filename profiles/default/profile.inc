@@ -107,7 +107,7 @@ $_PROFILE_MODULES = array (
   ),
   8 => 
   array (
-    'id' => '10',
+    'id' => '9',
     'module_name' => 'configdb',
     'module_version' => '2.41',
     'menu_item' => '0',
@@ -120,7 +120,7 @@ $_PROFILE_MODULES = array (
   ),
   9 => 
   array (
-    'id' => '11',
+    'id' => '10',
     'module_name' => 'vote',
     'module_version' => '2.411',
     'menu_item' => '0',
@@ -133,7 +133,7 @@ $_PROFILE_MODULES = array (
   ),
   10 => 
   array (
-    'id' => '12',
+    'id' => '11',
     'module_name' => 'jquerysort',
     'module_version' => '2.41',
     'menu_item' => '0',
@@ -146,7 +146,7 @@ $_PROFILE_MODULES = array (
   ),
   11 => 
   array (
-    'id' => '13',
+    'id' => '12',
     'module_name' => 'menus',
     'module_version' => '2.41',
     'menu_item' => '1',
@@ -159,7 +159,7 @@ $_PROFILE_MODULES = array (
   ),
   12 => 
   array (
-    'id' => '14',
+    'id' => '13',
     'module_name' => 'image',
     'module_version' => '2.52',
     'menu_item' => '0',
@@ -172,7 +172,7 @@ $_PROFILE_MODULES = array (
   ),
   13 => 
   array (
-    'id' => '15',
+    'id' => '14',
     'module_name' => 'locales',
     'module_version' => '2.41',
     'menu_item' => '1',
@@ -185,7 +185,7 @@ $_PROFILE_MODULES = array (
   ),
   14 => 
   array (
-    'id' => '16',
+    'id' => '15',
     'module_name' => 'block_manip',
     'module_version' => '2.41',
     'menu_item' => '1',
@@ -198,7 +198,7 @@ $_PROFILE_MODULES = array (
   ),
   15 => 
   array (
-    'id' => '17',
+    'id' => '16',
     'module_name' => 'flood',
     'module_version' => '2.41',
     'menu_item' => '0',
@@ -211,7 +211,7 @@ $_PROFILE_MODULES = array (
   ),
   16 => 
   array (
-    'id' => '18',
+    'id' => '17',
     'module_name' => 'tags',
     'module_version' => '2.513',
     'menu_item' => '1',
@@ -224,7 +224,7 @@ $_PROFILE_MODULES = array (
   ),
   17 => 
   array (
-    'id' => '20',
+    'id' => '18',
     'module_name' => 'content',
     'module_version' => '2.63',
     'menu_item' => '1',
@@ -237,7 +237,7 @@ $_PROFILE_MODULES = array (
   ),
   18 => 
   array (
-    'id' => '21',
+    'id' => '19',
     'module_name' => 'account_profile',
     'module_version' => '2.41',
     'menu_item' => '1',
@@ -250,7 +250,7 @@ $_PROFILE_MODULES = array (
   ),
   19 => 
   array (
-    'id' => '22',
+    'id' => '20',
     'module_name' => 'google_analytics',
     'module_version' => '2.41',
     'menu_item' => '1',
@@ -263,20 +263,20 @@ $_PROFILE_MODULES = array (
   ),
   20 => 
   array (
-    'id' => '23',
+    'id' => '21',
     'module_name' => 'comment',
-    'module_version' => '2.54',
+    'module_version' => '2.62',
     'menu_item' => '1',
     'run_level' => '0',
     'load_on' => NULL,
     'parent' => NULL,
-    'is_shell' => NULL,
+    'is_shell' => '1',
     'public_clone_url' => 'git://github.com/diversen/comment.git',
     'private_clone_url' => 'git@github.com:diversen/comment.git',
   ),
   21 => 
   array (
-    'id' => '24',
+    'id' => '22',
     'module_name' => 'share',
     'module_version' => '2.41',
     'menu_item' => '1',
@@ -289,7 +289,7 @@ $_PROFILE_MODULES = array (
   ),
   22 => 
   array (
-    'id' => '25',
+    'id' => '23',
     'module_name' => 'counter',
     'module_version' => '2.45',
     'menu_item' => '0',
@@ -305,17 +305,17 @@ $_PROFILE_MODULES = array (
 $_PROFILE_TEMPLATES = array (
   0 => 
   array (
-    'public_clone_url' => 'git://github.com/diversen/openid-selector.git',
-    'private_clone_url' => 'git@github.com:diversen/openid-selector.git',
-    'module_version' => '2.41',
-    'module_name' => 'openid-selector',
-  ),
-  1 => 
-  array (
     'public_clone_url' => 'git://github.com/diversen/zimpleza.git',
     'private_clone_url' => 'git@github.com:diversen/zimpleza.git',
     'module_version' => '2.41',
     'module_name' => 'zimpleza',
+  ),
+  1 => 
+  array (
+    'public_clone_url' => 'git://github.com/diversen/openid-selector.git',
+    'private_clone_url' => 'git@github.com:diversen/openid-selector.git',
+    'module_version' => '2.41',
+    'module_name' => 'openid-selector',
   ),
   2 => 
   array (
