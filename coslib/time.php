@@ -59,7 +59,7 @@ class time {
      * returns a locale date string from mysql timestamp. 
      * @param type $date same format as mysql timestamp
      * @param string $format ini settings format e.g. date_format_long
-     * @return string $format in ( ... ) according to set locale 
+     * @return string $format  
      */
     public static function getDateString ($date, $format = 'date_format_long'){        
         $unix_stamp = strtotime($date);

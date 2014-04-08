@@ -126,11 +126,17 @@ if (!config::isCli()){
     // set locales
     intl::setLocale ();
     
+    // set default timezone
+    intl::setTimezone();
+    
     // runlevel 3 - init session
     $moduleloader->runLevel(3);
 
     // start session
     session::initSession();
+    
+    // set account timezone if enabled - can only be done after session
+    intl::setAccountTimezone();
 
     // run level 4 - load language
     $moduleloader->runLevel(4);
