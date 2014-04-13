@@ -136,6 +136,7 @@ if (!config::isCli()){
     session::initSession();
     
     // set account timezone if enabled - can only be done after session
+    // as user needs to be logged in
     intl::setAccountTimezone();
 
     // run level 4 - load language

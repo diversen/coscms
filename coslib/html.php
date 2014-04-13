@@ -763,8 +763,8 @@ EOF;
         if ($value){
             $extra['checked'] = "yes";
         } 
-        
         $extra = self::parseExtra($extra);
+
         $str = "<input type=\"checkbox\" name=\"$name\" id=\"$name\" value=\"1\" $extra />" . self::$br . "\n";
         return $str;
     }
@@ -861,11 +861,13 @@ EOF;
      */
     public static function parseExtra ($extra = array()) {
         $str = '';
-        if (empty($extra)) return '';
+        if (empty($extra)) { 
+            return '';
+        }
         
         foreach ($extra as $key => $val){
             if ($key == 'checked') {
-                $str = ' checked ';
+                $str.= ' checked ';
                 continue;
             }
             
