@@ -309,6 +309,16 @@ class db_q  {
     }
     
     /**
+     * filter for setting some additional sql
+     * @param string $sql e.g. "id >= 3"
+     */
+    public static function sqlClean ($sql) {
+        //self::setWhere();
+        self::$query.= " $sql ";
+        return new db_q();
+    }
+    
+    /**
      * filter for creating IN queries where we use an array of values
      * to create our filter from. 
      * @param string $filter waht to filter from, e.g. "ID in"

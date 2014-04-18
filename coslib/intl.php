@@ -34,7 +34,20 @@ class intl {
             $timezone = cache::get('account_timezone', session::getUserId());
             if ($timezone) { 
                 date_default_timezone_set($timezone);
+            } else {
+                self::setCookieTimezone();
             }
+        }
+    }
+    
+    /**
+     * check for cookie timezone
+     */
+    public static function setCookieTimezone() {
+
+        $timezone = $_COOKIE['account_timezone'];
+        if ($timezone) {
+            date_default_timezone_set($timezone);
         }
     }
 

@@ -72,6 +72,12 @@ class html {
     public static $doUpload = false;
     
     /**
+     * var holding own fieldset tag
+     * @var mixed $fieldset boolena or string
+     */
+    public static $fieldset = false;
+    
+    /**
      * method for getting form string build. 
      * @return string $str the form build
      */
@@ -82,6 +88,14 @@ class html {
         }
         self::$fields = array();
         return $str;
+    }
+    
+    /**
+     * get fieldset tag type or stringt
+     * @param mixed $str boolean or string
+     */
+    public static function setFieldSet ($str) {
+        self::$fieldset = $str;
     }
 
     /**
@@ -282,8 +296,13 @@ class html {
         
         $str = "";   
         $str.= "<form action=\"$action\" method=\"$method\" name=\"$name\" $extra enctype = \"$enctype\">\n";
-        $str.= "<fieldset>\n";
-
+        
+        if (self::$fieldset) {
+            $str.= self::$fieldset;
+        } else {
+            $str.= "<fieldset>\n";
+        }
+        
         return $str;
     }
     
@@ -329,7 +348,13 @@ class html {
      */
     public static function formEndClean (){
         $str = '';
-        $str.= "</fieldset>\n";
+        
+        if (self::$fieldset) {
+            $str.= self::$fieldset;
+        } else {
+            $str.= "</fieldset>\n";
+        }
+
         $str.= "</form>\n";
         return $str;
     }
@@ -880,6 +905,21 @@ EOF;
         }
         return $str;
     }
+    
+    /**
+     * var holding first select element. Defaults to null
+     * @var mixed
+     */
+    public static $selectTop = null;
+    
+    /**
+     * sets top select element
+     * @param array $ary
+     */
+    public static function setSelectTopValue ($ary) {
+        self::$selectTop = $ary;
+        
+    } 
 
 
     /**
@@ -924,6 +964,11 @@ EOF;
         if (!isset($extra['id'])) {
             $extra['id'] = $name;
         }
+        
+        if (self::$selectTop) {
+            array_unshift($rows, self::$selectTop);
+        }
+        
         $extra = self::parseExtra($extra);
         
         $dropdown = "<select name=\"$name\" $extra";
@@ -1315,6 +1360,30 @@ EOF;
         $str.= "<$tag>$message</$tag>\n";
         $str.= "</div>\n";
         return $str;
+    }
+    
+    /**
+     * return headline encoded
+     * @param string $message
+     * @param string $tag
+     * @return string $headline
+     */
+    public static function getHeadlineEncoded ($message, $tag = 'h3') {
+        return self::getHeadline(html::specialEncode($message), $tag);
+    }
+    
+    /**
+     * return headline link encoded
+     * @param string $url
+     * @param string $title
+     * @return string $headline link encoded
+     */
+    public static function getHeadlineLinkEncoded ($url, $title) {
+        return self::createLink(
+                $url, 
+                self::getHeadline(self::specialEncode($title))
+        );
+        
     }
 
     /**
