@@ -299,7 +299,8 @@ class db_q  {
     }
     
     /**
-     * filter for setting some additional sql
+     * filter for setting some additional sql somewhere after WHERE
+     * 
      * @param string $sql e.g. "id >= 3"
      */
     public static function sql ($sql) {
@@ -309,12 +310,12 @@ class db_q  {
     }
     
     /**
-     * filter for setting some additional sql
-     * @param string $sql e.g. "id >= 3"
+     * set a complete and clean SQL statement
+     * @param string $sql e.g. "SELECT * FROM `table`  id >= 3"
      */
     public static function sqlClean ($sql) {
-        //self::setWhere();
-        self::$query.= " $sql ";
+        self::$method = 'select';
+        self::$query = $sql;
         return new db_q();
     }
     
@@ -418,8 +419,6 @@ class db_q  {
                     $rows = $rows[0];
                 } 
             }
-            
-
             self::unsetVars();
         } catch (Exception $e) {
             $message = $e->getTraceAsString();

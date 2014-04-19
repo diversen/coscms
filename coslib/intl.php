@@ -44,7 +44,10 @@ class intl {
      * check for cookie timezone
      */
     public static function setCookieTimezone() {
-
+        
+        if (!isset($_COOKIE['timezone'])) {
+            return;
+        }
         $timezone = $_COOKIE['account_timezone'];
         if ($timezone) {
             date_default_timezone_set($timezone);
