@@ -14,7 +14,10 @@ include_once "coslib/coslibSetup.php";
 include_once "coslib/head.php";
 include_once "coslib/shell/common.inc";
 
+// set locales
 intl::setLocale();
+// set default timezone
+intl::setTimezone();
 
 
 /**

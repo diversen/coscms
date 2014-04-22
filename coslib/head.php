@@ -46,7 +46,10 @@ ini_set('include_path',
         $ini_path . PATH_SEPARATOR);
 
 
-
+$env = config::getEnv();
+if ($env == 'development') {
+    error_reporting( E_ALL );
+}
 // Important!
 // 
 // No runLevels are run in Cli mode
