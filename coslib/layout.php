@@ -450,6 +450,32 @@ class layout {
      */
     public static function getMenuLinkOptions ($menu) {
 
+        $ary = parse_url($menu['url']);
+        $options = array ();
+
+        
+        if ( !empty($ary['path']) && !empty(uri::$info['module_name']) ) {
+  
+            $module_path = '/' . uri::$info['module_name'];
+            if (strstr($ary['path'], $module_path)) {
+                $options['class'] = 'current';
+            }
+           
+        }
+
+        return $options;
+
+    }
+    
+        /**
+     * check a menu array and set options['class'] as 'current' 
+     * to link creation
+     * @param array $menu a menu item
+     * @return array $options options to be given to html::createLink
+     */
+    /*
+    public static function getMenuLinkOptions ($menu) {
+
         
         $module_base = uri::$info['module_base'];
         $options = array ();
@@ -470,7 +496,7 @@ class layout {
         }
 
         return $options;
-    }
+    }*/
 
 
 
