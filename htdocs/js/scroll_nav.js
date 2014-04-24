@@ -1,7 +1,10 @@
 // 
 // From:
-// 
+// http://code.stephenmorley.org/javascript/detachable-navigation/ 
 // http://code.stephenmorley.org/about-this-site/copyright/
+// another solution: 
+// http://www.pixelbind.com/make-a-div-stick-when-you-scroll/
+
 /* Handles the page being scrolled by ensuring the navigation is always in
  * view.
  */
