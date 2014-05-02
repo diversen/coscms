@@ -136,8 +136,10 @@ class session {
                 return;
             }
             
-            $db = new db();
-            $row = $db->selectOne ('system_cookie', 'cookie_id', @$_COOKIE['system_cookie']);
+            // get a system cookie if any
+            $row = db_q::select('system_cookie')->
+                    filter('cookie_id =', @$_COOKIE['system_cookie'])->
+                    fetchSingle();
             
             // we got a cookie that equals one found in database
             if (!empty($row)){
@@ -147,29 +149,29 @@ class session {
                 $now = date::getDateNow();
                 $last = date::substractDaysFromTimestamp($now, $days);
                 
-                $sql = "
-                    DELETE FROM `system_cookie` WHERE 
-                        account_id = '$row[account_id]' AND 
-                        last_login < '$last'";
-                $db->rawQuery($sql);
-                
-                // on every cookie login we update the cookie id
-                
-                
+                db_q::delete('system_cookie')->
+                        filter('account_id =', $row['account_id'])->condition('AND')->
+                        filter('last_login <', $last)->
+                        exec();
+
+                // on every cookie login we update the cookie id              
+                $last_login = date::getDateNow(array('hms' => true));
                 $new_cookie_id = random::md5();
                 $values = array (
                     'cookie_id' => $new_cookie_id,
-                    'last_login' => date::getDateNow(array('hms' => true)));
-                $search = array ('cookie_id' => $_COOKIE['system_cookie']);
+                    'last_login' => $last_login);
                 
-                // update new cookie id in db
-                $db->update('system_cookie', $values, $search);
-
+                db_q::update('system_cookie')->
+                        values($values)->
+                        filter('cookie_id =' , $new_cookie_id)->condition('AND')->
+                        filter('last_login =', $last_login)->exec();
+                
                 // set the new cookie
                 self::setCookie('system_cookie', $new_cookie_id);
                 
                 // get account which is connected to account id
-                $account = $db->selectOne('account', 'id', $row['account_id']);
+                $account = user::getAccount($row['account_id']);
+                //$account = $db->selectOne('account', 'id', $row['account_id']);
                 
                 // user with account
                 if (!empty($account)){
