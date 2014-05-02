@@ -302,6 +302,13 @@ class moduleloader {
      */
     public function setModuleInfo ($route = null){
 
+        // check if user has been locked in early run level
+        if (isset(self::$status[403])){                     
+            $this->setErrorModuleInfo(); 
+            return;
+        } 
+        
+
         $uri = uri::getInstance($route);
         $info = uri::getInfo();
        
@@ -349,6 +356,7 @@ class moduleloader {
             self::$status[404] = 1;
             $this->setErrorModuleInfo(); 
         } 
+
     }
 
     /**
