@@ -261,7 +261,22 @@ class user {
     public static function getProfileEditLink ($user_id){
         self::initProfile();
         return self::$profile_object->getProfileEditLink($user_id);
-    }   
+    }
+    
+    /**
+     * Gets user profile link if a profile system is in place.
+     * Profile systems must be set in main config/config.ini
+     * the option array can be used to setting special options for profile module
+     * 
+     * @param   array   $user_id the user in question
+     * @return  string  $string string showing the profile
+     */
+    public static function getProfileAdminLink ($user_id){
+        self::initProfile();
+        return self::$profile_object->getProfileAdminLink($user_id);
+    }
+    
+    
 
 }
 
