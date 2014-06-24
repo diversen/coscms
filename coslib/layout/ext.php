@@ -11,7 +11,7 @@
  * layout2 extension of layout for keeping better state with current link 
  * @package layout
  */
-class layout2 extends layout {
+class layout_ext extends layout {
 
     /**
      * method for parsing a module menu.
