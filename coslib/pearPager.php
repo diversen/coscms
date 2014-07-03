@@ -162,7 +162,6 @@ class pearPager {
         if (!isset($_GET['from'])) { 
             $this->from = 0; 
         } else {
-            //$from = $_GET['from'] = 0;
             $this->from = $this->getPositiveInt($_GET['from'], $this->total);
         }
 
