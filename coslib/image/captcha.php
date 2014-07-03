@@ -71,6 +71,18 @@ function Image_Captcha($str) {
 	$_SESSION["CAPTCHA_HASH"] = sha1($this->_capString);
 	*/
         $font = config::getModuleIni ('image_captcha_font'); //'fonts/captcha.ttf';'
+        $f_color = config::getModuleIni ('image_captcha_font_color'); //'fonts/captcha.ttf';'
+        if (!$f_color) {
+            $f_color = 'FFFFFF';
+        }
+        
+        $b_color = config::getModuleIni ('image_captcha_bg_color'); //'fonts/captcha.ttf';'
+        if (!$b_color) {
+            $b_color = '000000';
+        }
+        
+        $this->_capTextColor = $f_color;
+        $this->_capBgColor = $b_color;
         $this->_capFont = _COS_HTDOCS . '/' . $font;
 	$this->SendHeader();
         $this->setStr($str);

@@ -159,8 +159,12 @@ class pearPager {
      * validation of pager data, only zero or positive int is allowed
      */
     public function validate(){
-        if (!isset($_GET['from'])) $_GET['from'] = 0;
-        $this->from = $this->getPositiveInt($_GET['from'], $this->total);
+        if (!isset($_GET['from'])) { 
+            $this->from = 0; 
+        } else {
+            //$from = $_GET['from'] = 0;
+            $this->from = $this->getPositiveInt($_GET['from'], $this->total);
+        }
 
         if ($this->from > 0){
             $this->from = ($this->from - 1) * $this->perPage;
