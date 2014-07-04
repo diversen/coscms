@@ -72,7 +72,10 @@ class template {
      * @return string   $title title of document
      */
     public static function getTitle(){
-        return self::$title;
+        if (!empty(self::$title)) {
+            return self::$title;
+        }
+        return html::specialEncode(config::getMainIni('meta_title'));
     }
 
     /**
