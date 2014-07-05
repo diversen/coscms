@@ -149,14 +149,22 @@ class layout {
      */
     public function loadMenus(){
         $num = uri::getInstance()->numFragments();
-        $db = new db();
 
         // always a module menu in web mode
-        self::$menu['main'] = $db->selectQuery("SELECT * FROM `menus` WHERE  ( `parent` = '0') AND `admin_only` = 0 ORDER BY `weight` ASC");
-        
+        self::$menu['main'] = 
+                db_q::select('menus')->
+                filter('parent =', 0)->condition('AND')->
+                filter('admin_only =', 0)->
+                order('weight')->
+                fetch();
+
         // admin item are special
         if (session::isAdmin()){
-            self::$menu['admin'] = $db->selectQuery("SELECT * FROM `menus` WHERE `admin_only` = 1 OR `section` != '' ORDER BY `weight` ASC");
+            self::$menu['admin'] = 
+                    db_q::select('menus')->filter('admin_only =', 1)->condition('OR')->
+                    filter('section !=', '')->
+                    order('weight')->
+                    fetch();
 
         }
 
@@ -716,7 +724,6 @@ class layout {
      * @return string containing menu module menu as html
      */
     public static function getMainMenu(){
-
         $list = self::parseMainMenuList();
         if (empty($list)){
             return '';
