@@ -28,10 +28,8 @@ class layout2 extends layout {
         $num_items = $ex = count($menu);
 
         foreach($menu as $v){
-            if ( !empty($v['auth'])){
-                if (!session::isUser()) continue;
-                if (!session::isAdmin() && $v['auth'] == 'admin') continue;
-                if (!session::isSuper()  && $v['auth'] == 'super') continue;
+            if (!self::checkMenuAuth($v)) {
+                continue;
             }
 
             $str .= MENU_SUBLIST_START;
@@ -60,10 +58,8 @@ class layout2 extends layout {
         $str = $css = '';
         foreach($menu as $v){
             
-            if ( !empty($v['auth'])){
-                if (!session::isUser()) continue;
-                if (!session::isAdmin() && $v['auth'] == 'admin') continue;
-                if (!session::isSuper()  && $v['auth'] == 'super') continue;
+            if (!self::checkMenuAuth($v)) {
+                continue;
             }
 
             $options = array ();
@@ -87,6 +83,11 @@ class layout2 extends layout {
         return $str;
 
     }
+    
+    /*
+    public static function checkMenuAuth($item = array()) {
+        parent::checkMenuAuth($item);
+    }*/
 
     /**
      * method for getting main module menu as html
