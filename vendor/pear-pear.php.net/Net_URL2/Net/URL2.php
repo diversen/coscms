@@ -51,7 +51,7 @@
  * @author    Christian Schmidt <schmidt@php.net>
  * @copyright 2007-2009 Peytz & Co. A/S
  * @license   https://spdx.org/licenses/BSD-3-Clause BSD-3-Clause
- * @version   Release: 2.0.5
+ * @version   Release: 2.0.6
  * @link      https://pear.php.net/package/Net_URL2
  */
 class Net_URL2
@@ -687,7 +687,12 @@ class Net_URL2
             $url .= $this->_scheme . ':';
         }
 
-        $url .= $this->_buildAuthorityAndPath($this->getAuthority(), $this->_path);
+        $authority = $this->getAuthority();
+        if ($authority === false && strtolower($this->_scheme) === 'file') {
+            $authority = '';
+        }
+
+        $url .= $this->_buildAuthorityAndPath($authority, $this->_path);
 
         if ($this->_query !== false) {
             $url .= '?' . $this->_query;

@@ -7,6 +7,7 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'diversen' => array($vendorDir . '/diversen/simple-php-classes'),
+    'Zend\\Validator\\' => array($vendorDir . '/zendframework/zend-validator'),
     'Zend\\Stdlib\\' => array($vendorDir . '/zendframework/zend-stdlib'),
     'Zend\\ServiceManager\\' => array($vendorDir . '/zendframework/zend-servicemanager'),
     'Zend\\Mime\\' => array($vendorDir . '/zendframework/zend-mime'),

@@ -32,7 +32,7 @@
  * @author    Lorenzo Alberton <l.alberton@quipo.it>
  * @copyright 2003-2007 Lorenzo Alberton
  * @license   http://www.debian.org/misc/bsd.license  BSD License (3 Clause)
- * @version   CVS: $Id: HtmlWidgets.php,v 1.7 2009/03/13 16:51:37 quipo Exp $
+ * @version   CVS: $Id$
  * @link      http://pear.php.net/package/Pager
  */
 

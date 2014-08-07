@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "371a9cd3b3fb8307837467b57e32412a",
+    "hash": "492346be7c8106d5e711f290483acc27",
     "packages": [
         {
             "name": "diversen/simple-php-classes",
@@ -51,60 +51,103 @@
             "time": "2013-12-17 12:35:39"
         },
         {
-            "name": "facebook/php-sdk",
-            "version": "v3.2.2",
+            "name": "facebook/php-sdk-v4",
+            "version": "4.0.9",
             "source": {
                 "type": "git",
-                "url": "https://github.com/facebook/facebook-php-sdk.git",
-                "reference": "v3.2.2"
+                "url": "https://github.com/facebook/facebook-php-sdk-v4.git",
+                "reference": "a20dc24e0536ba7332f79b74c5a4deb45fa998f8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/facebook/facebook-php-sdk/zipball/v3.2.2",
-                "reference": "v3.2.2",
+                "url": "https://api.github.com/repos/facebook/facebook-php-sdk-v4/zipball/a20dc24e0536ba7332f79b74c5a4deb45fa998f8",
+                "reference": "a20dc24e0536ba7332f79b74c5a4deb45fa998f8",
                 "shasum": ""
             },
             "require": {
-                "ext-curl": "*",
-                "ext-json": "*",
-                "php": ">=5.2.0"
+                "php": ">=5.4.0"
+            },
+            "require-dev": {
+                "guzzlehttp/guzzle": "~4.0",
+                "mockery/mockery": "dev-master",
+                "phpunit/phpunit": "3.7.*"
+            },
+            "suggest": {
+                "guzzlehttp/guzzle": "Allows for implementation of the Guzzle HTTP client"
             },
             "type": "library",
             "autoload": {
-                "classmap": [
-                    "src"
-                ]
+                "psr-4": {
+                    "Facebook\\": "src/Facebook/"
+                }
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
-                "Apache2"
+                "Facebook Platform"
             ],
             "authors": [
                 {
                     "name": "Facebook",
-                    "homepage": "https://github.com/facebook/facebook-php-sdk/contributors"
+                    "homepage": "https://github.com/facebook/facebook-php-sdk-v4/contributors"
                 }
             ],
-            "description": "Facebook PHP SDK",
-            "homepage": "https://github.com/facebook/facebook-php-sdk",
+            "description": "Facebook SDK for PHP",
+            "homepage": "https://github.com/facebook/facebook-php-sdk-v4",
             "keywords": [
                 "facebook",
                 "sdk"
             ],
-            "time": "2013-01-15 21:37:15"
+            "time": "2014-06-27 11:59:52"
         },
         {
-            "name": "michelf/php-markdown",
-            "version": "1.4.0",
+            "name": "google/apiclient",
+            "version": "1.0.4-beta",
             "source": {
                 "type": "git",
-                "url": "https://github.com/michelf/php-markdown.git",
-                "reference": "96d8150406f67e683ef4acc09fef91785fef1266"
+                "url": "https://github.com/google/google-api-php-client.git",
+                "reference": "eb5934d58761f1a8575e6df6de02fdce89dd89d2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/michelf/php-markdown/zipball/96d8150406f67e683ef4acc09fef91785fef1266",
-                "reference": "96d8150406f67e683ef4acc09fef91785fef1266",
+                "url": "https://api.github.com/repos/google/google-api-php-client/zipball/eb5934d58761f1a8575e6df6de02fdce89dd89d2",
+                "reference": "eb5934d58761f1a8575e6df6de02fdce89dd89d2",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.2.1"
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "src/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "include-path": [
+                "src/"
+            ],
+            "license": [
+                "Apache-2.0"
+            ],
+            "description": "Client library for Google APIs",
+            "homepage": "http://developers.google.com/api-client-library/php",
+            "keywords": [
+                "google"
+            ],
+            "time": "2014-03-07 17:54:19"
+        },
+        {
+            "name": "michelf/php-markdown",
+            "version": "1.4.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/michelf/php-markdown.git",
+                "reference": "de9a19c7bf352d41cc99ed86c3c0ef17e87394b6"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/michelf/php-markdown/zipball/de9a19c7bf352d41cc99ed86c3c0ef17e87394b6",
+                "reference": "de9a19c7bf352d41cc99ed86c3c0ef17e87394b6",
                 "shasum": ""
             },
             "require": {
@@ -142,14 +185,14 @@
             "keywords": [
                 "markdown"
             ],
-            "time": "2013-11-29 17:09:24"
+            "time": "2014-05-05 02:43:50"
         },
         {
             "name": "pear-pear.php.net/Archive_Tar",
-            "version": "1.3.11",
+            "version": "1.3.12",
             "dist": {
                 "type": "file",
-                "url": "http://pear.php.net/get/Archive_Tar-1.3.11.tgz",
+                "url": "http://pear.php.net/get/Archive_Tar-1.3.12.tgz",
                 "reference": null,
                 "shasum": null
             },
@@ -157,7 +200,7 @@
                 "php": ">=4.3.0.0"
             },
             "replace": {
-                "pear-pear/archive_tar": "== 1.3.11.0"
+                "pear-pear/archive_tar": "== 1.3.12.0"
             },
             "type": "pear-library",
             "autoload": {
@@ -356,10 +399,10 @@
         },
         {
             "name": "pear-pear.php.net/Mail_Mime",
-            "version": "1.8.7",
+            "version": "1.8.9",
             "dist": {
                 "type": "file",
-                "url": "http://pear.php.net/get/Mail_Mime-1.8.7.tgz",
+                "url": "http://pear.php.net/get/Mail_Mime-1.8.9.tgz",
                 "reference": null,
                 "shasum": null
             },
@@ -367,7 +410,7 @@
                 "php": ">=4.3.0.0"
             },
             "replace": {
-                "pear-pear/mail_mime": "== 1.8.7.0"
+                "pear-pear/mail_mime": "== 1.8.9.0"
             },
             "type": "pear-library",
             "autoload": {
@@ -435,10 +478,10 @@
         },
         {
             "name": "pear-pear.php.net/Net_URL2",
-            "version": "2.0.5",
+            "version": "2.0.6",
             "dist": {
                 "type": "file",
-                "url": "http://pear.php.net/get/Net_URL2-2.0.5.tgz",
+                "url": "http://pear.php.net/get/Net_URL2-2.0.6.tgz",
                 "reference": null,
                 "shasum": null
             },
@@ -446,7 +489,7 @@
                 "php": ">=5.1.4.0"
             },
             "replace": {
-                "pear-pear/net_url2": "== 2.0.5.0"
+                "pear-pear/net_url2": "== 2.0.6.0"
             },
             "type": "pear-library",
             "autoload": {
@@ -497,10 +540,10 @@
         },
         {
             "name": "pear-pear.php.net/Pager",
-            "version": "2.4.8",
+            "version": "2.4.9",
             "dist": {
                 "type": "file",
-                "url": "http://pear.php.net/get/Pager-2.4.8.tgz",
+                "url": "http://pear.php.net/get/Pager-2.4.9.tgz",
                 "reference": null,
                 "shasum": null
             },
@@ -508,7 +551,7 @@
                 "php": ">=4.0.0.0"
             },
             "replace": {
-                "pear-pear/pager": "== 2.4.8.0"
+                "pear-pear/pager": "== 2.4.9.0"
             },
             "type": "pear-library",
             "autoload": {
@@ -519,7 +562,7 @@
             "include-path": [
                 "/"
             ],
-            "description": "It takes an array of data as input and pages it according to various parameters.\nIt also builds links within a specified range, and allows complete customization of the output (it even works with front controllers and mod_rewrite).\nTwo operating modes available: &quot;Jumping&quot; and &quot;Sliding&quot; window style."
+            "description": "It takes an array of data as input and pages it according to various parameters.\nIt also builds links within a specified range, and allows complete customization of the output (it even works with front controllers and mod_rewrite).\nTwo operating modes available: \"Jumping\" and \"Sliding\" window style."
         },
         {
             "name": "pear-pear.php.net/Services_Akismet2",
@@ -602,10 +645,10 @@
         },
         {
             "name": "pear-pear.php.net/XML_Util",
-            "version": "1.2.1",
+            "version": "1.2.3",
             "dist": {
                 "type": "file",
-                "url": "http://pear.php.net/get/XML_Util-1.2.1.tgz",
+                "url": "http://pear.php.net/get/XML_Util-1.2.3.tgz",
                 "reference": null,
                 "shasum": null
             },
@@ -614,7 +657,7 @@
                 "php": ">=4.3.0.0"
             },
             "replace": {
-                "pear-pear/xml_util": "== 1.2.1.0"
+                "pear-pear/xml_util": "== 1.2.3.0"
             },
             "type": "pear-library",
             "autoload": {
@@ -666,30 +709,33 @@
         },
         {
             "name": "zendframework/zend-crypt",
-            "version": "2.2.6",
+            "version": "2.3.1",
             "target-dir": "Zend/Crypt",
             "source": {
                 "type": "git",
                 "url": "https://github.com/zendframework/Component_ZendCrypt.git",
-                "reference": "72cbd425ff6f8f452f9ed1ca403a5bd66ba4a0b6"
+                "reference": "da16e88a5115bb720318ec9b5220ae2ab81dfb5e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://packages.zendframework.com/composer/zendframework-zend-crypt-72cbd425ff6f8f452f9ed1ca403a5bd66ba4a0b6-zip-48fc23.zip",
-                "reference": "2.2.6",
-                "shasum": "87c42c4dd9543b757bae0be04ecf625186327663"
+                "url": "https://packages.zendframework.com/composer/zendframework-zend-crypt-da16e88a5115bb720318ec9b5220ae2ab81dfb5e-zip-3e85d3.zip",
+                "reference": "2.3.1",
+                "shasum": "904676ef5a4c1701a8f0522e55fdc51b537d0f4b"
             },
             "require": {
-                "php": ">=5.3.3",
+                "php": ">=5.3.23",
                 "zendframework/zend-math": "self.version",
                 "zendframework/zend-servicemanager": "self.version",
                 "zendframework/zend-stdlib": "self.version"
             },
+            "suggest": {
+                "ext-mcrypt": "Required for most features of Zend\\Crypt"
+            },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.2-dev",
-                    "dev-develop": "2.3-dev"
+                    "dev-master": "2.3-dev",
+                    "dev-develop": "2.4-dev"
                 }
             },
             "autoload": {
@@ -706,34 +752,33 @@
                 "zf2"
             ],
             "support": {
-                "source": "https://github.com/zendframework/Component_ZendCrypt/tree/master"
+                "source": "https://github.com/zendframework/Component_ZendCrypt/tree/release-2.3.1"
             },
-            "time": "2014-03-03 19:00:05"
+            "time": "2014-04-15 15:28:46"
         },
         {
             "name": "zendframework/zend-dom",
-            "version": "2.2.6",
+            "version": "2.3.1",
             "target-dir": "Zend/Dom",
             "source": {
                 "type": "git",
                 "url": "https://github.com/zendframework/Component_ZendDom.git",
-                "reference": "cc21e09cf61264a554b7c118e0891054def51201"
+                "reference": "98d7c3b8a36e11ca327233db3edae70837287346"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://packages.zendframework.com/composer/zendframework-zend-dom-cc21e09cf61264a554b7c118e0891054def51201-zip-c5255d.zip",
-                "reference": "2.2.6",
-                "shasum": "5098a79bd79317b1abffb84dbace08735e924ad9"
+                "url": "https://packages.zendframework.com/composer/zendframework-zend-dom-98d7c3b8a36e11ca327233db3edae70837287346-zip-e04942.zip",
+                "reference": "2.3.1",
+                "shasum": "77f622f5e126ed6e46221a38f6d1824937340e28"
             },
             "require": {
-                "php": ">=5.3.3",
-                "zendframework/zend-stdlib": "self.version"
+                "php": ">=5.3.23"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.2-dev",
-                    "dev-develop": "2.3-dev"
+                    "dev-master": "2.3-dev",
+                    "dev-develop": "2.4-dev"
                 }
             },
             "autoload": {
@@ -750,33 +795,33 @@
                 "zf2"
             ],
             "support": {
-                "source": "https://github.com/zendframework/Component_ZendDom/tree/master"
+                "source": "https://github.com/zendframework/Component_ZendDom/tree/release-2.3.1"
             },
-            "time": "2014-01-02 18:00:13"
+            "time": "2014-04-15 15:28:58"
         },
         {
             "name": "zendframework/zend-loader",
-            "version": "2.2.6",
+            "version": "2.3.1",
             "target-dir": "Zend/Loader",
             "source": {
                 "type": "git",
                 "url": "https://github.com/zendframework/Component_ZendLoader.git",
-                "reference": "27a9f770630839e36cd5705f3661b5ef9abf8793"
+                "reference": "37abb23b0b2608584673f8388d1563a1fd604f09"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://packages.zendframework.com/composer/zendframework-zend-loader-27a9f770630839e36cd5705f3661b5ef9abf8793-zip-d1b468.zip",
-                "reference": "2.2.6",
-                "shasum": "a481bf2bb0abc35a0c652e4b9079914c07c9792f"
+                "url": "https://packages.zendframework.com/composer/zendframework-zend-loader-37abb23b0b2608584673f8388d1563a1fd604f09-zip-f1526d.zip",
+                "reference": "2.3.1",
+                "shasum": "b3a8ff54b4a09b4526889ae04bcd239519eb39ab"
             },
             "require": {
-                "php": ">=5.3.3"
+                "php": ">=5.3.23"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.2-dev",
-                    "dev-develop": "2.3-dev"
+                    "dev-master": "2.3-dev",
+                    "dev-develop": "2.4-dev"
                 }
             },
             "autoload": {
@@ -793,41 +838,44 @@
                 "zf2"
             ],
             "support": {
-                "source": "https://github.com/zendframework/Component_ZendLoader/tree/master"
+                "source": "https://github.com/zendframework/Component_ZendLoader/tree/release-2.3.1"
             },
-            "time": "2014-03-06 18:00:07"
+            "time": "2014-04-15 15:28:53"
         },
         {
             "name": "zendframework/zend-mail",
-            "version": "2.2.6",
+            "version": "2.3.1",
             "target-dir": "Zend/Mail",
             "source": {
                 "type": "git",
                 "url": "https://github.com/zendframework/Component_ZendMail.git",
-                "reference": "80c8bccb70bad79b1a4f3f8b42a96bd90f065290"
+                "reference": "dd32bd774258e7126cf9f22a35ba523c79a66e18"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://packages.zendframework.com/composer/zendframework-zend-mail-80c8bccb70bad79b1a4f3f8b42a96bd90f065290-zip-1e5859.zip",
-                "reference": "2.2.6",
-                "shasum": "78027551814b91d5a0fedb22737c8c55dccf229f"
+                "url": "https://packages.zendframework.com/composer/zendframework-zend-mail-dd32bd774258e7126cf9f22a35ba523c79a66e18-zip-0ad969.zip",
+                "reference": "2.3.1",
+                "shasum": "0b0c172590f3a7ef0364a948e4a6e5ffe4bc1bdd"
             },
             "require": {
-                "php": ">=5.3.3",
+                "php": ">=5.3.23",
                 "zendframework/zend-crypt": "self.version",
                 "zendframework/zend-loader": "self.version",
                 "zendframework/zend-mime": "self.version",
-                "zendframework/zend-stdlib": "self.version"
+                "zendframework/zend-stdlib": "self.version",
+                "zendframework/zend-validator": "self.version"
+            },
+            "require-dev": {
+                "zendframework/zend-servicemanager": "self.version"
             },
             "suggest": {
-                "zendframework/zend-servicemanager": "Zend\\ServiceManager component",
-                "zendframework/zend-validator": "Zend\\Validator component"
+                "zendframework/zend-servicemanager": "Zend\\ServiceManager component"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.2-dev",
-                    "dev-develop": "2.3-dev"
+                    "dev-master": "2.3-dev",
+                    "dev-develop": "2.4-dev"
                 }
             },
             "autoload": {
@@ -844,27 +892,27 @@
                 "zf2"
             ],
             "support": {
-                "source": "https://github.com/zendframework/Component_ZendMail/tree/master"
+                "source": "https://github.com/zendframework/Component_ZendMail/tree/release-2.3.1"
             },
-            "time": "2014-01-02 19:00:03"
+            "time": "2014-04-15 15:28:52"
         },
         {
             "name": "zendframework/zend-math",
-            "version": "2.2.6",
+            "version": "2.3.1",
             "target-dir": "Zend/Math",
             "source": {
                 "type": "git",
                 "url": "https://github.com/zendframework/Component_ZendMath.git",
-                "reference": "b982ee2edafd4075b22372596ab2e2fdd0f6424e"
+                "reference": "be6de5ba3d47e3f9a6732badea8bc724c49d0552"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://packages.zendframework.com/composer/zendframework-zend-math-b982ee2edafd4075b22372596ab2e2fdd0f6424e-zip-f99862.zip",
-                "reference": "2.2.6",
-                "shasum": "a03e2a0adb86cc92c52d1b56f57f4e0f7f2f6de7"
+                "url": "https://packages.zendframework.com/composer/zendframework-zend-math-be6de5ba3d47e3f9a6732badea8bc724c49d0552-zip-9dd212.zip",
+                "reference": "2.3.1",
+                "shasum": "19b03177f07dafcc83723615da074fcaf5fa76c6"
             },
             "require": {
-                "php": ">=5.3.3"
+                "php": ">=5.3.23"
             },
             "suggest": {
                 "ext-bcmath": "If using the bcmath functionality",
@@ -875,8 +923,8 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.2-dev",
-                    "dev-develop": "2.3-dev"
+                    "dev-master": "2.3-dev",
+                    "dev-develop": "2.4-dev"
                 }
             },
             "autoload": {
@@ -893,34 +941,40 @@
                 "zf2"
             ],
             "support": {
-                "source": "https://github.com/zendframework/Component_ZendMath/tree/master"
+                "source": "https://github.com/zendframework/Component_ZendMath/tree/release-2.3.1"
             },
-            "time": "2014-03-05 18:00:06"
+            "time": "2014-04-15 15:29:09"
         },
         {
             "name": "zendframework/zend-mime",
-            "version": "2.2.6",
+            "version": "2.3.1",
             "target-dir": "Zend/Mime",
             "source": {
                 "type": "git",
                 "url": "https://github.com/zendframework/Component_ZendMime.git",
-                "reference": "35ae58792d036828122a168f2e3fc5bd9f3f38c2"
+                "reference": "b606401e190190426ad091b4da81dbe19cd5283c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://packages.zendframework.com/composer/zendframework-zend-mime-35ae58792d036828122a168f2e3fc5bd9f3f38c2-zip-dd9733.zip",
-                "reference": "2.2.6",
-                "shasum": "c86ad72c118e9ea4f6e2b30dda76c1c51494e930"
+                "url": "https://packages.zendframework.com/composer/zendframework-zend-mime-b606401e190190426ad091b4da81dbe19cd5283c-zip-a703ff.zip",
+                "reference": "2.3.1",
+                "shasum": "c1bfa8ececeb860774af95cf423c8e45e0ba7d63"
             },
             "require": {
-                "php": ">=5.3.3",
+                "php": ">=5.3.23",
                 "zendframework/zend-stdlib": "self.version"
+            },
+            "require-dev": {
+                "zendframework/zend-mail": "self.version"
+            },
+            "suggest": {
+                "zendframework/zend-mail": "Zend\\Mail component"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.2-dev",
-                    "dev-develop": "2.3-dev"
+                    "dev-master": "2.3-dev",
+                    "dev-develop": "2.4-dev"
                 }
             },
             "autoload": {
@@ -937,27 +991,30 @@
                 "zf2"
             ],
             "support": {
-                "source": "https://github.com/zendframework/Component_ZendMime/tree/master"
+                "source": "https://github.com/zendframework/Component_ZendMime/tree/release-2.3.1"
             },
-            "time": "2014-03-03 23:00:16"
+            "time": "2014-04-15 15:28:54"
         },
         {
             "name": "zendframework/zend-servicemanager",
-            "version": "2.2.6",
+            "version": "2.3.1",
             "target-dir": "Zend/ServiceManager",
             "source": {
                 "type": "git",
                 "url": "https://github.com/zendframework/Component_ZendServiceManager.git",
-                "reference": "de182a20dfdcf978c49570514103c7477ef16e4f"
+                "reference": "652ab6e142b7afd1eede8f0f33b47d2599786c84"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://packages.zendframework.com/composer/zendframework-zend-servicemanager-de182a20dfdcf978c49570514103c7477ef16e4f-zip-a1da4e.zip",
-                "reference": "2.2.6",
-                "shasum": "bf39c0100559c739b3e2bbab488046ad563e2eae"
+                "url": "https://packages.zendframework.com/composer/zendframework-zend-servicemanager-652ab6e142b7afd1eede8f0f33b47d2599786c84-zip-cc071f.zip",
+                "reference": "2.3.1",
+                "shasum": "86b0bb930ffe070a0eb1b3727de7de9b317ee969"
             },
             "require": {
-                "php": ">=5.3.3"
+                "php": ">=5.3.23"
+            },
+            "require-dev": {
+                "zendframework/zend-di": "self.version"
             },
             "suggest": {
                 "zendframework/zend-di": "Zend\\Di component"
@@ -965,8 +1022,8 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.2-dev",
-                    "dev-develop": "2.3-dev"
+                    "dev-master": "2.3-dev",
+                    "dev-develop": "2.4-dev"
                 }
             },
             "autoload": {
@@ -983,37 +1040,43 @@
                 "zf2"
             ],
             "support": {
-                "source": "https://github.com/zendframework/Component_ZendServiceManager/tree/master"
+                "source": "https://github.com/zendframework/Component_ZendServiceManager/tree/release-2.3.1"
             },
-            "time": "2014-03-03 21:00:04"
+            "time": "2014-04-15 15:28:43"
         },
         {
             "name": "zendframework/zend-stdlib",
-            "version": "2.2.6",
+            "version": "2.3.1",
             "target-dir": "Zend/Stdlib",
             "source": {
                 "type": "git",
                 "url": "https://github.com/zendframework/Component_ZendStdlib.git",
-                "reference": "e646729f2274f4552b6a92e38d8e458efe08ebc5"
+                "reference": "c1f4830018b5d4f034d32fa01a9e17ea176f56f6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://packages.zendframework.com/composer/zendframework-zend-stdlib-e646729f2274f4552b6a92e38d8e458efe08ebc5-zip-58baed.zip",
-                "reference": "2.2.6",
-                "shasum": "822f5bafb2d9d7df376d8a9b4c12c300a634d7df"
+                "url": "https://packages.zendframework.com/composer/zendframework-zend-stdlib-c1f4830018b5d4f034d32fa01a9e17ea176f56f6-zip-b43c6b.zip",
+                "reference": "2.3.1",
+                "shasum": "7a094f270de9a54e1bfb2f0772e5f5cba2593475"
             },
             "require": {
-                "php": ">=5.3.3"
+                "php": ">=5.3.23"
+            },
+            "require-dev": {
+                "zendframework/zend-eventmanager": "self.version",
+                "zendframework/zend-serializer": "self.version",
+                "zendframework/zend-servicemanager": "self.version"
             },
             "suggest": {
                 "zendframework/zend-eventmanager": "To support aggregate hydrator usage",
+                "zendframework/zend-serializer": "Zend\\Serializer component",
                 "zendframework/zend-servicemanager": "To support hydrator plugin manager usage"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.2-dev",
-                    "dev-develop": "2.3-dev"
+                    "dev-master": "2.3-dev",
+                    "dev-develop": "2.4-dev"
                 }
             },
             "autoload": {
@@ -1030,9 +1093,72 @@
                 "zf2"
             ],
             "support": {
-                "source": "https://github.com/zendframework/Component_ZendStdlib/tree/master"
+                "source": "https://github.com/zendframework/Component_ZendStdlib/tree/release-2.3.1"
             },
-            "time": "2014-01-04 13:00:28"
+            "time": "2014-04-15 15:28:48"
+        },
+        {
+            "name": "zendframework/zend-validator",
+            "version": "2.3.1",
+            "target-dir": "Zend/Validator",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/zendframework/Component_ZendValidator.git",
+                "reference": "ac9848e54c6c75de81ee7a82c3187cd25a898990"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://packages.zendframework.com/composer/zendframework-zend-validator-ac9848e54c6c75de81ee7a82c3187cd25a898990-zip-3e0882.zip",
+                "reference": "2.3.1",
+                "shasum": "9358878683ad49127ba2bb40e9cf98241c01ab91"
+            },
+            "require": {
+                "php": ">=5.3.23",
+                "zendframework/zend-stdlib": "self.version"
+            },
+            "require-dev": {
+                "zendframework/zend-db": "self.version",
+                "zendframework/zend-filter": "self.version",
+                "zendframework/zend-i18n": "self.version",
+                "zendframework/zend-math": "self.version",
+                "zendframework/zend-servicemanager": "self.version",
+                "zendframework/zend-session": "self.version",
+                "zendframework/zend-uri": "self.version"
+            },
+            "suggest": {
+                "zendframework/zend-db": "Zend\\Db component",
+                "zendframework/zend-filter": "Zend\\Filter component, required by the Digits validator",
+                "zendframework/zend-i18n": "Zend\\I18n component to allow translation of validation error messages as well as to use the various Date validators",
+                "zendframework/zend-math": "Zend\\Math component",
+                "zendframework/zend-resources": "Translations of validator messages",
+                "zendframework/zend-servicemanager": "Zend\\ServiceManager component to allow using the ValidatorPluginManager and validator chains",
+                "zendframework/zend-session": "Zend\\Session component",
+                "zendframework/zend-uri": "Zend\\Uri component, required by the Uri and Sitemap\\Loc validators"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.3-dev",
+                    "dev-develop": "2.4-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Zend\\Validator\\": ""
+                }
+            },
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "description": "provides a set of commonly needed validators",
+            "keywords": [
+                "validator",
+                "zf2"
+            ],
+            "support": {
+                "source": "https://github.com/zendframework/Component_ZendValidator/tree/release-2.3.1"
+            },
+            "time": "2014-04-15 15:28:42"
         }
     ],
     "packages-dev": [
@@ -1042,9 +1168,9 @@
 
     ],
     "minimum-stability": "stable",
-    "stability-flags": [
-
-    ],
+    "stability-flags": {
+        "google/apiclient": 10
+    },
     "platform": [
 
     ],
