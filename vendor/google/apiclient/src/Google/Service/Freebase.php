@@ -246,7 +246,7 @@ class Google_Service_Freebase extends Google_Service
    * The encoding of the response. You can use this parameter to enable html encoding.
    * @opt_param string type
    * Restrict to topics with this Freebase type id.
-   * @opt_param string asOfTime
+   * @opt_param string as_of_time
    * A mql as_of_time value to use with mql_output queries.
    * @opt_param bool stemmed
    * Query on stemmed names and aliases. May not be used with prefixed.
@@ -270,7 +270,7 @@ class Google_Service_Freebase extends Google_Service
    * Maximum number of results to return.
    * @opt_param string output
    * An output expression to request data from matches.
-   * @opt_param string mqlOutput
+   * @opt_param string mql_output
    * The MQL query to run againist the results to extract more data.
    */
   public function search($optParams = array())
@@ -373,6 +373,7 @@ class Google_Service_Freebase_ReconcileCandidateNotable extends Google_Model
 
 class Google_Service_Freebase_ReconcileGet extends Google_Collection
 {
+  protected $collection_key = 'warning';
   protected $candidateType = 'Google_Service_Freebase_ReconcileCandidate';
   protected $candidateDataType = 'array';
   protected $costsType = 'Google_Service_Freebase_ReconcileGetCosts';

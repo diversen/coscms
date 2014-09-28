@@ -36,7 +36,7 @@ require_once 'Google/Service/Resource.php';
  */
 class Google_Client
 {
-  const LIBVER = "1.0.4-beta";
+  const LIBVER = "1.0.5-beta";
   const USER_AGENT_SUFFIX = "google-api-php-client/";
   /**
    * @var Google_Auth_Abstract $auth
@@ -80,11 +80,6 @@ class Google_Client
    */
   public function __construct($config = null)
   {
-    if (! ini_get('date.timezone') &&
-        function_exists('date_default_timezone_set')) {
-      date_default_timezone_set('UTC');
-    }
-
     if (is_string($config) && strlen($config)) {
       $config = new Google_Config($config);
     } else if ( !($config instanceof Google_Config)) {
@@ -100,12 +95,12 @@ class Google_Client
         $config->setClassConfig('Google_Http_Request', 'disable_gzip', true);
       }
     }
-    
+
     if ($config->getIoClass() == Google_Config::USE_AUTO_IO_SELECTION) {
-      if (function_exists('curl_version')) {
-        $config->setIoClass("Google_Io_Curl");
+      if (function_exists('curl_version') && function_exists('curl_exec')) {
+        $config->setIoClass("Google_IO_Curl");
       } else {
-        $config->setIoClass("Google_Io_Stream");
+        $config->setIoClass("Google_IO_Stream");
       }
     }
 
@@ -250,7 +245,7 @@ class Google_Client
     // The response is json encoded, so could be the string null.
     // It is arguable whether this check should be here or lower
     // in the library.
-    return (null == $token || 'null' == $token) ? null : $token;
+    return (null == $token || 'null' == $token || '[]' == $token) ? null : $token;
   }
 
   /**
@@ -290,6 +285,15 @@ class Google_Client
   public function setApprovalPrompt($approvalPrompt)
   {
     $this->config->setApprovalPrompt($approvalPrompt);
+  }
+
+  /**
+   * Set the login hint, email address or sub id.
+   * @param string $loginHint
+   */
+  public function setLoginHint($loginHint)
+  {
+      $this->config->setLoginHint($loginHint);
   }
 
   /**

@@ -48,6 +48,12 @@ class ApiClientTest extends BaseTest {
     $this->assertEquals("", $scopes);
   }
 
+  public function testNoAuthIsNull() {
+    $client = new Google_Client();
+
+    $this->assertNull($client->getAccessToken());
+  }
+
   public function testPrepareService() {
     $client = new Google_Client();
     $client->setScopes(array("scope1", "scope2"));
@@ -112,7 +118,7 @@ class ApiClientTest extends BaseTest {
   }
 
   public function testAppEngineAutoConfig() {
-    if (!function_exists('memcache_connect')) {
+    if (!class_exists("Memcached")) {
       $this->markTestSkipped('Test requires memcache');
     }
     $_SERVER['SERVER_SOFTWARE'] = 'Google App Engine';

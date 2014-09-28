@@ -51,7 +51,7 @@
  * @author    Christian Schmidt <schmidt@php.net>
  * @copyright 2007-2009 Peytz & Co. A/S
  * @license   https://spdx.org/licenses/BSD-3-Clause BSD-3-Clause
- * @version   Release: 2.0.6
+ * @version   Release: 2.0.7
  * @link      https://pear.php.net/package/Net_URL2
  */
 class Net_URL2
@@ -271,7 +271,12 @@ class Net_URL2
         if ($password !== false) {
             $userinfo .= ':' . $password;
         }
-        $this->_userinfo = $this->_encodeData($userinfo);
+
+        if ($userinfo !== false) {
+            $userinfo = $this->_encodeData($userinfo);
+        }
+
+        $this->_userinfo = $userinfo;
         return $this;
     }
 
@@ -783,11 +788,12 @@ class Net_URL2
 
         // Normalize case of %XX percentage-encodings (RFC 3986, section 6.2.2.1)
         // Normalize percentage-encoded unreserved characters (section 6.2.2.2)
-        list($this->_userinfo, $this->_host, $this->_path)
-            = preg_replace_callback(
-                '((?:%[0-9a-fA-Z]{2})+)', array($this, '_normalizeCallback'),
-                array($this->_userinfo, $this->_host, $this->_path)
-            );
+        list($this->_host, $this->_path)
+            = $this->_normalize(array($this->_host, $this->_path));
+
+        if ($this->_userinfo !== false) {
+            $this->_userinfo = $this->_normalize($this->_userinfo);
+        }
 
         // Path segment normalization (RFC 3986, section 6.2.2.3)
         $this->_path = self::removeDotSegments($this->_path);
@@ -807,12 +813,31 @@ class Net_URL2
     }
 
     /**
-     * callback for normalize() of %XX percentage-encodings
+     * Normalize case of %XX percentage-encodings (RFC 3986, section 6.2.2.1)
+     * Normalize percentage-encoded unreserved characters (section 6.2.2.2)
+     *
+     * @param string|array $mixed string or array of strings to normalize
+     *
+     * @return string|array
+     * @see normalize
+     * @see _normalizeCallback()
+     */
+    private function _normalize($mixed)
+    {
+        return preg_replace_callback(
+            '((?:%[0-9a-fA-Z]{2})+)', array($this, '_normalizeCallback'),
+            $mixed
+        );
+    }
+
+    /**
+     * Callback for _normalize() of %XX percentage-encodings
      *
      * @param array $matches as by preg_replace_callback
      *
      * @return string
      * @see normalize
+     * @see _normalize
      * @SuppressWarnings(PHPMD.UnusedPrivateMethod)
      */
     private function _normalizeCallback($matches)

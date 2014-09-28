@@ -37,7 +37,7 @@ class Google_Service_Plus extends Google_Service
   const PLUS_ME = "https://www.googleapis.com/auth/plus.me";
   /** View your email address. */
   const USERINFO_EMAIL = "https://www.googleapis.com/auth/userinfo.email";
-  /** View basic information about your account. */
+  /** View your basic profile info. */
   const USERINFO_PROFILE = "https://www.googleapis.com/auth/userinfo.profile";
 
   public $activities;
@@ -475,11 +475,11 @@ class Google_Service_Plus_Moments_Resource extends Google_Service_Resource
 {
 
   /**
-   * Record a moment representing a user's activity such as making a purchase or
+   * Record a moment representing a user's action such as making a purchase or
    * commenting on a blog. (moments.insert)
    *
    * @param string $userId
-   * The ID of the user to record activities for. The only valid values are "me" and the ID of the
+   * The ID of the user to record actions for. The only valid values are "me" and the ID of the
     * authenticated user.
    * @param string $collection
    * The collection to which to write moments.
@@ -648,6 +648,7 @@ class Google_Service_Plus_People_Resource extends Google_Service_Resource
 
 class Google_Service_Plus_Acl extends Google_Collection
 {
+  protected $collection_key = 'items';
   public $description;
   protected $itemsType = 'Google_Service_Plus_PlusAclentryResource';
   protected $itemsDataType = 'array';
@@ -1017,6 +1018,7 @@ class Google_Service_Plus_ActivityActorName extends Google_Model
 
 class Google_Service_Plus_ActivityFeed extends Google_Collection
 {
+  protected $collection_key = 'items';
   public $etag;
   public $id;
   protected $itemsType = 'Google_Service_Plus_Activity';
@@ -1121,6 +1123,7 @@ class Google_Service_Plus_ActivityFeed extends Google_Collection
 
 class Google_Service_Plus_ActivityObject extends Google_Collection
 {
+  protected $collection_key = 'attachments';
   protected $actorType = 'Google_Service_Plus_ActivityObjectActor';
   protected $actorDataType = '';
   protected $attachmentsType = 'Google_Service_Plus_ActivityObjectAttachments';
@@ -1304,6 +1307,7 @@ class Google_Service_Plus_ActivityObjectActorImage extends Google_Model
 
 class Google_Service_Plus_ActivityObjectAttachments extends Google_Collection
 {
+  protected $collection_key = 'thumbnails';
   public $content;
   public $displayName;
   protected $embedType = 'Google_Service_Plus_ActivityObjectAttachmentsEmbed';
@@ -1712,6 +1716,7 @@ class Google_Service_Plus_ActivityProvider extends Google_Model
 
 class Google_Service_Plus_Comment extends Google_Collection
 {
+  protected $collection_key = 'inReplyTo';
   protected $actorType = 'Google_Service_Plus_CommentActor';
   protected $actorDataType = '';
   public $etag;
@@ -1905,6 +1910,7 @@ class Google_Service_Plus_CommentActorImage extends Google_Model
 
 class Google_Service_Plus_CommentFeed extends Google_Collection
 {
+  protected $collection_key = 'items';
   public $etag;
   public $id;
   protected $itemsType = 'Google_Service_Plus_Comment';
@@ -2076,6 +2082,7 @@ class Google_Service_Plus_CommentPlusoners extends Google_Model
 
 class Google_Service_Plus_ItemScope extends Google_Collection
 {
+  protected $collection_key = 'performers';
   protected $aboutType = 'Google_Service_Plus_ItemScope';
   protected $aboutDataType = '';
   public $additionalName;
@@ -2702,6 +2709,8 @@ class Google_Service_Plus_Moment extends Google_Model
 {
   public $id;
   public $kind;
+  protected $objectType = 'Google_Service_Plus_ItemScope';
+  protected $objectDataType = '';
   protected $resultType = 'Google_Service_Plus_ItemScope';
   protected $resultDataType = '';
   public $startDate;
@@ -2727,6 +2736,16 @@ class Google_Service_Plus_Moment extends Google_Model
   public function getKind()
   {
     return $this->kind;
+  }
+
+  public function setObject(Google_Service_Plus_ItemScope $object)
+  {
+    $this->object = $object;
+  }
+
+  public function getObject()
+  {
+    return $this->object;
   }
 
   public function setResult(Google_Service_Plus_ItemScope $result)
@@ -2772,6 +2791,7 @@ class Google_Service_Plus_Moment extends Google_Model
 
 class Google_Service_Plus_MomentsFeed extends Google_Collection
 {
+  protected $collection_key = 'items';
   public $etag;
   protected $itemsType = 'Google_Service_Plus_Moment';
   protected $itemsDataType = 'array';
@@ -2865,6 +2885,7 @@ class Google_Service_Plus_MomentsFeed extends Google_Collection
 
 class Google_Service_Plus_PeopleFeed extends Google_Collection
 {
+  protected $collection_key = 'items';
   public $etag;
   protected $itemsType = 'Google_Service_Plus_Person';
   protected $itemsDataType = 'array';
@@ -2947,6 +2968,7 @@ class Google_Service_Plus_PeopleFeed extends Google_Collection
 
 class Google_Service_Plus_Person extends Google_Collection
 {
+  protected $collection_key = 'urls';
   public $aboutMe;
   protected $ageRangeType = 'Google_Service_Plus_PersonAgeRange';
   protected $ageRangeDataType = '';
@@ -3443,7 +3465,18 @@ class Google_Service_Plus_PersonEmails extends Google_Model
 
 class Google_Service_Plus_PersonImage extends Google_Model
 {
+  public $isDefault;
   public $url;
+
+  public function setIsDefault($isDefault)
+  {
+    $this->isDefault = $isDefault;
+  }
+
+  public function getIsDefault()
+  {
+    return $this->isDefault;
+  }
 
   public function setUrl($url)
   {
@@ -3697,6 +3730,7 @@ class Google_Service_Plus_Place extends Google_Model
   protected $addressType = 'Google_Service_Plus_PlaceAddress';
   protected $addressDataType = '';
   public $displayName;
+  public $id;
   public $kind;
   protected $positionType = 'Google_Service_Plus_PlacePosition';
   protected $positionDataType = '';
@@ -3719,6 +3753,16 @@ class Google_Service_Plus_Place extends Google_Model
   public function getDisplayName()
   {
     return $this->displayName;
+  }
+
+  public function setId($id)
+  {
+    $this->id = $id;
+  }
+
+  public function getId()
+  {
+    return $this->id;
   }
 
   public function setKind($kind)

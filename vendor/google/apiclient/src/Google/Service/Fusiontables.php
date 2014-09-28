@@ -40,6 +40,7 @@ class Google_Service_Fusiontables extends Google_Service
   public $query;
   public $style;
   public $table;
+  public $task;
   public $template;
   
 
@@ -428,6 +429,68 @@ class Google_Service_Fusiontables extends Google_Service
                 'replaceViewDefinition' => array(
                   'location' => 'query',
                   'type' => 'boolean',
+                ),
+              ),
+            ),
+          )
+        )
+    );
+    $this->task = new Google_Service_Fusiontables_Task_Resource(
+        $this,
+        $this->serviceName,
+        'task',
+        array(
+          'methods' => array(
+            'delete' => array(
+              'path' => 'tables/{tableId}/tasks/{taskId}',
+              'httpMethod' => 'DELETE',
+              'parameters' => array(
+                'tableId' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+                'taskId' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+              ),
+            ),'get' => array(
+              'path' => 'tables/{tableId}/tasks/{taskId}',
+              'httpMethod' => 'GET',
+              'parameters' => array(
+                'tableId' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+                'taskId' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+              ),
+            ),'list' => array(
+              'path' => 'tables/{tableId}/tasks',
+              'httpMethod' => 'GET',
+              'parameters' => array(
+                'tableId' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+                'pageToken' => array(
+                  'location' => 'query',
+                  'type' => 'string',
+                ),
+                'startIndex' => array(
+                  'location' => 'query',
+                  'type' => 'integer',
+                ),
+                'maxResults' => array(
+                  'location' => 'query',
+                  'type' => 'integer',
                 ),
               ),
             ),
@@ -999,6 +1062,71 @@ class Google_Service_Fusiontables_Table_Resource extends Google_Service_Resource
 }
 
 /**
+ * The "task" collection of methods.
+ * Typical usage is:
+ *  <code>
+ *   $fusiontablesService = new Google_Service_Fusiontables(...);
+ *   $task = $fusiontablesService->task;
+ *  </code>
+ */
+class Google_Service_Fusiontables_Task_Resource extends Google_Service_Resource
+{
+
+  /**
+   * Deletes the task, unless already started. (task.delete)
+   *
+   * @param string $tableId
+   * Table from which the task is being deleted.
+   * @param string $taskId
+   *
+   * @param array $optParams Optional parameters.
+   */
+  public function delete($tableId, $taskId, $optParams = array())
+  {
+    $params = array('tableId' => $tableId, 'taskId' => $taskId);
+    $params = array_merge($params, $optParams);
+    return $this->call('delete', array($params));
+  }
+  /**
+   * Retrieves a specific task by its id. (task.get)
+   *
+   * @param string $tableId
+   * Table to which the task belongs.
+   * @param string $taskId
+   *
+   * @param array $optParams Optional parameters.
+   * @return Google_Service_Fusiontables_Task
+   */
+  public function get($tableId, $taskId, $optParams = array())
+  {
+    $params = array('tableId' => $tableId, 'taskId' => $taskId);
+    $params = array_merge($params, $optParams);
+    return $this->call('get', array($params), "Google_Service_Fusiontables_Task");
+  }
+  /**
+   * Retrieves a list of tasks. (task.listTask)
+   *
+   * @param string $tableId
+   * Table whose tasks are being listed.
+   * @param array $optParams Optional parameters.
+   *
+   * @opt_param string pageToken
+   *
+   * @opt_param string startIndex
+   *
+   * @opt_param string maxResults
+   * Maximum number of columns to return. Optional. Default is 5.
+   * @return Google_Service_Fusiontables_TaskList
+   */
+  public function listTask($tableId, $optParams = array())
+  {
+    $params = array('tableId' => $tableId);
+    $params = array_merge($params, $optParams);
+    return $this->call('list', array($params), "Google_Service_Fusiontables_TaskList");
+  }
+}
+
+/**
  * The "template" collection of methods.
  * Typical usage is:
  *  <code>
@@ -1189,6 +1317,8 @@ class Google_Service_Fusiontables_Column extends Google_Model
   protected $baseColumnType = 'Google_Service_Fusiontables_ColumnBaseColumn';
   protected $baseColumnDataType = '';
   public $columnId;
+  public $description;
+  public $graphPredicate;
   public $kind;
   public $name;
   public $type;
@@ -1211,6 +1341,26 @@ class Google_Service_Fusiontables_Column extends Google_Model
   public function getColumnId()
   {
     return $this->columnId;
+  }
+
+  public function setDescription($description)
+  {
+    $this->description = $description;
+  }
+
+  public function getDescription()
+  {
+    return $this->description;
+  }
+
+  public function setGraphPredicate($graphPredicate)
+  {
+    $this->graphPredicate = $graphPredicate;
+  }
+
+  public function getGraphPredicate()
+  {
+    return $this->graphPredicate;
   }
 
   public function setKind($kind)
@@ -1272,6 +1422,7 @@ class Google_Service_Fusiontables_ColumnBaseColumn extends Google_Model
 
 class Google_Service_Fusiontables_ColumnList extends Google_Collection
 {
+  protected $collection_key = 'items';
   protected $itemsType = 'Google_Service_Fusiontables_Column';
   protected $itemsDataType = 'array';
   public $kind;
@@ -1321,6 +1472,7 @@ class Google_Service_Fusiontables_ColumnList extends Google_Collection
 
 class Google_Service_Fusiontables_Geometry extends Google_Collection
 {
+  protected $collection_key = 'geometries';
   public $geometries;
   public $geometry;
   public $type;
@@ -1384,6 +1536,7 @@ class Google_Service_Fusiontables_Import extends Google_Model
 
 class Google_Service_Fusiontables_Line extends Google_Collection
 {
+  protected $collection_key = 'coordinates';
   public $coordinates;
   public $type;
 
@@ -1471,6 +1624,7 @@ class Google_Service_Fusiontables_LineStyle extends Google_Model
 
 class Google_Service_Fusiontables_Point extends Google_Collection
 {
+  protected $collection_key = 'coordinates';
   public $coordinates;
   public $type;
 
@@ -1524,6 +1678,7 @@ class Google_Service_Fusiontables_PointStyle extends Google_Model
 
 class Google_Service_Fusiontables_Polygon extends Google_Collection
 {
+  protected $collection_key = 'coordinates';
   public $coordinates;
   public $type;
 
@@ -1645,6 +1800,7 @@ class Google_Service_Fusiontables_PolygonStyle extends Google_Model
 
 class Google_Service_Fusiontables_Sqlresponse extends Google_Collection
 {
+  protected $collection_key = 'rows';
   public $columns;
   public $kind;
   public $rows;
@@ -1682,6 +1838,7 @@ class Google_Service_Fusiontables_Sqlresponse extends Google_Collection
 
 class Google_Service_Fusiontables_StyleFunction extends Google_Collection
 {
+  protected $collection_key = 'buckets';
   protected $bucketsType = 'Google_Service_Fusiontables_Bucket';
   protected $bucketsDataType = 'array';
   public $columnName;
@@ -1732,6 +1889,7 @@ class Google_Service_Fusiontables_StyleFunction extends Google_Collection
 
 class Google_Service_Fusiontables_StyleFunctionGradient extends Google_Collection
 {
+  protected $collection_key = 'colors';
   protected $colorsType = 'Google_Service_Fusiontables_StyleFunctionGradientColors';
   protected $colorsDataType = 'array';
   public $max;
@@ -1880,6 +2038,7 @@ class Google_Service_Fusiontables_StyleSetting extends Google_Model
 
 class Google_Service_Fusiontables_StyleSettingList extends Google_Collection
 {
+  protected $collection_key = 'items';
   protected $itemsType = 'Google_Service_Fusiontables_StyleSetting';
   protected $itemsDataType = 'array';
   public $kind;
@@ -1929,6 +2088,7 @@ class Google_Service_Fusiontables_StyleSettingList extends Google_Collection
 
 class Google_Service_Fusiontables_Table extends Google_Collection
 {
+  protected $collection_key = 'columns';
   public $attribution;
   public $attributionLink;
   public $baseTableIds;
@@ -2044,6 +2204,7 @@ class Google_Service_Fusiontables_Table extends Google_Collection
 
 class Google_Service_Fusiontables_TableList extends Google_Collection
 {
+  protected $collection_key = 'items';
   protected $itemsType = 'Google_Service_Fusiontables_Table';
   protected $itemsDataType = 'array';
   public $kind;
@@ -2080,8 +2241,118 @@ class Google_Service_Fusiontables_TableList extends Google_Collection
   }
 }
 
+class Google_Service_Fusiontables_Task extends Google_Model
+{
+  public $kind;
+  public $progress;
+  public $started;
+  public $taskId;
+  public $type;
+
+  public function setKind($kind)
+  {
+    $this->kind = $kind;
+  }
+
+  public function getKind()
+  {
+    return $this->kind;
+  }
+
+  public function setProgress($progress)
+  {
+    $this->progress = $progress;
+  }
+
+  public function getProgress()
+  {
+    return $this->progress;
+  }
+
+  public function setStarted($started)
+  {
+    $this->started = $started;
+  }
+
+  public function getStarted()
+  {
+    return $this->started;
+  }
+
+  public function setTaskId($taskId)
+  {
+    $this->taskId = $taskId;
+  }
+
+  public function getTaskId()
+  {
+    return $this->taskId;
+  }
+
+  public function setType($type)
+  {
+    $this->type = $type;
+  }
+
+  public function getType()
+  {
+    return $this->type;
+  }
+}
+
+class Google_Service_Fusiontables_TaskList extends Google_Collection
+{
+  protected $collection_key = 'items';
+  protected $itemsType = 'Google_Service_Fusiontables_Task';
+  protected $itemsDataType = 'array';
+  public $kind;
+  public $nextPageToken;
+  public $totalItems;
+
+  public function setItems($items)
+  {
+    $this->items = $items;
+  }
+
+  public function getItems()
+  {
+    return $this->items;
+  }
+
+  public function setKind($kind)
+  {
+    $this->kind = $kind;
+  }
+
+  public function getKind()
+  {
+    return $this->kind;
+  }
+
+  public function setNextPageToken($nextPageToken)
+  {
+    $this->nextPageToken = $nextPageToken;
+  }
+
+  public function getNextPageToken()
+  {
+    return $this->nextPageToken;
+  }
+
+  public function setTotalItems($totalItems)
+  {
+    $this->totalItems = $totalItems;
+  }
+
+  public function getTotalItems()
+  {
+    return $this->totalItems;
+  }
+}
+
 class Google_Service_Fusiontables_Template extends Google_Collection
 {
+  protected $collection_key = 'automaticColumnNames';
   public $automaticColumnNames;
   public $body;
   public $kind;
@@ -2152,6 +2423,7 @@ class Google_Service_Fusiontables_Template extends Google_Collection
 
 class Google_Service_Fusiontables_TemplateList extends Google_Collection
 {
+  protected $collection_key = 'items';
   protected $itemsType = 'Google_Service_Fusiontables_Template';
   protected $itemsDataType = 'array';
   public $kind;

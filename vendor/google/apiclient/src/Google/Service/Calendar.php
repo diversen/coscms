@@ -113,6 +113,22 @@ class Google_Service_Calendar extends Google_Service
                   'type' => 'string',
                   'required' => true,
                 ),
+                'pageToken' => array(
+                  'location' => 'query',
+                  'type' => 'string',
+                ),
+                'syncToken' => array(
+                  'location' => 'query',
+                  'type' => 'string',
+                ),
+                'maxResults' => array(
+                  'location' => 'query',
+                  'type' => 'integer',
+                ),
+                'showDeleted' => array(
+                  'location' => 'query',
+                  'type' => 'boolean',
+                ),
               ),
             ),'patch' => array(
               'path' => 'calendars/{calendarId}/acl/{ruleId}',
@@ -142,6 +158,32 @@ class Google_Service_Calendar extends Google_Service
                   'location' => 'path',
                   'type' => 'string',
                   'required' => true,
+                ),
+              ),
+            ),'watch' => array(
+              'path' => 'calendars/{calendarId}/acl/watch',
+              'httpMethod' => 'POST',
+              'parameters' => array(
+                'calendarId' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+                'pageToken' => array(
+                  'location' => 'query',
+                  'type' => 'string',
+                ),
+                'syncToken' => array(
+                  'location' => 'query',
+                  'type' => 'string',
+                ),
+                'maxResults' => array(
+                  'location' => 'query',
+                  'type' => 'integer',
+                ),
+                'showDeleted' => array(
+                  'location' => 'query',
+                  'type' => 'boolean',
                 ),
               ),
             ),
@@ -187,6 +229,22 @@ class Google_Service_Calendar extends Google_Service
               'path' => 'users/me/calendarList',
               'httpMethod' => 'GET',
               'parameters' => array(
+                'syncToken' => array(
+                  'location' => 'query',
+                  'type' => 'string',
+                ),
+                'showDeleted' => array(
+                  'location' => 'query',
+                  'type' => 'boolean',
+                ),
+                'minAccessRole' => array(
+                  'location' => 'query',
+                  'type' => 'string',
+                ),
+                'maxResults' => array(
+                  'location' => 'query',
+                  'type' => 'integer',
+                ),
                 'pageToken' => array(
                   'location' => 'query',
                   'type' => 'string',
@@ -194,14 +252,6 @@ class Google_Service_Calendar extends Google_Service
                 'showHidden' => array(
                   'location' => 'query',
                   'type' => 'boolean',
-                ),
-                'maxResults' => array(
-                  'location' => 'query',
-                  'type' => 'integer',
-                ),
-                'minAccessRole' => array(
-                  'location' => 'query',
-                  'type' => 'string',
                 ),
               ),
             ),'patch' => array(
@@ -228,6 +278,35 @@ class Google_Service_Calendar extends Google_Service
                   'required' => true,
                 ),
                 'colorRgbFormat' => array(
+                  'location' => 'query',
+                  'type' => 'boolean',
+                ),
+              ),
+            ),'watch' => array(
+              'path' => 'users/me/calendarList/watch',
+              'httpMethod' => 'POST',
+              'parameters' => array(
+                'syncToken' => array(
+                  'location' => 'query',
+                  'type' => 'string',
+                ),
+                'showDeleted' => array(
+                  'location' => 'query',
+                  'type' => 'boolean',
+                ),
+                'minAccessRole' => array(
+                  'location' => 'query',
+                  'type' => 'string',
+                ),
+                'maxResults' => array(
+                  'location' => 'query',
+                  'type' => 'integer',
+                ),
+                'pageToken' => array(
+                  'location' => 'query',
+                  'type' => 'string',
+                ),
+                'showHidden' => array(
                   'location' => 'query',
                   'type' => 'boolean',
                 ),
@@ -476,6 +555,10 @@ class Google_Service_Calendar extends Google_Service
                   'location' => 'query',
                   'type' => 'boolean',
                 ),
+                'syncToken' => array(
+                  'location' => 'query',
+                  'type' => 'string',
+                ),
                 'showDeleted' => array(
                   'location' => 'query',
                   'type' => 'boolean',
@@ -649,6 +732,10 @@ class Google_Service_Calendar extends Google_Service
                   'location' => 'query',
                   'type' => 'boolean',
                 ),
+                'syncToken' => array(
+                  'location' => 'query',
+                  'type' => 'string',
+                ),
                 'showDeleted' => array(
                   'location' => 'query',
                   'type' => 'boolean',
@@ -745,7 +832,37 @@ class Google_Service_Calendar extends Google_Service
             ),'list' => array(
               'path' => 'users/me/settings',
               'httpMethod' => 'GET',
-              'parameters' => array(),
+              'parameters' => array(
+                'pageToken' => array(
+                  'location' => 'query',
+                  'type' => 'string',
+                ),
+                'maxResults' => array(
+                  'location' => 'query',
+                  'type' => 'integer',
+                ),
+                'syncToken' => array(
+                  'location' => 'query',
+                  'type' => 'string',
+                ),
+              ),
+            ),'watch' => array(
+              'path' => 'users/me/settings/watch',
+              'httpMethod' => 'POST',
+              'parameters' => array(
+                'pageToken' => array(
+                  'location' => 'query',
+                  'type' => 'string',
+                ),
+                'maxResults' => array(
+                  'location' => 'query',
+                  'type' => 'integer',
+                ),
+                'syncToken' => array(
+                  'location' => 'query',
+                  'type' => 'string',
+                ),
+              ),
             ),
           )
         )
@@ -817,6 +934,27 @@ class Google_Service_Calendar_Acl_Resource extends Google_Service_Resource
    * @param string $calendarId
    * Calendar identifier.
    * @param array $optParams Optional parameters.
+   *
+   * @opt_param string pageToken
+   * Token specifying which result page to return. Optional.
+   * @opt_param string syncToken
+   * Token obtained from the nextSyncToken field returned on the last page of results from the
+    * previous list request. It makes the result of this list request contain only entries that have
+    * changed since then. All entries deleted since the previous list request will always be in the
+    * result set and it is not allowed to set showDeleted to False.
+  If the syncToken expires, the
+    * server will respond with a 410 GONE response code and the client should clear its storage and
+    * perform a full synchronization without any syncToken.
+  Learn more about incremental
+    * synchronization.
+  Optional. The default is to return all entries.
+   * @opt_param int maxResults
+   * Maximum number of entries returned on one result page. By default the value is 100 entries. The
+    * page size can never be larger than 250 entries. Optional.
+   * @opt_param bool showDeleted
+   * Whether to include deleted ACLs in the result. Deleted ACLs are represented by role equal to
+    * "none". Deleted ACLs will always be included if syncToken is provided. Optional. The default is
+    * False.
    * @return Google_Service_Calendar_Acl
    */
   public function listAcl($calendarId, $optParams = array())
@@ -859,6 +997,42 @@ class Google_Service_Calendar_Acl_Resource extends Google_Service_Resource
     $params = array('calendarId' => $calendarId, 'ruleId' => $ruleId, 'postBody' => $postBody);
     $params = array_merge($params, $optParams);
     return $this->call('update', array($params), "Google_Service_Calendar_AclRule");
+  }
+  /**
+   * Watch for changes to ACL resources. (acl.watch)
+   *
+   * @param string $calendarId
+   * Calendar identifier.
+   * @param Google_Channel $postBody
+   * @param array $optParams Optional parameters.
+   *
+   * @opt_param string pageToken
+   * Token specifying which result page to return. Optional.
+   * @opt_param string syncToken
+   * Token obtained from the nextSyncToken field returned on the last page of results from the
+    * previous list request. It makes the result of this list request contain only entries that have
+    * changed since then. All entries deleted since the previous list request will always be in the
+    * result set and it is not allowed to set showDeleted to False.
+  If the syncToken expires, the
+    * server will respond with a 410 GONE response code and the client should clear its storage and
+    * perform a full synchronization without any syncToken.
+  Learn more about incremental
+    * synchronization.
+  Optional. The default is to return all entries.
+   * @opt_param int maxResults
+   * Maximum number of entries returned on one result page. By default the value is 100 entries. The
+    * page size can never be larger than 250 entries. Optional.
+   * @opt_param bool showDeleted
+   * Whether to include deleted ACLs in the result. Deleted ACLs are represented by role equal to
+    * "none". Deleted ACLs will always be included if syncToken is provided. Optional. The default is
+    * False.
+   * @return Google_Service_Calendar_Channel
+   */
+  public function watch($calendarId, Google_Service_Calendar_Channel $postBody, $optParams = array())
+  {
+    $params = array('calendarId' => $calendarId, 'postBody' => $postBody);
+    $params = array_merge($params, $optParams);
+    return $this->call('watch', array($params), "Google_Service_Calendar_Channel");
   }
 }
 
@@ -907,8 +1081,8 @@ class Google_Service_Calendar_CalendarList_Resource extends Google_Service_Resou
    * @param array $optParams Optional parameters.
    *
    * @opt_param bool colorRgbFormat
-   * Whether to use the 'foregroundColor' and 'backgroundColor' fields to write the calendar colors
-    * (RGB). If this feature is used, the index-based 'colorId' field will be set to the best matching
+   * Whether to use the foregroundColor and backgroundColor fields to write the calendar colors
+    * (RGB). If this feature is used, the index-based colorId field will be set to the best matching
     * option automatically. Optional. The default is False.
    * @return Google_Service_Calendar_CalendarListEntry
    */
@@ -923,15 +1097,33 @@ class Google_Service_Calendar_CalendarList_Resource extends Google_Service_Resou
    *
    * @param array $optParams Optional parameters.
    *
+   * @opt_param string syncToken
+   * Token obtained from the nextSyncToken field returned on the last page of results from the
+    * previous list request. It makes the result of this list request contain only entries that have
+    * changed since then. If only read-only fields such as calendar properties or ACLs have changed,
+    * the entry won't be returned. All entries deleted and hidden since the previous list request will
+    * always be in the result set and it is not allowed to set showDeleted neither showHidden to
+    * False.
+  To ensure client state consistency minAccessRole query parameter cannot be specified
+    * together with nextSyncToken.
+  If the syncToken expires, the server will respond with a 410 GONE
+    * response code and the client should clear its storage and perform a full synchronization without
+    * any syncToken.
+  Learn more about incremental synchronization.
+  Optional. The default is to return
+    * all entries.
+   * @opt_param bool showDeleted
+   * Whether to include deleted calendar list entries in the result. Optional. The default is False.
+   * @opt_param string minAccessRole
+   * The minimum access role for the user in the returned entires. Optional. The default is no
+    * restriction.
+   * @opt_param int maxResults
+   * Maximum number of entries returned on one result page. By default the value is 100 entries. The
+    * page size can never be larger than 250 entries. Optional.
    * @opt_param string pageToken
    * Token specifying which result page to return. Optional.
    * @opt_param bool showHidden
    * Whether to show hidden entries. Optional. The default is False.
-   * @opt_param int maxResults
-   * Maximum number of entries returned on one result page. Optional.
-   * @opt_param string minAccessRole
-   * The minimum access role for the user in the returned entires. Optional. The default is no
-    * restriction.
    * @return Google_Service_Calendar_CalendarList
    */
   public function listCalendarList($optParams = array())
@@ -950,8 +1142,8 @@ class Google_Service_Calendar_CalendarList_Resource extends Google_Service_Resou
    * @param array $optParams Optional parameters.
    *
    * @opt_param bool colorRgbFormat
-   * Whether to use the 'foregroundColor' and 'backgroundColor' fields to write the calendar colors
-    * (RGB). If this feature is used, the index-based 'colorId' field will be set to the best matching
+   * Whether to use the foregroundColor and backgroundColor fields to write the calendar colors
+    * (RGB). If this feature is used, the index-based colorId field will be set to the best matching
     * option automatically. Optional. The default is False.
    * @return Google_Service_Calendar_CalendarListEntry
    */
@@ -970,8 +1162,8 @@ class Google_Service_Calendar_CalendarList_Resource extends Google_Service_Resou
    * @param array $optParams Optional parameters.
    *
    * @opt_param bool colorRgbFormat
-   * Whether to use the 'foregroundColor' and 'backgroundColor' fields to write the calendar colors
-    * (RGB). If this feature is used, the index-based 'colorId' field will be set to the best matching
+   * Whether to use the foregroundColor and backgroundColor fields to write the calendar colors
+    * (RGB). If this feature is used, the index-based colorId field will be set to the best matching
     * option automatically. Optional. The default is False.
    * @return Google_Service_Calendar_CalendarListEntry
    */
@@ -980,6 +1172,47 @@ class Google_Service_Calendar_CalendarList_Resource extends Google_Service_Resou
     $params = array('calendarId' => $calendarId, 'postBody' => $postBody);
     $params = array_merge($params, $optParams);
     return $this->call('update', array($params), "Google_Service_Calendar_CalendarListEntry");
+  }
+  /**
+   * Watch for changes to CalendarList resources. (calendarList.watch)
+   *
+   * @param Google_Channel $postBody
+   * @param array $optParams Optional parameters.
+   *
+   * @opt_param string syncToken
+   * Token obtained from the nextSyncToken field returned on the last page of results from the
+    * previous list request. It makes the result of this list request contain only entries that have
+    * changed since then. If only read-only fields such as calendar properties or ACLs have changed,
+    * the entry won't be returned. All entries deleted and hidden since the previous list request will
+    * always be in the result set and it is not allowed to set showDeleted neither showHidden to
+    * False.
+  To ensure client state consistency minAccessRole query parameter cannot be specified
+    * together with nextSyncToken.
+  If the syncToken expires, the server will respond with a 410 GONE
+    * response code and the client should clear its storage and perform a full synchronization without
+    * any syncToken.
+  Learn more about incremental synchronization.
+  Optional. The default is to return
+    * all entries.
+   * @opt_param bool showDeleted
+   * Whether to include deleted calendar list entries in the result. Optional. The default is False.
+   * @opt_param string minAccessRole
+   * The minimum access role for the user in the returned entires. Optional. The default is no
+    * restriction.
+   * @opt_param int maxResults
+   * Maximum number of entries returned on one result page. By default the value is 100 entries. The
+    * page size can never be larger than 250 entries. Optional.
+   * @opt_param string pageToken
+   * Token specifying which result page to return. Optional.
+   * @opt_param bool showHidden
+   * Whether to show hidden entries. Optional. The default is False.
+   * @return Google_Service_Calendar_Channel
+   */
+  public function watch(Google_Service_Calendar_Channel $postBody, $optParams = array())
+  {
+    $params = array('postBody' => $postBody);
+    $params = array_merge($params, $optParams);
+    return $this->call('watch', array($params), "Google_Service_Calendar_Channel");
   }
 }
 
@@ -1172,7 +1405,7 @@ class Google_Service_Calendar_Events_Resource extends Google_Service_Resource
    * @opt_param string timeZone
    * Time zone used in the response. Optional. The default is the time zone of the calendar.
    * @opt_param bool alwaysIncludeEmail
-   * Whether to always include a value in the "email" field for the organizer, creator and attendees,
+   * Whether to always include a value in the email field for the organizer, creator and attendees,
     * even if no real email is available (i.e. a generated, non-working value will be provided). The
     * use of this option is discouraged and should only be used by clients which cannot handle the
     * absence of an email address value in the mentioned places. Optional. The default is False.
@@ -1235,19 +1468,20 @@ class Google_Service_Calendar_Events_Resource extends Google_Service_Resource
    * @param array $optParams Optional parameters.
    *
    * @opt_param bool showDeleted
-   * Whether to include deleted events (with 'status' equals 'cancelled') in the result. Cancelled
-    * instances of recurring events will still be included if 'singleEvents' is False. Optional. The
+   * Whether to include deleted events (with status equals "cancelled") in the result. Cancelled
+    * instances of recurring events will still be included if singleEvents is False. Optional. The
     * default is False.
    * @opt_param string timeMax
    * Upper bound (exclusive) for an event's start time to filter by. Optional. The default is not to
     * filter by start time.
    * @opt_param bool alwaysIncludeEmail
-   * Whether to always include a value in the "email" field for the organizer, creator and attendees,
+   * Whether to always include a value in the email field for the organizer, creator and attendees,
     * even if no real email is available (i.e. a generated, non-working value will be provided). The
     * use of this option is discouraged and should only be used by clients which cannot handle the
     * absence of an email address value in the mentioned places. Optional. The default is False.
    * @opt_param int maxResults
-   * Maximum number of events returned on one result page. Optional.
+   * Maximum number of events returned on one result page. By default the value is 250 events. The
+    * page size can never be larger than 2500 events. Optional.
    * @opt_param string pageToken
    * Token specifying which result page to return. Optional.
    * @opt_param string timeMin
@@ -1280,16 +1514,39 @@ class Google_Service_Calendar_Events_Resource extends Google_Service_Resource
     * order.
    * @opt_param bool showHiddenInvitations
    * Whether to include hidden invitations in the result. Optional. The default is False.
+   * @opt_param string syncToken
+   * Token obtained from the nextSyncToken field returned on the last page of results from the
+    * previous list request. It makes the result of this list request contain only entries that have
+    * changed since then. All events deleted since the previous list request will always be in the
+    * result set and it is not allowed to set showDeleted to False.
+  There are several query parameters
+    * that cannot be specified together with nextSyncToken to ensure consistency of the client state.
+    * These are:
+  - iCalUID
+  - orderBy
+  - privateExtendedProperty
+  - q
+  - sharedExtendedProperty
+  -
+    * timeMin
+  - timeMax
+  - updatedMin If the syncToken expires, the server will respond with a 410
+    * GONE response code and the client should clear its storage and perform a full synchronization
+    * without any syncToken.
+  Learn more about incremental synchronization.
+  Optional. The default is to
+    * return all entries.
    * @opt_param bool showDeleted
-   * Whether to include deleted events (with 'status' equals 'cancelled') in the result. Cancelled
+   * Whether to include deleted events (with status equals "cancelled") in the result. Cancelled
     * instances of recurring events (but not the underlying recurring event) will still be included if
-    * 'showDeleted' and 'singleEvents' are both False. If 'showDeleted' and 'singleEvents' are both
-    * True, only single instances of deleted events (but not the underlying recurring events) are
-    * returned. Optional. The default is False.
+    * showDeleted and singleEvents are both False. If showDeleted and singleEvents are both True, only
+    * single instances of deleted events (but not the underlying recurring events) are returned.
+    * Optional. The default is False.
    * @opt_param string iCalUID
-   * Specifies iCalendar UID (iCalUID) of events to be included in the response. Optional.
+   * Specifies event ID in the iCalendar format to be included in the response. Optional.
    * @opt_param string updatedMin
-   * Lower bound for an event's last modification time (as a RFC 3339 timestamp) to filter by.
+   * Lower bound for an event's last modification time (as a RFC 3339 timestamp) to filter by. When
+    * specified, entries deleted since this time will always be included regardless of showDeleted.
     * Optional. The default is not to filter by last modification time.
    * @opt_param bool singleEvents
    * Whether to expand recurring events into instances and only return single one-off events and
@@ -1299,12 +1556,13 @@ class Google_Service_Calendar_Events_Resource extends Google_Service_Resource
    * Upper bound (exclusive) for an event's start time to filter by. Optional. The default is not to
     * filter by start time.
    * @opt_param bool alwaysIncludeEmail
-   * Whether to always include a value in the "email" field for the organizer, creator and attendees,
+   * Whether to always include a value in the email field for the organizer, creator and attendees,
     * even if no real email is available (i.e. a generated, non-working value will be provided). The
     * use of this option is discouraged and should only be used by clients which cannot handle the
     * absence of an email address value in the mentioned places. Optional. The default is False.
    * @opt_param int maxResults
-   * Maximum number of events returned on one result page. Optional.
+   * Maximum number of events returned on one result page. By default the value is 250 events. The
+    * page size can never be larger than 2500 events. Optional.
    * @opt_param string q
    * Free text search terms to find events that match these terms in any field, except for extended
     * properties. Optional.
@@ -1371,7 +1629,7 @@ class Google_Service_Calendar_Events_Resource extends Google_Service_Resource
    * Whether to send notifications about the event update (e.g. attendee's responses, title changes,
     * etc.). Optional. The default is False.
    * @opt_param bool alwaysIncludeEmail
-   * Whether to always include a value in the "email" field for the organizer, creator and attendees,
+   * Whether to always include a value in the email field for the organizer, creator and attendees,
     * even if no real email is available (i.e. a generated, non-working value will be provided). The
     * use of this option is discouraged and should only be used by clients which cannot handle the
     * absence of an email address value in the mentioned places. Optional. The default is False.
@@ -1419,7 +1677,7 @@ class Google_Service_Calendar_Events_Resource extends Google_Service_Resource
    * Whether to send notifications about the event update (e.g. attendee's responses, title changes,
     * etc.). Optional. The default is False.
    * @opt_param bool alwaysIncludeEmail
-   * Whether to always include a value in the "email" field for the organizer, creator and attendees,
+   * Whether to always include a value in the email field for the organizer, creator and attendees,
     * even if no real email is available (i.e. a generated, non-working value will be provided). The
     * use of this option is discouraged and should only be used by clients which cannot handle the
     * absence of an email address value in the mentioned places. Optional. The default is False.
@@ -1447,16 +1705,39 @@ class Google_Service_Calendar_Events_Resource extends Google_Service_Resource
     * order.
    * @opt_param bool showHiddenInvitations
    * Whether to include hidden invitations in the result. Optional. The default is False.
+   * @opt_param string syncToken
+   * Token obtained from the nextSyncToken field returned on the last page of results from the
+    * previous list request. It makes the result of this list request contain only entries that have
+    * changed since then. All events deleted since the previous list request will always be in the
+    * result set and it is not allowed to set showDeleted to False.
+  There are several query parameters
+    * that cannot be specified together with nextSyncToken to ensure consistency of the client state.
+    * These are:
+  - iCalUID
+  - orderBy
+  - privateExtendedProperty
+  - q
+  - sharedExtendedProperty
+  -
+    * timeMin
+  - timeMax
+  - updatedMin If the syncToken expires, the server will respond with a 410
+    * GONE response code and the client should clear its storage and perform a full synchronization
+    * without any syncToken.
+  Learn more about incremental synchronization.
+  Optional. The default is to
+    * return all entries.
    * @opt_param bool showDeleted
-   * Whether to include deleted events (with 'status' equals 'cancelled') in the result. Cancelled
+   * Whether to include deleted events (with status equals "cancelled") in the result. Cancelled
     * instances of recurring events (but not the underlying recurring event) will still be included if
-    * 'showDeleted' and 'singleEvents' are both False. If 'showDeleted' and 'singleEvents' are both
-    * True, only single instances of deleted events (but not the underlying recurring events) are
-    * returned. Optional. The default is False.
+    * showDeleted and singleEvents are both False. If showDeleted and singleEvents are both True, only
+    * single instances of deleted events (but not the underlying recurring events) are returned.
+    * Optional. The default is False.
    * @opt_param string iCalUID
-   * Specifies iCalendar UID (iCalUID) of events to be included in the response. Optional.
+   * Specifies event ID in the iCalendar format to be included in the response. Optional.
    * @opt_param string updatedMin
-   * Lower bound for an event's last modification time (as a RFC 3339 timestamp) to filter by.
+   * Lower bound for an event's last modification time (as a RFC 3339 timestamp) to filter by. When
+    * specified, entries deleted since this time will always be included regardless of showDeleted.
     * Optional. The default is not to filter by last modification time.
    * @opt_param bool singleEvents
    * Whether to expand recurring events into instances and only return single one-off events and
@@ -1466,12 +1747,13 @@ class Google_Service_Calendar_Events_Resource extends Google_Service_Resource
    * Upper bound (exclusive) for an event's start time to filter by. Optional. The default is not to
     * filter by start time.
    * @opt_param bool alwaysIncludeEmail
-   * Whether to always include a value in the "email" field for the organizer, creator and attendees,
+   * Whether to always include a value in the email field for the organizer, creator and attendees,
     * even if no real email is available (i.e. a generated, non-working value will be provided). The
     * use of this option is discouraged and should only be used by clients which cannot handle the
     * absence of an email address value in the mentioned places. Optional. The default is False.
    * @opt_param int maxResults
-   * Maximum number of events returned on one result page. Optional.
+   * Maximum number of events returned on one result page. By default the value is 250 events. The
+    * page size can never be larger than 2500 events. Optional.
    * @opt_param string q
    * Free text search terms to find events that match these terms in any field, except for extended
     * properties. Optional.
@@ -1558,6 +1840,22 @@ class Google_Service_Calendar_Settings_Resource extends Google_Service_Resource
    * Returns all user settings for the authenticated user. (settings.listSettings)
    *
    * @param array $optParams Optional parameters.
+   *
+   * @opt_param string pageToken
+   * Token specifying which result page to return. Optional.
+   * @opt_param int maxResults
+   * Maximum number of entries returned on one result page. By default the value is 100 entries. The
+    * page size can never be larger than 250 entries. Optional.
+   * @opt_param string syncToken
+   * Token obtained from the nextSyncToken field returned on the last page of results from the
+    * previous list request. It makes the result of this list request contain only entries that have
+    * changed since then.
+  If the syncToken expires, the server will respond with a 410 GONE response
+    * code and the client should clear its storage and perform a full synchronization without any
+    * syncToken.
+  Learn more about incremental synchronization.
+  Optional. The default is to return all
+    * entries.
    * @return Google_Service_Calendar_Settings
    */
   public function listSettings($optParams = array())
@@ -1566,6 +1864,35 @@ class Google_Service_Calendar_Settings_Resource extends Google_Service_Resource
     $params = array_merge($params, $optParams);
     return $this->call('list', array($params), "Google_Service_Calendar_Settings");
   }
+  /**
+   * Watch for changes to Settings resources. (settings.watch)
+   *
+   * @param Google_Channel $postBody
+   * @param array $optParams Optional parameters.
+   *
+   * @opt_param string pageToken
+   * Token specifying which result page to return. Optional.
+   * @opt_param int maxResults
+   * Maximum number of entries returned on one result page. By default the value is 100 entries. The
+    * page size can never be larger than 250 entries. Optional.
+   * @opt_param string syncToken
+   * Token obtained from the nextSyncToken field returned on the last page of results from the
+    * previous list request. It makes the result of this list request contain only entries that have
+    * changed since then.
+  If the syncToken expires, the server will respond with a 410 GONE response
+    * code and the client should clear its storage and perform a full synchronization without any
+    * syncToken.
+  Learn more about incremental synchronization.
+  Optional. The default is to return all
+    * entries.
+   * @return Google_Service_Calendar_Channel
+   */
+  public function watch(Google_Service_Calendar_Channel $postBody, $optParams = array())
+  {
+    $params = array('postBody' => $postBody);
+    $params = array_merge($params, $optParams);
+    return $this->call('watch', array($params), "Google_Service_Calendar_Channel");
+  }
 }
 
 
@@ -1573,11 +1900,13 @@ class Google_Service_Calendar_Settings_Resource extends Google_Service_Resource
 
 class Google_Service_Calendar_Acl extends Google_Collection
 {
+  protected $collection_key = 'items';
   public $etag;
   protected $itemsType = 'Google_Service_Calendar_AclRule';
   protected $itemsDataType = 'array';
   public $kind;
   public $nextPageToken;
+  public $nextSyncToken;
 
   public function setEtag($etag)
   {
@@ -1617,6 +1946,16 @@ class Google_Service_Calendar_Acl extends Google_Collection
   public function getNextPageToken()
   {
     return $this->nextPageToken;
+  }
+
+  public function setNextSyncToken($nextSyncToken)
+  {
+    $this->nextSyncToken = $nextSyncToken;
+  }
+
+  public function getNextSyncToken()
+  {
+    return $this->nextSyncToken;
   }
 }
 
@@ -1789,11 +2128,13 @@ class Google_Service_Calendar_Calendar extends Google_Model
 
 class Google_Service_Calendar_CalendarList extends Google_Collection
 {
+  protected $collection_key = 'items';
   public $etag;
   protected $itemsType = 'Google_Service_Calendar_CalendarListEntry';
   protected $itemsDataType = 'array';
   public $kind;
   public $nextPageToken;
+  public $nextSyncToken;
 
   public function setEtag($etag)
   {
@@ -1834,15 +2175,27 @@ class Google_Service_Calendar_CalendarList extends Google_Collection
   {
     return $this->nextPageToken;
   }
+
+  public function setNextSyncToken($nextSyncToken)
+  {
+    $this->nextSyncToken = $nextSyncToken;
+  }
+
+  public function getNextSyncToken()
+  {
+    return $this->nextSyncToken;
+  }
 }
 
 class Google_Service_Calendar_CalendarListEntry extends Google_Collection
 {
+  protected $collection_key = 'defaultReminders';
   public $accessRole;
   public $backgroundColor;
   public $colorId;
   protected $defaultRemindersType = 'Google_Service_Calendar_EventReminder';
   protected $defaultRemindersDataType = 'array';
+  public $deleted;
   public $description;
   public $etag;
   public $foregroundColor;
@@ -1850,6 +2203,8 @@ class Google_Service_Calendar_CalendarListEntry extends Google_Collection
   public $id;
   public $kind;
   public $location;
+  protected $notificationSettingsType = 'Google_Service_Calendar_CalendarListEntryNotificationSettings';
+  protected $notificationSettingsDataType = '';
   public $primary;
   public $selected;
   public $summary;
@@ -1894,6 +2249,16 @@ class Google_Service_Calendar_CalendarListEntry extends Google_Collection
   public function getDefaultReminders()
   {
     return $this->defaultReminders;
+  }
+
+  public function setDeleted($deleted)
+  {
+    $this->deleted = $deleted;
+  }
+
+  public function getDeleted()
+  {
+    return $this->deleted;
   }
 
   public function setDescription($description)
@@ -1966,6 +2331,16 @@ class Google_Service_Calendar_CalendarListEntry extends Google_Collection
     return $this->location;
   }
 
+  public function setNotificationSettings(Google_Service_Calendar_CalendarListEntryNotificationSettings $notificationSettings)
+  {
+    $this->notificationSettings = $notificationSettings;
+  }
+
+  public function getNotificationSettings()
+  {
+    return $this->notificationSettings;
+  }
+
   public function setPrimary($primary)
   {
     $this->primary = $primary;
@@ -2014,6 +2389,49 @@ class Google_Service_Calendar_CalendarListEntry extends Google_Collection
   public function getTimeZone()
   {
     return $this->timeZone;
+  }
+}
+
+class Google_Service_Calendar_CalendarListEntryNotificationSettings extends Google_Collection
+{
+  protected $collection_key = 'notifications';
+  protected $notificationsType = 'Google_Service_Calendar_CalendarNotification';
+  protected $notificationsDataType = 'array';
+
+  public function setNotifications($notifications)
+  {
+    $this->notifications = $notifications;
+  }
+
+  public function getNotifications()
+  {
+    return $this->notifications;
+  }
+}
+
+class Google_Service_Calendar_CalendarNotification extends Google_Model
+{
+  public $method;
+  public $type;
+
+  public function setMethod($method)
+  {
+    $this->method = $method;
+  }
+
+  public function getMethod()
+  {
+    return $this->method;
+  }
+
+  public function setType($type)
+  {
+    $this->type = $type;
+  }
+
+  public function getType()
+  {
+    return $this->type;
   }
 }
 
@@ -2131,6 +2549,11 @@ class Google_Service_Calendar_Channel extends Google_Model
   }
 }
 
+class Google_Service_Calendar_ChannelParams extends Google_Model
+{
+
+}
+
 class Google_Service_Calendar_ColorDefinition extends Google_Model
 {
   public $background;
@@ -2207,6 +2630,16 @@ class Google_Service_Calendar_Colors extends Google_Model
   }
 }
 
+class Google_Service_Calendar_ColorsCalendar extends Google_Model
+{
+
+}
+
+class Google_Service_Calendar_ColorsEvent extends Google_Model
+{
+
+}
+
 class Google_Service_Calendar_Error extends Google_Model
 {
   public $domain;
@@ -2235,6 +2668,7 @@ class Google_Service_Calendar_Error extends Google_Model
 
 class Google_Service_Calendar_Event extends Google_Collection
 {
+  protected $collection_key = 'recurrence';
   public $anyoneCanAddSelf;
   protected $attendeesType = 'Google_Service_Calendar_EventAttendee';
   protected $attendeesDataType = 'array';
@@ -2868,6 +3302,16 @@ class Google_Service_Calendar_EventExtendedProperties extends Google_Model
   }
 }
 
+class Google_Service_Calendar_EventExtendedPropertiesPrivate extends Google_Model
+{
+
+}
+
+class Google_Service_Calendar_EventExtendedPropertiesShared extends Google_Model
+{
+
+}
+
 class Google_Service_Calendar_EventGadget extends Google_Model
 {
   public $display;
@@ -2960,6 +3404,11 @@ class Google_Service_Calendar_EventGadget extends Google_Model
   }
 }
 
+class Google_Service_Calendar_EventGadgetPreferences extends Google_Model
+{
+
+}
+
 class Google_Service_Calendar_EventOrganizer extends Google_Model
 {
   public $displayName;
@@ -3036,6 +3485,7 @@ class Google_Service_Calendar_EventReminder extends Google_Model
 
 class Google_Service_Calendar_EventReminders extends Google_Collection
 {
+  protected $collection_key = 'overrides';
   protected $overridesType = 'Google_Service_Calendar_EventReminder';
   protected $overridesDataType = 'array';
   public $useDefault;
@@ -3089,6 +3539,7 @@ class Google_Service_Calendar_EventSource extends Google_Model
 
 class Google_Service_Calendar_Events extends Google_Collection
 {
+  protected $collection_key = 'items';
   public $accessRole;
   protected $defaultRemindersType = 'Google_Service_Calendar_EventReminder';
   protected $defaultRemindersDataType = 'array';
@@ -3098,6 +3549,7 @@ class Google_Service_Calendar_Events extends Google_Collection
   protected $itemsDataType = 'array';
   public $kind;
   public $nextPageToken;
+  public $nextSyncToken;
   public $summary;
   public $timeZone;
   public $updated;
@@ -3172,6 +3624,16 @@ class Google_Service_Calendar_Events extends Google_Collection
     return $this->nextPageToken;
   }
 
+  public function setNextSyncToken($nextSyncToken)
+  {
+    $this->nextSyncToken = $nextSyncToken;
+  }
+
+  public function getNextSyncToken()
+  {
+    return $this->nextSyncToken;
+  }
+
   public function setSummary($summary)
   {
     $this->summary = $summary;
@@ -3205,6 +3667,7 @@ class Google_Service_Calendar_Events extends Google_Collection
 
 class Google_Service_Calendar_FreeBusyCalendar extends Google_Collection
 {
+  protected $collection_key = 'errors';
   protected $busyType = 'Google_Service_Calendar_TimePeriod';
   protected $busyDataType = 'array';
   protected $errorsType = 'Google_Service_Calendar_Error';
@@ -3233,6 +3696,7 @@ class Google_Service_Calendar_FreeBusyCalendar extends Google_Collection
 
 class Google_Service_Calendar_FreeBusyGroup extends Google_Collection
 {
+  protected $collection_key = 'errors';
   public $calendars;
   protected $errorsType = 'Google_Service_Calendar_Error';
   protected $errorsDataType = 'array';
@@ -3260,6 +3724,7 @@ class Google_Service_Calendar_FreeBusyGroup extends Google_Collection
 
 class Google_Service_Calendar_FreeBusyRequest extends Google_Collection
 {
+  protected $collection_key = 'items';
   public $calendarExpansionMax;
   public $groupExpansionMax;
   protected $itemsType = 'Google_Service_Calendar_FreeBusyRequestItem';
@@ -3405,6 +3870,16 @@ class Google_Service_Calendar_FreeBusyResponse extends Google_Model
   }
 }
 
+class Google_Service_Calendar_FreeBusyResponseCalendars extends Google_Model
+{
+
+}
+
+class Google_Service_Calendar_FreeBusyResponseGroups extends Google_Model
+{
+
+}
+
 class Google_Service_Calendar_Setting extends Google_Model
 {
   public $etag;
@@ -3455,10 +3930,13 @@ class Google_Service_Calendar_Setting extends Google_Model
 
 class Google_Service_Calendar_Settings extends Google_Collection
 {
+  protected $collection_key = 'items';
   public $etag;
   protected $itemsType = 'Google_Service_Calendar_Setting';
   protected $itemsDataType = 'array';
   public $kind;
+  public $nextPageToken;
+  public $nextSyncToken;
 
   public function setEtag($etag)
   {
@@ -3488,6 +3966,26 @@ class Google_Service_Calendar_Settings extends Google_Collection
   public function getKind()
   {
     return $this->kind;
+  }
+
+  public function setNextPageToken($nextPageToken)
+  {
+    $this->nextPageToken = $nextPageToken;
+  }
+
+  public function getNextPageToken()
+  {
+    return $this->nextPageToken;
+  }
+
+  public function setNextSyncToken($nextSyncToken)
+  {
+    $this->nextSyncToken = $nextSyncToken;
+  }
+
+  public function getNextSyncToken()
+  {
+    return $this->nextSyncToken;
   }
 }
 

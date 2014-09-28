@@ -74,6 +74,10 @@ class Google_Service_IdentityToolkit extends Google_Service
               'path' => 'getOobConfirmationCode',
               'httpMethod' => 'POST',
               'parameters' => array(),
+            ),'getPublicKeys' => array(
+              'path' => 'publicKeys',
+              'httpMethod' => 'GET',
+              'parameters' => array(),
             ),'resetPassword' => array(
               'path' => 'resetPassword',
               'httpMethod' => 'POST',
@@ -181,6 +185,18 @@ class Google_Service_IdentityToolkit_Relyingparty_Resource extends Google_Servic
     return $this->call('getOobConfirmationCode', array($params), "Google_Service_IdentityToolkit_GetOobConfirmationCodeResponse");
   }
   /**
+   * Get token signing public key. (relyingparty.getPublicKeys)
+   *
+   * @param array $optParams Optional parameters.
+   * @return Google_Service_IdentityToolkit_IdentitytoolkitRelyingpartyGetPublicKeysResponse
+   */
+  public function getPublicKeys($optParams = array())
+  {
+    $params = array();
+    $params = array_merge($params, $optParams);
+    return $this->call('getPublicKeys', array($params), "Google_Service_IdentityToolkit_IdentitytoolkitRelyingpartyGetPublicKeysResponse");
+  }
+  /**
    * Set account info for a user. (relyingparty.resetPassword)
    *
    * @param Google_IdentitytoolkitRelyingpartyResetPasswordRequest $postBody
@@ -250,12 +266,12 @@ class Google_Service_IdentityToolkit_Relyingparty_Resource extends Google_Servic
 
 
 
-class Google_Service_IdentityToolkit_CreateAuthUriResponse extends Google_Collection
+class Google_Service_IdentityToolkit_CreateAuthUriResponse extends Google_Model
 {
   public $authUri;
+  public $forExistingProvider;
   public $kind;
   public $providerId;
-  public $providers;
   public $registered;
 
   public function setAuthUri($authUri)
@@ -266,6 +282,16 @@ class Google_Service_IdentityToolkit_CreateAuthUriResponse extends Google_Collec
   public function getAuthUri()
   {
     return $this->authUri;
+  }
+
+  public function setForExistingProvider($forExistingProvider)
+  {
+    $this->forExistingProvider = $forExistingProvider;
+  }
+
+  public function getForExistingProvider()
+  {
+    return $this->forExistingProvider;
   }
 
   public function setKind($kind)
@@ -286,16 +312,6 @@ class Google_Service_IdentityToolkit_CreateAuthUriResponse extends Google_Collec
   public function getProviderId()
   {
     return $this->providerId;
-  }
-
-  public function setProviders($providers)
-  {
-    $this->providers = $providers;
-  }
-
-  public function getProviders()
-  {
-    return $this->providers;
   }
 
   public function setRegistered($registered)
@@ -326,6 +342,7 @@ class Google_Service_IdentityToolkit_DeleteAccountResponse extends Google_Model
 
 class Google_Service_IdentityToolkit_DownloadAccountResponse extends Google_Collection
 {
+  protected $collection_key = 'users';
   public $kind;
   public $nextPageToken;
   protected $usersType = 'Google_Service_IdentityToolkit_UserInfo';
@@ -364,6 +381,7 @@ class Google_Service_IdentityToolkit_DownloadAccountResponse extends Google_Coll
 
 class Google_Service_IdentityToolkit_GetAccountInfoResponse extends Google_Collection
 {
+  protected $collection_key = 'users';
   public $kind;
   protected $usersType = 'Google_Service_IdentityToolkit_UserInfo';
   protected $usersDataType = 'array';
@@ -550,6 +568,7 @@ class Google_Service_IdentityToolkit_IdentitytoolkitRelyingpartyDownloadAccountR
 
 class Google_Service_IdentityToolkit_IdentitytoolkitRelyingpartyGetAccountInfoRequest extends Google_Collection
 {
+  protected $collection_key = 'localId';
   public $email;
   public $idToken;
   public $localId;
@@ -583,6 +602,11 @@ class Google_Service_IdentityToolkit_IdentitytoolkitRelyingpartyGetAccountInfoRe
   {
     return $this->localId;
   }
+}
+
+class Google_Service_IdentityToolkit_IdentitytoolkitRelyingpartyGetPublicKeysResponse extends Google_Model
+{
+
 }
 
 class Google_Service_IdentityToolkit_IdentitytoolkitRelyingpartyResetPasswordRequest extends Google_Model
@@ -635,6 +659,7 @@ class Google_Service_IdentityToolkit_IdentitytoolkitRelyingpartyResetPasswordReq
 
 class Google_Service_IdentityToolkit_IdentitytoolkitRelyingpartySetAccountInfoRequest extends Google_Collection
 {
+  protected $collection_key = 'provider';
   public $captchaChallenge;
   public $captchaResponse;
   public $displayName;
@@ -760,6 +785,7 @@ class Google_Service_IdentityToolkit_IdentitytoolkitRelyingpartySetAccountInfoRe
 
 class Google_Service_IdentityToolkit_IdentitytoolkitRelyingpartyUploadAccountRequest extends Google_Collection
 {
+  protected $collection_key = 'users';
   public $hashAlgorithm;
   public $memoryCost;
   public $rounds;
@@ -1045,6 +1071,7 @@ class Google_Service_IdentityToolkit_ResetPasswordResponse extends Google_Model
 
 class Google_Service_IdentityToolkit_SetAccountInfoResponse extends Google_Collection
 {
+  protected $collection_key = 'providerUserInfo';
   public $displayName;
   public $email;
   public $idToken;
@@ -1142,6 +1169,7 @@ class Google_Service_IdentityToolkit_SetAccountInfoResponseProviderUserInfo exte
 
 class Google_Service_IdentityToolkit_UploadAccountResponse extends Google_Collection
 {
+  protected $collection_key = 'error';
   protected $errorType = 'Google_Service_IdentityToolkit_UploadAccountResponseError';
   protected $errorDataType = 'array';
   public $kind;
@@ -1195,6 +1223,7 @@ class Google_Service_IdentityToolkit_UploadAccountResponseError extends Google_M
 
 class Google_Service_IdentityToolkit_UserInfo extends Google_Collection
 {
+  protected $collection_key = 'providerUserInfo';
   public $displayName;
   public $email;
   public $emailVerified;
@@ -1358,6 +1387,7 @@ class Google_Service_IdentityToolkit_UserInfoProviderUserInfo extends Google_Mod
 
 class Google_Service_IdentityToolkit_VerifyAssertionResponse extends Google_Collection
 {
+  protected $collection_key = 'verifiedProvider';
   public $action;
   public $appInstallationUrl;
   public $appScheme;

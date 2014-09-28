@@ -43,13 +43,18 @@ class Google_Service_Compute extends Google_Service
   const DEVSTORAGE_READ_WRITE = "https://www.googleapis.com/auth/devstorage.read_write";
 
   public $addresses;
+  public $backendServices;
+  public $diskTypes;
   public $disks;
   public $firewalls;
   public $forwardingRules;
+  public $globalAddresses;
+  public $globalForwardingRules;
   public $globalOperations;
   public $httpHealthChecks;
   public $images;
   public $instances;
+  public $licenses;
   public $machineTypes;
   public $networks;
   public $projects;
@@ -57,8 +62,10 @@ class Google_Service_Compute extends Google_Service
   public $regions;
   public $routes;
   public $snapshots;
+  public $targetHttpProxies;
   public $targetInstances;
   public $targetPools;
+  public $urlMaps;
   public $zoneOperations;
   public $zones;
   
@@ -168,6 +175,202 @@ class Google_Service_Compute extends Google_Service
                   'required' => true,
                 ),
                 'region' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+                'filter' => array(
+                  'location' => 'query',
+                  'type' => 'string',
+                ),
+                'pageToken' => array(
+                  'location' => 'query',
+                  'type' => 'string',
+                ),
+                'maxResults' => array(
+                  'location' => 'query',
+                  'type' => 'integer',
+                ),
+              ),
+            ),
+          )
+        )
+    );
+    $this->backendServices = new Google_Service_Compute_BackendServices_Resource(
+        $this,
+        $this->serviceName,
+        'backendServices',
+        array(
+          'methods' => array(
+            'delete' => array(
+              'path' => '{project}/global/backendServices/{backendService}',
+              'httpMethod' => 'DELETE',
+              'parameters' => array(
+                'project' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+                'backendService' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+              ),
+            ),'get' => array(
+              'path' => '{project}/global/backendServices/{backendService}',
+              'httpMethod' => 'GET',
+              'parameters' => array(
+                'project' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+                'backendService' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+              ),
+            ),'getHealth' => array(
+              'path' => '{project}/global/backendServices/{backendService}/getHealth',
+              'httpMethod' => 'POST',
+              'parameters' => array(
+                'project' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+                'backendService' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+              ),
+            ),'insert' => array(
+              'path' => '{project}/global/backendServices',
+              'httpMethod' => 'POST',
+              'parameters' => array(
+                'project' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+              ),
+            ),'list' => array(
+              'path' => '{project}/global/backendServices',
+              'httpMethod' => 'GET',
+              'parameters' => array(
+                'project' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+                'filter' => array(
+                  'location' => 'query',
+                  'type' => 'string',
+                ),
+                'pageToken' => array(
+                  'location' => 'query',
+                  'type' => 'string',
+                ),
+                'maxResults' => array(
+                  'location' => 'query',
+                  'type' => 'integer',
+                ),
+              ),
+            ),'patch' => array(
+              'path' => '{project}/global/backendServices/{backendService}',
+              'httpMethod' => 'PATCH',
+              'parameters' => array(
+                'project' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+                'backendService' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+              ),
+            ),'update' => array(
+              'path' => '{project}/global/backendServices/{backendService}',
+              'httpMethod' => 'PUT',
+              'parameters' => array(
+                'project' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+                'backendService' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+              ),
+            ),
+          )
+        )
+    );
+    $this->diskTypes = new Google_Service_Compute_DiskTypes_Resource(
+        $this,
+        $this->serviceName,
+        'diskTypes',
+        array(
+          'methods' => array(
+            'aggregatedList' => array(
+              'path' => '{project}/aggregated/diskTypes',
+              'httpMethod' => 'GET',
+              'parameters' => array(
+                'project' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+                'filter' => array(
+                  'location' => 'query',
+                  'type' => 'string',
+                ),
+                'pageToken' => array(
+                  'location' => 'query',
+                  'type' => 'string',
+                ),
+                'maxResults' => array(
+                  'location' => 'query',
+                  'type' => 'integer',
+                ),
+              ),
+            ),'get' => array(
+              'path' => '{project}/zones/{zone}/diskTypes/{diskType}',
+              'httpMethod' => 'GET',
+              'parameters' => array(
+                'project' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+                'zone' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+                'diskType' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+              ),
+            ),'list' => array(
+              'path' => '{project}/zones/{zone}/diskTypes',
+              'httpMethod' => 'GET',
+              'parameters' => array(
+                'project' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+                'zone' => array(
                   'location' => 'path',
                   'type' => 'string',
                   'required' => true,
@@ -549,6 +752,165 @@ class Google_Service_Compute extends Google_Service
                   'required' => true,
                 ),
                 'region' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+                'forwardingRule' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+              ),
+            ),
+          )
+        )
+    );
+    $this->globalAddresses = new Google_Service_Compute_GlobalAddresses_Resource(
+        $this,
+        $this->serviceName,
+        'globalAddresses',
+        array(
+          'methods' => array(
+            'delete' => array(
+              'path' => '{project}/global/addresses/{address}',
+              'httpMethod' => 'DELETE',
+              'parameters' => array(
+                'project' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+                'address' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+              ),
+            ),'get' => array(
+              'path' => '{project}/global/addresses/{address}',
+              'httpMethod' => 'GET',
+              'parameters' => array(
+                'project' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+                'address' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+              ),
+            ),'insert' => array(
+              'path' => '{project}/global/addresses',
+              'httpMethod' => 'POST',
+              'parameters' => array(
+                'project' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+              ),
+            ),'list' => array(
+              'path' => '{project}/global/addresses',
+              'httpMethod' => 'GET',
+              'parameters' => array(
+                'project' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+                'filter' => array(
+                  'location' => 'query',
+                  'type' => 'string',
+                ),
+                'pageToken' => array(
+                  'location' => 'query',
+                  'type' => 'string',
+                ),
+                'maxResults' => array(
+                  'location' => 'query',
+                  'type' => 'integer',
+                ),
+              ),
+            ),
+          )
+        )
+    );
+    $this->globalForwardingRules = new Google_Service_Compute_GlobalForwardingRules_Resource(
+        $this,
+        $this->serviceName,
+        'globalForwardingRules',
+        array(
+          'methods' => array(
+            'delete' => array(
+              'path' => '{project}/global/forwardingRules/{forwardingRule}',
+              'httpMethod' => 'DELETE',
+              'parameters' => array(
+                'project' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+                'forwardingRule' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+              ),
+            ),'get' => array(
+              'path' => '{project}/global/forwardingRules/{forwardingRule}',
+              'httpMethod' => 'GET',
+              'parameters' => array(
+                'project' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+                'forwardingRule' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+              ),
+            ),'insert' => array(
+              'path' => '{project}/global/forwardingRules',
+              'httpMethod' => 'POST',
+              'parameters' => array(
+                'project' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+              ),
+            ),'list' => array(
+              'path' => '{project}/global/forwardingRules',
+              'httpMethod' => 'GET',
+              'parameters' => array(
+                'project' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+                'filter' => array(
+                  'location' => 'query',
+                  'type' => 'string',
+                ),
+                'pageToken' => array(
+                  'location' => 'query',
+                  'type' => 'string',
+                ),
+                'maxResults' => array(
+                  'location' => 'query',
+                  'type' => 'integer',
+                ),
+              ),
+            ),'setTarget' => array(
+              'path' => '{project}/global/forwardingRules/{forwardingRule}/setTarget',
+              'httpMethod' => 'POST',
+              'parameters' => array(
+                'project' => array(
                   'location' => 'path',
                   'type' => 'string',
                   'required' => true,
@@ -1180,6 +1542,31 @@ class Google_Service_Compute extends Google_Service
           )
         )
     );
+    $this->licenses = new Google_Service_Compute_Licenses_Resource(
+        $this,
+        $this->serviceName,
+        'licenses',
+        array(
+          'methods' => array(
+            'get' => array(
+              'path' => '{project}/global/licenses/{license}',
+              'httpMethod' => 'GET',
+              'parameters' => array(
+                'project' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+                'license' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+              ),
+            ),
+          )
+        )
+    );
     $this->machineTypes = new Google_Service_Compute_MachineTypes_Resource(
         $this,
         $this->serviceName,
@@ -1349,6 +1736,16 @@ class Google_Service_Compute extends Google_Service
               ),
             ),'setCommonInstanceMetadata' => array(
               'path' => '{project}/setCommonInstanceMetadata',
+              'httpMethod' => 'POST',
+              'parameters' => array(
+                'project' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+              ),
+            ),'setUsageExportBucket' => array(
+              'path' => '{project}/setUsageExportBucket',
               'httpMethod' => 'POST',
               'parameters' => array(
                 'project' => array(
@@ -1613,6 +2010,93 @@ class Google_Service_Compute extends Google_Service
                 'maxResults' => array(
                   'location' => 'query',
                   'type' => 'integer',
+                ),
+              ),
+            ),
+          )
+        )
+    );
+    $this->targetHttpProxies = new Google_Service_Compute_TargetHttpProxies_Resource(
+        $this,
+        $this->serviceName,
+        'targetHttpProxies',
+        array(
+          'methods' => array(
+            'delete' => array(
+              'path' => '{project}/global/targetHttpProxies/{targetHttpProxy}',
+              'httpMethod' => 'DELETE',
+              'parameters' => array(
+                'project' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+                'targetHttpProxy' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+              ),
+            ),'get' => array(
+              'path' => '{project}/global/targetHttpProxies/{targetHttpProxy}',
+              'httpMethod' => 'GET',
+              'parameters' => array(
+                'project' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+                'targetHttpProxy' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+              ),
+            ),'insert' => array(
+              'path' => '{project}/global/targetHttpProxies',
+              'httpMethod' => 'POST',
+              'parameters' => array(
+                'project' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+              ),
+            ),'list' => array(
+              'path' => '{project}/global/targetHttpProxies',
+              'httpMethod' => 'GET',
+              'parameters' => array(
+                'project' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+                'filter' => array(
+                  'location' => 'query',
+                  'type' => 'string',
+                ),
+                'pageToken' => array(
+                  'location' => 'query',
+                  'type' => 'string',
+                ),
+                'maxResults' => array(
+                  'location' => 'query',
+                  'type' => 'integer',
+                ),
+              ),
+            ),'setUrlMap' => array(
+              'path' => '{project}/targetHttpProxies/{targetHttpProxy}/setUrlMap',
+              'httpMethod' => 'POST',
+              'parameters' => array(
+                'project' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+                'targetHttpProxy' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
                 ),
               ),
             ),
@@ -1971,6 +2455,123 @@ class Google_Service_Compute extends Google_Service
           )
         )
     );
+    $this->urlMaps = new Google_Service_Compute_UrlMaps_Resource(
+        $this,
+        $this->serviceName,
+        'urlMaps',
+        array(
+          'methods' => array(
+            'delete' => array(
+              'path' => '{project}/global/urlMaps/{urlMap}',
+              'httpMethod' => 'DELETE',
+              'parameters' => array(
+                'project' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+                'urlMap' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+              ),
+            ),'get' => array(
+              'path' => '{project}/global/urlMaps/{urlMap}',
+              'httpMethod' => 'GET',
+              'parameters' => array(
+                'project' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+                'urlMap' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+              ),
+            ),'insert' => array(
+              'path' => '{project}/global/urlMaps',
+              'httpMethod' => 'POST',
+              'parameters' => array(
+                'project' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+              ),
+            ),'list' => array(
+              'path' => '{project}/global/urlMaps',
+              'httpMethod' => 'GET',
+              'parameters' => array(
+                'project' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+                'filter' => array(
+                  'location' => 'query',
+                  'type' => 'string',
+                ),
+                'pageToken' => array(
+                  'location' => 'query',
+                  'type' => 'string',
+                ),
+                'maxResults' => array(
+                  'location' => 'query',
+                  'type' => 'integer',
+                ),
+              ),
+            ),'patch' => array(
+              'path' => '{project}/global/urlMaps/{urlMap}',
+              'httpMethod' => 'PATCH',
+              'parameters' => array(
+                'project' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+                'urlMap' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+              ),
+            ),'update' => array(
+              'path' => '{project}/global/urlMaps/{urlMap}',
+              'httpMethod' => 'PUT',
+              'parameters' => array(
+                'project' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+                'urlMap' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+              ),
+            ),'validate' => array(
+              'path' => '{project}/global/urlMaps/{urlMap}/validate',
+              'httpMethod' => 'POST',
+              'parameters' => array(
+                'project' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+                'urlMap' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+              ),
+            ),
+          )
+        )
+    );
     $this->zoneOperations = new Google_Service_Compute_ZoneOperations_Resource(
         $this,
         $this->serviceName,
@@ -2212,6 +2813,226 @@ class Google_Service_Compute_Addresses_Resource extends Google_Service_Resource
     $params = array('project' => $project, 'region' => $region);
     $params = array_merge($params, $optParams);
     return $this->call('list', array($params), "Google_Service_Compute_AddressList");
+  }
+}
+
+/**
+ * The "backendServices" collection of methods.
+ * Typical usage is:
+ *  <code>
+ *   $computeService = new Google_Service_Compute(...);
+ *   $backendServices = $computeService->backendServices;
+ *  </code>
+ */
+class Google_Service_Compute_BackendServices_Resource extends Google_Service_Resource
+{
+
+  /**
+   * Deletes the specified BackendService resource. (backendServices.delete)
+   *
+   * @param string $project
+   * Name of the project scoping this request.
+   * @param string $backendService
+   * Name of the BackendService resource to delete.
+   * @param array $optParams Optional parameters.
+   * @return Google_Service_Compute_Operation
+   */
+  public function delete($project, $backendService, $optParams = array())
+  {
+    $params = array('project' => $project, 'backendService' => $backendService);
+    $params = array_merge($params, $optParams);
+    return $this->call('delete', array($params), "Google_Service_Compute_Operation");
+  }
+  /**
+   * Returns the specified BackendService resource. (backendServices.get)
+   *
+   * @param string $project
+   * Name of the project scoping this request.
+   * @param string $backendService
+   * Name of the BackendService resource to return.
+   * @param array $optParams Optional parameters.
+   * @return Google_Service_Compute_BackendService
+   */
+  public function get($project, $backendService, $optParams = array())
+  {
+    $params = array('project' => $project, 'backendService' => $backendService);
+    $params = array_merge($params, $optParams);
+    return $this->call('get', array($params), "Google_Service_Compute_BackendService");
+  }
+  /**
+   * Gets the most recent health check results for this BackendService.
+   * (backendServices.getHealth)
+   *
+   * @param string $project
+   *
+   * @param string $backendService
+   * Name of the BackendService resource to which the queried instance belongs.
+   * @param Google_ResourceGroupReference $postBody
+   * @param array $optParams Optional parameters.
+   * @return Google_Service_Compute_BackendServiceGroupHealth
+   */
+  public function getHealth($project, $backendService, Google_Service_Compute_ResourceGroupReference $postBody, $optParams = array())
+  {
+    $params = array('project' => $project, 'backendService' => $backendService, 'postBody' => $postBody);
+    $params = array_merge($params, $optParams);
+    return $this->call('getHealth', array($params), "Google_Service_Compute_BackendServiceGroupHealth");
+  }
+  /**
+   * Creates a BackendService resource in the specified project using the data
+   * included in the request. (backendServices.insert)
+   *
+   * @param string $project
+   * Name of the project scoping this request.
+   * @param Google_BackendService $postBody
+   * @param array $optParams Optional parameters.
+   * @return Google_Service_Compute_Operation
+   */
+  public function insert($project, Google_Service_Compute_BackendService $postBody, $optParams = array())
+  {
+    $params = array('project' => $project, 'postBody' => $postBody);
+    $params = array_merge($params, $optParams);
+    return $this->call('insert', array($params), "Google_Service_Compute_Operation");
+  }
+  /**
+   * Retrieves the list of BackendService resources available to the specified
+   * project. (backendServices.listBackendServices)
+   *
+   * @param string $project
+   * Name of the project scoping this request.
+   * @param array $optParams Optional parameters.
+   *
+   * @opt_param string filter
+   * Optional. Filter expression for filtering listed resources.
+   * @opt_param string pageToken
+   * Optional. Tag returned by a previous list request truncated by maxResults. Used to continue a
+    * previous list request.
+   * @opt_param string maxResults
+   * Optional. Maximum count of results to be returned. Maximum value is 500 and default value is
+    * 500.
+   * @return Google_Service_Compute_BackendServiceList
+   */
+  public function listBackendServices($project, $optParams = array())
+  {
+    $params = array('project' => $project);
+    $params = array_merge($params, $optParams);
+    return $this->call('list', array($params), "Google_Service_Compute_BackendServiceList");
+  }
+  /**
+   * Update the entire content of the BackendService resource. This method
+   * supports patch semantics. (backendServices.patch)
+   *
+   * @param string $project
+   * Name of the project scoping this request.
+   * @param string $backendService
+   * Name of the BackendService resource to update.
+   * @param Google_BackendService $postBody
+   * @param array $optParams Optional parameters.
+   * @return Google_Service_Compute_Operation
+   */
+  public function patch($project, $backendService, Google_Service_Compute_BackendService $postBody, $optParams = array())
+  {
+    $params = array('project' => $project, 'backendService' => $backendService, 'postBody' => $postBody);
+    $params = array_merge($params, $optParams);
+    return $this->call('patch', array($params), "Google_Service_Compute_Operation");
+  }
+  /**
+   * Update the entire content of the BackendService resource.
+   * (backendServices.update)
+   *
+   * @param string $project
+   * Name of the project scoping this request.
+   * @param string $backendService
+   * Name of the BackendService resource to update.
+   * @param Google_BackendService $postBody
+   * @param array $optParams Optional parameters.
+   * @return Google_Service_Compute_Operation
+   */
+  public function update($project, $backendService, Google_Service_Compute_BackendService $postBody, $optParams = array())
+  {
+    $params = array('project' => $project, 'backendService' => $backendService, 'postBody' => $postBody);
+    $params = array_merge($params, $optParams);
+    return $this->call('update', array($params), "Google_Service_Compute_Operation");
+  }
+}
+
+/**
+ * The "diskTypes" collection of methods.
+ * Typical usage is:
+ *  <code>
+ *   $computeService = new Google_Service_Compute(...);
+ *   $diskTypes = $computeService->diskTypes;
+ *  </code>
+ */
+class Google_Service_Compute_DiskTypes_Resource extends Google_Service_Resource
+{
+
+  /**
+   * Retrieves the list of disk type resources grouped by scope.
+   * (diskTypes.aggregatedList)
+   *
+   * @param string $project
+   * Name of the project scoping this request.
+   * @param array $optParams Optional parameters.
+   *
+   * @opt_param string filter
+   * Optional. Filter expression for filtering listed resources.
+   * @opt_param string pageToken
+   * Optional. Tag returned by a previous list request truncated by maxResults. Used to continue a
+    * previous list request.
+   * @opt_param string maxResults
+   * Optional. Maximum count of results to be returned. Maximum value is 500 and default value is
+    * 500.
+   * @return Google_Service_Compute_DiskTypeAggregatedList
+   */
+  public function aggregatedList($project, $optParams = array())
+  {
+    $params = array('project' => $project);
+    $params = array_merge($params, $optParams);
+    return $this->call('aggregatedList', array($params), "Google_Service_Compute_DiskTypeAggregatedList");
+  }
+  /**
+   * Returns the specified disk type resource. (diskTypes.get)
+   *
+   * @param string $project
+   * Name of the project scoping this request.
+   * @param string $zone
+   * Name of the zone scoping this request.
+   * @param string $diskType
+   * Name of the disk type resource to return.
+   * @param array $optParams Optional parameters.
+   * @return Google_Service_Compute_DiskType
+   */
+  public function get($project, $zone, $diskType, $optParams = array())
+  {
+    $params = array('project' => $project, 'zone' => $zone, 'diskType' => $diskType);
+    $params = array_merge($params, $optParams);
+    return $this->call('get', array($params), "Google_Service_Compute_DiskType");
+  }
+  /**
+   * Retrieves the list of disk type resources available to the specified project.
+   * (diskTypes.listDiskTypes)
+   *
+   * @param string $project
+   * Name of the project scoping this request.
+   * @param string $zone
+   * Name of the zone scoping this request.
+   * @param array $optParams Optional parameters.
+   *
+   * @opt_param string filter
+   * Optional. Filter expression for filtering listed resources.
+   * @opt_param string pageToken
+   * Optional. Tag returned by a previous list request truncated by maxResults. Used to continue a
+    * previous list request.
+   * @opt_param string maxResults
+   * Optional. Maximum count of results to be returned. Maximum value is 500 and default value is
+    * 500.
+   * @return Google_Service_Compute_DiskTypeList
+   */
+  public function listDiskTypes($project, $zone, $optParams = array())
+  {
+    $params = array('project' => $project, 'zone' => $zone);
+    $params = array_merge($params, $optParams);
+    return $this->call('list', array($params), "Google_Service_Compute_DiskTypeList");
   }
 }
 
@@ -2605,6 +3426,193 @@ class Google_Service_Compute_ForwardingRules_Resource extends Google_Service_Res
   public function setTarget($project, $region, $forwardingRule, Google_Service_Compute_TargetReference $postBody, $optParams = array())
   {
     $params = array('project' => $project, 'region' => $region, 'forwardingRule' => $forwardingRule, 'postBody' => $postBody);
+    $params = array_merge($params, $optParams);
+    return $this->call('setTarget', array($params), "Google_Service_Compute_Operation");
+  }
+}
+
+/**
+ * The "globalAddresses" collection of methods.
+ * Typical usage is:
+ *  <code>
+ *   $computeService = new Google_Service_Compute(...);
+ *   $globalAddresses = $computeService->globalAddresses;
+ *  </code>
+ */
+class Google_Service_Compute_GlobalAddresses_Resource extends Google_Service_Resource
+{
+
+  /**
+   * Deletes the specified address resource. (globalAddresses.delete)
+   *
+   * @param string $project
+   * Name of the project scoping this request.
+   * @param string $address
+   * Name of the address resource to delete.
+   * @param array $optParams Optional parameters.
+   * @return Google_Service_Compute_Operation
+   */
+  public function delete($project, $address, $optParams = array())
+  {
+    $params = array('project' => $project, 'address' => $address);
+    $params = array_merge($params, $optParams);
+    return $this->call('delete', array($params), "Google_Service_Compute_Operation");
+  }
+  /**
+   * Returns the specified address resource. (globalAddresses.get)
+   *
+   * @param string $project
+   * Name of the project scoping this request.
+   * @param string $address
+   * Name of the address resource to return.
+   * @param array $optParams Optional parameters.
+   * @return Google_Service_Compute_Address
+   */
+  public function get($project, $address, $optParams = array())
+  {
+    $params = array('project' => $project, 'address' => $address);
+    $params = array_merge($params, $optParams);
+    return $this->call('get', array($params), "Google_Service_Compute_Address");
+  }
+  /**
+   * Creates an address resource in the specified project using the data included
+   * in the request. (globalAddresses.insert)
+   *
+   * @param string $project
+   * Name of the project scoping this request.
+   * @param Google_Address $postBody
+   * @param array $optParams Optional parameters.
+   * @return Google_Service_Compute_Operation
+   */
+  public function insert($project, Google_Service_Compute_Address $postBody, $optParams = array())
+  {
+    $params = array('project' => $project, 'postBody' => $postBody);
+    $params = array_merge($params, $optParams);
+    return $this->call('insert', array($params), "Google_Service_Compute_Operation");
+  }
+  /**
+   * Retrieves the list of global address resources.
+   * (globalAddresses.listGlobalAddresses)
+   *
+   * @param string $project
+   * Name of the project scoping this request.
+   * @param array $optParams Optional parameters.
+   *
+   * @opt_param string filter
+   * Optional. Filter expression for filtering listed resources.
+   * @opt_param string pageToken
+   * Optional. Tag returned by a previous list request truncated by maxResults. Used to continue a
+    * previous list request.
+   * @opt_param string maxResults
+   * Optional. Maximum count of results to be returned. Maximum value is 500 and default value is
+    * 500.
+   * @return Google_Service_Compute_AddressList
+   */
+  public function listGlobalAddresses($project, $optParams = array())
+  {
+    $params = array('project' => $project);
+    $params = array_merge($params, $optParams);
+    return $this->call('list', array($params), "Google_Service_Compute_AddressList");
+  }
+}
+
+/**
+ * The "globalForwardingRules" collection of methods.
+ * Typical usage is:
+ *  <code>
+ *   $computeService = new Google_Service_Compute(...);
+ *   $globalForwardingRules = $computeService->globalForwardingRules;
+ *  </code>
+ */
+class Google_Service_Compute_GlobalForwardingRules_Resource extends Google_Service_Resource
+{
+
+  /**
+   * Deletes the specified ForwardingRule resource. (globalForwardingRules.delete)
+   *
+   * @param string $project
+   * Name of the project scoping this request.
+   * @param string $forwardingRule
+   * Name of the ForwardingRule resource to delete.
+   * @param array $optParams Optional parameters.
+   * @return Google_Service_Compute_Operation
+   */
+  public function delete($project, $forwardingRule, $optParams = array())
+  {
+    $params = array('project' => $project, 'forwardingRule' => $forwardingRule);
+    $params = array_merge($params, $optParams);
+    return $this->call('delete', array($params), "Google_Service_Compute_Operation");
+  }
+  /**
+   * Returns the specified ForwardingRule resource. (globalForwardingRules.get)
+   *
+   * @param string $project
+   * Name of the project scoping this request.
+   * @param string $forwardingRule
+   * Name of the ForwardingRule resource to return.
+   * @param array $optParams Optional parameters.
+   * @return Google_Service_Compute_ForwardingRule
+   */
+  public function get($project, $forwardingRule, $optParams = array())
+  {
+    $params = array('project' => $project, 'forwardingRule' => $forwardingRule);
+    $params = array_merge($params, $optParams);
+    return $this->call('get', array($params), "Google_Service_Compute_ForwardingRule");
+  }
+  /**
+   * Creates a ForwardingRule resource in the specified project and region using
+   * the data included in the request. (globalForwardingRules.insert)
+   *
+   * @param string $project
+   * Name of the project scoping this request.
+   * @param Google_ForwardingRule $postBody
+   * @param array $optParams Optional parameters.
+   * @return Google_Service_Compute_Operation
+   */
+  public function insert($project, Google_Service_Compute_ForwardingRule $postBody, $optParams = array())
+  {
+    $params = array('project' => $project, 'postBody' => $postBody);
+    $params = array_merge($params, $optParams);
+    return $this->call('insert', array($params), "Google_Service_Compute_Operation");
+  }
+  /**
+   * Retrieves the list of ForwardingRule resources available to the specified
+   * project. (globalForwardingRules.listGlobalForwardingRules)
+   *
+   * @param string $project
+   * Name of the project scoping this request.
+   * @param array $optParams Optional parameters.
+   *
+   * @opt_param string filter
+   * Optional. Filter expression for filtering listed resources.
+   * @opt_param string pageToken
+   * Optional. Tag returned by a previous list request truncated by maxResults. Used to continue a
+    * previous list request.
+   * @opt_param string maxResults
+   * Optional. Maximum count of results to be returned. Maximum value is 500 and default value is
+    * 500.
+   * @return Google_Service_Compute_ForwardingRuleList
+   */
+  public function listGlobalForwardingRules($project, $optParams = array())
+  {
+    $params = array('project' => $project);
+    $params = array_merge($params, $optParams);
+    return $this->call('list', array($params), "Google_Service_Compute_ForwardingRuleList");
+  }
+  /**
+   * Changes target url for forwarding rule. (globalForwardingRules.setTarget)
+   *
+   * @param string $project
+   * Name of the project scoping this request.
+   * @param string $forwardingRule
+   * Name of the ForwardingRule resource in which target is to be set.
+   * @param Google_TargetReference $postBody
+   * @param array $optParams Optional parameters.
+   * @return Google_Service_Compute_Operation
+   */
+  public function setTarget($project, $forwardingRule, Google_Service_Compute_TargetReference $postBody, $optParams = array())
+  {
+    $params = array('project' => $project, 'forwardingRule' => $forwardingRule, 'postBody' => $postBody);
     $params = array_merge($params, $optParams);
     return $this->call('setTarget', array($params), "Google_Service_Compute_Operation");
   }
@@ -3247,6 +4255,35 @@ class Google_Service_Compute_Instances_Resource extends Google_Service_Resource
 }
 
 /**
+ * The "licenses" collection of methods.
+ * Typical usage is:
+ *  <code>
+ *   $computeService = new Google_Service_Compute(...);
+ *   $licenses = $computeService->licenses;
+ *  </code>
+ */
+class Google_Service_Compute_Licenses_Resource extends Google_Service_Resource
+{
+
+  /**
+   * Returns the specified license resource. (licenses.get)
+   *
+   * @param string $project
+   * Name of the project scoping this request.
+   * @param string $license
+   * Name of the license resource to return.
+   * @param array $optParams Optional parameters.
+   * @return Google_Service_Compute_License
+   */
+  public function get($project, $license, $optParams = array())
+  {
+    $params = array('project' => $project, 'license' => $license);
+    $params = array_merge($params, $optParams);
+    return $this->call('get', array($params), "Google_Service_Compute_License");
+  }
+}
+
+/**
  * The "machineTypes" collection of methods.
  * Typical usage is:
  *  <code>
@@ -3452,6 +4489,21 @@ class Google_Service_Compute_Projects_Resource extends Google_Service_Resource
     $params = array('project' => $project, 'postBody' => $postBody);
     $params = array_merge($params, $optParams);
     return $this->call('setCommonInstanceMetadata', array($params), "Google_Service_Compute_Operation");
+  }
+  /**
+   * Sets usage export location (projects.setUsageExportBucket)
+   *
+   * @param string $project
+   * Name of the project scoping this request.
+   * @param Google_UsageExportLocation $postBody
+   * @param array $optParams Optional parameters.
+   * @return Google_Service_Compute_Operation
+   */
+  public function setUsageExportBucket($project, Google_Service_Compute_UsageExportLocation $postBody, $optParams = array())
+  {
+    $params = array('project' => $project, 'postBody' => $postBody);
+    $params = array_merge($params, $optParams);
+    return $this->call('setUsageExportBucket', array($params), "Google_Service_Compute_Operation");
   }
 }
 
@@ -3735,6 +4787,108 @@ class Google_Service_Compute_Snapshots_Resource extends Google_Service_Resource
     $params = array('project' => $project);
     $params = array_merge($params, $optParams);
     return $this->call('list', array($params), "Google_Service_Compute_SnapshotList");
+  }
+}
+
+/**
+ * The "targetHttpProxies" collection of methods.
+ * Typical usage is:
+ *  <code>
+ *   $computeService = new Google_Service_Compute(...);
+ *   $targetHttpProxies = $computeService->targetHttpProxies;
+ *  </code>
+ */
+class Google_Service_Compute_TargetHttpProxies_Resource extends Google_Service_Resource
+{
+
+  /**
+   * Deletes the specified TargetHttpProxy resource. (targetHttpProxies.delete)
+   *
+   * @param string $project
+   * Name of the project scoping this request.
+   * @param string $targetHttpProxy
+   * Name of the TargetHttpProxy resource to delete.
+   * @param array $optParams Optional parameters.
+   * @return Google_Service_Compute_Operation
+   */
+  public function delete($project, $targetHttpProxy, $optParams = array())
+  {
+    $params = array('project' => $project, 'targetHttpProxy' => $targetHttpProxy);
+    $params = array_merge($params, $optParams);
+    return $this->call('delete', array($params), "Google_Service_Compute_Operation");
+  }
+  /**
+   * Returns the specified TargetHttpProxy resource. (targetHttpProxies.get)
+   *
+   * @param string $project
+   * Name of the project scoping this request.
+   * @param string $targetHttpProxy
+   * Name of the TargetHttpProxy resource to return.
+   * @param array $optParams Optional parameters.
+   * @return Google_Service_Compute_TargetHttpProxy
+   */
+  public function get($project, $targetHttpProxy, $optParams = array())
+  {
+    $params = array('project' => $project, 'targetHttpProxy' => $targetHttpProxy);
+    $params = array_merge($params, $optParams);
+    return $this->call('get', array($params), "Google_Service_Compute_TargetHttpProxy");
+  }
+  /**
+   * Creates a TargetHttpProxy resource in the specified project using the data
+   * included in the request. (targetHttpProxies.insert)
+   *
+   * @param string $project
+   * Name of the project scoping this request.
+   * @param Google_TargetHttpProxy $postBody
+   * @param array $optParams Optional parameters.
+   * @return Google_Service_Compute_Operation
+   */
+  public function insert($project, Google_Service_Compute_TargetHttpProxy $postBody, $optParams = array())
+  {
+    $params = array('project' => $project, 'postBody' => $postBody);
+    $params = array_merge($params, $optParams);
+    return $this->call('insert', array($params), "Google_Service_Compute_Operation");
+  }
+  /**
+   * Retrieves the list of TargetHttpProxy resources available to the specified
+   * project. (targetHttpProxies.listTargetHttpProxies)
+   *
+   * @param string $project
+   * Name of the project scoping this request.
+   * @param array $optParams Optional parameters.
+   *
+   * @opt_param string filter
+   * Optional. Filter expression for filtering listed resources.
+   * @opt_param string pageToken
+   * Optional. Tag returned by a previous list request truncated by maxResults. Used to continue a
+    * previous list request.
+   * @opt_param string maxResults
+   * Optional. Maximum count of results to be returned. Maximum value is 500 and default value is
+    * 500.
+   * @return Google_Service_Compute_TargetHttpProxyList
+   */
+  public function listTargetHttpProxies($project, $optParams = array())
+  {
+    $params = array('project' => $project);
+    $params = array_merge($params, $optParams);
+    return $this->call('list', array($params), "Google_Service_Compute_TargetHttpProxyList");
+  }
+  /**
+   * Changes the URL map for TargetHttpProxy. (targetHttpProxies.setUrlMap)
+   *
+   * @param string $project
+   * Name of the project scoping this request.
+   * @param string $targetHttpProxy
+   * Name of the TargetHttpProxy resource whose URL map is to be set.
+   * @param Google_UrlMapReference $postBody
+   * @param array $optParams Optional parameters.
+   * @return Google_Service_Compute_Operation
+   */
+  public function setUrlMap($project, $targetHttpProxy, Google_Service_Compute_UrlMapReference $postBody, $optParams = array())
+  {
+    $params = array('project' => $project, 'targetHttpProxy' => $targetHttpProxy, 'postBody' => $postBody);
+    $params = array_merge($params, $optParams);
+    return $this->call('setUrlMap', array($params), "Google_Service_Compute_Operation");
   }
 }
 
@@ -4091,6 +5245,145 @@ class Google_Service_Compute_TargetPools_Resource extends Google_Service_Resourc
 }
 
 /**
+ * The "urlMaps" collection of methods.
+ * Typical usage is:
+ *  <code>
+ *   $computeService = new Google_Service_Compute(...);
+ *   $urlMaps = $computeService->urlMaps;
+ *  </code>
+ */
+class Google_Service_Compute_UrlMaps_Resource extends Google_Service_Resource
+{
+
+  /**
+   * Deletes the specified UrlMap resource. (urlMaps.delete)
+   *
+   * @param string $project
+   * Name of the project scoping this request.
+   * @param string $urlMap
+   * Name of the UrlMap resource to delete.
+   * @param array $optParams Optional parameters.
+   * @return Google_Service_Compute_Operation
+   */
+  public function delete($project, $urlMap, $optParams = array())
+  {
+    $params = array('project' => $project, 'urlMap' => $urlMap);
+    $params = array_merge($params, $optParams);
+    return $this->call('delete', array($params), "Google_Service_Compute_Operation");
+  }
+  /**
+   * Returns the specified UrlMap resource. (urlMaps.get)
+   *
+   * @param string $project
+   * Name of the project scoping this request.
+   * @param string $urlMap
+   * Name of the UrlMap resource to return.
+   * @param array $optParams Optional parameters.
+   * @return Google_Service_Compute_UrlMap
+   */
+  public function get($project, $urlMap, $optParams = array())
+  {
+    $params = array('project' => $project, 'urlMap' => $urlMap);
+    $params = array_merge($params, $optParams);
+    return $this->call('get', array($params), "Google_Service_Compute_UrlMap");
+  }
+  /**
+   * Creates a UrlMap resource in the specified project using the data included in
+   * the request. (urlMaps.insert)
+   *
+   * @param string $project
+   * Name of the project scoping this request.
+   * @param Google_UrlMap $postBody
+   * @param array $optParams Optional parameters.
+   * @return Google_Service_Compute_Operation
+   */
+  public function insert($project, Google_Service_Compute_UrlMap $postBody, $optParams = array())
+  {
+    $params = array('project' => $project, 'postBody' => $postBody);
+    $params = array_merge($params, $optParams);
+    return $this->call('insert', array($params), "Google_Service_Compute_Operation");
+  }
+  /**
+   * Retrieves the list of UrlMap resources available to the specified project.
+   * (urlMaps.listUrlMaps)
+   *
+   * @param string $project
+   * Name of the project scoping this request.
+   * @param array $optParams Optional parameters.
+   *
+   * @opt_param string filter
+   * Optional. Filter expression for filtering listed resources.
+   * @opt_param string pageToken
+   * Optional. Tag returned by a previous list request truncated by maxResults. Used to continue a
+    * previous list request.
+   * @opt_param string maxResults
+   * Optional. Maximum count of results to be returned. Maximum value is 500 and default value is
+    * 500.
+   * @return Google_Service_Compute_UrlMapList
+   */
+  public function listUrlMaps($project, $optParams = array())
+  {
+    $params = array('project' => $project);
+    $params = array_merge($params, $optParams);
+    return $this->call('list', array($params), "Google_Service_Compute_UrlMapList");
+  }
+  /**
+   * Update the entire content of the UrlMap resource. This method supports patch
+   * semantics. (urlMaps.patch)
+   *
+   * @param string $project
+   * Name of the project scoping this request.
+   * @param string $urlMap
+   * Name of the UrlMap resource to update.
+   * @param Google_UrlMap $postBody
+   * @param array $optParams Optional parameters.
+   * @return Google_Service_Compute_Operation
+   */
+  public function patch($project, $urlMap, Google_Service_Compute_UrlMap $postBody, $optParams = array())
+  {
+    $params = array('project' => $project, 'urlMap' => $urlMap, 'postBody' => $postBody);
+    $params = array_merge($params, $optParams);
+    return $this->call('patch', array($params), "Google_Service_Compute_Operation");
+  }
+  /**
+   * Update the entire content of the UrlMap resource. (urlMaps.update)
+   *
+   * @param string $project
+   * Name of the project scoping this request.
+   * @param string $urlMap
+   * Name of the UrlMap resource to update.
+   * @param Google_UrlMap $postBody
+   * @param array $optParams Optional parameters.
+   * @return Google_Service_Compute_Operation
+   */
+  public function update($project, $urlMap, Google_Service_Compute_UrlMap $postBody, $optParams = array())
+  {
+    $params = array('project' => $project, 'urlMap' => $urlMap, 'postBody' => $postBody);
+    $params = array_merge($params, $optParams);
+    return $this->call('update', array($params), "Google_Service_Compute_Operation");
+  }
+  /**
+   * Run static validation for the UrlMap. In particular, the tests of the
+   * provided UrlMap will be run. Calling this method does NOT create the UrlMap.
+   * (urlMaps.validate)
+   *
+   * @param string $project
+   * Name of the project scoping this request.
+   * @param string $urlMap
+   * Name of the UrlMap resource to be validated as.
+   * @param Google_UrlMapsValidateRequest $postBody
+   * @param array $optParams Optional parameters.
+   * @return Google_Service_Compute_UrlMapsValidateResponse
+   */
+  public function validate($project, $urlMap, Google_Service_Compute_UrlMapsValidateRequest $postBody, $optParams = array())
+  {
+    $params = array('project' => $project, 'urlMap' => $urlMap, 'postBody' => $postBody);
+    $params = array_merge($params, $optParams);
+    return $this->call('validate', array($params), "Google_Service_Compute_UrlMapsValidateResponse");
+  }
+}
+
+/**
  * The "zoneOperations" collection of methods.
  * Typical usage is:
  *  <code>
@@ -4272,6 +5565,7 @@ class Google_Service_Compute_AccessConfig extends Google_Model
 
 class Google_Service_Compute_Address extends Google_Collection
 {
+  protected $collection_key = 'users';
   public $address;
   public $creationTimestamp;
   public $description;
@@ -4444,8 +5738,14 @@ class Google_Service_Compute_AddressAggregatedList extends Google_Model
   }
 }
 
+class Google_Service_Compute_AddressAggregatedListItems extends Google_Model
+{
+
+}
+
 class Google_Service_Compute_AddressList extends Google_Collection
 {
+  protected $collection_key = 'items';
   public $id;
   protected $itemsType = 'Google_Service_Compute_Address';
   protected $itemsDataType = 'array';
@@ -4506,6 +5806,7 @@ class Google_Service_Compute_AddressList extends Google_Collection
 
 class Google_Service_Compute_AddressesScopedList extends Google_Collection
 {
+  protected $collection_key = 'addresses';
   protected $addressesType = 'Google_Service_Compute_Address';
   protected $addressesDataType = 'array';
   protected $warningType = 'Google_Service_Compute_AddressesScopedListWarning';
@@ -4534,6 +5835,7 @@ class Google_Service_Compute_AddressesScopedList extends Google_Collection
 
 class Google_Service_Compute_AddressesScopedListWarning extends Google_Collection
 {
+  protected $collection_key = 'data';
   public $code;
   protected $dataType = 'Google_Service_Compute_AddressesScopedListWarningData';
   protected $dataDataType = 'array';
@@ -4596,8 +5898,9 @@ class Google_Service_Compute_AddressesScopedListWarningData extends Google_Model
   }
 }
 
-class Google_Service_Compute_AttachedDisk extends Google_Model
+class Google_Service_Compute_AttachedDisk extends Google_Collection
 {
+  protected $collection_key = 'licenses';
   public $autoDelete;
   public $boot;
   public $deviceName;
@@ -4605,6 +5908,7 @@ class Google_Service_Compute_AttachedDisk extends Google_Model
   protected $initializeParamsType = 'Google_Service_Compute_AttachedDiskInitializeParams';
   protected $initializeParamsDataType = '';
   public $kind;
+  public $licenses;
   public $mode;
   public $source;
   public $type;
@@ -4669,6 +5973,16 @@ class Google_Service_Compute_AttachedDisk extends Google_Model
     return $this->kind;
   }
 
+  public function setLicenses($licenses)
+  {
+    $this->licenses = $licenses;
+  }
+
+  public function getLicenses()
+  {
+    return $this->licenses;
+  }
+
   public function setMode($mode)
   {
     $this->mode = $mode;
@@ -4704,6 +6018,7 @@ class Google_Service_Compute_AttachedDiskInitializeParams extends Google_Model
 {
   public $diskName;
   public $diskSizeGb;
+  public $diskType;
   public $sourceImage;
 
   public function setDiskName($diskName)
@@ -4726,6 +6041,16 @@ class Google_Service_Compute_AttachedDiskInitializeParams extends Google_Model
     return $this->diskSizeGb;
   }
 
+  public function setDiskType($diskType)
+  {
+    $this->diskType = $diskType;
+  }
+
+  public function getDiskType()
+  {
+    return $this->diskType;
+  }
+
   public function setSourceImage($sourceImage)
   {
     $this->sourceImage = $sourceImage;
@@ -4734,6 +6059,325 @@ class Google_Service_Compute_AttachedDiskInitializeParams extends Google_Model
   public function getSourceImage()
   {
     return $this->sourceImage;
+  }
+}
+
+class Google_Service_Compute_Backend extends Google_Model
+{
+  public $balancingMode;
+  public $capacityScaler;
+  public $description;
+  public $group;
+  public $maxRate;
+  public $maxRatePerInstance;
+  public $maxUtilization;
+
+  public function setBalancingMode($balancingMode)
+  {
+    $this->balancingMode = $balancingMode;
+  }
+
+  public function getBalancingMode()
+  {
+    return $this->balancingMode;
+  }
+
+  public function setCapacityScaler($capacityScaler)
+  {
+    $this->capacityScaler = $capacityScaler;
+  }
+
+  public function getCapacityScaler()
+  {
+    return $this->capacityScaler;
+  }
+
+  public function setDescription($description)
+  {
+    $this->description = $description;
+  }
+
+  public function getDescription()
+  {
+    return $this->description;
+  }
+
+  public function setGroup($group)
+  {
+    $this->group = $group;
+  }
+
+  public function getGroup()
+  {
+    return $this->group;
+  }
+
+  public function setMaxRate($maxRate)
+  {
+    $this->maxRate = $maxRate;
+  }
+
+  public function getMaxRate()
+  {
+    return $this->maxRate;
+  }
+
+  public function setMaxRatePerInstance($maxRatePerInstance)
+  {
+    $this->maxRatePerInstance = $maxRatePerInstance;
+  }
+
+  public function getMaxRatePerInstance()
+  {
+    return $this->maxRatePerInstance;
+  }
+
+  public function setMaxUtilization($maxUtilization)
+  {
+    $this->maxUtilization = $maxUtilization;
+  }
+
+  public function getMaxUtilization()
+  {
+    return $this->maxUtilization;
+  }
+}
+
+class Google_Service_Compute_BackendService extends Google_Collection
+{
+  protected $collection_key = 'healthChecks';
+  protected $backendsType = 'Google_Service_Compute_Backend';
+  protected $backendsDataType = 'array';
+  public $creationTimestamp;
+  public $description;
+  public $fingerprint;
+  public $healthChecks;
+  public $id;
+  public $kind;
+  public $name;
+  public $port;
+  public $portName;
+  public $protocol;
+  public $selfLink;
+  public $timeoutSec;
+
+  public function setBackends($backends)
+  {
+    $this->backends = $backends;
+  }
+
+  public function getBackends()
+  {
+    return $this->backends;
+  }
+
+  public function setCreationTimestamp($creationTimestamp)
+  {
+    $this->creationTimestamp = $creationTimestamp;
+  }
+
+  public function getCreationTimestamp()
+  {
+    return $this->creationTimestamp;
+  }
+
+  public function setDescription($description)
+  {
+    $this->description = $description;
+  }
+
+  public function getDescription()
+  {
+    return $this->description;
+  }
+
+  public function setFingerprint($fingerprint)
+  {
+    $this->fingerprint = $fingerprint;
+  }
+
+  public function getFingerprint()
+  {
+    return $this->fingerprint;
+  }
+
+  public function setHealthChecks($healthChecks)
+  {
+    $this->healthChecks = $healthChecks;
+  }
+
+  public function getHealthChecks()
+  {
+    return $this->healthChecks;
+  }
+
+  public function setId($id)
+  {
+    $this->id = $id;
+  }
+
+  public function getId()
+  {
+    return $this->id;
+  }
+
+  public function setKind($kind)
+  {
+    $this->kind = $kind;
+  }
+
+  public function getKind()
+  {
+    return $this->kind;
+  }
+
+  public function setName($name)
+  {
+    $this->name = $name;
+  }
+
+  public function getName()
+  {
+    return $this->name;
+  }
+
+  public function setPort($port)
+  {
+    $this->port = $port;
+  }
+
+  public function getPort()
+  {
+    return $this->port;
+  }
+
+  public function setPortName($portName)
+  {
+    $this->portName = $portName;
+  }
+
+  public function getPortName()
+  {
+    return $this->portName;
+  }
+
+  public function setProtocol($protocol)
+  {
+    $this->protocol = $protocol;
+  }
+
+  public function getProtocol()
+  {
+    return $this->protocol;
+  }
+
+  public function setSelfLink($selfLink)
+  {
+    $this->selfLink = $selfLink;
+  }
+
+  public function getSelfLink()
+  {
+    return $this->selfLink;
+  }
+
+  public function setTimeoutSec($timeoutSec)
+  {
+    $this->timeoutSec = $timeoutSec;
+  }
+
+  public function getTimeoutSec()
+  {
+    return $this->timeoutSec;
+  }
+}
+
+class Google_Service_Compute_BackendServiceGroupHealth extends Google_Collection
+{
+  protected $collection_key = 'healthStatus';
+  protected $healthStatusType = 'Google_Service_Compute_HealthStatus';
+  protected $healthStatusDataType = 'array';
+  public $kind;
+
+  public function setHealthStatus($healthStatus)
+  {
+    $this->healthStatus = $healthStatus;
+  }
+
+  public function getHealthStatus()
+  {
+    return $this->healthStatus;
+  }
+
+  public function setKind($kind)
+  {
+    $this->kind = $kind;
+  }
+
+  public function getKind()
+  {
+    return $this->kind;
+  }
+}
+
+class Google_Service_Compute_BackendServiceList extends Google_Collection
+{
+  protected $collection_key = 'items';
+  public $id;
+  protected $itemsType = 'Google_Service_Compute_BackendService';
+  protected $itemsDataType = 'array';
+  public $kind;
+  public $nextPageToken;
+  public $selfLink;
+
+  public function setId($id)
+  {
+    $this->id = $id;
+  }
+
+  public function getId()
+  {
+    return $this->id;
+  }
+
+  public function setItems($items)
+  {
+    $this->items = $items;
+  }
+
+  public function getItems()
+  {
+    return $this->items;
+  }
+
+  public function setKind($kind)
+  {
+    $this->kind = $kind;
+  }
+
+  public function getKind()
+  {
+    return $this->kind;
+  }
+
+  public function setNextPageToken($nextPageToken)
+  {
+    $this->nextPageToken = $nextPageToken;
+  }
+
+  public function getNextPageToken()
+  {
+    return $this->nextPageToken;
+  }
+
+  public function setSelfLink($selfLink)
+  {
+    $this->selfLink = $selfLink;
+  }
+
+  public function getSelfLink()
+  {
+    return $this->selfLink;
   }
 }
 
@@ -4796,12 +6440,14 @@ class Google_Service_Compute_DeprecationStatus extends Google_Model
   }
 }
 
-class Google_Service_Compute_Disk extends Google_Model
+class Google_Service_Compute_Disk extends Google_Collection
 {
+  protected $collection_key = 'licenses';
   public $creationTimestamp;
   public $description;
   public $id;
   public $kind;
+  public $licenses;
   public $name;
   public $options;
   public $selfLink;
@@ -4811,6 +6457,7 @@ class Google_Service_Compute_Disk extends Google_Model
   public $sourceSnapshot;
   public $sourceSnapshotId;
   public $status;
+  public $type;
   public $zone;
 
   public function setCreationTimestamp($creationTimestamp)
@@ -4851,6 +6498,16 @@ class Google_Service_Compute_Disk extends Google_Model
   public function getKind()
   {
     return $this->kind;
+  }
+
+  public function setLicenses($licenses)
+  {
+    $this->licenses = $licenses;
+  }
+
+  public function getLicenses()
+  {
+    return $this->licenses;
   }
 
   public function setName($name)
@@ -4943,6 +6600,16 @@ class Google_Service_Compute_Disk extends Google_Model
     return $this->status;
   }
 
+  public function setType($type)
+  {
+    $this->type = $type;
+  }
+
+  public function getType()
+  {
+    return $this->type;
+  }
+
   public function setZone($zone)
   {
     $this->zone = $zone;
@@ -5014,8 +6681,14 @@ class Google_Service_Compute_DiskAggregatedList extends Google_Model
   }
 }
 
+class Google_Service_Compute_DiskAggregatedListItems extends Google_Model
+{
+
+}
+
 class Google_Service_Compute_DiskList extends Google_Collection
 {
+  protected $collection_key = 'items';
   public $id;
   protected $itemsType = 'Google_Service_Compute_Disk';
   protected $itemsDataType = 'array';
@@ -5074,8 +6747,344 @@ class Google_Service_Compute_DiskList extends Google_Collection
   }
 }
 
+class Google_Service_Compute_DiskType extends Google_Model
+{
+  public $creationTimestamp;
+  public $defaultDiskSizeGb;
+  protected $deprecatedType = 'Google_Service_Compute_DeprecationStatus';
+  protected $deprecatedDataType = '';
+  public $description;
+  public $id;
+  public $kind;
+  public $name;
+  public $selfLink;
+  public $validDiskSize;
+  public $zone;
+
+  public function setCreationTimestamp($creationTimestamp)
+  {
+    $this->creationTimestamp = $creationTimestamp;
+  }
+
+  public function getCreationTimestamp()
+  {
+    return $this->creationTimestamp;
+  }
+
+  public function setDefaultDiskSizeGb($defaultDiskSizeGb)
+  {
+    $this->defaultDiskSizeGb = $defaultDiskSizeGb;
+  }
+
+  public function getDefaultDiskSizeGb()
+  {
+    return $this->defaultDiskSizeGb;
+  }
+
+  public function setDeprecated(Google_Service_Compute_DeprecationStatus $deprecated)
+  {
+    $this->deprecated = $deprecated;
+  }
+
+  public function getDeprecated()
+  {
+    return $this->deprecated;
+  }
+
+  public function setDescription($description)
+  {
+    $this->description = $description;
+  }
+
+  public function getDescription()
+  {
+    return $this->description;
+  }
+
+  public function setId($id)
+  {
+    $this->id = $id;
+  }
+
+  public function getId()
+  {
+    return $this->id;
+  }
+
+  public function setKind($kind)
+  {
+    $this->kind = $kind;
+  }
+
+  public function getKind()
+  {
+    return $this->kind;
+  }
+
+  public function setName($name)
+  {
+    $this->name = $name;
+  }
+
+  public function getName()
+  {
+    return $this->name;
+  }
+
+  public function setSelfLink($selfLink)
+  {
+    $this->selfLink = $selfLink;
+  }
+
+  public function getSelfLink()
+  {
+    return $this->selfLink;
+  }
+
+  public function setValidDiskSize($validDiskSize)
+  {
+    $this->validDiskSize = $validDiskSize;
+  }
+
+  public function getValidDiskSize()
+  {
+    return $this->validDiskSize;
+  }
+
+  public function setZone($zone)
+  {
+    $this->zone = $zone;
+  }
+
+  public function getZone()
+  {
+    return $this->zone;
+  }
+}
+
+class Google_Service_Compute_DiskTypeAggregatedList extends Google_Model
+{
+  public $id;
+  protected $itemsType = 'Google_Service_Compute_DiskTypesScopedList';
+  protected $itemsDataType = 'map';
+  public $kind;
+  public $nextPageToken;
+  public $selfLink;
+
+  public function setId($id)
+  {
+    $this->id = $id;
+  }
+
+  public function getId()
+  {
+    return $this->id;
+  }
+
+  public function setItems($items)
+  {
+    $this->items = $items;
+  }
+
+  public function getItems()
+  {
+    return $this->items;
+  }
+
+  public function setKind($kind)
+  {
+    $this->kind = $kind;
+  }
+
+  public function getKind()
+  {
+    return $this->kind;
+  }
+
+  public function setNextPageToken($nextPageToken)
+  {
+    $this->nextPageToken = $nextPageToken;
+  }
+
+  public function getNextPageToken()
+  {
+    return $this->nextPageToken;
+  }
+
+  public function setSelfLink($selfLink)
+  {
+    $this->selfLink = $selfLink;
+  }
+
+  public function getSelfLink()
+  {
+    return $this->selfLink;
+  }
+}
+
+class Google_Service_Compute_DiskTypeAggregatedListItems extends Google_Model
+{
+
+}
+
+class Google_Service_Compute_DiskTypeList extends Google_Collection
+{
+  protected $collection_key = 'items';
+  public $id;
+  protected $itemsType = 'Google_Service_Compute_DiskType';
+  protected $itemsDataType = 'array';
+  public $kind;
+  public $nextPageToken;
+  public $selfLink;
+
+  public function setId($id)
+  {
+    $this->id = $id;
+  }
+
+  public function getId()
+  {
+    return $this->id;
+  }
+
+  public function setItems($items)
+  {
+    $this->items = $items;
+  }
+
+  public function getItems()
+  {
+    return $this->items;
+  }
+
+  public function setKind($kind)
+  {
+    $this->kind = $kind;
+  }
+
+  public function getKind()
+  {
+    return $this->kind;
+  }
+
+  public function setNextPageToken($nextPageToken)
+  {
+    $this->nextPageToken = $nextPageToken;
+  }
+
+  public function getNextPageToken()
+  {
+    return $this->nextPageToken;
+  }
+
+  public function setSelfLink($selfLink)
+  {
+    $this->selfLink = $selfLink;
+  }
+
+  public function getSelfLink()
+  {
+    return $this->selfLink;
+  }
+}
+
+class Google_Service_Compute_DiskTypesScopedList extends Google_Collection
+{
+  protected $collection_key = 'diskTypes';
+  protected $diskTypesType = 'Google_Service_Compute_DiskType';
+  protected $diskTypesDataType = 'array';
+  protected $warningType = 'Google_Service_Compute_DiskTypesScopedListWarning';
+  protected $warningDataType = '';
+
+  public function setDiskTypes($diskTypes)
+  {
+    $this->diskTypes = $diskTypes;
+  }
+
+  public function getDiskTypes()
+  {
+    return $this->diskTypes;
+  }
+
+  public function setWarning(Google_Service_Compute_DiskTypesScopedListWarning $warning)
+  {
+    $this->warning = $warning;
+  }
+
+  public function getWarning()
+  {
+    return $this->warning;
+  }
+}
+
+class Google_Service_Compute_DiskTypesScopedListWarning extends Google_Collection
+{
+  protected $collection_key = 'data';
+  public $code;
+  protected $dataType = 'Google_Service_Compute_DiskTypesScopedListWarningData';
+  protected $dataDataType = 'array';
+  public $message;
+
+  public function setCode($code)
+  {
+    $this->code = $code;
+  }
+
+  public function getCode()
+  {
+    return $this->code;
+  }
+
+  public function setData($data)
+  {
+    $this->data = $data;
+  }
+
+  public function getData()
+  {
+    return $this->data;
+  }
+
+  public function setMessage($message)
+  {
+    $this->message = $message;
+  }
+
+  public function getMessage()
+  {
+    return $this->message;
+  }
+}
+
+class Google_Service_Compute_DiskTypesScopedListWarningData extends Google_Model
+{
+  public $key;
+  public $value;
+
+  public function setKey($key)
+  {
+    $this->key = $key;
+  }
+
+  public function getKey()
+  {
+    return $this->key;
+  }
+
+  public function setValue($value)
+  {
+    $this->value = $value;
+  }
+
+  public function getValue()
+  {
+    return $this->value;
+  }
+}
+
 class Google_Service_Compute_DisksScopedList extends Google_Collection
 {
+  protected $collection_key = 'disks';
   protected $disksType = 'Google_Service_Compute_Disk';
   protected $disksDataType = 'array';
   protected $warningType = 'Google_Service_Compute_DisksScopedListWarning';
@@ -5104,6 +7113,7 @@ class Google_Service_Compute_DisksScopedList extends Google_Collection
 
 class Google_Service_Compute_DisksScopedListWarning extends Google_Collection
 {
+  protected $collection_key = 'data';
   public $code;
   protected $dataType = 'Google_Service_Compute_DisksScopedListWarningData';
   protected $dataDataType = 'array';
@@ -5168,6 +7178,7 @@ class Google_Service_Compute_DisksScopedListWarningData extends Google_Model
 
 class Google_Service_Compute_Firewall extends Google_Collection
 {
+  protected $collection_key = 'targetTags';
   protected $allowedType = 'Google_Service_Compute_FirewallAllowed';
   protected $allowedDataType = 'array';
   public $creationTimestamp;
@@ -5294,6 +7305,7 @@ class Google_Service_Compute_Firewall extends Google_Collection
 
 class Google_Service_Compute_FirewallAllowed extends Google_Collection
 {
+  protected $collection_key = 'ports';
   public $iPProtocol;
   public $ports;
 
@@ -5320,6 +7332,7 @@ class Google_Service_Compute_FirewallAllowed extends Google_Collection
 
 class Google_Service_Compute_FirewallList extends Google_Collection
 {
+  protected $collection_key = 'items';
   public $id;
   protected $itemsType = 'Google_Service_Compute_Firewall';
   protected $itemsDataType = 'array';
@@ -5563,8 +7576,14 @@ class Google_Service_Compute_ForwardingRuleAggregatedList extends Google_Model
   }
 }
 
+class Google_Service_Compute_ForwardingRuleAggregatedListItems extends Google_Model
+{
+
+}
+
 class Google_Service_Compute_ForwardingRuleList extends Google_Collection
 {
+  protected $collection_key = 'items';
   public $id;
   protected $itemsType = 'Google_Service_Compute_ForwardingRule';
   protected $itemsDataType = 'array';
@@ -5625,6 +7644,7 @@ class Google_Service_Compute_ForwardingRuleList extends Google_Collection
 
 class Google_Service_Compute_ForwardingRulesScopedList extends Google_Collection
 {
+  protected $collection_key = 'forwardingRules';
   protected $forwardingRulesType = 'Google_Service_Compute_ForwardingRule';
   protected $forwardingRulesDataType = 'array';
   protected $warningType = 'Google_Service_Compute_ForwardingRulesScopedListWarning';
@@ -5653,6 +7673,7 @@ class Google_Service_Compute_ForwardingRulesScopedList extends Google_Collection
 
 class Google_Service_Compute_ForwardingRulesScopedListWarning extends Google_Collection
 {
+  protected $collection_key = 'data';
   public $code;
   protected $dataType = 'Google_Service_Compute_ForwardingRulesScopedListWarningData';
   protected $dataDataType = 'array';
@@ -5735,6 +7756,7 @@ class Google_Service_Compute_HealthStatus extends Google_Model
   public $healthState;
   public $instance;
   public $ipAddress;
+  public $port;
 
   public function setHealthState($healthState)
   {
@@ -5764,6 +7786,54 @@ class Google_Service_Compute_HealthStatus extends Google_Model
   public function getIpAddress()
   {
     return $this->ipAddress;
+  }
+
+  public function setPort($port)
+  {
+    $this->port = $port;
+  }
+
+  public function getPort()
+  {
+    return $this->port;
+  }
+}
+
+class Google_Service_Compute_HostRule extends Google_Collection
+{
+  protected $collection_key = 'hosts';
+  public $description;
+  public $hosts;
+  public $pathMatcher;
+
+  public function setDescription($description)
+  {
+    $this->description = $description;
+  }
+
+  public function getDescription()
+  {
+    return $this->description;
+  }
+
+  public function setHosts($hosts)
+  {
+    $this->hosts = $hosts;
+  }
+
+  public function getHosts()
+  {
+    return $this->hosts;
+  }
+
+  public function setPathMatcher($pathMatcher)
+  {
+    $this->pathMatcher = $pathMatcher;
+  }
+
+  public function getPathMatcher()
+  {
+    return $this->pathMatcher;
   }
 }
 
@@ -5916,6 +7986,7 @@ class Google_Service_Compute_HttpHealthCheck extends Google_Model
 
 class Google_Service_Compute_HttpHealthCheckList extends Google_Collection
 {
+  protected $collection_key = 'items';
   public $id;
   protected $itemsType = 'Google_Service_Compute_HttpHealthCheck';
   protected $itemsDataType = 'array';
@@ -5974,19 +8045,24 @@ class Google_Service_Compute_HttpHealthCheckList extends Google_Collection
   }
 }
 
-class Google_Service_Compute_Image extends Google_Model
+class Google_Service_Compute_Image extends Google_Collection
 {
+  protected $collection_key = 'licenses';
   public $archiveSizeBytes;
   public $creationTimestamp;
   protected $deprecatedType = 'Google_Service_Compute_DeprecationStatus';
   protected $deprecatedDataType = '';
   public $description;
+  public $diskSizeGb;
   public $id;
   public $kind;
+  public $licenses;
   public $name;
   protected $rawDiskType = 'Google_Service_Compute_ImageRawDisk';
   protected $rawDiskDataType = '';
   public $selfLink;
+  public $sourceDisk;
+  public $sourceDiskId;
   public $sourceType;
   public $status;
 
@@ -6030,6 +8106,16 @@ class Google_Service_Compute_Image extends Google_Model
     return $this->description;
   }
 
+  public function setDiskSizeGb($diskSizeGb)
+  {
+    $this->diskSizeGb = $diskSizeGb;
+  }
+
+  public function getDiskSizeGb()
+  {
+    return $this->diskSizeGb;
+  }
+
   public function setId($id)
   {
     $this->id = $id;
@@ -6048,6 +8134,16 @@ class Google_Service_Compute_Image extends Google_Model
   public function getKind()
   {
     return $this->kind;
+  }
+
+  public function setLicenses($licenses)
+  {
+    $this->licenses = $licenses;
+  }
+
+  public function getLicenses()
+  {
+    return $this->licenses;
   }
 
   public function setName($name)
@@ -6080,6 +8176,26 @@ class Google_Service_Compute_Image extends Google_Model
     return $this->selfLink;
   }
 
+  public function setSourceDisk($sourceDisk)
+  {
+    $this->sourceDisk = $sourceDisk;
+  }
+
+  public function getSourceDisk()
+  {
+    return $this->sourceDisk;
+  }
+
+  public function setSourceDiskId($sourceDiskId)
+  {
+    $this->sourceDiskId = $sourceDiskId;
+  }
+
+  public function getSourceDiskId()
+  {
+    return $this->sourceDiskId;
+  }
+
   public function setSourceType($sourceType)
   {
     $this->sourceType = $sourceType;
@@ -6103,6 +8219,7 @@ class Google_Service_Compute_Image extends Google_Model
 
 class Google_Service_Compute_ImageList extends Google_Collection
 {
+  protected $collection_key = 'items';
   public $id;
   protected $itemsType = 'Google_Service_Compute_Image';
   protected $itemsDataType = 'array';
@@ -6200,6 +8317,7 @@ class Google_Service_Compute_ImageRawDisk extends Google_Model
 
 class Google_Service_Compute_Instance extends Google_Collection
 {
+  protected $collection_key = 'serviceAccounts';
   public $canIpForward;
   public $creationTimestamp;
   public $description;
@@ -6455,8 +8573,14 @@ class Google_Service_Compute_InstanceAggregatedList extends Google_Model
   }
 }
 
+class Google_Service_Compute_InstanceAggregatedListItems extends Google_Model
+{
+
+}
+
 class Google_Service_Compute_InstanceList extends Google_Collection
 {
+  protected $collection_key = 'items';
   public $id;
   protected $itemsType = 'Google_Service_Compute_Instance';
   protected $itemsDataType = 'array';
@@ -6532,6 +8656,7 @@ class Google_Service_Compute_InstanceReference extends Google_Model
 
 class Google_Service_Compute_InstancesScopedList extends Google_Collection
 {
+  protected $collection_key = 'instances';
   protected $instancesType = 'Google_Service_Compute_Instance';
   protected $instancesDataType = 'array';
   protected $warningType = 'Google_Service_Compute_InstancesScopedListWarning';
@@ -6560,6 +8685,7 @@ class Google_Service_Compute_InstancesScopedList extends Google_Collection
 
 class Google_Service_Compute_InstancesScopedListWarning extends Google_Collection
 {
+  protected $collection_key = 'data';
   public $code;
   protected $dataType = 'Google_Service_Compute_InstancesScopedListWarningData';
   protected $dataDataType = 'array';
@@ -6622,8 +8748,57 @@ class Google_Service_Compute_InstancesScopedListWarningData extends Google_Model
   }
 }
 
+class Google_Service_Compute_License extends Google_Model
+{
+  public $chargesUseFee;
+  public $kind;
+  public $name;
+  public $selfLink;
+
+  public function setChargesUseFee($chargesUseFee)
+  {
+    $this->chargesUseFee = $chargesUseFee;
+  }
+
+  public function getChargesUseFee()
+  {
+    return $this->chargesUseFee;
+  }
+
+  public function setKind($kind)
+  {
+    $this->kind = $kind;
+  }
+
+  public function getKind()
+  {
+    return $this->kind;
+  }
+
+  public function setName($name)
+  {
+    $this->name = $name;
+  }
+
+  public function getName()
+  {
+    return $this->name;
+  }
+
+  public function setSelfLink($selfLink)
+  {
+    $this->selfLink = $selfLink;
+  }
+
+  public function getSelfLink()
+  {
+    return $this->selfLink;
+  }
+}
+
 class Google_Service_Compute_MachineType extends Google_Collection
 {
+  protected $collection_key = 'scratchDisks';
   public $creationTimestamp;
   protected $deprecatedType = 'Google_Service_Compute_DeprecationStatus';
   protected $deprecatedDataType = '';
@@ -6842,8 +9017,14 @@ class Google_Service_Compute_MachineTypeAggregatedList extends Google_Model
   }
 }
 
+class Google_Service_Compute_MachineTypeAggregatedListItems extends Google_Model
+{
+
+}
+
 class Google_Service_Compute_MachineTypeList extends Google_Collection
 {
+  protected $collection_key = 'items';
   public $id;
   protected $itemsType = 'Google_Service_Compute_MachineType';
   protected $itemsDataType = 'array';
@@ -6919,6 +9100,7 @@ class Google_Service_Compute_MachineTypeScratchDisks extends Google_Model
 
 class Google_Service_Compute_MachineTypesScopedList extends Google_Collection
 {
+  protected $collection_key = 'machineTypes';
   protected $machineTypesType = 'Google_Service_Compute_MachineType';
   protected $machineTypesDataType = 'array';
   protected $warningType = 'Google_Service_Compute_MachineTypesScopedListWarning';
@@ -6947,6 +9129,7 @@ class Google_Service_Compute_MachineTypesScopedList extends Google_Collection
 
 class Google_Service_Compute_MachineTypesScopedListWarning extends Google_Collection
 {
+  protected $collection_key = 'data';
   public $code;
   protected $dataType = 'Google_Service_Compute_MachineTypesScopedListWarningData';
   protected $dataDataType = 'array';
@@ -7011,6 +9194,7 @@ class Google_Service_Compute_MachineTypesScopedListWarningData extends Google_Mo
 
 class Google_Service_Compute_Metadata extends Google_Collection
 {
+  protected $collection_key = 'items';
   public $fingerprint;
   protected $itemsType = 'Google_Service_Compute_MetadataItems';
   protected $itemsDataType = 'array';
@@ -7167,6 +9351,7 @@ class Google_Service_Compute_Network extends Google_Model
 
 class Google_Service_Compute_NetworkInterface extends Google_Collection
 {
+  protected $collection_key = 'accessConfigs';
   protected $accessConfigsType = 'Google_Service_Compute_AccessConfig';
   protected $accessConfigsDataType = 'array';
   public $name;
@@ -7216,6 +9401,7 @@ class Google_Service_Compute_NetworkInterface extends Google_Collection
 
 class Google_Service_Compute_NetworkList extends Google_Collection
 {
+  protected $collection_key = 'items';
   public $id;
   protected $itemsType = 'Google_Service_Compute_Network';
   protected $itemsDataType = 'array';
@@ -7276,6 +9462,7 @@ class Google_Service_Compute_NetworkList extends Google_Collection
 
 class Google_Service_Compute_Operation extends Google_Collection
 {
+  protected $collection_key = 'warnings';
   public $clientOperationId;
   public $creationTimestamp;
   public $endTime;
@@ -7582,8 +9769,14 @@ class Google_Service_Compute_OperationAggregatedList extends Google_Model
   }
 }
 
+class Google_Service_Compute_OperationAggregatedListItems extends Google_Model
+{
+
+}
+
 class Google_Service_Compute_OperationError extends Google_Collection
 {
+  protected $collection_key = 'errors';
   protected $errorsType = 'Google_Service_Compute_OperationErrorErrors';
   protected $errorsDataType = 'array';
 
@@ -7637,6 +9830,7 @@ class Google_Service_Compute_OperationErrorErrors extends Google_Model
 
 class Google_Service_Compute_OperationList extends Google_Collection
 {
+  protected $collection_key = 'items';
   public $id;
   protected $itemsType = 'Google_Service_Compute_Operation';
   protected $itemsDataType = 'array';
@@ -7697,6 +9891,7 @@ class Google_Service_Compute_OperationList extends Google_Collection
 
 class Google_Service_Compute_OperationWarnings extends Google_Collection
 {
+  protected $collection_key = 'data';
   public $code;
   protected $dataType = 'Google_Service_Compute_OperationWarningsData';
   protected $dataDataType = 'array';
@@ -7761,6 +9956,7 @@ class Google_Service_Compute_OperationWarningsData extends Google_Model
 
 class Google_Service_Compute_OperationsScopedList extends Google_Collection
 {
+  protected $collection_key = 'operations';
   protected $operationsType = 'Google_Service_Compute_Operation';
   protected $operationsDataType = 'array';
   protected $warningType = 'Google_Service_Compute_OperationsScopedListWarning';
@@ -7789,6 +9985,7 @@ class Google_Service_Compute_OperationsScopedList extends Google_Collection
 
 class Google_Service_Compute_OperationsScopedListWarning extends Google_Collection
 {
+  protected $collection_key = 'data';
   public $code;
   protected $dataType = 'Google_Service_Compute_OperationsScopedListWarningData';
   protected $dataDataType = 'array';
@@ -7851,8 +10048,86 @@ class Google_Service_Compute_OperationsScopedListWarningData extends Google_Mode
   }
 }
 
+class Google_Service_Compute_PathMatcher extends Google_Collection
+{
+  protected $collection_key = 'pathRules';
+  public $defaultService;
+  public $description;
+  public $name;
+  protected $pathRulesType = 'Google_Service_Compute_PathRule';
+  protected $pathRulesDataType = 'array';
+
+  public function setDefaultService($defaultService)
+  {
+    $this->defaultService = $defaultService;
+  }
+
+  public function getDefaultService()
+  {
+    return $this->defaultService;
+  }
+
+  public function setDescription($description)
+  {
+    $this->description = $description;
+  }
+
+  public function getDescription()
+  {
+    return $this->description;
+  }
+
+  public function setName($name)
+  {
+    $this->name = $name;
+  }
+
+  public function getName()
+  {
+    return $this->name;
+  }
+
+  public function setPathRules($pathRules)
+  {
+    $this->pathRules = $pathRules;
+  }
+
+  public function getPathRules()
+  {
+    return $this->pathRules;
+  }
+}
+
+class Google_Service_Compute_PathRule extends Google_Collection
+{
+  protected $collection_key = 'paths';
+  public $paths;
+  public $service;
+
+  public function setPaths($paths)
+  {
+    $this->paths = $paths;
+  }
+
+  public function getPaths()
+  {
+    return $this->paths;
+  }
+
+  public function setService($service)
+  {
+    $this->service = $service;
+  }
+
+  public function getService()
+  {
+    return $this->service;
+  }
+}
+
 class Google_Service_Compute_Project extends Google_Collection
 {
+  protected $collection_key = 'quotas';
   protected $commonInstanceMetadataType = 'Google_Service_Compute_Metadata';
   protected $commonInstanceMetadataDataType = '';
   public $creationTimestamp;
@@ -7863,6 +10138,8 @@ class Google_Service_Compute_Project extends Google_Collection
   protected $quotasType = 'Google_Service_Compute_Quota';
   protected $quotasDataType = 'array';
   public $selfLink;
+  protected $usageExportLocationType = 'Google_Service_Compute_UsageExportLocation';
+  protected $usageExportLocationDataType = '';
 
   public function setCommonInstanceMetadata(Google_Service_Compute_Metadata $commonInstanceMetadata)
   {
@@ -7943,6 +10220,16 @@ class Google_Service_Compute_Project extends Google_Collection
   {
     return $this->selfLink;
   }
+
+  public function setUsageExportLocation(Google_Service_Compute_UsageExportLocation $usageExportLocation)
+  {
+    $this->usageExportLocation = $usageExportLocation;
+  }
+
+  public function getUsageExportLocation()
+  {
+    return $this->usageExportLocation;
+  }
 }
 
 class Google_Service_Compute_Quota extends Google_Model
@@ -7984,6 +10271,7 @@ class Google_Service_Compute_Quota extends Google_Model
 
 class Google_Service_Compute_Region extends Google_Collection
 {
+  protected $collection_key = 'zones';
   public $creationTimestamp;
   protected $deprecatedType = 'Google_Service_Compute_DeprecationStatus';
   protected $deprecatedDataType = '';
@@ -8100,6 +10388,7 @@ class Google_Service_Compute_Region extends Google_Collection
 
 class Google_Service_Compute_RegionList extends Google_Collection
 {
+  protected $collection_key = 'items';
   public $id;
   protected $itemsType = 'Google_Service_Compute_Region';
   protected $itemsDataType = 'array';
@@ -8158,8 +10447,24 @@ class Google_Service_Compute_RegionList extends Google_Collection
   }
 }
 
+class Google_Service_Compute_ResourceGroupReference extends Google_Model
+{
+  public $group;
+
+  public function setGroup($group)
+  {
+    $this->group = $group;
+  }
+
+  public function getGroup()
+  {
+    return $this->group;
+  }
+}
+
 class Google_Service_Compute_Route extends Google_Collection
 {
+  protected $collection_key = 'warnings';
   public $creationTimestamp;
   public $description;
   public $destRange;
@@ -8330,6 +10635,7 @@ class Google_Service_Compute_Route extends Google_Collection
 
 class Google_Service_Compute_RouteList extends Google_Collection
 {
+  protected $collection_key = 'items';
   public $id;
   protected $itemsType = 'Google_Service_Compute_Route';
   protected $itemsDataType = 'array';
@@ -8390,6 +10696,7 @@ class Google_Service_Compute_RouteList extends Google_Collection
 
 class Google_Service_Compute_RouteWarnings extends Google_Collection
 {
+  protected $collection_key = 'data';
   public $code;
   protected $dataType = 'Google_Service_Compute_RouteWarningsData';
   protected $dataDataType = 'array';
@@ -8517,6 +10824,7 @@ class Google_Service_Compute_SerialPortOutput extends Google_Model
 
 class Google_Service_Compute_ServiceAccount extends Google_Collection
 {
+  protected $collection_key = 'scopes';
   public $email;
   public $scopes;
 
@@ -8541,13 +10849,15 @@ class Google_Service_Compute_ServiceAccount extends Google_Collection
   }
 }
 
-class Google_Service_Compute_Snapshot extends Google_Model
+class Google_Service_Compute_Snapshot extends Google_Collection
 {
+  protected $collection_key = 'licenses';
   public $creationTimestamp;
   public $description;
   public $diskSizeGb;
   public $id;
   public $kind;
+  public $licenses;
   public $name;
   public $selfLink;
   public $sourceDisk;
@@ -8604,6 +10914,16 @@ class Google_Service_Compute_Snapshot extends Google_Model
   public function getKind()
   {
     return $this->kind;
+  }
+
+  public function setLicenses($licenses)
+  {
+    $this->licenses = $licenses;
+  }
+
+  public function getLicenses()
+  {
+    return $this->licenses;
   }
 
   public function setName($name)
@@ -8679,6 +10999,7 @@ class Google_Service_Compute_Snapshot extends Google_Model
 
 class Google_Service_Compute_SnapshotList extends Google_Collection
 {
+  protected $collection_key = 'items';
   public $id;
   protected $itemsType = 'Google_Service_Compute_Snapshot';
   protected $itemsDataType = 'array';
@@ -8739,6 +11060,7 @@ class Google_Service_Compute_SnapshotList extends Google_Collection
 
 class Google_Service_Compute_Tags extends Google_Collection
 {
+  protected $collection_key = 'items';
   public $fingerprint;
   public $items;
 
@@ -8760,6 +11082,148 @@ class Google_Service_Compute_Tags extends Google_Collection
   public function getItems()
   {
     return $this->items;
+  }
+}
+
+class Google_Service_Compute_TargetHttpProxy extends Google_Model
+{
+  public $creationTimestamp;
+  public $description;
+  public $id;
+  public $kind;
+  public $name;
+  public $selfLink;
+  public $urlMap;
+
+  public function setCreationTimestamp($creationTimestamp)
+  {
+    $this->creationTimestamp = $creationTimestamp;
+  }
+
+  public function getCreationTimestamp()
+  {
+    return $this->creationTimestamp;
+  }
+
+  public function setDescription($description)
+  {
+    $this->description = $description;
+  }
+
+  public function getDescription()
+  {
+    return $this->description;
+  }
+
+  public function setId($id)
+  {
+    $this->id = $id;
+  }
+
+  public function getId()
+  {
+    return $this->id;
+  }
+
+  public function setKind($kind)
+  {
+    $this->kind = $kind;
+  }
+
+  public function getKind()
+  {
+    return $this->kind;
+  }
+
+  public function setName($name)
+  {
+    $this->name = $name;
+  }
+
+  public function getName()
+  {
+    return $this->name;
+  }
+
+  public function setSelfLink($selfLink)
+  {
+    $this->selfLink = $selfLink;
+  }
+
+  public function getSelfLink()
+  {
+    return $this->selfLink;
+  }
+
+  public function setUrlMap($urlMap)
+  {
+    $this->urlMap = $urlMap;
+  }
+
+  public function getUrlMap()
+  {
+    return $this->urlMap;
+  }
+}
+
+class Google_Service_Compute_TargetHttpProxyList extends Google_Collection
+{
+  protected $collection_key = 'items';
+  public $id;
+  protected $itemsType = 'Google_Service_Compute_TargetHttpProxy';
+  protected $itemsDataType = 'array';
+  public $kind;
+  public $nextPageToken;
+  public $selfLink;
+
+  public function setId($id)
+  {
+    $this->id = $id;
+  }
+
+  public function getId()
+  {
+    return $this->id;
+  }
+
+  public function setItems($items)
+  {
+    $this->items = $items;
+  }
+
+  public function getItems()
+  {
+    return $this->items;
+  }
+
+  public function setKind($kind)
+  {
+    $this->kind = $kind;
+  }
+
+  public function getKind()
+  {
+    return $this->kind;
+  }
+
+  public function setNextPageToken($nextPageToken)
+  {
+    $this->nextPageToken = $nextPageToken;
+  }
+
+  public function getNextPageToken()
+  {
+    return $this->nextPageToken;
+  }
+
+  public function setSelfLink($selfLink)
+  {
+    $this->selfLink = $selfLink;
+  }
+
+  public function getSelfLink()
+  {
+    return $this->selfLink;
   }
 }
 
@@ -8926,8 +11390,14 @@ class Google_Service_Compute_TargetInstanceAggregatedList extends Google_Model
   }
 }
 
+class Google_Service_Compute_TargetInstanceAggregatedListItems extends Google_Model
+{
+
+}
+
 class Google_Service_Compute_TargetInstanceList extends Google_Collection
 {
+  protected $collection_key = 'items';
   public $id;
   protected $itemsType = 'Google_Service_Compute_TargetInstance';
   protected $itemsDataType = 'array';
@@ -8988,6 +11458,7 @@ class Google_Service_Compute_TargetInstanceList extends Google_Collection
 
 class Google_Service_Compute_TargetInstancesScopedList extends Google_Collection
 {
+  protected $collection_key = 'targetInstances';
   protected $targetInstancesType = 'Google_Service_Compute_TargetInstance';
   protected $targetInstancesDataType = 'array';
   protected $warningType = 'Google_Service_Compute_TargetInstancesScopedListWarning';
@@ -9016,6 +11487,7 @@ class Google_Service_Compute_TargetInstancesScopedList extends Google_Collection
 
 class Google_Service_Compute_TargetInstancesScopedListWarning extends Google_Collection
 {
+  protected $collection_key = 'data';
   public $code;
   protected $dataType = 'Google_Service_Compute_TargetInstancesScopedListWarningData';
   protected $dataDataType = 'array';
@@ -9080,6 +11552,7 @@ class Google_Service_Compute_TargetInstancesScopedListWarningData extends Google
 
 class Google_Service_Compute_TargetPool extends Google_Collection
 {
+  protected $collection_key = 'instances';
   public $backupPool;
   public $creationTimestamp;
   public $description;
@@ -9274,8 +11747,14 @@ class Google_Service_Compute_TargetPoolAggregatedList extends Google_Model
   }
 }
 
+class Google_Service_Compute_TargetPoolAggregatedListItems extends Google_Model
+{
+
+}
+
 class Google_Service_Compute_TargetPoolInstanceHealth extends Google_Collection
 {
+  protected $collection_key = 'healthStatus';
   protected $healthStatusType = 'Google_Service_Compute_HealthStatus';
   protected $healthStatusDataType = 'array';
   public $kind;
@@ -9303,6 +11782,7 @@ class Google_Service_Compute_TargetPoolInstanceHealth extends Google_Collection
 
 class Google_Service_Compute_TargetPoolList extends Google_Collection
 {
+  protected $collection_key = 'items';
   public $id;
   protected $itemsType = 'Google_Service_Compute_TargetPool';
   protected $itemsDataType = 'array';
@@ -9363,6 +11843,7 @@ class Google_Service_Compute_TargetPoolList extends Google_Collection
 
 class Google_Service_Compute_TargetPoolsAddHealthCheckRequest extends Google_Collection
 {
+  protected $collection_key = 'healthChecks';
   protected $healthChecksType = 'Google_Service_Compute_HealthCheckReference';
   protected $healthChecksDataType = 'array';
 
@@ -9379,6 +11860,7 @@ class Google_Service_Compute_TargetPoolsAddHealthCheckRequest extends Google_Col
 
 class Google_Service_Compute_TargetPoolsAddInstanceRequest extends Google_Collection
 {
+  protected $collection_key = 'instances';
   protected $instancesType = 'Google_Service_Compute_InstanceReference';
   protected $instancesDataType = 'array';
 
@@ -9395,6 +11877,7 @@ class Google_Service_Compute_TargetPoolsAddInstanceRequest extends Google_Collec
 
 class Google_Service_Compute_TargetPoolsRemoveHealthCheckRequest extends Google_Collection
 {
+  protected $collection_key = 'healthChecks';
   protected $healthChecksType = 'Google_Service_Compute_HealthCheckReference';
   protected $healthChecksDataType = 'array';
 
@@ -9411,6 +11894,7 @@ class Google_Service_Compute_TargetPoolsRemoveHealthCheckRequest extends Google_
 
 class Google_Service_Compute_TargetPoolsRemoveInstanceRequest extends Google_Collection
 {
+  protected $collection_key = 'instances';
   protected $instancesType = 'Google_Service_Compute_InstanceReference';
   protected $instancesDataType = 'array';
 
@@ -9427,6 +11911,7 @@ class Google_Service_Compute_TargetPoolsRemoveInstanceRequest extends Google_Col
 
 class Google_Service_Compute_TargetPoolsScopedList extends Google_Collection
 {
+  protected $collection_key = 'targetPools';
   protected $targetPoolsType = 'Google_Service_Compute_TargetPool';
   protected $targetPoolsDataType = 'array';
   protected $warningType = 'Google_Service_Compute_TargetPoolsScopedListWarning';
@@ -9455,6 +11940,7 @@ class Google_Service_Compute_TargetPoolsScopedList extends Google_Collection
 
 class Google_Service_Compute_TargetPoolsScopedListWarning extends Google_Collection
 {
+  protected $collection_key = 'data';
   public $code;
   protected $dataType = 'Google_Service_Compute_TargetPoolsScopedListWarningData';
   protected $dataDataType = 'array';
@@ -9532,8 +12018,418 @@ class Google_Service_Compute_TargetReference extends Google_Model
   }
 }
 
+class Google_Service_Compute_TestFailure extends Google_Model
+{
+  public $actualService;
+  public $expectedService;
+  public $host;
+  public $path;
+
+  public function setActualService($actualService)
+  {
+    $this->actualService = $actualService;
+  }
+
+  public function getActualService()
+  {
+    return $this->actualService;
+  }
+
+  public function setExpectedService($expectedService)
+  {
+    $this->expectedService = $expectedService;
+  }
+
+  public function getExpectedService()
+  {
+    return $this->expectedService;
+  }
+
+  public function setHost($host)
+  {
+    $this->host = $host;
+  }
+
+  public function getHost()
+  {
+    return $this->host;
+  }
+
+  public function setPath($path)
+  {
+    $this->path = $path;
+  }
+
+  public function getPath()
+  {
+    return $this->path;
+  }
+}
+
+class Google_Service_Compute_UrlMap extends Google_Collection
+{
+  protected $collection_key = 'tests';
+  public $creationTimestamp;
+  public $defaultService;
+  public $description;
+  public $fingerprint;
+  protected $hostRulesType = 'Google_Service_Compute_HostRule';
+  protected $hostRulesDataType = 'array';
+  public $id;
+  public $kind;
+  public $name;
+  protected $pathMatchersType = 'Google_Service_Compute_PathMatcher';
+  protected $pathMatchersDataType = 'array';
+  public $selfLink;
+  protected $testsType = 'Google_Service_Compute_UrlMapTest';
+  protected $testsDataType = 'array';
+
+  public function setCreationTimestamp($creationTimestamp)
+  {
+    $this->creationTimestamp = $creationTimestamp;
+  }
+
+  public function getCreationTimestamp()
+  {
+    return $this->creationTimestamp;
+  }
+
+  public function setDefaultService($defaultService)
+  {
+    $this->defaultService = $defaultService;
+  }
+
+  public function getDefaultService()
+  {
+    return $this->defaultService;
+  }
+
+  public function setDescription($description)
+  {
+    $this->description = $description;
+  }
+
+  public function getDescription()
+  {
+    return $this->description;
+  }
+
+  public function setFingerprint($fingerprint)
+  {
+    $this->fingerprint = $fingerprint;
+  }
+
+  public function getFingerprint()
+  {
+    return $this->fingerprint;
+  }
+
+  public function setHostRules($hostRules)
+  {
+    $this->hostRules = $hostRules;
+  }
+
+  public function getHostRules()
+  {
+    return $this->hostRules;
+  }
+
+  public function setId($id)
+  {
+    $this->id = $id;
+  }
+
+  public function getId()
+  {
+    return $this->id;
+  }
+
+  public function setKind($kind)
+  {
+    $this->kind = $kind;
+  }
+
+  public function getKind()
+  {
+    return $this->kind;
+  }
+
+  public function setName($name)
+  {
+    $this->name = $name;
+  }
+
+  public function getName()
+  {
+    return $this->name;
+  }
+
+  public function setPathMatchers($pathMatchers)
+  {
+    $this->pathMatchers = $pathMatchers;
+  }
+
+  public function getPathMatchers()
+  {
+    return $this->pathMatchers;
+  }
+
+  public function setSelfLink($selfLink)
+  {
+    $this->selfLink = $selfLink;
+  }
+
+  public function getSelfLink()
+  {
+    return $this->selfLink;
+  }
+
+  public function setTests($tests)
+  {
+    $this->tests = $tests;
+  }
+
+  public function getTests()
+  {
+    return $this->tests;
+  }
+}
+
+class Google_Service_Compute_UrlMapList extends Google_Collection
+{
+  protected $collection_key = 'items';
+  public $id;
+  protected $itemsType = 'Google_Service_Compute_UrlMap';
+  protected $itemsDataType = 'array';
+  public $kind;
+  public $nextPageToken;
+  public $selfLink;
+
+  public function setId($id)
+  {
+    $this->id = $id;
+  }
+
+  public function getId()
+  {
+    return $this->id;
+  }
+
+  public function setItems($items)
+  {
+    $this->items = $items;
+  }
+
+  public function getItems()
+  {
+    return $this->items;
+  }
+
+  public function setKind($kind)
+  {
+    $this->kind = $kind;
+  }
+
+  public function getKind()
+  {
+    return $this->kind;
+  }
+
+  public function setNextPageToken($nextPageToken)
+  {
+    $this->nextPageToken = $nextPageToken;
+  }
+
+  public function getNextPageToken()
+  {
+    return $this->nextPageToken;
+  }
+
+  public function setSelfLink($selfLink)
+  {
+    $this->selfLink = $selfLink;
+  }
+
+  public function getSelfLink()
+  {
+    return $this->selfLink;
+  }
+}
+
+class Google_Service_Compute_UrlMapReference extends Google_Model
+{
+  public $urlMap;
+
+  public function setUrlMap($urlMap)
+  {
+    $this->urlMap = $urlMap;
+  }
+
+  public function getUrlMap()
+  {
+    return $this->urlMap;
+  }
+}
+
+class Google_Service_Compute_UrlMapTest extends Google_Model
+{
+  public $description;
+  public $host;
+  public $path;
+  public $service;
+
+  public function setDescription($description)
+  {
+    $this->description = $description;
+  }
+
+  public function getDescription()
+  {
+    return $this->description;
+  }
+
+  public function setHost($host)
+  {
+    $this->host = $host;
+  }
+
+  public function getHost()
+  {
+    return $this->host;
+  }
+
+  public function setPath($path)
+  {
+    $this->path = $path;
+  }
+
+  public function getPath()
+  {
+    return $this->path;
+  }
+
+  public function setService($service)
+  {
+    $this->service = $service;
+  }
+
+  public function getService()
+  {
+    return $this->service;
+  }
+}
+
+class Google_Service_Compute_UrlMapValidationResult extends Google_Collection
+{
+  protected $collection_key = 'testFailures';
+  public $loadErrors;
+  public $loadSucceeded;
+  protected $testFailuresType = 'Google_Service_Compute_TestFailure';
+  protected $testFailuresDataType = 'array';
+  public $testPassed;
+
+  public function setLoadErrors($loadErrors)
+  {
+    $this->loadErrors = $loadErrors;
+  }
+
+  public function getLoadErrors()
+  {
+    return $this->loadErrors;
+  }
+
+  public function setLoadSucceeded($loadSucceeded)
+  {
+    $this->loadSucceeded = $loadSucceeded;
+  }
+
+  public function getLoadSucceeded()
+  {
+    return $this->loadSucceeded;
+  }
+
+  public function setTestFailures($testFailures)
+  {
+    $this->testFailures = $testFailures;
+  }
+
+  public function getTestFailures()
+  {
+    return $this->testFailures;
+  }
+
+  public function setTestPassed($testPassed)
+  {
+    $this->testPassed = $testPassed;
+  }
+
+  public function getTestPassed()
+  {
+    return $this->testPassed;
+  }
+}
+
+class Google_Service_Compute_UrlMapsValidateRequest extends Google_Model
+{
+  protected $resourceType = 'Google_Service_Compute_UrlMap';
+  protected $resourceDataType = '';
+
+  public function setResource(Google_Service_Compute_UrlMap $resource)
+  {
+    $this->resource = $resource;
+  }
+
+  public function getResource()
+  {
+    return $this->resource;
+  }
+}
+
+class Google_Service_Compute_UrlMapsValidateResponse extends Google_Model
+{
+  protected $resultType = 'Google_Service_Compute_UrlMapValidationResult';
+  protected $resultDataType = '';
+
+  public function setResult(Google_Service_Compute_UrlMapValidationResult $result)
+  {
+    $this->result = $result;
+  }
+
+  public function getResult()
+  {
+    return $this->result;
+  }
+}
+
+class Google_Service_Compute_UsageExportLocation extends Google_Model
+{
+  public $bucketName;
+  public $reportNamePrefix;
+
+  public function setBucketName($bucketName)
+  {
+    $this->bucketName = $bucketName;
+  }
+
+  public function getBucketName()
+  {
+    return $this->bucketName;
+  }
+
+  public function setReportNamePrefix($reportNamePrefix)
+  {
+    $this->reportNamePrefix = $reportNamePrefix;
+  }
+
+  public function getReportNamePrefix()
+  {
+    return $this->reportNamePrefix;
+  }
+}
+
 class Google_Service_Compute_Zone extends Google_Collection
 {
+  protected $collection_key = 'maintenanceWindows';
   public $creationTimestamp;
   protected $deprecatedType = 'Google_Service_Compute_DeprecationStatus';
   protected $deprecatedDataType = '';
@@ -9650,6 +12546,7 @@ class Google_Service_Compute_Zone extends Google_Collection
 
 class Google_Service_Compute_ZoneList extends Google_Collection
 {
+  protected $collection_key = 'items';
   public $id;
   protected $itemsType = 'Google_Service_Compute_Zone';
   protected $itemsDataType = 'array';

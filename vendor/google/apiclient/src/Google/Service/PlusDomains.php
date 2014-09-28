@@ -33,7 +33,7 @@ class Google_Service_PlusDomains extends Google_Service
 {
   /** View your circles and the people and pages in them. */
   const PLUS_CIRCLES_READ = "https://www.googleapis.com/auth/plus.circles.read";
-  /** Manage your circles and add people and pages, who will be notified and may appear on your public Google+ profile. */
+  /** Manage your circles and add people and pages. People and pages you add to your circles will be notified. Others may see this information publicly. People you add to circles can use Hangouts with you.. */
   const PLUS_CIRCLES_WRITE = "https://www.googleapis.com/auth/plus.circles.write";
   /** Know your basic profile info and list of people in your circles.. */
   const PLUS_LOGIN = "https://www.googleapis.com/auth/plus.login";
@@ -49,7 +49,7 @@ class Google_Service_PlusDomains extends Google_Service
   const PLUS_STREAM_WRITE = "https://www.googleapis.com/auth/plus.stream.write";
   /** View your email address. */
   const USERINFO_EMAIL = "https://www.googleapis.com/auth/userinfo.email";
-  /** View basic information about your account. */
+  /** View your basic profile info. */
   const USERINFO_PROFILE = "https://www.googleapis.com/auth/userinfo.profile";
 
   public $activities;
@@ -902,6 +902,7 @@ class Google_Service_PlusDomains_People_Resource extends Google_Service_Resource
 
 class Google_Service_PlusDomains_Acl extends Google_Collection
 {
+  protected $collection_key = 'items';
   public $description;
   public $domainRestricted;
   protected $itemsType = 'Google_Service_PlusDomains_PlusDomainsAclentryResource';
@@ -1282,6 +1283,7 @@ class Google_Service_PlusDomains_ActivityActorName extends Google_Model
 
 class Google_Service_PlusDomains_ActivityFeed extends Google_Collection
 {
+  protected $collection_key = 'items';
   public $etag;
   public $id;
   protected $itemsType = 'Google_Service_PlusDomains_Activity';
@@ -1386,6 +1388,7 @@ class Google_Service_PlusDomains_ActivityFeed extends Google_Collection
 
 class Google_Service_PlusDomains_ActivityObject extends Google_Collection
 {
+  protected $collection_key = 'attachments';
   protected $actorType = 'Google_Service_PlusDomains_ActivityObjectActor';
   protected $actorDataType = '';
   protected $attachmentsType = 'Google_Service_PlusDomains_ActivityObjectAttachments';
@@ -1581,6 +1584,7 @@ class Google_Service_PlusDomains_ActivityObjectActorImage extends Google_Model
 
 class Google_Service_PlusDomains_ActivityObjectAttachments extends Google_Collection
 {
+  protected $collection_key = 'thumbnails';
   public $content;
   public $displayName;
   protected $embedType = 'Google_Service_PlusDomains_ActivityObjectAttachmentsEmbed';
@@ -2079,6 +2083,7 @@ class Google_Service_PlusDomains_Audience extends Google_Model
   protected $itemType = 'Google_Service_PlusDomains_PlusDomainsAclentryResource';
   protected $itemDataType = '';
   public $kind;
+  public $memberCount;
   public $visibility;
 
   public function setEtag($etag)
@@ -2111,6 +2116,16 @@ class Google_Service_PlusDomains_Audience extends Google_Model
     return $this->kind;
   }
 
+  public function setMemberCount($memberCount)
+  {
+    $this->memberCount = $memberCount;
+  }
+
+  public function getMemberCount()
+  {
+    return $this->memberCount;
+  }
+
   public function setVisibility($visibility)
   {
     $this->visibility = $visibility;
@@ -2124,6 +2139,7 @@ class Google_Service_PlusDomains_Audience extends Google_Model
 
 class Google_Service_PlusDomains_AudiencesFeed extends Google_Collection
 {
+  protected $collection_key = 'items';
   public $etag;
   protected $itemsType = 'Google_Service_PlusDomains_Audience';
   protected $itemsDataType = 'array';
@@ -2266,6 +2282,7 @@ class Google_Service_PlusDomains_Circle extends Google_Model
 
 class Google_Service_PlusDomains_CircleFeed extends Google_Collection
 {
+  protected $collection_key = 'items';
   public $etag;
   protected $itemsType = 'Google_Service_PlusDomains_Circle';
   protected $itemsDataType = 'array';
@@ -2374,6 +2391,7 @@ class Google_Service_PlusDomains_CirclePeople extends Google_Model
 
 class Google_Service_PlusDomains_Comment extends Google_Collection
 {
+  protected $collection_key = 'inReplyTo';
   protected $actorType = 'Google_Service_PlusDomains_CommentActor';
   protected $actorDataType = '';
   public $etag;
@@ -2567,6 +2585,7 @@ class Google_Service_PlusDomains_CommentActorImage extends Google_Model
 
 class Google_Service_PlusDomains_CommentFeed extends Google_Collection
 {
+  protected $collection_key = 'items';
   public $etag;
   public $id;
   protected $itemsType = 'Google_Service_PlusDomains_Comment';
@@ -2738,6 +2757,7 @@ class Google_Service_PlusDomains_CommentPlusoners extends Google_Model
 
 class Google_Service_PlusDomains_Media extends Google_Collection
 {
+  protected $collection_key = 'streams';
   protected $authorType = 'Google_Service_PlusDomains_MediaAuthor';
   protected $authorDataType = '';
   public $displayName;
@@ -3022,6 +3042,7 @@ class Google_Service_PlusDomains_MediaExif extends Google_Model
 
 class Google_Service_PlusDomains_PeopleFeed extends Google_Collection
 {
+  protected $collection_key = 'items';
   public $etag;
   protected $itemsType = 'Google_Service_PlusDomains_Person';
   protected $itemsDataType = 'array';
@@ -3104,6 +3125,7 @@ class Google_Service_PlusDomains_PeopleFeed extends Google_Collection
 
 class Google_Service_PlusDomains_Person extends Google_Collection
 {
+  protected $collection_key = 'urls';
   public $aboutMe;
   public $birthday;
   public $braggingRights;
@@ -3551,7 +3573,18 @@ class Google_Service_PlusDomains_PersonEmails extends Google_Model
 
 class Google_Service_PlusDomains_PersonImage extends Google_Model
 {
+  public $isDefault;
   public $url;
+
+  public function setIsDefault($isDefault)
+  {
+    $this->isDefault = $isDefault;
+  }
+
+  public function getIsDefault()
+  {
+    return $this->isDefault;
+  }
 
   public function setUrl($url)
   {
@@ -3805,6 +3838,7 @@ class Google_Service_PlusDomains_Place extends Google_Model
   protected $addressType = 'Google_Service_PlusDomains_PlaceAddress';
   protected $addressDataType = '';
   public $displayName;
+  public $id;
   public $kind;
   protected $positionType = 'Google_Service_PlusDomains_PlacePosition';
   protected $positionDataType = '';
@@ -3827,6 +3861,16 @@ class Google_Service_PlusDomains_Place extends Google_Model
   public function getDisplayName()
   {
     return $this->displayName;
+  }
+
+  public function setId($id)
+  {
+    $this->id = $id;
+  }
+
+  public function getId()
+  {
+    return $this->id;
   }
 
   public function setKind($kind)
