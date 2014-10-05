@@ -127,6 +127,7 @@ class html {
             self::$values = html::specialEncode(self::$values);
         }       
     }
+
     
 
     
