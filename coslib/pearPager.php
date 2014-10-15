@@ -107,7 +107,11 @@ class pearPager {
 
         //$p = new Pager();
         $pager =  @Pager::factory($pager_options);
-        return "<div class =\"pager\">" . $pager->links . "</div>\n" ;
+        $str = '';
+        $str.='<div class="pager_wrap">';
+        $str.= "<div class =\"pager\">" . $pager->links . "</div>\n" ;
+        $str.='</div class="pager_wrap">';
+        return $str;
 
     }
     
