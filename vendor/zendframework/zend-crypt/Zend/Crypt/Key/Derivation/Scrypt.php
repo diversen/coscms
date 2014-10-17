@@ -9,7 +9,6 @@
 
 namespace Zend\Crypt\Key\Derivation;
 
-
 /**
  * Scrypt key derivation function
  *
@@ -125,7 +124,7 @@ abstract class Scrypt
     {
         $b32 = array();
         for ($i = 0; $i < 16; $i++) {
-           list(, $b32[$i]) = unpack("V", substr($b, $i * 4, 4));
+            list(, $b32[$i]) = unpack("V", substr($b, $i * 4, 4));
         }
 
         $x = $b32;
@@ -328,7 +327,7 @@ abstract class Scrypt
      */
     protected static function hex2bin($hex)
     {
-        if (version_compare(PHP_VERSION, '5.4') >= 0) {
+        if (PHP_VERSION_ID >= 50400) {
             return hex2bin($hex);
         }
         $len    = strlen($hex);

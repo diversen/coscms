@@ -325,6 +325,45 @@ class PHPSDKTestCase extends PHPUnit_Framework_TestCase {
                        'Expect getCode to fail, CSRF state not sent back.');
   }
 
+  public function testPersistentCSRFState()
+  {
+    $facebook = new FBCode(array(
+      'appId'  => self::APP_ID,
+      'secret' => self::SECRET,
+    ));
+    $facebook->setCSRFStateToken();
+    $code = $facebook->getCSRFStateToken();
+
+    $facebook = new FBCode(array(
+      'appId'  => self::APP_ID,
+      'secret' => self::SECRET,
+    ));
+
+    $this->assertEquals($code, $facebook->publicGetState(),
+            'Persisted CSRF state token not loaded correctly');
+  }
+
+  public function testPersistentCSRFStateWithSharedSession()
+  {
+    $_SERVER['HTTP_HOST'] = 'fbrell.com';
+    $facebook = new FBCode(array(
+      'appId'  => self::APP_ID,
+      'secret' => self::SECRET,
+      'sharedSession' => true,
+    ));
+    $facebook->setCSRFStateToken();
+    $code = $facebook->getCSRFStateToken();
+
+    $facebook = new FBCode(array(
+      'appId'  => self::APP_ID,
+      'secret' => self::SECRET,
+      'sharedSession' => true,
+    ));
+
+    $this->assertEquals($code, $facebook->publicGetState(),
+            'Persisted CSRF state token not loaded correctly with shared session');
+  }
+
   public function testGetUserFromSignedRequest() {
     $facebook = new TransientFacebook(array(
       'appId'  => self::APP_ID,
@@ -336,7 +375,20 @@ class PHPSDKTestCase extends PHPUnit_Framework_TestCase {
                         'Failed to get user ID from a valid signed request.');
   }
 
-  public function testSignedRequestRewrite(){
+  public function testDisallowSignedRequest() {
+    $facebook = new TransientFacebook(array(
+      'appId'  => self::APP_ID,
+      'secret' => self::SECRET,
+      'allowSignedRequest' => false
+    ));
+
+    $_REQUEST['signed_request'] = self::kValidSignedRequest();
+    $this->assertEquals(0, $facebook->getUser(),
+        'Should not have received valid user from signed_request.');
+  }
+
+
+    public function testSignedRequestRewrite(){
     $facebook = new FBRewrite(array(
       'appId'  => self::APP_ID,
       'secret' => self::SECRET,
@@ -1311,6 +1363,11 @@ class PHPSDKTestCase extends PHPUnit_Framework_TestCase {
     $this->assertEquals($code, $e->getCode());
   }
 
+  public function testExceptionConstructorWithInvalidErrorCode() {
+    $e = new FacebookApiException(array('error_code' => 'not an int'));
+    $this->assertEquals(0, $e->getCode());
+  }
+
   // this happens often despite the fact that it is useless
   public function testExceptionTypeFalse() {
     $e = new FacebookApiException(false);
@@ -1957,6 +2014,10 @@ class PersistentFBPublic extends Facebook {
 class FBCode extends Facebook {
   public function publicGetCode() {
     return $this->getCode();
+  }
+
+  public function publicGetState() {
+    return $this->state;
   }
 
   public function setCSRFStateToken() {

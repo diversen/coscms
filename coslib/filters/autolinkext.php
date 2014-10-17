@@ -41,8 +41,11 @@ class autolinkext {
 
           // check for links that we will be transformed from link
           // to inline content, e.g. youtube
-          if (in_array($url_parts['host'], $deny)) {
-;              return $url;
+          if (isset($url_parts['host'])) {
+          
+            if (in_array($url_parts['host'], $deny)) {
+;                  return $url;
+            }
           }
           
           $text = parse_url($url, PHP_URL_HOST) . parse_url($url, PHP_URL_PATH);

@@ -41,6 +41,11 @@ class config {
         return config::$vars['coscms_main']['module'][$key];
     }
     
+    public static function setModuleIni ($key, $value) {
+        config::$vars['coscms_main']['module'][$key] = $value;
+
+    }
+    
     /**
      * method for getting a main ini setting found in config/config.ini
      * or in database override

@@ -152,7 +152,7 @@ class view {
     public static function getFile ($module, $view, $vars = null) {
        
         // only template who has set name will be able to override this way
-        $template = config::getModuleIni('template_name');
+        $template = config::getMainIni('template');
         if ($template) {
             $override = _COS_HTDOCS . "/templates/$template/$module/$view";
             if (is_file($override)) {

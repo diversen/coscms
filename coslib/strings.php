@@ -253,11 +253,4 @@ class strings {
         }
         return $character_count;
     }
-
-    /**
-     * @ignore
-     */
-    public static function trimArray () {
-        
-    }
 }
