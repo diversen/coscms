@@ -602,53 +602,6 @@
         "description": "Selection of methods that are often needed when working with XML documents.  Functionality includes creating of attribute lists from arrays, creation of tags, validation of XML names and more."
     },
     {
-        "name": "google/apiclient",
-        "version": "1.0.5-beta",
-        "version_normalized": "1.0.5.0-beta",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/google/google-api-php-client.git",
-            "reference": "c05d454790460f0c851c42298ea239ec5e631d76"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/google/google-api-php-client/zipball/c05d454790460f0c851c42298ea239ec5e631d76",
-            "reference": "c05d454790460f0c851c42298ea239ec5e631d76",
-            "shasum": ""
-        },
-        "require": {
-            "php": ">=5.2.1"
-        },
-        "require-dev": {
-            "phpunit/phpunit": "3.7.*"
-        },
-        "time": "2014-09-08 20:57:18",
-        "type": "library",
-        "extra": {
-            "branch-alias": {
-                "dev-master": "1.0.x-dev"
-            }
-        },
-        "installation-source": "dist",
-        "autoload": {
-            "classmap": [
-                "src/"
-            ]
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "include-path": [
-            "src/"
-        ],
-        "license": [
-            "Apache-2.0"
-        ],
-        "description": "Client library for Google APIs",
-        "homepage": "http://developers.google.com/api-client-library/php",
-        "keywords": [
-            "google"
-        ]
-    },
-    {
         "name": "zendframework/zend-stdlib",
         "version": "2.3.3",
         "version_normalized": "2.3.3.0",
@@ -1157,34 +1110,6 @@
         "description": "This class provides handling of tar files in PHP.\nIt supports creating, listing, extracting and adding to tar files.\nGzip support is available if PHP has the zlib extension built-in or\nloaded. Bz2 compression is also supported with the bz2 extension loaded."
     },
     {
-        "name": "pear-pear.php.net/Net_URL2",
-        "version": "2.0.7",
-        "version_normalized": "2.0.7.0",
-        "dist": {
-            "type": "file",
-            "url": "http://pear.php.net/get/Net_URL2-2.0.7.tgz",
-            "reference": null,
-            "shasum": null
-        },
-        "require": {
-            "php": ">=5.1.4.0"
-        },
-        "replace": {
-            "pear-pear/net_url2": "== 2.0.7.0"
-        },
-        "type": "pear-library",
-        "installation-source": "dist",
-        "autoload": {
-            "classmap": [
-                ""
-            ]
-        },
-        "include-path": [
-            "/"
-        ],
-        "description": "Provides parsing of URLs into their constituent parts (scheme, host, path etc.), URL generation, and resolving of\n    relative URLs."
-    },
-    {
         "name": "facebook/php-sdk",
         "version": "v3.2.3",
         "version_normalized": "3.2.3.0",
@@ -1231,5 +1156,80 @@
             "facebook",
             "sdk"
         ]
+    },
+    {
+        "name": "google/apiclient",
+        "version": "1.0.6-beta",
+        "version_normalized": "1.0.6.0-beta",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/google/google-api-php-client.git",
+            "reference": "a41a9dc0662e36420030eaab802dbb1f85459479"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/google/google-api-php-client/zipball/a41a9dc0662e36420030eaab802dbb1f85459479",
+            "reference": "a41a9dc0662e36420030eaab802dbb1f85459479",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.2.1"
+        },
+        "require-dev": {
+            "phpunit/phpunit": "3.7.*"
+        },
+        "time": "2014-09-30 19:33:59",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "1.0.x-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "classmap": [
+                "src/"
+            ]
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "include-path": [
+            "src/"
+        ],
+        "license": [
+            "Apache-2.0"
+        ],
+        "description": "Client library for Google APIs",
+        "homepage": "http://developers.google.com/api-client-library/php",
+        "keywords": [
+            "google"
+        ]
+    },
+    {
+        "name": "pear-pear.php.net/Net_URL2",
+        "version": "2.1.0",
+        "version_normalized": "2.1.0.0",
+        "dist": {
+            "type": "file",
+            "url": "http://pear.php.net/get/Net_URL2-2.1.0.tgz",
+            "reference": null,
+            "shasum": null
+        },
+        "require": {
+            "php": ">=5.1.4.0"
+        },
+        "replace": {
+            "pear-pear/net_url2": "== 2.1.0.0"
+        },
+        "type": "pear-library",
+        "installation-source": "dist",
+        "autoload": {
+            "classmap": [
+                ""
+            ]
+        },
+        "include-path": [
+            "/"
+        ],
+        "description": "Provides parsing of URLs into their constituent parts (scheme, host, path etc.), URL generation, and resolving of\n    relative URLs."
     }
 ]

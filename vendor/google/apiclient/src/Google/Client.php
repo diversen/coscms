@@ -36,7 +36,7 @@ require_once 'Google/Service/Resource.php';
  */
 class Google_Client
 {
-  const LIBVER = "1.0.5-beta";
+  const LIBVER = "1.0.6-beta";
   const USER_AGENT_SUFFIX = "google-api-php-client/";
   /**
    * @var Google_Auth_Abstract $auth
@@ -249,6 +249,15 @@ class Google_Client
   }
 
   /**
+   * Get the OAuth 2.0 refresh token.
+   * @return string $refreshToken refresh token or null if not available
+   */
+  public function getRefreshToken()
+  {
+    return $this->getAuth()->getRefreshToken();
+  }
+
+  /**
    * Returns if the access_token is expired.
    * @return bool Returns True if the access_token is expired.
    */
@@ -356,6 +365,50 @@ class Google_Client
   public function setDeveloperKey($developerKey)
   {
     $this->config->setDeveloperKey($developerKey);
+  }
+
+  /**
+   * Set the hd (hosted domain) parameter streamlines the login process for
+   * Google Apps hosted accounts. By including the domain of the user, you
+   * restrict sign-in to accounts at that domain.
+   * @param $hd string - the domain to use.
+   */
+  public function setHostedDomain($hd)
+  {
+    $this->config->setHostedDomain($hd);
+  }
+
+  /**
+   * Set the prompt hint. Valid values are none, consent and select_account.
+   * If no value is specified and the user has not previously authorized
+   * access, then the user is shown a consent screen.
+   * @param $prompt string
+   */
+  public function setPrompt($prompt)
+  {
+    $this->config->setPrompt($prompt);
+  }
+
+  /**
+   * openid.realm is a parameter from the OpenID 2.0 protocol, not from OAuth
+   * 2.0. It is used in OpenID 2.0 requests to signify the URL-space for which
+   * an authentication request is valid.
+   * @param $realm string - the URL-space to use.
+   */
+  public function setOpenidRealm($realm)
+  {
+    $this->config->setOpenidRealm($realm);
+  }
+
+  /**
+   * If this is provided with the value true, and the authorization request is
+   * granted, the authorization will include any previous authorizations
+   * granted to this user/application combination for other scopes.
+   * @param $include boolean - the URL-space to use.
+   */
+  public function setIncludeGrantedScopes($include)
+  {
+    $this->config->setIncludeGrantedScopes($include);
   }
 
   /**
@@ -486,7 +539,7 @@ class Google_Client
   /**
    * Helper method to execute deferred HTTP requests.
    *
-   * @returns object of the type of the expected class or array.
+   * @return object of the type of the expected class or array.
    */
   public function execute($request)
   {

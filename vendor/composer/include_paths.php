@@ -22,7 +22,7 @@ return array(
     $vendorDir . '/pear-pear.php.net/Pager',
     $vendorDir . '/pear-pear.php.net/Mail_Mime',
     $vendorDir . '/pear-pear.php.net/XML_Util',
-    $vendorDir . '/google/apiclient/src',
     $vendorDir . '/pear-pear.php.net/Archive_Tar',
+    $vendorDir . '/google/apiclient/src',
     $vendorDir . '/pear-pear.php.net/Net_URL2',
 );

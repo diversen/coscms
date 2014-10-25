@@ -38,21 +38,27 @@ class Google_Service_MapsEngine extends Google_Service
 
   public $assets;
   public $assets_parents;
+  public $assets_permissions;
   public $layers;
   public $layers_parents;
+  public $layers_permissions;
   public $maps;
+  public $maps_permissions;
   public $projects;
   public $projects_icons;
   public $rasterCollections;
   public $rasterCollections_parents;
+  public $rasterCollections_permissions;
   public $rasterCollections_rasters;
   public $rasters;
   public $rasters_files;
   public $rasters_parents;
+  public $rasters_permissions;
   public $tables;
   public $tables_features;
   public $tables_files;
   public $tables_parents;
+  public $tables_permissions;
   
 
   /**
@@ -172,6 +178,26 @@ class Google_Service_MapsEngine extends Google_Service
           )
         )
     );
+    $this->assets_permissions = new Google_Service_MapsEngine_AssetsPermissions_Resource(
+        $this,
+        $this->serviceName,
+        'permissions',
+        array(
+          'methods' => array(
+            'list' => array(
+              'path' => 'assets/{id}/permissions',
+              'httpMethod' => 'GET',
+              'parameters' => array(
+                'id' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+              ),
+            ),
+          )
+        )
+    );
     $this->layers = new Google_Service_MapsEngine_Layers_Resource(
         $this,
         $this->serviceName,
@@ -219,6 +245,16 @@ class Google_Service_MapsEngine extends Google_Service
                 'version' => array(
                   'location' => 'query',
                   'type' => 'string',
+                ),
+              ),
+            ),'getPublished' => array(
+              'path' => 'layers/{id}/published',
+              'httpMethod' => 'GET',
+              'parameters' => array(
+                'id' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
                 ),
               ),
             ),'list' => array(
@@ -274,6 +310,23 @@ class Google_Service_MapsEngine extends Google_Service
                   'type' => 'string',
                 ),
                 'role' => array(
+                  'location' => 'query',
+                  'type' => 'string',
+                ),
+              ),
+            ),'listPublished' => array(
+              'path' => 'layers/published',
+              'httpMethod' => 'GET',
+              'parameters' => array(
+                'pageToken' => array(
+                  'location' => 'query',
+                  'type' => 'string',
+                ),
+                'maxResults' => array(
+                  'location' => 'query',
+                  'type' => 'integer',
+                ),
+                'projectId' => array(
                   'location' => 'query',
                   'type' => 'string',
                 ),
@@ -354,6 +407,46 @@ class Google_Service_MapsEngine extends Google_Service
           )
         )
     );
+    $this->layers_permissions = new Google_Service_MapsEngine_LayersPermissions_Resource(
+        $this,
+        $this->serviceName,
+        'permissions',
+        array(
+          'methods' => array(
+            'batchDelete' => array(
+              'path' => 'layers/{id}/permissions/batchDelete',
+              'httpMethod' => 'POST',
+              'parameters' => array(
+                'id' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+              ),
+            ),'batchUpdate' => array(
+              'path' => 'layers/{id}/permissions/batchUpdate',
+              'httpMethod' => 'POST',
+              'parameters' => array(
+                'id' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+              ),
+            ),'list' => array(
+              'path' => 'layers/{id}/permissions',
+              'httpMethod' => 'GET',
+              'parameters' => array(
+                'id' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+              ),
+            ),
+          )
+        )
+    );
     $this->maps = new Google_Service_MapsEngine_Maps_Resource(
         $this,
         $this->serviceName,
@@ -386,6 +479,16 @@ class Google_Service_MapsEngine extends Google_Service
                 'version' => array(
                   'location' => 'query',
                   'type' => 'string',
+                ),
+              ),
+            ),'getPublished' => array(
+              'path' => 'maps/{id}/published',
+              'httpMethod' => 'GET',
+              'parameters' => array(
+                'id' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
                 ),
               ),
             ),'list' => array(
@@ -445,6 +548,23 @@ class Google_Service_MapsEngine extends Google_Service
                   'type' => 'string',
                 ),
               ),
+            ),'listPublished' => array(
+              'path' => 'maps/published',
+              'httpMethod' => 'GET',
+              'parameters' => array(
+                'pageToken' => array(
+                  'location' => 'query',
+                  'type' => 'string',
+                ),
+                'maxResults' => array(
+                  'location' => 'query',
+                  'type' => 'integer',
+                ),
+                'projectId' => array(
+                  'location' => 'query',
+                  'type' => 'string',
+                ),
+              ),
             ),'patch' => array(
               'path' => 'maps/{id}',
               'httpMethod' => 'PATCH',
@@ -472,6 +592,46 @@ class Google_Service_MapsEngine extends Google_Service
             ),'unpublish' => array(
               'path' => 'maps/{id}/unpublish',
               'httpMethod' => 'POST',
+              'parameters' => array(
+                'id' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+              ),
+            ),
+          )
+        )
+    );
+    $this->maps_permissions = new Google_Service_MapsEngine_MapsPermissions_Resource(
+        $this,
+        $this->serviceName,
+        'permissions',
+        array(
+          'methods' => array(
+            'batchDelete' => array(
+              'path' => 'maps/{id}/permissions/batchDelete',
+              'httpMethod' => 'POST',
+              'parameters' => array(
+                'id' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+              ),
+            ),'batchUpdate' => array(
+              'path' => 'maps/{id}/permissions/batchUpdate',
+              'httpMethod' => 'POST',
+              'parameters' => array(
+                'id' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+              ),
+            ),'list' => array(
+              'path' => 'maps/{id}/permissions',
+              'httpMethod' => 'GET',
               'parameters' => array(
                 'id' => array(
                   'location' => 'path',
@@ -693,6 +853,46 @@ class Google_Service_MapsEngine extends Google_Service
                 'maxResults' => array(
                   'location' => 'query',
                   'type' => 'integer',
+                ),
+              ),
+            ),
+          )
+        )
+    );
+    $this->rasterCollections_permissions = new Google_Service_MapsEngine_RasterCollectionsPermissions_Resource(
+        $this,
+        $this->serviceName,
+        'permissions',
+        array(
+          'methods' => array(
+            'batchDelete' => array(
+              'path' => 'rasterCollections/{id}/permissions/batchDelete',
+              'httpMethod' => 'POST',
+              'parameters' => array(
+                'id' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+              ),
+            ),'batchUpdate' => array(
+              'path' => 'rasterCollections/{id}/permissions/batchUpdate',
+              'httpMethod' => 'POST',
+              'parameters' => array(
+                'id' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+              ),
+            ),'list' => array(
+              'path' => 'rasterCollections/{id}/permissions',
+              'httpMethod' => 'GET',
+              'parameters' => array(
+                'id' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
                 ),
               ),
             ),
@@ -942,6 +1142,46 @@ class Google_Service_MapsEngine extends Google_Service
                 'maxResults' => array(
                   'location' => 'query',
                   'type' => 'integer',
+                ),
+              ),
+            ),
+          )
+        )
+    );
+    $this->rasters_permissions = new Google_Service_MapsEngine_RastersPermissions_Resource(
+        $this,
+        $this->serviceName,
+        'permissions',
+        array(
+          'methods' => array(
+            'batchDelete' => array(
+              'path' => 'rasters/{id}/permissions/batchDelete',
+              'httpMethod' => 'POST',
+              'parameters' => array(
+                'id' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+              ),
+            ),'batchUpdate' => array(
+              'path' => 'rasters/{id}/permissions/batchUpdate',
+              'httpMethod' => 'POST',
+              'parameters' => array(
+                'id' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+              ),
+            ),'list' => array(
+              'path' => 'rasters/{id}/permissions',
+              'httpMethod' => 'GET',
+              'parameters' => array(
+                'id' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
                 ),
               ),
             ),
@@ -1229,6 +1469,46 @@ class Google_Service_MapsEngine extends Google_Service
           )
         )
     );
+    $this->tables_permissions = new Google_Service_MapsEngine_TablesPermissions_Resource(
+        $this,
+        $this->serviceName,
+        'permissions',
+        array(
+          'methods' => array(
+            'batchDelete' => array(
+              'path' => 'tables/{id}/permissions/batchDelete',
+              'httpMethod' => 'POST',
+              'parameters' => array(
+                'id' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+              ),
+            ),'batchUpdate' => array(
+              'path' => 'tables/{id}/permissions/batchUpdate',
+              'httpMethod' => 'POST',
+              'parameters' => array(
+                'id' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+              ),
+            ),'list' => array(
+              'path' => 'tables/{id}/permissions',
+              'httpMethod' => 'GET',
+              'parameters' => array(
+                'id' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+              ),
+            ),
+          )
+        )
+    );
   }
 }
 
@@ -1344,6 +1624,33 @@ class Google_Service_MapsEngine_AssetsParents_Resource extends Google_Service_Re
     return $this->call('list', array($params), "Google_Service_MapsEngine_ParentsListResponse");
   }
 }
+/**
+ * The "permissions" collection of methods.
+ * Typical usage is:
+ *  <code>
+ *   $mapsengineService = new Google_Service_MapsEngine(...);
+ *   $permissions = $mapsengineService->permissions;
+ *  </code>
+ */
+class Google_Service_MapsEngine_AssetsPermissions_Resource extends Google_Service_Resource
+{
+
+  /**
+   * Return all of the permissions for the specified asset.
+   * (permissions.listAssetsPermissions)
+   *
+   * @param string $id
+   * The ID of the asset whose permissions will be listed.
+   * @param array $optParams Optional parameters.
+   * @return Google_Service_MapsEngine_PermissionsListResponse
+   */
+  public function listAssetsPermissions($id, $optParams = array())
+  {
+    $params = array('id' => $id);
+    $params = array_merge($params, $optParams);
+    return $this->call('list', array($params), "Google_Service_MapsEngine_PermissionsListResponse");
+  }
+}
 
 /**
  * The "layers" collection of methods.
@@ -1409,7 +1716,9 @@ class Google_Service_MapsEngine_Layers_Resource extends Google_Service_Resource
    * @param array $optParams Optional parameters.
    *
    * @opt_param string version
-   *
+   * Deprecated: The version parameter indicates which version of the layer should be returned. When
+    * version is set to published, the published version of the layer will be returned. Please use the
+    * layers.getPublished endpoint instead.
    * @return Google_Service_MapsEngine_Layer
    */
   public function get($id, $optParams = array())
@@ -1417,6 +1726,20 @@ class Google_Service_MapsEngine_Layers_Resource extends Google_Service_Resource
     $params = array('id' => $id);
     $params = array_merge($params, $optParams);
     return $this->call('get', array($params), "Google_Service_MapsEngine_Layer");
+  }
+  /**
+   * Return the published metadata for a particular layer. (layers.getPublished)
+   *
+   * @param string $id
+   * The ID of the layer.
+   * @param array $optParams Optional parameters.
+   * @return Google_Service_MapsEngine_PublishedLayer
+   */
+  public function getPublished($id, $optParams = array())
+  {
+    $params = array('id' => $id);
+    $params = array_merge($params, $optParams);
+    return $this->call('getPublished', array($params), "Google_Service_MapsEngine_PublishedLayer");
   }
   /**
    * Return all layers readable by the current user. (layers.listLayers)
@@ -1467,6 +1790,30 @@ class Google_Service_MapsEngine_Layers_Resource extends Google_Service_Resource
     $params = array();
     $params = array_merge($params, $optParams);
     return $this->call('list', array($params), "Google_Service_MapsEngine_LayersListResponse");
+  }
+  /**
+   * Return all published layers readable by the current user.
+   * (layers.listPublished)
+   *
+   * @param array $optParams Optional parameters.
+   *
+   * @opt_param string pageToken
+   * The continuation token, used to page through large result sets. To get the next page of results,
+    * set this parameter to the value of nextPageToken from the previous response.
+   * @opt_param string maxResults
+   * The maximum number of items to include in a single response page. The maximum supported value is
+    * 100.
+   * @opt_param string projectId
+   * The ID of a Maps Engine project, used to filter the response. To list all available projects
+    * with their IDs, send a Projects: list request. You can also find your project ID as the value of
+    * the DashboardPlace:cid URL parameter when signed in to mapsengine.google.com.
+   * @return Google_Service_MapsEngine_PublishedLayersListResponse
+   */
+  public function listPublished($optParams = array())
+  {
+    $params = array();
+    $params = array_merge($params, $optParams);
+    return $this->call('listPublished', array($params), "Google_Service_MapsEngine_PublishedLayersListResponse");
   }
   /**
    * Mutate a layer asset. (layers.patch)
@@ -1563,6 +1910,67 @@ class Google_Service_MapsEngine_LayersParents_Resource extends Google_Service_Re
     return $this->call('list', array($params), "Google_Service_MapsEngine_ParentsListResponse");
   }
 }
+/**
+ * The "permissions" collection of methods.
+ * Typical usage is:
+ *  <code>
+ *   $mapsengineService = new Google_Service_MapsEngine(...);
+ *   $permissions = $mapsengineService->permissions;
+ *  </code>
+ */
+class Google_Service_MapsEngine_LayersPermissions_Resource extends Google_Service_Resource
+{
+
+  /**
+   * Remove permission entries from an already existing asset.
+   * (permissions.batchDelete)
+   *
+   * @param string $id
+   * The ID of the asset from which permissions will be removed.
+   * @param Google_PermissionsBatchDeleteRequest $postBody
+   * @param array $optParams Optional parameters.
+   * @return Google_Service_MapsEngine_PermissionsBatchDeleteResponse
+   */
+  public function batchDelete($id, Google_Service_MapsEngine_PermissionsBatchDeleteRequest $postBody, $optParams = array())
+  {
+    $params = array('id' => $id, 'postBody' => $postBody);
+    $params = array_merge($params, $optParams);
+    return $this->call('batchDelete', array($params), "Google_Service_MapsEngine_PermissionsBatchDeleteResponse");
+  }
+  /**
+   * Add or update permission entries to an already existing asset.
+   *
+   * An asset can hold up to 20 different permission entries. Each batchInsert
+   * request is atomic. (permissions.batchUpdate)
+   *
+   * @param string $id
+   * The ID of the asset to which permissions will be added.
+   * @param Google_PermissionsBatchUpdateRequest $postBody
+   * @param array $optParams Optional parameters.
+   * @return Google_Service_MapsEngine_PermissionsBatchUpdateResponse
+   */
+  public function batchUpdate($id, Google_Service_MapsEngine_PermissionsBatchUpdateRequest $postBody, $optParams = array())
+  {
+    $params = array('id' => $id, 'postBody' => $postBody);
+    $params = array_merge($params, $optParams);
+    return $this->call('batchUpdate', array($params), "Google_Service_MapsEngine_PermissionsBatchUpdateResponse");
+  }
+  /**
+   * Return all of the permissions for the specified asset.
+   * (permissions.listLayersPermissions)
+   *
+   * @param string $id
+   * The ID of the asset whose permissions will be listed.
+   * @param array $optParams Optional parameters.
+   * @return Google_Service_MapsEngine_PermissionsListResponse
+   */
+  public function listLayersPermissions($id, $optParams = array())
+  {
+    $params = array('id' => $id);
+    $params = array_merge($params, $optParams);
+    return $this->call('list', array($params), "Google_Service_MapsEngine_PermissionsListResponse");
+  }
+}
 
 /**
  * The "maps" collection of methods.
@@ -1610,7 +2018,9 @@ class Google_Service_MapsEngine_Maps_Resource extends Google_Service_Resource
    * @param array $optParams Optional parameters.
    *
    * @opt_param string version
-   *
+   * Deprecated: The version parameter indicates which version of the map should be returned. When
+    * version is set to published, the published version of the map will be returned. Please use the
+    * maps.getPublished endpoint instead.
    * @return Google_Service_MapsEngine_Map
    */
   public function get($id, $optParams = array())
@@ -1618,6 +2028,20 @@ class Google_Service_MapsEngine_Maps_Resource extends Google_Service_Resource
     $params = array('id' => $id);
     $params = array_merge($params, $optParams);
     return $this->call('get', array($params), "Google_Service_MapsEngine_Map");
+  }
+  /**
+   * Return the published metadata for a particular map. (maps.getPublished)
+   *
+   * @param string $id
+   * The ID of the map.
+   * @param array $optParams Optional parameters.
+   * @return Google_Service_MapsEngine_PublishedMap
+   */
+  public function getPublished($id, $optParams = array())
+  {
+    $params = array('id' => $id);
+    $params = array_merge($params, $optParams);
+    return $this->call('getPublished', array($params), "Google_Service_MapsEngine_PublishedMap");
   }
   /**
    * Return all maps readable by the current user. (maps.listMaps)
@@ -1670,6 +2094,29 @@ class Google_Service_MapsEngine_Maps_Resource extends Google_Service_Resource
     return $this->call('list', array($params), "Google_Service_MapsEngine_MapsListResponse");
   }
   /**
+   * Return all published maps readable by the current user. (maps.listPublished)
+   *
+   * @param array $optParams Optional parameters.
+   *
+   * @opt_param string pageToken
+   * The continuation token, used to page through large result sets. To get the next page of results,
+    * set this parameter to the value of nextPageToken from the previous response.
+   * @opt_param string maxResults
+   * The maximum number of items to include in a single response page. The maximum supported value is
+    * 100.
+   * @opt_param string projectId
+   * The ID of a Maps Engine project, used to filter the response. To list all available projects
+    * with their IDs, send a Projects: list request. You can also find your project ID as the value of
+    * the DashboardPlace:cid URL parameter when signed in to mapsengine.google.com.
+   * @return Google_Service_MapsEngine_PublishedMapsListResponse
+   */
+  public function listPublished($optParams = array())
+  {
+    $params = array();
+    $params = array_merge($params, $optParams);
+    return $this->call('listPublished', array($params), "Google_Service_MapsEngine_PublishedMapsListResponse");
+  }
+  /**
    * Mutate a map asset. (maps.patch)
    *
    * @param string $id
@@ -1714,6 +2161,68 @@ class Google_Service_MapsEngine_Maps_Resource extends Google_Service_Resource
     $params = array('id' => $id);
     $params = array_merge($params, $optParams);
     return $this->call('unpublish', array($params), "Google_Service_MapsEngine_PublishResponse");
+  }
+}
+
+/**
+ * The "permissions" collection of methods.
+ * Typical usage is:
+ *  <code>
+ *   $mapsengineService = new Google_Service_MapsEngine(...);
+ *   $permissions = $mapsengineService->permissions;
+ *  </code>
+ */
+class Google_Service_MapsEngine_MapsPermissions_Resource extends Google_Service_Resource
+{
+
+  /**
+   * Remove permission entries from an already existing asset.
+   * (permissions.batchDelete)
+   *
+   * @param string $id
+   * The ID of the asset from which permissions will be removed.
+   * @param Google_PermissionsBatchDeleteRequest $postBody
+   * @param array $optParams Optional parameters.
+   * @return Google_Service_MapsEngine_PermissionsBatchDeleteResponse
+   */
+  public function batchDelete($id, Google_Service_MapsEngine_PermissionsBatchDeleteRequest $postBody, $optParams = array())
+  {
+    $params = array('id' => $id, 'postBody' => $postBody);
+    $params = array_merge($params, $optParams);
+    return $this->call('batchDelete', array($params), "Google_Service_MapsEngine_PermissionsBatchDeleteResponse");
+  }
+  /**
+   * Add or update permission entries to an already existing asset.
+   *
+   * An asset can hold up to 20 different permission entries. Each batchInsert
+   * request is atomic. (permissions.batchUpdate)
+   *
+   * @param string $id
+   * The ID of the asset to which permissions will be added.
+   * @param Google_PermissionsBatchUpdateRequest $postBody
+   * @param array $optParams Optional parameters.
+   * @return Google_Service_MapsEngine_PermissionsBatchUpdateResponse
+   */
+  public function batchUpdate($id, Google_Service_MapsEngine_PermissionsBatchUpdateRequest $postBody, $optParams = array())
+  {
+    $params = array('id' => $id, 'postBody' => $postBody);
+    $params = array_merge($params, $optParams);
+    return $this->call('batchUpdate', array($params), "Google_Service_MapsEngine_PermissionsBatchUpdateResponse");
+  }
+  /**
+   * Return all of the permissions for the specified asset.
+   * (permissions.listMapsPermissions)
+   *
+   * @param string $id
+   * The ID of the asset whose permissions will be listed.
+   * @param array $optParams Optional parameters.
+   * @return Google_Service_MapsEngine_PermissionsListResponse
+   */
+  public function listMapsPermissions($id, $optParams = array())
+  {
+    $params = array('id' => $id);
+    $params = array_merge($params, $optParams);
+    return $this->call('list', array($params), "Google_Service_MapsEngine_PermissionsListResponse");
   }
 }
 
@@ -1769,7 +2278,7 @@ class Google_Service_MapsEngine_ProjectsIcons_Resource extends Google_Service_Re
     return $this->call('create', array($params), "Google_Service_MapsEngine_Icon");
   }
   /**
-   * Return metadata for a specific icon (icons.get)
+   * Return an icon or its associated metadata (icons.get)
    *
    * @param string $projectId
    * The ID of the project.
@@ -1988,6 +2497,67 @@ class Google_Service_MapsEngine_RasterCollectionsParents_Resource extends Google
     $params = array('id' => $id);
     $params = array_merge($params, $optParams);
     return $this->call('list', array($params), "Google_Service_MapsEngine_ParentsListResponse");
+  }
+}
+/**
+ * The "permissions" collection of methods.
+ * Typical usage is:
+ *  <code>
+ *   $mapsengineService = new Google_Service_MapsEngine(...);
+ *   $permissions = $mapsengineService->permissions;
+ *  </code>
+ */
+class Google_Service_MapsEngine_RasterCollectionsPermissions_Resource extends Google_Service_Resource
+{
+
+  /**
+   * Remove permission entries from an already existing asset.
+   * (permissions.batchDelete)
+   *
+   * @param string $id
+   * The ID of the asset from which permissions will be removed.
+   * @param Google_PermissionsBatchDeleteRequest $postBody
+   * @param array $optParams Optional parameters.
+   * @return Google_Service_MapsEngine_PermissionsBatchDeleteResponse
+   */
+  public function batchDelete($id, Google_Service_MapsEngine_PermissionsBatchDeleteRequest $postBody, $optParams = array())
+  {
+    $params = array('id' => $id, 'postBody' => $postBody);
+    $params = array_merge($params, $optParams);
+    return $this->call('batchDelete', array($params), "Google_Service_MapsEngine_PermissionsBatchDeleteResponse");
+  }
+  /**
+   * Add or update permission entries to an already existing asset.
+   *
+   * An asset can hold up to 20 different permission entries. Each batchInsert
+   * request is atomic. (permissions.batchUpdate)
+   *
+   * @param string $id
+   * The ID of the asset to which permissions will be added.
+   * @param Google_PermissionsBatchUpdateRequest $postBody
+   * @param array $optParams Optional parameters.
+   * @return Google_Service_MapsEngine_PermissionsBatchUpdateResponse
+   */
+  public function batchUpdate($id, Google_Service_MapsEngine_PermissionsBatchUpdateRequest $postBody, $optParams = array())
+  {
+    $params = array('id' => $id, 'postBody' => $postBody);
+    $params = array_merge($params, $optParams);
+    return $this->call('batchUpdate', array($params), "Google_Service_MapsEngine_PermissionsBatchUpdateResponse");
+  }
+  /**
+   * Return all of the permissions for the specified asset.
+   * (permissions.listRasterCollectionsPermissions)
+   *
+   * @param string $id
+   * The ID of the asset whose permissions will be listed.
+   * @param array $optParams Optional parameters.
+   * @return Google_Service_MapsEngine_PermissionsListResponse
+   */
+  public function listRasterCollectionsPermissions($id, $optParams = array())
+  {
+    $params = array('id' => $id);
+    $params = array_merge($params, $optParams);
+    return $this->call('list', array($params), "Google_Service_MapsEngine_PermissionsListResponse");
   }
 }
 /**
@@ -2278,6 +2848,67 @@ class Google_Service_MapsEngine_RastersParents_Resource extends Google_Service_R
     $params = array('id' => $id);
     $params = array_merge($params, $optParams);
     return $this->call('list', array($params), "Google_Service_MapsEngine_ParentsListResponse");
+  }
+}
+/**
+ * The "permissions" collection of methods.
+ * Typical usage is:
+ *  <code>
+ *   $mapsengineService = new Google_Service_MapsEngine(...);
+ *   $permissions = $mapsengineService->permissions;
+ *  </code>
+ */
+class Google_Service_MapsEngine_RastersPermissions_Resource extends Google_Service_Resource
+{
+
+  /**
+   * Remove permission entries from an already existing asset.
+   * (permissions.batchDelete)
+   *
+   * @param string $id
+   * The ID of the asset from which permissions will be removed.
+   * @param Google_PermissionsBatchDeleteRequest $postBody
+   * @param array $optParams Optional parameters.
+   * @return Google_Service_MapsEngine_PermissionsBatchDeleteResponse
+   */
+  public function batchDelete($id, Google_Service_MapsEngine_PermissionsBatchDeleteRequest $postBody, $optParams = array())
+  {
+    $params = array('id' => $id, 'postBody' => $postBody);
+    $params = array_merge($params, $optParams);
+    return $this->call('batchDelete', array($params), "Google_Service_MapsEngine_PermissionsBatchDeleteResponse");
+  }
+  /**
+   * Add or update permission entries to an already existing asset.
+   *
+   * An asset can hold up to 20 different permission entries. Each batchInsert
+   * request is atomic. (permissions.batchUpdate)
+   *
+   * @param string $id
+   * The ID of the asset to which permissions will be added.
+   * @param Google_PermissionsBatchUpdateRequest $postBody
+   * @param array $optParams Optional parameters.
+   * @return Google_Service_MapsEngine_PermissionsBatchUpdateResponse
+   */
+  public function batchUpdate($id, Google_Service_MapsEngine_PermissionsBatchUpdateRequest $postBody, $optParams = array())
+  {
+    $params = array('id' => $id, 'postBody' => $postBody);
+    $params = array_merge($params, $optParams);
+    return $this->call('batchUpdate', array($params), "Google_Service_MapsEngine_PermissionsBatchUpdateResponse");
+  }
+  /**
+   * Return all of the permissions for the specified asset.
+   * (permissions.listRastersPermissions)
+   *
+   * @param string $id
+   * The ID of the asset whose permissions will be listed.
+   * @param array $optParams Optional parameters.
+   * @return Google_Service_MapsEngine_PermissionsListResponse
+   */
+  public function listRastersPermissions($id, $optParams = array())
+  {
+    $params = array('id' => $id);
+    $params = array_merge($params, $optParams);
+    return $this->call('list', array($params), "Google_Service_MapsEngine_PermissionsListResponse");
   }
 }
 
@@ -2638,12 +3269,75 @@ class Google_Service_MapsEngine_TablesParents_Resource extends Google_Service_Re
     return $this->call('list', array($params), "Google_Service_MapsEngine_ParentsListResponse");
   }
 }
+/**
+ * The "permissions" collection of methods.
+ * Typical usage is:
+ *  <code>
+ *   $mapsengineService = new Google_Service_MapsEngine(...);
+ *   $permissions = $mapsengineService->permissions;
+ *  </code>
+ */
+class Google_Service_MapsEngine_TablesPermissions_Resource extends Google_Service_Resource
+{
+
+  /**
+   * Remove permission entries from an already existing asset.
+   * (permissions.batchDelete)
+   *
+   * @param string $id
+   * The ID of the asset from which permissions will be removed.
+   * @param Google_PermissionsBatchDeleteRequest $postBody
+   * @param array $optParams Optional parameters.
+   * @return Google_Service_MapsEngine_PermissionsBatchDeleteResponse
+   */
+  public function batchDelete($id, Google_Service_MapsEngine_PermissionsBatchDeleteRequest $postBody, $optParams = array())
+  {
+    $params = array('id' => $id, 'postBody' => $postBody);
+    $params = array_merge($params, $optParams);
+    return $this->call('batchDelete', array($params), "Google_Service_MapsEngine_PermissionsBatchDeleteResponse");
+  }
+  /**
+   * Add or update permission entries to an already existing asset.
+   *
+   * An asset can hold up to 20 different permission entries. Each batchInsert
+   * request is atomic. (permissions.batchUpdate)
+   *
+   * @param string $id
+   * The ID of the asset to which permissions will be added.
+   * @param Google_PermissionsBatchUpdateRequest $postBody
+   * @param array $optParams Optional parameters.
+   * @return Google_Service_MapsEngine_PermissionsBatchUpdateResponse
+   */
+  public function batchUpdate($id, Google_Service_MapsEngine_PermissionsBatchUpdateRequest $postBody, $optParams = array())
+  {
+    $params = array('id' => $id, 'postBody' => $postBody);
+    $params = array_merge($params, $optParams);
+    return $this->call('batchUpdate', array($params), "Google_Service_MapsEngine_PermissionsBatchUpdateResponse");
+  }
+  /**
+   * Return all of the permissions for the specified asset.
+   * (permissions.listTablesPermissions)
+   *
+   * @param string $id
+   * The ID of the asset whose permissions will be listed.
+   * @param array $optParams Optional parameters.
+   * @return Google_Service_MapsEngine_PermissionsListResponse
+   */
+  public function listTablesPermissions($id, $optParams = array())
+  {
+    $params = array('id' => $id);
+    $params = array_merge($params, $optParams);
+    return $this->call('list', array($params), "Google_Service_MapsEngine_PermissionsListResponse");
+  }
+}
 
 
 
 
 class Google_Service_MapsEngine_AcquisitionTime extends Google_Model
 {
+  protected $internal_gapi_mappings = array(
+  );
   public $end;
   public $precision;
   public $start;
@@ -2682,17 +3376,22 @@ class Google_Service_MapsEngine_AcquisitionTime extends Google_Model
 class Google_Service_MapsEngine_Asset extends Google_Collection
 {
   protected $collection_key = 'tags';
+  protected $internal_gapi_mappings = array(
+  );
   public $bbox;
   public $creationTime;
+  public $creatorEmail;
   public $description;
   public $etag;
   public $id;
   public $lastModifiedTime;
+  public $lastModifierEmail;
   public $name;
   public $projectId;
   public $resource;
   public $tags;
   public $type;
+  public $writersCanEditPermissions;
 
   public function setBbox($bbox)
   {
@@ -2712,6 +3411,16 @@ class Google_Service_MapsEngine_Asset extends Google_Collection
   public function getCreationTime()
   {
     return $this->creationTime;
+  }
+
+  public function setCreatorEmail($creatorEmail)
+  {
+    $this->creatorEmail = $creatorEmail;
+  }
+
+  public function getCreatorEmail()
+  {
+    return $this->creatorEmail;
   }
 
   public function setDescription($description)
@@ -2752,6 +3461,16 @@ class Google_Service_MapsEngine_Asset extends Google_Collection
   public function getLastModifiedTime()
   {
     return $this->lastModifiedTime;
+  }
+
+  public function setLastModifierEmail($lastModifierEmail)
+  {
+    $this->lastModifierEmail = $lastModifierEmail;
+  }
+
+  public function getLastModifierEmail()
+  {
+    return $this->lastModifierEmail;
   }
 
   public function setName($name)
@@ -2803,11 +3522,23 @@ class Google_Service_MapsEngine_Asset extends Google_Collection
   {
     return $this->type;
   }
+
+  public function setWritersCanEditPermissions($writersCanEditPermissions)
+  {
+    $this->writersCanEditPermissions = $writersCanEditPermissions;
+  }
+
+  public function getWritersCanEditPermissions()
+  {
+    return $this->writersCanEditPermissions;
+  }
 }
 
 class Google_Service_MapsEngine_AssetsListResponse extends Google_Collection
 {
   protected $collection_key = 'assets';
+  protected $internal_gapi_mappings = array(
+  );
   protected $assetsType = 'Google_Service_MapsEngine_Asset';
   protected $assetsDataType = 'array';
   public $nextPageToken;
@@ -2835,6 +3566,8 @@ class Google_Service_MapsEngine_AssetsListResponse extends Google_Collection
 
 class Google_Service_MapsEngine_Border extends Google_Model
 {
+  protected $internal_gapi_mappings = array(
+  );
   public $color;
   public $opacity;
   public $width;
@@ -2872,6 +3605,8 @@ class Google_Service_MapsEngine_Border extends Google_Model
 
 class Google_Service_MapsEngine_Color extends Google_Model
 {
+  protected $internal_gapi_mappings = array(
+  );
   public $color;
   public $opacity;
 
@@ -2898,6 +3633,8 @@ class Google_Service_MapsEngine_Color extends Google_Model
 
 class Google_Service_MapsEngine_Datasource extends Google_Model
 {
+  protected $internal_gapi_mappings = array(
+  );
   public $id;
 
   public function setId($id)
@@ -2914,6 +3651,8 @@ class Google_Service_MapsEngine_Datasource extends Google_Model
 class Google_Service_MapsEngine_DisplayRule extends Google_Collection
 {
   protected $collection_key = 'filters';
+  protected $internal_gapi_mappings = array(
+  );
   protected $filtersType = 'Google_Service_MapsEngine_Filter';
   protected $filtersDataType = 'array';
   protected $lineOptionsType = 'Google_Service_MapsEngine_LineStyle';
@@ -2989,6 +3728,8 @@ class Google_Service_MapsEngine_DisplayRule extends Google_Collection
 
 class Google_Service_MapsEngine_Feature extends Google_Model
 {
+  protected $internal_gapi_mappings = array(
+  );
   protected $geometryType = 'Google_Service_MapsEngine_GeoJsonGeometry';
   protected $geometryDataType = '';
   public $properties;
@@ -3027,6 +3768,8 @@ class Google_Service_MapsEngine_Feature extends Google_Model
 
 class Google_Service_MapsEngine_FeatureInfo extends Google_Model
 {
+  protected $internal_gapi_mappings = array(
+  );
   public $content;
 
   public function setContent($content)
@@ -3043,6 +3786,9 @@ class Google_Service_MapsEngine_FeatureInfo extends Google_Model
 class Google_Service_MapsEngine_FeaturesBatchDeleteRequest extends Google_Collection
 {
   protected $collection_key = 'primaryKeys';
+  protected $internal_gapi_mappings = array(
+        "gxIds" => "gx_ids",
+  );
   public $gxIds;
   public $primaryKeys;
 
@@ -3070,8 +3816,11 @@ class Google_Service_MapsEngine_FeaturesBatchDeleteRequest extends Google_Collec
 class Google_Service_MapsEngine_FeaturesBatchInsertRequest extends Google_Collection
 {
   protected $collection_key = 'features';
+  protected $internal_gapi_mappings = array(
+  );
   protected $featuresType = 'Google_Service_MapsEngine_Feature';
   protected $featuresDataType = 'array';
+  public $normalizeGeometries;
 
   public function setFeatures($features)
   {
@@ -3081,14 +3830,27 @@ class Google_Service_MapsEngine_FeaturesBatchInsertRequest extends Google_Collec
   public function getFeatures()
   {
     return $this->features;
+  }
+
+  public function setNormalizeGeometries($normalizeGeometries)
+  {
+    $this->normalizeGeometries = $normalizeGeometries;
+  }
+
+  public function getNormalizeGeometries()
+  {
+    return $this->normalizeGeometries;
   }
 }
 
 class Google_Service_MapsEngine_FeaturesBatchPatchRequest extends Google_Collection
 {
   protected $collection_key = 'features';
+  protected $internal_gapi_mappings = array(
+  );
   protected $featuresType = 'Google_Service_MapsEngine_Feature';
   protected $featuresDataType = 'array';
+  public $normalizeGeometries;
 
   public function setFeatures($features)
   {
@@ -3099,11 +3861,23 @@ class Google_Service_MapsEngine_FeaturesBatchPatchRequest extends Google_Collect
   {
     return $this->features;
   }
+
+  public function setNormalizeGeometries($normalizeGeometries)
+  {
+    $this->normalizeGeometries = $normalizeGeometries;
+  }
+
+  public function getNormalizeGeometries()
+  {
+    return $this->normalizeGeometries;
+  }
 }
 
 class Google_Service_MapsEngine_FeaturesListResponse extends Google_Collection
 {
   protected $collection_key = 'features';
+  protected $internal_gapi_mappings = array(
+  );
   public $allowedQueriesPerSecond;
   protected $featuresType = 'Google_Service_MapsEngine_Feature';
   protected $featuresDataType = 'array';
@@ -3165,6 +3939,8 @@ class Google_Service_MapsEngine_FeaturesListResponse extends Google_Collection
 
 class Google_Service_MapsEngine_Filter extends Google_Model
 {
+  protected $internal_gapi_mappings = array(
+  );
   public $column;
   public $operator;
   public $value;
@@ -3202,6 +3978,8 @@ class Google_Service_MapsEngine_Filter extends Google_Model
 
 class Google_Service_MapsEngine_GeoJsonGeometry extends Google_Model
 {
+  protected $internal_gapi_mappings = array(
+  );
   public $type;
 
   public function setType($type)
@@ -3218,6 +3996,8 @@ class Google_Service_MapsEngine_GeoJsonGeometry extends Google_Model
 class Google_Service_MapsEngine_GeoJsonGeometryCollection extends Google_Collection
 {
   protected $collection_key = 'geometries';
+  protected $internal_gapi_mappings = array(
+  );
   protected $geometriesType = 'Google_Service_MapsEngine_GeoJsonGeometry';
   protected $geometriesDataType = 'array';
 
@@ -3235,6 +4015,8 @@ class Google_Service_MapsEngine_GeoJsonGeometryCollection extends Google_Collect
 class Google_Service_MapsEngine_GeoJsonLineString extends Google_Collection
 {
   protected $collection_key = 'coordinates';
+  protected $internal_gapi_mappings = array(
+  );
   public $coordinates;
 
   public function setCoordinates($coordinates)
@@ -3251,6 +4033,8 @@ class Google_Service_MapsEngine_GeoJsonLineString extends Google_Collection
 class Google_Service_MapsEngine_GeoJsonMultiLineString extends Google_Collection
 {
   protected $collection_key = 'coordinates';
+  protected $internal_gapi_mappings = array(
+  );
   public $coordinates;
 
   public function setCoordinates($coordinates)
@@ -3267,6 +4051,8 @@ class Google_Service_MapsEngine_GeoJsonMultiLineString extends Google_Collection
 class Google_Service_MapsEngine_GeoJsonMultiPoint extends Google_Collection
 {
   protected $collection_key = 'coordinates';
+  protected $internal_gapi_mappings = array(
+  );
   public $coordinates;
 
   public function setCoordinates($coordinates)
@@ -3283,6 +4069,8 @@ class Google_Service_MapsEngine_GeoJsonMultiPoint extends Google_Collection
 class Google_Service_MapsEngine_GeoJsonMultiPolygon extends Google_Collection
 {
   protected $collection_key = 'coordinates';
+  protected $internal_gapi_mappings = array(
+  );
   public $coordinates;
 
   public function setCoordinates($coordinates)
@@ -3299,6 +4087,8 @@ class Google_Service_MapsEngine_GeoJsonMultiPolygon extends Google_Collection
 class Google_Service_MapsEngine_GeoJsonPoint extends Google_Collection
 {
   protected $collection_key = 'coordinates';
+  protected $internal_gapi_mappings = array(
+  );
   public $coordinates;
 
   public function setCoordinates($coordinates)
@@ -3315,6 +4105,8 @@ class Google_Service_MapsEngine_GeoJsonPoint extends Google_Collection
 class Google_Service_MapsEngine_GeoJsonPolygon extends Google_Collection
 {
   protected $collection_key = 'coordinates';
+  protected $internal_gapi_mappings = array(
+  );
   public $coordinates;
 
   public function setCoordinates($coordinates)
@@ -3330,11 +4122,14 @@ class Google_Service_MapsEngine_GeoJsonPolygon extends Google_Collection
 
 class Google_Service_MapsEngine_GeoJsonProperties extends Google_Model
 {
-
+  protected $internal_gapi_mappings = array(
+  );
 }
 
 class Google_Service_MapsEngine_Icon extends Google_Model
 {
+  protected $internal_gapi_mappings = array(
+  );
   public $description;
   public $id;
   public $name;
@@ -3372,8 +4167,14 @@ class Google_Service_MapsEngine_Icon extends Google_Model
 
 class Google_Service_MapsEngine_IconStyle extends Google_Model
 {
+  protected $internal_gapi_mappings = array(
+  );
   public $id;
   public $name;
+  protected $scaledShapeType = 'Google_Service_MapsEngine_ScaledShape';
+  protected $scaledShapeDataType = '';
+  protected $scalingFunctionType = 'Google_Service_MapsEngine_ScalingFunction';
+  protected $scalingFunctionDataType = '';
 
   public function setId($id)
   {
@@ -3394,11 +4195,33 @@ class Google_Service_MapsEngine_IconStyle extends Google_Model
   {
     return $this->name;
   }
+
+  public function setScaledShape(Google_Service_MapsEngine_ScaledShape $scaledShape)
+  {
+    $this->scaledShape = $scaledShape;
+  }
+
+  public function getScaledShape()
+  {
+    return $this->scaledShape;
+  }
+
+  public function setScalingFunction(Google_Service_MapsEngine_ScalingFunction $scalingFunction)
+  {
+    $this->scalingFunction = $scalingFunction;
+  }
+
+  public function getScalingFunction()
+  {
+    return $this->scalingFunction;
+  }
 }
 
 class Google_Service_MapsEngine_IconsListResponse extends Google_Collection
 {
   protected $collection_key = 'icons';
+  protected $internal_gapi_mappings = array(
+  );
   protected $iconsType = 'Google_Service_MapsEngine_Icon';
   protected $iconsDataType = 'array';
   public $nextPageToken;
@@ -3426,6 +4249,8 @@ class Google_Service_MapsEngine_IconsListResponse extends Google_Collection
 
 class Google_Service_MapsEngine_LabelStyle extends Google_Model
 {
+  protected $internal_gapi_mappings = array(
+  );
   public $color;
   public $column;
   public $fontStyle;
@@ -3509,8 +4334,11 @@ class Google_Service_MapsEngine_LabelStyle extends Google_Model
 class Google_Service_MapsEngine_Layer extends Google_Collection
 {
   protected $collection_key = 'tags';
+  protected $internal_gapi_mappings = array(
+  );
   public $bbox;
   public $creationTime;
+  public $creatorEmail;
   public $datasourceType;
   protected $datasourcesType = 'Google_Service_MapsEngine_Datasource';
   protected $datasourcesDataType = 'array';
@@ -3519,6 +4347,7 @@ class Google_Service_MapsEngine_Layer extends Google_Collection
   public $etag;
   public $id;
   public $lastModifiedTime;
+  public $lastModifierEmail;
   public $layerType;
   public $name;
   public $processingStatus;
@@ -3528,6 +4357,7 @@ class Google_Service_MapsEngine_Layer extends Google_Collection
   protected $styleType = 'Google_Service_MapsEngine_VectorStyle';
   protected $styleDataType = '';
   public $tags;
+  public $writersCanEditPermissions;
 
   public function setBbox($bbox)
   {
@@ -3547,6 +4377,16 @@ class Google_Service_MapsEngine_Layer extends Google_Collection
   public function getCreationTime()
   {
     return $this->creationTime;
+  }
+
+  public function setCreatorEmail($creatorEmail)
+  {
+    $this->creatorEmail = $creatorEmail;
+  }
+
+  public function getCreatorEmail()
+  {
+    return $this->creatorEmail;
   }
 
   public function setDatasourceType($datasourceType)
@@ -3617,6 +4457,16 @@ class Google_Service_MapsEngine_Layer extends Google_Collection
   public function getLastModifiedTime()
   {
     return $this->lastModifiedTime;
+  }
+
+  public function setLastModifierEmail($lastModifierEmail)
+  {
+    $this->lastModifierEmail = $lastModifierEmail;
+  }
+
+  public function getLastModifierEmail()
+  {
+    return $this->lastModifierEmail;
   }
 
   public function setLayerType($layerType)
@@ -3698,11 +4548,23 @@ class Google_Service_MapsEngine_Layer extends Google_Collection
   {
     return $this->tags;
   }
+
+  public function setWritersCanEditPermissions($writersCanEditPermissions)
+  {
+    $this->writersCanEditPermissions = $writersCanEditPermissions;
+  }
+
+  public function getWritersCanEditPermissions()
+  {
+    return $this->writersCanEditPermissions;
+  }
 }
 
 class Google_Service_MapsEngine_LayersListResponse extends Google_Collection
 {
   protected $collection_key = 'layers';
+  protected $internal_gapi_mappings = array(
+  );
   protected $layersType = 'Google_Service_MapsEngine_Layer';
   protected $layersDataType = 'array';
   public $nextPageToken;
@@ -3731,6 +4593,8 @@ class Google_Service_MapsEngine_LayersListResponse extends Google_Collection
 class Google_Service_MapsEngine_LineStyle extends Google_Collection
 {
   protected $collection_key = 'dash';
+  protected $internal_gapi_mappings = array(
+  );
   protected $borderType = 'Google_Service_MapsEngine_Border';
   protected $borderDataType = '';
   public $dash;
@@ -3782,6 +4646,8 @@ class Google_Service_MapsEngine_LineStyle extends Google_Collection
 
 class Google_Service_MapsEngine_LineStyleStroke extends Google_Model
 {
+  protected $internal_gapi_mappings = array(
+  );
   public $color;
   public $opacity;
   public $width;
@@ -3820,16 +4686,20 @@ class Google_Service_MapsEngine_LineStyleStroke extends Google_Model
 class Google_Service_MapsEngine_Map extends Google_Collection
 {
   protected $collection_key = 'versions';
+  protected $internal_gapi_mappings = array(
+  );
   public $bbox;
   protected $contentsType = 'Google_Service_MapsEngine_MapItem';
   protected $contentsDataType = '';
   public $creationTime;
+  public $creatorEmail;
   public $defaultViewport;
   public $description;
   public $draftAccessList;
   public $etag;
   public $id;
   public $lastModifiedTime;
+  public $lastModifierEmail;
   public $name;
   public $processingStatus;
   public $projectId;
@@ -3837,6 +4707,7 @@ class Google_Service_MapsEngine_Map extends Google_Collection
   public $publishingStatus;
   public $tags;
   public $versions;
+  public $writersCanEditPermissions;
 
   public function setBbox($bbox)
   {
@@ -3866,6 +4737,16 @@ class Google_Service_MapsEngine_Map extends Google_Collection
   public function getCreationTime()
   {
     return $this->creationTime;
+  }
+
+  public function setCreatorEmail($creatorEmail)
+  {
+    $this->creatorEmail = $creatorEmail;
+  }
+
+  public function getCreatorEmail()
+  {
+    return $this->creatorEmail;
   }
 
   public function setDefaultViewport($defaultViewport)
@@ -3926,6 +4807,16 @@ class Google_Service_MapsEngine_Map extends Google_Collection
   public function getLastModifiedTime()
   {
     return $this->lastModifiedTime;
+  }
+
+  public function setLastModifierEmail($lastModifierEmail)
+  {
+    $this->lastModifierEmail = $lastModifierEmail;
+  }
+
+  public function getLastModifierEmail()
+  {
+    return $this->lastModifierEmail;
   }
 
   public function setName($name)
@@ -3997,11 +4888,23 @@ class Google_Service_MapsEngine_Map extends Google_Collection
   {
     return $this->versions;
   }
+
+  public function setWritersCanEditPermissions($writersCanEditPermissions)
+  {
+    $this->writersCanEditPermissions = $writersCanEditPermissions;
+  }
+
+  public function getWritersCanEditPermissions()
+  {
+    return $this->writersCanEditPermissions;
+  }
 }
 
 class Google_Service_MapsEngine_MapFolder extends Google_Collection
 {
   protected $collection_key = 'defaultViewport';
+  protected $internal_gapi_mappings = array(
+  );
   protected $contentsType = 'Google_Service_MapsEngine_MapItem';
   protected $contentsDataType = 'array';
   public $defaultViewport;
@@ -4073,6 +4976,8 @@ class Google_Service_MapsEngine_MapFolder extends Google_Collection
 
 class Google_Service_MapsEngine_MapItem extends Google_Model
 {
+  protected $internal_gapi_mappings = array(
+  );
   public $type;
 
   public function setType($type)
@@ -4089,6 +4994,8 @@ class Google_Service_MapsEngine_MapItem extends Google_Model
 class Google_Service_MapsEngine_MapKmlLink extends Google_Collection
 {
   protected $collection_key = 'defaultViewport';
+  protected $internal_gapi_mappings = array(
+  );
   public $defaultViewport;
   public $kmlUrl;
   public $name;
@@ -4138,6 +5045,8 @@ class Google_Service_MapsEngine_MapKmlLink extends Google_Collection
 class Google_Service_MapsEngine_MapLayer extends Google_Collection
 {
   protected $collection_key = 'defaultViewport';
+  protected $internal_gapi_mappings = array(
+  );
   public $defaultViewport;
   public $id;
   public $key;
@@ -4198,6 +5107,8 @@ class Google_Service_MapsEngine_MapLayer extends Google_Collection
 class Google_Service_MapsEngine_MapsListResponse extends Google_Collection
 {
   protected $collection_key = 'maps';
+  protected $internal_gapi_mappings = array(
+  );
   protected $mapsType = 'Google_Service_MapsEngine_Map';
   protected $mapsDataType = 'array';
   public $nextPageToken;
@@ -4225,6 +5136,8 @@ class Google_Service_MapsEngine_MapsListResponse extends Google_Collection
 
 class Google_Service_MapsEngine_MapsengineFile extends Google_Model
 {
+  protected $internal_gapi_mappings = array(
+  );
   public $filename;
   public $size;
   public $uploadStatus;
@@ -4262,6 +5175,8 @@ class Google_Service_MapsEngine_MapsengineFile extends Google_Model
 
 class Google_Service_MapsEngine_Parent extends Google_Model
 {
+  protected $internal_gapi_mappings = array(
+  );
   public $id;
 
   public function setId($id)
@@ -4278,6 +5193,8 @@ class Google_Service_MapsEngine_Parent extends Google_Model
 class Google_Service_MapsEngine_ParentsListResponse extends Google_Collection
 {
   protected $collection_key = 'parents';
+  protected $internal_gapi_mappings = array(
+  );
   public $nextPageToken;
   protected $parentsType = 'Google_Service_MapsEngine_Parent';
   protected $parentsDataType = 'array';
@@ -4303,8 +5220,128 @@ class Google_Service_MapsEngine_ParentsListResponse extends Google_Collection
   }
 }
 
+class Google_Service_MapsEngine_Permission extends Google_Model
+{
+  protected $internal_gapi_mappings = array(
+  );
+  public $discoverable;
+  public $id;
+  public $role;
+  public $type;
+
+  public function setDiscoverable($discoverable)
+  {
+    $this->discoverable = $discoverable;
+  }
+
+  public function getDiscoverable()
+  {
+    return $this->discoverable;
+  }
+
+  public function setId($id)
+  {
+    $this->id = $id;
+  }
+
+  public function getId()
+  {
+    return $this->id;
+  }
+
+  public function setRole($role)
+  {
+    $this->role = $role;
+  }
+
+  public function getRole()
+  {
+    return $this->role;
+  }
+
+  public function setType($type)
+  {
+    $this->type = $type;
+  }
+
+  public function getType()
+  {
+    return $this->type;
+  }
+}
+
+class Google_Service_MapsEngine_PermissionsBatchDeleteRequest extends Google_Collection
+{
+  protected $collection_key = 'ids';
+  protected $internal_gapi_mappings = array(
+  );
+  public $ids;
+
+  public function setIds($ids)
+  {
+    $this->ids = $ids;
+  }
+
+  public function getIds()
+  {
+    return $this->ids;
+  }
+}
+
+class Google_Service_MapsEngine_PermissionsBatchDeleteResponse extends Google_Model
+{
+  protected $internal_gapi_mappings = array(
+  );
+}
+
+class Google_Service_MapsEngine_PermissionsBatchUpdateRequest extends Google_Collection
+{
+  protected $collection_key = 'permissions';
+  protected $internal_gapi_mappings = array(
+  );
+  protected $permissionsType = 'Google_Service_MapsEngine_Permission';
+  protected $permissionsDataType = 'array';
+
+  public function setPermissions($permissions)
+  {
+    $this->permissions = $permissions;
+  }
+
+  public function getPermissions()
+  {
+    return $this->permissions;
+  }
+}
+
+class Google_Service_MapsEngine_PermissionsBatchUpdateResponse extends Google_Model
+{
+  protected $internal_gapi_mappings = array(
+  );
+}
+
+class Google_Service_MapsEngine_PermissionsListResponse extends Google_Collection
+{
+  protected $collection_key = 'permissions';
+  protected $internal_gapi_mappings = array(
+  );
+  protected $permissionsType = 'Google_Service_MapsEngine_Permission';
+  protected $permissionsDataType = 'array';
+
+  public function setPermissions($permissions)
+  {
+    $this->permissions = $permissions;
+  }
+
+  public function getPermissions()
+  {
+    return $this->permissions;
+  }
+}
+
 class Google_Service_MapsEngine_PointStyle extends Google_Model
 {
+  protected $internal_gapi_mappings = array(
+  );
   protected $iconType = 'Google_Service_MapsEngine_IconStyle';
   protected $iconDataType = '';
   protected $labelType = 'Google_Service_MapsEngine_LabelStyle';
@@ -4333,6 +5370,8 @@ class Google_Service_MapsEngine_PointStyle extends Google_Model
 
 class Google_Service_MapsEngine_PolygonStyle extends Google_Model
 {
+  protected $internal_gapi_mappings = array(
+  );
   protected $fillType = 'Google_Service_MapsEngine_Color';
   protected $fillDataType = '';
   protected $strokeType = 'Google_Service_MapsEngine_Border';
@@ -4361,11 +5400,14 @@ class Google_Service_MapsEngine_PolygonStyle extends Google_Model
 
 class Google_Service_MapsEngine_ProcessResponse extends Google_Model
 {
-
+  protected $internal_gapi_mappings = array(
+  );
 }
 
 class Google_Service_MapsEngine_Project extends Google_Model
 {
+  protected $internal_gapi_mappings = array(
+  );
   public $id;
   public $name;
 
@@ -4393,6 +5435,8 @@ class Google_Service_MapsEngine_Project extends Google_Model
 class Google_Service_MapsEngine_ProjectsListResponse extends Google_Collection
 {
   protected $collection_key = 'projects';
+  protected $internal_gapi_mappings = array(
+  );
   protected $projectsType = 'Google_Service_MapsEngine_Project';
   protected $projectsDataType = 'array';
 
@@ -4409,17 +5453,215 @@ class Google_Service_MapsEngine_ProjectsListResponse extends Google_Collection
 
 class Google_Service_MapsEngine_PublishResponse extends Google_Model
 {
+  protected $internal_gapi_mappings = array(
+  );
+}
 
+class Google_Service_MapsEngine_PublishedLayer extends Google_Model
+{
+  protected $internal_gapi_mappings = array(
+  );
+  public $description;
+  public $id;
+  public $layerType;
+  public $name;
+  public $projectId;
+
+  public function setDescription($description)
+  {
+    $this->description = $description;
+  }
+
+  public function getDescription()
+  {
+    return $this->description;
+  }
+
+  public function setId($id)
+  {
+    $this->id = $id;
+  }
+
+  public function getId()
+  {
+    return $this->id;
+  }
+
+  public function setLayerType($layerType)
+  {
+    $this->layerType = $layerType;
+  }
+
+  public function getLayerType()
+  {
+    return $this->layerType;
+  }
+
+  public function setName($name)
+  {
+    $this->name = $name;
+  }
+
+  public function getName()
+  {
+    return $this->name;
+  }
+
+  public function setProjectId($projectId)
+  {
+    $this->projectId = $projectId;
+  }
+
+  public function getProjectId()
+  {
+    return $this->projectId;
+  }
+}
+
+class Google_Service_MapsEngine_PublishedLayersListResponse extends Google_Collection
+{
+  protected $collection_key = 'layers';
+  protected $internal_gapi_mappings = array(
+  );
+  protected $layersType = 'Google_Service_MapsEngine_PublishedLayer';
+  protected $layersDataType = 'array';
+  public $nextPageToken;
+
+  public function setLayers($layers)
+  {
+    $this->layers = $layers;
+  }
+
+  public function getLayers()
+  {
+    return $this->layers;
+  }
+
+  public function setNextPageToken($nextPageToken)
+  {
+    $this->nextPageToken = $nextPageToken;
+  }
+
+  public function getNextPageToken()
+  {
+    return $this->nextPageToken;
+  }
+}
+
+class Google_Service_MapsEngine_PublishedMap extends Google_Model
+{
+  protected $internal_gapi_mappings = array(
+  );
+  protected $contentsType = 'Google_Service_MapsEngine_MapItem';
+  protected $contentsDataType = '';
+  public $defaultViewport;
+  public $description;
+  public $id;
+  public $name;
+  public $projectId;
+
+  public function setContents(Google_Service_MapsEngine_MapItem $contents)
+  {
+    $this->contents = $contents;
+  }
+
+  public function getContents()
+  {
+    return $this->contents;
+  }
+
+  public function setDefaultViewport($defaultViewport)
+  {
+    $this->defaultViewport = $defaultViewport;
+  }
+
+  public function getDefaultViewport()
+  {
+    return $this->defaultViewport;
+  }
+
+  public function setDescription($description)
+  {
+    $this->description = $description;
+  }
+
+  public function getDescription()
+  {
+    return $this->description;
+  }
+
+  public function setId($id)
+  {
+    $this->id = $id;
+  }
+
+  public function getId()
+  {
+    return $this->id;
+  }
+
+  public function setName($name)
+  {
+    $this->name = $name;
+  }
+
+  public function getName()
+  {
+    return $this->name;
+  }
+
+  public function setProjectId($projectId)
+  {
+    $this->projectId = $projectId;
+  }
+
+  public function getProjectId()
+  {
+    return $this->projectId;
+  }
+}
+
+class Google_Service_MapsEngine_PublishedMapsListResponse extends Google_Collection
+{
+  protected $collection_key = 'maps';
+  protected $internal_gapi_mappings = array(
+  );
+  protected $mapsType = 'Google_Service_MapsEngine_PublishedMap';
+  protected $mapsDataType = 'array';
+  public $nextPageToken;
+
+  public function setMaps($maps)
+  {
+    $this->maps = $maps;
+  }
+
+  public function getMaps()
+  {
+    return $this->maps;
+  }
+
+  public function setNextPageToken($nextPageToken)
+  {
+    $this->nextPageToken = $nextPageToken;
+  }
+
+  public function getNextPageToken()
+  {
+    return $this->nextPageToken;
+  }
 }
 
 class Google_Service_MapsEngine_Raster extends Google_Collection
 {
   protected $collection_key = 'files';
+  protected $internal_gapi_mappings = array(
+  );
   protected $acquisitionTimeType = 'Google_Service_MapsEngine_AcquisitionTime';
   protected $acquisitionTimeDataType = '';
   public $attribution;
   public $bbox;
   public $creationTime;
+  public $creatorEmail;
   public $description;
   public $draftAccessList;
   public $etag;
@@ -4427,12 +5669,14 @@ class Google_Service_MapsEngine_Raster extends Google_Collection
   protected $filesDataType = 'array';
   public $id;
   public $lastModifiedTime;
+  public $lastModifierEmail;
   public $maskType;
   public $name;
   public $processingStatus;
   public $projectId;
   public $rasterType;
   public $tags;
+  public $writersCanEditPermissions;
 
   public function setAcquisitionTime(Google_Service_MapsEngine_AcquisitionTime $acquisitionTime)
   {
@@ -4472,6 +5716,16 @@ class Google_Service_MapsEngine_Raster extends Google_Collection
   public function getCreationTime()
   {
     return $this->creationTime;
+  }
+
+  public function setCreatorEmail($creatorEmail)
+  {
+    $this->creatorEmail = $creatorEmail;
+  }
+
+  public function getCreatorEmail()
+  {
+    return $this->creatorEmail;
   }
 
   public function setDescription($description)
@@ -4534,6 +5788,16 @@ class Google_Service_MapsEngine_Raster extends Google_Collection
     return $this->lastModifiedTime;
   }
 
+  public function setLastModifierEmail($lastModifierEmail)
+  {
+    $this->lastModifierEmail = $lastModifierEmail;
+  }
+
+  public function getLastModifierEmail()
+  {
+    return $this->lastModifierEmail;
+  }
+
   public function setMaskType($maskType)
   {
     $this->maskType = $maskType;
@@ -4593,25 +5857,40 @@ class Google_Service_MapsEngine_Raster extends Google_Collection
   {
     return $this->tags;
   }
+
+  public function setWritersCanEditPermissions($writersCanEditPermissions)
+  {
+    $this->writersCanEditPermissions = $writersCanEditPermissions;
+  }
+
+  public function getWritersCanEditPermissions()
+  {
+    return $this->writersCanEditPermissions;
+  }
 }
 
 class Google_Service_MapsEngine_RasterCollection extends Google_Collection
 {
   protected $collection_key = 'bbox';
+  protected $internal_gapi_mappings = array(
+  );
   public $attribution;
   public $bbox;
   public $creationTime;
+  public $creatorEmail;
   public $description;
   public $draftAccessList;
   public $etag;
   public $id;
   public $lastModifiedTime;
+  public $lastModifierEmail;
   public $mosaic;
   public $name;
   public $processingStatus;
   public $projectId;
   public $rasterType;
   public $tags;
+  public $writersCanEditPermissions;
 
   public function setAttribution($attribution)
   {
@@ -4641,6 +5920,16 @@ class Google_Service_MapsEngine_RasterCollection extends Google_Collection
   public function getCreationTime()
   {
     return $this->creationTime;
+  }
+
+  public function setCreatorEmail($creatorEmail)
+  {
+    $this->creatorEmail = $creatorEmail;
+  }
+
+  public function getCreatorEmail()
+  {
+    return $this->creatorEmail;
   }
 
   public function setDescription($description)
@@ -4691,6 +5980,16 @@ class Google_Service_MapsEngine_RasterCollection extends Google_Collection
   public function getLastModifiedTime()
   {
     return $this->lastModifiedTime;
+  }
+
+  public function setLastModifierEmail($lastModifierEmail)
+  {
+    $this->lastModifierEmail = $lastModifierEmail;
+  }
+
+  public function getLastModifierEmail()
+  {
+    return $this->lastModifierEmail;
   }
 
   public function setMosaic($mosaic)
@@ -4752,11 +6051,23 @@ class Google_Service_MapsEngine_RasterCollection extends Google_Collection
   {
     return $this->tags;
   }
+
+  public function setWritersCanEditPermissions($writersCanEditPermissions)
+  {
+    $this->writersCanEditPermissions = $writersCanEditPermissions;
+  }
+
+  public function getWritersCanEditPermissions()
+  {
+    return $this->writersCanEditPermissions;
+  }
 }
 
 class Google_Service_MapsEngine_RasterCollectionsListResponse extends Google_Collection
 {
   protected $collection_key = 'rasterCollections';
+  protected $internal_gapi_mappings = array(
+  );
   public $nextPageToken;
   protected $rasterCollectionsType = 'Google_Service_MapsEngine_RasterCollection';
   protected $rasterCollectionsDataType = 'array';
@@ -4785,6 +6096,8 @@ class Google_Service_MapsEngine_RasterCollectionsListResponse extends Google_Col
 class Google_Service_MapsEngine_RasterCollectionsRaster extends Google_Collection
 {
   protected $collection_key = 'tags';
+  protected $internal_gapi_mappings = array(
+  );
   public $bbox;
   public $creationTime;
   public $description;
@@ -4889,6 +6202,8 @@ class Google_Service_MapsEngine_RasterCollectionsRaster extends Google_Collectio
 class Google_Service_MapsEngine_RasterCollectionsRasterBatchDeleteRequest extends Google_Collection
 {
   protected $collection_key = 'ids';
+  protected $internal_gapi_mappings = array(
+  );
   public $ids;
 
   public function setIds($ids)
@@ -4904,12 +6219,15 @@ class Google_Service_MapsEngine_RasterCollectionsRasterBatchDeleteRequest extend
 
 class Google_Service_MapsEngine_RasterCollectionsRastersBatchDeleteResponse extends Google_Model
 {
-
+  protected $internal_gapi_mappings = array(
+  );
 }
 
 class Google_Service_MapsEngine_RasterCollectionsRastersBatchInsertRequest extends Google_Collection
 {
   protected $collection_key = 'ids';
+  protected $internal_gapi_mappings = array(
+  );
   public $ids;
 
   public function setIds($ids)
@@ -4925,12 +6243,15 @@ class Google_Service_MapsEngine_RasterCollectionsRastersBatchInsertRequest exten
 
 class Google_Service_MapsEngine_RasterCollectionsRastersBatchInsertResponse extends Google_Model
 {
-
+  protected $internal_gapi_mappings = array(
+  );
 }
 
 class Google_Service_MapsEngine_RasterCollectionsRastersListResponse extends Google_Collection
 {
   protected $collection_key = 'rasters';
+  protected $internal_gapi_mappings = array(
+  );
   public $nextPageToken;
   protected $rastersType = 'Google_Service_MapsEngine_RasterCollectionsRaster';
   protected $rastersDataType = 'array';
@@ -4959,6 +6280,8 @@ class Google_Service_MapsEngine_RasterCollectionsRastersListResponse extends Goo
 class Google_Service_MapsEngine_RastersListResponse extends Google_Collection
 {
   protected $collection_key = 'rasters';
+  protected $internal_gapi_mappings = array(
+  );
   public $nextPageToken;
   protected $rastersType = 'Google_Service_MapsEngine_Raster';
   protected $rastersDataType = 'array';
@@ -4984,9 +6307,104 @@ class Google_Service_MapsEngine_RastersListResponse extends Google_Collection
   }
 }
 
+class Google_Service_MapsEngine_ScaledShape extends Google_Model
+{
+  protected $internal_gapi_mappings = array(
+  );
+  protected $borderType = 'Google_Service_MapsEngine_Border';
+  protected $borderDataType = '';
+  protected $fillType = 'Google_Service_MapsEngine_Color';
+  protected $fillDataType = '';
+  public $shape;
+
+  public function setBorder(Google_Service_MapsEngine_Border $border)
+  {
+    $this->border = $border;
+  }
+
+  public function getBorder()
+  {
+    return $this->border;
+  }
+
+  public function setFill(Google_Service_MapsEngine_Color $fill)
+  {
+    $this->fill = $fill;
+  }
+
+  public function getFill()
+  {
+    return $this->fill;
+  }
+
+  public function setShape($shape)
+  {
+    $this->shape = $shape;
+  }
+
+  public function getShape()
+  {
+    return $this->shape;
+  }
+}
+
+class Google_Service_MapsEngine_ScalingFunction extends Google_Model
+{
+  protected $internal_gapi_mappings = array(
+  );
+  public $column;
+  public $scalingType;
+  protected $sizeRangeType = 'Google_Service_MapsEngine_SizeRange';
+  protected $sizeRangeDataType = '';
+  protected $valueRangeType = 'Google_Service_MapsEngine_ValueRange';
+  protected $valueRangeDataType = '';
+
+  public function setColumn($column)
+  {
+    $this->column = $column;
+  }
+
+  public function getColumn()
+  {
+    return $this->column;
+  }
+
+  public function setScalingType($scalingType)
+  {
+    $this->scalingType = $scalingType;
+  }
+
+  public function getScalingType()
+  {
+    return $this->scalingType;
+  }
+
+  public function setSizeRange(Google_Service_MapsEngine_SizeRange $sizeRange)
+  {
+    $this->sizeRange = $sizeRange;
+  }
+
+  public function getSizeRange()
+  {
+    return $this->sizeRange;
+  }
+
+  public function setValueRange(Google_Service_MapsEngine_ValueRange $valueRange)
+  {
+    $this->valueRange = $valueRange;
+  }
+
+  public function getValueRange()
+  {
+    return $this->valueRange;
+  }
+}
+
 class Google_Service_MapsEngine_Schema extends Google_Collection
 {
   protected $collection_key = 'columns';
+  protected $internal_gapi_mappings = array(
+  );
   protected $columnsType = 'Google_Service_MapsEngine_TableColumn';
   protected $columnsDataType = 'array';
   public $primaryGeometry;
@@ -5023,11 +6441,42 @@ class Google_Service_MapsEngine_Schema extends Google_Collection
   }
 }
 
+class Google_Service_MapsEngine_SizeRange extends Google_Model
+{
+  protected $internal_gapi_mappings = array(
+  );
+  public $max;
+  public $min;
+
+  public function setMax($max)
+  {
+    $this->max = $max;
+  }
+
+  public function getMax()
+  {
+    return $this->max;
+  }
+
+  public function setMin($min)
+  {
+    $this->min = $min;
+  }
+
+  public function getMin()
+  {
+    return $this->min;
+  }
+}
+
 class Google_Service_MapsEngine_Table extends Google_Collection
 {
   protected $collection_key = 'tags';
+  protected $internal_gapi_mappings = array(
+  );
   public $bbox;
   public $creationTime;
+  public $creatorEmail;
   public $description;
   public $draftAccessList;
   public $etag;
@@ -5035,6 +6484,7 @@ class Google_Service_MapsEngine_Table extends Google_Collection
   protected $filesDataType = 'array';
   public $id;
   public $lastModifiedTime;
+  public $lastModifierEmail;
   public $name;
   public $processingStatus;
   public $projectId;
@@ -5043,6 +6493,7 @@ class Google_Service_MapsEngine_Table extends Google_Collection
   protected $schemaDataType = '';
   public $sourceEncoding;
   public $tags;
+  public $writersCanEditPermissions;
 
   public function setBbox($bbox)
   {
@@ -5062,6 +6513,16 @@ class Google_Service_MapsEngine_Table extends Google_Collection
   public function getCreationTime()
   {
     return $this->creationTime;
+  }
+
+  public function setCreatorEmail($creatorEmail)
+  {
+    $this->creatorEmail = $creatorEmail;
+  }
+
+  public function getCreatorEmail()
+  {
+    return $this->creatorEmail;
   }
 
   public function setDescription($description)
@@ -5122,6 +6583,16 @@ class Google_Service_MapsEngine_Table extends Google_Collection
   public function getLastModifiedTime()
   {
     return $this->lastModifiedTime;
+  }
+
+  public function setLastModifierEmail($lastModifierEmail)
+  {
+    $this->lastModifierEmail = $lastModifierEmail;
+  }
+
+  public function getLastModifierEmail()
+  {
+    return $this->lastModifierEmail;
   }
 
   public function setName($name)
@@ -5193,10 +6664,22 @@ class Google_Service_MapsEngine_Table extends Google_Collection
   {
     return $this->tags;
   }
+
+  public function setWritersCanEditPermissions($writersCanEditPermissions)
+  {
+    $this->writersCanEditPermissions = $writersCanEditPermissions;
+  }
+
+  public function getWritersCanEditPermissions()
+  {
+    return $this->writersCanEditPermissions;
+  }
 }
 
 class Google_Service_MapsEngine_TableColumn extends Google_Model
 {
+  protected $internal_gapi_mappings = array(
+  );
   public $name;
   public $type;
 
@@ -5224,6 +6707,8 @@ class Google_Service_MapsEngine_TableColumn extends Google_Model
 class Google_Service_MapsEngine_TablesListResponse extends Google_Collection
 {
   protected $collection_key = 'tables';
+  protected $internal_gapi_mappings = array(
+  );
   public $nextPageToken;
   protected $tablesType = 'Google_Service_MapsEngine_Table';
   protected $tablesDataType = 'array';
@@ -5249,9 +6734,39 @@ class Google_Service_MapsEngine_TablesListResponse extends Google_Collection
   }
 }
 
+class Google_Service_MapsEngine_ValueRange extends Google_Model
+{
+  protected $internal_gapi_mappings = array(
+  );
+  public $max;
+  public $min;
+
+  public function setMax($max)
+  {
+    $this->max = $max;
+  }
+
+  public function getMax()
+  {
+    return $this->max;
+  }
+
+  public function setMin($min)
+  {
+    $this->min = $min;
+  }
+
+  public function getMin()
+  {
+    return $this->min;
+  }
+}
+
 class Google_Service_MapsEngine_VectorStyle extends Google_Collection
 {
   protected $collection_key = 'displayRules';
+  protected $internal_gapi_mappings = array(
+  );
   protected $displayRulesType = 'Google_Service_MapsEngine_DisplayRule';
   protected $displayRulesDataType = 'array';
   protected $featureInfoType = 'Google_Service_MapsEngine_FeatureInfo';
@@ -5291,6 +6806,8 @@ class Google_Service_MapsEngine_VectorStyle extends Google_Collection
 
 class Google_Service_MapsEngine_ZoomLevels extends Google_Model
 {
+  protected $internal_gapi_mappings = array(
+  );
   public $max;
   public $min;
 

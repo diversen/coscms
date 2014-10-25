@@ -25,12 +25,12 @@ class Google_Config
   const GZIP_UPLOADS_ENABLED = true;
   const GZIP_UPLOADS_DISABLED = false;
   const USE_AUTO_IO_SELECTION = "auto";
-  private $configuration;
+  protected $configuration;
 
   /**
    * Create a new Google_Config. Can accept an ini file location with the
    * local configuration. For example:
-   *     application_name: "My App";
+   *     application_name="My App"
    *
    * @param [$ini_file_location] - optional - The location of the ini file to load
    */
@@ -78,10 +78,14 @@ class Google_Config
           'developer_key' => '',
 
           // Other parameters.
-          'access_type' => 'online',
-          'approval_prompt' => 'auto',
+          'hd' => '',
+          'prompt' => '',
+          'openid.realm' => '',
+          'include_granted_scopes' => '',
           'login_hint' => '',
           'request_visible_actions' => '',
+          'access_type' => 'online',
+          'approval_prompt' => 'auto',
           'federated_signon_certs_url' =>
               'https://www.googleapis.com/oauth2/v1/certs',
         ),
@@ -89,11 +93,6 @@ class Google_Config
         'Google_Cache_File' => array(
           'directory' => sys_get_temp_dir() . '/Google_Client'
         )
-      ),
-
-      // Definition of service specific values like scopes, oauth token URLs,
-      // etc. Example:
-      'services' => array(
       ),
     );
     if ($ini_file_location) {
@@ -300,6 +299,53 @@ class Google_Config
   public function setDeveloperKey($key)
   {
     $this->setAuthConfig('developer_key', $key);
+  }
+
+  /**
+   * Set the hd (hosted domain) parameter streamlines the login process for
+   * Google Apps hosted accounts. By including the domain of the user, you
+   * restrict sign-in to accounts at that domain.
+   * @param $hd string - the domain to use.
+   */
+  public function setHostedDomain($hd)
+  {
+    $this->setAuthConfig('hd', $hd);
+  }
+
+  /**
+   * Set the prompt hint. Valid values are none, consent and select_account.
+   * If no value is specified and the user has not previously authorized
+   * access, then the user is shown a consent screen.
+   * @param $prompt string
+   */
+  public function setPrompt($prompt)
+  {
+    $this->setAuthConfig('prompt', $prompt);
+  }
+
+  /**
+   * openid.realm is a parameter from the OpenID 2.0 protocol, not from OAuth
+   * 2.0. It is used in OpenID 2.0 requests to signify the URL-space for which
+   * an authentication request is valid.
+   * @param $realm string - the URL-space to use.
+   */
+  public function setOpenidRealm($realm)
+  {
+    $this->setAuthConfig('openid.realm', $realm);
+  }
+
+  /**
+   * If this is provided with the value true, and the authorization request is
+   * granted, the authorization will include any previous authorizations
+   * granted to this user/application combination for other scopes.
+   * @param $include boolean - the URL-space to use.
+   */
+  public function setIncludeGrantedScopes($include)
+  {
+    $this->setAuthConfig(
+        'include_granted_scopes',
+        $include ? "true" : "false"
+    );
   }
 
   /**

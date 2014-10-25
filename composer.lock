@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "47d115daf7521323124dd91c94510762",
+    "hash": "eda45947861c15a03555b5a4fff56bcd",
     "packages": [
         {
             "name": "diversen/simple-php-classes",
@@ -99,16 +99,16 @@
         },
         {
             "name": "google/apiclient",
-            "version": "1.0.5-beta",
+            "version": "1.0.6-beta",
             "source": {
                 "type": "git",
                 "url": "https://github.com/google/google-api-php-client.git",
-                "reference": "c05d454790460f0c851c42298ea239ec5e631d76"
+                "reference": "a41a9dc0662e36420030eaab802dbb1f85459479"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/google/google-api-php-client/zipball/c05d454790460f0c851c42298ea239ec5e631d76",
-                "reference": "c05d454790460f0c851c42298ea239ec5e631d76",
+                "url": "https://api.github.com/repos/google/google-api-php-client/zipball/a41a9dc0662e36420030eaab802dbb1f85459479",
+                "reference": "a41a9dc0662e36420030eaab802dbb1f85459479",
                 "shasum": ""
             },
             "require": {
@@ -140,7 +140,7 @@
             "keywords": [
                 "google"
             ],
-            "time": "2014-09-08 20:57:18"
+            "time": "2014-09-30 19:33:59"
         },
         {
             "name": "michelf/php-markdown",
@@ -484,10 +484,10 @@
         },
         {
             "name": "pear-pear.php.net/Net_URL2",
-            "version": "2.0.7",
+            "version": "2.1.0",
             "dist": {
                 "type": "file",
-                "url": "http://pear.php.net/get/Net_URL2-2.0.7.tgz",
+                "url": "http://pear.php.net/get/Net_URL2-2.1.0.tgz",
                 "reference": null,
                 "shasum": null
             },
@@ -495,7 +495,7 @@
                 "php": ">=5.1.4.0"
             },
             "replace": {
-                "pear-pear/net_url2": "== 2.0.7.0"
+                "pear-pear/net_url2": "== 2.1.0.0"
             },
             "type": "pear-library",
             "autoload": {

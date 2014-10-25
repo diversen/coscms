@@ -962,6 +962,8 @@ class Google_Service_Bigquery_Tables_Resource extends Google_Service_Resource
 class Google_Service_Bigquery_Dataset extends Google_Collection
 {
   protected $collection_key = 'access';
+  protected $internal_gapi_mappings = array(
+  );
   protected $accessType = 'Google_Service_Bigquery_DatasetAccess';
   protected $accessDataType = 'array';
   public $creationTime;
@@ -1078,11 +1080,15 @@ class Google_Service_Bigquery_Dataset extends Google_Collection
 
 class Google_Service_Bigquery_DatasetAccess extends Google_Model
 {
+  protected $internal_gapi_mappings = array(
+  );
   public $domain;
   public $groupByEmail;
   public $role;
   public $specialGroup;
   public $userByEmail;
+  protected $viewType = 'Google_Service_Bigquery_TableReference';
+  protected $viewDataType = '';
 
   public function setDomain($domain)
   {
@@ -1133,11 +1139,23 @@ class Google_Service_Bigquery_DatasetAccess extends Google_Model
   {
     return $this->userByEmail;
   }
+
+  public function setView(Google_Service_Bigquery_TableReference $view)
+  {
+    $this->view = $view;
+  }
+
+  public function getView()
+  {
+    return $this->view;
+  }
 }
 
 class Google_Service_Bigquery_DatasetList extends Google_Collection
 {
   protected $collection_key = 'datasets';
+  protected $internal_gapi_mappings = array(
+  );
   protected $datasetsType = 'Google_Service_Bigquery_DatasetListDatasets';
   protected $datasetsDataType = 'array';
   public $etag;
@@ -1187,6 +1205,8 @@ class Google_Service_Bigquery_DatasetList extends Google_Collection
 
 class Google_Service_Bigquery_DatasetListDatasets extends Google_Model
 {
+  protected $internal_gapi_mappings = array(
+  );
   protected $datasetReferenceType = 'Google_Service_Bigquery_DatasetReference';
   protected $datasetReferenceDataType = '';
   public $friendlyName;
@@ -1236,6 +1256,8 @@ class Google_Service_Bigquery_DatasetListDatasets extends Google_Model
 
 class Google_Service_Bigquery_DatasetReference extends Google_Model
 {
+  protected $internal_gapi_mappings = array(
+  );
   public $datasetId;
   public $projectId;
 
@@ -1262,6 +1284,8 @@ class Google_Service_Bigquery_DatasetReference extends Google_Model
 
 class Google_Service_Bigquery_ErrorProto extends Google_Model
 {
+  protected $internal_gapi_mappings = array(
+  );
   public $debugInfo;
   public $location;
   public $message;
@@ -1311,6 +1335,8 @@ class Google_Service_Bigquery_ErrorProto extends Google_Model
 class Google_Service_Bigquery_GetQueryResultsResponse extends Google_Collection
 {
   protected $collection_key = 'rows';
+  protected $internal_gapi_mappings = array(
+  );
   public $cacheHit;
   public $etag;
   public $jobComplete;
@@ -1417,6 +1443,8 @@ class Google_Service_Bigquery_GetQueryResultsResponse extends Google_Collection
 
 class Google_Service_Bigquery_Job extends Google_Model
 {
+  protected $internal_gapi_mappings = array(
+  );
   protected $configurationType = 'Google_Service_Bigquery_JobConfiguration';
   protected $configurationDataType = '';
   public $etag;
@@ -1513,6 +1541,8 @@ class Google_Service_Bigquery_Job extends Google_Model
 
 class Google_Service_Bigquery_JobConfiguration extends Google_Model
 {
+  protected $internal_gapi_mappings = array(
+  );
   protected $copyType = 'Google_Service_Bigquery_JobConfigurationTableCopy';
   protected $copyDataType = '';
   public $dryRun;
@@ -1589,6 +1619,8 @@ class Google_Service_Bigquery_JobConfiguration extends Google_Model
 class Google_Service_Bigquery_JobConfigurationExtract extends Google_Collection
 {
   protected $collection_key = 'destinationUris';
+  protected $internal_gapi_mappings = array(
+  );
   public $compression;
   public $destinationFormat;
   public $destinationUri;
@@ -1672,6 +1704,8 @@ class Google_Service_Bigquery_JobConfigurationExtract extends Google_Collection
 class Google_Service_Bigquery_JobConfigurationLink extends Google_Collection
 {
   protected $collection_key = 'sourceUri';
+  protected $internal_gapi_mappings = array(
+  );
   public $createDisposition;
   protected $destinationTableType = 'Google_Service_Bigquery_TableReference';
   protected $destinationTableDataType = '';
@@ -1722,6 +1756,8 @@ class Google_Service_Bigquery_JobConfigurationLink extends Google_Collection
 class Google_Service_Bigquery_JobConfigurationLoad extends Google_Collection
 {
   protected $collection_key = 'sourceUris';
+  protected $internal_gapi_mappings = array(
+  );
   public $allowJaggedRows;
   public $allowQuotedNewlines;
   public $createDisposition;
@@ -1904,6 +1940,8 @@ class Google_Service_Bigquery_JobConfigurationLoad extends Google_Collection
 
 class Google_Service_Bigquery_JobConfigurationQuery extends Google_Model
 {
+  protected $internal_gapi_mappings = array(
+  );
   public $allowLargeResults;
   public $createDisposition;
   protected $defaultDatasetType = 'Google_Service_Bigquery_DatasetReference';
@@ -2021,6 +2059,8 @@ class Google_Service_Bigquery_JobConfigurationQuery extends Google_Model
 class Google_Service_Bigquery_JobConfigurationTableCopy extends Google_Collection
 {
   protected $collection_key = 'sourceTables';
+  protected $internal_gapi_mappings = array(
+  );
   public $createDisposition;
   protected $destinationTableType = 'Google_Service_Bigquery_TableReference';
   protected $destinationTableDataType = '';
@@ -2084,6 +2124,8 @@ class Google_Service_Bigquery_JobConfigurationTableCopy extends Google_Collectio
 class Google_Service_Bigquery_JobList extends Google_Collection
 {
   protected $collection_key = 'jobs';
+  protected $internal_gapi_mappings = array(
+  );
   public $etag;
   protected $jobsType = 'Google_Service_Bigquery_JobListJobs';
   protected $jobsDataType = 'array';
@@ -2144,6 +2186,9 @@ class Google_Service_Bigquery_JobList extends Google_Collection
 
 class Google_Service_Bigquery_JobListJobs extends Google_Model
 {
+  protected $internal_gapi_mappings = array(
+        "userEmail" => "user_email",
+  );
   protected $configurationType = 'Google_Service_Bigquery_JobConfiguration';
   protected $configurationDataType = '';
   protected $errorResultType = 'Google_Service_Bigquery_ErrorProto';
@@ -2252,6 +2297,8 @@ class Google_Service_Bigquery_JobListJobs extends Google_Model
 
 class Google_Service_Bigquery_JobReference extends Google_Model
 {
+  protected $internal_gapi_mappings = array(
+  );
   public $jobId;
   public $projectId;
 
@@ -2278,6 +2325,8 @@ class Google_Service_Bigquery_JobReference extends Google_Model
 
 class Google_Service_Bigquery_JobStatistics extends Google_Model
 {
+  protected $internal_gapi_mappings = array(
+  );
   public $creationTime;
   public $endTime;
   protected $loadType = 'Google_Service_Bigquery_JobStatistics3';
@@ -2350,6 +2399,8 @@ class Google_Service_Bigquery_JobStatistics extends Google_Model
 
 class Google_Service_Bigquery_JobStatistics2 extends Google_Model
 {
+  protected $internal_gapi_mappings = array(
+  );
   public $cacheHit;
   public $totalBytesProcessed;
 
@@ -2376,6 +2427,8 @@ class Google_Service_Bigquery_JobStatistics2 extends Google_Model
 
 class Google_Service_Bigquery_JobStatistics3 extends Google_Model
 {
+  protected $internal_gapi_mappings = array(
+  );
   public $inputFileBytes;
   public $inputFiles;
   public $outputBytes;
@@ -2425,6 +2478,8 @@ class Google_Service_Bigquery_JobStatistics3 extends Google_Model
 class Google_Service_Bigquery_JobStatus extends Google_Collection
 {
   protected $collection_key = 'errors';
+  protected $internal_gapi_mappings = array(
+  );
   protected $errorResultType = 'Google_Service_Bigquery_ErrorProto';
   protected $errorResultDataType = '';
   protected $errorsType = 'Google_Service_Bigquery_ErrorProto';
@@ -2464,12 +2519,15 @@ class Google_Service_Bigquery_JobStatus extends Google_Collection
 
 class Google_Service_Bigquery_JsonObject extends Google_Model
 {
-
+  protected $internal_gapi_mappings = array(
+  );
 }
 
 class Google_Service_Bigquery_ProjectList extends Google_Collection
 {
   protected $collection_key = 'projects';
+  protected $internal_gapi_mappings = array(
+  );
   public $etag;
   public $kind;
   public $nextPageToken;
@@ -2530,6 +2588,8 @@ class Google_Service_Bigquery_ProjectList extends Google_Collection
 
 class Google_Service_Bigquery_ProjectListProjects extends Google_Model
 {
+  protected $internal_gapi_mappings = array(
+  );
   public $friendlyName;
   public $id;
   public $kind;
@@ -2590,6 +2650,8 @@ class Google_Service_Bigquery_ProjectListProjects extends Google_Model
 
 class Google_Service_Bigquery_ProjectReference extends Google_Model
 {
+  protected $internal_gapi_mappings = array(
+  );
   public $projectId;
 
   public function setProjectId($projectId)
@@ -2605,6 +2667,8 @@ class Google_Service_Bigquery_ProjectReference extends Google_Model
 
 class Google_Service_Bigquery_QueryRequest extends Google_Model
 {
+  protected $internal_gapi_mappings = array(
+  );
   protected $defaultDatasetType = 'Google_Service_Bigquery_DatasetReference';
   protected $defaultDatasetDataType = '';
   public $dryRun;
@@ -2699,6 +2763,8 @@ class Google_Service_Bigquery_QueryRequest extends Google_Model
 class Google_Service_Bigquery_QueryResponse extends Google_Collection
 {
   protected $collection_key = 'rows';
+  protected $internal_gapi_mappings = array(
+  );
   public $cacheHit;
   public $jobComplete;
   protected $jobReferenceType = 'Google_Service_Bigquery_JobReference';
@@ -2805,6 +2871,8 @@ class Google_Service_Bigquery_QueryResponse extends Google_Collection
 
 class Google_Service_Bigquery_Table extends Google_Model
 {
+  protected $internal_gapi_mappings = array(
+  );
   public $creationTime;
   public $description;
   public $etag;
@@ -2977,6 +3045,8 @@ class Google_Service_Bigquery_Table extends Google_Model
 
 class Google_Service_Bigquery_TableCell extends Google_Model
 {
+  protected $internal_gapi_mappings = array(
+  );
   public $v;
 
   public function setV($v)
@@ -2993,6 +3063,8 @@ class Google_Service_Bigquery_TableCell extends Google_Model
 class Google_Service_Bigquery_TableDataInsertAllRequest extends Google_Collection
 {
   protected $collection_key = 'rows';
+  protected $internal_gapi_mappings = array(
+  );
   public $kind;
   protected $rowsType = 'Google_Service_Bigquery_TableDataInsertAllRequestRows';
   protected $rowsDataType = 'array';
@@ -3020,6 +3092,8 @@ class Google_Service_Bigquery_TableDataInsertAllRequest extends Google_Collectio
 
 class Google_Service_Bigquery_TableDataInsertAllRequestRows extends Google_Model
 {
+  protected $internal_gapi_mappings = array(
+  );
   public $insertId;
   public $json;
 
@@ -3047,6 +3121,8 @@ class Google_Service_Bigquery_TableDataInsertAllRequestRows extends Google_Model
 class Google_Service_Bigquery_TableDataInsertAllResponse extends Google_Collection
 {
   protected $collection_key = 'insertErrors';
+  protected $internal_gapi_mappings = array(
+  );
   protected $insertErrorsType = 'Google_Service_Bigquery_TableDataInsertAllResponseInsertErrors';
   protected $insertErrorsDataType = 'array';
   public $kind;
@@ -3075,6 +3151,8 @@ class Google_Service_Bigquery_TableDataInsertAllResponse extends Google_Collecti
 class Google_Service_Bigquery_TableDataInsertAllResponseInsertErrors extends Google_Collection
 {
   protected $collection_key = 'errors';
+  protected $internal_gapi_mappings = array(
+  );
   protected $errorsType = 'Google_Service_Bigquery_ErrorProto';
   protected $errorsDataType = 'array';
   public $index;
@@ -3103,6 +3181,8 @@ class Google_Service_Bigquery_TableDataInsertAllResponseInsertErrors extends Goo
 class Google_Service_Bigquery_TableDataList extends Google_Collection
 {
   protected $collection_key = 'rows';
+  protected $internal_gapi_mappings = array(
+  );
   public $etag;
   public $kind;
   public $pageToken;
@@ -3164,6 +3244,8 @@ class Google_Service_Bigquery_TableDataList extends Google_Collection
 class Google_Service_Bigquery_TableFieldSchema extends Google_Collection
 {
   protected $collection_key = 'fields';
+  protected $internal_gapi_mappings = array(
+  );
   public $description;
   protected $fieldsType = 'Google_Service_Bigquery_TableFieldSchema';
   protected $fieldsDataType = 'array';
@@ -3225,6 +3307,8 @@ class Google_Service_Bigquery_TableFieldSchema extends Google_Collection
 class Google_Service_Bigquery_TableList extends Google_Collection
 {
   protected $collection_key = 'tables';
+  protected $internal_gapi_mappings = array(
+  );
   public $etag;
   public $kind;
   public $nextPageToken;
@@ -3285,6 +3369,8 @@ class Google_Service_Bigquery_TableList extends Google_Collection
 
 class Google_Service_Bigquery_TableListTables extends Google_Model
 {
+  protected $internal_gapi_mappings = array(
+  );
   public $friendlyName;
   public $id;
   public $kind;
@@ -3345,6 +3431,8 @@ class Google_Service_Bigquery_TableListTables extends Google_Model
 
 class Google_Service_Bigquery_TableReference extends Google_Model
 {
+  protected $internal_gapi_mappings = array(
+  );
   public $datasetId;
   public $projectId;
   public $tableId;
@@ -3383,6 +3471,8 @@ class Google_Service_Bigquery_TableReference extends Google_Model
 class Google_Service_Bigquery_TableRow extends Google_Collection
 {
   protected $collection_key = 'f';
+  protected $internal_gapi_mappings = array(
+  );
   protected $fType = 'Google_Service_Bigquery_TableCell';
   protected $fDataType = 'array';
 
@@ -3400,6 +3490,8 @@ class Google_Service_Bigquery_TableRow extends Google_Collection
 class Google_Service_Bigquery_TableSchema extends Google_Collection
 {
   protected $collection_key = 'fields';
+  protected $internal_gapi_mappings = array(
+  );
   protected $fieldsType = 'Google_Service_Bigquery_TableFieldSchema';
   protected $fieldsDataType = 'array';
 
@@ -3416,6 +3508,8 @@ class Google_Service_Bigquery_TableSchema extends Google_Collection
 
 class Google_Service_Bigquery_ViewDefinition extends Google_Model
 {
+  protected $internal_gapi_mappings = array(
+  );
   public $query;
 
   public function setQuery($query)

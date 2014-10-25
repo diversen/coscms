@@ -197,7 +197,7 @@ class Google_Service_IdentityToolkit_Relyingparty_Resource extends Google_Servic
     return $this->call('getPublicKeys', array($params), "Google_Service_IdentityToolkit_IdentitytoolkitRelyingpartyGetPublicKeysResponse");
   }
   /**
-   * Set account info for a user. (relyingparty.resetPassword)
+   * Reset password for a user. (relyingparty.resetPassword)
    *
    * @param Google_IdentitytoolkitRelyingpartyResetPasswordRequest $postBody
    * @param array $optParams Optional parameters.
@@ -268,7 +268,10 @@ class Google_Service_IdentityToolkit_Relyingparty_Resource extends Google_Servic
 
 class Google_Service_IdentityToolkit_CreateAuthUriResponse extends Google_Model
 {
+  protected $internal_gapi_mappings = array(
+  );
   public $authUri;
+  public $captchaRequired;
   public $forExistingProvider;
   public $kind;
   public $providerId;
@@ -282,6 +285,16 @@ class Google_Service_IdentityToolkit_CreateAuthUriResponse extends Google_Model
   public function getAuthUri()
   {
     return $this->authUri;
+  }
+
+  public function setCaptchaRequired($captchaRequired)
+  {
+    $this->captchaRequired = $captchaRequired;
+  }
+
+  public function getCaptchaRequired()
+  {
+    return $this->captchaRequired;
   }
 
   public function setForExistingProvider($forExistingProvider)
@@ -327,6 +340,8 @@ class Google_Service_IdentityToolkit_CreateAuthUriResponse extends Google_Model
 
 class Google_Service_IdentityToolkit_DeleteAccountResponse extends Google_Model
 {
+  protected $internal_gapi_mappings = array(
+  );
   public $kind;
 
   public function setKind($kind)
@@ -343,6 +358,8 @@ class Google_Service_IdentityToolkit_DeleteAccountResponse extends Google_Model
 class Google_Service_IdentityToolkit_DownloadAccountResponse extends Google_Collection
 {
   protected $collection_key = 'users';
+  protected $internal_gapi_mappings = array(
+  );
   public $kind;
   public $nextPageToken;
   protected $usersType = 'Google_Service_IdentityToolkit_UserInfo';
@@ -382,6 +399,8 @@ class Google_Service_IdentityToolkit_DownloadAccountResponse extends Google_Coll
 class Google_Service_IdentityToolkit_GetAccountInfoResponse extends Google_Collection
 {
   protected $collection_key = 'users';
+  protected $internal_gapi_mappings = array(
+  );
   public $kind;
   protected $usersType = 'Google_Service_IdentityToolkit_UserInfo';
   protected $usersDataType = 'array';
@@ -409,6 +428,8 @@ class Google_Service_IdentityToolkit_GetAccountInfoResponse extends Google_Colle
 
 class Google_Service_IdentityToolkit_GetOobConfirmationCodeResponse extends Google_Model
 {
+  protected $internal_gapi_mappings = array(
+  );
   public $kind;
   public $oobCode;
 
@@ -435,6 +456,8 @@ class Google_Service_IdentityToolkit_GetOobConfirmationCodeResponse extends Goog
 
 class Google_Service_IdentityToolkit_IdentitytoolkitRelyingpartyCreateAuthUriRequest extends Google_Model
 {
+  protected $internal_gapi_mappings = array(
+  );
   public $appId;
   public $clientId;
   public $context;
@@ -527,6 +550,8 @@ class Google_Service_IdentityToolkit_IdentitytoolkitRelyingpartyCreateAuthUriReq
 
 class Google_Service_IdentityToolkit_IdentitytoolkitRelyingpartyDeleteAccountRequest extends Google_Model
 {
+  protected $internal_gapi_mappings = array(
+  );
   public $localId;
 
   public function setLocalId($localId)
@@ -542,6 +567,8 @@ class Google_Service_IdentityToolkit_IdentitytoolkitRelyingpartyDeleteAccountReq
 
 class Google_Service_IdentityToolkit_IdentitytoolkitRelyingpartyDownloadAccountRequest extends Google_Model
 {
+  protected $internal_gapi_mappings = array(
+  );
   public $maxResults;
   public $nextPageToken;
 
@@ -569,6 +596,8 @@ class Google_Service_IdentityToolkit_IdentitytoolkitRelyingpartyDownloadAccountR
 class Google_Service_IdentityToolkit_IdentitytoolkitRelyingpartyGetAccountInfoRequest extends Google_Collection
 {
   protected $collection_key = 'localId';
+  protected $internal_gapi_mappings = array(
+  );
   public $email;
   public $idToken;
   public $localId;
@@ -606,11 +635,14 @@ class Google_Service_IdentityToolkit_IdentitytoolkitRelyingpartyGetAccountInfoRe
 
 class Google_Service_IdentityToolkit_IdentitytoolkitRelyingpartyGetPublicKeysResponse extends Google_Model
 {
-
+  protected $internal_gapi_mappings = array(
+  );
 }
 
 class Google_Service_IdentityToolkit_IdentitytoolkitRelyingpartyResetPasswordRequest extends Google_Model
 {
+  protected $internal_gapi_mappings = array(
+  );
   public $email;
   public $newPassword;
   public $oldPassword;
@@ -660,6 +692,8 @@ class Google_Service_IdentityToolkit_IdentitytoolkitRelyingpartyResetPasswordReq
 class Google_Service_IdentityToolkit_IdentitytoolkitRelyingpartySetAccountInfoRequest extends Google_Collection
 {
   protected $collection_key = 'provider';
+  protected $internal_gapi_mappings = array(
+  );
   public $captchaChallenge;
   public $captchaResponse;
   public $displayName;
@@ -786,6 +820,8 @@ class Google_Service_IdentityToolkit_IdentitytoolkitRelyingpartySetAccountInfoRe
 class Google_Service_IdentityToolkit_IdentitytoolkitRelyingpartyUploadAccountRequest extends Google_Collection
 {
   protected $collection_key = 'users';
+  protected $internal_gapi_mappings = array(
+  );
   public $hashAlgorithm;
   public $memoryCost;
   public $rounds;
@@ -857,6 +893,8 @@ class Google_Service_IdentityToolkit_IdentitytoolkitRelyingpartyUploadAccountReq
 
 class Google_Service_IdentityToolkit_IdentitytoolkitRelyingpartyVerifyAssertionRequest extends Google_Model
 {
+  protected $internal_gapi_mappings = array(
+  );
   public $pendingIdToken;
   public $postBody;
   public $requestUri;
@@ -894,6 +932,8 @@ class Google_Service_IdentityToolkit_IdentitytoolkitRelyingpartyVerifyAssertionR
 
 class Google_Service_IdentityToolkit_IdentitytoolkitRelyingpartyVerifyPasswordRequest extends Google_Model
 {
+  protected $internal_gapi_mappings = array(
+  );
   public $captchaChallenge;
   public $captchaResponse;
   public $email;
@@ -953,6 +993,8 @@ class Google_Service_IdentityToolkit_IdentitytoolkitRelyingpartyVerifyPasswordRe
 
 class Google_Service_IdentityToolkit_Relyingparty extends Google_Model
 {
+  protected $internal_gapi_mappings = array(
+  );
   public $captchaResp;
   public $challenge;
   public $email;
@@ -1045,6 +1087,8 @@ class Google_Service_IdentityToolkit_Relyingparty extends Google_Model
 
 class Google_Service_IdentityToolkit_ResetPasswordResponse extends Google_Model
 {
+  protected $internal_gapi_mappings = array(
+  );
   public $email;
   public $kind;
 
@@ -1072,6 +1116,8 @@ class Google_Service_IdentityToolkit_ResetPasswordResponse extends Google_Model
 class Google_Service_IdentityToolkit_SetAccountInfoResponse extends Google_Collection
 {
   protected $collection_key = 'providerUserInfo';
+  protected $internal_gapi_mappings = array(
+  );
   public $displayName;
   public $email;
   public $idToken;
@@ -1132,6 +1178,8 @@ class Google_Service_IdentityToolkit_SetAccountInfoResponse extends Google_Colle
 
 class Google_Service_IdentityToolkit_SetAccountInfoResponseProviderUserInfo extends Google_Model
 {
+  protected $internal_gapi_mappings = array(
+  );
   public $displayName;
   public $photoUrl;
   public $providerId;
@@ -1170,6 +1218,8 @@ class Google_Service_IdentityToolkit_SetAccountInfoResponseProviderUserInfo exte
 class Google_Service_IdentityToolkit_UploadAccountResponse extends Google_Collection
 {
   protected $collection_key = 'error';
+  protected $internal_gapi_mappings = array(
+  );
   protected $errorType = 'Google_Service_IdentityToolkit_UploadAccountResponseError';
   protected $errorDataType = 'array';
   public $kind;
@@ -1197,6 +1247,8 @@ class Google_Service_IdentityToolkit_UploadAccountResponse extends Google_Collec
 
 class Google_Service_IdentityToolkit_UploadAccountResponseError extends Google_Model
 {
+  protected $internal_gapi_mappings = array(
+  );
   public $index;
   public $message;
 
@@ -1224,6 +1276,8 @@ class Google_Service_IdentityToolkit_UploadAccountResponseError extends Google_M
 class Google_Service_IdentityToolkit_UserInfo extends Google_Collection
 {
   protected $collection_key = 'providerUserInfo';
+  protected $internal_gapi_mappings = array(
+  );
   public $displayName;
   public $email;
   public $emailVerified;
@@ -1339,6 +1393,8 @@ class Google_Service_IdentityToolkit_UserInfo extends Google_Collection
 
 class Google_Service_IdentityToolkit_UserInfoProviderUserInfo extends Google_Model
 {
+  protected $internal_gapi_mappings = array(
+  );
   public $displayName;
   public $federatedId;
   public $photoUrl;
@@ -1388,6 +1444,8 @@ class Google_Service_IdentityToolkit_UserInfoProviderUserInfo extends Google_Mod
 class Google_Service_IdentityToolkit_VerifyAssertionResponse extends Google_Collection
 {
   protected $collection_key = 'verifiedProvider';
+  protected $internal_gapi_mappings = array(
+  );
   public $action;
   public $appInstallationUrl;
   public $appScheme;
@@ -1689,6 +1747,8 @@ class Google_Service_IdentityToolkit_VerifyAssertionResponse extends Google_Coll
 
 class Google_Service_IdentityToolkit_VerifyPasswordResponse extends Google_Model
 {
+  protected $internal_gapi_mappings = array(
+  );
   public $displayName;
   public $email;
   public $idToken;
