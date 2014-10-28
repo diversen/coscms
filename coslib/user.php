@@ -123,13 +123,13 @@ class user {
      * @param   mixed array|int   $user options
      * @return  string  $str html or text showing info about the profile
      */
-    public static function getProfileInfo ($user = null){
-        if (!$user) {
-            $user = session::getUserId();
+    public static function getProfileInfo ($user_id = null){
+        if (!$user_id) {
+            $user_id = session::getUserId();
         }
         
         self::initProfile();
-        return self::$profile_object->getProfileInfo($user);
+        return self::$profile_object->getProfileInfo($user_id);
     }
     
     /**

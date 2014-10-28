@@ -163,7 +163,7 @@ class file {
      * It will know if we are using a multi domain setup
      * @param string $dir
      */
-    public static function mkdir ($dir) {
+    public static function mkdir ($dir, $perms = '0777') {
         $full_path = config::getFullFilesPath();
         $dir = $full_path . "$dir";
         
@@ -242,7 +242,6 @@ class file {
             }
         }
         return $ary;
-        
     }
 }
 

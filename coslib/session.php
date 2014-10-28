@@ -127,9 +127,10 @@ class session {
         if (isset($_COOKIE['system_cookie'])){
             
             // user is in session. Can only be this after first request. 
+            /*
             if (isset($_SESSION['in_session'])){
                 return;
-            }
+            }*/
 
             if (isset($_SESSION['id'])){
                 // user is logged in we return

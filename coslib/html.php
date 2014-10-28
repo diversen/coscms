@@ -106,11 +106,13 @@ class html {
      *               stop using the initial set values. Normal 'submit' as
      *               this is normal the name of submit buttom
      */
-    public static function init ($values = array (), $trigger = null) {        
+    public static function init ($values = array (), $trigger = null, $autoencode = false) {        
         
         if (isset($trigger)) {
             self::$autoLoadTrigger = $trigger;
         }
+        
+        
         
         if (!empty(self::$autoLoadTrigger)){
             $trigger = self::$autoLoadTrigger;
@@ -121,6 +123,10 @@ class html {
             } else {
                 self::$values = $values;
             }
+        }
+        
+        if ($autoencode) {
+            self::$autoEncode = true;
         }
         
         if (self::$autoEncode) {
