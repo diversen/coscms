@@ -110,10 +110,11 @@ if (!config::isCli()){
     // after this point we can check if module exists and fire events connected to
     // installed modules
     $db = new db();
-    $moduleloader = new moduleloader();
+    $ml = new moduleloader();
+    
     
     // runlevel 1: merge db config
-    $moduleloader->runLevel(1);
+    $ml->runLevel(1);
 
     // select all db settings and merge them with ini file settings
     $db_settings = $db->selectOne('settings', 'id', 1);
@@ -124,7 +125,7 @@ if (!config::isCli()){
         array_merge(config::$vars['coscms_main'] , $db_settings);
       
     // run level 2: set locales 
-    $moduleloader->runLevel(2);
+    $ml->runLevel(2);
     
     // set locales
     intl::setLocale ();
@@ -133,7 +134,7 @@ if (!config::isCli()){
     intl::setTimezone();
     
     // runlevel 3 - init session
-    $moduleloader->runLevel(3);
+    $ml->runLevel(3);
 
     // start session
     session::initSession();
@@ -143,22 +144,22 @@ if (!config::isCli()){
     intl::setAccountTimezone();
 
     // run level 4 - load language
-    $moduleloader->runLevel(4);
+    $ml->runLevel(4);
     
     // load a 'language_all' file or load all module system language
     // depending on configuration
     lang::loadLanguage();
 
-
-    $moduleloader->runLevel(5);
+    $ml->runLevel(5);
     
     // load url routes if any
     uri_dispatch::setDbRoutes();
     
-    $moduleloader->runLevel(6);
+    $ml->runLevel(6);
 
     $controller = null;
     $route = uri_dispatch::getMatchRoutes();
+
     if ($route) {
         // if any route is found we get controller from match
         // else we load module in default way
@@ -166,10 +167,10 @@ if (!config::isCli()){
     } 
     
     // set module info
-    $moduleloader->setModuleInfo($controller);
+    $ml->setModuleInfo($controller);
     
     // load module
-    $moduleloader->initModule();
+    $ml->initModule();
 
     // include template class found in _COS_HTDOCS . '/templates'
     // only from here we should use template class. 
@@ -189,19 +190,19 @@ if (!config::isCli()){
         $str = uri_dispatch::call($route['method']);       
     } else {
         // or we use default ('old') module loading
-        $str = $moduleloader->getParsedModule();
+        $str = $ml->getParsedModule();
     }
     
     mainTemplate::printHeader();
     echo '<div id="content_module">'.$str.'</div>';
 
-    $moduleloader->runLevel(7);
+    $ml->runLevel(7);
     mainTemplate::printFooter();   
     config::$vars['final_output'] = ob_get_contents();
     ob_end_clean();
 
     // Last divine intervention
     // e.g. Dom or Tidy
-    $moduleloader->runLevel(8); 
+    $ml->runLevel(8); 
     echo config::$vars['final_output'];
 }

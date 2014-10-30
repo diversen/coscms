@@ -80,7 +80,7 @@ class user {
      */
     public static function getAccount ($id = null) {
         if (!$id) { 
-            $id = session::getUserId ();
+            $id = session::getUserId();
         }
         $db = new db();
         $row = $db->selectOne('account', 'id', $id);

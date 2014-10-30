@@ -61,7 +61,9 @@ class session {
         
         // session time
         $session_time = config::getMainIni('session_time');
-        if (!$session_time) $session_time = '0';
+        if (!$session_time) { 
+            $session_time = '0';
+        }
         ini_set("session.cookie_lifetime", $session_time);
 
         // session path
@@ -172,7 +174,6 @@ class session {
                 
                 // get account which is connected to account id
                 $account = user::getAccount($row['account_id']);
-                //$account = $db->selectOne('account', 'id', $row['account_id']);
                 
                 // user with account
                 if (!empty($account)){
@@ -277,7 +278,6 @@ class session {
         
         $days = config::getMainIni('cookie_time');        
         if ($days == -1) {
-            // ten years
             $cookie_time = 365 * 10;
         }
         
