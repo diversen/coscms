@@ -1140,6 +1140,7 @@ EOF;
      * @return string $link the html link
      */
     public static function createLink ($url, $title, $options = array()) {
+        /*
         $rewritten_url = self::getUrl($url);
 
         // if rewritten
@@ -1158,12 +1159,12 @@ EOF;
                 $options['class'] = 'current';
             }
         }
-        
+        */
         if (isset($options['anchor_part'])) {
             $url.= $options['anchor_part'];
             unset($options['anchor_part']);
         }
-
+        
         $options = self::parseExtra($options);
         $link = "<a href=\"$url\" $options>$title</a>";
         return $link;
@@ -1178,6 +1179,7 @@ EOF;
     /**
      * method for getting url fro e.g. creating a link. If rewrite manip is enabled
      * we will fetch the rewritten link from database
+     * @deprecated
      * @param  string $url
      * @return string $url rewritten if rewrite url entered url exists
      */
