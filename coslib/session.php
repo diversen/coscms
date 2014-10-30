@@ -129,10 +129,10 @@ class session {
         if (isset($_COOKIE['system_cookie'])){
             
             // user is in session. Can only be this after first request. 
-            /*
+            
             if (isset($_SESSION['in_session'])){
                 return;
-            }*/
+            }
 
             if (isset($_SESSION['id'])){
                 // user is logged in we return
@@ -151,7 +151,6 @@ class session {
                 // delete system_cookies that are out of date. 
                 $now = date::getDateNow();
                 $last = date::substractDaysFromTimestamp($now, $days);
-                
                 db_q::delete('system_cookie')->
                         filter('account_id =', $row['account_id'])->condition('AND')->
                         filter('last_login <', $last)->
@@ -161,13 +160,19 @@ class session {
                 $last_login = date::getDateNow(array('hms' => true));
                 $new_cookie_id = random::md5();
                 $values = array (
+                    'account_id' => $row['account_id'],
                     'cookie_id' => $new_cookie_id,
                     'last_login' => $last_login);
                 
-                db_q::update('system_cookie')->
+                db_q::delete('system_cookie')->
+                        filter('cookie_id=', @$_COOKIE['system_cookie'])->
+                        exec();
+                
+                db_q::insert('system_cookie')->
                         values($values)->
-                        filter('cookie_id =' , $new_cookie_id)->condition('AND')->
-                        filter('last_login =', $last_login)->exec();
+                        exec();
+                        //filter('cookie_id =' , $new_cookie_id)->condition('AND')->
+                        //filter('last_login =', $last_login)->exec();
                 
                 // set the new cookie
                 self::setCookie('system_cookie', $new_cookie_id);
