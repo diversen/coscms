@@ -1140,26 +1140,6 @@ EOF;
      * @return string $link the html link
      */
     public static function createLink ($url, $title, $options = array()) {
-        /*
-        $rewritten_url = self::getUrl($url);
-
-        // if rewritten
-        if ($rewritten_url != $url) {
-            $orginal = self::getUrl($rewritten_url);
-            if ($orginal == $_SERVER['REQUEST_URI']){
-                if (!isset($options['class'])){
-                    $options['class'] = 'current';
-                }
-            }
-        }
-
-        $url = $rewritten_url;
-        if (isset($_SERVER['REQUEST_URI']) && ( $_SERVER['REQUEST_URI'] == $url)) {
-            if (!isset($options['class'])){
-                $options['class'] = 'current';
-            }
-        }
-        */
         if (isset($options['anchor_part'])) {
             $url.= $options['anchor_part'];
             unset($options['anchor_part']);
@@ -1184,13 +1164,6 @@ EOF;
      * @return string $url rewritten if rewrite url entered url exists
      */
     public static function getUrl ($url) {
-       if (moduleloader::isInstalledModule('rewrite')) {
-           moduleloader::includeModule('rewrite');
-            $alt_uri = rewrite::getRowFromRequest(html::specialDecode(rawurldecode($url)));
-            if (isset($alt_uri)){
-                $url = $alt_uri;
-            }
-        }
         return $url;
     }
 

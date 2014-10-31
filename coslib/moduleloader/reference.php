@@ -72,9 +72,6 @@ class moduleloader_reference extends moduleloader {
             if (@method_exists($class, 'getRedirect')) {
                 self::$referenceRedirect = $class::getRedirect(
                     self::$referenceId, self::$referenceOptions);
-                
-                // check if url is a rewritten one
-                self::$referenceRedirect = html::getUrl(self::$referenceRedirect);
             }
             return true;
         }
