@@ -82,7 +82,7 @@
         var ret;
         if ( typeof generateId.c == 'undefined' ) {
             generateId.a = Array ();
-            generateId.c = Array ();
+            generateId.c = 0;
 
         }
         
