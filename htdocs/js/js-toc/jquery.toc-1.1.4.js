@@ -75,12 +75,17 @@
 	        }
 	    });
 	};
-
     /*
      * Generate an anchor id from a string by replacing unwanted characters.
      */
     function generateId(text) {
-        return text.replace(/[ <>#\/\\?&\n]/g, '_');
+        
+        if ( typeof generateId.c == 'undefined' ) {
+            generateId.c = 0;
+        }
+        
+        generateId.c++;
+        return text.replace(/[ <>#\/\\?&\n]/g, '_') + '_' + generateId.c;
     };
 
     /*

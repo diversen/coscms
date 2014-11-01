@@ -25,7 +25,7 @@ class js_toc {
         }
         $str = <<<EOF
     $(document).ready(function() {
-        $('#toc').toc({exclude: '{$options['exclude']}' , context: '{$options['context']}', autoId: true, 'top': 'flaf'});
+        $('#toc').toc({exclude: '{$options['exclude']}' , context: '{$options['context']}', autoId: true, numerate: true});
     });
 EOF;
         template::setStringJs($str);
