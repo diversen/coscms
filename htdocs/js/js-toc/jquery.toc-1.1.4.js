@@ -79,13 +79,24 @@
      * Generate an anchor id from a string by replacing unwanted characters.
      */
     function generateId(text) {
-        
+        var ret;
         if ( typeof generateId.c == 'undefined' ) {
-            generateId.c = 0;
+            generateId.a = Array ();
+            generateId.c = Array ();
+
         }
         
         generateId.c++;
-        return text.replace(/[ <>#\/\\?&\n]/g, '_') + '_' + generateId.c;
+        ret = text.replace(/[ <>#\/\\?&\n]/g, '_');
+        
+        if (generateId.a.indexOf(ret) >= 0) {
+            ret = ret  + '_' + generateId.c;
+        }
+        generateId.a.push(ret);
+        return ret;
+        
+        
+        
     };
 
     /*
