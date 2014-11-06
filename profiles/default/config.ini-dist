@@ -24,7 +24,6 @@ frontpage_module = "content"
 profile_module = "account_profile"
 blocks_top[0] = "/system/blocks/system_admin_menu_top.inc"
 blocks[0] = "/content/blocks/content_tree_keep_state.inc"
-blocks[3] = "/share/blocks/github_share.inc"
 blocks_all = "blocks,blocks_top"
 domain = "default"
 captcha_image_module = 1
