@@ -339,6 +339,19 @@ $_PROFILE_MODULES = array (
     'public_clone_url' => 'git://github.com/diversen/flood.git',
     'private_clone_url' => 'git@github.com:diversen/flood.git',
   ),
+  26 => 
+  array (
+    'id' => '57',
+    'module_name' => 'disqus',
+    'module_version' => '2.41',
+    'menu_item' => '1',
+    'run_level' => '0',
+    'load_on' => NULL,
+    'parent' => NULL,
+    'is_shell' => NULL,
+    'public_clone_url' => 'git://github.com/diversen/disqus.git',
+    'private_clone_url' => 'git@github.com:diversen/disqus.git',
+  ),
 );
 
 $_PROFILE_TEMPLATES = array (
