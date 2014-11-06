@@ -109,7 +109,7 @@ $_PROFILE_MODULES = array (
   array (
     'id' => '14',
     'module_name' => 'comment',
-    'module_version' => '2.62',
+    'module_version' => '3.01',
     'menu_item' => '1',
     'run_level' => '0',
     'load_on' => NULL,
@@ -213,7 +213,7 @@ $_PROFILE_MODULES = array (
   array (
     'id' => '31',
     'module_name' => 'vote',
-    'module_version' => '2.411',
+    'module_version' => '3.01',
     'menu_item' => '0',
     'run_level' => '0',
     'load_on' => NULL,
@@ -226,7 +226,7 @@ $_PROFILE_MODULES = array (
   array (
     'id' => '33',
     'module_name' => 'video',
-    'module_version' => '2.41',
+    'module_version' => '3.01',
     'menu_item' => '0',
     'run_level' => '0',
     'load_on' => NULL,
@@ -265,7 +265,7 @@ $_PROFILE_MODULES = array (
   array (
     'id' => '36',
     'module_name' => 'reload_site',
-    'module_version' => '2.41',
+    'module_version' => '3.01',
     'menu_item' => '0',
     'run_level' => '0',
     'load_on' => NULL,
@@ -278,7 +278,7 @@ $_PROFILE_MODULES = array (
   array (
     'id' => '38',
     'module_name' => 'gallery',
-    'module_version' => '2.41',
+    'module_version' => '3.01',
     'menu_item' => '1',
     'run_level' => '0',
     'load_on' => NULL,
@@ -317,7 +317,7 @@ $_PROFILE_MODULES = array (
   array (
     'id' => '55',
     'module_name' => 'nopostfiles',
-    'module_version' => '2.41',
+    'module_version' => '3.01',
     'menu_item' => '0',
     'run_level' => '1',
     'load_on' => NULL,
@@ -330,7 +330,7 @@ $_PROFILE_MODULES = array (
   array (
     'id' => '56',
     'module_name' => 'flood',
-    'module_version' => '2.41',
+    'module_version' => '3.01',
     'menu_item' => '0',
     'run_level' => '0',
     'load_on' => NULL,
