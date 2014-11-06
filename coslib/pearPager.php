@@ -110,7 +110,7 @@ class pearPager {
         $str = '';
         $str.='<div class="pager_wrap">';
         $str.= "<div class =\"pager\">" . $pager->links . "</div>\n" ;
-        $str.='</div class="pager_wrap">';
+        $str.='</div>';
         return $str;
 
     }

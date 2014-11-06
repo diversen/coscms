@@ -362,7 +362,7 @@ class template {
      * method for getting end of html
      * @return  string  end of html
      */
-    public static function geStartHTML(){
+    public static function getStartHTML(){
         return self::$startHTML;
     }
     

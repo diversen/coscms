@@ -99,7 +99,7 @@ class layout2 extends layout {
         $str = '';
         $str.= '<ul>' . "\n";
         $str.= self::parseMainMenuList();
-        $str .= "</ul>\n";
+        $str.= "</ul>\n";
         return $str;
     }
 }

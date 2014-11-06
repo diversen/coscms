@@ -715,7 +715,15 @@ class layout {
         if (!empty(self::$menu['extra'])) {
             $str.= self::parseModuleMenuExtra();
         }
+        
+        if (isset(self::$menu['str'])) {
+            $str.=self::$menu['str'];
+        }
         return $str;
+    }
+    
+    public static function setStrAfterMenu($str) {
+        self::$menu['str'] = $str;
     }
 
     /**
