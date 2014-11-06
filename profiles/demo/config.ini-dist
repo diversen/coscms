@@ -20,7 +20,6 @@ lang = "en"
 session_time = 0
 session_path = "/"
 session_host = ""
-session_handler = "memcache"
 cookie_time = -1
 frontpage_module = "content"
 profile_module = "account_profile"

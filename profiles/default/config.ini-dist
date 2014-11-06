@@ -19,7 +19,6 @@ lang = "en"
 session_time = 0
 session_path = "/"
 session_host = ""
-session_handler = "memcache"
 cookie_time = -1
 frontpage_module = "content"
 profile_module = "account_profile"
@@ -32,7 +31,6 @@ captcha_image_module = 1
 captcha_image_chars = 4
 cached_assets = 1
 cached_assets_reload = 0
-hostname = "mail.os-cms.dk"
 media_width = 600
 debug = 1
 
