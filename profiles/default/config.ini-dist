@@ -35,11 +35,4 @@ cached_assets_reload = 0
 hostname = "mail.os-cms.dk"
 media_width = 600
 debug = 1
-server_name = "default"
-server_redirect = "default"
-[development]
-hostname = "dennis-Rev-1-0:dennis-E122X"
-url = "mysql:dbname=default;host=localhost;charset=utf8"
-username = "root"
-password = "iversen1234"
-server_name = "default"
+
