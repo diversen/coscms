@@ -198,19 +198,6 @@ $_PROFILE_MODULES = array (
   ),
   15 => 
   array (
-    'id' => '20',
-    'module_name' => 'content',
-    'module_version' => '2.71',
-    'menu_item' => '1',
-    'run_level' => '0',
-    'load_on' => NULL,
-    'parent' => NULL,
-    'is_shell' => NULL,
-    'public_clone_url' => 'git://github.com/diversen/content.git',
-    'private_clone_url' => 'git@github.com:diversen/content.git',
-  ),
-  16 => 
-  array (
     'id' => '21',
     'module_name' => 'account_profile',
     'module_version' => '2.41',
@@ -222,20 +209,20 @@ $_PROFILE_MODULES = array (
     'public_clone_url' => 'git://github.com/diversen/account_profile.git',
     'private_clone_url' => 'git@github.com:diversen/account_profile.git',
   ),
-  17 => 
+  16 => 
   array (
     'id' => '25',
     'module_name' => 'counter',
     'module_version' => '2.45',
     'menu_item' => '0',
-    'run_level' => '0,5',
+    'run_level' => '0,6',
     'load_on' => NULL,
     'parent' => NULL,
     'is_shell' => NULL,
     'public_clone_url' => 'git://github.com/diversen/counter.git',
     'private_clone_url' => 'git@github.com:diversen/counter.git',
   ),
-  18 => 
+  17 => 
   array (
     'id' => '26',
     'module_name' => 'google_translate',
@@ -248,7 +235,7 @@ $_PROFILE_MODULES = array (
     'public_clone_url' => 'git://github.com/diversen/google_translate.git',
     'private_clone_url' => 'git@github.com:diversen/google_translate.git',
   ),
-  19 => 
+  18 => 
   array (
     'id' => '29',
     'module_name' => 'google_analytics',
@@ -261,7 +248,7 @@ $_PROFILE_MODULES = array (
     'public_clone_url' => 'git://github.com/diversen/google_analytics.git',
     'private_clone_url' => 'git@github.com:diversen/google_analytics.git',
   ),
-  20 => 
+  19 => 
   array (
     'id' => '30',
     'module_name' => 'share',
@@ -273,6 +260,19 @@ $_PROFILE_MODULES = array (
     'is_shell' => NULL,
     'public_clone_url' => 'git://github.com/diversen/share.git',
     'private_clone_url' => 'git@github.com:diversen/share.git',
+  ),
+  20 => 
+  array (
+    'id' => '32',
+    'module_name' => 'content',
+    'module_version' => '2.71',
+    'menu_item' => '1',
+    'run_level' => '0',
+    'load_on' => NULL,
+    'parent' => NULL,
+    'is_shell' => '1',
+    'public_clone_url' => 'git://github.com/diversen/content.git',
+    'private_clone_url' => 'git@github.com:diversen/content.git',
   ),
 );
 
