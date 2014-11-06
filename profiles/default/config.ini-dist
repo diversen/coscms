@@ -1,4 +1,4 @@
-url = "mysql:dbname=test;host=localhost;charset=utf8"
+url = "mysql:dbname=default;host=localhost;charset=utf8"
 username = ""
 password = ""
 db_init = "SET NAMES utf8"
@@ -19,6 +19,7 @@ lang = "en"
 session_time = 0
 session_path = "/"
 session_host = ""
+session_handler = "memcache"
 cookie_time = -1
 frontpage_module = "content"
 profile_module = "account_profile"
@@ -30,9 +31,15 @@ domain = "default"
 captcha_image_module = 1
 captcha_image_chars = 4
 cached_assets = 1
-cached_assets_reload = 1
+cached_assets_reload = 0
 hostname = "mail.os-cms.dk"
 media_width = 600
 debug = 1
-server_name = "test"
-
+server_name = "default"
+server_redirect = "default"
+[development]
+hostname = "dennis-Rev-1-0:dennis-E122X"
+url = "mysql:dbname=default;host=localhost;charset=utf8"
+username = "root"
+password = "iversen1234"
+server_name = "default"

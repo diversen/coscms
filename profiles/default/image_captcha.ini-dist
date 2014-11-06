@@ -1,2 +1,0 @@
-image_captcha_font = "/fonts/captcha.ttf"
-image_captcha_method = "stringrandom"
