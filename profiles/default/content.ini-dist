@@ -1,6 +1,7 @@
 content_allow_edit = "admin"
 content_article_crumb = 0
 content_show_menu = 1
+content_multi_book = 1
 content_article_abstract = 1
 content_article_jquery_toc = 1
 content_article_filters[0] = "cosmarkdown"
