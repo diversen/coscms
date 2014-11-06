@@ -5,7 +5,7 @@ $_PROFILE_MODULES = array (
   array (
     'id' => '1',
     'module_name' => 'system',
-    'module_version' => '2.41',
+    'module_version' => '3.01',
     'menu_item' => '1',
     'run_level' => '0',
     'load_on' => NULL,
@@ -18,7 +18,7 @@ $_PROFILE_MODULES = array (
   array (
     'id' => '2',
     'module_name' => 'settings',
-    'module_version' => '2.41',
+    'module_version' => '3.01',
     'menu_item' => '1',
     'run_level' => '0',
     'load_on' => NULL,
@@ -31,7 +31,7 @@ $_PROFILE_MODULES = array (
   array (
     'id' => '3',
     'module_name' => 'error',
-    'module_version' => '2.41',
+    'module_version' => '3.01',
     'menu_item' => '0',
     'run_level' => '0',
     'load_on' => NULL,
@@ -44,7 +44,7 @@ $_PROFILE_MODULES = array (
   array (
     'id' => '4',
     'module_name' => 'content',
-    'module_version' => '2.71',
+    'module_version' => '3.01',
     'menu_item' => '1',
     'run_level' => '0',
     'load_on' => NULL,
@@ -57,7 +57,7 @@ $_PROFILE_MODULES = array (
   array (
     'id' => '5',
     'module_name' => 'files',
-    'module_version' => '2.52',
+    'module_version' => '3.01',
     'menu_item' => '0',
     'run_level' => '0',
     'load_on' => NULL,
@@ -70,7 +70,7 @@ $_PROFILE_MODULES = array (
   array (
     'id' => '6',
     'module_name' => 'account',
-    'module_version' => '2.41',
+    'module_version' => '3.01',
     'menu_item' => '1',
     'run_level' => '0',
     'load_on' => NULL,
@@ -83,7 +83,7 @@ $_PROFILE_MODULES = array (
   array (
     'id' => '7',
     'module_name' => 'google_analytics',
-    'module_version' => '2.41',
+    'module_version' => '3.01',
     'menu_item' => '0',
     'run_level' => '0,5',
     'load_on' => NULL,
@@ -96,7 +96,7 @@ $_PROFILE_MODULES = array (
   array (
     'id' => '8',
     'module_name' => 'account_profile',
-    'module_version' => '2.41',
+    'module_version' => '3.01',
     'menu_item' => '0',
     'run_level' => '0',
     'load_on' => NULL,
@@ -122,7 +122,7 @@ $_PROFILE_MODULES = array (
   array (
     'id' => '15',
     'module_name' => 'tags',
-    'module_version' => '2.513',
+    'module_version' => '3.01',
     'menu_item' => '1',
     'run_level' => '0',
     'load_on' => NULL,
@@ -135,7 +135,7 @@ $_PROFILE_MODULES = array (
   array (
     'id' => '17',
     'module_name' => 'remote',
-    'module_version' => '2.41',
+    'module_version' => '3.01',
     'menu_item' => '0',
     'run_level' => '0',
     'load_on' => NULL,
@@ -148,7 +148,7 @@ $_PROFILE_MODULES = array (
   array (
     'id' => '18',
     'module_name' => 'rss',
-    'module_version' => '2.41',
+    'module_version' => '3.01',
     'menu_item' => '0',
     'run_level' => '0',
     'load_on' => NULL,
@@ -161,7 +161,7 @@ $_PROFILE_MODULES = array (
   array (
     'id' => '26',
     'module_name' => 'configdb',
-    'module_version' => '2.41',
+    'module_version' => '3.01',
     'menu_item' => '0',
     'run_level' => '2',
     'load_on' => NULL,
@@ -174,7 +174,7 @@ $_PROFILE_MODULES = array (
   array (
     'id' => '27',
     'module_name' => 'block_manip',
-    'module_version' => '2.41',
+    'module_version' => '3.01',
     'menu_item' => '1',
     'run_level' => '0',
     'load_on' => NULL,
@@ -187,7 +187,7 @@ $_PROFILE_MODULES = array (
   array (
     'id' => '28',
     'module_name' => 'locales',
-    'module_version' => '2.41',
+    'module_version' => '3.01',
     'menu_item' => '1',
     'run_level' => '0',
     'load_on' => NULL,
@@ -200,7 +200,7 @@ $_PROFILE_MODULES = array (
   array (
     'id' => '29',
     'module_name' => 'menus',
-    'module_version' => '2.41',
+    'module_version' => '3.01',
     'menu_item' => '1',
     'run_level' => '0',
     'load_on' => NULL,
@@ -239,7 +239,7 @@ $_PROFILE_MODULES = array (
   array (
     'id' => '34',
     'module_name' => 'image',
-    'module_version' => '2.55',
+    'module_version' => '3.01',
     'menu_item' => '0',
     'run_level' => '0',
     'load_on' => NULL,
@@ -252,7 +252,7 @@ $_PROFILE_MODULES = array (
   array (
     'id' => '35',
     'module_name' => 'jquerysort',
-    'module_version' => '2.41',
+    'module_version' => '3.01',
     'menu_item' => '0',
     'run_level' => '0',
     'load_on' => NULL,
@@ -291,7 +291,7 @@ $_PROFILE_MODULES = array (
   array (
     'id' => '43',
     'module_name' => 'share',
-    'module_version' => '2.41',
+    'module_version' => '3.01',
     'menu_item' => '1',
     'run_level' => '0',
     'load_on' => NULL,
@@ -304,7 +304,7 @@ $_PROFILE_MODULES = array (
   array (
     'id' => '52',
     'module_name' => 'blog',
-    'module_version' => '2.52',
+    'module_version' => '3.01',
     'menu_item' => '1',
     'run_level' => '0',
     'load_on' => NULL,
@@ -343,7 +343,7 @@ $_PROFILE_MODULES = array (
   array (
     'id' => '57',
     'module_name' => 'disqus',
-    'module_version' => '2.41',
+    'module_version' => '3.01',
     'menu_item' => '1',
     'run_level' => '0',
     'load_on' => NULL,
@@ -357,36 +357,29 @@ $_PROFILE_MODULES = array (
 $_PROFILE_TEMPLATES = array (
   0 => 
   array (
-    'public_clone_url' => 'git://github.com/diversen/js-toc.git',
-    'private_clone_url' => 'git@github.com:diversen/js-toc.git',
-    'module_version' => '2.41',
-    'module_name' => 'js-toc',
-  ),
-  1 => 
-  array (
     'module_version' => 'v2.1.5',
     'module_name' => 'fancyBox',
     'public_clone_url' => 'https://github.com/fancyapps/fancyBox.git',
   ),
-  2 => 
+  1 => 
   array (
     'public_clone_url' => 'git://github.com/diversen/openid-selector.git',
     'private_clone_url' => 'git@github.com:diversen/openid-selector.git',
-    'module_version' => '2.41',
+    'module_version' => '3.01',
     'module_name' => 'openid-selector',
   ),
-  3 => 
+  2 => 
   array (
     'public_clone_url' => 'git://github.com/diversen/zimpleza.git',
     'private_clone_url' => 'git@github.com:diversen/zimpleza.git',
-    'module_version' => '2.41',
+    'module_version' => '3.01',
     'module_name' => 'zimpleza',
   ),
-  4 => 
+  3 => 
   array (
     'public_clone_url' => 'git://github.com/diversen/jquery-markedit.git',
     'private_clone_url' => 'git@github.com:diversen/jquery-markedit.git',
-    'module_version' => '2.41',
+    'module_version' => '3.01',
     'module_name' => 'jquery-markedit',
   ),
 );
