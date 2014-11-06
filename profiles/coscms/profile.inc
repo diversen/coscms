@@ -44,7 +44,7 @@ $_PROFILE_MODULES = array (
   array (
     'id' => '6',
     'module_name' => 'content',
-    'module_version' => '2.63',
+    'module_version' => '2.71',
     'menu_item' => '1',
     'run_level' => '0',
     'load_on' => NULL,
@@ -226,7 +226,7 @@ $_PROFILE_MODULES = array (
   array (
     'id' => '246',
     'module_name' => 'image',
-    'module_version' => '2.52',
+    'module_version' => '2.55',
     'menu_item' => '0',
     'run_level' => '0',
     'load_on' => NULL,
@@ -250,32 +250,6 @@ $_PROFILE_MODULES = array (
   ),
   19 => 
   array (
-    'id' => '249',
-    'module_name' => 'questions',
-    'module_version' => '2.52',
-    'menu_item' => '1',
-    'run_level' => '0',
-    'load_on' => NULL,
-    'parent' => NULL,
-    'is_shell' => NULL,
-    'public_clone_url' => 'git://github.com/diversen/questions.git',
-    'private_clone_url' => 'git@github.com:diversen/questions.git',
-  ),
-  20 => 
-  array (
-    'id' => '250',
-    'module_name' => 'vote',
-    'module_version' => '2.411',
-    'menu_item' => '0',
-    'run_level' => '0',
-    'load_on' => NULL,
-    'parent' => NULL,
-    'is_shell' => NULL,
-    'public_clone_url' => 'git://github.com/diversen/vote.git',
-    'private_clone_url' => 'git@github.com:diversen/vote.git',
-  ),
-  21 => 
-  array (
     'id' => '251',
     'module_name' => 'flood',
     'module_version' => '2.41',
@@ -287,7 +261,7 @@ $_PROFILE_MODULES = array (
     'public_clone_url' => 'git://github.com/diversen/flood.git',
     'private_clone_url' => 'git@github.com:diversen/flood.git',
   ),
-  22 => 
+  20 => 
   array (
     'id' => '254',
     'module_name' => 'block_manip',
@@ -300,61 +274,48 @@ $_PROFILE_MODULES = array (
     'public_clone_url' => 'git://github.com/diversen/block_manip.git',
     'private_clone_url' => 'git@github.com:diversen/block_manip.git',
   ),
-  23 => 
+  21 => 
   array (
-    'id' => '261',
-    'module_name' => 'counter',
-    'module_version' => '2.45',
+    'id' => '259',
+    'module_name' => 'google_translate',
+    'module_version' => '2.41',
     'menu_item' => '0',
-    'run_level' => '0,6',
-    'load_on' => NULL,
-    'parent' => NULL,
-    'is_shell' => NULL,
-    'public_clone_url' => 'git://github.com/diversen/counter.git',
-    'private_clone_url' => 'git@github.com:diversen/counter.git',
-  ),
-  24 => 
-  array (
-    'id' => '266',
-    'module_name' => 'comment',
-    'module_version' => '2.62',
-    'menu_item' => '1',
     'run_level' => '0',
     'load_on' => NULL,
     'parent' => NULL,
     'is_shell' => '1',
-    'public_clone_url' => 'git://github.com/diversen/comment.git',
-    'private_clone_url' => 'git@github.com:diversen/comment.git',
+    'public_clone_url' => 'git://github.com/diversen/google_translate.git',
+    'private_clone_url' => 'git@github.com:diversen/google_translate.git',
   ),
-  25 => 
+  22 => 
   array (
-    'id' => '267',
-    'module_name' => 'follow',
-    'module_version' => '2.61',
+    'id' => '264',
+    'module_name' => 'disqus',
+    'module_version' => '2.41',
     'menu_item' => '0',
     'run_level' => '0',
     'load_on' => NULL,
     'parent' => NULL,
     'is_shell' => NULL,
-    'public_clone_url' => 'git://github.com/diversen/follow.git',
-    'private_clone_url' => 'git@github.com:diversen/follow.git',
+    'public_clone_url' => 'git://github.com/diversen/disqus.git',
+    'private_clone_url' => 'git@github.com:diversen/disqus.git',
   ),
 );
 
 $_PROFILE_TEMPLATES = array (
   0 => 
   array (
-    'public_clone_url' => 'git://github.com/diversen/zimpleza.git',
-    'private_clone_url' => 'git@github.com:diversen/zimpleza.git',
-    'module_version' => '2.41',
-    'module_name' => 'zimpleza',
-  ),
-  1 => 
-  array (
     'public_clone_url' => 'git://github.com/diversen/openid-selector.git',
     'private_clone_url' => 'git@github.com:diversen/openid-selector.git',
     'module_version' => '2.41',
     'module_name' => 'openid-selector',
+  ),
+  1 => 
+  array (
+    'public_clone_url' => 'git://github.com/diversen/zimpleza.git',
+    'private_clone_url' => 'git@github.com:diversen/zimpleza.git',
+    'module_version' => '2.41',
+    'module_name' => 'zimpleza',
   ),
   2 => 
   array (

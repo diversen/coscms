@@ -1,8 +1,7 @@
-url = "mysql:dbname=coscms;host=localhost"
+url = "mysql:dbname=coscms;host=localhost;charset=utf8"
+db_init = "SET NAMES utf8"
 username = ""
 password = ""
-server_name = "www.coscms.org"
-server_redirect = "www.coscms.org"
 domain = "default"
 site_email = "coscms <mail@coscms.org>"
 date_default_timezone = "Europe/Copenhagen"
@@ -12,6 +11,7 @@ locale = "en_GB.utf8"
 debug = 1
 send_mail = 1
 smtp_mail = 1
+system_email = "dennis.iversen@gmail.com"
 smtp_params_host = "mail.os-cms.dk"
 smtp_params_port = 465
 smtp_params_auth = "true"
@@ -19,10 +19,6 @@ smtp_params_username = ""
 smtp_params_password = ""
 language = "en_GB"
 lang = "en"
-session_time = 0
-session_path = "/"
-session_host = ""
-session_handler = "memcache"
 cookie_time = -1
 frontpage_module = "content"
 profile_module = "account_profile"
@@ -31,6 +27,7 @@ blocks[1] = "/content/blocks/content_tree_keep_state.inc"
 blocks[2] = "/share/blocks/github_share.inc"
 blocks_all = "blocks,blocks_top"
 captcha_image_module = "yes"
+image_driver = "Imagick3"
 color_shell = "yes"
 cached_assets = 1
 cached_assets_reload = 0
@@ -39,13 +36,5 @@ imap_user = ""
 imap_password = ""
 imap_ssl = "TLS"
 filters_allow_files = 1
-[stage]
-hostname = "dennis-Rev-1-0:dennis-Lenovo-G500"
-server_name = "dbi.no-ip.org"
-server_redirect = "dbi.no-ip.org"
-cashed_assets_reload = 1
-[development]
-hostname = "dennis-Rev-1-0:dennis-Lenovo-G500"
 server_name = "coscms"
 server_redirect = "coscms"
-cashed_assets_reload = 1
