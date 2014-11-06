@@ -242,7 +242,7 @@ class config {
      *                      function will return production
      */
     public static function getEnvServer () {
-        if (self::serverMatch(config::$vars['coscms_main']['server_name'])) {
+        if (self::serverMatch(config::getMainIni('server_name'))) {
             self::$env = 'production';
             return 'production';
         }
