@@ -31,5 +31,4 @@ captcha_image_chars = 4
 cached_assets = 1
 cached_assets_reload = 0
 media_width = 600
-debug = 1
 
