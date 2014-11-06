@@ -4,4 +4,4 @@ account_profile_image_size_small = 45
 account_profile_image_size_large = 160
 account_profile_fields = "screenname,firstname,lastname,email,website,birthday,description"
 account_profile_jquery_markdown = 1
-account_profile_simple = 0
+account_profile_simple = 1
