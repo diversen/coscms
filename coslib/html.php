@@ -672,9 +672,9 @@ class html {
     public static function file ($name, $extra = array()) {
         //get unique id
         $up_id = uniqid();
-        $js = self::apcJs($up_id);
+        echo self::apcJs($up_id);
         
-        template::setStringJs($js);
+        //template::setStringJs($js);
         if (!isset($extra['size'])){
             $extra['size'] = HTML_FORM_TEXT_SIZE;
         }
@@ -751,7 +751,6 @@ EOF;
     });
 </script>
     <?php
-
         return ob_get_clean();
     }
     
@@ -765,10 +764,7 @@ EOF;
      * @param array $options
      */
     public static function fileWithLabel ($filename, $max_bytes, $options = array()) { 
-    
-        
-        
-        
+
         $bytes = upload::getNativeMaxUpload();
         if ($max_bytes < $bytes) {
             $bytes = $max_bytes;
@@ -796,35 +792,31 @@ EOF;
     public static function apcJs ($apc_id) {
             
         $form_id = self::$internal['form_id'];
-        $str = <<<EOF
+                ob_start (); ?>
+
 <!--display bar only if file is chosen-->
-
+<script>
 $(document).ready(function() { 
-//
-
-//show the progress bar only if a file field was clicked
-	var show_bar = 0;
+    //show the progress bar only if a file field was clicked
+    var show_bar = 0;
     $('input[type="file"]').click(function(){
-		show_bar = 1;
+        show_bar = 1;
     });
 
-//show iframe on form submit
-    $("#$form_id").submit(function(){
-
-		if (show_bar === 1) { 
-			$('#upload_frame').show();
-			function set () {
-				$('#upload_frame').attr('src','/upload.php?up_id=$apc_id');
-			}
-			setTimeout(set);
-		}
+    //show iframe on form submit
+    $("#<?=$form_id?>").submit(function(){
+        if (show_bar === 1) { 
+            $('#upload_frame').show();
+                function set () {
+                    $('#upload_frame').attr('src','/upload.php?up_id=<?=$apc_id?>');
+                }
+            setTimeout(set);
+        }
     });
-//
-
 });
-
-EOF;
-        return $str;
+</script>
+    <?php
+        return ob_get_clean();
     }
 
     /**
