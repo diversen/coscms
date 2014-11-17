@@ -9,9 +9,9 @@ class html_upload {
      */
     public function fileHtml5($url) {
         template_assets::setJs('/js/jquery.html5_upload.js');
-        $str = $this->getHtml();
-        $str.= $this->getJs($url);
-        return $str;
+        $js = $this->getJs($url);
+        template_assets::setStringJs($js);
+        return $this->getHtml();
         
     }
     
@@ -35,7 +35,6 @@ class html_upload {
 
         ob_start();
         ?>
-        <script type="text/javascript">
             $(function () {
                 $("#html5_upload_field").html5_upload({
                     url: '<?= $url ?>',
@@ -64,7 +63,7 @@ class html_upload {
                     }
                 });
             });
-        </script>
+
         <?php
         return ob_get_clean();
     }
