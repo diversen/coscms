@@ -25,6 +25,8 @@ class layout_ext extends layout {
         $str.= MENU_LIST_START . "\n";
         $num_items = $ex = count($menu);
 
+        //$options['class'] = $options['class'] . " module_menu_link ";
+        $options = array ('class' => 'module_menu_link');
         foreach($menu as $v){
             if (!self::checkMenuAuth($v)) {
                 continue;
@@ -36,7 +38,7 @@ class layout_ext extends layout {
             }
             $num_items--;
 
-            $str .= html::createLink($v['url'], $v['title']);
+            $str .= html::createLink($v['url'], $v['title'], $options);
             $str .= MENU_SUBLIST_END;
         }
         $str.= MENU_LIST_END . "\n";

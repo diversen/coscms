@@ -461,16 +461,13 @@ class layout {
         $ary = parse_url($menu['url']);
         $options = array ();
 
-        
+        $options['class'] = 'module_menu_link';
         if ( !empty($ary['path']) && !empty(uri::$info['module_name']) ) {
-  
             $module_path = '/' . uri::$info['module_name'];
             if (strstr($ary['path'], $module_path)) {
-                $options['class'] = 'current';
+                $options['class'] = $options['class'] . ' current';
             }
-           
         }
-
         return $options;
 
     }
@@ -600,13 +597,8 @@ class layout {
             }
             
             $options = self::getMenuLinkOptions($v);
-            
             $num_items--; 
-            
-            if (!isset($v['extra'])) {
-                $v['extra'] = array ();
-            }
-            $str.= html::createLink($v['url'], $v['title'], $v['extra']);
+            $str.= html::createLink($v['url'], $v['title'], $options);
             $str.= "</li>\n";
         }
         

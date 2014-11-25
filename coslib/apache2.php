@@ -52,7 +52,7 @@ class apache2 {
         
         if ($version['minor'] >= 4) {
             $VERSION_2_4_x = <<<EOF
-        Options Indexes FollowSymLinks
+        Options FollowSymLinks
         AllowOverride All
         Require all granted
 EOF;
@@ -107,7 +107,7 @@ EOD;
      */
     public static function get2_4_conf () {
         $str = <<<EOF
-    Options Indexes FollowSymLinks
+    Options FollowSymLinks
     AllowOverride All
     Require all granted
 EOF;
@@ -127,7 +127,7 @@ EOF;
         
         if ($version['minor'] >= 4) {
             $VERSION_2_4_x = <<<EOF
-        Options Indexes FollowSymLinks
+        Options FollowSymLinks
         AllowOverride All
         Require all granted
 EOF;
