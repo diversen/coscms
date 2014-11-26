@@ -25,6 +25,7 @@ function cos_chmod_files(){
 
     $files_path = _COS_PATH . '/htdocs/files ';
     $files_path.= _COS_PATH . '/logs ';
+    $files_path.= _COS_PATH . '/private ';
     $files_path.= _COS_PATH . '/config/multi';
     $command = "chown -R $owner:$group $files_path";
     cos_exec($command);

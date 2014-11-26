@@ -63,10 +63,38 @@ class file {
      * @param string $pattern a given fnmatch() pattern
      * return array $ary an array with the files found. 
      */
-    public static function getFileListRecursive ($start_dir, $pattern = null) {
-        return get_file_list_recursive($start_dir, $pattern);
+    public static function getFileListRecursive($start_dir, $pattern = null) {
+
+        $files = array();
+        if (is_dir($start_dir)) {
+            $fh = opendir($start_dir);
+            while (($file = readdir($fh)) !== false) {
+                // skip hidden files and dirs and recursing if necessary
+                if (strpos($file, '.') === 0)
+                    continue;
+
+                $filepath = $start_dir . '/' . $file;
+                if (is_dir($filepath)) {
+                    $files = array_merge($files, file::getFileListRecursive($filepath, $pattern));
+                } else {
+                    if (isset($pattern)) {
+                        if (fnmatch($pattern, $filepath)) {
+                            array_push($files, $filepath);
+                        }
+                    } else {
+                        array_push($files, $filepath);
+                    }
+                }
+            }
+            closedir($fh);
+        } else {
+            // false if the function was called with an invalid non-directory argument
+            $files = false;
+        }
+
+        return $files;
     }
-    
+
     /**
      * remove single file or array of files
      * @param string|array $files
@@ -246,52 +274,6 @@ class file {
 }
 
 /**
- * @ignore
- * @see file::getFileList
- */
-
-function get_file_list($dir, $options = null){
-    return file::getFileList($dir, $options);
-}
-
-
-
-/**
- * @ignore
- * @deprecated use file::getFileListRecursive($start_dir)
- */
-function get_file_list_recursive($start_dir, $pattern = null) {
-
-    $files = array();
-    if (is_dir($start_dir)) {
-        $fh = opendir($start_dir);
-        while (($file = readdir($fh)) !== false) {
-            // skip hidden files and dirs and recursing if necessary
-            if (strpos($file, '.')=== 0) continue;
-            
-            $filepath = $start_dir . '/' . $file;
-            if ( is_dir($filepath) ) {
-                $files = array_merge($files, file::getFileListRecursive($filepath, $pattern));
-            } else {
-                if (isset($pattern)) {
-                    if (fnmatch($pattern, $filepath)) {
-                        array_push($files, $filepath);
-                    }
-                } else {
-                    array_push($files, $filepath);
-                }
-            }
-        }
-        closedir($fh);
-    } else {
-        // false if the function was called with an invalid non-directory argument
-        $files = false;
-    }
-
-    return $files;
-}
-
-/**
  * transforms bytes into human readable
  * Found on stackoverflow. From kohana.
  * @param int $bytes
@@ -325,12 +307,4 @@ function transform_bytes($bytes, $force_unit = NULL, $format = NULL, $si = TRUE)
     }
 
     return sprintf($format, $bytes / pow($mod, $power), $units[$power]);
-}
-
-/**
- * rm dir recursively
- * @param string $dir 
- */
-function rrmdir($dir) {
-    file::rrmdir($dir);
 }

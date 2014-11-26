@@ -1142,12 +1142,6 @@ $(document).ready(function() {
         $link = "<a href=\"$url\" $options>$title</a>";
         return $link;
     }
-    
-    public static function createLinkSimple ($url, $title, $options = array ()) {
-        $options = self::parseExtra($options);
-        $link = "<a href=\"$url\" $options>$title</a>";
-        return $link;
-    }
 
     /**
      * method for getting url fro e.g. creating a link. If rewrite manip is enabled
