@@ -42,7 +42,6 @@ class log {
                 error_log($message);
             }
         }
-
     }
     
     
