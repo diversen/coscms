@@ -1234,28 +1234,28 @@
     },
     {
         "name": "symfony/yaml",
-        "version": "v2.5.7",
-        "version_normalized": "2.5.7.0",
+        "version": "v2.6.0",
+        "version_normalized": "2.6.0.0",
         "target-dir": "Symfony/Component/Yaml",
         "source": {
             "type": "git",
             "url": "https://github.com/symfony/Yaml.git",
-            "reference": "900d38bc8f74a50343ce65dd1c1e9819658ee56b"
+            "reference": "51c845cf3e4bfc182d1d5c05ed1c7338361d86f8"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/symfony/Yaml/zipball/900d38bc8f74a50343ce65dd1c1e9819658ee56b",
-            "reference": "900d38bc8f74a50343ce65dd1c1e9819658ee56b",
+            "url": "https://api.github.com/repos/symfony/Yaml/zipball/51c845cf3e4bfc182d1d5c05ed1c7338361d86f8",
+            "reference": "51c845cf3e4bfc182d1d5c05ed1c7338361d86f8",
             "shasum": ""
         },
         "require": {
             "php": ">=5.3.3"
         },
-        "time": "2014-11-20 13:22:25",
+        "time": "2014-11-20 13:24:23",
         "type": "library",
         "extra": {
             "branch-alias": {
-                "dev-master": "2.5-dev"
+                "dev-master": "2.6-dev"
             }
         },
         "installation-source": "dist",
@@ -1279,6 +1279,55 @@
             }
         ],
         "description": "Symfony Yaml Component",
+        "homepage": "http://symfony.com"
+    },
+    {
+        "name": "symfony/filesystem",
+        "version": "v2.6.0",
+        "version_normalized": "2.6.0.0",
+        "target-dir": "Symfony/Component/Filesystem",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/symfony/Filesystem.git",
+            "reference": "6f7c7e42f20ee200d8ac5d2ec1d2a524138305e0"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/symfony/Filesystem/zipball/6f7c7e42f20ee200d8ac5d2ec1d2a524138305e0",
+            "reference": "6f7c7e42f20ee200d8ac5d2ec1d2a524138305e0",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.3.3"
+        },
+        "time": "2014-11-16 17:28:09",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "2.6-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-0": {
+                "Symfony\\Component\\Filesystem\\": ""
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Symfony Community",
+                "homepage": "http://symfony.com/contributors"
+            },
+            {
+                "name": "Fabien Potencier",
+                "email": "fabien@symfony.com"
+            }
+        ],
+        "description": "Symfony Filesystem Component",
         "homepage": "http://symfony.com"
     }
 ]

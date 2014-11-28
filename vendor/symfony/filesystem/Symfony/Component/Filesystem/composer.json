@@ -1,7 +1,7 @@
 {
-    "name": "symfony/yaml",
+    "name": "symfony/filesystem",
     "type": "library",
-    "description": "Symfony Yaml Component",
+    "description": "Symfony Filesystem Component",
     "keywords": [],
     "homepage": "http://symfony.com",
     "license": "MIT",
@@ -19,9 +19,9 @@
         "php": ">=5.3.3"
     },
     "autoload": {
-        "psr-0": { "Symfony\\Component\\Yaml\\": "" }
+        "psr-0": { "Symfony\\Component\\Filesystem\\": "" }
     },
-    "target-dir": "Symfony/Component/Yaml",
+    "target-dir": "Symfony/Component/Filesystem",
     "minimum-stability": "dev",
     "extra": {
         "branch-alias": {

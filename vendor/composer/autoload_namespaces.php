@@ -17,5 +17,6 @@ return array(
     'Zend\\Dom\\' => array($vendorDir . '/zendframework/zend-dom'),
     'Zend\\Crypt\\' => array($vendorDir . '/zendframework/zend-crypt'),
     'Symfony\\Component\\Yaml\\' => array($vendorDir . '/symfony/yaml'),
+    'Symfony\\Component\\Filesystem\\' => array($vendorDir . '/symfony/filesystem'),
     'Michelf' => array($vendorDir . '/michelf/php-markdown'),
 );
