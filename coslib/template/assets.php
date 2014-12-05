@@ -642,13 +642,6 @@ EOF;
      * load assets specified in ini settings from template
      */
     public static function loadTemplateIniAssets () {
-
-        $js = config::getModuleIni('template_rel_js');
-        if ($js) {
-            foreach ($js as $val) {
-                self::setRelAsset('js', $val);
-            }   
-        }
         
         $css = config::getModuleIni('template_rel_css');
         if ($css) {
@@ -656,6 +649,14 @@ EOF;
                 self::setRelAsset('css', $val);
             }
         }
+        
+        $js = config::getModuleIni('template_rel_js');
+        if ($js) {
+            foreach ($js as $val) {
+                self::setRelAsset('js', $val);
+            }   
+        }
+        
         
         $js = config::getModuleIni('template_js');
         if ($js) {
