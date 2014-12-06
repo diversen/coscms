@@ -140,44 +140,6 @@
         "description": "Structures_Graph is a package for creating and manipulating graph datastructures. It allows building of directed\nand undirected graphs, with data and metadata stored in nodes. The library provides functions for graph traversing\nas well as for characteristic extraction from the graph topology."
     },
     {
-        "name": "pear-pear.php.net/PEAR",
-        "version": "1.9.4",
-        "version_normalized": "1.9.4.0",
-        "dist": {
-            "type": "file",
-            "url": "http://pear.php.net/get/PEAR-1.9.4.tgz",
-            "reference": null,
-            "shasum": null
-        },
-        "require": {
-            "ext-pcre": "*",
-            "ext-xml": "*",
-            "pear-pear.php.net/archive_tar": ">=1.3.7.0",
-            "pear-pear.php.net/console_getopt": ">=1.2.0.0",
-            "pear-pear.php.net/structures_graph": ">=1.0.2.0",
-            "pear-pear.php.net/xml_util": ">=1.2.0.0",
-            "php": ">=4.4.0.0,!=5.0.0.0,!=5.1.0.0,!=5.1.1.0,!=5.1.2.0,!=5.1.3.0,!=5.1.4.0,!=5.1.5.0"
-        },
-        "conflict": {
-            "pear-pear.php.net/pear_frontend_gtk": "<0.4.0.0",
-            "pear-pear.php.net/pear_frontend_web": "<=0.4.0.0"
-        },
-        "replace": {
-            "pear-pear/pear": "== 1.9.4.0"
-        },
-        "type": "pear-library",
-        "installation-source": "dist",
-        "autoload": {
-            "classmap": [
-                ""
-            ]
-        },
-        "include-path": [
-            "/"
-        ],
-        "description": "The PEAR package contains:\n * the PEAR installer, for creating, distributing\n   and installing packages\n * the PEAR_Exception PHP5 error handling mechanism\n * the PEAR_ErrorStack advanced error handling mechanism\n * the PEAR_Error error handling mechanism\n * the OS_Guess class for retrieving info about the OS\n   where PHP is running on\n * the System class for quick handling of common operations\n   with files and directories\n * the PEAR base class\n  Features in a nutshell:\n  * full support for channels\n  * pre-download dependency validation\n  * new package.xml 2.0 format allows tremendous flexibility while maintaining BC\n  * support for optional dependency groups and limited support for sub-packaging\n  * robust dependency support\n  * full dependency validation on uninstall\n  * remote install for hosts with only ftp access - no more problems with\n    restricted host installation\n  * full support for mirroring\n  * support for bundling several packages into a single tarball\n  * support for static dependencies on a url-based package\n  * support for custom file roles and installation tasks"
-    },
-    {
         "name": "pear-pear.php.net/Validate",
         "version": "0.8.5",
         "version_normalized": "0.8.5.0",
@@ -204,35 +166,6 @@
             "/"
         ],
         "description": "Package to validate various datas. It includes :\n    - numbers (min/max, decimal or not)\n    - email (syntax, domain check, rfc822)\n    - string (predifined type alpha upper and/or lowercase, numeric,...)\n    - date (min, max, rfc822 compliant)\n    - uri (RFC2396)\n    - possibility valid multiple data with a single method call (::multiple)"
-    },
-    {
-        "name": "pear-pear.php.net/Net_SMTP",
-        "version": "1.6.1",
-        "version_normalized": "1.6.1.0",
-        "dist": {
-            "type": "file",
-            "url": "http://pear.php.net/get/Net_SMTP-1.6.1.tgz",
-            "reference": null,
-            "shasum": null
-        },
-        "require": {
-            "pear-pear.php.net/net_socket": ">=1.0.7.0",
-            "php": ">=4.0.5.0"
-        },
-        "replace": {
-            "pear-pear/net_smtp": "== 1.6.1.0"
-        },
-        "type": "pear-library",
-        "installation-source": "dist",
-        "autoload": {
-            "classmap": [
-                ""
-            ]
-        },
-        "include-path": [
-            "/"
-        ],
-        "description": "Provides an implementation of the SMTP protocol using PEAR's Net_Socket class."
     },
     {
         "name": "pear-pear.php.net/Net_Socket",
@@ -1234,24 +1167,24 @@
     },
     {
         "name": "symfony/yaml",
-        "version": "v2.6.0",
-        "version_normalized": "2.6.0.0",
+        "version": "v2.6.1",
+        "version_normalized": "2.6.1.0",
         "target-dir": "Symfony/Component/Yaml",
         "source": {
             "type": "git",
             "url": "https://github.com/symfony/Yaml.git",
-            "reference": "51c845cf3e4bfc182d1d5c05ed1c7338361d86f8"
+            "reference": "3346fc090a3eb6b53d408db2903b241af51dcb20"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/symfony/Yaml/zipball/51c845cf3e4bfc182d1d5c05ed1c7338361d86f8",
-            "reference": "51c845cf3e4bfc182d1d5c05ed1c7338361d86f8",
+            "url": "https://api.github.com/repos/symfony/Yaml/zipball/3346fc090a3eb6b53d408db2903b241af51dcb20",
+            "reference": "3346fc090a3eb6b53d408db2903b241af51dcb20",
             "shasum": ""
         },
         "require": {
             "php": ">=5.3.3"
         },
-        "time": "2014-11-20 13:24:23",
+        "time": "2014-12-02 20:19:20",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -1283,24 +1216,24 @@
     },
     {
         "name": "symfony/filesystem",
-        "version": "v2.6.0",
-        "version_normalized": "2.6.0.0",
+        "version": "v2.6.1",
+        "version_normalized": "2.6.1.0",
         "target-dir": "Symfony/Component/Filesystem",
         "source": {
             "type": "git",
             "url": "https://github.com/symfony/Filesystem.git",
-            "reference": "6f7c7e42f20ee200d8ac5d2ec1d2a524138305e0"
+            "reference": "ff6efc95256cb33031933729e68b01d720b5436b"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/symfony/Filesystem/zipball/6f7c7e42f20ee200d8ac5d2ec1d2a524138305e0",
-            "reference": "6f7c7e42f20ee200d8ac5d2ec1d2a524138305e0",
+            "url": "https://api.github.com/repos/symfony/Filesystem/zipball/ff6efc95256cb33031933729e68b01d720b5436b",
+            "reference": "ff6efc95256cb33031933729e68b01d720b5436b",
             "shasum": ""
         },
         "require": {
             "php": ">=5.3.3"
         },
-        "time": "2014-11-16 17:28:09",
+        "time": "2014-12-02 20:19:20",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -1329,5 +1262,113 @@
         ],
         "description": "Symfony Filesystem Component",
         "homepage": "http://symfony.com"
+    },
+    {
+        "name": "erusev/parsedown",
+        "version": "1.1.4",
+        "version_normalized": "1.1.4.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/erusev/parsedown.git",
+            "reference": "495e7ac73bb5fde6b857b88ff2bb1b5e79a4263a"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/erusev/parsedown/zipball/495e7ac73bb5fde6b857b88ff2bb1b5e79a4263a",
+            "reference": "495e7ac73bb5fde6b857b88ff2bb1b5e79a4263a",
+            "shasum": ""
+        },
+        "time": "2014-11-29 02:29:14",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-0": {
+                "Parsedown": ""
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Emanuil Rusev",
+                "email": "hello@erusev.com",
+                "homepage": "http://erusev.com"
+            }
+        ],
+        "description": "Parser for Markdown.",
+        "homepage": "http://parsedown.org",
+        "keywords": [
+            "markdown",
+            "parser"
+        ]
+    },
+    {
+        "name": "pear-pear.php.net/PEAR",
+        "version": "1.9.5",
+        "version_normalized": "1.9.5.0",
+        "dist": {
+            "type": "file",
+            "url": "http://pear.php.net/get/PEAR-1.9.5.tgz",
+            "reference": null,
+            "shasum": null
+        },
+        "require": {
+            "ext-pcre": "*",
+            "ext-xml": "*",
+            "pear-pear.php.net/archive_tar": ">=1.3.11.0",
+            "pear-pear.php.net/console_getopt": ">=1.2.0.0",
+            "pear-pear.php.net/structures_graph": ">=1.0.2.0",
+            "pear-pear.php.net/xml_util": ">=1.2.0.0",
+            "php": ">=4.4.0.0,!=5.0.0.0,!=5.1.0.0,!=5.1.1.0,!=5.1.2.0,!=5.1.3.0,!=5.1.4.0,!=5.1.5.0"
+        },
+        "conflict": {
+            "pear-pear.php.net/pear_frontend_gtk": "<0.4.0.0",
+            "pear-pear.php.net/pear_frontend_web": "<=0.4.0.0"
+        },
+        "replace": {
+            "pear-pear/pear": "== 1.9.5.0"
+        },
+        "type": "pear-library",
+        "installation-source": "dist",
+        "autoload": {
+            "classmap": [
+                ""
+            ]
+        },
+        "include-path": [
+            "/"
+        ],
+        "description": "The PEAR package contains:\n * the PEAR installer, for creating, distributing\n   and installing packages\n * the PEAR_Exception PHP5 error handling mechanism\n * the PEAR_ErrorStack advanced error handling mechanism\n * the PEAR_Error error handling mechanism\n * the OS_Guess class for retrieving info about the OS\n   where PHP is running on\n * the System class for quick handling of common operations\n   with files and directories\n * the PEAR base class\n  Features in a nutshell:\n  * full support for channels\n  * pre-download dependency validation\n  * new package.xml 2.0 format allows tremendous flexibility while maintaining BC\n  * support for optional dependency groups and limited support for sub-packaging\n  * robust dependency support\n  * full dependency validation on uninstall\n  * remote install for hosts with only ftp access - no more problems with\n    restricted host installation\n  * full support for mirroring\n  * support for bundling several packages into a single tarball\n  * support for static dependencies on a url-based package\n  * support for custom file roles and installation tasks"
+    },
+    {
+        "name": "pear-pear.php.net/Net_SMTP",
+        "version": "1.6.2",
+        "version_normalized": "1.6.2.0",
+        "dist": {
+            "type": "file",
+            "url": "http://pear.php.net/get/Net_SMTP-1.6.2.tgz",
+            "reference": null,
+            "shasum": null
+        },
+        "require": {
+            "pear-pear.php.net/net_socket": ">=1.0.7.0",
+            "php": ">=4.0.5.0"
+        },
+        "replace": {
+            "pear-pear/net_smtp": "== 1.6.2.0"
+        },
+        "type": "pear-library",
+        "installation-source": "dist",
+        "autoload": {
+            "classmap": [
+                ""
+            ]
+        },
+        "include-path": [
+            "/"
+        ],
+        "description": "Provides an implementation of the SMTP protocol using PEAR's Net_Socket class."
     }
 ]

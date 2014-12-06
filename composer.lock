@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "5887d20013fe367c210797ec4c8fc4c5",
+    "hash": "6b42317f7eb714b97ab2336a6855b840",
     "packages": [
         {
             "name": "diversen/simple-php-classes",
@@ -50,6 +50,45 @@
                 "issues": "https://github.com/diversen/simple-php-classes/issues"
             },
             "time": "2013-12-17 12:35:39"
+        },
+        {
+            "name": "erusev/parsedown",
+            "version": "1.1.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/erusev/parsedown.git",
+                "reference": "495e7ac73bb5fde6b857b88ff2bb1b5e79a4263a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/erusev/parsedown/zipball/495e7ac73bb5fde6b857b88ff2bb1b5e79a4263a",
+                "reference": "495e7ac73bb5fde6b857b88ff2bb1b5e79a4263a",
+                "shasum": ""
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Parsedown": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Emanuil Rusev",
+                    "email": "hello@erusev.com",
+                    "homepage": "http://erusev.com"
+                }
+            ],
+            "description": "Parser for Markdown.",
+            "homepage": "http://parsedown.org",
+            "keywords": [
+                "markdown",
+                "parser"
+            ],
+            "time": "2014-11-29 02:29:14"
         },
         {
             "name": "facebook/php-sdk",
@@ -431,10 +470,10 @@
         },
         {
             "name": "pear-pear.php.net/Net_SMTP",
-            "version": "1.6.1",
+            "version": "1.6.2",
             "dist": {
                 "type": "file",
-                "url": "http://pear.php.net/get/Net_SMTP-1.6.1.tgz",
+                "url": "http://pear.php.net/get/Net_SMTP-1.6.2.tgz",
                 "reference": null,
                 "shasum": null
             },
@@ -443,7 +482,7 @@
                 "php": ">=4.0.5.0"
             },
             "replace": {
-                "pear-pear/net_smtp": "== 1.6.1.0"
+                "pear-pear/net_smtp": "== 1.6.2.0"
             },
             "type": "pear-library",
             "autoload": {
@@ -510,17 +549,17 @@
         },
         {
             "name": "pear-pear.php.net/PEAR",
-            "version": "1.9.4",
+            "version": "1.9.5",
             "dist": {
                 "type": "file",
-                "url": "http://pear.php.net/get/PEAR-1.9.4.tgz",
+                "url": "http://pear.php.net/get/PEAR-1.9.5.tgz",
                 "reference": null,
                 "shasum": null
             },
             "require": {
                 "ext-pcre": "*",
                 "ext-xml": "*",
-                "pear-pear.php.net/archive_tar": ">=1.3.7.0",
+                "pear-pear.php.net/archive_tar": ">=1.3.11.0",
                 "pear-pear.php.net/console_getopt": ">=1.2.0.0",
                 "pear-pear.php.net/structures_graph": ">=1.0.2.0",
                 "pear-pear.php.net/xml_util": ">=1.2.0.0",
@@ -531,7 +570,7 @@
                 "pear-pear.php.net/pear_frontend_web": "<=0.4.0.0"
             },
             "replace": {
-                "pear-pear/pear": "== 1.9.4.0"
+                "pear-pear/pear": "== 1.9.5.0"
             },
             "type": "pear-library",
             "autoload": {
@@ -678,17 +717,17 @@
         },
         {
             "name": "symfony/filesystem",
-            "version": "v2.6.0",
+            "version": "v2.6.1",
             "target-dir": "Symfony/Component/Filesystem",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Filesystem.git",
-                "reference": "6f7c7e42f20ee200d8ac5d2ec1d2a524138305e0"
+                "reference": "ff6efc95256cb33031933729e68b01d720b5436b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Filesystem/zipball/6f7c7e42f20ee200d8ac5d2ec1d2a524138305e0",
-                "reference": "6f7c7e42f20ee200d8ac5d2ec1d2a524138305e0",
+                "url": "https://api.github.com/repos/symfony/Filesystem/zipball/ff6efc95256cb33031933729e68b01d720b5436b",
+                "reference": "ff6efc95256cb33031933729e68b01d720b5436b",
                 "shasum": ""
             },
             "require": {
@@ -721,21 +760,21 @@
             ],
             "description": "Symfony Filesystem Component",
             "homepage": "http://symfony.com",
-            "time": "2014-11-16 17:28:09"
+            "time": "2014-12-02 20:19:20"
         },
         {
             "name": "symfony/yaml",
-            "version": "v2.6.0",
+            "version": "v2.6.1",
             "target-dir": "Symfony/Component/Yaml",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Yaml.git",
-                "reference": "51c845cf3e4bfc182d1d5c05ed1c7338361d86f8"
+                "reference": "3346fc090a3eb6b53d408db2903b241af51dcb20"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Yaml/zipball/51c845cf3e4bfc182d1d5c05ed1c7338361d86f8",
-                "reference": "51c845cf3e4bfc182d1d5c05ed1c7338361d86f8",
+                "url": "https://api.github.com/repos/symfony/Yaml/zipball/3346fc090a3eb6b53d408db2903b241af51dcb20",
+                "reference": "3346fc090a3eb6b53d408db2903b241af51dcb20",
                 "shasum": ""
             },
             "require": {
@@ -768,7 +807,7 @@
             ],
             "description": "Symfony Yaml Component",
             "homepage": "http://symfony.com",
-            "time": "2014-11-20 13:24:23"
+            "time": "2014-12-02 20:19:20"
         },
         {
             "name": "tpyo/amazon-s3-php-class",

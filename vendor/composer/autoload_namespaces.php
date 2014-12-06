@@ -18,5 +18,6 @@ return array(
     'Zend\\Crypt\\' => array($vendorDir . '/zendframework/zend-crypt'),
     'Symfony\\Component\\Yaml\\' => array($vendorDir . '/symfony/yaml'),
     'Symfony\\Component\\Filesystem\\' => array($vendorDir . '/symfony/filesystem'),
+    'Parsedown' => array($vendorDir . '/erusev/parsedown'),
     'Michelf' => array($vendorDir . '/michelf/php-markdown'),
 );
