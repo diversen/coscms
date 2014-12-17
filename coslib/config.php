@@ -28,21 +28,21 @@ class config {
      * @return mixed $value the value of the setting or null if no value was found
      */
     public static function getModuleIni($key) {
-        if (!isset(config::$vars['coscms_main']['module'][$key])){
+        if (!isset(self::$vars['coscms_main']['module'][$key])){
             return null;
         }
-        if (config::$vars['coscms_main']['module'][$key] == '0'){
+        if (self::$vars['coscms_main']['module'][$key] == '0'){
             return null;
         }
         
-        if (empty(config::$vars['coscms_main']['module'][$key])){
+        if (empty(self::$vars['coscms_main']['module'][$key])){
             return null;
         }
-        return config::$vars['coscms_main']['module'][$key];
+        return self::$vars['coscms_main']['module'][$key];
     }
     
     public static function setModuleIni ($key, $value) {
-        config::$vars['coscms_main']['module'][$key] = $value;
+        self::$vars['coscms_main']['module'][$key] = $value;
 
     }
     
@@ -75,23 +75,23 @@ class config {
      * @return mixed $val
      */
     private static function getMainIniFromHolder ($key, $holder = 'coscms_main') {
-        if (!isset(config::$vars[$holder][$key])){
+        if (!isset(self::$vars[$holder][$key])){
             return null;
         }
         
-        if (config::$vars[$holder][$key] == '0'){
+        if (self::$vars[$holder][$key] == '0'){
             return null;
         }
         
         
-        if (config::$vars[$holder][$key] == 'true') {
+        if (self::$vars[$holder][$key] == 'true') {
             return true;
         }
         
-        if (config::$vars[$holder][$key] == 'false') {
+        if (self::$vars[$holder][$key] == 'false') {
             return false;
         }
-        return config::$vars[$holder][$key];    
+        return self::$vars[$holder][$key];    
     } 
     
 
@@ -103,23 +103,23 @@ class config {
      *                       If 0 is found we also reutnr null
      */    
     public static function getMainIniAsString($key) {
-        if (!isset(config::$vars['coscms_main'][$key])){
+        if (!isset(self::$vars['coscms_main'][$key])){
             return null;
         }
         
-        if (config::$vars['coscms_main'][$key] == '0'){
+        if (self::$vars['coscms_main'][$key] == '0'){
             return null;
         }
         
         
-        if (config::$vars['coscms_main'][$key] == 'true') {
+        if (self::$vars['coscms_main'][$key] == 'true') {
             return "true";
         }
         
-        if (config::$vars['coscms_main'][$key] == 'false') {
+        if (self::$vars['coscms_main'][$key] == 'false') {
             return "false";
         }
-        return config::$vars['coscms_main'][$key];      
+        return self::$vars['coscms_main'][$key];      
     }
     
     /**
@@ -128,7 +128,7 @@ class config {
      * @param string $value the value to set the key with
      */
     public static function setMainIni ($key, $value) {
-        config::$vars['coscms_main'][$key] = $value;
+        self::$vars['coscms_main'][$key] = $value;
     }
     
     /**
@@ -138,7 +138,7 @@ class config {
      */
     public static function setMainIniWithArray ($ary) {
         foreach ($ary as $key => $val) {
-            config::$vars['coscms_main'][$key] = $val;
+            self::$vars['coscms_main'][$key] = $val;
         }
     }
     
@@ -161,7 +161,7 @@ class config {
      * @return string $str https|http
      */
     public static function getHttpScheme () {
-        $server_force_ssl = config::getMainIni('server_force_ssl');
+        $server_force_ssl = self::getMainIni('server_force_ssl');
         if ($server_force_ssl) {
             return "https";
         } else {
@@ -191,8 +191,8 @@ class config {
         // determine host and see if we use virtual hosting
         // where one code base can be used for more virtual hosts.
         // this is set with the domain flag in ./coscli.sh
-        if (config::isCli()){
-            if (isset(config::$vars['domain']) && config::$vars['domain'] != 'default'){
+        if (self::isCli()){
+            if (isset(self::$vars['domain']) && self::$vars['domain'] != 'default'){
                 $config_file = _COS_PATH . "/config/multi/". config::$vars['domain'] . "/config.ini";
             } else {
                 $config_file = _COS_PATH . "/config/config.ini";
@@ -242,20 +242,20 @@ class config {
      *                      function will return production
      */
     public static function getEnvServer () {
-        if (self::serverMatch(config::getMainIni('server_name'))) {
+        if (self::serverMatch(self::getMainIni('server_name'))) {
             self::$env = 'production';
             return 'production';
         }
 
-        if (isset(config::$vars['coscms_main']['stage'])) {
-            if (self::serverMatch(config::$vars['coscms_main']['stage']['server_name'])) {
+        if (isset(self::$vars['coscms_main']['stage'])) {
+            if (self::serverMatch(self::$vars['coscms_main']['stage']['server_name'])) {
                 self::$env = 'stage';
                 return 'stage';
             }
         }
 
-        if (isset(config::$vars['coscms_main']['development'])) {
-            if (self::serverMatch(config::$vars['coscms_main']['development']['server_name'])) {
+        if (isset(self::$vars['coscms_main']['development'])) {
+            if (self::serverMatch(self::$vars['coscms_main']['development']['server_name'])) {
                 self::$env = 'development';
                 return 'development';
             }
@@ -273,18 +273,18 @@ class config {
      */
     public static function getEnvCli () {
                     
-        if (config::getMainIni('production') == 1) {
+        if (self::getMainIni('production') == 1) {
             return 'production';
         }
 
-        if (isset(config::$vars['coscms_main']['development'])) {
-            if (in_array(config::getHostnameFromCli(), config::getHostnameFromIni('development'))) {
+        if (isset(self::$vars['coscms_main']['development'])) {
+            if (in_array(self::getHostnameFromCli(), self::getHostnameFromIni('development'))) {
                 return 'development';
             }
         }
 
-        if (isset(config::$vars['coscms_main']['stage'])) {
-            if (in_array(config::getHostnameFromCli(), config::getHostnameFromIni('stage'))) {
+        if (isset(self::$vars['coscms_main']['stage'])) {
+            if (in_array(self::getHostnameFromCli(), self::getHostnameFromIni('stage'))) {
                 return 'stage';
             }
         }
@@ -303,7 +303,7 @@ class config {
             return self::$env;
         }
         
-        if (!config::isCli()) {
+        if (!self::isCli()) {
             return self::getEnvServer();
         } else {
             return self::getEnvCli();
@@ -329,20 +329,20 @@ class config {
      */    
     public static function loadMain () {
         
-        $config_file = config::getConfigFileName();    
+        $config_file = self::getConfigFileName();    
         if (!file_exists($config_file)){
             return;
         } else {
-            config::$vars['coscms_main'] = config::getIniFileArray($config_file, true);
+            self::$vars['coscms_main'] = self::getIniFileArray($config_file, true);
             
             // set them in coscms_main_file, so it is possbile
             // to get original value without db viewing e.g. db override. 
-            config::$vars['coscms_main_file'] = config::$vars['coscms_main'];
+            self::$vars['coscms_main_file'] = self::$vars['coscms_main'];
             
             // check if any shared.ini settings should be merged
-            config::mergeSharedIni();
+            self::mergeSharedIni();
             
-            if ( config::getEnv() == 'production' ) {
+            if ( self::getEnv() == 'production' ) {
 
                     // We are on REAL server and exits without
                     // adding additional settings for stage or development
@@ -352,14 +352,14 @@ class config {
 
             // Test if we are on stage server. 
             // Overwrite register settings with stage settings
-            if ( config::getEnv() == 'stage') {
+            if ( self::getEnv() == 'stage') {
 
                     // we are on development, merge and overwrite normal settings with
                     // development settings.
-                    config::$vars['coscms_main'] =
+                    self::$vars['coscms_main'] =
                     array_merge(
-                        config::$vars['coscms_main'],
-                        config::$vars['coscms_main']['stage']
+                        self::$vars['coscms_main'],
+                        self::$vars['coscms_main']['stage']
                     );
                     self::$vars['coscms_main']['development'] = 'stage';
                     return;
@@ -367,12 +367,12 @@ class config {
             }
             // We are on development server. 
             // Overwrite register settings with development settings
-            if (config::getEnv() == 'development') {
+            if (self::getEnv() == 'development') {
 
-                    config::$vars['coscms_main'] =
+                    self::$vars['coscms_main'] =
                     array_merge(
-                        config::$vars['coscms_main'],
-                        config::$vars['coscms_main']['development']
+                        self::$vars['coscms_main'],
+                        self::$vars['coscms_main']['development']
                     );
                     self::$vars['coscms_main']['development'] = 'development';
 
@@ -385,12 +385,12 @@ class config {
      * load main cli configuration
      */
     public static function loadMainCli () {
-        $config_file = config::getConfigFileName();
+        $config_file = self::getConfigFileName();
         
         if (!file_exists($config_file)){
             return;
         } else {
-            config::$vars['coscms_main'] = config::getIniFileArray($config_file, true);
+            self::$vars['coscms_main'] = self::getIniFileArray($config_file, true);
             
             // AS 'production' often is on the same server as 'stage', we 
             // need to set: 
@@ -402,7 +402,7 @@ class config {
             // 
             self::mergeSharedIni();
             
-            if (config::getMainIni('production') == 1){
+            if (self::getMainIni('production') == 1){
                     // We are on REAL server and exists without
                     // If this is set. 
                     // adding additional settings for stage or development
@@ -414,14 +414,14 @@ class config {
             // Overwrite register settings with stage settings
             // Note that ini settings for development will
             // NOT take effect on CLI ini settings
-            if (config::getEnv() == 'stage'){
+            if (self::getEnv() == 'stage'){
 
                     // we are on development, merge and overwrite normal settings with
                     // development settings and return
-                    config::$vars['coscms_main'] =
+                    self::$vars['coscms_main'] =
                     array_merge(
-                        config::$vars['coscms_main'],
-                        config::$vars['coscms_main']['stage']
+                        self::$vars['coscms_main'],
+                        self::$vars['coscms_main']['stage']
                     );
                     return;
                 //}
@@ -430,11 +430,11 @@ class config {
             // Overwrite register settings with development settings
             // Development settings will ALSO be added to CLI
             // ini settings
-            if (config::getEnv() =='development') {
-                    config::$vars['coscms_main'] =
+            if (self::getEnv() =='development') {
+                    self::$vars['coscms_main'] =
                     array_merge(
-                        config::$vars['coscms_main'],
-                        config::$vars['coscms_main']['development']
+                        self::$vars['coscms_main'],
+                        self::$vars['coscms_main']['development']
                     );
                 //}
             }
@@ -455,7 +455,7 @@ class config {
     
     public static function defineCommon () {
         
-        $htdocs_path = config::getMainIni('htdocs_path');
+        $htdocs_path = self::getMainIni('htdocs_path');
 
         // default htdocs path
         if (!$htdocs_path) {
@@ -470,7 +470,7 @@ class config {
         /**
          * define path to modules
          */
-        $mod_dir = config::getMainIni('module_dir');
+        $mod_dir = self::getMainIni('module_dir');
 
         if (!$mod_dir) {
             $mod_dir = 'modules';
@@ -482,7 +482,7 @@ class config {
         /**
          * define path to htdocs files (uploads)
          */
-        $files_dir = config::getMainIni('htdocs_files');
+        $files_dir = self::getMainIni('htdocs_files');
         if (!$files_dir) {
             define('_COS_FILES',  'files');
         } else {
@@ -502,15 +502,15 @@ class config {
      */
     public static function getHostnameFromIni ($section = null) {
         if (!$section) {
-            $hostnames = @config::$vars['coscms_main']['hostname'];
+            $hostnames = @self::$vars['coscms_main']['hostname'];
         }
         
         if ($section == 'stage') {
-            $hostnames = @config::$vars['coscms_main']['stage']['hostname'];
+            $hostnames = @self::$vars['coscms_main']['stage']['hostname'];
         }
         
         if ($section == 'development') {
-            $hostnames = @config::$vars['coscms_main']['development']['hostname'];
+            $hostnames = @self::$vars['coscms_main']['development']['hostname'];
         }
         
         if (!$hostnames) return array ();        
@@ -534,10 +534,10 @@ class config {
     public static function mergeSharedIni () {
         $shared_ini = _COS_PATH . "/config/shared.ini";
         if (file_exists($shared_ini)) {
-            $shared = config::getIniFileArray($shared_ini);
-            config::$vars['coscms_main'] =
+            $shared = self::getIniFileArray($shared_ini);
+            self::$vars['coscms_main'] =
                     array_merge(
-                        config::$vars['coscms_main'],
+                        self::$vars['coscms_main'],
                         $shared
                     );
         }
@@ -552,10 +552,10 @@ class config {
      */
     public static function loadPHPConfigFile($file) {
         include $file;
-        if (isset(config::$vars['coscms_main'])) {
-            config::$vars['coscms_main']+= $config;
+        if (isset(self::$vars['coscms_main'])) {
+            self::$vars['coscms_main']+= $config;
         } else {
-            config::$vars['coscms_main'] = $config;
+            self::$vars['coscms_main'] = $config;
         }
     }
     
@@ -566,10 +566,10 @@ class config {
      */
     public static function loadPHPModuleConfig($file) {
         include $file;
-        if (isset(config::$vars['coscms_main']['module'])) {
-            config::$vars['coscms_main']['module']+= $config;
+        if (isset(self::$vars['coscms_main']['module'])) {
+            self::$vars['coscms_main']['module']+= $config;
         } else {
-            config::$vars['coscms_main']['module'] = $config;
+            self::$vars['coscms_main']['module'] = $config;
         }
     }
     
@@ -617,10 +617,10 @@ class config {
     * @return string $files_path the full file path 
     */
     public static function getFullFilesPath ($file = null) {
-        $domain = config::getMainIni('domain');
+        $domain = self::getMainIni('domain');
         
-        // check if special files_storage config is set
-        $storage = config::getMainIni('files_storage');
+        // check if special files_storage self is set
+        $storage = self::getMainIni('files_storage');
         if ($storage) {
             $files_path = $storage;
         } else {
@@ -663,7 +663,7 @@ class config {
      * @return string $domain the current domain
      */
     public static function getDomain () {
-        $domain = config::getMainIni('domain');
+        $domain = self::getMainIni('domain');
         return $domain;       
     }
     
@@ -674,7 +674,7 @@ class config {
      *                
      */
     public static function getServerName () {
-        $server_name = config::getMainIni('server_name');
+        $server_name = self::getMainIni('server_name');
         if (!$server_name) { 
             $server_name = $_SERVER['SERVER_NAME'];
         }
@@ -687,7 +687,7 @@ class config {
      * @return string $str server name with http|https scheme
      */
     public static function getSchemeWithServerName () {
-        return config::getHttpScheme() . "://" . config::getServerName();
+        return self::getHttpScheme() . "://" . self::getServerName();
     }
      
    /**
@@ -697,9 +697,9 @@ class config {
     */
     public static function getWebFilesPath ($file = null) {
         if ($file) {
-            return "/files/" . config::getDomain() . $file; 
+            return "/files/" . self::getDomain() . $file; 
         } 
-        return "/files/" . config::getDomain();
+        return "/files/" . self::getDomain();
     }
     
    /**
@@ -804,7 +804,7 @@ class config {
      * @return mixed $user user on success or false on failure
      */
     public static function getServerUser () {
-        $server_name = config::getMainIni('server_name');
+        $server_name = self::getMainIni('server_name');
         $url = 'http://' . $server_name . '/whoami.php';
         $handle = fopen($url, "r");
         if ($handle) {
