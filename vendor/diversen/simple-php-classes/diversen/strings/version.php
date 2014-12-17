@@ -1,5 +1,6 @@
 <?php
 
+namespace diversen\strings;
 /**
  * file contains strings_version
  * @package strings
@@ -9,7 +10,7 @@
  * class contains a method to get versions from strings
  * @package strings
  */
-class strings_version {
+class version {
     /**
      * parses a semantic version string into a array consisting of 
      * major, minor, minimal 2.4.6 will return: 
