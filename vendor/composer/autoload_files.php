@@ -6,5 +6,5 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
-    $vendorDir . '/mustangostang/spyc/Spyc.php',
+    $vendorDir . '/donatj/phpuseragentparser/Source/UserAgentParser.php',
 );

@@ -1370,5 +1370,54 @@
             "source": "https://github.com/diversen/simple-php-classes/tree/1.0.5",
             "issues": "https://github.com/diversen/simple-php-classes/issues"
         }
+    },
+    {
+        "name": "donatj/phpuseragentparser",
+        "version": "v0.3.1",
+        "version_normalized": "0.3.1.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/donatj/PhpUserAgent.git",
+            "reference": "8fab8be5d3e54b3ec1ea6de6de4b5e4d92c7a4a8"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/donatj/PhpUserAgent/zipball/8fab8be5d3e54b3ec1ea6de6de4b5e4d92c7a4a8",
+            "reference": "8fab8be5d3e54b3ec1ea6de6de4b5e4d92c7a4a8",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.3.0"
+        },
+        "require-dev": {
+            "camspiers/json-pretty": "0.1.*"
+        },
+        "time": "2014-10-27 21:33:32",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "files": [
+                "Source/UserAgentParser.php"
+            ]
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Jesse G. Donat",
+                "email": "donatj@gmail.com",
+                "homepage": "http://donatstudios.com",
+                "role": "Developer"
+            }
+        ],
+        "description": "Simple, streamlined PHP user-agent parser",
+        "homepage": "http://donatstudios.com/PHP-Parser-HTTP_USER_AGENT",
+        "keywords": [
+            "parser",
+            "user agent",
+            "useragent"
+        ]
     }
 ]
