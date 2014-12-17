@@ -33,14 +33,14 @@ class db {
 
     /**
      * gets a db object. Mostly so that we can use the db class in the static 
-     * short hand way: db::init()->selectAll(self::$dbTable) 
+     * short hand way: self::init()->selectAll(self::$dbTable) 
      * @param array $options options to give constructor
      * @return object $db
      */
     static public function init($options = array ()){
         static $db = null;
         if (!$db) {
-            $db = new db($options);
+            $db = new self($options);
         } 
         return $db;
     }
@@ -59,7 +59,7 @@ class db {
      * @return boolean $res
      */
     public static function begin () {
-        return db::$dbh->beginTransaction();
+        return self::$dbh->beginTransaction();
     }
     
     /**
@@ -67,7 +67,7 @@ class db {
      * @return boolean $res 
      */
     public static function commit () {
-        return db::$dbh->commit();
+        return self::$dbh->commit();
     }
 
     /**
@@ -75,7 +75,7 @@ class db {
      * @returres boolean $res 
      */
     public static function rollback () {
-        return db::$dbh->rollBack();
+        return self::$dbh->rollBack();
     }
     
     /**
@@ -83,7 +83,7 @@ class db {
      * @return int $lastinsertid last insert id
      */
     public static function lastInsertId () {
-        return db::$dbh->lastInsertId();
+        return self::$dbh->lastInsertId();
     }
 
     /**
