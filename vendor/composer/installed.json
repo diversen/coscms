@@ -291,53 +291,6 @@
         "homepage": "https://github.com/tpyo/amazon-s3-php-class"
     },
     {
-        "name": "diversen/simple-php-classes",
-        "version": "1.0.3",
-        "version_normalized": "1.0.3.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/diversen/simple-php-classes.git",
-            "reference": "e12274656fa0559a319bfc3c7f38c9074150bebe"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/diversen/simple-php-classes/zipball/e12274656fa0559a319bfc3c7f38c9074150bebe",
-            "reference": "e12274656fa0559a319bfc3c7f38c9074150bebe",
-            "shasum": ""
-        },
-        "require": {
-            "php": ">=5.3.0"
-        },
-        "time": "2013-12-17 12:35:39",
-        "type": "library",
-        "installation-source": "dist",
-        "autoload": {
-            "psr-0": {
-                "diversen": ""
-            }
-        },
-        "license": [
-            "BSD-3-Clause"
-        ],
-        "authors": [
-            {
-                "name": "Dennis Iversen",
-                "email": "dennis.iversen@gmail.com",
-                "homepage": "http://os-cms.net/",
-                "role": "Developer"
-            }
-        ],
-        "description": "A collection of simle PHP classes",
-        "homepage": "http://github.com/diversen/simple-php-classes",
-        "keywords": [
-            "github"
-        ],
-        "support": {
-            "source": "https://github.com/diversen/simple-php-classes/tree/1.0.3",
-            "issues": "https://github.com/diversen/simple-php-classes/issues"
-        }
-    },
-    {
         "name": "pear-pear.php.net/HTTP_Request2",
         "version": "2.2.1",
         "version_normalized": "2.2.1.0",
@@ -1370,5 +1323,52 @@
             "/"
         ],
         "description": "Provides an implementation of the SMTP protocol using PEAR's Net_Socket class."
+    },
+    {
+        "name": "diversen/simple-php-classes",
+        "version": "1.0.5",
+        "version_normalized": "1.0.5.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/diversen/simple-php-classes.git",
+            "reference": "e673f4de7ce048d1ca9d079186ee292fd47e0a9f"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/diversen/simple-php-classes/zipball/e673f4de7ce048d1ca9d079186ee292fd47e0a9f",
+            "reference": "e673f4de7ce048d1ca9d079186ee292fd47e0a9f",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.3.0"
+        },
+        "time": "2014-12-17 22:24:44",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-0": {
+                "diversen": ""
+            }
+        },
+        "license": [
+            "BSD-3-Clause"
+        ],
+        "authors": [
+            {
+                "name": "Dennis Iversen",
+                "email": "dennis.iversen@gmail.com",
+                "homepage": "http://os-cms.net/",
+                "role": "Developer"
+            }
+        ],
+        "description": "A collection of simle PHP classes",
+        "homepage": "http://github.com/diversen/simple-php-classes",
+        "keywords": [
+            "github"
+        ],
+        "support": {
+            "source": "https://github.com/diversen/simple-php-classes/tree/1.0.5",
+            "issues": "https://github.com/diversen/simple-php-classes/issues"
+        }
     }
 ]

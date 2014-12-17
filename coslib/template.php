@@ -434,5 +434,4 @@ class template {
         template_assets::setTemplateCss($template, $order, $version);
 
     }
-
 }

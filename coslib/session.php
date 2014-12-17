@@ -20,10 +20,10 @@ class session {
      */
     public static function initSession(){
         
-        session::setSessionIni(); 
-        session::setSessionHandler();
+        self::setSessionIni(); 
+        self::setSessionHandler();
         session_start();
-        session::checkSystemCookie();
+        self::checkSystemCookie();
 
         // if 'started' is set for previous request
         //we truely know we are in 'in_session'
@@ -146,7 +146,7 @@ class session {
             
             // we got a cookie that equals one found in database
             if (!empty($row)){
-                $days = session::getCookiePersistentDays();
+                $days = self::getCookiePersistentDays();
                 
                 // delete system_cookies that are out of date. 
                 $now = date::getDateNow();
@@ -215,7 +215,7 @@ class session {
      */
     public static function setCookie ($name, $value, $path = '/') {
 
-        $cookie_time = session::getCookiePersistentSecs();              
+        $cookie_time = self::getCookiePersistentSecs();              
         $timestamp = time() + $cookie_time;        
         $session_host = config::getMainIni('session_host');
         
@@ -612,15 +612,15 @@ class session {
     public static function checkAccessClean ($type = null) {
         $res = false;
         if ($type == 'user') {
-            $res = session::isUser();
+            $res = self::isUser();
         }
         
         if ($type == 'admin') {
-            $res = session::isAdmin();
+            $res = self::isAdmin();
         }
         
         if ($type == 'super') {
-            $res = session::isSuper();
+            $res = self::isSuper();
         }
         return $res;
     }
@@ -634,10 +634,10 @@ class session {
      */
     public static function loginThenRedirect ($message){
         unset($_SESSION['return_to']);
-        if (!session::isUser()){
+        if (!self::isUser()){
             moduleloader::includeModule('account');
             $_SESSION['return_to'] = $_SERVER['REQUEST_URI'];
-            session::setActionMessage($message);
+            self::setActionMessage($message);
             account::redirectDefault();
             die;
         }
