@@ -1,5 +1,6 @@
 <?php
 
+namespace diversen\strings;
 /**
  * File contains contains with strings methods
  * @package strings
@@ -10,7 +11,7 @@
  * @package strings
  */
 
-class strings_lines {
+class lines {
 
     /**
      * get a file as an array

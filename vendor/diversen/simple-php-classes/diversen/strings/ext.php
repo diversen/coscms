@@ -1,5 +1,7 @@
 <?php
 
+namespace diversen\strings;
+use diversen\strings;
 /**
  * File contains contains with few extension of the base string class
  * @package strings
@@ -10,7 +12,7 @@
  * @package strings
  */
 
-class strings_ext {
+class ext {
     
     /** 
      * Substring without losing word meaning and

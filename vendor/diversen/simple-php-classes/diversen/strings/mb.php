@@ -1,5 +1,8 @@
 <?php
 
+namespace diversen\strings;
+
+use diversen\strings;
 /**
  * File contains contains class for converting between charset
  * @package strings
@@ -9,7 +12,7 @@
  * Class contains contains class for converting between charset
  * @package strings
  */
-class strings_mb {
+class mb {
     
     /**
      * checks for mb_strtolower and return the string.

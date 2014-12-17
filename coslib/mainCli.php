@@ -10,6 +10,8 @@
  * @ignore
  */
 
+use diversen\strings\ext as strings_ext;
+
 include_once "coslib/coslibSetup.php";
 include_once "coslib/head.php";
 include_once "coslib/shell/common.inc";

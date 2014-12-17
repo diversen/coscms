@@ -1,6 +1,7 @@
 <?php
 
-class strings_strip {
+namespace diversen\strings;
+class strip {
 
     /**
      * Remove HTML tags, including invisible text such as style and

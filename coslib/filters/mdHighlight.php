@@ -6,6 +6,7 @@
  * @package filters
  */
 
+use diversen\strings\normalize as strings_normalize;
 /**
  *
  * file contains method for rewriting language highlights in markdown
