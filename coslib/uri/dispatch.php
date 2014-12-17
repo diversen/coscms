@@ -92,8 +92,6 @@ class uri_dispatch {
         }
     }
     
-
-    
     /**
      * sets db routes
      */
