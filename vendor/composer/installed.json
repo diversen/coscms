@@ -1375,23 +1375,23 @@
     },
     {
         "name": "diversen/simple-php-classes",
-        "version": "1.0.6",
-        "version_normalized": "1.0.6.0",
+        "version": "1.0.7",
+        "version_normalized": "1.0.7.0",
         "source": {
             "type": "git",
             "url": "https://github.com/diversen/simple-php-classes.git",
-            "reference": "703625034d8dfe1242db547ef1231a3155255e9c"
+            "reference": "4de74f956f7643f57a62b08794402d6a91feb93a"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/diversen/simple-php-classes/zipball/703625034d8dfe1242db547ef1231a3155255e9c",
-            "reference": "703625034d8dfe1242db547ef1231a3155255e9c",
+            "url": "https://api.github.com/repos/diversen/simple-php-classes/zipball/4de74f956f7643f57a62b08794402d6a91feb93a",
+            "reference": "4de74f956f7643f57a62b08794402d6a91feb93a",
             "shasum": ""
         },
         "require": {
             "php": ">=5.3.0"
         },
-        "time": "2014-12-18 15:46:11",
+        "time": "2014-12-18 18:33:30",
         "type": "library",
         "installation-source": "dist",
         "autoload": {
@@ -1416,7 +1416,7 @@
             "github"
         ],
         "support": {
-            "source": "https://github.com/diversen/simple-php-classes/tree/1.0.6",
+            "source": "https://github.com/diversen/simple-php-classes/tree/1.0.7",
             "issues": "https://github.com/diversen/simple-php-classes/issues"
         }
     }
