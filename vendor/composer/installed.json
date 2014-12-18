@@ -1374,38 +1374,6 @@
         "description": "It takes an array of data as input and pages it according to various parameters.\nIt also builds links within a specified range, and allows complete customization of the output (it even works with front controllers and mod_rewrite).\nTwo operating modes available: \"Jumping\" and \"Sliding\" window style."
     },
     {
-        "name": "diversen/simple-php-classes",
-        "version": "1.1.3",
-        "version_normalized": "1.1.3.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/diversen/simple-php-classes.git",
-            "reference": "86f46555ed4793984fa84f0a1a2f09ff7c7a7927"
-        },
-        "require": {
-            "pear-pear.php.net/auth_sasl2": "0.1.*",
-            "pear-pear.php.net/console_color": "1.0.*",
-            "pear-pear.php.net/console_commandline": "1.2.*",
-            "pear-pear.php.net/image_transform": "0.9.*",
-            "pear-pear.php.net/mail": "1.2.*",
-            "pear-pear.php.net/mail_mime": "1.8.*",
-            "pear-pear.php.net/net_smtp": "1.6.*",
-            "pear-pear.php.net/pager": "2.4.*",
-            "pear-pear.php.net/pear": "1.9.*",
-            "pear-pear.php.net/services_akismet2": "0.3.*",
-            "pear-pear.php.net/validate": "0.8.*"
-        },
-        "time": "2014-12-18 20:20:35",
-        "type": "library",
-        "installation-source": "source",
-        "autoload": {
-            "psr-0": {
-                "diversen": ""
-            }
-        },
-        "description": "A collection of simple classes"
-    },
-    {
         "name": "mobiledetect/mobiledetectlib",
         "version": "2.8.11",
         "version_normalized": "2.8.11.0",
@@ -1552,5 +1520,37 @@
             "api",
             "search-engine"
         ]
+    },
+    {
+        "name": "diversen/simple-php-classes",
+        "version": "1.1.8",
+        "version_normalized": "1.1.8.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/diversen/simple-php-classes.git",
+            "reference": "eee513abe7cd42b2c4a57543c651cf7aefeb0d39"
+        },
+        "require": {
+            "pear-pear.php.net/auth_sasl2": "0.1.*",
+            "pear-pear.php.net/console_color": "1.0.*",
+            "pear-pear.php.net/console_commandline": "1.2.*",
+            "pear-pear.php.net/image_transform": "0.9.*",
+            "pear-pear.php.net/mail": "1.2.*",
+            "pear-pear.php.net/mail_mime": "1.8.*",
+            "pear-pear.php.net/net_smtp": "1.6.*",
+            "pear-pear.php.net/pager": "2.4.*",
+            "pear-pear.php.net/pear": "1.9.*",
+            "pear-pear.php.net/services_akismet2": "0.3.*",
+            "pear-pear.php.net/validate": "0.8.*"
+        },
+        "time": "2014-12-18 21:24:07",
+        "type": "library",
+        "installation-source": "source",
+        "autoload": {
+            "psr-0": {
+                "diversen": ""
+            }
+        },
+        "description": "A collection of simple classes"
     }
 ]

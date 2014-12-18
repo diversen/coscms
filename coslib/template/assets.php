@@ -1,11 +1,12 @@
 <?php
 
+use diversen\csspacker;
 /**
  * File containing class for parsing template assets. 
  * @package template
  */
 
-include_once "csspacker.php";
+//include_once "csspacker.php";
 
 /**
  * class used for parsing assets (css and js) and caching them
