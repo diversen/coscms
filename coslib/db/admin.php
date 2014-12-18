@@ -17,7 +17,7 @@ class db_admin extends db {
      */
     public static function changeDB ($database = null) {
         if (!$database) {
-            $db_curr = db_admin::getDbInfo(); 
+            $db_curr = self::getDbInfo(); 
             $database = $db_curr['dbname'];  
         }
         $sql = "USE `$database`";
@@ -115,7 +115,7 @@ class db_admin extends db {
      */
     public static function keyExists ($table, $key) {
         $q = "SHOW KEYS FROM $table WHERE Key_name='$key'";
-        $rows = db::selectQueryOne($q);
+        $rows = self::selectQueryOne($q);
         return $rows;
     }
     

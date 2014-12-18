@@ -1,5 +1,7 @@
 <?php
 
+namespace diversen\ary;
+
 /**
  * file contains array helpers
  * @package array
@@ -9,7 +11,7 @@
  * class contains array helpers
  * @package array
  */
-class array_helpers {
+class helpers {
     /**
      * prepares an array for db post where we specify keys to use 
      * @param array $keys keys to use from POST request
