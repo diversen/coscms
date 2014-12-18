@@ -68,7 +68,7 @@ class cosMail {
      */
     public static function getCosParams () {
         
-        $options = cosMail::init();
+        $options = self::init();
         $params = array();
         if ($options['mail_method'] == 'smtp') {
 
@@ -160,7 +160,7 @@ class cosMail {
         if (!$to) {
             $to = config::getMainIni('site_email');
         }
-        return $res = cosMail::text(
+        return $res = self::text(
             $to, 
             $subject, 
             self::wrapText($message), 
@@ -188,7 +188,7 @@ class cosMail {
      */
     public static function multipart ($to, $subject, $message, $from = null, $reply_to = null, $more = array ()){
         
-        $headers = cosMail::getHeaders($to, $subject, $from, $reply_to, $more);
+        $headers = self::getHeaders($to, $subject, $from, $reply_to, $more);
         $mime = new cosMail_mime();
         if (is_array($message)) {
 
@@ -234,7 +234,7 @@ class cosMail {
     * @return  int     1 on success 0 on error
     */
     public static function text($to, $subject, $message, $from = null, $reply_to=null, $more = array ()) {
-        $headers = cosMail::getHeaders($to, $subject, $from, $reply_to, $more);
+        $headers = self::getHeaders($to, $subject, $from, $reply_to, $more);
         
         $mime = new cosMail_mime();
         $mime->setTxt(self::wrapText($message));
@@ -257,8 +257,8 @@ class cosMail {
             return cosMail_queue::add ($to, $mime_headers, $body);
         }
         
-        $options = cosMail::init();
-        $params = cosMail::getCosParams();
+        $options = self::init();
+        $params = self::getCosParams();
 
         if (!is_object(self::$mail)) {
             self::$mail = Mail::factory($options['mail_method'], $params);
