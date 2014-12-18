@@ -421,7 +421,7 @@ class template_assets extends template {
     public static function setJsAsSingleFile () {
         $str = self::getJsAsSingleStr();
         if (config::getMainIni('cached_assets_minify')) {
-            $str = JSMin::minify($str);
+            //$str = JSMin::minify($str);
         }
         
         $md5 = md5($str);
