@@ -75,9 +75,9 @@ class lang {
     public static function loadLanguage ($language = null) {
         $lang_all = config::getMainIni('language_all');
         if ($lang_all) {
-            lang::loadTemplateAllLanguage($language);       
+            self::loadTemplateAllLanguage($language);       
         } else {
-            lang::loadSystemLanguage($language);
+            self::loadSystemLanguage($language);
         } 
     }
     
