@@ -4,6 +4,7 @@
  * markdown filter. use Michelf markdown
  * @package    filters
  */
+use \diversen\uri\direct as uri_direct;
 use \Michelf\Markdown;
 
 /**
@@ -11,7 +12,7 @@ use \Michelf\Markdown;
  *
  * @package    filters
  */
-class mdDownloadImages extends \Michelf\Markdown {
+class mdDownloadImages extends Markdown {
 
     /**
      * if set images will be downloaded to file system

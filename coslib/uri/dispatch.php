@@ -64,13 +64,7 @@ class uri_dispatch {
             }
         }  
 
-        //if ($call_exists) {
-            return ob_get_clean();
-        //}
-    }
-    
-    public static function checkAcces () {
-
+        return ob_get_clean();
     }
     
     /**
@@ -97,7 +91,10 @@ class uri_dispatch {
      */
     public static function setDbRoutes () {
         $routes = db_q::setSelect('system_route')->fetch();
-        if (empty($routes)) config::$vars['coscms_main']['routes'] = array ();
+        if (empty($routes)) { 
+            config::$vars['coscms_main']['routes'] = array ();
+        }
+        
         foreach ($routes as $route) {
             config::$vars['coscms_main']['routes'][$route['route']] = unserialize($route['value']);  
         }
