@@ -40,9 +40,6 @@
  */
 class cache {
 
-    
-    
-
 
     public static $driver = null;
     /**
