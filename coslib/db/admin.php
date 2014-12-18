@@ -94,7 +94,7 @@ class db_admin extends db {
      */
     public static function tableExists($table) {
         $q = "SHOW TABLES LIKE '$table'";
-        $rows = db::selectQueryOne($q);
+        $rows = self::selectQueryOne($q);
         return $rows;
     }
     
@@ -105,7 +105,7 @@ class db_admin extends db {
      */
     public static function getKeys ($table) {
         $q = "SHOW KEYS FROM $table";
-        $rows = db::selectQuery($q);
+        $rows = self::selectQuery($q);
         return $rows;
     }
     
