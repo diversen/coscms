@@ -1,6 +1,8 @@
 <?php
 
-class coslib_pandoc {
+namespace diversen\pandoc;
+
+class pandoc {
     
     /**
      * returns pandoc version e.g. 1.2.1.1 or 0 if pandoc 
