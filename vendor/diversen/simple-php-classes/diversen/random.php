@@ -1,5 +1,6 @@
 <?php
 
+namespace diversen;
 /**
  * file contains class for creating random strings
  * @package random 

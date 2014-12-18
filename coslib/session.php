@@ -1,5 +1,6 @@
 <?php
 
+use diversen\random;
 /**
  * File contains contains class for doing checks on seesions
  *
