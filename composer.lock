@@ -4,20 +4,20 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "750a1c50906e6bd5233858611de70d6a",
+    "hash": "8d1c1630c70e53123b70677cd19647cc",
     "packages": [
         {
             "name": "diversen/simple-php-classes",
-            "version": "1.0.5",
+            "version": "1.0.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/diversen/simple-php-classes.git",
-                "reference": "e673f4de7ce048d1ca9d079186ee292fd47e0a9f"
+                "reference": "703625034d8dfe1242db547ef1231a3155255e9c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/diversen/simple-php-classes/zipball/e673f4de7ce048d1ca9d079186ee292fd47e0a9f",
-                "reference": "e673f4de7ce048d1ca9d079186ee292fd47e0a9f",
+                "url": "https://api.github.com/repos/diversen/simple-php-classes/zipball/703625034d8dfe1242db547ef1231a3155255e9c",
+                "reference": "703625034d8dfe1242db547ef1231a3155255e9c",
                 "shasum": ""
             },
             "require": {
@@ -46,10 +46,10 @@
                 "github"
             ],
             "support": {
-                "source": "https://github.com/diversen/simple-php-classes/tree/1.0.5",
+                "source": "https://github.com/diversen/simple-php-classes/tree/1.0.6",
                 "issues": "https://github.com/diversen/simple-php-classes/issues"
             },
-            "time": "2014-12-17 22:24:44"
+            "time": "2014-12-18 15:46:11"
         },
         {
             "name": "donatj/phpuseragentparser",

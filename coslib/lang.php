@@ -1,6 +1,5 @@
 <?php
 
-use diversen\conf as config;
 use diversen\lang as cosLang;
 /**
  * File contains contains class creating simple translation
@@ -13,6 +12,4 @@ use diversen\lang as cosLang;
  *
  * @package    lang
  */
-class lang extends cosLang {
-    
-}
+class lang extends cosLang {}

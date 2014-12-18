@@ -118,7 +118,7 @@ class http {
         }
 
         if (isset($post_id)) {
-            save_post($post_id);
+            $_SESSION[$id] = $_POST;
         }
         
         $header = "Location: $location";
