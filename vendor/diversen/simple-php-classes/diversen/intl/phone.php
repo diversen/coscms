@@ -1,5 +1,6 @@
 <?php
 
+namespace diversen\intl;
 /**
  * file contains function for getting dial code info from 
  * country filter
@@ -12,7 +13,7 @@
  * @package intl 
  */
 
-class intl_phone {
+class phone {
 
     /**
      * function for getting country information about dial code used
