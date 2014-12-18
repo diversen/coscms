@@ -78,7 +78,7 @@ class file {
 
                 $filepath = $start_dir . '/' . $file;
                 if (is_dir($filepath)) {
-                    $files = array_merge($files, file::getFileListRecursive($filepath, $pattern));
+                    $files = array_merge($files, self::getFileListRecursive($filepath, $pattern));
                 } else {
                     if (isset($pattern)) {
                         if (fnmatch($pattern, $filepath)) {
