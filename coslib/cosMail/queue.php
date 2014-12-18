@@ -1,5 +1,6 @@
 <?php
 
+use diversen\db\rb as db_rb;
 /**
  * contains mail queue
  * used for sending messages delayed

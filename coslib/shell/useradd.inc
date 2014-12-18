@@ -1,5 +1,6 @@
 <?php
 
+use diversen\db\admin as db_admin;
 /**
  * @package shell
  *

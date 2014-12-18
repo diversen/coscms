@@ -11,6 +11,7 @@
  */
 
 use diversen\strings\ext as strings_ext;
+use diversen\db\admin as db_admin;
 
 include_once "coslib/coslibSetup.php";
 include_once "coslib/head.php";

@@ -1,6 +1,6 @@
 <?php
 
-
+use diversen\db\admin as db_admin;
 /**
  * dumps entire structure
  */

@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "8d1c1630c70e53123b70677cd19647cc",
+    "hash": "bd36e3a1cafc8040f85189bdd0266aea",
     "packages": [
         {
             "name": "diversen/simple-php-classes",

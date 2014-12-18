@@ -2,6 +2,7 @@
 
 namespace diversen;
 use diversen\file\path as file_path;
+use diversen\conf as config;
 
 /**
  * package contains file class for doing common file tasks

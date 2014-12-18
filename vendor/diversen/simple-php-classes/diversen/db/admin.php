@@ -1,5 +1,8 @@
 <?php
 
+namespace diversen\db;
+use diversen\db;
+use diversen\conf as config;
 /**
  * File contains comon methods when working in db adin mode. 
  * @package db 
@@ -9,7 +12,7 @@
  * dbadmin 
  * @package db
  */
-class db_admin extends db {
+class admin extends db {
     
     /**
      * changes database we are working on
