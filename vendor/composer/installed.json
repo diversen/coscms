@@ -1523,12 +1523,12 @@
     },
     {
         "name": "diversen/simple-php-classes",
-        "version": "1.1.8",
-        "version_normalized": "1.1.8.0",
+        "version": "1.2.0",
+        "version_normalized": "1.2.0.0",
         "source": {
             "type": "git",
             "url": "https://github.com/diversen/simple-php-classes.git",
-            "reference": "eee513abe7cd42b2c4a57543c651cf7aefeb0d39"
+            "reference": "c866929c07ff97c45e80cad2476d021c12e9497f"
         },
         "require": {
             "pear-pear.php.net/auth_sasl2": "0.1.*",
@@ -1543,7 +1543,7 @@
             "pear-pear.php.net/services_akismet2": "0.3.*",
             "pear-pear.php.net/validate": "0.8.*"
         },
-        "time": "2014-12-18 21:24:07",
+        "time": "2014-12-18 22:13:31",
         "type": "library",
         "installation-source": "source",
         "autoload": {

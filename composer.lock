@@ -4,15 +4,15 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "52b721975f4d3c34a8d237eee3aba07a",
+    "hash": "3634107b00ae50880b5d2077de78aa14",
     "packages": [
         {
             "name": "diversen/simple-php-classes",
-            "version": "1.1.8",
+            "version": "1.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/diversen/simple-php-classes.git",
-                "reference": "eee513abe7cd42b2c4a57543c651cf7aefeb0d39"
+                "reference": "c866929c07ff97c45e80cad2476d021c12e9497f"
             },
             "require": {
                 "pear-pear.php.net/auth_sasl2": "0.1.*",
@@ -34,7 +34,7 @@
                 }
             },
             "description": "A collection of simple classes",
-            "time": "2014-12-18 21:24:07"
+            "time": "2014-12-18 22:13:31"
         },
         {
             "name": "donatj/phpuseragentparser",
