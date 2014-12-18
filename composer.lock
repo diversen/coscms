@@ -4,24 +4,28 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "a282b92542925e5392cf80a1014a318d",
+    "hash": "57fc59f8e7cbd67eeb038b93cbce07eb",
     "packages": [
         {
             "name": "diversen/simple-php-classes",
-            "version": "1.0.7",
+            "version": "1.1.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/diversen/simple-php-classes.git",
-                "reference": "4de74f956f7643f57a62b08794402d6a91feb93a"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/diversen/simple-php-classes/zipball/4de74f956f7643f57a62b08794402d6a91feb93a",
-                "reference": "4de74f956f7643f57a62b08794402d6a91feb93a",
-                "shasum": ""
+                "reference": "86f46555ed4793984fa84f0a1a2f09ff7c7a7927"
             },
             "require": {
-                "php": ">=5.3.0"
+                "pear-pear.php.net/auth_sasl2": "0.1.*",
+                "pear-pear.php.net/console_color": "1.0.*",
+                "pear-pear.php.net/console_commandline": "1.2.*",
+                "pear-pear.php.net/image_transform": "0.9.*",
+                "pear-pear.php.net/mail": "1.2.*",
+                "pear-pear.php.net/mail_mime": "1.8.*",
+                "pear-pear.php.net/net_smtp": "1.6.*",
+                "pear-pear.php.net/pager": "2.4.*",
+                "pear-pear.php.net/pear": "1.9.*",
+                "pear-pear.php.net/services_akismet2": "0.3.*",
+                "pear-pear.php.net/validate": "0.8.*"
             },
             "type": "library",
             "autoload": {
@@ -29,27 +33,8 @@
                     "diversen": ""
                 }
             },
-            "license": [
-                "BSD-3-Clause"
-            ],
-            "authors": [
-                {
-                    "name": "Dennis Iversen",
-                    "email": "dennis.iversen@gmail.com",
-                    "homepage": "http://os-cms.net/",
-                    "role": "Developer"
-                }
-            ],
-            "description": "A collection of simle PHP classes",
-            "homepage": "http://github.com/diversen/simple-php-classes",
-            "keywords": [
-                "github"
-            ],
-            "support": {
-                "source": "https://github.com/diversen/simple-php-classes/tree/1.0.7",
-                "issues": "https://github.com/diversen/simple-php-classes/issues"
-            },
-            "time": "2014-12-18 18:33:30"
+            "description": "A collection of simple classes",
+            "time": "2014-12-18 20:20:35"
         },
         {
             "name": "donatj/phpuseragentparser",
@@ -278,6 +263,59 @@
                 "markdown"
             ],
             "time": "2014-05-05 02:43:50"
+        },
+        {
+            "name": "mobiledetect/mobiledetectlib",
+            "version": "2.8.11",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/serbanghita/Mobile-Detect.git",
+                "reference": "c68901fb09227dcf04872f0d6a27b9f6e75ecf1f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/serbanghita/Mobile-Detect/zipball/c68901fb09227dcf04872f0d6a27b9f6e75ecf1f",
+                "reference": "c68901fb09227dcf04872f0d6a27b9f6e75ecf1f",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.0.0"
+            },
+            "require-dev": {
+                "johnkary/phpunit-speedtrap": "~1.0@dev",
+                "phpunit/phpunit": "*"
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "Mobile_Detect.php"
+                ],
+                "psr-0": {
+                    "Detection": "namespaced/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Serban Ghita",
+                    "email": "serbanghita@gmail.com",
+                    "homepage": "http://mobiledetect.net",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Mobile_Detect is a lightweight PHP class for detecting mobile devices. It uses the User-Agent string combined with specific HTTP headers to detect the mobile environment.",
+            "homepage": "https://github.com/serbanghita/Mobile-Detect",
+            "keywords": [
+                "detect mobile devices",
+                "mobile",
+                "mobile detect",
+                "mobile detector",
+                "php mobile detect"
+            ],
+            "time": "2014-11-23 13:08:17"
         },
         {
             "name": "pear-pear.php.net/Archive_Tar",

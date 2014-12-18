@@ -434,7 +434,7 @@ class HTTP_Request2_CookieJar implements Serializable
 
         // load the list if needed
         if (empty(self::$psl)) {
-            $path = '/home/dennis/www/coscms/vendor/pear-pear.php.net/HTTP_Request2/data' . DIRECTORY_SEPARATOR . 'HTTP_Request2';
+            $path = '/home/dennis/www/gitbook/vendor/pear-pear.php.net/HTTP_Request2/data' . DIRECTORY_SEPARATOR . 'HTTP_Request2';
             if (0 === strpos($path, '@' . 'data_dir@')) {
                 $path = realpath(
                     dirname(__FILE__) . DIRECTORY_SEPARATOR . '..'

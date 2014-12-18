@@ -9,27 +9,17 @@
             "url": "http://pear.php.net"
         },
         {
-            "type": "vcs",
-            "url": "https://github.com/diversen/simple-php-classes"
+            "type": "git",
+            "url": "https://github.com/diversen/simple-php-classes.git"
         }
 
 
     ],
     "require": {
+        "mobiledetect/mobiledetectlib": "2.8.*",
         "donatj/phpuseragentparser": "*",
         "tpyo/amazon-s3-php-class": "v0.5.0",
-        "diversen/simple-php-classes": "1.0.*",
-        "pear-pear/PEAR": "1.9.*",
-        "pear-pear/Pager": "2.4.*",
-        "pear-pear/Validate": "0.8.*",
-        "pear-pear/Auth_SASL2": "0.1.*",
-        "pear-pear/Image_Transform": "0.9.*",
-        "pear-pear/Net_SMTP": "1.6.*",
-        "pear-pear/Console_Commandline": "1.2.*",
-        "pear-pear/Console_Color": "1.0.*",
-        "pear-pear/Mail_Mime": "1.8.*",
-        "pear-pear/Mail": "1.2.*",
-        "pear-pear/Services_Akismet2": "0.3.*",
+        "diversen/simple-php-classes": "1.1.*",
         "michelf/php-markdown": "1.*",
         "erusev/parsedown": "1.*",
         "google/apiclient": "1.0.*@beta",

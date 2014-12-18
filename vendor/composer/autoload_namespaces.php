@@ -20,4 +20,5 @@ return array(
     'Symfony\\Component\\Filesystem\\' => array($vendorDir . '/symfony/filesystem'),
     'Parsedown' => array($vendorDir . '/erusev/parsedown'),
     'Michelf' => array($vendorDir . '/michelf/php-markdown'),
+    'Detection' => array($vendorDir . '/mobiledetect/mobiledetectlib/namespaced'),
 );

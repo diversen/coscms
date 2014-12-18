@@ -2434,6 +2434,7 @@ return array(
     'Mail_sendmail' => $vendorDir . '/pear-pear.php.net/Mail/Mail/sendmail.php',
     'Mail_smtp' => $vendorDir . '/pear-pear.php.net/Mail/Mail/smtp.php',
     'Mail_smtpmx' => $vendorDir . '/pear-pear.php.net/Mail/Mail/smtpmx.php',
+    'Mobile_Detect' => $vendorDir . '/mobiledetect/mobiledetectlib/Mobile_Detect.php',
     'Net_SMTP' => $vendorDir . '/pear-pear.php.net/Net_SMTP/Net/SMTP.php',
     'Net_Socket' => $vendorDir . '/pear-pear.php.net/Net_Socket/Net/Socket.php',
     'Net_URL2' => $vendorDir . '/pear-pear.php.net/Net_URL2/Net/URL2.php',

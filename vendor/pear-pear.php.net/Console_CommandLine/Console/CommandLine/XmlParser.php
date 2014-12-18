@@ -100,8 +100,8 @@ class Console_CommandLine_XmlParser
      */
     public static function validate($doc)
     {
-        if (is_dir('/home/dennis/www/sweetpoints/vendor/pear-pear.php.net/Console_CommandLine/data' . DIRECTORY_SEPARATOR . 'Console_CommandLine')) {
-            $rngfile = '/home/dennis/www/sweetpoints/vendor/pear-pear.php.net/Console_CommandLine/data' . DIRECTORY_SEPARATOR
+        if (is_dir('/home/dennis/www/gitbook/vendor/pear-pear.php.net/Console_CommandLine/data' . DIRECTORY_SEPARATOR . 'Console_CommandLine')) {
+            $rngfile = '/home/dennis/www/gitbook/vendor/pear-pear.php.net/Console_CommandLine/data' . DIRECTORY_SEPARATOR
                 . 'Console_CommandLine' . DIRECTORY_SEPARATOR . 'data'
                 . DIRECTORY_SEPARATOR . 'xmlschema.rng';
         } else {
