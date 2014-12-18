@@ -16,6 +16,7 @@
 
     ],
     "require": {
+        "iignatov/lightopenid": "*",
         "mobiledetect/mobiledetectlib": "2.8.*",
         "donatj/phpuseragentparser": "*",
         "tpyo/amazon-s3-php-class": "v0.5.0",

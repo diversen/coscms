@@ -2424,6 +2424,8 @@ return array(
     'Image_Transform_Driver_Imagick3' => $vendorDir . '/pear-pear.php.net/Image_Transform/Image/Transform/Driver/Imagick3.php',
     'Image_Transform_Driver_Imlib' => $vendorDir . '/pear-pear.php.net/Image_Transform/Image/Transform/Driver/Imlib.php',
     'Image_Transform_Driver_NetPBM' => $vendorDir . '/pear-pear.php.net/Image_Transform/Image/Transform/Driver/NetPBM.php',
+    'LightOpenID' => $vendorDir . '/iignatov/lightopenid/openid.php',
+    'LightOpenIDProvider' => $vendorDir . '/iignatov/lightopenid/provider/provider.php',
     'Mail' => $vendorDir . '/pear-pear.php.net/Mail/Mail.php',
     'Mail_RFC822' => $vendorDir . '/pear-pear.php.net/Mail/Mail/RFC822.php',
     'Mail_mail' => $vendorDir . '/pear-pear.php.net/Mail/Mail/mail.php',
