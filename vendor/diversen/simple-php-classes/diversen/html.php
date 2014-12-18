@@ -130,7 +130,7 @@ class html {
         }
         
         if (self::$autoEncode) {
-            self::$values = self::specialEncode(self::$values);
+            self::$values = html::specialEncode(self::$values);
         }       
     }
 
@@ -714,7 +714,7 @@ EOF;
             $bytes = $max_bytes;
         } 
         
-        self::hidden('MAX_FILE_SIZE', $bytes);
+        html::hidden('MAX_FILE_SIZE', $bytes);
         
         
         $label = lang::system('system_form_label_file') . ". ";
@@ -722,8 +722,8 @@ EOF;
         $size = upload::bytesToGreek($bytes);
         $label.= $size;
         
-        self::label($filename, $label );
-        self::file($filename, $options);
+        html::label($filename, $label );
+        html::file($filename, $options);
     }
     
     // Progress bar from: 
@@ -1338,7 +1338,7 @@ $(document).ready(function() {
      * @return string $headline
      */
     public static function getHeadlineEncoded ($message, $tag = 'h3') {
-        return self::getHeadline(self::specialEncode($message), $tag);
+        return self::getHeadline(html::specialEncode($message), $tag);
     }
     
     /**
@@ -1380,7 +1380,7 @@ $(document).ready(function() {
         } 
         
         if (is_string($errors)){
-            return self::getError($errors);
+            return html::getError($errors);
         }
         $str = "<!-- view_form_errors -->\n";
         $str.= "<div class=\"form_error\"><ul>\n";
