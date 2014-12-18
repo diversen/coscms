@@ -1,5 +1,6 @@
 <?php
 
+use diversen\upload;
 /**
  * class for doing a upload of a blob to db
  * @package     upload
@@ -75,7 +76,8 @@ class upload_blob extends upload {
             //  check the file is less than the maximum file size
             if($size > $options['maxsize'] ){
                 $error = lang::translate('system_file_upload_to_large');
-                $error.= lang::translate('system_file_allowed_maxsize') . bytesToSize($options['maxsize']);
+                $error.= lang::translate('system_file_allowed_maxsize') . 
+                        upload::bytesToGreek($options['maxsize']);
                 error_log($error);
                 self::$errors[] = $error; 
                 return false;

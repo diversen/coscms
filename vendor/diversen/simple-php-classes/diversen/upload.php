@@ -1,34 +1,15 @@
 <?php
 
+namespace diversen;
+use diversen\lang;
+use diversen\conf as config;
+//use diversen\conf as confi;
 /**
  * file with class for doing uploads and a couple of helper functions
  *
  * @package     upload
  */
 
-/**
- * 
- * @ignore
- */
-function return_bytes($val) {
-    return upload::getBytesFromGreek($val);
-}
-
-/**
- * 
- * @ignore
- */
-function bytesToSize($bytes, $precision = 2){
-    return upload::bytesToGreek($bytes, $precision);
-}
-
-/**
- * 
- * @ignore
- */
-function file_upload_error_message($error_code) {
-    return upload::getNativeErrorMessage($error_code);
-}
 
 /**
  * class for doing uploads
@@ -196,7 +177,9 @@ class upload {
      * @return boolean $res true on success or false on failure
      */
     public static function moveFile($filename = null, $options = null){
-        if (isset($options)) self::$options = $options;
+        if (isset($options)) { 
+            self::$options = $options;
+        }
         
         // We can give both just the /htdocs/files ... path 
         // then we add _COS_PATH
@@ -330,7 +313,7 @@ class upload {
     public static function checkUploadNative ($filename) {        
         $upload_return_code = $_FILES[$filename]['error'];
         if ($upload_return_code != 0) {
-            self::$errors[] = file_upload_error_message($upload_return_code);
+            self::$errors[] = upload::getNativeErrorMessage($upload_return_code);
             return false;
         }
         return true;
@@ -349,7 +332,7 @@ class upload {
         if($_FILES[$filename]['size'] > $maxsize ){
             $message = lang::translate('system_file_upload_to_large');
             $message.= lang::translate('system_file_allowed_maxsize');
-            $message.= bytesToSize($maxsize);
+            $message.= self::bytesToSize($maxsize);
             self::$errors[] = $message;
             return false;
         }

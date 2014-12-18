@@ -1,6 +1,10 @@
 <?php
 
+namespace diversen;
 
+use diversen\conf;
+use diversen\upload;
+use diversen\lang;
 
 /**
  * File containing class for building forms and common methods used 
@@ -12,7 +16,7 @@
 /**
  * @ignore
  */
-include_once "coslib/upload.php";
+//include_once "coslib/upload.php";
 
 /**
  * Class used when building forms and various methods used when creating forms
@@ -130,7 +134,7 @@ class html {
         }
         
         if (self::$autoEncode) {
-            self::$values = html::specialEncode(self::$values);
+            self::$values = self::specialEncode(self::$values);
         }       
     }
 
@@ -222,7 +226,7 @@ class html {
     public static function getActionFromAry ($options = null) {
         
         // check any special storage
-        $storage = config::getMainIni('file_storage');
+        $storage = conf::getMainIni('file_storage');
         
         // google cloud storage
         if ($storage == 'gcs' && self::$doUpload == true) {
@@ -593,10 +597,6 @@ class html {
         if (!isset($extra['cols'])){
             $extra['cols'] = HTML_FORM_TEXTAREA_WT;
         }
-
-        if (isset($extra['filter_help'])) {
-            echo $extra['title'] = moduleloader::getFiltersHelp($extra['filter_help']);            
-        } 
         
         if (!isset($value)) {
             $value = self::setValue($name, $value);
@@ -714,7 +714,7 @@ EOF;
             $bytes = $max_bytes;
         } 
         
-        html::hidden('MAX_FILE_SIZE', $bytes);
+        self::hidden('MAX_FILE_SIZE', $bytes);
         
         
         $label = lang::system('system_form_label_file') . ". ";
@@ -722,8 +722,8 @@ EOF;
         $size = upload::bytesToGreek($bytes);
         $label.= $size;
         
-        html::label($filename, $label );
-        html::file($filename, $options);
+        self::label($filename, $label );
+        self::file($filename, $options);
     }
     
     // Progress bar from: 
@@ -1338,7 +1338,7 @@ $(document).ready(function() {
      * @return string $headline
      */
     public static function getHeadlineEncoded ($message, $tag = 'h3') {
-        return self::getHeadline(html::specialEncode($message), $tag);
+        return self::getHeadline(self::specialEncode($message), $tag);
     }
     
     /**
@@ -1380,7 +1380,7 @@ $(document).ready(function() {
         } 
         
         if (is_string($errors)){
-            return html::getError($errors);
+            return self::getError($errors);
         }
         $str = "<!-- view_form_errors -->\n";
         $str.= "<div class=\"form_error\"><ul>\n";

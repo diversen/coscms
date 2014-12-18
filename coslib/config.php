@@ -1,6 +1,4 @@
 <?php
 
-use diversen\conf;
-
-class config extends diversen\conf {
-}
+use diversen\conf as cosConfig;
+class config extends cosConfig {}
