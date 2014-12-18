@@ -2,6 +2,7 @@
 
 namespace diversen;
 use diversen\conf as config;
+use diversen\db\admin as db_admin;
 /**
  * File contains contains class for connecting to a mysql database
  * with PDO and doing basic crud operations and simple search operations. 
