@@ -44,7 +44,6 @@ class conf {
     
     public static function setModuleIni ($key, $value) {
         self::$vars['coscms_main']['module'][$key] = $value;
-
     }
     
     /**
@@ -111,8 +110,7 @@ class conf {
         if (self::$vars['coscms_main'][$key] == '0'){
             return null;
         }
-        
-        
+               
         if (self::$vars['coscms_main'][$key] == 'true') {
             return "true";
         }
@@ -209,13 +207,17 @@ class conf {
         return $config_file;
     }
     
+    /**
+     * var holding which env we live in
+     * @var string 
+     */
     public static $env = null;
     
     /**
      * try to match ini settings server name with $_SERVER['SERVER_NAME']
      * This is used in order to determine if we are on development, stage,
      * or production server in web mode 
-     * @param string $domain e.g. *.testserver.com or www.testserver.com
+     * @param string $server_name e.g. *.testserver.com or www.testserver.com
      * @return boolean $res true if there is match else false
      */
     public static function serverMatch ($server_name) {
