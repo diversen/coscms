@@ -1,5 +1,7 @@
 <?php
 
+use diversen\file\path as file_path;
+
 /**
  * package contains file class for doing common file tasks
  * @package file
@@ -11,7 +13,7 @@
  * @package file
  */
 class file {
-    
+
     /**
      * function for getting a file list of a directory (. and .. will not be
      * collected)
@@ -23,19 +25,21 @@ class file {
      *                  use strstr
      * @return  array   entries of all files array (0 => 'file.txt', 1 => 'test.php')
      */
-    public static function getFileList ($dir, $options = null) {
-        if (!file_exists($dir)){
+    public static function getFileList($dir, $options = null) {
+        if (!file_exists($dir)) {
             return false;
         }
         $d = dir($dir);
         $entries = array();
         while (false !== ($entry = $d->read())) {
-            if ($entry == '..') continue;
-            if ($entry == '.') continue;
-            if (isset($options['dir_only'])){
-                if (is_dir($dir . "/$entry")){
-                    if (isset($options['search'])){
-                        if (strstr($entry, $options['search'])){
+            if ($entry == '..')
+                continue;
+            if ($entry == '.')
+                continue;
+            if (isset($options['dir_only'])) {
+                if (is_dir($dir . "/$entry")) {
+                    if (isset($options['search'])) {
+                        if (strstr($entry, $options['search'])) {
                             $entries[] = $entry;
                         }
                     } else {
@@ -43,8 +47,8 @@ class file {
                     }
                 }
             } else {
-                if (isset($options['search'])){
-                    if (strstr($entry, $options['search'])){
+                if (isset($options['search'])) {
+                    if (strstr($entry, $options['search'])) {
                         $entries[] = $entry;
                     }
                 } else {
@@ -54,9 +58,8 @@ class file {
         }
         $d->close();
         return $entries;
-
     }
-    
+
     /**
      * function for getting a file list recursive
      * @param string $start_dir the directory where we start
@@ -99,11 +102,11 @@ class file {
      * remove single file or array of files
      * @param string|array $files
      */
-    public static function remove ($files) {
+    public static function remove($files) {
         if (is_string($files)) {
             unlink($files);
         }
-        if (is_array ($files)) {
+        if (is_array($files)) {
             foreach ($files as $val) {
                 $res = unlink($val);
                 if (!$res) {
@@ -112,16 +115,16 @@ class file {
             }
         }
     }
-    
+
     /**
      * method for getting extension of a file
      * @param string $filename
      * @return string $extension
      */
-    public static function getExtension ($filename) {
+    public static function getExtension($filename) {
         return $ext = substr($filename, strrpos($filename, '.') + 1);
     }
-    
+
     /**
      * gets a filename from a path string
      * @param string $file full path of file
@@ -129,7 +132,7 @@ class file {
      *              be utf8
      * @return string $filename the filename     
      */
-    public static function getFilename ($file, $options = array())  {
+    public static function getFilename($file, $options = array()) {
         if (isset($options['utf8'])) {
             $info = file_path::utf8($file);
         } else {
@@ -137,7 +140,7 @@ class file {
         }
         return $info['filename'];
     }
-    
+
     /**
      * method for getting mime type of a file
      * @param string $path
@@ -160,62 +163,62 @@ class file {
         }
         return $result;
     }
-    
+
     /**
      * returns prim mime
      * @param string $file
      * @return string $mime
      */
-    public static function getPrimMime ($file) {
+    public static function getPrimMime($file) {
         $str = file::getMime($file);
         $ary = explode('/', $str);
         return $ary[0];
     }
-    
+
     /**
      * method for getting first path were coslib exists
      * @return string $path the full coslib path
      */
     public static function getFirstCoslibPath() {
         $ps = explode(":", ini_get('include_path'));
-        foreach($ps as $path) {
+        foreach ($ps as $path) {
             $coslib = $path . "/coslib";
-            if(file_exists($coslib)) {
+            if (file_exists($coslib)) {
                 return $coslib;
             }
         }
     }
-    
+
     /**
      * method for creating a directory in the _COS_HTDOCS/files directory
      * It will know if we are using a multi domain setup
      * @param string $dir
      */
-    public static function mkdir ($dir, $perms = '0777') {
+    public static function mkdir($dir, $perms = '0777') {
         $full_path = config::getFullFilesPath();
         $dir = $full_path . "$dir";
-        
+
         if (file_exists($dir)) {
             return false;
         }
         $res = @mkdir($dir, 0777, true);
         return $res;
     }
-    
+
     /**
      * get a cached file using APC
      * @param string $file
      * @return string $content content of the file 
      */
-    public static function getCachedFile ($file) {
+    public static function getCachedFile($file) {
         ob_start();
-        readfile( $file);
-        
+        readfile($file);
+
         $str = ob_get_contents();
         ob_end_clean();
         return $str;
     }
-    
+
     /**
      * get dirs in path using glob function
      * @param string $path
@@ -223,23 +226,23 @@ class file {
      *              'basename' => '/path/to/exists'
      * @return array $dirs 
      */
-    public static function getDirsGlob ($path, $options = array()) {
-        $dirs = glob($path.'*', GLOB_ONLYDIR); 
+    public static function getDirsGlob($path, $options = array()) {
+        $dirs = glob($path . '*', GLOB_ONLYDIR);
         if (isset($options['basename'])) {
             foreach ($dirs as $key => $dir) {
                 $dirs[$key] = basename($dir);
             }
         }
-        return $dirs;              
+        return $dirs;
     }
-    
+
     /**
      * remove directory recursively
      * @param string $path 
      */
-    public static function rrmdir ($dir) {
+    public static function rrmdir($dir) {
         $fp = opendir($dir);
-        if ( $fp ) {
+        if ($fp) {
             while ($f = readdir($fp)) {
                 $file = $dir . "/" . $f;
                 if ($f == "." || $f == "..") {
@@ -252,12 +255,12 @@ class file {
             }
             closedir($fp);
             rmdir($dir);
-       }
+        }
     }
-    
-    public static function scandirRecursive ($dir) {
+
+    public static function scandirRecursive($dir) {
         $files = scandir($dir);
-        static $ary = array ();
+        static $ary = array();
         foreach ($files as $file) {
             if ($file == '.' || $file == '..') {
                 continue;
@@ -271,40 +274,36 @@ class file {
         }
         return $ary;
     }
-}
 
-/**
- * transforms bytes into human readable
- * Found on stackoverflow. From kohana.
- * @param int $bytes
- * @param boolean $force_unit
- * @param boolean $format
- * @param type $si
- * @return string $str human readable
- */
-function transform_bytes($bytes, $force_unit = NULL, $format = NULL, $si = TRUE)
-{
-    // Format string
-    $format = ($format === NULL) ? '%01.2f %s' : (string) $format;
+    /**
+     * transforms bytes into human readable
+     * Found on stackoverflow. From kohana.
+     * @param int $bytes
+     * @param boolean $force_unit
+     * @param boolean $format
+     * @param type $si
+     * @return string $str human readable
+     */
+    function transform_bytes($bytes, $force_unit = NULL, $format = NULL, $si = TRUE) {
+        // Format string
+        $format = ($format === NULL) ? '%01.2f %s' : (string) $format;
 
-    // IEC prefixes (binary)
-    if ($si == FALSE OR strpos($force_unit, 'i') !== FALSE)
-    {
-        $units = array('B', 'KiB', 'MiB', 'GiB', 'TiB', 'PiB');
-        $mod   = 1024;
+        // IEC prefixes (binary)
+        if ($si == FALSE OR strpos($force_unit, 'i') !== FALSE) {
+            $units = array('B', 'KiB', 'MiB', 'GiB', 'TiB', 'PiB');
+            $mod = 1024;
+        }
+        // SI prefixes (decimal)
+        else {
+            $units = array('B', 'kB', 'MB', 'GB', 'TB', 'PB');
+            $mod = 1000;
+        }
+
+        // Determine unit to use
+        if (($power = array_search((string) $force_unit, $units)) === FALSE) {
+            $power = ($bytes > 0) ? floor(log($bytes, $mod)) : 0;
+        }
+
+        return sprintf($format, $bytes / pow($mod, $power), $units[$power]);
     }
-    // SI prefixes (decimal)
-    else
-    {
-        $units = array('B', 'kB', 'MB', 'GB', 'TB', 'PB');
-        $mod   = 1000;
-    }
-
-    // Determine unit to use
-    if (($power = array_search((string) $force_unit, $units)) === FALSE)
-    {
-        $power = ($bytes > 0) ? floor(log($bytes, $mod)) : 0;
-    }
-
-    return sprintf($format, $bytes / pow($mod, $power), $units[$power]);
 }

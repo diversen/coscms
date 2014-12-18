@@ -1,5 +1,6 @@
 <?php
 
+namespace diversen\file;
 /**
  * package contains file class for doing common file tasks associated 
  * with strings. 
@@ -13,7 +14,7 @@
  * @package file
  */
 
-class file_string {
+class string {
     
     /**
      * return the number of lines in a file
