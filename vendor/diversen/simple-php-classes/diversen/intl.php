@@ -168,18 +168,18 @@ class intl {
      */
     public static function getTimezones() {
         static $regions = array(
-            'Africa' => DateTimeZone::AFRICA,
-            'America' => DateTimeZone::AMERICA,
-            'Antarctica' => DateTimeZone::ANTARCTICA,
-            'Aisa' => DateTimeZone::ASIA,
-            'Atlantic' => DateTimeZone::ATLANTIC,
-            'Europe' => DateTimeZone::EUROPE,
-            'Indian' => DateTimeZone::INDIAN,
-            'Pacific' => DateTimeZone::PACIFIC
+            'Africa' => \DateTimeZone::AFRICA,
+            'America' => \DateTimeZone::AMERICA,
+            'Antarctica' => \DateTimeZone::ANTARCTICA,
+            'Aisa' => \DateTimeZone::ASIA,
+            'Atlantic' => \DateTimeZone::ATLANTIC,
+            'Europe' => \DateTimeZone::EUROPE,
+            'Indian' => \DateTimeZone::INDIAN,
+            'Pacific' => \DateTimeZone::PACIFIC
         );
         $timezones = array();
         foreach ($regions as $mask) {
-            $list = DateTimeZone::listIdentifiers($mask);
+            $list = \DateTimeZone::listIdentifiers($mask);
             foreach ($list as $val) {
                 $timezones[] = array('id' => $val, 'zone' => $val);
             }
