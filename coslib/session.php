@@ -1,6 +1,9 @@
 <?php
 
 use diversen\random;
+use diversen\conf as config;
+use diversen\db;
+use diversen\db\q as db_q;
 /**
  * File contains contains class for doing checks on seesions
  *
@@ -644,3 +647,4 @@ class session {
         }
     }
 }
+

@@ -279,8 +279,4 @@ class user {
         self::initProfile();
         return self::$profile_object->getProfileAdminLink($user_id);
     }
-    
-    
-
 }
-

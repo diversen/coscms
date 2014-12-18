@@ -1,5 +1,8 @@
 <?php
 
+namespace diversen\db;
+use diversen\db;
+use diversen\conf as config;
 /**
  * contains db_q class fro creating db queries fairly simply
  * @package db
@@ -11,7 +14,7 @@
  * 
  * @package db
  */
-class db_q  {
+class q  {
     /**
      * holder for query being built
      * @var string $query holding query 
@@ -146,7 +149,7 @@ class db_q  {
         }
         
         self::$query = "SELECT $fields FROM `$table` ";
-        return new db_q;
+        return new self;
     }
     
     
@@ -158,7 +161,7 @@ class db_q  {
     public static function setSelectNumRows ($table){
         self::$method = 'num_rows';
         self::$query = "SELECT count(*) as num_rows FROM $table ";
-        return new db_q;
+        return new self;
     }
     
 
@@ -170,7 +173,7 @@ class db_q  {
     public static function setDelete ($table){
         self::$method = 'delete';
         self::$query = "DELETE FROM $table ";
-        return new db_q;
+        return new self;
     }
     
     /**
@@ -181,7 +184,7 @@ class db_q  {
     public static function setUpdate ($table) {
         self::$method = 'update';
         self::$query = "UPDATE $table SET ";
-        return new db_q;
+        return new self;
     }
     
     /**
@@ -191,7 +194,7 @@ class db_q  {
     public static function setInsert ($table) {
         self::$method = 'insert';
         self::$query = "INSERT INTO $table ";
-        return new db_q;
+        return new self;
     }
     
     /**
@@ -205,7 +208,7 @@ class db_q  {
         } else {
             self::setInsertValues($values, $bind);
         }
-        return new db_q;
+        return new self;
     }
     
     /**
@@ -225,7 +228,7 @@ class db_q  {
         }
         
         self::$query.=  implode (',', $ary);
-        return new db_q;
+        return new self;
     } 
     
     /**
@@ -251,7 +254,7 @@ class db_q  {
                 self::$bind[] = array ('value' => $value, 'bind' => null);
             }
         }
-        return new db_q;
+        return new self;
         
     } 
 
@@ -266,7 +269,7 @@ class db_q  {
         self::setWhere();
         self::$query.= " $filter ? ";
         self::$bind[] = array ('value' => $value, 'bind' => $bind);
-        return new db_q();
+        return new self();
     }
     
     /**
@@ -285,7 +288,7 @@ class db_q  {
                 self::$bind[] = array ('value' => $val, 'bind' => null);
             }
         }
-        return new db_q();
+        return new self();
     }
     
     /**
@@ -306,7 +309,7 @@ class db_q  {
     public static function sql ($sql) {
         self::setWhere();
         self::$query.= " $sql ";
-        return new db_q();
+        return new self();
     }
     
     /**
@@ -316,7 +319,7 @@ class db_q  {
     public static function sqlClean ($sql) {
         self::$method = 'select';
         self::$query = $sql;
-        return new db_q();
+        return new self();
     }
     
     /**
@@ -339,7 +342,7 @@ class db_q  {
             if ($num_val) self::$query.=",";
         }
         self::$query.=")";
-        return new db_q();
+        return new self();
     }
 
     /**
@@ -348,7 +351,7 @@ class db_q  {
      */
     public static function condition ($condition){
         self::$query.= " $condition ";
-        return new db_q;
+        return new self;
     }
 
     /**
@@ -364,7 +367,7 @@ class db_q  {
             self::$query.= ", $column $order ";
         }   
         self::$isset = true;
-        return new db_q;
+        return new self;
     }
     
 
@@ -378,7 +381,7 @@ class db_q  {
         $from = (int)$from;
         $limit = (int)$limit;
         self::$query.= " LIMIT $from, $limit";
-        return new db_q;
+        return new self;
     }
 
     /**
@@ -413,7 +416,7 @@ class db_q  {
             self::prepare();
 
             self::$stmt->execute();
-            $rows = self::$stmt->fetchAll(PDO::FETCH_ASSOC);
+            $rows = self::$stmt->fetchAll(\PDO::FETCH_ASSOC);
             if (self::$method == 'select_one') {
                 if (!empty($rows)) {
                     $rows = $rows[0];
@@ -441,7 +444,7 @@ class db_q  {
      */
     public static function query ($query) {
         self::$query = $query;
-        return new db_q;
+        return new self;
     }
     
     /**
@@ -549,7 +552,7 @@ class db_q  {
                 self::condition($condition);
             }
         }
-        return new db_q();
+        return new self();
     }
     
     /**
@@ -569,7 +572,7 @@ class db_q  {
                 self::condition($condition);
             }
         }
-        return new db_q();
+        return new self();
     }
         
     
@@ -580,11 +583,11 @@ class db_q  {
      * @param array $search e.g. array('user_id =' => 20, 'username =' => 'myname); 
      */
     public static function replace ($table, $values, $search) {
-        $num_rows = db_q::numRows($table)->filterArray($search)->fetch();
+        $num_rows = self::numRows($table)->filterArray($search)->fetch();
         if (!$num_rows){
-            return db_q::insert($table)->values($values)->exec();
+            return self::insert($table)->values($values)->exec();
         } else {
-            return db_q::update($table)->values($values)->filterArray($search)->exec();
+            return self::update($table)->values($values)->filterArray($search)->exec();
         }
     }
     
