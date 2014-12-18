@@ -1,5 +1,6 @@
 <?php
 
+namespace diversen;
 /**
  * class contains simple imap class
  * @package imap
