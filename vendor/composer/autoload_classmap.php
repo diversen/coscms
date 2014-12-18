@@ -2524,6 +2524,7 @@ return array(
     'Services_Akismet2_HttpException' => $vendorDir . '/pear-pear.php.net/Services_Akismet2/Services/Akismet2/HttpException.php',
     'Services_Akismet2_InvalidApiKeyException' => $vendorDir . '/pear-pear.php.net/Services_Akismet2/Services/Akismet2/InvalidApiKeyException.php',
     'Services_Akismet2_InvalidCommentException' => $vendorDir . '/pear-pear.php.net/Services_Akismet2/Services/Akismet2/InvalidCommentException.php',
+    'SphinxClient' => $vendorDir . '/neutron/sphinxsearch-api/sphinxapi.php',
     'Structures_Graph' => $vendorDir . '/pear-pear.php.net/Structures_Graph/Structures/Graph.php',
     'Structures_Graph_Manipulator_AcyclicTest' => $vendorDir . '/pear-pear.php.net/Structures_Graph/Structures/Graph/Manipulator/AcyclicTest.php',
     'Structures_Graph_Manipulator_TopologicalSorter' => $vendorDir . '/pear-pear.php.net/Structures_Graph/Structures/Graph/Manipulator/TopologicalSorter.php',

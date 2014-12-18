@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "eb79d28fbb263c2b1ce7a1a3d7c57a29",
+    "hash": "11d6b5d2859747659585dd6ccfb60744",
     "packages": [
         {
             "name": "diversen/simple-php-classes",
@@ -363,6 +363,48 @@
                 "php mobile detect"
             ],
             "time": "2014-11-23 13:08:17"
+        },
+        {
+            "name": "neutron/sphinxsearch-api",
+            "version": "2.0.8",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/romainneutron/Sphinx-Search-API-PHP-Client.git",
+                "reference": "a108fda835a9f8717e8fc22f2f35106e0f49dbdc"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/romainneutron/Sphinx-Search-API-PHP-Client/zipball/a108fda835a9f8717e8fc22f2f35106e0f49dbdc",
+                "reference": "a108fda835a9f8717e8fc22f2f35106e0f49dbdc",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=4"
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "sphinxapi.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL"
+            ],
+            "authors": [
+                {
+                    "name": "Andrew Aksyonoff",
+                    "homepage": "http://sphinxsearch.com/"
+                }
+            ],
+            "description": "SphinxSearch PHP API",
+            "homepage": "http://sphinxsearch.com/",
+            "keywords": [
+                "Sphinx Search",
+                "api",
+                "search-engine"
+            ],
+            "time": "2013-08-07 18:06:02"
         },
         {
             "name": "pear-pear.php.net/Archive_Tar",
