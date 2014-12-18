@@ -1,5 +1,7 @@
 <?php
 
+namespace diversen;
+use diversen\lang;
 /**
  * File contains contains class for doing paging
  * @package    paginate
@@ -14,13 +16,16 @@ if (!defined('PAGER_PER_PAGE')){
     define ('PAGER_PER_PAGE', 10);
 }
 
+include_once "Pager.php";
+use Pager as PearPager;
+
 
 /**
  * class for doing paging. It is a wrapper around PEAR::Pager
  *
  * @package    paginate
  */
-class pearPager {
+class pagination {
     /**
      * var holding total number of links to be paged.
      * @var int $total
@@ -70,12 +75,13 @@ class pearPager {
         $uri_ary = explode('?', $_SERVER['REQUEST_URI']);
         $uri = $uri_ary[0];
 
+        /*
         if (moduleloader::isInstalledModule('rewrite_manip')) {
             $alt_uri = rewrite::getRowFromRequest($uri);
             if (isset($alt_uri)){
                 $uri = $alt_uri; //$row['rewrite_uri'];
             }
-        }
+        }*/
 
         $filename = $uri . '?from=' . '%d' . '&';
 
@@ -106,7 +112,8 @@ class pearPager {
         );
 
         //$p = new Pager();
-        $pager =  @Pager::factory($pager_options);
+        //$p = new PearPager();
+        $pager =  @PearPager::factory($pager_options);
         $str = '';
         $str.='<div class="pager_wrap">';
         $str.= "<div class =\"pager\">" . $pager->links . "</div>\n" ;

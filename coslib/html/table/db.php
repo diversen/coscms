@@ -1,5 +1,6 @@
 <?php
 
+use diversen\pagination as paginate;
 /**
  * File containing class for building a simple table from db
  * @package html 
