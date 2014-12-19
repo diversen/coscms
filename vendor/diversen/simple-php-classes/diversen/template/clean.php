@@ -1,5 +1,8 @@
 <?php
 
+namespace diversen\template;
+use diversen\template;
+use diversen\conf as config;
 /**
  * file contains a clean template, which can be used
  * if we need to print a clean page
@@ -11,7 +14,7 @@
  * if we need to print a clean page
  * @package template
  */
-class template_clean {
+class clean {
     
     /**
      * echo the header
@@ -25,7 +28,7 @@ class template_clean {
 <!--[if lt IE 9]>
 	<script src="http://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js"></script>
 <![endif]-->
-<title><?php echo template_assets::getTitle(); ?></title>
+<title><?=template_assets::getTitle(); ?></title>
 
 <?php
 
