@@ -1,5 +1,8 @@
 <?php
 
+namespace diversen\date;
+use diversen\html;
+use diversen\date;
 /**
  * File contains helper methods connected to date
  * @package date 

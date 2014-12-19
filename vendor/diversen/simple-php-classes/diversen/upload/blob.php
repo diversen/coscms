@@ -1,11 +1,13 @@
 <?php
 
+namespace diversen\upload;
 use diversen\upload;
+
 /**
  * class for doing a upload of a blob to db
  * @package     upload
  */
-class upload_blob extends upload {
+class blob extends upload {
 
     /**
      * gets file pointer

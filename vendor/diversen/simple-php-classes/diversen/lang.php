@@ -2,6 +2,10 @@
 
 namespace diversen;
 use diversen\conf as config;
+use diversen\moduleloader;
+use diversen\cache;
+use diversen\db\q as db_q;
+use diversen\db;
 /**
  * File contains contains class creating simple translation
  *
@@ -57,7 +61,7 @@ class lang {
         
         // in cli mode there is no option for loading users individual language
         if (!config::isCli()) {
-            self::$userLanguage = \cache::get('account_locales_language', \session::getUserId());
+            self::$userLanguage = cache::get('account_locales_language', \session::getUserId());
         }
         
         // if user language is loaded we will use user language
@@ -110,8 +114,8 @@ class lang {
             $language = self::getLanguage();
         }
         $system_lang = array();
-        $db = new \db();
-        $system_language = \db_q::select('language')->
+        $db = new db();
+        $system_language = db_q::select('language')->
                 filter('language =', $language)->
                 condition('AND')->
                 filter('module_name != ', 'language_all')->
@@ -285,8 +289,8 @@ class lang {
         }
         
         // check if there is a template_load_all
-        if (\moduleloader::isInstalledModule('locales')) {
-            \moduleloader::includeModule('locales');    
+        if (moduleloader::isInstalledModule('locales')) {
+            moduleloader::includeModule('locales');    
             self::$dict = locales_db::loadLanguageFromDb($language);
             return;
         }

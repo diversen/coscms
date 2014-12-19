@@ -11,3 +11,4 @@ use diversen\intl as cosIntl;
  * @package intl
  */
 class intl extends cosIntl {}
+

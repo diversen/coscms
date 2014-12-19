@@ -7,6 +7,5 @@ use diversen\uri as uriParser;
  *
  * @package    uri
  */
-class uri extends uriParser {
+class uri extends uriParser {}
 
-}

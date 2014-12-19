@@ -1,5 +1,6 @@
 <?php
 
+// just a test
 use google\appengine\api\cloud_storage\CloudStorageTools;
 
 class upload_gcs {
@@ -11,8 +12,6 @@ class upload_gcs {
         
         $options = [ 'gs_bucket_name' => 'my_bucket' ];
         $action = CloudStorageTools::createUploadUrl($_SERVER['REQUEST_URI'], $options);
-        return $action;
-        
+        return $action;   
     }
-    
 }

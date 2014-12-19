@@ -1,5 +1,8 @@
 <?php
 
+namespace diversen\moduleloader;
+use diversen\moduleloader;
+use diversen\uri;
 /**
  * File contains class for getting module references
  * @package    moduleloader
@@ -10,7 +13,7 @@
  * @package    moduleloader
  */
 
-class moduleloader_reference extends moduleloader {
+class reference extends moduleloader {
             
     
     public static function getParentEditUrlFromOptions ($options) {
@@ -50,12 +53,12 @@ class moduleloader_reference extends moduleloader {
             return false;
         }
         
-        $res = moduleloader::includeModule($reference);
+        $res = self::includeModule($reference);
         
         if ($res) {
             // transform a reference (e.g. content/article) into a class name
             // (content_article_module)
-            $class = moduleloader::modulePathToClassName($reference);
+            $class = self::modulePathToClassName($reference);
             self::$reference = $reference;
             self::$id = $id;
             self::$referenceId = $reference_id;

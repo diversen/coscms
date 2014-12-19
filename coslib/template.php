@@ -44,6 +44,10 @@ class template {
      */
     public static $templateName = null;
 
+    /**
+     * var telling how to render 
+     * @var string $render basic|all
+     */
     public static $render = 'all';
 
     /**

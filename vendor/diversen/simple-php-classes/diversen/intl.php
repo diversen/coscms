@@ -3,6 +3,7 @@
 namespace diversen;
 
 use diversen\conf as config;
+use diversen\cache;
 /**
  * File containing method for getting lanugage and countries. 
  * @package intl
@@ -34,7 +35,7 @@ class intl {
 
         // set user timezone - only in web mode
         if (!config::isCli()) {
-            $timezone = \cache::get('account_timezone', \session::getUserId());
+            $timezone = cache::get('account_timezone', \session::getUserId());
             if ($timezone) { 
                 date_default_timezone_set($timezone);
             } else {
@@ -426,7 +427,7 @@ class intl {
      * @return decimal $decimal
      */
     public static function formatCurrency($locale, $decimal) {
-        $f = new NumberFormatter($locale, NumberFormatter::CURRENCY);
+        $f = new \NumberFormatter($locale, \NumberFormatter::CURRENCY);
         return $f->format($decimal);
     }
 
@@ -439,12 +440,12 @@ class intl {
      * @return decimal $res
      */
     public static function formatDecimal($locale, $decimal, $min_digits = 2, $max_digits = 2) {
-        $f = new NumberFormatter($locale, NumberFormatter::DECIMAL);
+        $f = new \NumberFormatter($locale, NumberFormatter::DECIMAL);
         if ($min_digits) {
-            $f->setAttribute(NumberFormatter::MIN_FRACTION_DIGITS, $min_digits);
+            $f->setAttribute(\NumberFormatter::MIN_FRACTION_DIGITS, $min_digits);
         }
         if ($max_digits) {
-            $f->setAttribute(NumberFormatter::MAX_FRACTION_DIGITS, $max_digits); // by default some locales got max 2 fraction digits, that is probably not what you want
+            $f->setAttribute(\NumberFormatter::MAX_FRACTION_DIGITS, $max_digits); // by default some locales got max 2 fraction digits, that is probably not what you want
         }
         return $f->format($decimal);
     }
@@ -458,9 +459,9 @@ class intl {
      * @return decimal $res
      */
     public static function formatDecimalFromLocale($locale, $decimal, $min_digits = 2, $max_digits = 2) {
-        $f = new NumberFormatter($locale, NumberFormatter::DECIMAL);
+        $f = new \NumberFormatter($locale, \NumberFormatter::DECIMAL);
         if ($min_digits) {
-            $f->setAttribute(NumberFormatter::MIN_FRACTION_DIGITS, $min_digits);
+            $f->setAttribute(\NumberFormatter::MIN_FRACTION_DIGITS, $min_digits);
         }
         if ($max_digits) {
             $f->setAttribute(NumberFormatter::MAX_FRACTION_DIGITS, $max_digits); // by default some locales got max 2 fraction digits, that is probably not what you want
@@ -481,5 +482,4 @@ class intl {
         $browser['language_long'] = $zend_locale->toString();
         return $browser;
     }
-
 }

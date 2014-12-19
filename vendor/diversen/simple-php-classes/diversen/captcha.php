@@ -1,5 +1,10 @@
 <?php
 
+namespace diversen;
+use diversen\moduleloader;
+use diversen\html;
+use diversen\conf as config;
+use diversen\lang;
 /**
  * File contains very simple captcha class
  *
@@ -101,7 +106,9 @@ class captcha {
      */
     public static function genRandomString() {
         $length = config::getMainIni('captcha_image_chars');
-        if (!$length) $length = 4;
+        if (!$length) { 
+            $length = 4;
+        }
         $characters = '0123456789';
         $string ='';    
 
