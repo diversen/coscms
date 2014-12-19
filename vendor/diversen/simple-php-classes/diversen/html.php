@@ -115,9 +115,7 @@ class html {
         if (isset($trigger)) {
             self::$autoLoadTrigger = $trigger;
         }
-        
-        
-        
+                
         if (!empty(self::$autoLoadTrigger)){
             $trigger = self::$autoLoadTrigger;
             if (isset($_POST[$trigger])) {
@@ -138,9 +136,6 @@ class html {
         }       
     }
 
-    
-
-    
     /**
      * sets auto encode to a value
      * @param boolean $val true or false 
@@ -428,8 +423,6 @@ class html {
         if (!isset(self::$values[$name]) && isset($_GET[$trigger])) {
             return null;
         }
-        
-        // return initial
         return $value;
     }
     
@@ -619,8 +612,6 @@ class html {
         self::$fields[] = array ('value' => $str);
     }
     
-
-    
     /**
      * method for getting a medium textarea ~1/2 of normal textarea size 
      * @param string $name the name of the textarea
@@ -789,7 +780,6 @@ $(document).ready(function() {
             $extra['checked'] = "yes";
         } 
         $extra = self::parseExtra($extra);
-
         $str = "<input type=\"checkbox\" name=\"$name\" id=\"$name\" value=\"1\" $extra />" . self::$br . "\n";
         return $str;
     }
@@ -835,7 +825,9 @@ $(document).ready(function() {
         
         foreach ($selects as $key => $select) {
             $add_checked = '';
-            if ($key == $checked) $add_checked = " checked ";
+            if ($key == $checked) { 
+                $add_checked = " checked ";
+            }
             $str.= "<input type=\"radio\" name= \"$name\" value=\"$key\" $extra $add_checked />$select\n";
            
             
@@ -1093,7 +1085,8 @@ $(document).ready(function() {
             $id, 
             $value = null, 
             $extra = array(), 
-            $init = array()){        
+            $init = array()) {
+        
         $extra = self::parseExtra($extra);
         $name = $name . "[]";
         $dropdown = "<select multiple=\"multiple\" name=\"$name\" $extra";
@@ -1186,7 +1179,9 @@ $(document).ready(function() {
     public static function specialEncode($values, $negative = array ()){
         if (is_array($values)){
             foreach($values as $key => $val){
-                if (in_array($key, $negative)) continue;
+                if (in_array($key, $negative)) { 
+                    continue;
+                }
                 
                 if (is_array($val) ) {
                     $values[$key] = self::specialEncode($val);
@@ -1277,27 +1272,10 @@ $(document).ready(function() {
      * @return string $str the widget string 
      */
     public static function widget ($class, $method, $name = null, $value = null){
-        moduleloader::includeModule ($class);
         $value = self::setValue($name, $value);
         $str = $class::$method($name, $value);
         self::$fields[] = array ('value' => $str);
         return $str;
-    }
-    
-    /**
-     * method for sanitizing a url real simple
-     * remove / ? # - add entites for displaying the url in a link
-     * without any dangers
-     * @ignore
-     * @deprecated
-     * @param string $url
-     * @return string $url
-     */
-    public static function sanitizeUrlSimple ($string) {
-        $strip = array('/', '?', '#');
-        $sub = array ('', '', '');
-        $clean = trim(str_replace($strip, $sub, strip_tags($string)));
-        return $clean;
     }
     
     /**
@@ -1307,10 +1285,6 @@ $(document).ready(function() {
      * @param type $tag
      */
     public static function headline ($message, $tag = 'h3') {
-        if (method_exists('mainTemplate', 'headline')) {
-            mainTemplate::headline($message, $tag);
-            return;
-        }
         echo self::getHeadline($message, $tag);
     }
     
@@ -1324,8 +1298,7 @@ $(document).ready(function() {
         if (method_exists('mainTemplate', 'getHeadline')) {
             return mainTemplate::getHeadline($message, $tag);
         }
-        $str = "<!-- headline_message -->\n";
-        $str.= "<div class=\"headline\">\n";
+        $str = "<div class=\"headline\">\n";
         $str.= "<$tag>$message</$tag>\n";
         $str.= "</div>\n";
         return $str;
@@ -1348,8 +1321,7 @@ $(document).ready(function() {
      * @return string $headline link encoded
      */
     public static function getHeadlineLinkEncoded ($url, $title) {
-        return self::createLink(
-                $url, 
+        return self::createLink( $url, 
                 self::getHeadline(self::specialEncode($title))
         );
         
@@ -1360,12 +1332,6 @@ $(document).ready(function() {
      * @param  array $errors 
      */
     public static function errors($errors){
-        // if method exists in loaded template we use that.    
-        if (method_exists('mainTemplate', 'errors')) {
-            mainTemplate::errors($errors);
-            return;
-        } 
-        
         echo self::getErrors($errors);
     }
     
@@ -1382,8 +1348,7 @@ $(document).ready(function() {
         if (is_string($errors)){
             return self::getError($errors);
         }
-        $str = "<!-- view_form_errors -->\n";
-        $str.= "<div class=\"form_error\"><ul>\n";
+        $str = "<div class=\"form_error\"><ul>\n";
         foreach($errors as $error){
             $str.= "<li>$error</li>\n";
         }
@@ -1397,9 +1362,6 @@ $(document).ready(function() {
      * @param  string  $message positive confirmation on correct filled form
      */
     public static function confirm($message){
-        if (method_exists('mainTemplate', 'confirm')) {
-            mainTemplate::confirm($message);
-        } 
         echo self::getConfirm($message);
     }
     
@@ -1412,8 +1374,7 @@ $(document).ready(function() {
         if (method_exists('mainTemplate', 'getConfirm')) {
             return mainTemplate::getConfirm($message);
         }
-        $str = "<!-- view_confirm -->\n";
-        $str.= "<div class=\"form_confirm\">\n";
+        $str = "<div class=\"form_confirm\">\n";
         $str.= "<ul><li>$message</li></ul>\n";
         $str.= "</div>\n";
         return $str;
@@ -1424,9 +1385,6 @@ $(document).ready(function() {
      * @param string $error message
      */
     public static function error($message){
-        if (method_exists('mainTemplate', 'error')) {
-            mainTemplate::error($message);
-        }
         echo self::getError($message);
     }
     
@@ -1439,8 +1397,7 @@ $(document).ready(function() {
         if (method_exists('mainTemplate', 'getError')) {
             return mainTemplate::getError($message);
         }
-        $str = "<!-- view_error -->\n";
-        $str.= "<div class=\"form_error\">\n";
+        $str = "<div class=\"form_error\">\n";
         $str.= "<ul><li>$message</li></ul>\n";
         $str.= "</div>\n";
         return $str;

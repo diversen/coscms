@@ -1,6 +1,9 @@
 <?php
 
+namespace diversen\html\table;
+use diversen\db\q as db_q;
 use diversen\pagination as paginate;
+
 /**
  * File containing class for building a simple table from db
  * @package html 
@@ -11,7 +14,7 @@ use diversen\pagination as paginate;
  * @package html
  */
 
-class html_table_db {
+class db {
     
     /**
      * get table definition
@@ -68,10 +71,7 @@ class html_table_db {
         foreach ($rows as $row) {
             $str.= "<tr>\n";
             foreach ($row as $single) {
-                //print_r($single);
-                
                 $str.=$this->getTd($single);
-                
             }
             $str.= "</tr>\n";
         }

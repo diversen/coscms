@@ -73,16 +73,16 @@ class mailer {
         
         $options = self::init();
         $params = array();
+        
         if ($options['mail_method'] == 'smtp') {
-
             // SMTP authentication params
             $params["host"]     = config::getMainIni('smtp_params_host');
             $params["port"]     = config::getMainIni('smtp_params_port');
             $params["auth"]     = config::getMainIni('smtp_params_auth');
             $params["username"] = config::getMainIni('smtp_params_username');
             $params["password"] = config::getMainIni('smtp_params_password');
-            $params['debug'] = config::getMainIni('smtp_params_debug');
-            $params['persist'] = config::getMainIni('smtp_params_persist');
+            $params['debug']    = config::getMainIni('smtp_params_debug');
+            $params['persist']  = config::getMainIni('smtp_params_persist');
             //$params['pipelining'] = config::getMainIni('smtp_params_pipelining');
             if (!config::getMainIni('smtp_params_persist')) {
                 $params['persist'] = false;
@@ -133,7 +133,9 @@ class mailer {
         );
 
         $bounce = config::getMainIni('site_email_bounce');
-        if ($bounce) $headers['Return-Path'] = $bounce;
+        if ($bounce) { 
+            $headers['Return-Path'] = $bounce;
+        }
 
         if (!empty($more)) {
             foreach($more as $key => $val) {
@@ -142,8 +144,6 @@ class mailer {
         }
         return $headers;
     }
-    
-    
     
    /**
     * sends a mail to primary system user
@@ -157,7 +157,6 @@ class mailer {
     * @return boolean $res
     */
     public static function systemUser ($subject, $message, $from = null, $reply_to = null, $more = array ()) {
-        
         
         $to = config::getMainIni('system_email');
         if (!$to) {

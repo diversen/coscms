@@ -1,6 +1,12 @@
 <?php
 
-class html_upload {
+namespace diversen\html;
+//use diversen\template\assets;
+/**
+ * html upload using html5
+ */
+
+class upload {
 
     /**
      * html5 upload form. Standalone.
@@ -67,5 +73,4 @@ class html_upload {
         <?php
         return ob_get_clean();
     }
-   
 }

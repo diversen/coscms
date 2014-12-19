@@ -1,5 +1,7 @@
 <?php
 
+namespace diversen\html;
+use diversen\date; 
 /**
  * File containing class for html helpers
  * @package html 
@@ -10,7 +12,7 @@
  * @package html
  */
 
-class html_helpers {
+class helpers {
         
     /**
      * method for getting admin options
@@ -43,7 +45,7 @@ class html_helpers {
      */
     public static function confirmDeleteForm ($name = 'submit', $legend = 'delete') {
         
-        $html = new HTML ();
+        $html = new html ();
         $html->setAutoEncode(true);
         $html->formStart('custom_delete_form');
         $html->legend($legend);
@@ -60,7 +62,7 @@ class html_helpers {
      */
     public static function confirmForm ($legend, $submit_value = null, $submit_name = 'submit') {
         
-        $html = new HTML ();
+        $html = new html();
         $html->setAutoEncode(true);
         $html->formStart('custom_delete_form');
         $html->legend($legend);
