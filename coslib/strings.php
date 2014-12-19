@@ -1,16 +1,5 @@
 <?php
 
-use diversen\strings as stringParser;
-
-/**
- * Common methods for manipulating strings
- * @package strings
- */
-
-/**
- * class for manipulating strings
- * @package strings
- */
-class strings extends stringParser {
-    
-}
+// shortcut
+use diversen\strings as cosStrings;
+class strings extends cosStrings {}

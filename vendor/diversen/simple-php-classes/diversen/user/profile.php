@@ -1,5 +1,8 @@
 <?php
 
+namespace diversen\user;
+use diversen\lang;
+use diversen\html;
 /**
  * File contains methods when no user profile system is in place
  * @package user
@@ -11,7 +14,7 @@
  * @package user
  */
 
-class defaultProfile {
+class profile {
     
     /**
      * return empty string 
@@ -19,6 +22,19 @@ class defaultProfile {
      */
     public static function getProfileInfo () {
         return '';
+    }
+    
+        /**
+     * retrun profile as a link
+     * @param   int     $id
+     * @return  string  $str html profile link
+     */
+    public static function getProfileAdminLink ($id){
+        //$profile = self::getAccountProfileFromId($id);
+        $str = html::createLink(
+            "/account/admin/edit/$id", 
+            lang::translate('(Admin) Edit profile'));
+        return $str;
     }
     
     /**
@@ -35,7 +51,6 @@ class defaultProfile {
         $str = html::createLink(
                 $logout_url, 
                 $link);
-        //$str.= " ($profile[email])";
         return $str;
     } 
     
@@ -45,7 +60,6 @@ class defaultProfile {
      * @return string $str return empty string
      */
     public function getProfile ($id = null) {
-        
         return '';
     }
     

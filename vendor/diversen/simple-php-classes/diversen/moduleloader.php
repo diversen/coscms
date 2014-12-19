@@ -52,6 +52,12 @@ class moduleloader {
 
      */
     public static $status = array();
+    
+    /**
+     * used to hold a message when user encounters e.g. 403 or 404
+     * @var type 
+     */
+    public static $message = '';
 
     /**
      * holding module ini settings.

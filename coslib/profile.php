@@ -560,14 +560,6 @@ class profile  {
                     $this->error[] = "Could not copy $source to $dest";
                 }
             }
-
-            // if php ini file exists copy that to.
-            //$dest = _COS_PATH . "/modules/$val[module_name]/$val[module_name].php.ini";
-            //$source = $profile_dir . "/$val[module_name].php.ini-dist";
-
-            //if (file_exists($source)){
-            //    copy($source, $dest);
-            //}
         } 
     }
 
