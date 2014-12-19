@@ -8,7 +8,6 @@ use diversen\cli;
  */
 
 // need to seup include path and define commons
-include_once "coslib/setup.php";
-setup::common();
+
 
 class mainCli extends cli{}
