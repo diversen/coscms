@@ -1,6 +1,7 @@
 <?php
 
 namespace diversen;
+use diversen\conf as config;
 /**
  * file contains time functions
  * @package time 
