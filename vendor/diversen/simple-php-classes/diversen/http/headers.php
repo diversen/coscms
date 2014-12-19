@@ -1,5 +1,7 @@
 <?php
 
+namespace diversen\http;
+
 /**
  * @package http
  * 
@@ -9,24 +11,22 @@
  * class for doing http headers
  * @package http
  */
-class http_headers {
+class headers {
 
-   /**
-    * parse curl headers string and return array
-    * @param string $response
-    * @return array $headers
-    */
+    /**
+     * parse curl headers string and return array
+     * @param string $response
+     * @return array $headers
+     */
     public static function parseCurlHeaders($response) {
+        
         $headers = array();
-
         $header_text = substr($response, 0, strpos($response, "\r\n\r\n"));
-
         foreach (explode("\r\n", $header_text) as $i => $line) {
             if ($i === 0) {
                 $headers['http_code'] = $line;
             } else {
                 list ($key, $value) = explode(': ', $line);
-
                 $headers[$key] = $value;
             }
         }
@@ -49,5 +49,4 @@ class http_headers {
         $headers = curl_exec($curl);
         return self::parseCurlHeaders($headers);
     }
-
 }

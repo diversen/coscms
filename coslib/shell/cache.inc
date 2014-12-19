@@ -1,5 +1,6 @@
 <?php
 
+use diversen\cache\clear;
 /**
  * File containing documentation functions for shell mode
  *
@@ -9,18 +10,17 @@
 
 
 function cache_clear_db ($options = null) {
-    if (cache_clear::db()) {
+    if (clear::db()) {
         return 0;
     }
     return 1;
 }
 
 function cache_clear_assets ($options = null) {
-    
     if (config::isCli()) {
         cos_needs_root();
     }
-    cache_clear::assets();
+    clear::assets();
     return 0;
 }
 
@@ -29,7 +29,7 @@ function cache_clear_all ($options = null) {
         cos_needs_root();
     }
     
-    cache_clear::all();
+    clear::all();
     return 0;
 }
 
@@ -37,8 +37,6 @@ function cache_clear_all ($options = null) {
 mainCli::setCommand('cache', array(
     'description' => 'Commands for clearing caches. ',
 ));
-
-
 
 mainCli::setOption('cache_clear_db', array(
     'long_name'   => '--clear-db',

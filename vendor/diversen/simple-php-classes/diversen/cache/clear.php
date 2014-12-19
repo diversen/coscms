@@ -1,5 +1,8 @@
 <?php
 
+namespace diversen\cache;
+use diversen\db\q as db_q;
+use diversen\file;
 /**
  * File contains methods for clearing all or some of the cached assets
  */
@@ -9,7 +12,7 @@
  * @package cache_clear
  */
 
-class cache_clear {
+class clear {
 
     /**
      * clears system_cache table
