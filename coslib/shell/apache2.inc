@@ -1,6 +1,6 @@
 <?php
 
-use diversen\apache2 as apache2;
+use diversen\apache2;
 use diversen\strings\version as strings_version;
 /**
  * File contains shell commands for apache2 on Debian systems for fast

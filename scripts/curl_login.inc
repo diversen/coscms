@@ -1,7 +1,8 @@
 <?php
 
 define('_COS_PATH', realpath('.'));
-include_once "coslib/coslibSetup.php";
+include_once "coslib/setup.php";
+setup::common();
 
 //config::loadMainCli();
 

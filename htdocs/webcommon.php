@@ -10,11 +10,11 @@ ignore_user_abort(true);
 $setup = $path = null;
 
 // test if we have placed coslib outside web directory
-if (file_exists('./coslib/coslibSetup.php')) {
-    $setup = "./coslib/coslibSetup.php";
+if (file_exists('./coslib/setup.php')) {
+    $setup = "./coslib/setup.php";
     $path = realpath('.');
 } else {
-    $setup = "../coslib/coslibSetup.php";
+    $setup = "../coslib/setup.php";
     $path = realpath('..');
 }
 
@@ -26,6 +26,7 @@ if (DIRECTORY_SEPARATOR != '/') {
 // define _COS_PATH and include autoloader
 define('_COS_PATH',  $path);
 include_once $setup;
+setup::common();
 
 // load main ini
 // define constants
