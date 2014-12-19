@@ -1,5 +1,10 @@
 <?php
 
+use diversen\conf as config;
+use diversen\lang;
+use diversen\moduleloader;
+use diversen\intl;
+use diversen\http;
 /**
  * initialize base system. 
  * Runs both web system and commandline system.
