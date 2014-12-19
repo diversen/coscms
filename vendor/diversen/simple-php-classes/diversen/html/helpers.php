@@ -2,6 +2,9 @@
 
 namespace diversen\html;
 use diversen\date; 
+use diversen\session;
+use diversen\html;
+use diversen\lang;
 /**
  * File containing class for html helpers
  * @package html 

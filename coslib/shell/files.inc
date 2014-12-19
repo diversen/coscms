@@ -45,6 +45,9 @@ function cos_chmod_files_owner(){
     cos_needs_root();
     $owner = posix_getlogin();
     $files_path = _COS_PATH . '/htdocs/files ';
+    $files_path.= _COS_PATH . '/logs ';
+    $files_path.= _COS_PATH . '/private ';
+    $files_path.= _COS_PATH . '/config/multi';
     $command = "chown -R $owner:$owner $files_path";
     cos_exec($command);
     $command = "chmod -R 770 $files_path";
