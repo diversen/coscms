@@ -1,6 +1,9 @@
 <?php
 
+namespace diversen\mailer;
+
 use diversen\db\rb as db_rb;
+use diversen\mailer\helpers;
 /**
  * contains mail queue
  * used for sending messages delayed
@@ -33,7 +36,7 @@ use diversen\db\rb as db_rb;
  * @package cosMail
  */
 
-class cosMail_queue {
+class queue {
     
     public static $dateTime = null;
     
@@ -67,7 +70,7 @@ class cosMail_queue {
         $bean->body = $body;
         $bean->sendtime = self::getDateTime();
         $bean->sent = 0;
-        $bean->domain = cosMail_helpers::getDomain($to);
+        $bean->domain = helpers::getDomain($to);
         return R::store($bean); 
     }
     
@@ -85,15 +88,5 @@ class cosMail_queue {
         $format = 'Y-m-d G:i:s';
         $dateTime = date($format, $ts);
         return $dateTime;
-    }
-    
-    /**
-     * method for processing mail queue
-     * @param array $params 
-     *                  array ('sleep' => 3, 'per_domain' => false); 
-     */
-    public static function process ($params) {
-        
-        
     }
 }

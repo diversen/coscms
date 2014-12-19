@@ -15,7 +15,7 @@ namespace diversen;
 include_once 'Validate.php';
 
 // to prevent Fatal class has been defined once
-use Validate as pearValidate; 
+//use Validate as pearValidate; 
 
 /**
  * class for validating most common thing: URL's and emails. 
@@ -54,10 +54,10 @@ class valid  {
      * @return  boolean $res true on success and false on failure
      */
     public static function url ($url){
-        $p = new pearValidate();
+        $p = new \Validate();
         
         $schemes = array ('http', 'https');
-        if (!$p->uri($url, array('allowed_schemes' => $schemes))){
+        if (!@$p->uri($url, array('allowed_schemes' => $schemes))){
             return false;
         }
         return true;
@@ -69,7 +69,7 @@ class valid  {
      * @return boolean $res true if ok else false
      */
     public static function emailRfc822 ($email) {
-        $p = new pearValidate();
+        $p = new \Validate();
         if ($p->email($email, array('use_rfc822' => true))) {
             return true;
         } else {
@@ -89,8 +89,8 @@ class valid  {
             $options = array('check_domain' => 'true');
         }
         
-        $v = new pearValidate();
-        if ($v->email($email, $options)) {
+        $v = new \Validate();
+        if (@$v->email($email, $options)) {
             return true;
         }
         return false;

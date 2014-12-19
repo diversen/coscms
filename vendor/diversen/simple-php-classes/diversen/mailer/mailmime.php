@@ -1,5 +1,6 @@
 <?php
 
+namespace diversen\mailer;
 /**
  * file contains mail mime 
  * @package cosMail
@@ -15,7 +16,7 @@ include_once "Mail/mime.php";
  * thin wrapper around Mail::Mime
  * @package cosMail
  */
-class cosMail_mime {
+class mailmime {
     /**
      * holding mime object
      * @var object $mime 
@@ -27,7 +28,7 @@ class cosMail_mime {
      */
     public function __construct () {
         $crlf = "\n";
-        $this->mime = new Mail_mime($crlf);
+        $this->mime = new \Mail_mime($crlf);
     }
     
     /**

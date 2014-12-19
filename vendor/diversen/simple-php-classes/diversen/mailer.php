@@ -1,5 +1,8 @@
 <?php
 
+namespace diversen;
+use diversen\mailer\mailmime;
+use diversen\conf as config;
 /**
  * contains mail class and mail functions
  * use cosMail::multipart, this will send text, html, add attachments
@@ -33,7 +36,7 @@
 
 include_once "Mail.php";
 
-class cosMail {
+class mailer {
     
     public static $wordwrap = 0;
     public static $mail = null;
@@ -170,7 +173,9 @@ class cosMail {
     }
     
     public static function wrapText ($message) {
-        if (!self::$wordwrap) return $message;
+        if (!self::$wordwrap) { 
+            return $message;
+        }
         return wordwrap($message, self::$wordwrap,  "\r\n");
     }
 
@@ -189,7 +194,7 @@ class cosMail {
     public static function multipart ($to, $subject, $message, $from = null, $reply_to = null, $more = array ()){
         
         $headers = self::getHeaders($to, $subject, $from, $reply_to, $more);
-        $mime = new cosMail_mime();
+        $mime = new mailmime();
         if (is_array($message)) {
 
             if (isset($message['txt'])) {
@@ -217,7 +222,8 @@ class cosMail {
 
         $body = $mime->getBody();
         $mime_headers = $mime->getHeaders($headers);
-
+        //unset($mime);
+        
         return self::send($to, $mime_headers, $body);
 
     }  
@@ -236,7 +242,7 @@ class cosMail {
     public static function text($to, $subject, $message, $from = null, $reply_to=null, $more = array ()) {
         $headers = self::getHeaders($to, $subject, $from, $reply_to, $more);
         
-        $mime = new cosMail_mime();
+        $mime = new mailmime();
         $mime->setTxt(self::wrapText($message));
 
         $body = $mime->getBody();
@@ -253,22 +259,24 @@ class cosMail {
     * @return boolean $res true on success and false on failure
     */
     public static function send ($to, $mime_headers, $body) {
+        
         if (self::$queue) {
-            return cosMail_queue::add ($to, $mime_headers, $body);
+            return queue::add ($to, $mime_headers, $body);
         }
         
         $options = self::init();
         $params = self::getCosParams();
-
+        
         if (!is_object(self::$mail)) {
-            self::$mail = Mail::factory($options['mail_method'], $params);
+            self::$mail = \Mail::factory($options['mail_method'], $params);
         }
-
+        
         $res = self::$mail->send($to, $mime_headers, $body);
-        if (PEAR::isError($res)) {
+        if (\PEAR::isError($res)) {
             log::error($res->getMessage());
             return false;
         }
+        
         return true;
     }
     

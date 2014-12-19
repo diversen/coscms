@@ -1,5 +1,6 @@
 <?php
 
+namespace diversen\mailer;
 /**
  * contains mail helpers
  * @package cosMail
@@ -9,7 +10,7 @@
  * class contains mail helpers
  * @package cosMail
  */
-class cosMail_helpers {
+class helpers {
 
     /**
      * gets domain from email
