@@ -6,6 +6,7 @@ use diversen\template;
 use diversen\csspacker;
 use diversen\moduleloader;
 use diversen\conf as config;
+use diversen\file;
 
 /**
  * File containing class for parsing template assets. 

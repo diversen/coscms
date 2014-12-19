@@ -1,5 +1,9 @@
 <?php
 
+namespace diversen\uri;
+use diversen\moduleloader;
+use diversen\db\q as db_q;
+use diversen\conf as config;
 /**
  * simple url dispatch class
  * @package uri 
@@ -14,7 +18,7 @@
  * 
  * @package uri 
  */
-class uri_dispatch {
+class dispatch {
     
     /**
      * var holding pathInfo

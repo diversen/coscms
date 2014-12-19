@@ -1,5 +1,9 @@
 <?php
 
+namespace diversen\layout;
+use diversen\layout;
+use diversen\html;
+use diversen\uri;
 /**
  * File contains a short extension of layout class
  * Using this class will keep better state of current link and 
@@ -8,10 +12,10 @@
  */
 
 /**
- * layout2 extension of layout for keeping better state with current link 
+ * layout extension of layout for keeping better state with current link 
  * @package layout
  */
-class layout_ext extends layout {
+class ext extends layout {
 
     /**
      * method for parsing a module menu.
@@ -25,8 +29,6 @@ class layout_ext extends layout {
         $str.= MENU_LIST_START . "\n";
         $num_items = $ex = count($menu);
 
-        //$options['class'] = $options['class'] . " module_menu_link ";
-        $options = array ('class' => 'module_menu_link');
         foreach($menu as $v){
             if (!self::checkMenuAuth($v)) {
                 continue;
@@ -38,7 +40,7 @@ class layout_ext extends layout {
             }
             $num_items--;
 
-            $str .= html::createLink($v['url'], $v['title'], $options);
+            $str .= html::createLink($v['url'], $v['title']);
             $str .= MENU_SUBLIST_END;
         }
         $str.= MENU_LIST_END . "\n";
@@ -51,17 +53,24 @@ class layout_ext extends layout {
      */
     public static function parseMainMenuList (){
 
+        $module_frag = uri::$info['module_base'];
+
         $menu = array();
         $menu = self::$menu['main'];
         $str = $css = '';
         foreach($menu as $v){
-            
             if (!self::checkMenuAuth($v)) {
                 continue;
             }
-            
-            $options = self::getMenuLinkOptions($v);
-            
+
+            $options = array ();
+            $url = explode('/', $v['url']);
+            if (isset($url[1]) && isset($module_frag)) {
+               if ("/$url[1]" == $module_frag) {
+                   $options['class'] = 'current';
+               } 
+            }
+ 
             $str.="<li>";
             $link = html::createLink( $v['url'], $v['title'], $options);
             $str.=  $link;
@@ -85,7 +94,7 @@ class layout_ext extends layout {
         $str = '';
         $str.= '<ul>' . "\n";
         $str.= self::parseMainMenuList();
-        $str .= "</ul>\n";
+        $str.= "</ul>\n";
         return $str;
     }
 }

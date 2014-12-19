@@ -5,6 +5,8 @@ use diversen\lang;
 use diversen\moduleloader;
 use diversen\intl;
 use diversen\http;
+use diversen\db;
+use diversen\uri\dispatch;
 /**
  * initialize base system. 
  * Runs both web system and commandline system.
@@ -158,12 +160,12 @@ if (!config::isCli()){
     $ml->runLevel(5);
     
     // load url routes if any
-    uri_dispatch::setDbRoutes();
+    dispatch::setDbRoutes();
     
     $ml->runLevel(6);
 
     $controller = null;
-    $route = uri_dispatch::getMatchRoutes();
+    $route = dispatch::getMatchRoutes();
 
     if ($route) {
         // if any route is found we get controller from match
@@ -192,7 +194,7 @@ if (!config::isCli()){
 
     // if any matching route was found we check for a method or function
     if (isset($route['method'])) {
-        $str = uri_dispatch::call($route['method']);       
+        $str = dispatch::call($route['method']);       
     } else {
         // or we use default ('old') module loading
         $str = $ml->getParsedModule();
