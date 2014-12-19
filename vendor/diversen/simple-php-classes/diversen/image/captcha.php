@@ -1,5 +1,7 @@
 <?php
 
+namespace diversen\image;
+use diversen\conf as config;
 /**
  * file contains a simple image captcha class
  * @package image
@@ -12,13 +14,12 @@
 // Licensed under the GNU L-GPL
 // http://gesf.org
 // -------------------------------------------------------------------
-//if(!defined("INSITE")) { die("No direct access allowed!"); }
 
 /**
  * class contains simple image captcha methods
  * @package image
  */
-class image_captcha {
+class captcha {
 
 // -------------------------------------------------------------------
 // Settings
@@ -50,22 +51,8 @@ class image_captcha {
 // Call needed methods and gerenate CAPTCHA right away ...
 // -------------------------------------------------------------------
 
-    function Image_Captcha($str) {
-// public function __constructor($letter = '', $case = 5) {	
+    function create($str) {
 
-        /*
-          $this->_capCase = $case;
-
-          if (empty($letter)) {
-          $this->StringGen();
-          } else {
-          $this->_capLength = strlen($letter);
-          $this->_capString = substr($letter, 0, $this->_capLength);
-          }
-
-          @session_start();
-          $_SESSION["CAPTCHA_HASH"] = sha1($this->_capString);
-         */
         $font = config::getModuleIni('image_captcha_font'); //'fonts/captcha.ttf';'
         $f_color = config::getModuleIni('image_captcha_font_color'); //'fonts/captcha.ttf';'
         if (!$f_color) {
@@ -186,7 +173,6 @@ class image_captcha {
 // -------------------------------------------------------------------
 
     function GetCaptchaString() {
-// public function GetCaptchaString() {	
         return $this->_capString;
     }
 
@@ -195,11 +181,9 @@ class image_captcha {
 // -------------------------------------------------------------------
 
     function GetCaptchaHash() {
-// public function GetCaptchaHash() {
         return $_SESSION["CAPTCHA_HASH"];
     }
 
 }
 
-// End Captcha class
 

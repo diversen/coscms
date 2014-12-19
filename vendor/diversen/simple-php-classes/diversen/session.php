@@ -8,6 +8,7 @@ use diversen\db;
 use diversen\db\q as db_q;
 use diversen\date;
 use diversen\moduleloader;
+use diversen\event;
 
 /**
  * File contains contains class for doing checks on seesions
