@@ -137,7 +137,6 @@ class helpers {
                     $_REQUEST['birth_day'];
             return $date;
         }
-        return null;
-        
+        return null;        
     }
 }
