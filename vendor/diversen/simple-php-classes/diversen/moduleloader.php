@@ -919,7 +919,6 @@ class moduleloader {
             return '';
         }
         
-        self::includeFilters($filters);
         $str = '<span class="small-font">';
         $i = 1;
 
@@ -986,3 +985,4 @@ class moduleloader {
     return '';
     }
 }
+

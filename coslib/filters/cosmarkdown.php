@@ -6,3 +6,4 @@
 use diversen\filter\markdown;
 class cosmarkdown extends markdown {}
 class filters_cosmarkdown extends cosmarkdown {}
+
