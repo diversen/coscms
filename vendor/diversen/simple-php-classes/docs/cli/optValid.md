@@ -1,5 +1,10 @@
 
 ~~~php
+
+        <?php
+
+        use diversen\cli\optValid;
+        
         // parse commandline options with php 
         // command line options usaually start with - and --
         $str = "-s -S --chapters=7 -V geometry:margin=1in -V documentclass=memoir -V lang=danish";
