@@ -6,14 +6,14 @@ namespace diversen\filter;
  * @package    filters
  */
 
-use \Michelf\Markdown;
+use \Michelf\Markdown as MD;
 
 /**
  * markdown filter.
  *
  * @package    filters
  */
-class markdownNoFollow extends \Michelf\Markdown {
+class markdownNoFollow extends MD {
 
     public $attr = array ();
     
