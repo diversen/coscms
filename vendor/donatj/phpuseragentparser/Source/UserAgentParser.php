@@ -8,7 +8,7 @@
  * @link http://donatstudios.com/PHP-Parser-HTTP_USER_AGENT
  * @param string|null $u_agent User agent string to parse or null. Uses $_SERVER['HTTP_USER_AGENT'] on NULL
  * @throws InvalidArgumentException on not having a proper user agent to parse.
- * @return array an array with browser, version and platform keys
+ * @return string[] an array with browser, version and platform keys
  */
 function parse_user_agent( $u_agent = null ) {
 	if( is_null($u_agent) ) {
@@ -52,8 +52,8 @@ function parse_user_agent( $u_agent = null ) {
 		$platform = 'Chrome OS';
 	}
 
-	preg_match_all('%(?P<browser>Camino|Kindle(\ Fire\ Build)?|Firefox|Iceweasel|Safari|MSIE|Trident/.*rv|AppleWebKit|Chrome|
-			IEMobile|Opera|OPR|Silk|Midori|
+	preg_match_all('%(?P<browser>Camino|Kindle(\ Fire\ Build)?|Firefox|Iceweasel|Safari|MSIE|Trident|AppleWebKit|Chrome|
+			IEMobile|Opera|OPR|Silk|Midori|Edge|
 			Baiduspider|Googlebot|YandexBot|bingbot|Lynx|Version|Wget|curl|
 			NintendoBrowser|PLAYSTATION\ (\d|Vita)+)
 			(?:\)?;?)
@@ -70,6 +70,10 @@ function parse_user_agent( $u_agent = null ) {
 		return $empty;
 	}
 
+	if( preg_match('/rv:(?P<version>[0-9A-Z.]+)/si', $u_agent, $rv_result) ) {
+		$rv_result = $rv_result['version'];
+	}
+
 	$browser = $result['browser'][0];
 	$version = $result['version'][0];
 
@@ -84,7 +88,8 @@ function parse_user_agent( $u_agent = null ) {
 		return false;
 	};
 
-	$key = 0;
+	$key  = 0;
+	$ekey = 0;
 	if( $browser == 'Iceweasel' ) {
 		$browser = 'Firefox';
 	} elseif( $find('Playstation Vita', $key) ) {
@@ -113,14 +118,16 @@ function parse_user_agent( $u_agent = null ) {
 	} elseif( $find('Midori', $key) ) {
 		$browser = 'Midori';
 		$version = $result['version'][$key];
-	} elseif( $browser == 'MSIE' || strpos($browser, 'Trident') !== false ) {
+	} elseif( $browser == 'MSIE' || ($rv_result && $find('Trident', $key)) || $find('Edge', $ekey) ) {
+		$browser = 'MSIE';
 		if( $find('IEMobile', $key) ) {
 			$browser = 'IEMobile';
+			$version = $result['version'][$key];
+		} elseif( $ekey ) {
+			$version = $result['version'][$ekey];
 		} else {
-			$browser = 'MSIE';
-			$key     = 0;
+			$version = $rv_result ?: $result['version'][$key];
 		}
-		$version = $result['version'][$key];
 	} elseif( $find('Chrome', $key) ) {
 		$browser = 'Chrome';
 		$version = $result['version'][$key];

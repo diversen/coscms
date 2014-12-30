@@ -7,7 +7,6 @@ $baseDir = dirname($vendorDir);
 
 return array(
     $vendorDir . '/google/apiclient/src',
-    $vendorDir . '/pear-pear.php.net/Net_URL2',
     $vendorDir . '/pear-pear.php.net/XML_Util',
     $vendorDir . '/pear-pear.php.net/Console_Getopt',
     $vendorDir . '/pear-pear.php.net/Structures_Graph',
@@ -25,4 +24,5 @@ return array(
     $vendorDir . '/pear-pear.php.net/Auth_SASL2',
     $vendorDir . '/pear-pear.php.net/Validate',
     $vendorDir . '/pear-pear.php.net/Pager',
+    $vendorDir . '/pear-pear.php.net/Net_URL2',
 );
