@@ -81,7 +81,7 @@ class optValid {
             if (isset($val[2])) {
                 $sub_opt = $val[2][0];
                 if (!in_array($sub_opt, $allow[$opt])) {
-                    $this->errors[$opt][] = $sub_opt;
+                    $this->errors[] = $sub_opt;
                 }
             }
         }

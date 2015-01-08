@@ -136,12 +136,12 @@ function color_output ($output, $color_code = 'g') {
         return $output;
     }
     
-    if (!isset(config::$vars['coscms_main']['color_shell_disable'])) {
+    //if (!isset(config::$vars['coscms_main']['color_shell_disable'])) {
         if (!$color) {
-            $color = new Console_Color();
+            $color = new \Console_Color();
         }
         $ret = $color->convert("%$color_code$output%n");    
-    } 
+    //} 
     return $ret;
 }
 
@@ -151,12 +151,13 @@ function color_output ($output, $color_code = 'g') {
  * @return string $str
  */
 function cos_parse_shell_output ($output){
-    if (!is_array($output)) return '';
+    if (!is_array($output)) { 
+        return '';
+    }
     $end_output = '';
     foreach($output as $val){
         $end_output.= $val ."\n";
     }
-    //$output = wordwrap($end_output);
     return $end_output;    
 }
 
@@ -167,7 +168,6 @@ function cos_parse_shell_output ($output){
  *                 executed through exec()
  */
 function cos_system($command){
-    $output = array();
     system($command.' 2>&1', $ret);
     if ($ret == 0){
         echo color_output ("[OK]    ", 'g');
@@ -175,12 +175,6 @@ function cos_system($command){
     } else {
         echo color_output("[ERROR] ", 'r');
         echo $command . "\n";
-        //$end_output = '';
-        //foreach($output as $key => $val){
-        //    $end_output.= $val . "\n";
-        //}
-        //$end_output = wordwrap($end_output);
-        //echo $end_output;
     }
     return $ret;
 }
@@ -237,7 +231,6 @@ function cos_is_cli (){
  * @return boolean true if is root else false
  */
 function cos_is_root () {
-    
     if (0 == posix_getuid()) {
         return true;
     } else {
@@ -253,13 +246,11 @@ function cos_is_root () {
 function cos_needs_root ($str = '') {
     
     $output = '';
-
     $output.= "Current command needs to be run as root. E.g. with sudo: ";
     if (!empty($str)) {
         $output.="\nsudo $str";
     }
 
-    
     if (!cos_is_root()) {
         echo $output . PHP_EOL;
         mainCli::exitInt(128);

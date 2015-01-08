@@ -182,7 +182,11 @@ EOF;
             
                      
             
-            $result = self::$parser->parse();
+            try {
+                $result = self::$parser->parse();
+            } catch (\Exception $e) {
+                cos_cli_abort($e->getMessage());
+            }
 
             // we parse the command line given. 
             // Note: Now we examine the domain, to if the -d switch is given
@@ -195,7 +199,7 @@ EOF;
             // check domain
             $domain = $result->options['domain'];
             config::$vars['domain'] = $domain;
-         
+        
             
             if ($domain != 'default' || empty($domain)) {
                 $domain_ini = _COS_PATH . "/config/multi/$domain/config.ini";
