@@ -6,4 +6,4 @@
  */
 use diversen\filter\markdownNoFollow;
 class cosmarkdownNoFollow extends markdownNoFollow {}
-class filters_cosmarkdown extends cosmarkdownNoFollow {}
+class filters_cosmarkdownNoFollow extends cosmarkdownNoFollow {}
