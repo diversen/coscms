@@ -38,6 +38,7 @@ page.open(url, function (status) {
         getFullDom();
     } else {
        console.log('failure open page');
+       phantom.exit();
     }
 });
 
