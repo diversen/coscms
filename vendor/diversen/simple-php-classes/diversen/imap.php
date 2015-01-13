@@ -231,7 +231,7 @@ class imap {
             $parts['plain'] = $this->decodePlain($message);
         }
         
-        foreach (new RecursiveIteratorIterator($message) as $part) {
+        foreach (new \RecursiveIteratorIterator($message) as $part) {
             try {
                 $type = $this->getContentType($part);
 
