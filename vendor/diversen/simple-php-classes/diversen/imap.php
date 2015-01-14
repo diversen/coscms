@@ -208,9 +208,14 @@ class imap {
         $parts = array ();
         
         $gen_sub = false;
+        
+        
+        
+        
+        
         try {
             $parts['subject'] = $message->subject;
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             $gen_sub = true;
         }
         $parts['plain'] = '';
@@ -256,7 +261,7 @@ class imap {
                     // else unknown
                     $parts['unknown'][] = $part;
                 }
-            } catch (Exception $e) {
+            } catch (\Exception $e) {
                 error_log($e->getMessage());
             }
         } 
@@ -297,7 +302,7 @@ class imap {
                 $type = $this->getContentType($part);
                 $parts[$type][] = $part->getContent();
             } 
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
                 log::error($e->getTraceAsString());
                 log::error($e->getMessage());
         }
@@ -326,7 +331,7 @@ class imap {
                     return $foundPart;
                     break;
                 }
-            } catch (Zend_Mail_Exception $e) {
+            } catch (\Exception $e) {
                  log::error($e->getMessage());
             }
         }

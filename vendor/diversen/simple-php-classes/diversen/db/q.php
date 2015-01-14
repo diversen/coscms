@@ -423,7 +423,7 @@ class q  {
                 } 
             }
             self::unsetVars();
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             $message = $e->getTraceAsString();
             log::error($message);
             $last = self::getLastDebug();
@@ -458,7 +458,7 @@ class q  {
         try {
             self::prepare(); 
             $res = self::$stmt->execute();
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             $message = $e->getMessage();
             $message.= $e->getTraceAsString();
             log::debug($message);
