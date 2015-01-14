@@ -6,4 +6,4 @@
  */
 use diversen\filter\markdownExt;
 class cosmarkdownext extends markdownExt {}
-class filters_cosmarkdown extends cosmarkdownext {}
+class filters_cosmarkdownext extends cosmarkdownext {}
