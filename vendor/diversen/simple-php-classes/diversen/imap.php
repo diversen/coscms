@@ -219,18 +219,16 @@ class imap {
             $gen_sub = true;
         }
         $parts['plain'] = '';
-        $parts['images'] = array ();
-        $parts['movies'] = array ();
-        $parts['unknown'] = array ();
+        $parts['images'] = array();
+        $parts['movies'] = array();
+        $parts['unknown'] = array();
 
+        $parts['date'] = $message->getHeader('Date', 'string');
+        $from = $message->getHeader('From', 'string');
 
-            $parts['date'] = $message->getHeader('Date', 'string');
-            $from = $message->getHeader('From', 'string');
-
-        
         $parts['from'] = trim($this->extractMailFrom($from));
-        $parts['html'] = array ();
-        
+        $parts['html'] = array();
+
         // test if it is not a multi part message
         if (!$message->isMultipart()) {
             $parts['plain'] = $this->decodePlain($message);
