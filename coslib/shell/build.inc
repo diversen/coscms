@@ -38,25 +38,21 @@ function cos_build ($options = null) {
  */
 function cos_build_simple ($options = null) {
 
-    $name = cos_readline("Enter name of build - usually name of profile. Command make take some time to execute - be patient\n");
-    $mk_build_dir = "mkdir ./build/$name";
-    if (file_exists("./build/$name")) {
-        $res = cos_confirm_readline("Delete ./build/$name ");
-        if ($res) {
-            $rm_build_dir = "rm -rf ./build/$name*";
-            cos_exec($rm_build_dir);
-            cos_exec($mk_build_dir);
-        } else {
-            cos_cli_abort('Aborted!');
-        }
-    } else {
-        cos_exec($mk_build_dir);
-    }
+    $dir = getcwd();
+    $name = basename($dir);
     
+    if (file_exists("./build/$name")) {
+        cos_exec("rm -rf ./build/$name*");
+    }
+    cos_exec("mkdir ./build/$name");
+
     $htdocs = "cp -rf htdocs/* ./build/$name";
     cos_exec($htdocs);
     
     $domain = config::getMainIni('domain');
+    if (!$domain) {
+        $domain = 'default';
+    }
     $files_rm = "rm -rf ./build/$name/files/$domain/*";
     cos_exec($files_rm);
     
@@ -85,10 +81,13 @@ function cos_build_simple ($options = null) {
         $ary['password'] = '';
     }
     
-    // in same dir we place all. 
+    // indicate the all files is in the same base dir 
     $ary['htdocs_path'] = '_COS_PATH';
-    
+   
+    // clean ini settings for secrets
     $ini_settings = config::arrayToIniFile($ary);
+    
+    // add ini dist file
     file_put_contents("./build/$name/config/config.ini-dist", $ini_settings);
     
     $coslib = "cp -rf coslib ./build/$name";
