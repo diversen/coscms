@@ -248,11 +248,19 @@ class assets extends template {
         $str = "";
         ksort(self::$css);
         
+        $cached_assets_inline = config::getMainIni('cached_assets_inline');
         foreach (self::$css as $key => $val){
-            $str.= "<link rel=\"stylesheet\" type=\"text/css\" href=\"$val\" />\n";
+            if (!$cached_assets_inline) {
+                $str.= "<link rel=\"stylesheet\" type=\"text/css\" href=\"$val\" />\n";
+            } else {
+                $str.= file_get_contents(_COS_HTDOCS . "/$val") . "\n";
+            }
             unset(self::$css[$key]);
         }
         
+        if ($cached_assets_inline) {
+            return "<style>$str</style>";
+        }
         return $str;
     }
     
@@ -399,8 +407,16 @@ class assets extends template {
         $str = "";
         ksort(self::$js);
 
+        $cached_assets_inline = config::getMainIni('cached_assets_inline');
         foreach (self::$js as $val){
-            $str.= "<script src=\"$val\" type=\"text/javascript\"></script>\n";
+            if (!$cached_assets_inline) {
+                $str.= "<script src=\"$val\" type=\"text/javascript\"></script>\n";
+            } else {
+                $str.= file_get_contents(_COS_HTDOCS . "/$val");
+            }
+        }
+        if ($cached_assets_inline) {
+            return "<script>$str</script>\n";
         }
         return $str;
     }
