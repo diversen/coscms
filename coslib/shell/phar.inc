@@ -16,17 +16,18 @@ function cos_phar_cli_create() {
 }
 
 function cos_phar_web_create() {
-    echo $dir = getcwd();
+    
+    
+    $dir = getcwd();
     $base = basename($dir);
     $phar = new Phar("../$base.phar");
     $phar->interceptFileFuncs();
-    $phar->buildFromDirectory($dir);
-    $stub = $phar->createDefaultStub('phar_cli.php');
-    $phar->setStub($stub);
-    $stub = "#!/usr/bin/env php \n" . $stub;
+    $phar->buildFromDirectory(dirname(__FILE__) . "/$dir");
+    $stub = $phar->createDefaultStub('router.php');
     $phar->setStub($stub);
     $phar->stopBuffering();
-    echo "cli phar created. Make it executable and run it with: ./$dir.phar\n";
+
+    echo "Web phar created. Make it executable and run it with: ./$dir.phar\n";
     exit(0);
 }
 
