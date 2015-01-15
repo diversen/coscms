@@ -1,6 +1,6 @@
 <?php
 
-function db_to_cqlite ($options) {
+function db_to_sqlite ($options) {
     die('ok');
 }
 
