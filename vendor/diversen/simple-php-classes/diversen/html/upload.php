@@ -1,7 +1,7 @@
 <?php
 
 namespace diversen\html;
-//use diversen\template\assets;
+use diversen\template\assets;
 /**
  * html upload using html5
  */
@@ -14,9 +14,9 @@ class upload {
      * @return string $str html and script
      */
     public function fileHtml5($url) {
-        template_assets::setJs('/js/jquery.html5_upload.js');
+        assets::setJs('/js/jquery.html5_upload.js');
         $js = $this->getJs($url);
-        template_assets::setStringJs($js);
+        assets::setStringJs($js);
         return $this->getHtml();
         
     }
