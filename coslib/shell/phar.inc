@@ -1,33 +1,45 @@
 <?php
 
 function cos_phar_cli_create() {
+    
     $dir = getcwd();
     $base = basename($dir);
-    $phar = new Phar("../$base.phar");
+    cos_build_simple();
+    
+    $dir = getcwd();
+    $base = basename($dir);
+    $output = "../$base-cli.phar";
+    $phar = new Phar($output);
     $phar->interceptFileFuncs();
-    $phar->buildFromDirectory($dir);
+    //$phar->buildFromDirectory($dir);
+    $phar->buildFromDirectory("$dir/build/$base");
     $stub = $phar->createDefaultStub('phar_cli.php');
     $phar->setStub($stub);
     $stub = "#!/usr/bin/env php \n" . $stub;
     $phar->setStub($stub);
     $phar->stopBuffering();
-    echo "cli phar created. Make it executable and run it with: ./$dir.phar\n";
+    cos_exec("chmod +x $output");
+    echo "CLI phar executable file created from current source ($output)\n";
     exit(0);
 }
 
 function cos_phar_web_create() {
     
-    
     $dir = getcwd();
     $base = basename($dir);
-    $phar = new Phar("../$base.phar");
+    cos_build_simple();
+    
+    $output = "../$base-web.phar";
+    $phar = new Phar($output);
     $phar->interceptFileFuncs();
-    $phar->buildFromDirectory(dirname(__FILE__) . "/$dir");
-    $stub = $phar->createDefaultStub('router.php');
+    $phar->buildFromDirectory("$dir/build/$base");
+    $stub = $phar->createDefaultStub('misc/alt-router.php');
     $phar->setStub($stub);
     $phar->stopBuffering();
 
-    echo "Web phar created. Make it executable and run it with: ./$dir.phar\n";
+    echo "Web phar executable file created from current source ($output)\n";
+    echo "Server it with built-in server like this:\n";
+    echo "php -S localhost:8080 $output\n";
     exit(0);
 }
 
