@@ -54,7 +54,7 @@ function useradd_direct_add_admin ($options = null){
 
 
 mainCli::setCommand('useradd-direct', array(
-    'description' => 'Will create super user direct by setting email and password arguments',
+    'description' => 'Will create user or super user',
 ));
 
 mainCli::setOption('useradd_direct_add', array(
@@ -65,7 +65,7 @@ mainCli::setOption('useradd_direct_add', array(
 
 mainCli::setOption('useradd_direct_add_admin', array(
     'long_name'   => '--add-admin',
-    'description' => 'Add user direct.',
+    'description' => 'Add admin user direct.',
     'action'      => 'StoreTrue'
 ));
 

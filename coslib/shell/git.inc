@@ -534,7 +534,7 @@ function cos_git_echo_remote_tags ($options){
 }
 
 mainCli::setCommand('git', array(
-    'description' => 'Commands for using git. Can be used for installing and uninstalling modules from git repos (remote)',
+    'description' => 'git module management',
 ));
 
 mainCli::setOption('cos_git_no_questions', array(

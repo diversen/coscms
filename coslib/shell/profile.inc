@@ -252,7 +252,7 @@ function create_profile($options) {
 if (config::isCli()){  
     
     mainCli::setCommand('profile', array(
-        'description' => 'Profile commands. Profiles are configuration for complete sites. You can build profiles for distribution, install from profiles, reload configuration and more.',
+        'description' => 'Generate and install site profiles',
     ));
 
     mainCli::setOption('profile_dont_hide_secrets', array(

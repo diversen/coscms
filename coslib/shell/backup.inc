@@ -153,7 +153,7 @@ function backup_get_latest_backup($type = null){
 // }}}
 
 mainCli::setCommand('backup', array(
-    'description' => "Command for creating and restoring file based tar.gz archives of a complete system.",
+    'description' => "Create and restore backups",
 ));
 
 mainCli::setOption('backup_backup', array(

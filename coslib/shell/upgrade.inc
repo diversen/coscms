@@ -17,7 +17,7 @@ function cos_upgrade_post ($options = array ()) {
 }
 
 mainCli::setCommand('upgrade', array(
-    'description' => 'Upgrade a existing system',
+    'description' => 'Upgrade existing system',
 ));
 
 mainCli::setOption('cos_upgrade_post', array(

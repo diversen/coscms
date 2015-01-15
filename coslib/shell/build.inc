@@ -155,7 +155,7 @@ function cos_build_pear ($options = null) {
 }
 
 mainCli::setCommand('build', array(
-    'description' => 'Command for building a disto based on a single archive . ',
+    'description' => 'Build distros',
 ));
 
 

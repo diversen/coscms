@@ -72,7 +72,7 @@ function load_db_default(){
 
 /**
  * function for opening a connection to the database specified in config.ini
- * opens up the mysql command line tool
+ * opens up the MySQL command line tool
  * @return  int     the executed commands shell status 0 on success.
  */
 function connect_db(){
@@ -179,63 +179,68 @@ function clone_db ($options = array ()) {
     db_admin::cloneDB($old, $new_name);
 }
 
-
 if (config::isCli()){
 
-    mainCli::setCommand('db', array(
-        'description' => 'Will manipulate MySQL database in different ways: Backup, restore datbase, open connection etc.',
+    self::setCommand('db', array(
+        'description' => 'MySQL database commands.',
     ));
     
-    mainCli::setOption('db_show_con_info', array(
+    self::setOption('db_show_con_info', array(
         'long_name'   => '--show-con-info',
         'description' => 'Show DB connection info',
         'action'      => 'StoreTrue'
     ));
 
-    mainCli::setOption('drop_db_default', array(
+    self::setOption('drop_db_default', array(
         'long_name'   => '--drop-db-default',
         'description' => 'Drops database from settings in config/config.ini (if user is allowed to)',
         'action'      => 'StoreTrue'
     ));
 
-    mainCli::setOption('create_db', array(
+    self::setOption('create_db', array(
         'long_name'   => '--create-db',
         'description' => 'Creates database from settings in config/config.ini (if user is allowed to). Warning: Will drop database if it exists, and create database again.',
         'action'      => 'StoreTrue'
     ));
 
 
-    mainCli::setOption('load_db_default', array(
+    self::setOption('load_db_default', array(
         'long_name'   => '--load-db-default',
         'description' => 'Loads database in config/config.ini with default sql (scripts/default.sql). Only the very basic SQL is loaded into database.',
         'action'      => 'StoreTrue'
     ));
 
-    mainCli::setOption('load_db_file', array(
+    self::setOption('load_db_file', array(
         'long_name'   => '--load-db-file',
         'description' => 'Loads specified file or latest found in backup/sql into db',
         'action'      => 'StoreTrue'
     ));
 
-    mainCli::setOption('connect_db', array(
+    self::setOption('connect_db', array(
         'long_name'   => '--connect',
-        'description' => 'Connects to database specified in config/config.ini using the mysql shell',
+        'description' => 'Connects to database specified in config/config.ini using the MySQL shell',
         'action'      => 'StoreTrue'
     ));
     
-    mainCli::setOption('clone_db', array(
+    self::setOption('clone_db', array(
         'long_name'   => '--clone',
         'description' => 'Clone database. Specify name',
         'action'      => 'StoreTrue'
     ));
 
-    mainCli::setOption ('dump_db_file', array(
+    self::setOption ('dump_db_file', array(
         'long_name'   => '--dump-db-file',
         'description' => 'Will try to dump database specified in config/config.ini. If no file is specified then dump will be generated with a unix timestamp.',
         'action'      => 'StoreTrue'
     ));
+    
+    self::setOption('db_to_sqlite', array(
+        'long_name'   => '--to-sqlite',
+        'description' => 'Create a sqlite3 database from current MySQL database. Will be placed in sqlite/database.sql',
+        'action'      => 'StoreTrue'
+    ));
 
-    mainCli::setArgument('File',
+    self::setArgument('File',
         array('description'=> 'Optional: Specify a path to a file to load into db or DB',
               'optional' => true));
 }

@@ -44,7 +44,7 @@ function cos_phar_web_create() {
 }
 
 self::setCommand('phar', array(
-    'description' => 'Commands for generating phar archieves out of current source',
+    'description' => 'Generate phar archieves from current source',
 ));
 
 self::setOption('cos_phar_cli_create', array(

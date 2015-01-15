@@ -428,7 +428,7 @@ function translate_collect ($options) {
 
 
 mainCli::setCommand('translate', array(
-    'description' => 'Will extract a translation file for specified language for a module|template by extracting all lang::translate(\'strings\')',
+    'description' => 'Extract strings for translation.',
 ));
 
 mainCli::setOption('translate', array(

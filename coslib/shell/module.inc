@@ -214,10 +214,7 @@ function module_list_all () {
 
 if (config::isCli()){
 mainCli::setCommand('module', array(
-    'description' => '
-        Commands for installing and uninstalling modules - 
-        only locale placed in module dir. 
-        For remote install of git repos see git'
+    'description' => 'Locale module management'
 ));
 
 // create commandline parser

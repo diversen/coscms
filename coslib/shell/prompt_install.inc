@@ -92,7 +92,7 @@ function get_password(){
 
 
 mainCli::setCommand('prompt-install', array(
-    'description' => 'Commands for doing a prompt install with questions asked and answered',
+    'description' => 'Prompt install. Asks questions and install',
 ));
 
 

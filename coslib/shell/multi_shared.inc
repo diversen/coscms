@@ -42,7 +42,7 @@ function multi_shared_exec_command ($options = null) {
 }
 
 mainCli::setCommand('multi-shared', array(
-    'description' => 'Commands used on a multi domain server where multiple hosts share same code base',
+    'description' => 'Multi domain commands. Multiple hosts share same code.',
 ));
 
 mainCli::setOption('multi_shared_all_up', array(
