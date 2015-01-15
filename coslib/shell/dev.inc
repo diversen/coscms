@@ -40,23 +40,23 @@ function dev_log($options = null){
 
 
 
-mainCli::setCommand('dev', array(
+self::setCommand('dev', array(
     'description' => 'Dev commands for testing and checking.',
 ));
 
-mainCli::setOption('dev_test_access', array(
+self::setOption('dev_test_access', array(
     'long_name'   => '--http-return-codes',
     'description' => 'Will check all web access points and give return code, e.g. 200 or 403 or 404',
     'action'      => 'StoreTrue'
 ));
 
-mainCli::setOption('dev_env', array(
+self::setOption('dev_env', array(
     'long_name'   => '--env',
     'description' => 'Displays which env you are in (development, stage or production)',
     'action'      => 'StoreTrue'
 ));
 
-mainCli::setOption('dev_log', array(
+self::setOption('dev_log', array(
     'long_name'   => '--log',
     'description' => 'Test log file. Will write hello world into logs/coscms.log',
     'action'      => 'StoreTrue'

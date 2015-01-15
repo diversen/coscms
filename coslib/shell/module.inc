@@ -213,68 +213,68 @@ function module_list_all () {
 }
 
 if (config::isCli()){
-mainCli::setCommand('module', array(
+self::setCommand('module', array(
     'description' => 'Locale module management'
 ));
 
 // create commandline parser
-mainCli::setOption('install_module', array(
+self::setOption('install_module', array(
     'long_name'   => '--mod-in',
     'description' => 'Will install specified module',
     'action'      => 'StoreTrue'
 ));
 
-mainCli::setOption('uninstall_module', array(
+self::setOption('uninstall_module', array(
     'long_name'   => '--mod-down',
     'description' => 'Will uninstall specified module',
     'action'      => 'StoreTrue'
 ));
 
-mainCli::setOption('upgrade_module', array(
+self::setOption('upgrade_module', array(
     'long_name'   => '--mod-up',
     'description' => 'Will upgrade specified module to latest version',
     'action'      => 'StoreTrue'
 ));
 
-mainCli::setOption('purge_module', array(
+self::setOption('purge_module', array(
     'long_name'   => '--purge',
     'description' => 'Will purge (uninstall and remove files) specified module',
     'action'      => 'StoreTrue'
 ));
 
 
-mainCli::setOption('upgrade_all', array(
+self::setOption('upgrade_all', array(
     'long_name'   => '--all-up',
     'description' => 'Will check all repos for later versions, both template and modules. Then checkout and upgrade sql if any new tags were found',
     'action'      => 'StoreTrue',
 
 ));
 
-mainCli::setOption('update_ini_file', array(
+self::setOption('update_ini_file', array(
     'long_name'   => '--ini-up',
     'description' => 'Will update specified modules ini settings from ini-dist to ini',
     'action'      => 'StoreTrue'
 ));
 
-mainCli::setOption('module_ini_all_up', array(
+self::setOption('module_ini_all_up', array(
     'long_name'   => '--ini-all-up',
     'description' => 'Will update all ini settings for installed modules',
     'action'      => 'StoreTrue'
 ));
 
-mainCli::setOption('module_list_all', array(
+self::setOption('module_list_all', array(
     'long_name'   => '--list',
     'description' => 'Will list all modules present in DB',
     'action'      => 'StoreTrue'
 ));
 
-mainCli::setArgument(
+self::setArgument(
     'module',
     array('description'=> 'Specify the module to install or upgrade or package',
         'optional' => true,
 ));
 
-mainCli::setArgument(
+self::setArgument(
     'version',
     array('description'=> 'Specify the version to upgrade or downgrade to',
         'optional' => true,

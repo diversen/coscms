@@ -45,11 +45,11 @@ function useradd_db_insert ($values){
     return $res;
 }
 
-mainCli::setCommand('useradd', array(
+self::setCommand('useradd', array(
     'description' => 'Will help you create a super user for your install',
 ));
 
-mainCli::setOption('useradd_add', array(
+self::setOption('useradd_add', array(
     'long_name'   => '--add',
     'description' => 'Add user with prompt answers.',
     'action'      => 'StoreTrue'

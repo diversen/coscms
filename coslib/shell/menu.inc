@@ -78,40 +78,40 @@ function cos_menu_uninstall_menu($options){
 
 }
 
-mainCli::setCommand('menu', array(
+self::setCommand('menu', array(
     'description' => 'Install or uninstall menu items',
 ));
 
 // create commandline parser
-mainCli::setOption('cos_menu_install_menu', array(
+self::setOption('cos_menu_install_menu', array(
     'long_name'   => '--install-menu',
     'description' => 'Install specified modules main menu item(s)',
     'action'      => 'StoreTrue'
 ));
 
 // create commandline parser
-mainCli::setOption('cos_menu_install_all', array(
+self::setOption('cos_menu_install_all', array(
     'long_name'   => '--install-all',
     'description' => 'Install all module main menu items',
     'action'      => 'StoreTrue'
 ));
 
 // create commandline parser
-mainCli::setOption('cos_menu_uninstall_all', array(
+self::setOption('cos_menu_uninstall_all', array(
     'long_name'   => '--uninstall-all',
     'description' => 'Uninstall all module main menu items',
     'action'      => 'StoreTrue'
 ));
 
 // create commandline parser
-mainCli::setOption('cos_menu_uninstall_menu', array(
+self::setOption('cos_menu_uninstall_menu', array(
     'long_name'   => '--uninstall-menu',
     'description' => 'uninstall specified modules main menu item(s)',
     'action'      => 'StoreTrue'
 ));
 
 
-mainCli::setArgument(
+self::setArgument(
     'module',
     array('description'=> 'Module',
         'optional' => true,

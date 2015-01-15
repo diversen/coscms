@@ -91,12 +91,12 @@ function get_password(){
 
 
 
-mainCli::setCommand('prompt-install', array(
+self::setCommand('prompt-install', array(
     'description' => 'Prompt install. Asks questions and install',
 ));
 
 
-mainCli::setOption('prompt_install', array(
+self::setOption('prompt_install', array(
     'long_name'   => '--install',
     'description' => 'Will prompt user for install info',
     'action'      => 'StoreTrue'

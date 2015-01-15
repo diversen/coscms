@@ -152,35 +152,35 @@ function backup_get_latest_backup($type = null){
 
 // }}}
 
-mainCli::setCommand('backup', array(
+self::setCommand('backup', array(
     'description' => "Create and restore backups",
 ));
 
-mainCli::setOption('backup_backup', array(
+self::setOption('backup_backup', array(
     'long_name'   => '--full',
     'description' => "Will backup all files and preserve ownership. If you don't specify a file then the script will create backup from current timestamp." ,
     'action'      => 'StoreTrue'
 ));
 
-mainCli::setOption('backup_files_backup', array(
+self::setOption('backup_files_backup', array(
     'long_name'   => '--public',
     'description' => "Will backup public html files in htdocs/files and preserve ownership" ,
     'action'      => 'StoreTrue'
 ));
 
-mainCli::setOption('backup_restore', array(
+self::setOption('backup_restore', array(
     'long_name'   => '--full-restore',
     'description' => 'Will restore all files from a backup and regenerate original ownership. If no file is given when restoring backup, then the backup with latest timestamp will be used',
     'action'      => 'StoreTrue'
 ));
 
-mainCli::setOption('backup_files_restore', array(
+self::setOption('backup_files_restore', array(
     'long_name'   => '--public-restore',
     'description' => 'Will restore public htdocs/files from a backup and preserve ownership.',
     'action'      => 'StoreTrue'
 ));
 
-mainCli::setArgument('File',
+self::setArgument('File',
     array('description'=> 'Specify a filename for the backup',
           'optional' => true));
  

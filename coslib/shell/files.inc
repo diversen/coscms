@@ -95,29 +95,29 @@ function cos_create_files(){
     }    
 }
 
-mainCli::setCommand('file', array(
+self::setCommand('file', array(
     'description' => 'Basic files commands.',
 ));
 
-mainCli::setOption('cos_chmod_files', array(
+self::setOption('cos_chmod_files', array(
     'long_name'   => '--chmod-files',
     'description' => 'Will try to chmod and chown of htdocs/files',
     'action'      => 'StoreTrue'
 ));
 
-mainCli::setOption('cos_chmod_files_owner', array(
+self::setOption('cos_chmod_files_owner', array(
     'long_name'   => '--chmod-files-owner',
     'description' => 'Will try to chmod and chown of htdocs/files to current user',
     'action'      => 'StoreTrue'
 ));
 
-mainCli::setOption('cos_rm_files', array(
+self::setOption('cos_rm_files', array(
     'long_name'   => '--rm-files',
     'description' => 'Will remove files in htdocs/files and in htdocs/logo',
     'action'      => 'StoreTrue'
 ));
 
-mainCli::setOption('cos_create_files', array(
+self::setOption('cos_create_files', array(
     'long_name'   => '--create-files',
     'description' => 'Will create log file: log/coscms.log',
     'action'      => 'StoreTrue'

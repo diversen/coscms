@@ -41,23 +41,23 @@ function multi_shared_exec_command ($options = null) {
     }  
 }
 
-mainCli::setCommand('multi-shared', array(
+self::setCommand('multi-shared', array(
     'description' => 'Multi domain commands. Multiple hosts share same code.',
 ));
 
-mainCli::setOption('multi_shared_all_up', array(
+self::setOption('multi_shared_all_up', array(
     'long_name'   => '--all-up',
     'description' => 'Will upgrade all sites found in config/multi',
     'action'      => 'StoreTrue'
 ));
 
-mainCli::setOption('multi_shared_exec_command', array(
+self::setOption('multi_shared_exec_command', array(
     'long_name'   => '--exec',
     'description' => 'Will execute given command on all multi sites. E.g: ./coscli.sh multi --exec \'module --mod-down meta\'',
     'action'      => 'StoreTrue'
 ));
 
-mainCli::setArgument(
+self::setArgument(
     'command',
     array('description'=> 'Specify a command to execute on all sites',
         'optional' => true,

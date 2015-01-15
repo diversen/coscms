@@ -114,23 +114,23 @@ function create_module_skeleton($args){
 
 
 
-mainCli::setCommand('skeleton', array(
+self::setCommand('skeleton', array(
     'description' => 'Create skeleton for a module',
 ));
 
-mainCli::setOption('create_module_skeleton', array(
+self::setOption('create_module_skeleton', array(
     'long_name'   => '--create-module',
     'description' => 'specify module v2 to create',
     'action'      => 'StoreTrue'
 ));
 
-mainCli::setOption('create_module_skeleton_v1', array(
+self::setOption('create_module_skeleton_v1', array(
     'long_name'   => '--v1-create-module',
     'description' => 'specify v1 module to create',
     'action'      => 'StoreTrue'
 ));
 
-mainCli::setArgument('module', array('description'=> 'Specify the module to create skeleton for'));
+self::setArgument('module', array('description'=> 'Specify the module to create skeleton for'));
 
 
 ?>

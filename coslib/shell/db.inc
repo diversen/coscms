@@ -233,12 +233,6 @@ if (config::isCli()){
         'description' => 'Will try to dump database specified in config/config.ini. If no file is specified then dump will be generated with a unix timestamp.',
         'action'      => 'StoreTrue'
     ));
-    
-    self::setOption('db_to_sqlite', array(
-        'long_name'   => '--to-sqlite',
-        'description' => 'Create a sqlite3 database from current MySQL database. Will be placed in sqlite/database.sql',
-        'action'      => 'StoreTrue'
-    ));
 
     self::setArgument('File',
         array('description'=> 'Optional: Specify a path to a file to load into db or DB',

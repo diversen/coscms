@@ -33,11 +33,11 @@ function create_docs(){
 
 // }}}
 
-mainCli::setCommand('doc', array(
+self::setCommand('doc', array(
     'description' => 'Command for creating documentation',
 ));
 
-mainCli::setOption('create_docs', array(
+self::setOption('create_docs', array(
     'long_name'   => '--create-docs',
     'description' => 'Will make phpdoc documentation. Will be found in htdocs/phpdoc',
     'action'      => 'StoreTrue'

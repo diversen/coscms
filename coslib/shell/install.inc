@@ -133,47 +133,47 @@ function cos_check_root ($options = null) {
 }
 
 
-mainCli::setCommand('install', array(
+self::setCommand('install', array(
     'description' => 'install CosCMS Note: prompt-install is easier',
 ));
 
-mainCli::setOption('cos_install_use_master', array(
+self::setOption('cos_install_use_master', array(
     'long_name'   => '--master',
     'short_name'   => '-m',
     'description' => 'Will use master. Use if you have all module sources, then the master will be installed',
     'action'      => 'StoreTrue'
 ));
 
-mainCli::setOption('cos_install', array(
+self::setOption('cos_install', array(
     'long_name'   => '--install',
     'description' => 'Will try and install system',
     'action'      => 'StoreTrue'
 ));
 
-mainCli::setOption('cos_reload_language', array(
+self::setOption('cos_reload_language', array(
     'long_name'   => '--lang-reload',
     'description' => 'Reinstall system language files according to language set in config/config.ini',
     'action'      => 'StoreTrue'
 ));
 
-mainCli::setOption('cos_check_root', array(
+self::setOption('cos_check_root', array(
     'long_name'   => '--check-root',
     'description' => 'Dummy command (used when installing system from shell). Checks if user is super user (root)',
     'action'      => 'StoreTrue'
 ));
 
-mainCli::setOption('cos_menu_lang_reload', array(
+self::setOption('cos_menu_lang_reload', array(
     'long_name'   => '--menu-lang-reload',
     'description' => 'Reloads system menu translation according to config/config.ini, and reload all custom module menus. Useful if you have made changes to system menu items. ',
     'action'      => 'StoreTrue'
 ));
 
-mainCli::setOption('cos_config_reload', array(
+self::setOption('cos_config_reload', array(
     'long_name'   => '--config-reload',
     'description' => 'Reloads the module table. E.g. you have made a CLI part of a module',
     'action'      => 'StoreTrue'
 ));
 
-mainCli::setArgument('profile',
+self::setArgument('profile',
     array('description'=> 'specify the profile to install',
           'optional' => true));

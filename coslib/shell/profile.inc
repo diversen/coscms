@@ -251,67 +251,67 @@ function create_profile($options) {
  */
 if (config::isCli()){  
     
-    mainCli::setCommand('profile', array(
+    self::setCommand('profile', array(
         'description' => 'Generate and install site profiles',
     ));
 
-    mainCli::setOption('profile_dont_hide_secrets', array(
+    self::setOption('profile_dont_hide_secrets', array(
         'long_name'   => '--no-hide-secrets',
         'description' => 'Set this an common secrets will not be hidden when building profile',
         'action'      => 'StoreTrue'
     ));
 
-    mainCli::setOption('load_profile', array(
+    self::setOption('load_profile', array(
         'long_name'   => '--load',
         'description' => 'Will load a profile. This means that any ini file from a profile 
     will overwrite current ini files',
         'action'      => 'StoreTrue'
     ));
 
-    mainCli::setOption('reload_profile', array(
+    self::setOption('reload_profile', array(
         'long_name'   => '--reload',
         'description' => 'Same as loading a profile, but config/config.ini will not be loaded',
         'action'      => 'StoreTrue'
     ));
 
-    mainCli::setOption('profile_use_master', array(
+    self::setOption('profile_use_master', array(
         'long_name'   => '--master',
         'description' => 'Use master - else we will use specified versions of modules 
             and templates found in profile.inc',
         'action'      => 'StoreTrue'
     ));
 
-    mainCli::setOption('create_profile', array(
+    self::setOption('create_profile', array(
         'long_name'   => '--create',
         'description' => 'Will create profile with specified name which will be placed in /profiles/{profile}',
         'action'      => 'StoreTrue'
     ));
 
-    mainCli::setOption('recreate_profile', array(
+    self::setOption('recreate_profile', array(
         'long_name'   => '--recreate',
         'description' => 'Will recreate profile with specified name. Same as create, but new config/config.ini-dist will not be created',
         'action'      => 'StoreTrue'
     ));
 
-    mainCli::setOption('upgrade_from_profile', array(
+    self::setOption('upgrade_from_profile', array(
         'long_name'   => '--all-up',
         'description' => 'Will upgrade from specified profile. If new module or templates exists they will be installed. ',
         'action'      => 'StoreTrue'
     ));
 
-    mainCli::setOption('install_from_profile', array(
+    self::setOption('install_from_profile', array(
         'long_name'   => '--all-in',
         'description' => 'Will install all modules from specified profile',
         'action'      => 'StoreTrue'
     ));
     
-    mainCli::setOption('cos_purge_from_profile', array(
+    self::setOption('cos_purge_from_profile', array(
         'long_name'   => '--purge',
         'description' => 'Will remove modules and templates no logner specified in profile',
         'action'      => 'StoreTrue'
     ));
 
-    mainCli::setOption('upgrade_config_ini_file', array(
+    self::setOption('upgrade_config_ini_file', array(
         'long_name'   => '--config-up',
         'description' => 'Will upgrade config.ini from profile with any new settings found in profile/{profile}/config.ini-dist',
         'action'      => 'StoreTrue'
@@ -319,7 +319,7 @@ if (config::isCli()){
 
 
 
-    mainCli::setArgument('profile',
+    self::setArgument('profile',
         array('description'=> 'specify the profile to create or install',
               'optional' => false));
 

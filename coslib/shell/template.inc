@@ -86,35 +86,35 @@ function purge_template($options){
     cos_exec($command);
 }
 
-mainCli::setCommand('template', array(
+self::setCommand('template', array(
     'description' => 'set a template from CLI',
 ));
 
-mainCli::setOption('set_template', array(
+self::setOption('set_template', array(
     'long_name'   => '--set-template',
     'description' => 'Will set new template',
     'action'      => 'StoreTrue'
 ));
 
-mainCli::setOption('purge_template', array(
+self::setOption('purge_template', array(
     'long_name'   => '--purge',
     'description' => 'Will purge (remove files) specified template',
     'action'      => 'StoreTrue'
 ));
 
 // create commandline parser
-mainCli::setOption('install_template', array(
+self::setOption('install_template', array(
     'long_name'   => '--temp-in',
     'description' => 'Will install specified template',
     'action'      => 'StoreTrue'
 ));
 
-mainCli::setArgument(
+self::setArgument(
     'template',
     array('description'=> 'specify the template to set or purge',
           'optional' => true));
 
-mainCli::setArgument(
+self::setArgument(
     'version',
     array('description'=> 'Specify the version to upgrade or downgrade to',
         'optional' => true,

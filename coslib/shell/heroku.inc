@@ -123,36 +123,36 @@ function heroku_prompt_install () {
     
 }
 
-mainCli::setCommand('heroku', array(
+self::setCommand('heroku', array(
     'description' => 'Commands for heroku',
 ));
 
-mainCli::setOption('heroku_set_servername', array(
+self::setOption('heroku_set_servername', array(
     'long_name'   => '--set-servername',
     'description' => 'Sets correct servername in config/config.ini',
     'action'      => 'StoreTrue'
 ));
 
-mainCli::setOption('heroku_prompt_install', array(
+self::setOption('heroku_prompt_install', array(
     'long_name'   => '--prompt-install',
     'description' => 'Sets correct servername in config/config.ini',
     'action'      => 'StoreTrue'
 ));
 
-mainCli::setOption('heroku_install', array(
+self::setOption('heroku_install', array(
     'long_name'   => '--install',
     'description' => 'Install default profile',
     'action'      => 'StoreTrue'
 ));
 
 
-mainCli::setOption('heroku_set_cleardb_conf', array(
+self::setOption('heroku_set_cleardb_conf', array(
     'long_name'   => '--set-clear-db-config',
     'description' => 'When you have set up cleardb you can set the config/config.ini file with correct url, user. password',
     'action'      => 'StoreTrue'
 ));
 
-mainCli::setOption('heroku_set_sendgrid_conf', array(
+self::setOption('heroku_set_sendgrid_conf', array(
     'long_name'   => '--set-sendgrid-config',
     'description' => 'When you have set up sendgrid you can set the config/config.ini file with correct user, password, email, and reply to',
     'action'      => 'StoreTrue'

@@ -53,27 +53,27 @@ function useradd_direct_add_admin ($options = null){
 
 
 
-mainCli::setCommand('useradd-direct', array(
+self::setCommand('useradd-direct', array(
     'description' => 'Will create user or super user',
 ));
 
-mainCli::setOption('useradd_direct_add', array(
+self::setOption('useradd_direct_add', array(
     'long_name'   => '--add',
     'description' => 'Add user direct.',
     'action'      => 'StoreTrue'
 ));
 
-mainCli::setOption('useradd_direct_add_admin', array(
+self::setOption('useradd_direct_add_admin', array(
     'long_name'   => '--add-admin',
     'description' => 'Add admin user direct.',
     'action'      => 'StoreTrue'
 ));
 
-mainCli::setArgument('email',
+self::setArgument('email',
     array('description'=> 'email',
           'optional' => false));
 
-mainCli::setArgument('password',
+self::setArgument('password',
     array('description'=> 'password',
           'optional' => false));
 

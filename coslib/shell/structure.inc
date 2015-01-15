@@ -98,35 +98,35 @@ function cos_db_load_table($options){
 
 if (config::isCli()){
 
-    mainCli::setCommand('structure', array(
+    self::setCommand('structure', array(
         'description' => 'Dump structure of a db table',
     ));
     
-    mainCli::setOption('cos_structure_dump', array(
+    self::setOption('cos_structure_dump', array(
         'long_name'   => '--db',
         'description' => 'Outputs table structure for complete database',
         'action'      => 'StoreTrue'
     ));
 
-    mainCli::setOption('cos_structure_dump_table', array(
+    self::setOption('cos_structure_dump_table', array(
         'long_name'   => '--table',
         'description' => 'Outputs table structure for a single table',
         'action'      => 'StoreTrue'
     ));
     
-    mainCli::setOption('cos_db_dump_table', array(
+    self::setOption('cos_db_dump_table', array(
         'long_name'   => '--backup-table',
         'description' => 'Backup single DB table',
         'action'      => 'StoreTrue'
     ));
     
-    mainCli::setOption('cos_db_load_table', array(
+    self::setOption('cos_db_load_table', array(
         'long_name'   => '--load-table',
         'description' => 'Create single table from latest backup',
         'action'      => 'StoreTrue'
     ));
 
-    mainCli::setArgument('table',
+    self::setArgument('table',
         array('description'=> 'Specify table to dump structure of',
               'optional' => true));
 }

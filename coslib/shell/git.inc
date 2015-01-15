@@ -533,79 +533,79 @@ function cos_git_echo_remote_tags ($options){
     cos_cli_print("Latest is: $latest");
 }
 
-mainCli::setCommand('git', array(
+self::setCommand('git', array(
     'description' => 'git module management',
 ));
 
-mainCli::setOption('cos_git_no_questions', array(
+self::setOption('cos_git_no_questions', array(
     'long_name'   => '--silence',
     'short_name'   => '-s',
     'description' => 'Will ask [y] to all questions raised',
     'action'      => 'StoreTrue'
 ));
 
-mainCli::setOption('cos_git_use_master', array(
+self::setOption('cos_git_use_master', array(
     'long_name'   => '--master',
     'short_name'   => '-m',
     'description' => 'Will use master. Valid for all-up',
     'action'      => 'StoreTrue'
 ));
 
-mainCli::setOption('cos_git_install', array(
+self::setOption('cos_git_install', array(
     'long_name'   => '--mod-in',
     'description' => 'Will clone specified remote url with latest version',
     'action'      => 'StoreTrue'
 ));
 
-mainCli::setOption('cos_git_clone_template', array(
+self::setOption('cos_git_clone_template', array(
     'long_name'   => '--temp-in',
     'description' => 'Will install remote clone url with latest version',
     'action'      => 'StoreTrue'
 ));
 
-mainCli::setOption('cos_git_upgrade_all', array(
+self::setOption('cos_git_upgrade_all', array(
     'long_name'   => '--all-up',
     'description' => 'Will check latest remote versions of modules, templates and profiles, and compare with locale version. If remote is higher it will be checked out and system will be upgraded',
     'action'      => 'StoreTrue'
 ));
 
-mainCli::setOption('cos_git_upgrade_module_single', array(
+self::setOption('cos_git_upgrade_module_single', array(
     'long_name'   => '--mod-up',
     'description' => 'Will check latest remote version and compare with locale version. If remote is higher it will be checked out and installed',
     'action'      => 'StoreTrue'
 ));
 
-mainCli::setOption('cos_git_upgrade_template_single', array(
+self::setOption('cos_git_upgrade_template_single', array(
     'long_name'   => '--temp-up',
     'description' => 'Will check out latest tag of a template. If remote is higher it will be checked out',
     'action'      => 'StoreTrue'
 ));
 
-mainCli::setOption('cos_git_commit_all', array(
+self::setOption('cos_git_commit_all', array(
     'long_name'   => '--all-commit',
     'description' => 'Will try and commit all modules and templates in one try.',
     'action'      => 'StoreTrue'
 ));
 
-mainCli::setOption('cos_git_commit_module_single', array(
+self::setOption('cos_git_commit_module_single', array(
     'long_name'   => '--mod-commit',
     'description' => 'Will try and commint single module',
     'action'      => 'StoreTrue'
 ));
 
-mainCli::setOption('cos_git_commit_template_single', array(
+self::setOption('cos_git_commit_template_single', array(
     'long_name'   => '--temp-commit',
     'description' => 'Will try and commint single module',
     'action'      => 'StoreTrue'
 ));
 
-mainCli::setOption('cos_git_tag_all', array(
+self::setOption('cos_git_tag_all', array(
     'long_name'   => '--all-tag',
     'description' => 'Will tag and push tags for all modules and templates in one try.',
     'action'      => 'StoreTrue'
 ));
 
-mainCli::setOption('cos_git_tag_all_files', array(
+self::setOption('cos_git_tag_all_files', array(
     'long_name'   => '--all-tag-files',
     'description' => 'Will tag all install files with new version.',
     'action'      => 'StoreTrue'
@@ -618,13 +618,13 @@ mainCli::setOption('cos_git_echo_remote_tags', array(
     'action'      => 'StoreTrue'
 ));
 */
-mainCli::setArgument(
+self::setArgument(
     'repo',
     array('description'=> 'Specify the git repo | module to be used',
         'optional' => true,
 ));
 
-mainCli::setArgument(
+self::setArgument(
     'version',
     array('description'=> 'Specify the version to checkout e.g. master or 1.11',
         'optional' => true,

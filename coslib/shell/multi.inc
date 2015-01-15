@@ -62,23 +62,23 @@ function multi_exec_shell_command ($options = array ()) {
     
 }
 
-mainCli::setCommand('multi', array(
+self::setCommand('multi', array(
     'description' => 'Commands used on a multiple domains found in same path',
 ));
 
-mainCli::setOption('multi_exec_command', array(
+self::setOption('multi_exec_command', array(
     'long_name'   => '--exec',
     'description' => 'Will execute given command on all sites found in path. E.g: ./coscli.sh multi --exec \'git --all-up --master\'',
     'action'      => 'StoreTrue'
 ));
 
-mainCli::setOption('multi_exec_shell_command', array(
+self::setOption('multi_exec_shell_command', array(
     'long_name'   => '--exec-shell',
     'description' => 'Will execute given command on all sites found in path. E.g: ./coscli.sh multi --exec \'git --all-up --master\'',
     'action'      => 'StoreTrue'
 ));
 
-mainCli::setArgument(
+self::setArgument(
     'command',
     array('description'=> 'Specify a command to execute on all sites',
         'optional' => true,

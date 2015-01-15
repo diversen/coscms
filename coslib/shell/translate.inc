@@ -427,53 +427,53 @@ function translate_collect ($options) {
 }
 
 
-mainCli::setCommand('translate', array(
+self::setCommand('translate', array(
     'description' => 'Extract strings for translation.',
 ));
 
-mainCli::setOption('translate', array(
+self::setOption('translate', array(
     'long_name'   => '--translate',
     'short_name'   => '-t',
     'description' => 'Create a translation file from all strings that should be translated.',
     'action'      => 'StoreTrue'
 ));
 
-mainCli::setOption('translate_update', array(
+self::setOption('translate_update', array(
     'long_name'   => '--update',
     'short_name'   => '-u',
     'description' => 'Updates a translation file from all strings that should be translated.',
     'action'      => 'StoreTrue'
 ));
 
-mainCli::setOption('translate_temp', array(
+self::setOption('translate_temp', array(
     'long_name'   => '--temp',
     'description' => 'Create a translation file for a template from all strings that can be translated.',
     'action'      => 'StoreTrue'
 ));
 
-mainCli::setOption('translate_temp_update', array(
+self::setOption('translate_temp_update', array(
     'long_name'   => '--temp-up',
     'description' => 'Update a translation file for a template with new strings found.',
     'action'      => 'StoreTrue'
 ));
 
-mainCli::setOption('translate_all_update', array(
+self::setOption('translate_all_update', array(
     'long_name'   => '--all-up',
     'description' => 'Update a translation file for a template with new strings found. Set a dummy module arg e.g. all',
     'action'      => 'StoreTrue'
 ));
 
-mainCli::setOption('translate_collect', array(
+self::setOption('translate_collect', array(
     'long_name'   => '--collect',
     'description' => 'Collected all translations for a language in a single file in a specified module',
     'action'      => 'StoreTrue'
 ));
 
-mainCli::setArgument('module',
+self::setArgument('module',
     array('description'=> 'Specicify the module or template for which you will make a translation. If spcified in collect command, then the module is where the collected translation are found',
           'optional' => false));
 
-mainCli::setArgument('language',
+self::setArgument('language',
     array('description'=> 'Specicify the folder in lang which will serve as language, e.g. en_GB or da_DK or en or da. Also the language which will be collected',
           'optional' => false));
 

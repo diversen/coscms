@@ -16,17 +16,17 @@ function cos_upgrade_post ($options = array ()) {
     cos_config_reload();
 }
 
-mainCli::setCommand('upgrade', array(
+self::setCommand('upgrade', array(
     'description' => 'Upgrade existing system',
 ));
 
-mainCli::setOption('cos_upgrade_post', array(
+self::setOption('cos_upgrade_post', array(
     'long_name'   => '--post',
     'description' => 'Installs new menu items, module config, and language files',
     'action'      => 'StoreTrue'
 ));
 
 
-mainCli::setArgument('profile',
+self::setArgument('profile',
     array('description'=> 'specify the profile to install',
           'optional' => true));
