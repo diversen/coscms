@@ -118,7 +118,7 @@ function cos_build_simple ($options = null) {
     exec('git tag -l', $output);
     $version = array_pop($output);
     
-    $command = "cd  ./build && tar -Pczf $name-$version.tar.gz  -v $name ";
+    $command = "cd  ./build && tar -Pczf $name-$version.tar.gz $name ";
     cos_exec($command);
 }
 
