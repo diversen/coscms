@@ -719,7 +719,7 @@ class conf {
         // sort of a base module
         if ($check_lang) {
             if (moduleloader::isInstalledModule('locales')) {
-                $locales = locales_module::getLanguages();
+                $locales = \locales_module::getLanguages();
             }
         } else {
             $locales = array();
