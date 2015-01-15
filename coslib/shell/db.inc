@@ -180,7 +180,7 @@ function clone_db ($options = array ()) {
 }
 
 
-if (cos_is_cli()){
+if (config::isCli()){
 
     mainCli::setCommand('db', array(
         'description' => 'Will manipulate MySQL database in different ways: Backup, restore datbase, open connection etc.',

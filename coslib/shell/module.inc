@@ -212,7 +212,7 @@ function module_list_all () {
     print_r($modules);
 }
 
-if (cos_is_cli()){
+if (config::isCli()){
 mainCli::setCommand('module', array(
     'description' => '
         Commands for installing and uninstalling modules - 

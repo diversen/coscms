@@ -6,9 +6,7 @@ It is easy to convert CosCMS to sqlite or postgresql project using the ruby tool
 
 install sequel, sqlite, mysql:
 
-    sudo aptitude install ruby-sequel
-    sudo aptitude install libsqlite3-ruby
-    sudo aptitude install libmysql-ruby
+    sudo aptitude install ruby-sequel libsqlite3-ruby libmysql-ruby
 
 sequel mysql://root:password@localhost/database -C sqlite://sqlite/database.sql
 

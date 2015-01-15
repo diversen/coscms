@@ -249,7 +249,7 @@ function create_profile($options) {
 /**
  * only add commands if we are in CLI mode
  */
-if (cos_is_cli()){  
+if (config::isCli()){  
     
     mainCli::setCommand('profile', array(
         'description' => 'Profile commands. Profiles are configuration for complete sites. You can build profiles for distribution, install from profiles, reload configuration and more.',

@@ -217,7 +217,9 @@ function cos_cli_print_status ($mes, $color, $status) {
 
 /**
  * checks if we are on command line 
+ * @deprecated use config::isCli
  * @return boolean $res true if yes else false
+ * 
  */
 function cos_is_cli (){
     if (isset($_SERVER['SERVER_NAME'])){

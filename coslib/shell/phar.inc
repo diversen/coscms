@@ -13,7 +13,7 @@ function cos_phar_cli_create() {
     $phar->interceptFileFuncs();
     //$phar->buildFromDirectory($dir);
     $phar->buildFromDirectory("$dir/build/$base");
-    $stub = $phar->createDefaultStub('phar_cli.php');
+    $stub = $phar->createDefaultStub('phar-cli.php');
     $phar->setStub($stub);
     $stub = "#!/usr/bin/env php \n" . $stub;
     $phar->setStub($stub);

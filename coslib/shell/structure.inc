@@ -96,7 +96,7 @@ function cos_db_load_table($options){
     return $ret = cos_exec($command);
 }
 
-if (cos_is_cli()){
+if (config::isCli()){
 
     mainCli::setCommand('structure', array(
         'description' => 'Dump structure of a db table',

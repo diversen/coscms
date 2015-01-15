@@ -96,7 +96,7 @@ function cos_build_simple ($options = null) {
     $index = "cp -rf misc/alt-index.php ./build/$name/index.php";
     cos_exec($index);
     
-    $phar_cli = "cp -rf phar_cli.php ./build/$name/";
+    $phar_cli = "cp -rf phar-cli.php ./build/$name/";
     cos_exec($phar_cli);
     
     $module_dir = _COS_MOD_DIR;
