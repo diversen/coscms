@@ -23,7 +23,7 @@
  * 
  * then run 
  * 
- * php scripts/latin1_to_uft8.php 
+ * php scripts/latin1-to-uft8.php 
  * 
  * This will transform all of your broken chars like: 
  * 
