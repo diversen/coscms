@@ -90,8 +90,6 @@ function cos_exec($command, $options = array(), $echo_output = 1){
     exec($command.' 2>&1', $output, $ret);
     if ($ret == 0){
         if (!isset($options['silence'])){
-            
-            
             echo color_output (cos_get_color_status('[OK]'), 'g');
             echo $command . "\n";
             if ($echo_output) {
@@ -170,10 +168,10 @@ function cos_parse_shell_output ($output){
 function cos_system($command){
     system($command.' 2>&1', $ret);
     if ($ret == 0){
-        echo color_output ("[OK]    ", 'g');
+        echo color_output (cos_get_color_status('[OK]'), 'g');
         echo $command . "\n";
     } else {
-        echo color_output("[ERROR] ", 'r');
+        echo color_output(cos_get_color_status('[ERROR]'), 'r');
         echo $command . "\n";
     }
     return $ret;

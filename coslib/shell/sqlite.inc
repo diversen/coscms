@@ -25,7 +25,8 @@ function db_to_sqlite ($options) {
         cos_cli_print_status('ERROR', 'r', 'Driver needs to be mysql or mysqli');
     }
     
-    print_r($info);
+    cos_exec("rm sqlite/database.sql");
+    
     $username = config::getMainIni('username');
     $password = config::getMainIni('password');
     $command = "sequel ";
