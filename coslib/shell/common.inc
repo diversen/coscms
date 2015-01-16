@@ -198,16 +198,16 @@ function cos_cli_print($mes, $color = null){
 
 /**
  * echos a colored status message
- * @param string $mes (e.g. UPGRADE, NOTICE, ERROR)
+ * @param string $status (e.g. UPGRADE, NOTICE, ERROR)
  * @param char $color the color to print, e.g. 'y', 'r', 'g'
- * @param string $status the status message to be appended to e.g. 
+ * @param string $mes the long status message to be appended to e.g. 
  *               'module upgrade failed'
  * @return void
  */
-function cos_cli_print_status ($mes, $color, $status) {
+function cos_cli_print_status ($status, $color, $mes) {
     if (config::isCli()) {
-        echo color_output(cos_get_color_status("[$mes]"), $color);
-        echo $status . "\n";
+        echo color_output(cos_get_color_status("[$status]"), $color);
+        echo $mes . "\n";
     } else {
         cos_cli_print($status);
     }
