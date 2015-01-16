@@ -39,8 +39,7 @@ function db_to_sqlite ($options) {
     $ret = cos_system($command);
     
     if (!$ret) {
-        $fs->chmod('sqlite', '0777', '0000', true);
-        //cos_system("chmod -R 777 sqlite");
+        $fs->chmod('sqlite/datase.sql', 0777, 0000, true);
         cos_cli_print('Sqlite database created. Edit config.ini and add:'); 
         cos_cli_print("sqlite://sqlite/database.sql");
     }    

@@ -12,7 +12,7 @@ use diversen\strings\version as strings_version;
 /**
  * create apache log files
  */
-function cos_create_logs(){ 
+function cos_create_logs(){
     touch(_COS_PATH . '/logs/access.log');
     touch(_COS_PATH . '/logs/error.log');
 }
@@ -137,7 +137,7 @@ function cos_a2_use_ssl ($options) {
 }
 
 self::setCommand('apache2', array(
-    'description' => 'apache2 commands. Install, remove hosts.',
+    'description' => 'Apache2 commands (For Linux). Install, remove hosts.',
 ));
 
 self::setOption('cos_a2_use_ssl', array(
