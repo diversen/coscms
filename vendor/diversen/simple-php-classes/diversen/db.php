@@ -147,7 +147,7 @@ class db {
             self::$dbh->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
             
             self::setSsl();
-	    if (isset(config::$vars['coscms_main']['db_init'])) {
+	        if (isset(config::$vars['coscms_main']['db_init'])) {
                 self::$dbh->exec(config::$vars['coscms_main']['db_init']);
 
             }
@@ -393,7 +393,7 @@ class db {
                 $stmt->execute();
                 $rows = $stmt->fetchAll(\PDO::FETCH_ASSOC);
             } catch (\PDOException $e) {
-                $this->fatalError ($e->getMessage());
+                self::fatalError ($e->getMessage());
             }
         return $rows;
     }
@@ -486,7 +486,7 @@ class db {
             $rows = $stmt->fetchAll(\PDO::FETCH_ASSOC);
 
         } catch (\PDOException $e) {
-            $this->fatalError ($e->getMessage());
+            self::fatalError ($e->getMessage());
         }
         return $rows;
     }
@@ -697,14 +697,14 @@ class db {
      * Method for preventing cloning of the db instance
      */
     private function __clone(){
-        $this->fatalError('Clone is not allowed.', E_USER_ERROR);
+        self::fatalError('Clone is not allowed.', E_USER_ERROR);
     }
 
     /**
      * Method for showing errors
      * @param   string  $msg the message to show with the backtrace
      */
-    protected function fatalError($msg) {
+    protected static function fatalError($msg) {
         self::$debug[] = "Fatal error encountered";
         echo "<pre>Error!: $msg\n";
         $bt = debug_backtrace();

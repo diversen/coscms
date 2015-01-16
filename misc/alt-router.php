@@ -8,6 +8,7 @@
 Phar::interceptFileFuncs();
 try {
     Phar::mount('config/config.ini', '../config/config.ini');
+    Phar::mount('sqlite/database.sql', '../sqlite/database.sql');
 } catch (Exception $e) {
     echo $e->getMessage();
     die();
