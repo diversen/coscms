@@ -1,13 +1,14 @@
 <?php
 
 /**
- * phar stub used when creating a phar file
- * of all coscms file
- * see: /bin/phar_create.php
+ * phar stub used when creating a phar CLI file
+ * to create a phar file of current tree, use:
+ * ./coscli.sh phar -h
  */
 Phar::interceptFileFuncs();
 try {
-    Phar::mount('config/config.ini', '../config/config.ini');
+    //Phar::mount('config/config.ini', '../config/config.ini');
+    Phar::mount('config/config.ini', 'config/config.ini');
 } catch (Exception $e) {
     echo $e->getMessage();
     die();

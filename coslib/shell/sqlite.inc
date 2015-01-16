@@ -3,7 +3,8 @@
 use diversen\db\admin;
 use Symfony\Component\Filesystem\Filesystem;
 
-function db_to_sqlite ($options) {
+function db_to_sqlite ($options = array ()) {
+    
     $check = "which sequel";
     if (cos_exec($check)) {
         cos_cli_print('You need sequel. Install it like this, e.g.:');
@@ -39,12 +40,11 @@ function db_to_sqlite ($options) {
     $ret = cos_system($command);
     
     if (!$ret) {
-        $fs->chmod('sqlite/datase.sql', 0777, 0000, true);
+        $fs->chmod('sqlite/database.sql', 0777, 0000, true);
         cos_cli_print('Sqlite database created. Edit config.ini and add:'); 
         cos_cli_print("sqlite://sqlite/database.sql");
     }    
 }
-
 
 if (config::isCli()){
 
@@ -57,5 +57,4 @@ if (config::isCli()){
         'description' => 'Create a sqlite3 database from current MySQL database. Will be placed in sqlite/database.sql',
         'action'      => 'StoreTrue'
     ));
-
 }
