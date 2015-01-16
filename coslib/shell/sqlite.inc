@@ -1,6 +1,7 @@
 <?php
 
 use diversen\db\admin;
+use Symfony\Component\Filesystem\Filesystem;
 
 function db_to_sqlite ($options) {
     $check = "which sequel";
@@ -25,28 +26,24 @@ function db_to_sqlite ($options) {
         cos_cli_print_status('ERROR', 'r', 'Driver needs to be mysql or mysqli');
     }
     
-    cos_exec("rm sqlite/database.sql");
+    $fs = new Filesystem();
+    $fs->remove('sqlite/database.sql');
     
     $username = config::getMainIni('username');
     $password = config::getMainIni('password');
     $command = "sequel ";
     $command.= "$info[scheme]://$username:$password@$info[host]/$info[dbname] ";
     $command.= "-C ";
-    
-    ob_implicit_flush();
     $command.= "sqlite://sqlite/database.sql";
-    //ob_clean();
-    $ret = 1;
+
     $ret = cos_system($command);
     
     if (!$ret) {
-        cos_system("chmod -R 777 sqlite");
+        $fs->chmod('sqlite', '0777', '0000', true);
+        //cos_system("chmod -R 777 sqlite");
         cos_cli_print('Sqlite database created. Edit config.ini and add:'); 
         cos_cli_print("sqlite://sqlite/database.sql");
-    }
-    //
-    // sequel mysql://root:password@localhost/database -C sqlite://sqlite/database.sql
-    
+    }    
 }
 
 

@@ -8,11 +8,11 @@
     "packages": [
         {
             "name": "diversen/simple-php-classes",
-            "version": "1.2.3",
+            "version": "1.2.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/diversen/simple-php-classes.git",
-                "reference": "d420a97d9d8fdf4768cb8261160527c2abd16668"
+                "reference": "e2c3ec3b7ca2dacc685e3ccb30f72c2ae3512386"
             },
             "require": {
                 "michelf/php-markdown": "1.*",
@@ -37,7 +37,7 @@
                 }
             },
             "description": "A collection of simple classes",
-            "time": "2015-01-09 10:57:10"
+            "time": "2015-01-16 09:36:09"
         },
         {
             "name": "donatj/phpuseragentparser",
@@ -89,16 +89,16 @@
         },
         {
             "name": "erusev/parsedown",
-            "version": "1.1.4",
+            "version": "1.4.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/erusev/parsedown.git",
-                "reference": "495e7ac73bb5fde6b857b88ff2bb1b5e79a4263a"
+                "reference": "ada39109e46659d9e8f0ef4539264a7582797093"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/erusev/parsedown/zipball/495e7ac73bb5fde6b857b88ff2bb1b5e79a4263a",
-                "reference": "495e7ac73bb5fde6b857b88ff2bb1b5e79a4263a",
+                "url": "https://api.github.com/repos/erusev/parsedown/zipball/ada39109e46659d9e8f0ef4539264a7582797093",
+                "reference": "ada39109e46659d9e8f0ef4539264a7582797093",
                 "shasum": ""
             },
             "type": "library",
@@ -124,7 +124,7 @@
                 "markdown",
                 "parser"
             ],
-            "time": "2014-11-29 02:29:14"
+            "time": "2015-01-15 20:04:02"
         },
         {
             "name": "facebook/php-sdk",

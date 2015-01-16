@@ -667,47 +667,6 @@
         ]
     },
     {
-        "name": "erusev/parsedown",
-        "version": "1.1.4",
-        "version_normalized": "1.1.4.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/erusev/parsedown.git",
-            "reference": "495e7ac73bb5fde6b857b88ff2bb1b5e79a4263a"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/erusev/parsedown/zipball/495e7ac73bb5fde6b857b88ff2bb1b5e79a4263a",
-            "reference": "495e7ac73bb5fde6b857b88ff2bb1b5e79a4263a",
-            "shasum": ""
-        },
-        "time": "2014-11-29 02:29:14",
-        "type": "library",
-        "installation-source": "dist",
-        "autoload": {
-            "psr-0": {
-                "Parsedown": ""
-            }
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "MIT"
-        ],
-        "authors": [
-            {
-                "name": "Emanuil Rusev",
-                "email": "hello@erusev.com",
-                "homepage": "http://erusev.com"
-            }
-        ],
-        "description": "Parser for Markdown.",
-        "homepage": "http://parsedown.org",
-        "keywords": [
-            "markdown",
-            "parser"
-        ]
-    },
-    {
         "name": "pear-pear.php.net/XML_Util",
         "version": "1.2.3",
         "version_normalized": "1.2.3.0",
@@ -1523,13 +1482,54 @@
         "homepage": "http://symfony.com"
     },
     {
+        "name": "erusev/parsedown",
+        "version": "1.4.5",
+        "version_normalized": "1.4.5.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/erusev/parsedown.git",
+            "reference": "ada39109e46659d9e8f0ef4539264a7582797093"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/erusev/parsedown/zipball/ada39109e46659d9e8f0ef4539264a7582797093",
+            "reference": "ada39109e46659d9e8f0ef4539264a7582797093",
+            "shasum": ""
+        },
+        "time": "2015-01-15 20:04:02",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-0": {
+                "Parsedown": ""
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Emanuil Rusev",
+                "email": "hello@erusev.com",
+                "homepage": "http://erusev.com"
+            }
+        ],
+        "description": "Parser for Markdown.",
+        "homepage": "http://parsedown.org",
+        "keywords": [
+            "markdown",
+            "parser"
+        ]
+    },
+    {
         "name": "diversen/simple-php-classes",
-        "version": "1.2.3",
-        "version_normalized": "1.2.3.0",
+        "version": "1.2.4",
+        "version_normalized": "1.2.4.0",
         "source": {
             "type": "git",
             "url": "https://github.com/diversen/simple-php-classes.git",
-            "reference": "d420a97d9d8fdf4768cb8261160527c2abd16668"
+            "reference": "e2c3ec3b7ca2dacc685e3ccb30f72c2ae3512386"
         },
         "require": {
             "michelf/php-markdown": "1.*",
@@ -1547,7 +1547,7 @@
             "zendframework/zend-dom": "2.*",
             "zendframework/zend-mail": "2.*"
         },
-        "time": "2015-01-09 10:57:10",
+        "time": "2015-01-16 09:36:09",
         "type": "library",
         "installation-source": "source",
         "autoload": {
