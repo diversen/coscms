@@ -230,7 +230,7 @@ class mycurl {
          $this->_includeHeader = $includeHeader;
          $this->_binaryTransfer = $binaryTransfer;
  
-         //$this->_cookieFileLocation = dirname(__FILE__).'/cookie.txt';
+         $this->_cookieFileLocation = sys_get_temp_dir() . '/cookie.txt';
  
      }
  
