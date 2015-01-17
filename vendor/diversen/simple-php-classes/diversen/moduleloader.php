@@ -821,8 +821,11 @@ class moduleloader {
         
         // new include style
         $module_file = _COS_MOD_PATH . "/$module/module.php";
-        self::$loadedModules['loaded'][$module] = true;
-        include_once $module_file;
+        if (file_exists($module_file)) {
+            self::$loadedModules['loaded'][$module] = true;
+            include_once $module_file;
+        }
+        
         return true;
 
         
