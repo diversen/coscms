@@ -251,9 +251,7 @@ class moduleloader {
         $this->info['base'] = $base = _COS_MOD_PATH;
         $this->info['language_file'] = $base . "/$frontpage_module" . '/lang/' . config::getMainIni('language') . '/language.inc';
         $this->info['ini_file'] =  $base . "/$frontpage_module"  . "/$frontpage_module" . '.ini';
-        //$this->info['model_file'] = $base . "/$frontpage_module"  . "/model." . $frontpage_module  . ".inc";
-        //$this->info['view_file'] = $base . "/$frontpage_module"  . "/view." . $frontpage_module . ".inc";
-
+        
         $controller_dir = $base . "/$frontpage_module/";
         $first = uri::fragment(0);
         
@@ -289,9 +287,7 @@ class moduleloader {
         
         $this->info['language_file'] = $base . "/$error_module" . '/lang/' . config::getMainIni('language'). '/language.inc';
         $this->info['ini_file'] =  $base . "/$error_module"  . "/$error_module" . '.ini';
-        //$this->info['model_file'] = $base . "/$error_module"  . "/model." . $error_module  . ".inc";
-        //$this->info['view_file'] = $base . "/$error_module"  . "/view." . $error_module . ".inc";
-
+        
         if (isset(self::$status[404])){
             $controller_file = $base . "/$error_module". '/404.php';
         }
@@ -344,9 +340,6 @@ class moduleloader {
         $this->info['language_file'] = $base . $info['module_base'] . '/lang/' . config::getMainIni('language'). '/language.inc';
         $this->info['ini_file'] =  $base . $info['module_base'] . $info['module_base'] . '.ini';
         $this->info['ini_file_php'] =  $base . $info['module_base'] . $info['module_base'] . '.php.ini';
-        //$this->info['model_file'] = $base . $info['controller_path_str'] . "/model." . $info['module_frag'] . ".inc";
-        //$this->info['view_file'] = $base . $info['controller_path_str'] . "/view." . $info['module_frag'] . ".inc";    
-         
         $controller_file = $base . $info['controller_path_str'] . '/' . $info['controller'] . '.php';
         
         $this->info['controller_file'] = $controller_file;
@@ -511,7 +504,7 @@ class moduleloader {
         $controller = $this->info['controller'];
         $action = $controller. 'Action';
         $module_class = $this->info['module_class'];
-        $action_exists = @is_callable(array ($module_class, $action));
+        $var = $action_exists = @is_callable(array ($module_class, $action));
 
         // We need is a controller
         if (!$action_exists){
@@ -828,12 +821,10 @@ class moduleloader {
         
         // new include style
         $module_file = _COS_MOD_PATH . "/$module/module.php";
-        if (file_exists($module_file)) {
-            self::$loadedModules['loaded'][$module] = true;
-            include_once $module_file;
-            return true;
-        }
-        return false;
+        self::$loadedModules['loaded'][$module] = true;
+        include_once $module_file;
+        return true;
+
         
     }
     
