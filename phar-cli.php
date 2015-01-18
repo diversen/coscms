@@ -5,10 +5,11 @@
  * to create a phar file of current tree, use:
  * ./coscli.sh phar -h
  */
-Phar::interceptFileFuncs();
+//Phar::interceptFileFuncs();
 try {
     //Phar::mount('config/config.ini', '../config/config.ini');
     Phar::mount('config/config.ini', 'config/config.ini');
+    Phar::mount('sqlite/database.sql', 'sqlite/database.sql');
 } catch (Exception $e) {
     echo $e->getMessage();
     die();
@@ -31,4 +32,3 @@ include_once "coslib/mainCli.php";
 
 mainCli::init();
 mainCli::run();
-

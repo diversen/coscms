@@ -5,7 +5,7 @@
  * used with php built-in router. 
  * TODO: Should work with sqlite
  */
-Phar::interceptFileFuncs();
+// Phar::interceptFileFuncs();
 try {
     Phar::mount('config/config.ini', 'config/config.ini');
     Phar::mount('sqlite/database.sql', 'sqlite/database.sql');
@@ -25,4 +25,3 @@ if (php_sapi_name() == 'cli-server') {
 }
 
 __HALT_COMPILER();
- 

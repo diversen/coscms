@@ -98,6 +98,9 @@ function cos_build_simple($options = null) {
 
     $phar_cli = "cp -rf phar-cli.php ./build/$name/";
     cos_exec($phar_cli);
+    
+    $phar_web = "cp -rf phar-web.php ./build/$name/";
+    cos_exec($phar_web);
 
     $module_dir = _COS_MOD_DIR;
     $modules = "cp -rf $module_dir ./build/$name";

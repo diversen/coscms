@@ -3,15 +3,15 @@
 use Symfony\Component\Filesystem\Filesystem;
 
 function cos_phar_cli_create() {
-    
-    $fs = new Filesystem();
- 
+
     $dir = getcwd();
     $base = basename($dir);
     
     // build from source
     cos_build_simple();
-    $build_dir = "tmp/cli";
+    $build_dir = "tmp/phar";
+    
+    $fs = new Filesystem();
     $fs->mkdir($build_dir, 0755);
     
     $output = "$build_dir/$base-cli.phar";
@@ -30,6 +30,7 @@ function cos_phar_cli_create() {
     if (config::getMainIni('phar_sqlite')) {
         db_to_sqlite();
         cos_exec("cp -R sqlite $build_dir");
+        cos_exec("chmod -R 777 $build_dir/sqlite");    
     }
     
     echo "CLI phar executable file created from current source ($output)\n";
@@ -42,13 +43,25 @@ function cos_phar_web_create() {
     $base = basename($dir);
     cos_build_simple();
     
-    $output = "../$base-web.phar";
+    $build_dir = "tmp/phar";
+    
+    $fs = new Filesystem();
+    $fs->mkdir($build_dir, 0755);
+    
+    $output = "$build_dir/$base-web.phar";
     $phar = new Phar($output);
     $phar->interceptFileFuncs();
     $phar->buildFromDirectory("$dir/build/$base");
-    $stub = $phar->createDefaultStub('misc/alt-router.php');
+    $stub = $phar->createDefaultStub('phar-web.php');
     $phar->setStub($stub);
     $phar->stopBuffering();
+    
+    cos_exec("cp -R config $build_dir");
+    if (config::getMainIni('phar_sqlite')) {
+        db_to_sqlite();
+        cos_exec("cp -R sqlite $build_dir");
+        cos_exec("chmod -R 777 $build_dir/sqlite");    
+    }
 
     echo "Web phar executable file created from current source ($output)\n";
     echo "Server it with built-in server like this:\n";

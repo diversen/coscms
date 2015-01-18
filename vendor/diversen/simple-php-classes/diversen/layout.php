@@ -122,7 +122,7 @@ class layout {
         $template_path = _COS_HTDOCS. "/templates/" .
             $template;
         
-        $common = $template_path . "/common.inc";
+        $common = $template_path . "/common.php";
         if (file_exists($common)) {
             include_once $common;
         }

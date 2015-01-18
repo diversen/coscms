@@ -459,17 +459,22 @@ class conf {
     
     public static function defineCommon () {
         
-        $htdocs_path = self::getMainIni('htdocs_path');
-
+        //$htdocs_path = self::getMainIni('htdocs_path');
+        $htdocs_path = _COS_PATH . "/htdocs";
         // default htdocs path
-        if (!$htdocs_path) {
+        if (file_exists($htdocs_path)) {
             define('_COS_HTDOCS', _COS_PATH . '/htdocs');
-        }
-
-        // if coslib path is the same as the cos htdocs path
-        if ($htdocs_path == '_COS_PATH') {
+        } else {
             define('_COS_HTDOCS', _COS_PATH);
         }
+        
+        
+
+        // if coslib path is the same as the cos htdocs path
+        /*
+        if ($htdocs_path == '_COS_PATH') {
+            define('_COS_HTDOCS', _COS_PATH);
+        }*/
 
         /**
          * define path to modules
