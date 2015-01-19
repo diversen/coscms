@@ -124,8 +124,14 @@ class lang {
         // create system lanugage for all modules
         if (!empty($system_language)){
             foreach($system_language as $val){
-                $module_lang = unserialize($val['translation']);               
-                $system_lang+= $module_lang;
+                $val['module_name'];
+                $module_lang = @unserialize($val['translation']);               
+                //var_dump($module_lang);
+                if ($module_lang) { 
+                    $system_lang+= $module_lang;
+                } else {
+                    log::error('Something wrong with language files. Try to reload them!');
+                }
             }
         }      
         self::$dict = $system_lang;

@@ -5,13 +5,23 @@
  * used with php built-in router. 
  * TODO: Should work with sqlite
  */
-// Phar::interceptFileFuncs();
+Phar::interceptFileFuncs();
+
+
 try {
-    Phar::mount('config/config.ini', 'config/config.ini');
-    Phar::mount('sqlite/database.sql', 'sqlite/database.sql');
+    Phar::mount('config/config.ini', '.config.ini');
+    Phar::mount('sqlite/database.sql', '.database.sql');
 } catch (Exception $e) {
-    echo $e->getMessage();
-    die();
+    //echo $e->getMessage();
+    $str = file_get_contents('tmp/.config.ini');
+    file_put_contents('.config.ini', $str);
+    $str = file_get_contents('tmp/.database.sql');
+    file_put_contents('.database.sql', $str);
+    chmod('.database.sql', 0777);    
+    Phar::mount('config/config.ini', '.config.ini');
+    Phar::mount('sqlite/database.sql', '.database.sql');
+
+    //die('created .config and .database.sql');
 } 
 
 if (php_sapi_name() == 'cli-server') {
@@ -25,3 +35,4 @@ if (php_sapi_name() == 'cli-server') {
 }
 
 __HALT_COMPILER();
+

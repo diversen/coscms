@@ -1,6 +1,5 @@
 <?php
 
-
 /**
  * *
  * File which contains class for installing modules

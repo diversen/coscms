@@ -59,6 +59,9 @@ function cos_build_simple($options = null) {
     $config = "mkdir ./build/$name/config";
     cos_exec($config);
 
+    $tmp_dir = "mkdir ./build/$name/tmp";
+    cos_exec($tmp_dir);
+    
     $profiles = "cp -rf profiles ./build/$name";
     cos_exec($profiles);
 
@@ -76,13 +79,6 @@ function cos_build_simple($options = null) {
     $profile = new profile();
 
     $ary = $profile->removeIniSecretsFromArray($ary);
-
-    if (isset($ary['password'])) {
-        $ary['password'] = '';
-    }
-
-    // indicate the all files is in the same base dir 
-    $ary['htdocs_path'] = '_COS_PATH';
 
     // clean ini settings for secrets
     $ini_settings = config::arrayToIniFile($ary);

@@ -13,6 +13,10 @@ use diversen\session;
  */
 class http {
     
+    public static function getRedirect(){
+        $info = parse_url($_SERVER['REQUEST_URI']);
+        return $info['path'];
+    }
     /**
      * simple function for creating prg pattern. 
      * (Keep state when reloading browser and resends forms etc.) 
@@ -29,7 +33,8 @@ class http {
             $_SESSION['REQUEST_URI'] = $_SERVER['REQUEST_URI'];
 
             header("HTTP/1.1 303 See Other");
-            $location = $_SERVER['REDIRECT_URL'] . '?prg=1&uniqid=' . $uniqid;
+            
+            $location = self::getRedirect() . '?prg=1&uniqid=' . $uniqid;
             self::locationHeader($location);
         }
 
@@ -69,7 +74,7 @@ class http {
             $_SESSION['REQUEST_URI'] = $_SERVER['REQUEST_URI'];
 
             header("HTTP/1.1 303 See Other");
-            $location = $_SERVER['REDIRECT_URL'] . '?prg=1&uniqid=' . $uniqid;
+            $location = self::getRedirect() . '?prg=1&uniqid=' . $uniqid;
             self::locationHeader($location);
         }
 
