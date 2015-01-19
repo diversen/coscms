@@ -2,6 +2,7 @@
 htdocs/logo/*
 htdocs/app.yaml
 *.ini
+*.sql
 test/*
 test.php
 htdocs/test.php

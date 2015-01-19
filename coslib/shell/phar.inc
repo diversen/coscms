@@ -69,6 +69,7 @@ function cos_phar_web_create() {
 
     // rm secrets
     $ary = $profile->removeIniSecretsFromArray($ary);
+    unset($ary['session_handler']);
     
     // add sqlite database to build phar dir
     if (config::getMainIni('phar_sqlite')) {
@@ -99,7 +100,8 @@ function cos_phar_web_create() {
 
     echo "Web phar executable file created from current source ($output)\n";
     echo "Server it with built-in server like this:\n";
-    echo "php -S localhost:8080 $output\n";
+    echo "cd $build_phar_dir\n";
+    echo "php -S localhost:8080 $base-web.phar\n";
     exit(0);
 }
 
