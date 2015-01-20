@@ -89,13 +89,10 @@ function cos_phar_web_create() {
     
     $output = "$build_phar_dir/$base-web.phar";
     $phar = new Phar($output);
-    //$phar->interceptFileFuncs();
-    
     $phar->buildFromDirectory($build_from_dir);
     $stub = $phar->createDefaultStub('phar-web.php');
     $phar->setStub($stub);
     $phar->stopBuffering();
-
 
     echo "Web phar executable file created from current source ($output)\n";
     echo "Server it with built-in server like this:\n";
@@ -133,3 +130,4 @@ self::setOption('cos_phar_web_create', array(
     'description' => 'Creates web archieve from current source',
     'action'      => 'StoreTrue'
 ));
+
