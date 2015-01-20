@@ -78,7 +78,7 @@ function cos_build_simple($options = null) {
     $ary = config::getIniFileArray("./config/config.ini");
     $profile = new profile();
 
-    $ary = $profile->removeIniSecretsFromArray($ary);
+    $ary = $profile->iniArrayPrepare($ary);
 
     // clean ini settings for secrets
     $ini_settings = config::arrayToIniFile($ary);

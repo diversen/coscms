@@ -68,8 +68,7 @@ function cos_phar_web_create() {
     $profile = new profile();
 
     // rm secrets
-    $ary = $profile->removeIniSecretsFromArray($ary);
-    unset($ary['session_handler']);
+    $ary = $profile->iniArrayPrepare($ary);
     
     // add sqlite database to build phar dir
     if (config::getMainIni('phar_sqlite')) {

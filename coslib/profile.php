@@ -381,7 +381,7 @@ class profile  {
             if (!file_exists($source)) continue;
             
             $ary = config::getIniFileArray($source, true);
-            $ary = $this->removeIniSecretsFromArray($ary);               
+            $ary = $this->iniArrayPrepare($ary);               
             $config_str = config::arrayToIniFile($ary);
 
             $dest = $profile_dir . "/$val[module_name].ini-dist";
@@ -422,7 +422,7 @@ class profile  {
         $profile_dir = _COS_PATH . "/profiles/$profile";
         $source = _COS_PATH . "/config/config.ini";  
         $ary = config::getIniFileArray($source, true);
-        $ary = $this->removeIniSecretsFromArray($ary);  
+        $ary = $this->iniArrayPrepare($ary);  
         $config_str = config::arrayToIniFile($ary);     
         file_put_contents($profile_dir . "/config.ini-dist", $config_str);
 
@@ -433,7 +433,7 @@ class profile  {
      * @param array $ary
      * @return array $ary
      */
-    public function removeIniSecretsFromArray ($ary) {
+    public function iniArrayPrepare ($ary) {
        
         if (!self::$hideSecrets) {
             return $ary;
@@ -451,7 +451,8 @@ class profile  {
             'imap_user',
             'imap_password',
             'google_translate_key',
-            'comment_akismet_key'
+            'comment_akismet_key',
+            'session_handler'
         );
         
         foreach ($ary as $key => &$val) {
