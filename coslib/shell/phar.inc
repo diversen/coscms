@@ -84,6 +84,10 @@ function cos_phar_web_create() {
         
     }
     
+    if (config::getMainIni('phar_files')) {
+        cos_exec("cp -rf htdocs/files/default $build_from_dir")
+    }
+    
     $ini_settings = config::arrayToIniFile($ary);
     file_put_contents("$build_from_dir/tmp/.config.ini", $ini_settings);
     
@@ -109,6 +113,14 @@ function cos_phar_sqlite ($options = array ()) {
     config::setMainIni('phar_sqlite', 1);
 }
 
+/**
+ * notification flag to other functions
+ * @param type $options
+ */
+function cos_phar_sqlite ($options = array ()) {
+    config::setMainIni('phar_files', 1);
+}
+
 self::setCommand('phar', array(
     'description' => 'Generate phar archieves from current source',
 ));
@@ -116,6 +128,12 @@ self::setCommand('phar', array(
 self::setOption('cos_phar_sqlite', array(
     'long_name'   => '--sqlite',
     'description' => 'Will add a sqlite3 database into the build dir.',
+    'action'      => 'StoreTrue'
+));
+
+self::setOption('cos_phar_sqlite', array(
+    'long_name'   => '--files',
+    'description' => 'Will add a public fils (files/default).',
     'action'      => 'StoreTrue'
 ));
 
