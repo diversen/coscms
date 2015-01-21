@@ -85,7 +85,9 @@ function cos_phar_web_create() {
     }
     
     if (config::getMainIni('phar_files')) {
-        cos_exec("cp -rf htdocs/files/default $build_from_dir")
+        //cos_needs_root();
+        cos_exec("cp -rf htdocs/files $build_from_dir");
+        cos_exec("sudo chown -R 777 $build_from_dir/files");
     }
     
     $ini_settings = config::arrayToIniFile($ary);
@@ -117,7 +119,7 @@ function cos_phar_sqlite ($options = array ()) {
  * notification flag to other functions
  * @param type $options
  */
-function cos_phar_sqlite ($options = array ()) {
+function cos_phar_files ($options = array ()) {
     config::setMainIni('phar_files', 1);
 }
 
@@ -131,7 +133,7 @@ self::setOption('cos_phar_sqlite', array(
     'action'      => 'StoreTrue'
 ));
 
-self::setOption('cos_phar_sqlite', array(
+self::setOption('cos_phar_files', array(
     'long_name'   => '--files',
     'description' => 'Will add a public fils (files/default).',
     'action'      => 'StoreTrue'
