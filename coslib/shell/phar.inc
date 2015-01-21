@@ -90,7 +90,7 @@ function cos_phar_web_create() {
     $output = "$build_phar_dir/$base-web.phar";
     $phar = new Phar($output);
     $phar->buildFromDirectory($build_from_dir);
-    $stub = $phar->createDefaultStub('phar-web.php');
+    $stub = $phar->createDefaultStub('phar-web.php', 'phar-web.php');
     $phar->setStub($stub);
     $phar->stopBuffering();
 
