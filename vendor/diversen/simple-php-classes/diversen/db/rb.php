@@ -11,7 +11,7 @@ use \diversen\conf as config;
 /**
  * @ignore
  */
-include_once "rb.php";
+include_once "vendor/diversen/simple-php-classes/diversen/rb.php";
 use RedBean_Facade as R;
 
 /**
