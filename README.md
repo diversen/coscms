@@ -8,15 +8,10 @@
 
 ### About
 
-CosCMS is a simple framework for building web application.
-It is intended for users, who wants some common modules, and a platform 
-with a small code base which is easy to extend.
+CosCMS is a simple modular framework for building web application.
 
-You can use what ever code and classes you desire when building 
-modules - even though it has a few requirements. 
- 
-It's also a content management system (CMS) 
-The CMS is the default build profile included.
+Modules are distrubuted as profile, and a few is included in 
+the main package. E.g. a simple CMS system and a blogging system.  
  
 Easy to use, administer, and extend with modules 
 (web- and shell modules, and templates). 
