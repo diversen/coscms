@@ -155,7 +155,7 @@ class mdDownloadImages extends Markdown {
         $web_path = config::getWebFilesPath($path);
         $image_url = config::getSchemeWithServerName() . $url;
 
-        $file = file_get_contents($image_url);
+        $file = @file_get_contents($image_url);
         if ($file === false) {
             log::error('Could not get file content ' . $file);
             return '';
