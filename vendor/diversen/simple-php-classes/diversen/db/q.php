@@ -3,6 +3,7 @@
 namespace diversen\db;
 use diversen\db;
 use diversen\conf as config;
+use diversen\log;
 /**
  * contains db_q class fro creating db queries fairly simply
  * @package db
