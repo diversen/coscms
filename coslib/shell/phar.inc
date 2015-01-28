@@ -83,6 +83,14 @@ function cos_phar_web_create() {
         $ary['url'] = 'sqlite:.database.sql';
         
     }
+    // template_assets::$cacheDir;
+    
+    // no caching of assets. Place css and js in file
+    $ary['cached_assets'] = 0;
+    $ary['cashed_assets_reload'] = 0;
+    $ary['cached_assets_minify'] = 0;
+    $ary['cached_assets_compress'] = 0;
+    $ary['cached_assets_inline'] = 1;
     
     if (config::getMainIni('phar_files')) {
         //cos_needs_root();
