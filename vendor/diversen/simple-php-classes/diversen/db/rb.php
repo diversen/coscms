@@ -83,6 +83,20 @@ class rb {
     }
     
     /**
+     * update a bean from table, id, values 
+     * @param string $table
+     * @param int $id
+     * @param array $values
+     * @return int $res
+     */
+    public static function updateBean ($table, $id, $values) {
+        $bean = self::getBean($table, 'id', $id);
+        foreach($values as $key => $value) {
+            $bean->{$key} = $value;
+        }
+        return R::store($bean);
+    }
+    /**
      * helper function for getting a bean. It searches for an existing bean
      * if not found it create a new bean
      * @param string $table

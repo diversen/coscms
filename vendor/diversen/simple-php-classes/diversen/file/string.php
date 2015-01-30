@@ -50,4 +50,14 @@ class string {
         fclose($handle);
         return file_put_contents($file, $final, LOCK_EX);
     }
+    
+    public static function getLine($file) {
+        $handle = @\fopen($file, "r");
+        if ($handle) {
+            $line = \fgets($handle);
+            @\fclose($handle);
+            return $line;
+        } 
+        return false;
+    }
 }
