@@ -19,7 +19,7 @@ class headers {
      * @return array $headers
      */
     public static function parseCurlHeaders($response) {
-        
+
         $headers = array();
         $header_text = substr($response, 0, strpos($response, "\r\n\r\n"));
         foreach (explode("\r\n", $header_text) as $i => $line) {
@@ -48,5 +48,20 @@ class headers {
         curl_setopt($curl, CURLOPT_FOLLOWLOCATION, true);
         $headers = curl_exec($curl);
         return self::parseCurlHeaders($headers);
+    }
+
+    public static function getCurlLastLocation($url, $max = 7) {
+        static $i = 0;
+
+        $headers = self::getCurlHeadersAry($url);
+        if (isset($headers['Location'])) {
+            $i++;
+            if ($i > $max) {
+                return false;
+            } else {
+                return self::getCurlLastLocation($headers['Location'], $max);
+            }
+        }
+        return $url;
     }
 }
