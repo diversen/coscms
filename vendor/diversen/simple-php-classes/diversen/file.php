@@ -196,16 +196,30 @@ class file {
      * It will know if we are using a multi domain setup
      * @param string $dir
      */
-    public static function mkdir($dir, $perms = '0777') {
+    public static function mkdir($dir, $perms = 0777) {
         $full_path = config::getFullFilesPath();
         $dir = $full_path . "$dir";
 
         if (file_exists($dir)) {
             return false;
         }
-        $res = @mkdir($dir, 0777, true);
+        $res = @mkdir($dir, $perms, true);
         return $res;
     }
+    
+    /**
+     * Make a public dir
+     * @param string $dir
+     */
+    public static function mkdirDirect($dir, $perms = 0777) {
+        if (file_exists($dir)) {
+            return false;
+        }
+        $res = @mkdir($dir, $perms, true);
+        return $res;
+    }
+    
+    
 
     /**
      * get a cached file using APC
