@@ -4,6 +4,9 @@ namespace diversen;
 
 class buffer {
 
+    /**
+     * clean all ob buffers
+     */
     public static function cleanAll() {
 
         while (ob_get_level()) {
