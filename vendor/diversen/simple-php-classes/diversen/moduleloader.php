@@ -308,7 +308,8 @@ class moduleloader {
     public function setModuleInfo ($route = null){
 
         // check if user has been locked in early run level
-        if (isset(self::$status[403])){                     
+        
+        if (isset(self::$status[403]) || isset(self::$status[404])){                     
             $this->setErrorModuleInfo(); 
             return;
         } 

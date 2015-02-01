@@ -66,7 +66,12 @@ class dispatch {
                 if (isset(moduleloader::$status[403])){
                     moduleloader::includeModule('error');
                     moduleloader::includeController('error/403');
-                }     
+                }  
+                
+                if (isset(moduleloader::$status[404])){
+                    moduleloader::includeModule('error');
+                    moduleloader::includeController('error/404');
+                }   
             }
         }  
 
