@@ -653,7 +653,7 @@ class db {
     public static function prepareToPost($values = array(), $options = array ()){
         self::$debug[] = "Trying to prepareToPost";
         if (!empty($values)) {
-            self::prepareToPostArray();
+            self::prepareToPostArray($values);
         }
         
         $ary = array();

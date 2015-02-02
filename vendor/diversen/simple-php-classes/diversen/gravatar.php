@@ -51,6 +51,6 @@ class gravatar {
      * @ignore
      */
     public static function get_gravatar_img($email, $s = 80, $d = 'identicon', $r = 'g', $img = true, $atts = array()) {
-        return get_gravatar($email, $s, $d, $r, $img, $atts);
+        return self::get_gravatar($email, $s, $d, $r, $img, $atts);
     }
 }

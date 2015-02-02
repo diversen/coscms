@@ -115,6 +115,7 @@ class user {
     public static function initProfile () {
         if (!isset(self::$profile_object)){
             
+            // used a module or use built-in profile module
             $profile_system = config::getMainIni('profile_module');
             if (!isset($profile_system) || !moduleloader::isInstalledModule($profile_system)){
                 self::$profile_object = new userprofile();
