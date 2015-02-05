@@ -1,15 +1,14 @@
 <?php
 
 namespace diversen;
-use diversen\user\profile as userprofile;
+use diversen\user\profile;
 use diversen\db\q as db_q;
 use diversen\db;
-use diversen\html;
-use diversen\time;
 use diversen\moduleloader;
 use diversen\lang;
 use diversen\session;
 use diversen\conf as config;
+
 /**
  * File containing methods for getting a user profile connected to the 
  * account system. This is made in order to make it possible to switch
@@ -50,9 +49,7 @@ class user {
         if (empty($row)) {
             return false;
         } 
-        
         return $row;
-        
     }
     
     /**
@@ -72,6 +69,10 @@ class user {
         return false;
     }
     
+    /**
+     * is account locked
+     * @return boolean
+     */
     public static function locked () {
         $user = self::getAccount();
         if (empty($user)) {
@@ -97,28 +98,16 @@ class user {
         return $row;
     }
     
-    /**
-     * gets account from email
-     * @param string $email
-     * @return array $row
-     */
-    public static function getAccountFromEmail ($email = null) {
-        $db = new db();
-        $row = $db->selectOne('account', 'email', $email);
-        return $row;
-    }
-    
     
     /**
      * inits profile system. Include profile module
      */
     public static function initProfile () {
         if (!isset(self::$profile_object)){
-            
-            // used a module or use built-in profile module
+
             $profile_system = config::getMainIni('profile_module');
             if (!isset($profile_system) || !moduleloader::isInstalledModule($profile_system)){
-                self::$profile_object = new userprofile();
+                self::$profile_object = new profile();
                 return;
             } else {
                 moduleloader::includeModule ($profile_system);
@@ -126,32 +115,8 @@ class user {
             }
         }
     }
-    
-    /**
-     * Gets user profile info if a profile system is in place.
-     * E.g. to be showed on login page when logged in. 
-     *
-     * @param   mixed array|int   $user options
-     * @return  string  $str html or text showing info about the profile
-     */
-    public static function getProfileInfo ($user_id = null){
-        if (!$user_id) {
-            $user_id = session::getUserId();
-        }
-        
-        self::initProfile();
-        return self::$profile_object->getProfileInfo($user_id);
-    }
-    
-    /**
-     * get all profile info where special chars are encoded
-     * @param mixed $user (account row or user_id)
-     * @return array $row 
-     */
-    public static function getProfileInfoEscaped ($user) {
-        $profile = self::getProfileInfo($user);
-        return html::specialEncode($profile);
-    }
+
+
     
     /**
      * method for getting html for logging out a user. 
@@ -189,105 +154,8 @@ class user {
         return self::$profile_object->getProfile($user, $text, $options);       
     }
     
-    /**
-     * gets a anon profile
-     * @param array $user anon user info. At least we should have array ('email'  => 'email');
-     * @param string $text string to add to user e.g. date of the post. 
-     * @return string $str profile html.  
-     */
-    public static function getProfileAnon($user, $text = '') {
-        self::initProfile();
-        return self::$profile_object->getProfile($user, $text);       
+    public static function getProfileLink () {
+        
     }
     
-    /**
-     * same as getProfile. But we add a date to be formatted
-     * @param mixed $user array with user info or a user id
-     * @param string $date mysql timestamp
-     * @param string $format timestamp format
-     * @return string $str simple table with user profile
-     */
-    public static function getProfileWithDate ($user, $date, $format = 'date_format_long') {
-        $date_str = time::getDateString($date, $format);
-        self::initProfile();
-        if (!is_array($user)) {
-            $user = self::getAccount($user);
-            
-        }
-        return self::$profile_object->getProfile($user, $date_str);  
-    }
-    
-    /**
-     * same as getProfile. But we add a date to be formatted
-     * @param array $user anon user info (at least we should have an email)
-     * @param string $date mysql timestamp
-     * @param string $format timestamp format
-     * @return string $str simple table with user profile
-     */
-    public static function getProfileWithDateAnon ($user, $date, $format = 'date_format_long') {
-        $date_str = time::getDateString($date, $format);
-        self::initProfile();
-        return self::$profile_object->getProfileAnon($user, $date_str);  
-    }
-    
-    /**
-     * method for getting a profile link in the most simple way
-     * e.g. any blog post will have a text (the post date) and a user 
-     * profile link or box. 
-     * 
-     * @param array $user the user array or an annon user in an array
-     *                    can be an array from account table or
-     *                    it can be an anoo user comment. 
-     *                    if the user is anon then the user_id = '0'
-     *                    and supplied can be homepage and email. 
-     *                    e.g. in comment.  
-     * 
-     * 
-     * @param string $text string to add to user e.g. date of the post. 
-     * @return string $str profile html.  
-     */
-    public static function getProfileSimple($user, $text = '') {
-
-        self::initProfile();
-        if (!is_array($user)) {
-            $user = self::getAccount($user);
-        }
-        return self::$profile_object->getProfileSimple($user, $text);       
-    }
-    
-    public static function getProfileURL($user_id) {
-        self::initProfile();
-        return self::$profile_object->getProfileUrl($user_id);       
-    }
-    
-     public static function getProfileScreenname($user_id) {
-        self::initProfile();
-        return self::$profile_object->getProfileScreenname($user_id);       
-    }
-    
-    /**
-     * Gets user profile link if a profile system is in place.
-     * Profile systems must be set in main config/config.ini
-     * the option array can be used to setting special options for profile module
-     * 
-     * @param   array   $user_id the user in question
-     * @return  string  $string string showing the profile
-     */
-    public static function getProfileEditLink ($user_id){
-        self::initProfile();
-        return self::$profile_object->getProfileEditLink($user_id);
-    }
-    
-    /**
-     * Gets user profile link if a profile system is in place.
-     * Profile systems must be set in main config/config.ini
-     * the option array can be used to setting special options for profile module
-     * 
-     * @param   array   $user_id the user in question
-     * @return  string  $string string showing the profile
-     */
-    public static function getProfileAdminLink ($user_id){
-        self::initProfile();
-        return self::$profile_object->getProfileAdminLink($user_id);
-    }
 }
