@@ -154,8 +154,18 @@ class user {
         return self::$profile_object->getProfile($user, $text, $options);       
     }
     
-    public static function getProfileLink () {
-        
+    /**
+     * get a link to a profile page
+     * @return type
+     */
+    public static function getProfileLink ($user) {
+                
+        self::initProfile();
+        if (!is_array($user)) {
+            $user = self::getAccount($user);
+        }
+
+        return self::$profile_object->getProfileLink($user);    
     }
     
 }
