@@ -7,12 +7,12 @@ use diversen\intl;
 use diversen\http;
 use diversen\db;
 use diversen\uri\dispatch;
+
 /**
  * initialize base system. 
  * Runs both web system and commandline system.
  * @package  head
  */
-
 
 /**
  * include base classes and functions

@@ -8,11 +8,11 @@
     "packages": [
         {
             "name": "diversen/simple-php-classes",
-            "version": "1.2.5",
+            "version": "1.2.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/diversen/simple-php-classes.git",
-                "reference": "580b205af0159c906fc4d9c50211846f290ada7d"
+                "reference": "73d3142d0a2f93df0bc0ba566799cee3275f517d"
             },
             "require": {
                 "michelf/php-markdown": "1.*",
@@ -37,20 +37,20 @@
                 }
             },
             "description": "A collection of simple classes",
-            "time": "2015-01-28 13:58:10"
+            "time": "2015-02-10 13:37:50"
         },
         {
             "name": "donatj/phpuseragentparser",
-            "version": "v0.3.2",
+            "version": "v0.3.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/donatj/PhpUserAgent.git",
-                "reference": "a5b3bab0ae6816f7a0edc63a05254fec3a9e27a5"
+                "reference": "ea239f0b155138f41cc4bae81f13a5fd85b2d247"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/donatj/PhpUserAgent/zipball/a5b3bab0ae6816f7a0edc63a05254fec3a9e27a5",
-                "reference": "a5b3bab0ae6816f7a0edc63a05254fec3a9e27a5",
+                "url": "https://api.github.com/repos/donatj/PhpUserAgent/zipball/ea239f0b155138f41cc4bae81f13a5fd85b2d247",
+                "reference": "ea239f0b155138f41cc4bae81f13a5fd85b2d247",
                 "shasum": ""
             },
             "require": {
@@ -85,7 +85,7 @@
                 "user agent",
                 "useragent"
             ],
-            "time": "2014-12-22 20:21:57"
+            "time": "2015-02-01 03:19:38"
         },
         {
             "name": "erusev/parsedown",
@@ -895,7 +895,7 @@
         },
         {
             "name": "symfony/filesystem",
-            "version": "v2.6.3",
+            "version": "v2.6.4",
             "target-dir": "Symfony/Component/Filesystem",
             "source": {
                 "type": "git",
@@ -942,17 +942,17 @@
         },
         {
             "name": "symfony/yaml",
-            "version": "v2.6.3",
+            "version": "v2.6.4",
             "target-dir": "Symfony/Component/Yaml",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Yaml.git",
-                "reference": "82462a90848a52c2533aa6b598b107d68076b018"
+                "reference": "60ed7751671113cf1ee7d7778e691642c2e9acd8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Yaml/zipball/82462a90848a52c2533aa6b598b107d68076b018",
-                "reference": "82462a90848a52c2533aa6b598b107d68076b018",
+                "url": "https://api.github.com/repos/symfony/Yaml/zipball/60ed7751671113cf1ee7d7778e691642c2e9acd8",
+                "reference": "60ed7751671113cf1ee7d7778e691642c2e9acd8",
                 "shasum": ""
             },
             "require": {
@@ -985,7 +985,7 @@
             ],
             "description": "Symfony Yaml Component",
             "homepage": "http://symfony.com",
-            "time": "2015-01-03 15:33:07"
+            "time": "2015-01-25 04:39:26"
         },
         {
             "name": "tpyo/amazon-s3-php-class",
