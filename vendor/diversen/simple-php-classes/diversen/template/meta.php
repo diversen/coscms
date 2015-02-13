@@ -4,6 +4,8 @@ namespace diversen\template;
 use diversen\html;
 use diversen\conf as config;
 use diversen\template;
+use diversen\strings;
+use diversen\template\assets;
 
 /**
  * File containing class for adding meta tags
@@ -47,6 +49,38 @@ class meta extends template  {
             }
             self::$meta[$key] = html::specialEncode($val);
         }
+    }
+    
+    /**
+     * sets all <head></head> meta info. 
+     * Params should not be encoded
+     * @param string $title html page title
+     * @param string $description html page description and og description
+     * @param string $keywords keywords
+     * @param string $image image
+     * @param string $type og type
+     */
+    public static function setMetaAll ($title, $description, $keywords, $image, $type) {
+       
+        $desc = strings::substr2($description, 255);
+        $og_desc = html::specialEncode(strings::substr2($description, 320));
+
+        assets::setTitle(html::specialEncode($title));
+        self::setMetaAsStr('<meta property="og:title" content="'.html::specialEncode($title).'" />' . "\n");
+        
+        $server = config::getSchemeWithServerName();
+        $image = $server. $image;
+        
+        self::setMetaAsStr(
+                '<meta property="og:type" content="'.$type.'"/>' . "\n");
+        self::setMetaAsStr(
+                '<meta property="og:description" content="' . $og_desc . '"/>' . "\n");
+        self::setMetaAsStr(
+                '<meta property="og:image" content="' . $image . '"/>' . "\n");
+        self::setMeta(
+                array ('description' => $desc,
+                       'keywords' => $keywords));
+    
     }
     
     /**
