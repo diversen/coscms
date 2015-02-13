@@ -60,7 +60,7 @@ class meta extends template  {
      * @param string $image image
      * @param string $type og type
      */
-    public static function setMetaAll ($title, $description, $keywords, $image, $type) {
+    public static function setMetaAll ($title = '', $description = '', $keywords = '', $image = '', $type = '') {
        
         $desc = strings::substr2($description, 255);
         $og_desc = html::specialEncode(strings::substr2($description, 320));

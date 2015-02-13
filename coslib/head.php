@@ -67,6 +67,9 @@ if ($env == 'development') {
 
 // This is only if commandline mode is not specified  
 if (!config::isCli()){
+    
+    ini_set('default_charset', 'UTF-8');
+    
     // load config/config.ini
     
     
