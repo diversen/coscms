@@ -8,11 +8,11 @@
     "packages": [
         {
             "name": "diversen/simple-php-classes",
-            "version": "1.2.6",
+            "version": "1.2.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/diversen/simple-php-classes.git",
-                "reference": "73d3142d0a2f93df0bc0ba566799cee3275f517d"
+                "reference": "871038166d885d9d6a5315e54077d923691d6352"
             },
             "require": {
                 "michelf/php-markdown": "1.*",
@@ -37,7 +37,7 @@
                 }
             },
             "description": "A collection of simple classes",
-            "time": "2015-02-10 13:37:50"
+            "time": "2015-02-18 10:38:47"
         },
         {
             "name": "donatj/phpuseragentparser",
