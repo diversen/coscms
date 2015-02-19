@@ -93,6 +93,16 @@ class meta extends template {
                     array('keywords' => $keywords));
         }
     }
+    
+    /**
+     * set canonical link rel
+     * @param string $canon path without server scheme and name
+     */
+    public static function setCanonical ($canon) {
+        $canon = config::getSchemeWithServerName() . $canon;
+        $str = "<link rel=\"canonical\" href=\"$canon\" />\n";
+        self::setMetaAsStr($str);
+    }
 
     /**
      * sets a meta string directly. 
