@@ -1,5 +1,0 @@
-ssh_port = ""
-ssh_host = ""
-ssh_user = "dennis"
-prod_path = "/home/dennis/www/www.coscms.org"
-locale_path = "/home/dennis/www/www.coscms.org"
