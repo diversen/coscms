@@ -58,39 +58,56 @@ class meta extends template {
      * @param string $type og type
      */
     public static function setMetaAll($title, $description ='', $keywords = '', $image = '', $type = '') {
-
-        $desc = strings::substr2($description, 255);
-        $og_desc = html::specialEncode(strings::substr2($description, 320));
-
+    
+        // title
         assets::setTitle(html::specialEncode($title));
         self::setMetaAsStr(
                 '<meta property="og:title" content="' . html::specialEncode($title) . '" />' . "\n");
 
+        // description
+        if (empty($description)) {
+            $description = config::getMainIni('meta_desc');
+        }
+        
+        
+        $desc = strings::substr2($description, 255);
+        $og_desc = html::specialEncode(strings::substr2($description, 320));
+        
+        if (!empty($og_desc)) {
+            self::setMetaAsStr(
+                    '<meta property="og:description" content="' . $og_desc . '"/>' . "\n");
+        }
+        
+        if (!empty($desc)) {
+            self::setMeta(
+                    array('description' => $desc));
+        }
+        
+        // keywords
+        if (empty($keywords)) {
+            $keywords = config::getMainIni('meta_meywords');
+        }
+        
+        if (!empty($keywords)) {
+            self::setMeta(
+                    array('keywords' => $keywords));
+        }
+                   
+        // image
         if (!empty($image)) {
             $server = config::getSchemeWithServerName();
             $image = $server . $image;
         }
 
-        if (!empty($type)) {
-            self::setMetaAsStr(
-                    '<meta property="og:type" content="' . $type . '"/>' . "\n");
-        }
-        if (!empty($og_desc)) {
-            self::setMetaAsStr(
-                    '<meta property="og:description" content="' . $og_desc . '"/>' . "\n");
-        }
         if (!empty($image)) {
             self::setMetaAsStr(
                     '<meta property="og:image" content="' . $image . '"/>' . "\n");
         }
 
-        if (!empty($desc)) {
-            self::setMeta(
-                    array('description' => $desc));
-        }
-        if (!empty($keywords)) {
-            self::setMeta(
-                    array('keywords' => $keywords));
+        // type
+        if (!empty($type)) {
+            self::setMetaAsStr(
+                    '<meta property="og:type" content="' . $type . '"/>' . "\n");
         }
     }
     
@@ -121,12 +138,9 @@ class meta extends template {
      *                     in your mainTemplate
      */
     public static function getMeta() {
-        $str = '';
 
         if (!isset(self::$meta['keywords'])) {
-            $str = '';
             $str = config::getMainIni('meta_keywords');
-            $str = trim($str);
             if (!empty($str)) {
                 self::$meta['keywords'] = $str;
             }
@@ -135,19 +149,14 @@ class meta extends template {
         // master domains are allow visible for robots
         $master = config::getMainIni('master');
         if (!isset(self::$meta['robots']) && $master) {
-
-            $str = '';
             $str = config::getMainIni('meta_robots');
-            $str = trim($str);
             if (!empty($str)) {
                 self::$meta['robots'] = $str;
             }
         }
 
         if (empty(self::$meta['description'])) {
-            $str = '';
             $str = config::getMainIni('meta_desc');
-            $str = trim($str);
             if (!empty($str)) {
                 self::$meta['description'] = $str;
             }
