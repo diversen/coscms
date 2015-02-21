@@ -617,9 +617,9 @@ class session {
     }
     
     /**
-     * checks access for user, admin or super. It 
-     * Loads error module if user level is not present
-     * @return boolean $res true if admin else false. 
+     * checks access for 'user', 'admin' or 'super'. It 
+     * Loads error module if correct user level is not present
+     * @return boolean $res true or false. 
      */
     public static function checkAccess ($type = null) {
         $res = self::checkAccessClean($type);
@@ -632,7 +632,12 @@ class session {
         }
     }
     
-    
+    /**
+     * check access clean. This means from the tree main groups of users
+     * 'user', 'admin', 'super'
+     * @param string $type
+     * @return boolean $res true if success or false on failure
+     */
     public static function checkAccessClean ($type = null) {
         $res = false;
         if ($type == 'user') {

@@ -168,4 +168,11 @@ class user {
         return self::$profile_object->getProfileLink($user);    
     }
     
+    public static function getAdminLink($user) {
+
+        self::initProfile();
+
+        return self::$profile_object->getAdminLink($user);
+    }
+
 }
