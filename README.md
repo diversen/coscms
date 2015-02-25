@@ -31,11 +31,6 @@ Login with admin / admin. A simple demo with a blog (blog module),
 and a CMS (content module) and a comment module (comment), 
 and a few more modules. 
 
-### Questions?
-
-[Q&A](http://www.coscms.org/questions/index) 
-
-
 ### One package install
 
 Intended for people who could not care about a shell command. 
