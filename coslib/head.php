@@ -186,6 +186,13 @@ if (!config::isCli()){
     // only from here we should use template class. 
     // template translation will override module translations
     $layout = new layout();
+    // we first load menus here so we can se what happened when we
+    // init our module. In case of a 404 not found error we don't want
+    // to load module menus
+    $layout->loadMenus();
+    
+    // init blocks
+    $layout->initBlocks();
 
     
     // if any matching route was found we check for a method or function
@@ -196,13 +203,7 @@ if (!config::isCli()){
         $str = $ml->getParsedModule();
     }
     
-    // we first load menus here so we can se what happened when we
-    // init our module. In case of a 404 not found error we don't want
-    // to load module menus
-    $layout->loadMenus();
-    
-    // init blocks
-    $layout->initBlocks();
+
     
     
     mainTemplate::printHeader();
