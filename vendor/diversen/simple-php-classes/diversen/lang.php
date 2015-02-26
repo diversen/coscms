@@ -127,10 +127,11 @@ class lang {
                 $val['module_name'];
                 $module_lang = @unserialize($val['translation']);               
                 //var_dump($module_lang);
-                if ($module_lang) { 
-                    $system_lang+= $module_lang;
-                } else {
+                if ($module_lang === false) { 
                     log::error('Something wrong with language files. Try to reload them!');
+                } else {
+                    $system_lang+= $module_lang;
+                    
                 }
             }
         }      
