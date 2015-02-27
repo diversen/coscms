@@ -71,4 +71,9 @@ class profile {
     public function getProfileSimple ($user = null) {
         return '';
     }
+    
+    public function getProfileLink ($user) {
+        return '';
+        
+    }
 }
