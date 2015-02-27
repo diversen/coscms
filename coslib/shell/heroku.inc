@@ -42,10 +42,12 @@ EOF;
 
 function heroku_enable_addons () {
     $command = "heroku addons:add cleardb";
-    cos_exec($command);
+    proc_close(proc_open($command, array(0 => STDIN, 1 => STDOUT, 2 => STDERR), $pipes));    
+passthru($command);
     heroku_set_cleardb_conf();
     $command = "heroku addons:add sendgrid";
-    cos_exec($command);
+    //passthru($command);
+    proc_close(proc_open($command, array(0 => STDIN, 1 => STDOUT, 2 => STDERR), $pipes));
     heroku_set_sendgrid_conf();
 }
 
@@ -114,7 +116,9 @@ function heroku_prompt_install () {
     if ($res) {
         die('You wll need the heroku command. Download the heroku toolbelt');
     }
+    echo "Enabling addons ... wait\n";
     heroku_enable_addons();
+    echo "Downloading extensions ... wait\n";
     heroku_download_extensions();
     cos_exec("cp misc/htaccess .htaccess");
     cos_exec("mkdir -p files/default");
@@ -122,6 +126,7 @@ function heroku_prompt_install () {
     cos_exec("touch files/default/dummy.txt");
     load_db_default();
     cos_cli_print('Installing all modules. This may take minutes. Be patient'); 
+    echo "install ... wait\n";
     install_from_profile(array ('profile' => 'default'));
     useradd_add();
     
