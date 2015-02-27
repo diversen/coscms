@@ -110,6 +110,10 @@ function heroku_install () {
 function heroku_prompt_install () {
     //cos_exec('git clone git clone git://github.com/diversen/coscms-package.git');
     //cos_exec("cp -rf coscms-package/* . ");
+    $res = cos_exec("which heroku");
+    if ($res) {
+        die('You wll need the heroku command. Download the heroku toolbelt');
+    }
     heroku_enable_addons();
     heroku_download_extensions();
     cos_exec("cp misc/htaccess .htaccess");
