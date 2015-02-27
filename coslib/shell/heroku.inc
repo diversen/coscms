@@ -76,7 +76,7 @@ function heroku_set_cleardb_conf () {
 function heroku_get_config_filename () {
     $config_file = _COS_PATH . "/config/config.ini";
     if (!file_exists($config_file)) {
-        $config_file = _COS_PATH . "/scripts/config.ini-dist";
+        $config_file = _COS_PATH . "/config/config.ini-dist";
     }
     return $config_file;
 }
