@@ -70,6 +70,9 @@ function cos_build_simple($options = null) {
 
     $cli = "cp -rf coscli.sh ./build/$name";
     cos_exec($cli);
+    
+    $composer = "cp -rf composer.json ./build/$name";
+    cos_exec($composer);
 
     $misc_scripts = "cp -rf misc ./build/$name";
     cos_exec($misc_scripts);
