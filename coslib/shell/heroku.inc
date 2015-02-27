@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * get a ini setting from heroku
+ * @param string $setting
+ * @return string
+ */
 function heroku_get_setting ($setting) {
     exec("heroku config:get $setting", $ary, $ret);
     if ($ret) {
@@ -9,55 +14,25 @@ function heroku_get_setting ($setting) {
     return $ary[0];
 }
 
-function heroku_download_extensions () {
-    $command = "wget https://github.com/wuputah/heroku-libraries/raw/master/php/mbstring/mbstring.so";
-    exec($command, $ary, $ret);
-    if ($ret) {
-        echo "We could not download mbstring.so\n";
-        return false;
-    }
-    
-    $command = "wget https://github.com/alkhoo/heroku-cedar-php-extension/raw/master/ext/apc.so";
-    exec($command, $ary, $ret);
-    if ($ret) {
-        echo "We could not download apc.so\n";
-        return false;
-    }
-    
-    $command = "wget https://github.com/alkhoo/heroku-cedar-php-extension/raw/master/ext/imagick.so";
-    exec($command, $ary, $ret);
-    if ($ret) {
-        echo "We could not download imagick.so\n";
-        return false;
-    }
-    
-    $php_ini = <<<EOF
-extension=/app/www/mbstring.so
-extension=/app/www/imagick.so
-extension=/app/www/apc.so
-apc.rfc1867 = 1
-EOF;
-    file_put_contents('php.ini', $php_ini);
-}
-
+/**
+ * enable addons cleardb and sendgrid.
+ */
 function heroku_enable_addons () {
     $command = "heroku addons:add cleardb";
     proc_close(proc_open($command, array(0 => STDIN, 1 => STDOUT, 2 => STDERR), $pipes));    
-passthru($command);
     heroku_set_cleardb_conf();
     $command = "heroku addons:add sendgrid";
-    //passthru($command);
     proc_close(proc_open($command, array(0 => STDIN, 1 => STDOUT, 2 => STDERR), $pipes));
     heroku_set_sendgrid_conf();
 }
 
-
-
+/**
+ * sets config.ini with correct database config
+ */
 function heroku_set_cleardb_conf () {
     $url_str = heroku_get_setting('CLEARDB_DATABASE_URL');
     $url = parse_url($url_str);
-    if ($url) {
-        
+    if ($url) {        
         $config_file = heroku_get_config_filename();
         config::$vars['coscms_main'] = config::getIniFileArray($config_file, true);
         
@@ -73,14 +48,21 @@ function heroku_set_cleardb_conf () {
     }
 }
 
+/**
+ * get name of config file
+ * @return string
+ */
 function heroku_get_config_filename () {
     $config_file = _COS_PATH . "/config/config.ini";
     if (!file_exists($config_file)) {
-        $config_file = _COS_PATH . "/config/config.ini-dist";
+        $config_file = _COS_PATH . "/scripts/config.ini-dist";
     }
     return $config_file;
 }
 
+/**
+ * set csendgrid config in config.ini
+ */
 function heroku_set_sendgrid_conf () {
     $user = heroku_get_setting('SENDGRID_USERNAME');
     $pass = heroku_get_setting('SENDGRID_PASSWORD');
@@ -105,50 +87,35 @@ function heroku_set_sendgrid_conf () {
     }
 }
 
-function heroku_install () {
-        install_from_profile(array ('profile' => 'default'));
-}
-
+/**
+ * prompt install command
+ */
 function heroku_prompt_install () {
-    //cos_exec('git clone git clone git://github.com/diversen/coscms-package.git');
-    //cos_exec("cp -rf coscms-package/* . ");
     $res = cos_exec("which heroku");
     if ($res) {
         die('You wll need the heroku command. Download the heroku toolbelt');
     }
     echo "Enabling addons ... wait\n";
     heroku_enable_addons();
-    echo "Downloading extensions ... wait\n";
-    heroku_download_extensions();
     cos_exec("cp misc/htaccess .htaccess");
     cos_exec("mkdir -p files/default");
     cos_exec("chmod -R 777 files");
     cos_exec("touch files/default/dummy.txt");
     load_db_default();
-    cos_cli_print('Installing all modules. This may take minutes. Be patient'); 
-    echo "install ... wait\n";
+    cos_cli_print('Installing all modules. This may take a few minutes. Be patient'); 
     install_from_profile(array ('profile' => 'default'));
-    useradd_add();
-    
+    useradd_add();    
 }
 
 self::setCommand('heroku', array(
     'description' => 'Commands for heroku',
 ));
 
-
 self::setOption('heroku_prompt_install', array(
     'long_name'   => '--prompt-install',
     'description' => 'Prompt install. Writes config/config.ini, and setup sendgrid',
     'action'      => 'StoreTrue'
 ));
-
-self::setOption('heroku_install', array(
-    'long_name'   => '--install',
-    'description' => 'Install default profile',
-    'action'      => 'StoreTrue'
-));
-
 
 self::setOption('heroku_set_cleardb_conf', array(
     'long_name'   => '--set-clear-db-config',
@@ -161,4 +128,3 @@ self::setOption('heroku_set_sendgrid_conf', array(
     'description' => 'When you have set up sendgrid you can set the config/config.ini file with correct user, password, email, and reply to',
     'action'      => 'StoreTrue'
 ));
-
