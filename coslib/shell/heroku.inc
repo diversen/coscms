@@ -74,7 +74,7 @@ function heroku_set_cleardb_conf () {
 function heroku_get_config_filename () {
     $config_file = _COS_PATH . "/config/config.ini";
     if (!file_exists($config_file)) {
-        $config_file = _COS_PATH . "/scripts/heroku.ini";
+        $config_file = _COS_PATH . "/scripts/config.ini-dist";
     }
     return $config_file;
 }
@@ -127,15 +127,10 @@ self::setCommand('heroku', array(
     'description' => 'Commands for heroku',
 ));
 
-self::setOption('heroku_set_servername', array(
-    'long_name'   => '--set-servername',
-    'description' => 'Sets correct servername in config/config.ini',
-    'action'      => 'StoreTrue'
-));
 
 self::setOption('heroku_prompt_install', array(
     'long_name'   => '--prompt-install',
-    'description' => 'Sets correct servername in config/config.ini',
+    'description' => 'Prompt install. Writes config/config.ini, and setup sendgrid',
     'action'      => 'StoreTrue'
 ));
 

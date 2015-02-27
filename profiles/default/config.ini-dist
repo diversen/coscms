@@ -21,7 +21,7 @@ session_path = "/"
 session_host = ""
 cookie_time = -1
 frontpage_module = "content"
-profile_module = "account_profile"
+profile_module = "userinfo"
 blocks_top[0] = "/system/blocks/system_admin_menu_top.inc"
 blocks[0] = "/content/blocks/content_tree_keep_state.inc"
 blocks_all = "blocks,blocks_top"
@@ -31,4 +31,5 @@ captcha_image_chars = 4
 cached_assets = 1
 cached_assets_reload = 0
 media_width = 600
-
+server_name = "default"
+server_redirect = "default"
