@@ -619,7 +619,11 @@ class moduleloader {
         if (!is_array($modules)) return array ();
         foreach ($modules as $val){
             $str = '';
-            if (@method_exists($val, 'subModulePreContent') && self::isInstalledModule($val)){
+            
+            if (!self::isInstalledModule($val)) {
+                continue;
+            }
+            if (method_exists($val, 'subModulePreContent')){
                 $str = $val::subModulePreContent($options);
                 if (!empty($str)) {
                     $ary[] = $str;
@@ -645,7 +649,10 @@ class moduleloader {
         }
         
         foreach ($modules as $val){
-            if (@method_exists($val, 'subModuleAdminOption') && self::isInstalledModule($val)){
+            if (!self::isInstalledModule($val)) {
+                continue;
+            }
+            if (method_exists($val, 'subModuleAdminOption')){
                 $str = $val::subModuleAdminOption($options);
                 if (!empty($str)) { 
                     $ary[] = $str;
@@ -672,7 +679,11 @@ class moduleloader {
         }
         
         foreach ($modules as $val){
-            if (@method_exists($val, 'subModuleAdminOption') && self::isInstalledModule($val)){
+            if (!self::isInstalledModule($val)) {
+                continue;
+            }
+            
+            if (method_exists($val, 'subModuleAdminOption')){
                 $a = $val::subModuleAdminOptionAry($options);
                 if (!empty($a)) { 
                     $ary[] = $a;
@@ -736,7 +747,10 @@ class moduleloader {
             return $ary;
         }
         foreach ($modules as $val){
-            if (method_exists($val, 'subModuleInlineContent') && self::isInstalledModule($val)){
+            if (!self::isInstalledModule($val)) {
+                continue;
+            }
+            if (method_exists($val, 'subModuleInlineContent')){
                 $str = $val::subModuleInlineContent($options);
                 if (!empty($str)) { 
                     $ary[] = $str;
