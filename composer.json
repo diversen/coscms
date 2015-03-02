@@ -17,7 +17,7 @@
         "ext-mbstring": "*",
         "ext-gd": "*",
         "diversen/simple-php-classes": "1.2.*",
-        "diversen/http-send-file": "dev-master",
+        "diversen/http-send-file": "1.0.*",
         "neutron/sphinxsearch-api": "2.0.*",
         "iignatov/lightopenid": "*",
         "mobiledetect/mobiledetectlib": "2.8.*",

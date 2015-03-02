@@ -4,20 +4,20 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "2c4bb3d02747aadfcb6b43ac54549ef0",
+    "hash": "62505a0551e444dbe74fb66d70125288",
     "packages": [
         {
             "name": "diversen/http-send-file",
-            "version": "dev-master",
+            "version": "v1.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/diversen/http-send-file.git",
-                "reference": "62d8b23a9939dbd79b49f2e6f6afd3c66d840bdb"
+                "reference": "f251960b9961492407cdfc231f6108f01d6c0e86"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/diversen/http-send-file/zipball/62d8b23a9939dbd79b49f2e6f6afd3c66d840bdb",
-                "reference": "62d8b23a9939dbd79b49f2e6f6afd3c66d840bdb",
+                "url": "https://api.github.com/repos/diversen/http-send-file/zipball/f251960b9961492407cdfc231f6108f01d6c0e86",
+                "reference": "f251960b9961492407cdfc231f6108f01d6c0e86",
                 "shasum": ""
             },
             "type": "library",
@@ -27,7 +27,7 @@
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
-            "time": "2015-03-02 16:16:43"
+            "time": "2015-03-02 21:21:06"
         },
         {
             "name": "diversen/simple-php-classes",
@@ -1529,7 +1529,6 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "diversen/http-send-file": 20,
         "google/apiclient": 10
     },
     "prefer-stable": false,
