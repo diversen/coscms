@@ -25,7 +25,7 @@
         "tpyo/amazon-s3-php-class": "v0.5.0",
         "erusev/parsedown": "1.*",
         "google/apiclient": "1.0.*@beta",
-        "facebook/php-sdk": "3.*",
+        "facebook/php-sdk-v4" : "4.0.20",
         "symfony/yaml": "2.*",
         "symfony/filesystem": "2.*"
     }
