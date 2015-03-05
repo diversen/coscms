@@ -338,9 +338,24 @@ class session {
      * unsets the system cookie and unsets session credentials
      */
     public static function killSession (){
-        // only keep one system cookie (e.g. if user clears his cookies)
+
         $db = new db();
         $db->delete('system_cookie', 'cookie_id', @$_COOKIE['system_cookie']);
+        
+        setcookie ("system_cookie", "", time() - 3600, "/");
+        unset($_SESSION['id'], $_SESSION['admin'], $_SESSION['super'], $_SESSION['account_type']);
+        session_destroy();
+    }
+    
+    /**
+     * method for killing all sessions based on user_id
+     * deletes all system cookies and unsets session credentials
+     * @param int $account_id
+     */
+    public static function killSessionAll ($account_id){
+        // only keep one system cookie (e.g. if user clears his cookies)
+        $db = new db();
+        $db->delete('system_cookie', 'account_id', $account_id);
         
         setcookie ("system_cookie", "", time() - 3600, "/");
         unset($_SESSION['id'], $_SESSION['admin'], $_SESSION['super'], $_SESSION['account_type']);
