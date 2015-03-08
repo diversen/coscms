@@ -22,7 +22,7 @@ return array(
     $vendorDir . '/pear-pear.php.net/Pager',
     $vendorDir . '/pear-pear.php.net/Net_URL2',
     $vendorDir . '/pear-pear.php.net/Console_Getopt',
-    $vendorDir . '/pear-pear.php.net/Archive_Tar',
     $vendorDir . '/pear-pear.php.net/Structures_Graph',
     $vendorDir . '/pear-pear.php.net/XML_Util',
+    $vendorDir . '/pear-pear.php.net/Archive_Tar',
 );
