@@ -749,7 +749,6 @@ class moduleinstaller extends db {
         return true;  
     }
 
-
     /**
      * method for uninstalling a module
      *
@@ -758,9 +757,7 @@ class moduleinstaller extends db {
     public function uninstall(){
         // checks if module exists in registry
         $specific = 0;
-
         if (!$this->isInstalled()){
-            
             $this->error = "module '" . $this->installInfo['NAME'];
             $this->error .= "' does not exists in module registry!";
             return false;
@@ -781,7 +778,6 @@ class moduleinstaller extends db {
             $this->installInfo['UNINSTALL']($this->installInfo['VERSION']);
         }
         
-
         if (!empty($downgrades)) {
             foreach ($downgrades as $key => $val){
                 $version = substr($val, 0, -4);
@@ -893,8 +889,6 @@ class moduleinstaller extends db {
                 }
             }
             
-            
-            
             if (!isset($version_exists)){
                 $this->error = 'module SQL ' . $this->installInfo['NAME'] . " ";
                 $this->error.= 'does not have such a version. Possible version are: ';
@@ -934,7 +928,6 @@ class moduleinstaller extends db {
             }
         } 
        
-        
         // update registry
         $this->updateRegistry($specific, $row['id']);
         if ( $specific > $current_version ){
@@ -948,4 +941,3 @@ class moduleinstaller extends db {
         }
     }
 }
-
