@@ -252,14 +252,11 @@ class moduleinstaller extends db {
             $this->insertLanguage($val['module_name']);
         } 
         
-        
-        
         $templates = $this->getTemplates();
         foreach ($templates as $key => $val){
             $this->installInfo['NAME'] = $val;
             $this->insertLanguage($val, 'template');
-        } 
-        
+        }
     }
     
     public function getTemplates () {
@@ -658,9 +655,7 @@ class moduleinstaller extends db {
                 copy($ini_file_dist_php, $ini_file_php);
             }
         }
-
         return true;
-        
     }
 
     /**
@@ -670,7 +665,6 @@ class moduleinstaller extends db {
      * are using. 
      */
     public function createSQL () {
-        
         
         $updates = $this->getSqlFileListOrdered($this->installInfo['NAME'], 'up');
 
@@ -742,9 +736,6 @@ class moduleinstaller extends db {
                 }
             }
         } 
-        
-      
-        
         
         // insert into registry. Set menu item and insert language.
         $this->insertRegistry();
