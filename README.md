@@ -8,8 +8,9 @@
 
 CosCMS is a simple modular framework for building web application.
 
-Modules are distrubuted as profile, and a few is included in 
-the main package. E.g. a simple CMS system and a blogging system.  
+Modules are distrubuted as profiles, and a few is included in 
+the main package. E.g. a simple CMS system (with epub, mobi and pdf export options using pandoc)
+and a blogging system.  
  
 Easy to use, administer, and extend with modules 
 (web- and shell modules, and templates). 
@@ -36,7 +37,7 @@ and a few more modules.
 Intended for people who could not care about a shell command. 
 It is the system which runs the demo. 
 
-[Easy install](http://www.coscms.org/content/article/view/37/Easy-Install)
+[Package install](http://www.coscms.org/content/article/view/37/Easy-Install)
 
 ### Dependencies when building: 
 
@@ -59,4 +60,3 @@ It is the system which runs the demo.
 [Shell Module Guide](http://www.coscms.org/content/article/view/60/Shell-Module-Guide)
 
 Enjoy!
-
