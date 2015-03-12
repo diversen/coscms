@@ -464,61 +464,6 @@
         "description": "It takes an array of data as input and pages it according to various parameters.\nIt also builds links within a specified range, and allows complete customization of the output (it even works with front controllers and mod_rewrite).\nTwo operating modes available: \"Jumping\" and \"Sliding\" window style."
     },
     {
-        "name": "mobiledetect/mobiledetectlib",
-        "version": "2.8.11",
-        "version_normalized": "2.8.11.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/serbanghita/Mobile-Detect.git",
-            "reference": "c68901fb09227dcf04872f0d6a27b9f6e75ecf1f"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/serbanghita/Mobile-Detect/zipball/c68901fb09227dcf04872f0d6a27b9f6e75ecf1f",
-            "reference": "c68901fb09227dcf04872f0d6a27b9f6e75ecf1f",
-            "shasum": ""
-        },
-        "require": {
-            "php": ">=5.0.0"
-        },
-        "require-dev": {
-            "johnkary/phpunit-speedtrap": "~1.0@dev",
-            "phpunit/phpunit": "*"
-        },
-        "time": "2014-11-23 13:08:17",
-        "type": "library",
-        "installation-source": "dist",
-        "autoload": {
-            "classmap": [
-                "Mobile_Detect.php"
-            ],
-            "psr-0": {
-                "Detection": "namespaced/"
-            }
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "MIT"
-        ],
-        "authors": [
-            {
-                "name": "Serban Ghita",
-                "email": "serbanghita@gmail.com",
-                "homepage": "http://mobiledetect.net",
-                "role": "Developer"
-            }
-        ],
-        "description": "Mobile_Detect is a lightweight PHP class for detecting mobile devices. It uses the User-Agent string combined with specific HTTP headers to detect the mobile environment.",
-        "homepage": "https://github.com/serbanghita/Mobile-Detect",
-        "keywords": [
-            "detect mobile devices",
-            "mobile",
-            "mobile detect",
-            "mobile detector",
-            "php mobile detect"
-        ]
-    },
-    {
         "name": "iignatov/lightopenid",
         "version": "1.0.0",
         "version_normalized": "1.0.0.0",
@@ -1599,5 +1544,61 @@
             "New BSD\n License"
         ],
         "description": "This class provides handling of tar files in PHP.\nIt supports creating, listing, extracting and adding to tar files.\nGzip support is available if PHP has the zlib extension built-in or\nloaded. Bz2 compression is also supported with the bz2 extension loaded."
+    },
+    {
+        "name": "mobiledetect/mobiledetectlib",
+        "version": "2.8.12",
+        "version_normalized": "2.8.12.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/serbanghita/Mobile-Detect.git",
+            "reference": "af30b5b7bd683f575b1c56f74e0e0632f5dd9fc9"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/serbanghita/Mobile-Detect/zipball/af30b5b7bd683f575b1c56f74e0e0632f5dd9fc9",
+            "reference": "af30b5b7bd683f575b1c56f74e0e0632f5dd9fc9",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.0.0"
+        },
+        "require-dev": {
+            "codeclimate/php-test-reporter": "dev-master",
+            "johnkary/phpunit-speedtrap": "~1.0@dev",
+            "phpunit/phpunit": "*"
+        },
+        "time": "2015-03-11 10:02:22",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "classmap": [
+                "Mobile_Detect.php"
+            ],
+            "psr-0": {
+                "Detection": "namespaced/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Serban Ghita",
+                "email": "serbanghita@gmail.com",
+                "homepage": "http://mobiledetect.net",
+                "role": "Developer"
+            }
+        ],
+        "description": "Mobile_Detect is a lightweight PHP class for detecting mobile devices. It uses the User-Agent string combined with specific HTTP headers to detect the mobile environment.",
+        "homepage": "https://github.com/serbanghita/Mobile-Detect",
+        "keywords": [
+            "detect mobile devices",
+            "mobile",
+            "mobile detect",
+            "mobile detector",
+            "php mobile detect"
+        ]
     }
 ]
