@@ -18,7 +18,7 @@ class js_toc {
     public static function set ($options = array ()) {
         template::setJs('/js/js-toc/jquery.toc-1.1.4.js');
         if (!isset($options['exclude'])) {
-            $options['exclude'] = '';
+            $options['exclude'] = 'h4,h5,h6';
         }
         if (!isset($options['context'])) {
             $options['context'] = '#content';
