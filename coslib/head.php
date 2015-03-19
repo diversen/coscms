@@ -148,6 +148,9 @@ if (!config::isCli()){
 
     // start session
     session::initSession();
+    session::checkAccount();
+    
+    
     
     // set account timezone if enabled - can only be done after session
     // as user needs to be logged in
@@ -202,9 +205,6 @@ if (!config::isCli()){
         // or we use default ('old') module loading
         $str = $ml->getParsedModule();
     }
-    
-
-    
     
     mainTemplate::printHeader();
     echo '<div id="content_module">'.$str.'</div>';

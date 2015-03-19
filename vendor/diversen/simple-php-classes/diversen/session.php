@@ -554,7 +554,7 @@ class session {
      * @return  mixed $res false if no user id or the users id. 
      */
     static public function getUserId(){
-        if ( !isset($_SESSION['id']) || empty($_SESSION['id']) ){
+        if (!isset($_SESSION['id']) || empty($_SESSION['id']) ){
             return false;
         } else {
             return $_SESSION['id'];
@@ -630,6 +630,24 @@ class session {
         return self::checkAccessControl($allow, $setErrorModule);
         
     }
+    
+    public static function checkAccount () {
+        $user_id = session::getUserId();
+        if ($user_id) {
+            $a = db_q::select('account')->filter('id =', $user_id)->fetchSingle();
+            
+            // user may have been deleted
+            if (empty($a)) {
+                self::killSessionAll($user_id);
+                return;
+            } 
+            
+            if ($a['locked'] == 1) {
+                self::killSessionAll($user_id);
+                return;
+            }
+        }
+    } 
     
     /**
      * checks access for 'user', 'admin' or 'super'. It 
