@@ -57,7 +57,13 @@ class meta extends template {
      * @param string $image image
      * @param string $type og type
      */
-    public static function setMetaAll($title, $description ='', $keywords = '', $image = '', $type = '') {
+    public static function setMetaAll(
+            $title, 
+            $description ='', 
+            $keywords = '', 
+            $image = '', 
+            $type = '', 
+            $author = '') {
     
         // title
         assets::setTitle(html::specialEncode($title));
@@ -81,6 +87,11 @@ class meta extends template {
         if (!empty($desc)) {
             self::setMeta(
                     array('description' => $desc));
+        }
+        
+        if (!empty($author)) {
+            self::setMeta(
+                    array('author' => $author));
         }
         
         // keywords
