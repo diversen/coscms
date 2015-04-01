@@ -6,7 +6,7 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
-    'diversen' => array($vendorDir . '/diversen/http-send-file/src', $vendorDir . '/diversen/simple-php-classes'),
+    'diversen' => array($vendorDir . '/diversen/simple-php-classes', $vendorDir . '/diversen/http-send-file/src'),
     'Zend\\Validator\\' => array($vendorDir . '/zendframework/zend-validator'),
     'Zend\\Stdlib\\' => array($vendorDir . '/zendframework/zend-stdlib'),
     'Zend\\ServiceManager\\' => array($vendorDir . '/zendframework/zend-servicemanager'),
