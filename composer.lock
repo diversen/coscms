@@ -8,16 +8,16 @@
     "packages": [
         {
             "name": "diversen/http-send-file",
-            "version": "v1.0.3",
+            "version": "v1.0.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/diversen/http-send-file.git",
-                "reference": "395b12f10833404739d573ebdec86729001173bb"
+                "reference": "96ce40553d6bd8a2353c4a531fff91dbe550427a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/diversen/http-send-file/zipball/395b12f10833404739d573ebdec86729001173bb",
-                "reference": "395b12f10833404739d573ebdec86729001173bb",
+                "url": "https://api.github.com/repos/diversen/http-send-file/zipball/96ce40553d6bd8a2353c4a531fff91dbe550427a",
+                "reference": "96ce40553d6bd8a2353c4a531fff91dbe550427a",
                 "shasum": ""
             },
             "type": "library",
@@ -27,7 +27,7 @@
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
-            "time": "2015-04-01 05:58:15"
+            "time": "2015-04-01 19:28:06"
         },
         {
             "name": "diversen/simple-php-classes",
@@ -934,17 +934,17 @@
         },
         {
             "name": "symfony/filesystem",
-            "version": "v2.6.5",
+            "version": "v2.6.6",
             "target-dir": "Symfony/Component/Filesystem",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Filesystem.git",
-                "reference": "fdc5f151bc2db066b51870d5bea3773d915ced0b"
+                "reference": "4983964b3693e4f13449cb3800c64a9112c301b4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Filesystem/zipball/fdc5f151bc2db066b51870d5bea3773d915ced0b",
-                "reference": "fdc5f151bc2db066b51870d5bea3773d915ced0b",
+                "url": "https://api.github.com/repos/symfony/Filesystem/zipball/4983964b3693e4f13449cb3800c64a9112c301b4",
+                "reference": "4983964b3693e4f13449cb3800c64a9112c301b4",
                 "shasum": ""
             },
             "require": {
@@ -980,21 +980,21 @@
             ],
             "description": "Symfony Filesystem Component",
             "homepage": "http://symfony.com",
-            "time": "2015-03-12 10:28:44"
+            "time": "2015-03-22 16:55:57"
         },
         {
             "name": "symfony/yaml",
-            "version": "v2.6.5",
+            "version": "v2.6.6",
             "target-dir": "Symfony/Component/Yaml",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Yaml.git",
-                "reference": "0cd8e72071e46e15fc072270ae39ea1b66b10a9d"
+                "reference": "174f009ed36379a801109955fc5a71a49fe62dd4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Yaml/zipball/0cd8e72071e46e15fc072270ae39ea1b66b10a9d",
-                "reference": "0cd8e72071e46e15fc072270ae39ea1b66b10a9d",
+                "url": "https://api.github.com/repos/symfony/Yaml/zipball/174f009ed36379a801109955fc5a71a49fe62dd4",
+                "reference": "174f009ed36379a801109955fc5a71a49fe62dd4",
                 "shasum": ""
             },
             "require": {
@@ -1030,7 +1030,7 @@
             ],
             "description": "Symfony Yaml Component",
             "homepage": "http://symfony.com",
-            "time": "2015-03-12 10:28:44"
+            "time": "2015-03-30 15:54:10"
         },
         {
             "name": "tpyo/amazon-s3-php-class",
