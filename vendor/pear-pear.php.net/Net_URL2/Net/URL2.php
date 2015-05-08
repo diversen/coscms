@@ -51,7 +51,7 @@
  * @author    Christian Schmidt <schmidt@php.net>
  * @copyright 2007-2009 Peytz & Co. A/S
  * @license   https://spdx.org/licenses/BSD-3-Clause BSD-3-Clause
- * @version   Release: 2.1.1
+ * @version   Release: 2.2.0
  * @link      https://pear.php.net/package/Net_URL2
  */
 class Net_URL2
