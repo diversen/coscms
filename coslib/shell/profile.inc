@@ -9,7 +9,7 @@
 /**
  * @ignore
  */
-include_once "coslib/profile.php";
+//include_once "coslib/profile.php";
 include_once "coslib/shell/module.inc";
 
 /**

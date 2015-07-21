@@ -9,8 +9,9 @@
 /**
  * @ignore
  */
-include_once "coslib/moduleinstaller.php";
-include_once "coslib/profile.php";
+//include_once "coslib/moduleinstaller.php";
+//include_once "coslib/profile.php";
+use diversen\profile;
 
 /**
  * wrapper function for settings template
