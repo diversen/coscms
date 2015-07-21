@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "95fe7be1757423cab63f9a284df0fcd3",
+    "hash": "845b344861727e20b112e2edb737d11e",
     "packages": [
         {
             "name": "diversen/http-send-file",
@@ -35,23 +35,7 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/diversen/simple-php-classes.git",
-                "reference": "944f89e4ba1f4d4200542fca12a0688b373b4de2"
-            },
-            "require": {
-                "michelf/php-markdown": "1.*",
-                "pear-pear.php.net/auth_sasl2": "0.1.*",
-                "pear-pear.php.net/console_color": "1.0.*",
-                "pear-pear.php.net/console_commandline": "1.2.*",
-                "pear-pear.php.net/image_transform": "0.9.*",
-                "pear-pear.php.net/mail": "1.2.*",
-                "pear-pear.php.net/mail_mime": "1.8.*",
-                "pear-pear.php.net/net_smtp": "1.6.*",
-                "pear-pear.php.net/pager": "2.4.*",
-                "pear-pear.php.net/pear": "1.9.*",
-                "pear-pear.php.net/services_akismet2": "0.3.*",
-                "pear-pear.php.net/validate": "0.8.*",
-                "zendframework/zend-dom": "2.*",
-                "zendframework/zend-mail": "2.*"
+                "reference": "893c23e3c927213e33869434f98c9458ea373107"
             },
             "type": "library",
             "autoload": {
@@ -60,7 +44,7 @@
                 }
             },
             "description": "A collection of simple classes",
-            "time": "2015-07-21 17:57:35"
+            "time": "2015-07-21 20:00:42"
         },
         {
             "name": "donatj/phpuseragentparser",
