@@ -1,3 +1,0 @@
-### mycurl
-
-Simple curl wrapper
