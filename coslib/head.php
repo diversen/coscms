@@ -1,6 +1,5 @@
 <?php
 
-use diversen\conf;
 use diversen\lang;
 use diversen\moduleloader;
 use diversen\intl;
