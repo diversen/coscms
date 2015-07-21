@@ -1,5 +1,6 @@
 <?php
 
+use diversen\templateinstaller;
 /**
  * File containing template functions for shell mode
  *
