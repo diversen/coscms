@@ -198,7 +198,7 @@ $_PROFILE_MODULES = array (
   ),
   15 => 
   array (
-    'id' => '17',
+    'id' => '16',
     'module_name' => 'counter',
     'module_version' => '3.01',
     'menu_item' => '0',
@@ -211,7 +211,7 @@ $_PROFILE_MODULES = array (
   ),
   16 => 
   array (
-    'id' => '18',
+    'id' => '17',
     'module_name' => 'google_translate',
     'module_version' => '3.01',
     'menu_item' => '0',
@@ -224,7 +224,7 @@ $_PROFILE_MODULES = array (
   ),
   17 => 
   array (
-    'id' => '19',
+    'id' => '18',
     'module_name' => 'google_analytics',
     'module_version' => '3.01',
     'menu_item' => '1',
@@ -237,7 +237,7 @@ $_PROFILE_MODULES = array (
   ),
   18 => 
   array (
-    'id' => '20',
+    'id' => '19',
     'module_name' => 'share',
     'module_version' => '3.01',
     'menu_item' => '0',
@@ -250,7 +250,7 @@ $_PROFILE_MODULES = array (
   ),
   19 => 
   array (
-    'id' => '21',
+    'id' => '20',
     'module_name' => 'content',
     'module_version' => '3.012',
     'menu_item' => '1',
@@ -264,19 +264,6 @@ $_PROFILE_MODULES = array (
   20 => 
   array (
     'id' => '22',
-    'module_name' => 'disqus',
-    'module_version' => '3.01',
-    'menu_item' => '1',
-    'run_level' => '0',
-    'load_on' => NULL,
-    'parent' => NULL,
-    'is_shell' => NULL,
-    'public_clone_url' => 'git://github.com/diversen/disqus.git',
-    'private_clone_url' => 'git@github.com:diversen/disqus.git',
-  ),
-  21 => 
-  array (
-    'id' => '23',
     'module_name' => 'userinfo',
     'module_version' => '3.01',
     'menu_item' => '1',
@@ -287,14 +274,28 @@ $_PROFILE_MODULES = array (
     'public_clone_url' => 'git://github.com/diversen/userinfo.git',
     'private_clone_url' => 'git@github.com:diversen/userinfo.git',
   ),
+  21 => 
+  array (
+    'id' => '23',
+    'module_name' => 'disqus',
+    'module_version' => '3.01',
+    'menu_item' => '1',
+    'run_level' => '0',
+    'load_on' => NULL,
+    'parent' => NULL,
+    'is_shell' => NULL,
+    'public_clone_url' => 'git://github.com/diversen/disqus.git',
+    'private_clone_url' => 'git@github.com:diversen/disqus.git',
+  ),
 );
 
 $_PROFILE_TEMPLATES = array (
   0 => 
   array (
-    'module_version' => 'v2.1.5',
-    'module_name' => 'fancyBox',
-    'public_clone_url' => 'https://github.com/fancyapps/fancyBox.git',
+    'public_clone_url' => 'git://github.com/diversen/zimpleza.git',
+    'private_clone_url' => 'git@github.com:diversen/zimpleza.git',
+    'module_version' => '3.01',
+    'module_name' => 'zimpleza',
   ),
   1 => 
   array (
@@ -304,13 +305,6 @@ $_PROFILE_TEMPLATES = array (
     'module_name' => 'openid-selector',
   ),
   2 => 
-  array (
-    'public_clone_url' => 'git://github.com/diversen/zimpleza.git',
-    'private_clone_url' => 'git@github.com:diversen/zimpleza.git',
-    'module_version' => '3.01',
-    'module_name' => 'zimpleza',
-  ),
-  3 => 
   array (
     'public_clone_url' => 'git://github.com/diversen/jquery-markedit.git',
     'private_clone_url' => 'git@github.com:diversen/jquery-markedit.git',
