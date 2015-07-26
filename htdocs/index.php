@@ -22,10 +22,5 @@ define('_COS_PATH',  $path);
 include '../vendor/autoload.php';
 
 use diversen\boot;
-
 $boot = new boot();
-$boot->autoloadRegister();
-
-
-include _COS_PATH . "/coslib/head.php";
-
+$boot->run();
