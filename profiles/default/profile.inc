@@ -224,19 +224,6 @@ $_PROFILE_MODULES = array (
   ),
   17 => 
   array (
-    'id' => '19',
-    'module_name' => 'share',
-    'module_version' => '3.01',
-    'menu_item' => '0',
-    'run_level' => '0',
-    'load_on' => NULL,
-    'parent' => NULL,
-    'is_shell' => NULL,
-    'public_clone_url' => 'git://github.com/diversen/share.git',
-    'private_clone_url' => 'git@github.com:diversen/share.git',
-  ),
-  18 => 
-  array (
     'id' => '20',
     'module_name' => 'content',
     'module_version' => '3.012',
@@ -248,22 +235,22 @@ $_PROFILE_MODULES = array (
     'public_clone_url' => 'git://github.com/diversen/content.git',
     'private_clone_url' => 'git@github.com:diversen/content.git',
   ),
-  19 => 
+  18 => 
   array (
-    'id' => '22',
-    'module_name' => 'userinfo',
-    'module_version' => '3.01',
+    'id' => '29',
+    'module_name' => 'blocks',
+    'module_version' => '3.03',
     'menu_item' => '1',
     'run_level' => '0',
     'load_on' => NULL,
     'parent' => NULL,
     'is_shell' => NULL,
-    'public_clone_url' => 'git://github.com/diversen/userinfo.git',
-    'private_clone_url' => 'git@github.com:diversen/userinfo.git',
+    'public_clone_url' => 'git://github.com/diversen/blocks.git',
+    'private_clone_url' => 'git@github.com:diversen/blocks.git',
   ),
-  20 => 
+  19 => 
   array (
-    'id' => '23',
+    'id' => '30',
     'module_name' => 'disqus',
     'module_version' => '3.01',
     'menu_item' => '1',
@@ -274,18 +261,18 @@ $_PROFILE_MODULES = array (
     'public_clone_url' => 'git://github.com/diversen/disqus.git',
     'private_clone_url' => 'git@github.com:diversen/disqus.git',
   ),
-  21 => 
+  20 => 
   array (
-    'id' => '27',
-    'module_name' => 'blocks',
+    'id' => '31',
+    'module_name' => 'share',
     'module_version' => '3.01',
-    'menu_item' => '1',
+    'menu_item' => '0',
     'run_level' => '0',
     'load_on' => NULL,
     'parent' => NULL,
     'is_shell' => NULL,
-    'public_clone_url' => 'git://github.com/diversen/blocks.git',
-    'private_clone_url' => 'git@github.com:diversen/blocks.git',
+    'public_clone_url' => 'git://github.com/diversen/share.git',
+    'private_clone_url' => 'git@github.com:diversen/share.git',
   ),
 );
 
