@@ -17,7 +17,7 @@ function cos_menu_install_menu($options){
     
 
     // check if module exists in modules dir
-    $module_path = config::getModulePath($options['module']);
+    $module_path = conf::getModulePath($options['module']);
     if (!file_exists($module_path)){
         cos_cli_print("module $options[module] does not exists in modules dir. ");
         return;
@@ -26,7 +26,7 @@ function cos_menu_install_menu($options){
     $mod = new moduleinstaller($options);
     $res = $mod->insertMenuItem();
     if ($res) {
-        if (config::getMainIni('verbose') ) {
+        if (conf::getMainIni('verbose') ) {
             cos_cli_print("Main menu item for '$options[module]' inserted");
         }
     }  
@@ -71,7 +71,7 @@ function cos_menu_uninstall_menu($options){
     $res = $menu->deleteMenuItem($options['module']);
     
     if ($res) {
-        if (config::getMainIni('verbose') ) {
+        if (conf::getMainIni('verbose') ) {
             cos_cli_print("Main menu item for '$options[module]' deleted");
         }
     }

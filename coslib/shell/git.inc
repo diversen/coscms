@@ -90,7 +90,7 @@ function cos_git_clone($options, $type){
     }
     
     // check if profile use master or if master is set
-    if (isset(config::$vars['git_use_master']) || isset($options['master'])){
+    if (isset(conf::$vars['git_use_master']) || isset($options['master'])){
         $checkout = 'master';
     }
 
@@ -146,7 +146,7 @@ function cos_git_clone($options, $type){
  * @param array $options
  */
 function cos_git_use_master ($options){
-    config::$vars['git_use_master'] = 1;
+    conf::$vars['git_use_master'] = 1;
 }
 
 
@@ -190,7 +190,7 @@ function cos_git_upgrade_module_single($options) {
  * @param string $version
  */
 function cos_git_upgrade_module ($val, $tag = null) {
-    if (isset(config::$vars['git_use_master'])){
+    if (isset(conf::$vars['git_use_master'])){
         $tag = 'master';
     } else {
         $tag = git_get_latest_remote_tag($val['public_clone_url'], true);
@@ -208,7 +208,7 @@ function cos_git_upgrade_module ($val, $tag = null) {
  * @param type $val
  */
 function cos_git_upgrade_template($val) {
-    if (isset(config::$vars['git_use_master'])){
+    if (isset(conf::$vars['git_use_master'])){
         $tag = 'master';
     } else {
         $tag = git_get_latest_remote_tag($val['public_clone_url'], true);

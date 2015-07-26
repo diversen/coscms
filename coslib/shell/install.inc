@@ -37,7 +37,7 @@ function cos_install($options = false) {
     foreach ($pro->profileModules as $key => $val){
         
         // check if master is specified. Else use profile version
-        if (config::getMainIni('git_use_master')){
+        if (conf::getMainIni('git_use_master')){
             $tag = 'master';
         } else {
             $tag = $val['module_version'];
@@ -54,7 +54,7 @@ function cos_install($options = false) {
     // install templates
     foreach ($pro->profileTemplates as $key => $val){
         
-        if (config::getMainIni('git_use_master')){
+        if (conf::getMainIni('git_use_master')){
             $tag = 'master';
         } else {
             $tag = $val['module_version'];
@@ -125,7 +125,7 @@ function cos_config_reload(){
  * @param array $options
  */
 function cos_install_use_master ($options){
-    config::setMainIni('git_use_master', 1);
+    conf::setMainIni('git_use_master', 1);
 }
 
 function cos_check_root ($options = null) {

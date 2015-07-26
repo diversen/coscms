@@ -162,8 +162,8 @@ function update_ini_file ($options){
     $ini_file_path = _COS_MOD_PATH . "/$options[module]/$options[module].ini";
     $ini_dist_path = $ini_file_path . "-dist";
 
-    $ini_file = config::getIniFileArray($ini_file_path);
-    $ini_dist = config::getIniFileArray($ini_dist_path);
+    $ini_file = conf::getIniFileArray($ini_file_path);
+    $ini_dist = conf::getIniFileArray($ini_dist_path);
 
     $new_settings = array ();
     foreach ($ini_dist as $key => $val){
@@ -176,7 +176,7 @@ function update_ini_file ($options){
     }
 
     // write it to ini file
-    $content = config::arrayToIniFile($ini_file);
+    $content = conf::arrayToIniFile($ini_file);
 
     file_put_contents($ini_file_path, $content);
 
@@ -184,7 +184,7 @@ function update_ini_file ($options){
     if (empty($new_settings)){
         //cos_cli_print("No new ini file settings for module $options[module]");
     } else {
-        $new_settings_str = config::arrayToIniFile($new_settings);
+        $new_settings_str = conf::arrayToIniFile($new_settings);
         cos_cli_print("New ini file written with updated settings: $ini_file_path");
         cos_cli_print("These are the new ini settings for module $options[module]:");
         cos_cli_print(trim($new_settings_str));
@@ -213,7 +213,7 @@ function module_list_all () {
     print_r($modules);
 }
 
-if (config::isCli()){
+if (conf::isCli()){
 self::setCommand('module', array(
     'description' => 'Locale module management'
 ));

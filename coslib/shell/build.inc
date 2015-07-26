@@ -49,7 +49,7 @@ function cos_build_simple($options = null) {
     $htdocs = "cp -rf htdocs/* ./build/$name";
     cos_exec($htdocs);
 
-    $domain = config::getMainIni('domain');
+    $domain = conf::getMainIni('domain');
     if (!$domain) {
         $domain = 'default';
     }
@@ -78,13 +78,13 @@ function cos_build_simple($options = null) {
     cos_exec($misc_scripts);
 
     // reset database password
-    $ary = config::getIniFileArray("./config/config.ini");
+    $ary = conf::getIniFileArray("./config/config.ini");
     $profile = new profile();
 
     $ary = $profile->iniArrayPrepare($ary);
 
     // clean ini settings for secrets
-    $ini_settings = config::arrayToIniFile($ary);
+    $ini_settings = conf::arrayToIniFile($ary);
 
     // add ini dist file
     file_put_contents("./build/$name/config/config.ini-dist", $ini_settings);

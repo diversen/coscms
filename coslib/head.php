@@ -7,6 +7,7 @@ use diversen\http;
 use diversen\db;
 use diversen\uri\dispatch;
 use diversen\alias;
+use diversen\conf;
 
 alias::set();
 
@@ -23,29 +24,9 @@ alias::set();
  */
 
 
-// set some common register vars
-config::$vars['coscms_base'] = _COS_PATH;
-config::$vars['coscms_main'] = array();
-config::$vars['coscms_main']['module'] = array();
-config::$vars['coscms_debug'] = array();
-config::$vars['coscms_lang'] = array();
-config::$vars['coscms_debug']['timer']['start'] = microtime(true);
-config::$vars['coscms_debug']['coscms_base']  = config::$vars['coscms_base'];
-config::$vars['coscms_debug']['include_path'] = ini_get('include_path');
-
-// Note: If Cli mode there is no runLevels
-// Therefore: config from database which are merged with config settings
-// from file is NOT loaded in Cli mode: You will need to set these
-// settings in config.ini
-
-if (!config::isCli()) {
-    config::loadMain();
-} else {
-    config::loadMainCli();
-}
-
 // define all constant - based on _COS_PATH and config.ini
-config::defineCommon();
+conf::defineCommon();
+conf::load();
 
 // set include path
 $ini_path = ini_get('include_path');
@@ -55,10 +36,8 @@ ini_set('include_path',
         $ini_path . PATH_SEPARATOR);
 
 
-$env = config::getEnv();
-if ($env == 'development') {
-    error_reporting( E_ALL );
-}
+log::debug('test');
+log::setLogLevel();
 // Important!
 // 
 // No runLevels are run in Cli mode
@@ -68,7 +47,7 @@ if ($env == 'development') {
 // you will need to set language in config/config.ini
 
 // This is only if commandline mode is not specified  
-if (!config::isCli()){
+if (!conf::isCli()){
     
     ini_set('default_charset', 'UTF-8');
     
@@ -81,35 +60,31 @@ if (!config::isCli()){
     // e.g. when updating all sites, it is a good idea to set the following flag
     // site_update = 1
     // this flag will send correct 503 headers, when we are updating our site. 
-        
-    // check if we are in debug mode and display errors
-    if (config::getMainIni('debug')) {
-        ini_set('display_errors', 1);
-    }
+
 
     // if site is being updaing we send temporarily headers
     // and display an error message
-    if (config::getMainIni('site_update')) {
+    if (conf::getMainIni('site_update')) {
         http::temporarilyUnavailable();
     }
 
     
     // set a unified server_name if not set in config file. 
-    $server_name = config::getMainIni('server_name');
+    $server_name = conf::getMainIni('server_name');
     if (!$server_name){
-        config::setMainIni('server_name', $_SERVER['SERVER_NAME']);
+        conf::setMainIni('server_name', $_SERVER['SERVER_NAME']);
     }
 
     // redirect to uniform server name is set in config.ini
     // e.g. www.testsite.com => testsite.com
-    $server_redirect = config::getMainIni('server_redirect');
+    $server_redirect = conf::getMainIni('server_redirect');
     if (isset($server_redirect)) {
         http::redirectHeaders($server_redirect);
     }
     
     // redirect to https is set in config.in
     // force anything into ssl mode
-    $server_force_ssl = config::getMainIni('server_force_ssl');
+    $server_force_ssl = conf::getMainIni('server_force_ssl');
     if (isset($server_force_ssl)) {
         http::sslHeaders();
     }
@@ -133,8 +108,8 @@ if (!config::isCli()){
 
     // merge db settings with config/config.ini settings
     // db settings override ini file settings
-    config::$vars['coscms_main'] =
-        array_merge(config::$vars['coscms_main'] , $db_settings);
+    conf::$vars['coscms_main'] =
+        array_merge(conf::$vars['coscms_main'] , $db_settings);
       
     // run level 2: set locales 
     $ml->runLevel(2);
@@ -213,11 +188,11 @@ if (!config::isCli()){
 
     $ml->runLevel(7);
     mainTemplate::printFooter();   
-    config::$vars['final_output'] = ob_get_contents();
+    conf::$vars['final_output'] = ob_get_contents();
     ob_end_clean();
 
     // Last divine intervention
     // e.g. Dom or Tidy
     $ml->runLevel(8); 
-    echo config::$vars['final_output'];
+    echo conf::$vars['final_output'];
 }

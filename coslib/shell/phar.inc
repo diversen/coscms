@@ -27,7 +27,7 @@ function cos_phar_cli_create() {
     cos_exec("chmod +x $output");
     cos_exec("cp -R config $build_dir");
     
-    if (config::getMainIni('phar_sqlite')) {
+    if (conf::getMainIni('phar_sqlite')) {
         db_to_sqlite();
         cos_exec("cp -R sqlite $build_dir");
         cos_exec("chmod -R 777 $build_dir/sqlite");    
@@ -64,14 +64,14 @@ function cos_phar_web_create() {
     // hidden .config file
     // cos_exec("cp -f config/config.ini $build_from_dir/tmp/.config.ini");
     // reset database password
-    $ary = config::getIniFileArray("./config/config.ini");
+    $ary = conf::getIniFileArray("./config/config.ini");
     $profile = new profile();
 
     // rm secrets
     $ary = $profile->iniArrayPrepare($ary);
     
     // add sqlite database to build phar dir
-    if (config::getMainIni('phar_sqlite')) {
+    if (conf::getMainIni('phar_sqlite')) {
         db_to_sqlite();
     
         // mv sqlite database into hidden file
@@ -92,13 +92,13 @@ function cos_phar_web_create() {
     $ary['cached_assets_compress'] = 0;
     $ary['cached_assets_inline'] = 1;
     
-    if (config::getMainIni('phar_files')) {
+    if (conf::getMainIni('phar_files')) {
         //cos_needs_root();
         cos_exec("cp -rf htdocs/files $build_from_dir");
         cos_exec("sudo chown -R 777 $build_from_dir/files");
     }
     
-    $ini_settings = config::arrayToIniFile($ary);
+    $ini_settings = conf::arrayToIniFile($ary);
     file_put_contents("$build_from_dir/tmp/.config.ini", $ini_settings);
     
     $output = "$build_phar_dir/$base-web.phar";
@@ -120,7 +120,7 @@ function cos_phar_web_create() {
  * @param type $options
  */
 function cos_phar_sqlite ($options = array ()) {
-    config::setMainIni('phar_sqlite', 1);
+    conf::setMainIni('phar_sqlite', 1);
 }
 
 /**
@@ -128,7 +128,7 @@ function cos_phar_sqlite ($options = array ()) {
  * @param type $options
  */
 function cos_phar_files ($options = array ()) {
-    config::setMainIni('phar_files', 1);
+    conf::setMainIni('phar_files', 1);
 }
 
 self::setCommand('phar', array(

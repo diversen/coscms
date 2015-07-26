@@ -18,7 +18,7 @@
  */
 function cos_chmod_files(){
     
-    $group = config::getServerUser();
+    $group = conf::getServerUser();
 
     cos_needs_root();
     $owner = posix_getlogin();
@@ -86,7 +86,7 @@ function cos_create_files(){
         cos_exec($command);
     }
     
-    $domain = config::getDomain();
+    $domain = conf::getDomain();
     $files_path = _COS_PATH . "/htdocs/files/$domain";
     
     if (!file_exists($files_path)){

@@ -48,7 +48,7 @@ define('_COS_PATH', realpath('.'));
 include_once "coslib/setup.php";
 setup::common();
 
-config::loadMainCli();
+conf::loadMainCli();
 
 $db = new db();
 $db->connect();

@@ -4,7 +4,7 @@
 // is cli
 define('_COS_CLI', 1);
 
-// deinfe _COS_PATH, base path
+// define _COS_PATH, base path
 $base_dir = dirname(__FILE__);
 define('_COS_PATH', $base_dir);
 

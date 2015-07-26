@@ -30,8 +30,8 @@ setup::common();
 
 // load main ini
 // define constants
-config::loadMain();
-config::defineCommon();
+conf::loadMain();
+conf::defineCommon();
 
 include_once "coslib/shell/common.inc";
 include_once "coslib/shell/profile.inc";

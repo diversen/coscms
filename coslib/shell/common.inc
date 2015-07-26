@@ -6,7 +6,7 @@
  * @package     shell
  */
 
-if (!config::isCli()){
+if (!conf::isCli()){
     $new_line = "<br />";
 } else {
     $new_line = PHP_EOL;
@@ -130,7 +130,7 @@ function cos_get_color_status ($status) {
  */
 function color_output ($output, $color_code = 'g') {
     static $color = null;
-    if (!config::isCli()) {
+    if (!conf::isCli()) {
         return $output;
     }
     
@@ -186,7 +186,7 @@ function cos_cli_print($mes, $color = null){
         echo color_output($mes . "\n", $color);
         return;
     }
-    if (config::isCli()) {
+    if (conf::isCli()) {
         echo $mes . NEW_LINE;
     } else {
         echo $mes . "<br />\n";
@@ -203,7 +203,7 @@ function cos_cli_print($mes, $color = null){
  * @return void
  */
 function cos_cli_print_status ($status, $color, $mes) {
-    if (config::isCli()) {
+    if (conf::isCli()) {
         echo color_output(cos_get_color_status("[$status]"), $color);
         echo $mes . "\n";
     } else {

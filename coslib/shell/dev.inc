@@ -16,7 +16,7 @@ function dev_test_access($options = null){
     
     $files = file::getFileListRecursive(_COS_MOD_PATH, "*.php");
    
-    $base_url = "http://" . config::getMainIni('server_name');
+    $base_url = "http://" . conf::getMainIni('server_name');
     foreach ($files as $val) {
         $url = str_replace(_COS_MOD_PATH, '', $val);
         $url = substr($url, 0, -4);
@@ -31,7 +31,7 @@ function dev_test_access($options = null){
 }
 
 function dev_env($options = null){
-    echo config::getEnv() . "\n";
+    echo conf::getEnv() . "\n";
 }
 
 function dev_log($options = null){

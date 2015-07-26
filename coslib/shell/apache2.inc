@@ -28,7 +28,7 @@ function cos_create_a2_conf($SERVER_NAME){
     $DOCUMENT_ROOT = $current_dir . '/htdocs';
     $APACHE_LOG_ROOT = $current_dir . '/logs';
     
-    if (isset(config::$vars['a2_use_ssl'])) {
+    if (isset(conf::$vars['a2_use_ssl'])) {
         $apache_str = apache2::getConf($SERVER_NAME, $DOCUMENT_ROOT, $APACHE_LOG_ROOT);
     } else {
         $apache_str = apache2::getConfSSL($SERVER_NAME, $DOCUMENT_ROOT, $APACHE_LOG_ROOT);
@@ -133,7 +133,7 @@ function cos_a2_disable_site($options){
  * @param array $options
  */
 function cos_a2_use_ssl ($options) {
-    config::$vars['a2_use_ssl'] = true;
+    conf::$vars['a2_use_ssl'] = true;
 }
 
 self::setCommand('apache2', array(

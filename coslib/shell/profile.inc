@@ -44,7 +44,7 @@ function upgrade_from_profile ($options){
         
         $val['repo'] = $val['public_clone_url'];
         $val['version'] = $val['module_version'];
-        if (isset(config::$vars['profile_use_master'])) {
+        if (isset(conf::$vars['profile_use_master'])) {
             $val['version'] = 'master';
             //$val['module_version'] = 'master';
         }
@@ -68,7 +68,7 @@ function upgrade_from_profile ($options){
         $val['repo'] = $val['public_clone_url'];
         $val['version'] = $val['module_version'];
 
-        if (isset(config::$vars['profile_use_master'])) {
+        if (isset(conf::$vars['profile_use_master'])) {
             $val['version'] = 'master';
         }
 
@@ -178,19 +178,19 @@ function upgrade_config_ini_file ($options){
     $ini_file_path = _COS_PATH . "/config/config.ini";
     $ini_dist_path = _COS_PATH . "/profiles/$options[profile]/config.ini-dist";
 
-    $ini_file = config::getIniFileArray($ini_file_path, true);
-    $ini_dist = config::getIniFileArray($ini_dist_path, true);
+    $ini_file = conf::getIniFileArray($ini_file_path, true);
+    $ini_dist = conf::getIniFileArray($ini_dist_path, true);
     
     $ary = array_merge($ini_dist, $ini_file);
     $ary_diff = array_diff($ary, $ini_file);
 
-    $content = config::arrayToIniFile($ary);
+    $content = conf::arrayToIniFile($ary);
     file_put_contents($ini_file_path, $content);
 
     if (empty($ary_diff)){
         cos_cli_print("No new ini file settings for config.ini");
     } else {
-        $new_settings_str = config::arrayToIniFile($ary_diff);
+        $new_settings_str = conf::arrayToIniFile($ary_diff);
         cos_cli_print("New ini file written to: $ini_file_path");
         cos_cli_print("These are the new ini settings for config.ini");
         cos_cli_print(trim($new_settings_str));
@@ -223,7 +223,7 @@ function recreate_profile($options) {
  * @param array $options
  */
 function profile_use_master ($options){
-    config::$vars['profile_use_master'] = 1;
+    conf::$vars['profile_use_master'] = 1;
     $pro = new profile();
     $pro->setMaster();
 }
@@ -249,7 +249,7 @@ function create_profile($options) {
 /**
  * only add commands if we are in CLI mode
  */
-if (config::isCli()){  
+if (conf::isCli()){  
     
     self::setCommand('profile', array(
         'description' => 'Generate and install site profiles',

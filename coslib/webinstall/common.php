@@ -85,7 +85,7 @@ function cos_check_magic_gpc () {
 function cos_check_files_dir () {
     clearstatcache();
     $files_dir = _COS_HTDOCS . "/files";
-    $domain = config::getMainIni('domain');
+    $domain = conf::getMainIni('domain');
     $files_dir.="/$domain";
     
     if (!is_writable($files_dir)) {

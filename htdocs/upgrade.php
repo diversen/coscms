@@ -2,7 +2,7 @@
 
 include_once "webcommon.php";
 
-$password = config::getMainIni('upgrade_password');
+$password = conf::getMainIni('upgrade_password');
 if (!$password || !isset($_GET['password'])) {
     //$server = config::getSchemeWithServerName();
     $url = "http://" . $_SERVER['SERVER_NAME'] . "/upgrade.php?password=password";

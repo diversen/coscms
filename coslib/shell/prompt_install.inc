@@ -40,7 +40,7 @@ function prompt_install(){
     cos_cli_print("Main config file (config/config.ini) for $profile is loaded");
 
     // load profile.
-    config::$vars['coscms_main'] = config::getIniFileArray(_COS_PATH . '/config/config.ini', true);
+    conf::$vars['coscms_main'] = conf::getIniFileArray(_COS_PATH . '/config/config.ini', true);
     
     // get configuration info
     $host = cos_readline('Enter mysql host, and hit return: ');
@@ -50,14 +50,14 @@ function prompt_install(){
     $server_name = cos_readline('Enter server host name (e.g. www.coscms.org), and hit return: ');
 
     // assemble configuration info
-    config::$vars['coscms_main']['url'] = "mysql:dbname=$database;host=$host;charset=utf8";
-    config::$vars['coscms_main']['username'] = $username;
-    config::$vars['coscms_main']['password'] = $password;
-    config::$vars['coscms_main']['server_name'] = $server_name;
-    config::$vars['coscms_main']['server_redirect'] = $server_name;
+    conf::$vars['coscms_main']['url'] = "mysql:dbname=$database;host=$host;charset=utf8";
+    conf::$vars['coscms_main']['username'] = $username;
+    conf::$vars['coscms_main']['password'] = $password;
+    conf::$vars['coscms_main']['server_name'] = $server_name;
+    conf::$vars['coscms_main']['server_redirect'] = $server_name;
 
     // write it to ini file
-    $content = config::arrayToIniFile(config::$vars['coscms_main'], false);
+    $content = conf::arrayToIniFile(conf::$vars['coscms_main'], false);
     $path = _COS_PATH . "/config/config.ini";
     file_put_contents($path, $content);
 

@@ -30,8 +30,8 @@ function db_to_sqlite ($options = array ()) {
     $fs = new Filesystem();
     $fs->remove('sqlite/database.sql');
     
-    $username = config::getMainIni('username');
-    $password = config::getMainIni('password');
+    $username = conf::getMainIni('username');
+    $password = conf::getMainIni('password');
     $command = "sequel ";
     $command.= "$info[scheme]://$username:$password@$info[host]/$info[dbname] ";
     $command.= "-C ";
@@ -46,7 +46,7 @@ function db_to_sqlite ($options = array ()) {
     }    
 }
 
-if (config::isCli()){
+if (conf::isCli()){
 
     self::setCommand('sqlite', array(
         'description' => 'Sqlite database commands.',
