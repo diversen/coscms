@@ -18,46 +18,14 @@ if (DIRECTORY_SEPARATOR != '/') {
 // define _COS_PATH.
 define('_COS_PATH',  $path);
 
-/**
- * set include path
- * @ignore
- */
+// composer autoload
+include '../vendor/autoload.php';
 
+use diversen\boot;
 
-$ini_path = ini_get('include_path');
-ini_set('include_path', 
-    _COS_PATH . PATH_SEPARATOR . 
-    _COS_PATH . '/vendor' . PATH_SEPARATOR .
-    _COS_PATH . "/coslib" . PATH_SEPARATOR .  
-        $ini_path . PATH_SEPARATOR);
+$boot = new boot();
+$boot->autoloadRegister();
 
-
-/**
- * specific composer autoload
- */
-include 'vendor/autoload.php';
-/**
- * coslib autoloader
- * @param type $classname
- */
-
-function coslib_autoloader($classname) {
-    $classname = ltrim($classname, '\\');
-    $filename  = '';
-    $namespace = '';
-    if ($lastnspos = strripos($classname, '\\')) {
-        $namespace = substr($classname, 0, $lastnspos);
-        $classname = substr($classname, $lastnspos + 1);
-        $filename  = str_replace('\\', '/', $namespace) . '/';
-    }
-    $filename = str_replace('_', '/', $classname) . '.php';
-    include $filename;
-}
-
-/**
- * register the autoload on the stack
- */
-spl_autoload_register('coslib_autoloader');
 
 include _COS_PATH . "/coslib/head.php";
 

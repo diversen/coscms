@@ -26,6 +26,7 @@ class setup {
          */
         include_once 'vendor/autoload.php';
 
+        
         /**
          * coslib autoloader
          * @param type $classname

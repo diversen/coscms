@@ -10,7 +10,15 @@ define('_COS_PATH', $base_dir);
 
 // setup based on _COS_PATH
 include_once "coslib/setup.php";
+
+
 setup::common();
+use diversen\alias;
+
+
+alias::set();
+
+
 
 use diversen\cli;
 
