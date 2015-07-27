@@ -15,22 +15,24 @@
 class setup {
 
     public static function common() {
+        /*
         $ini_path = ini_get('include_path');
         ini_set('include_path', _COS_PATH . PATH_SEPARATOR .
                 _COS_PATH . '/vendor' . PATH_SEPARATOR .
                 _COS_PATH . "/coslib" . PATH_SEPARATOR . _COS_PATH . '/modules' .
                 $ini_path . PATH_SEPARATOR);
-
+                */
         /**
          * specific composer autoload
          */
-        include_once 'vendor/autoload.php';
+        //include_once 'vendor/autoload.php';
 
         
         /**
          * coslib autoloader
          * @param type $classname
          */
+        /*
         function coslib_autoloader($classname) {
             $classname = ltrim($classname, '\\');
             $filename = '';
@@ -42,11 +44,11 @@ class setup {
             }
             $filename = str_replace('_', '/', $classname) . '.php';
             include $filename;
-        }
+        }*/
 
         /**
          * register the autoload on the stack
          */
-        spl_autoload_register('coslib_autoloader');
+        //spl_autoload_register('coslib_autoloader');
     }
 }

@@ -8,25 +8,42 @@ define('_COS_CLI', 1);
 $base_dir = dirname(__FILE__);
 define('_COS_PATH', $base_dir);
 
-// setup based on _COS_PATH
-include_once "coslib/setup.php";
+include_once "vendor/autoload.php";
 
-
-setup::common();
+//setup::common();
 use diversen\alias;
+use diversen\autoloader\modules;
+use diversen\conf;
+
+$m = new modules();
+$m->autoloadRegister();
 
 
 alias::set();
 
+// define all constant - based on _COS_PATH and config.ini
+conf::defineCommon();
+
+// load config file 
+conf::load();
+
+// set include path - based on config.ini
+conf::setIncludePath();
+
+// set log level - based on config.ini
+log::setLogLevel();
+        
+// set locales
+intl::setLocale();
+        
+// set default timezone
+intl::setTimezone();
 
 
 use diversen\cli;
 
 // som paths are set in coscli.sh
 class mainCli extends cli{}
-
-// include
-//include_once "coslib/mainCli.php";
 
 // init and run
 mainCli::init();

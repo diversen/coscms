@@ -19,16 +19,27 @@ define('_COS_CLI', 1);
 $base_dir = dirname(__FILE__);
 define('_COS_PATH', $base_dir);
 
-$ini_path = ini_get('include_path');
-ini_set('include_path', 
-    _COS_PATH . PATH_SEPARATOR . 
-        $ini_path . PATH_SEPARATOR);
-
-
 // setup based on _COS_PATH
 include_once "coslib/setup.php";
-setup::common();
-include_once "coslib/mainCli.php";
 
+
+setup::common();
+use diversen\alias;
+
+
+alias::set();
+
+
+
+use diversen\cli;
+
+// som paths are set in coscli.sh
+class mainCli extends cli{}
+
+// include
+//include_once "coslib/mainCli.php";
+
+// init and run
 mainCli::init();
-mainCli::run();
+$ret = mainCli::run();
+exit($ret);

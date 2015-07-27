@@ -39,5 +39,8 @@
         "zendframework/zend-mail": "2.*",
         "zendframework/zend-dom": "2.*"
     }
+    "config": {
+    	"use-include-path": true
+    },
 }
 
