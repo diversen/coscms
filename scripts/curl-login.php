@@ -2,11 +2,11 @@
 
 
 define('_COS_PATH', realpath('.'));
-include_once "coslib/setup.php";
-setup::common();
+
+include_once "vendor/autoload.php";
 use diversen\mycurl;
 
-$c = new mycurl('http://default/account/login/index');
+$c = new mycurl('http://coscms/account/login/index');
 $fields = array (
     'email' => 'test', 
     'password' => 'test',

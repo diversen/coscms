@@ -19,6 +19,9 @@ if (DIRECTORY_SEPARATOR != '/') {
 // define _COS_PATH.
 define('_COS_PATH',  $path);
 
+
+
+
 // composer autoload
 include 'vendor/autoload.php';
 

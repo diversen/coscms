@@ -45,8 +45,9 @@
 
 
 define('_COS_PATH', realpath('.'));
-include_once "coslib/setup.php";
-setup::common();
+include_once "vendor/autoload.php";
+use diversen\conf;
+use diversen\db;
 
 conf::loadMainCli();
 

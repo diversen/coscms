@@ -4,20 +4,47 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "845b344861727e20b112e2edb737d11e",
+    "hash": "68b6eb9e4478d6f5ee368982d4bbb762",
     "packages": [
         {
-            "name": "diversen/http-send-file",
-            "version": "v1.0.5",
+            "name": "container-interop/container-interop",
+            "version": "1.1.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/diversen/http-send-file.git",
-                "reference": "9a21f36c8e696f19e646be28141e6f188c6d320a"
+                "url": "https://github.com/container-interop/container-interop.git",
+                "reference": "fc08354828f8fd3245f77a66b9e23a6bca48297e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/diversen/http-send-file/zipball/9a21f36c8e696f19e646be28141e6f188c6d320a",
-                "reference": "9a21f36c8e696f19e646be28141e6f188c6d320a",
+                "url": "https://api.github.com/repos/container-interop/container-interop/zipball/fc08354828f8fd3245f77a66b9e23a6bca48297e",
+                "reference": "fc08354828f8fd3245f77a66b9e23a6bca48297e",
+                "shasum": ""
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Interop\\Container\\": "src/Interop/Container/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "Promoting the interoperability of container objects (DIC, SL, etc.)",
+            "time": "2014-12-30 15:22:37"
+        },
+        {
+            "name": "diversen/http-send-file",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/diversen/http-send-file.git",
+                "reference": "70e705e2f25809e8d8587074ee2665bbef489bf0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/diversen/http-send-file/zipball/70e705e2f25809e8d8587074ee2665bbef489bf0",
+                "reference": "70e705e2f25809e8d8587074ee2665bbef489bf0",
                 "shasum": ""
             },
             "type": "library",
@@ -27,7 +54,7 @@
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
-            "time": "2015-05-08 09:14:07"
+            "time": "2015-05-08 10:18:30"
         },
         {
             "name": "diversen/simple-php-classes",
@@ -35,7 +62,7 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/diversen/simple-php-classes.git",
-                "reference": "893c23e3c927213e33869434f98c9458ea373107"
+                "reference": "726c5be40e1e99cd37ff1b60e800d688aff44bac"
             },
             "type": "library",
             "autoload": {
@@ -44,7 +71,7 @@
                 }
             },
             "description": "A collection of simple classes",
-            "time": "2015-07-21 20:00:42"
+            "time": "2015-07-27 17:43:37"
         },
         {
             "name": "donatj/phpuseragentparser",
@@ -1254,20 +1281,21 @@
         },
         {
             "name": "zendframework/zend-servicemanager",
-            "version": "2.5.1",
+            "version": "2.6.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/zendframework/zend-servicemanager.git",
-                "reference": "b3e7aa684da4d368762ead825cf1709319127b5d"
+                "reference": "78209738bfce496908f324f4d926a134bbe762c6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://packages.zendframework.com/composer/zendframework-zend-servicemanager-2.5.1-46ab5e.zip",
-                "reference": "b3e7aa684da4d368762ead825cf1709319127b5d",
-                "shasum": "8cc98dbe8998aeaf3cfa84dc90bfdea6a0e88b0a"
+                "url": "https://packages.zendframework.com/composer/zendframework-zend-servicemanager-2.6.0-b116d4.zip",
+                "reference": "78209738bfce496908f324f4d926a134bbe762c6",
+                "shasum": "398df54ead271f2a789c1d0396488261e38ba467"
             },
             "require": {
-                "php": ">=5.3.23"
+                "container-interop/container-interop": "~1.0",
+                "php": ">=5.5"
             },
             "require-dev": {
                 "fabpot/php-cs-fixer": "1.7.*",
@@ -1282,8 +1310,8 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.5-dev",
-                    "dev-develop": "2.6-dev"
+                    "dev-master": "2.6-dev",
+                    "dev-develop": "2.7-dev"
                 }
             },
             "autoload": {
@@ -1305,7 +1333,7 @@
                 "servicemanager",
                 "zf2"
             ],
-            "time": "2015-06-03 15:32:02"
+            "time": "2015-07-23 21:49:08"
         },
         {
             "name": "zendframework/zend-stdlib",
@@ -1444,6 +1472,7 @@
     "minimum-stability": "stable",
     "stability-flags": {
         "diversen/simple-php-classes": 20,
+        "diversen/http-send-file": 20,
         "google/apiclient": 10
     },
     "prefer-stable": false,

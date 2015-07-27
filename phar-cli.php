@@ -15,19 +15,15 @@ try {
     die();
 } 
 
+class setup {
+    
+}
+
 define('_COS_CLI', 1);
 $base_dir = dirname(__FILE__);
 define('_COS_PATH', $base_dir);
 
-// setup based on _COS_PATH
-include_once "coslib/setup.php";
-
-
-setup::common();
-use diversen\alias;
-
-
-alias::set();
+include_once "vendor/autoload.php";
 
 
 

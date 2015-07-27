@@ -5,7 +5,11 @@
  * used with php built-in router. 
  */
 
+phar::interceptFileFuncs();
 include_once 'vendor/autoload.php';
+echo $path = "phar://" . realpath('.') . "/modules"; echo "<br />";
+set_include_path( $path . PATH_SEPARATOR . get_include_path());
+echo get_include_path();
 
 use diversen\file;
 use diversen\http;
