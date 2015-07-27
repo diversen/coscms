@@ -9,7 +9,7 @@
 
 // define a base path
 $path = dirname(__FILE__);
-$path = realpath($path);
+//$path = realpath($path);
 
 // make it work on both windows and unix
 if (DIRECTORY_SEPARATOR != '/') {
@@ -18,10 +18,6 @@ if (DIRECTORY_SEPARATOR != '/') {
 
 // define _COS_PATH.
 define('_COS_PATH',  $path);
-
-
-
-
 // composer autoload
 include 'vendor/autoload.php';
 

@@ -7,9 +7,19 @@
 
 phar::interceptFileFuncs();
 include_once 'vendor/autoload.php';
-echo $path = "phar://" . realpath('.') . "/modules"; echo "<br />";
-set_include_path( $path . PATH_SEPARATOR . get_include_path());
-echo get_include_path();
+
+
+// NOTE!!! never use e.g. $path = realpath($path . "/../");
+// realpath will currupt you phar path
+$path = dirname(__FILE__);
+
+// make it work on both windows and unix
+if (DIRECTORY_SEPARATOR != '/') {
+    $path = str_replace ('\\', '/', $path);   
+}
+
+// define _COS_PATH.
+//define('_COS_PATH',  $path);
 
 use diversen\file;
 use diversen\http;
@@ -57,10 +67,8 @@ if (php_sapi_name() == 'cli-server') {
             header("Content-Type: $mime");
             readfile($full);
         }
-        //return false;
     } else {
-        include_once "index.php";
-        //return true;
+        include "index.php";
     }
 }
 
