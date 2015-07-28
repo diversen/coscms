@@ -34,8 +34,6 @@ conf::defineCommon();
 conf::loadMain();
 conf::setIncludePath();
 
-
-
 $vendor = 'vendor/diversen/simple-php-classes/src';
 include_once $vendor ."/shell/common.php";
 include_once $vendor. "/shell/profile.php";
@@ -49,12 +47,3 @@ if (!isset($_GET['ignore'])) {
     cos_check_magic_gpc();
     cos_check_files_dir();
 }
-
-// try if we can connect to db given in config.ini
-try {
-    $db = new installDb();
-} catch (PDOException $e) {
-    echo "Could not connect to db with the data given in config/config.ini. Error";
-    die();
-}
-

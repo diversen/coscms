@@ -2,10 +2,20 @@
 
 include_once "webcommon.php";
 
+
+// try if we can connect to db given in config.ini
+try {
+    $db = new installDb();
+} catch (PDOException $e) {
+    echo "Could not connect to db with the data given in config/config.ini. Error";
+    die();
+}
+
 // check to see if an install have been made.
 // we check if there are rows in 'modules'
 try {
     $num_rows = $db->getNumRows('modules');
+    echo "doh";
 } catch (PDOException $e) {   
     $num_rows = 0;
 }
