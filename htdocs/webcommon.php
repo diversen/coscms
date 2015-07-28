@@ -10,11 +10,9 @@ ignore_user_abort(true);
 $setup = $path = null;
 
 // test if we have placed coslib outside web directory
-if (file_exists('./coslib/setup.php')) {
-    $setup = "./coslib/setup.php";
+if (file_exists('vendor')) {
     $path = realpath('.');
 } else {
-    $setup = "../coslib/setup.php";
     $path = realpath('..');
 }
 
@@ -25,17 +23,24 @@ if (DIRECTORY_SEPARATOR != '/') {
 
 // define _COS_PATH and include autoloader
 define('_COS_PATH',  $path);
-include_once $setup;
-setup::common();
 
-// load main ini
-// define constants
-conf::loadMain();
+// composer autoload
+include _COS_PATH . '/vendor/autoload.php';
+use diversen\conf;
+use diversen\alias;
+
+alias::set();
 conf::defineCommon();
+conf::loadMain();
+conf::setIncludePath();
 
-include_once "coslib/shell/common.inc";
-include_once "coslib/shell/profile.inc";
-include_once "coslib/webinstall/common.php";
+
+
+$vendor = 'vendor/diversen/simple-php-classes/src';
+include_once $vendor ."/shell/common.php";
+include_once $vendor. "/shell/profile.php";
+include_once $vendor . "/install/common.php";
+
 
 // check if system is sane
 if (!isset($_GET['ignore'])) {
