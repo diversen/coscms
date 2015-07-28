@@ -1,0 +1,14 @@
+{
+  "name": "jquery-ui-touch-punch",
+  "description": "touch events for jquery ui",
+  "dependencies": {
+  },
+  "url": "http://touchpunch.furf.com/",
+  "lib": ".",
+  "main": "jquery.ui.touch-punch.min.js",
+  "version": "1.0.0",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/furf/jquery-ui-touch-punch.git"
+  }
+}

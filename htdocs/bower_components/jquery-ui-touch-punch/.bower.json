@@ -1,0 +1,23 @@
+{
+  "name": "jquery-ui-touch-punch",
+  "description": "touch events for jquery ui",
+  "dependencies": {},
+  "url": "http://touchpunch.furf.com/",
+  "lib": ".",
+  "main": "jquery.ui.touch-punch.min.js",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/furf/jquery-ui-touch-punch.git"
+  },
+  "homepage": "https://github.com/functino/jquery-ui-touch-punch",
+  "_release": "9b3a899436",
+  "_resolution": {
+    "type": "branch",
+    "branch": "master",
+    "commit": "9b3a8994361bc826cfaf2e98e2697713ade44908"
+  },
+  "_source": "git://github.com/functino/jquery-ui-touch-punch.git",
+  "_target": "*",
+  "_originalSource": "jquery-ui-touch-punch",
+  "_direct": true
+}

@@ -1,0 +1,33 @@
+{
+  "name": "smooth-scroller",
+  "description": "Javascript lib to handle smooth scrolling",
+  "version": "0.1.2",
+  "homepage": "https://github.com/firstandthird/smooth-scroller",
+  "license": "MIT",
+  "copyright": "First+Third",
+  "main": "dist/smooth-scroller.bower.js",
+  "dependencies": {
+    "jquery": "~1.X"
+  },
+  "devDependencies": {
+    "assert": "*",
+    "blanket": "*"
+  },
+  "ignore": [
+    "test",
+    "example",
+    "lib",
+    "Gruntfile.js",
+    "package.json",
+    "grunt"
+  ],
+  "_release": "0.1.2",
+  "_resolution": {
+    "type": "version",
+    "tag": "0.1.2",
+    "commit": "5287936fe3fda7dcdc47350343b104f3b6bf964f"
+  },
+  "_source": "git://github.com/firstandthird/smooth-scroller.git",
+  "_target": "~0.1.0",
+  "_originalSource": "smooth-scroller"
+}
