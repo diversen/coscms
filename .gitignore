@@ -26,3 +26,4 @@ locale/*
 cosmod/*
 modules/*
 vendor/
+/composer.lock
