@@ -1,13 +1,13 @@
 #!/usr/bin/env php
 <?php
 
-define('_COS_CLI', 1);
-$base_dir = dirname(__FILE__);
-define('_COS_PATH', $base_dir);
-
 include_once "vendor/autoload.php";
-
+use diversen\conf;
 use diversen\cli;
+
+define('_COS_CLI', 1);
+$path = realpath('.');
+conf::setMainIni('base_path', $path); 
 
 // som paths are set in coscli.sh
 class mainCli extends cli{}

@@ -1,3 +1,3 @@
 ### public files backup
 
-backup dir holding public files (found in _COS_HTDOCS . '/files').
+backup dir holding public files (found in conf::pathHtdocs() . '/files').

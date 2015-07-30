@@ -6,21 +6,36 @@
  * which then will bootstrap your application
  */
 
-// define a base path
-$path = dirname(__FILE__);
-$path = realpath($path . "/../");
+
+// composer autoload
+//include '../vendor/autoload.php';
+
+use diversen\boot;
+use diversen\conf;
+
+// test if we have placed coslib outside web directory
+if (file_exists('vendor')) {
+    $path = realpath('.');
+} else {
+    $path = realpath('..');
+}
 
 // make it work on both windows and unix
 if (DIRECTORY_SEPARATOR != '/') {
     $path = str_replace ('\\', '/', $path);
 }
 
+include $path . '/vendor/autoload.php';
+
+// define a base path
+//$path = dirname(__FILE__);
+//$path = realpath($path . "/../");
+
+
+
 // define _COS_PATH.
-define('_COS_PATH',  $path);
+// define('_COS_PATH',  $path);
+conf::setMainIni('base_path', $path); 
 
-// composer autoload
-include '../vendor/autoload.php';
-
-use diversen\boot;
 $boot = new boot();
 $boot->run();

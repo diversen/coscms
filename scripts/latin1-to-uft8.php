@@ -44,10 +44,12 @@
  */
 
 
-define('_COS_PATH', realpath('.'));
+//define('_COS_PATH', realpath('.'));
 include_once "vendor/autoload.php";
 use diversen\conf;
 use diversen\db;
+
+conf::setMainIni('base_path', realpath('.'));
 
 conf::loadMainCli();
 

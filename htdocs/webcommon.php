@@ -22,12 +22,15 @@ if (DIRECTORY_SEPARATOR != '/') {
 }
 
 // define _COS_PATH and include autoloader
-define('_COS_PATH',  $path);
-
+//define('_COS_PATH',  $path);
+//conf::setMainIni('', $value)
+conf::setMainIni('base_path', $path); 
 // composer autoload
-include _COS_PATH . '/vendor/autoload.php';
+include $path . '/vendor/autoload.php';
 use diversen\conf;
 use diversen\alias;
+
+conf::setMainIni('base_path', $path); 
 
 alias::set();
 conf::defineCommon();

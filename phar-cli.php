@@ -5,7 +5,7 @@
  * to create a phar file of current tree, use:
  * ./coscli.sh phar -h
  */
-//Phar::interceptFileFuncs();
+
 try {
     //Phar::mount('config/config.ini', '../config/config.ini');
     Phar::mount('config/config.ini', 'config/config.ini');
@@ -21,19 +21,18 @@ class setup {
 
 define('_COS_CLI', 1);
 $base_dir = dirname(__FILE__);
-define('_COS_PATH', $base_dir);
+
 
 include_once "vendor/autoload.php";
+//define('_COS_PATH', $base_dir);
 
-
-
+use diversen\conf;
 use diversen\cli;
+
+conf::setMainIni('base_path', $base_dir);
 
 // som paths are set in coscli.sh
 class mainCli extends cli{}
-
-// include
-//include_once "coslib/mainCli.php";
 
 // init and run
 mainCli::init();

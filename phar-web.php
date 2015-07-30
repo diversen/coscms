@@ -18,9 +18,6 @@ if (DIRECTORY_SEPARATOR != '/') {
     $path = str_replace ('\\', '/', $path);   
 }
 
-// define _COS_PATH.
-//define('_COS_PATH',  $path);
-
 use diversen\file;
 use diversen\http;
 

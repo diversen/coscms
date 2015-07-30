@@ -1,10 +1,13 @@
 <?php
 
 
-define('_COS_PATH', realpath('.'));
+//define('_COS_PATH', realpath('.'));
 
 include_once "vendor/autoload.php";
 use diversen\mycurl;
+use diversen\conf;
+
+conf::setMainIni('base_path', realpath('.'));
 
 $c = new mycurl('http://coscms/account/login/index');
 $fields = array (
