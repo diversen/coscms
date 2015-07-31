@@ -1,7 +1,4 @@
 {
-    "config": {
-        "use-include-path": true
-    },
 
     "repositories": [
         {
@@ -43,6 +40,5 @@
         "zendframework/zend-mail": "2.*",
         "zendframework/zend-dom": "2.*"
     }
-
 }
 
