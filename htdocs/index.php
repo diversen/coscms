@@ -5,10 +5,10 @@ use diversen\boot;
 use diversen\conf;
 
 if (file_exists('vendor')) {
-    $path = realpath('.');
+    $path = dirname(__FILE__);
     include 'vendor/autoload.php';
 } else {
-    $path = realpath('..');
+    $path = dirname(__FILE__) . '/..';
     include '../vendor/autoload.php';
 }
 
