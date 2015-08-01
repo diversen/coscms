@@ -7,9 +7,6 @@
  */
 
 
-// composer autoload
-//include '../vendor/autoload.php';
-
 use diversen\boot;
 use diversen\conf;
 
@@ -26,15 +23,6 @@ if (DIRECTORY_SEPARATOR != '/') {
 }
 
 include $path . '/vendor/autoload.php';
-
-// define a base path
-//$path = dirname(__FILE__);
-//$path = realpath($path . "/../");
-
-
-
-// define _COS_PATH.
-// define('_COS_PATH',  $path);
 conf::setMainIni('base_path', $path); 
 
 $boot = new boot();
