@@ -4,26 +4,21 @@
 // used when installing or upgrading from web directory
 // with a browser
 
-// prevent user abort
+// no time limit and prevent user abort
 set_time_limit(0);
 ignore_user_abort(true);
-$setup = $path = null;
 
-// test if we have placed coslib outside web directory
+// where is base path
+// include autoload
 if (file_exists('vendor')) {
-    $path = realpath('.');
+    $path = dirname(__FILE__);
+    include 'vendor/autoload.php';
 } else {
-    $path = realpath('..');
+    $path = dirname(__FILE__) . '/..';
+    include '../vendor/autoload.php';
 }
 
-// If windows set windows include path
-if (DIRECTORY_SEPARATOR != '/') {	
-    $path = str_replace ('\\', '/', $path); 
-}
 
-conf::setMainIni('base_path', $path); 
-// composer autoload
-include $path . '/vendor/autoload.php';
 use diversen\conf;
 use diversen\alias;
 
