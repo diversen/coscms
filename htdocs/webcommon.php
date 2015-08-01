@@ -1,14 +1,13 @@
 <?php
 
 // webcommon.php
-// used when installing or upgrading from web directory
-// with a browser
+// used when installing or upgrading from web directory using a browser
 
-// no time limit and prevent user abort
+// Accept no time limit and ignore user abort
 set_time_limit(0);
 ignore_user_abort(true);
 
-// where is base path
+// set a base path and include autoloader
 // include autoload
 if (file_exists('vendor')) {
     $path = dirname(__FILE__);
@@ -18,17 +17,19 @@ if (file_exists('vendor')) {
     include '../vendor/autoload.php';
 }
 
-
 use diversen\conf;
 use diversen\alias;
 
+// set base_path in conf
 conf::setMainIni('base_path', $path); 
 
+// set alias. common defines. Load config. Set include paths
 alias::set();
 conf::defineCommon();
 conf::loadMain();
 conf::setIncludePath();
 
+// include som install helpers
 $vendor = 'vendor/diversen/simple-php-classes/src';
 include_once $vendor ."/shell/common.php";
 include_once $vendor. "/shell/profile.php";

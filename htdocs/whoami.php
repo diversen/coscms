@@ -1,6 +1,4 @@
 <?php
 
-//print $_ENV["APACHE_RUN_USER"];
-print getenv('APACHE_RUN_USER');
-
-?>
+// whoami. Determine which user the apache2 is running as
+echo getenv('APACHE_RUN_USER');
