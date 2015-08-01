@@ -7,29 +7,34 @@
  */
 
 try {
-    //Phar::mount('config/config.ini', '../config/config.ini');
-    Phar::mount('config/config.ini', 'config/config.ini');
-    Phar::mount('sqlite/database.sql', 'sqlite/database.sql');
+
+    // mount config and database.sq outside phar archive
+    // first arg is internal file (which must not exist)
+    // second arg is external file
+    Phar::mount('config/config.ini', '.config.ini');
+    Phar::mount('sqlite/database.sql', '.database.sql');
 } catch (Exception $e) {
-    echo $e->getMessage();
-    die();
+
+    // Exception is that .config.ini and .database.sql does not exists
+    // we make them
+    $str = file_get_contents('tmp/.config.ini');
+    file_put_contents('.config.ini', $str);
+    $str = file_get_contents('tmp/.database.sql');
+    file_put_contents('.database.sql', $str);
+    chmod('.database.sql', 0777);  
+
+    // And mount again  
+    Phar::mount('config/config.ini', '.config.ini');
+    Phar::mount('sqlite/database.sql', '.database.sql');
 } 
 
-class setup {
-    
-}
-
-define('_COS_CLI', 1);
-$base_dir = dirname(__FILE__);
-
-
 include_once "vendor/autoload.php";
-//define('_COS_PATH', $base_dir);
-
 use diversen\conf;
 use diversen\cli;
 
-conf::setMainIni('base_path', $base_dir);
+define('_COS_CLI', 1);
+$path = dirname(__FILE__);
+conf::setMainIni('base_path', $path); 
 
 // som paths are set in coscli.sh
 class mainCli extends cli{}

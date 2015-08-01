@@ -6,7 +6,7 @@ use diversen\conf;
 use diversen\cli;
 
 define('_COS_CLI', 1);
-$path = realpath('.');
+$path = dirname(__FILE__);
 conf::setMainIni('base_path', $path); 
 
 // som paths are set in coscli.sh

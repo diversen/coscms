@@ -5,18 +5,9 @@
  * used with php built-in router. 
  */
 
-phar::interceptFileFuncs();
+
 include_once 'vendor/autoload.php';
 
-
-// NOTE!!! never use e.g. $path = realpath($path . "/../");
-// realpath will currupt you phar path
-$path = realpath(__FILE__);
-
-// make it work on both windows and unix
-//if (DIRECTORY_SEPARATOR != '/') {
-//    $path = str_replace ('\\', '/', $path);   
-//}
 
 use diversen\file;
 use diversen\http;
