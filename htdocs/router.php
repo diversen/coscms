@@ -1,12 +1,27 @@
 <?php
 
-// only router.php if cli-server
 if (php_sapi_name() == 'cli-server') {
     $info = parse_url($_SERVER['REQUEST_URI']);
-    if (file_exists( "./$info[path]")) {
-        return false;
+    $file = $info['path'];
+    if (file_exists( "./$info[path]") && $info['path'] != '/') {
+        
+        $full = __DIR__ . "$file"; 
+        if (!file_exists($full) OR is_dir($full) ) {
+            echo "Is dir. Or does not exists";
+            return false;
+        }
+        
+        $mime = file::getMime($full);
+        
+        if ($mime) {
+            if ($mime == 'text/x-php') {
+                return false;
+            }
+            http::cacheHeaders();
+            header("Content-Type: $mime");
+            readfile($full);
+        }
     } else {
-        include_once "index.php";
-        return true;
+        include "index.php";
     }
 }

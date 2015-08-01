@@ -21,9 +21,6 @@ if (DIRECTORY_SEPARATOR != '/') {
     $path = str_replace ('\\', '/', $path); 
 }
 
-// define _COS_PATH and include autoloader
-//define('_COS_PATH',  $path);
-//conf::setMainIni('', $value)
 conf::setMainIni('base_path', $path); 
 // composer autoload
 include $path . '/vendor/autoload.php';

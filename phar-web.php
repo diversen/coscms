@@ -11,12 +11,12 @@ include_once 'vendor/autoload.php';
 
 // NOTE!!! never use e.g. $path = realpath($path . "/../");
 // realpath will currupt you phar path
-$path = dirname(__FILE__);
+//$path = dirname(__FILE__);
 
 // make it work on both windows and unix
-if (DIRECTORY_SEPARATOR != '/') {
-    $path = str_replace ('\\', '/', $path);   
-}
+//if (DIRECTORY_SEPARATOR != '/') {
+//    $path = str_replace ('\\', '/', $path);   
+//}
 
 use diversen\file;
 use diversen\http;
