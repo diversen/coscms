@@ -1,1 +1,0 @@
-This folder contains default configuration for apache2
