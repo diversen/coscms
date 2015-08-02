@@ -43,8 +43,6 @@
  * 
  */
 
-
-//define('_COS_PATH', realpath('.'));
 include_once "vendor/autoload.php";
 use diversen\conf;
 use diversen\db;

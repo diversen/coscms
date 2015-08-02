@@ -1,8 +1,5 @@
 <?php
 
-
-//define('_COS_PATH', realpath('.'));
-
 include_once "vendor/autoload.php";
 use diversen\mycurl;
 use diversen\conf;
