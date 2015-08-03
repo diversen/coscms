@@ -15,7 +15,6 @@ try {
 // we check if there are rows in 'modules'
 try {
     $num_rows = $db->getNumRows('modules');
-    echo "doh";
 } catch (PDOException $e) {   
     $num_rows = 0;
 }
