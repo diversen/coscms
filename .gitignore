@@ -1,16 +1,6 @@
-*.swp
-htdocs/logo/*
 htdocs/app.yaml
 *.ini
-*.sql
-test/*
-test.php
-htdocs/test.php
-htdocs/test/*
-htdocs/cached_assets
-htdocs/css/*.css*
 htdocs/phpdocs
-htdocs/examples
 config/config.ini
 config/shared.ini
 config/multi/*
@@ -21,9 +11,6 @@ profiles/*
 modules/*
 htdocs/templates/*
 htdocs/files/*
-htdocs/youtube_import/*
-locale/*
-cosmod/*
 modules/*
 vendor/
 /composer.lock
