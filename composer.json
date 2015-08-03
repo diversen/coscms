@@ -19,8 +19,6 @@
         "ext-gd": "*",
         "diversen/simple-php-classes": "dev-master",
         "diversen/http-send-file": "dev-master",
-        "mobiledetect/mobiledetectlib": "2.8.*",
-        "donatj/phpuseragentparser": "*",
         "google/apiclient": "1.0.*@beta",
         "facebook/php-sdk-v4" : "4.0.20",
         "symfony/yaml": "2.*",
@@ -35,10 +33,7 @@
         "pear-pear.php.net/Console_Color": "1.0.*",
         "pear-pear.php.net/Mail_Mime": "1.8.*",
         "pear-pear.php.net/Mail": "1.2.*",
-        "pear-pear.php.net/Services_Akismet2": "0.3.*",
         "michelf/php-markdown": "1.*",
-        "zendframework/zend-mail": "2.*",
-        "zendframework/zend-dom": "2.*"
     }
 }
 
