@@ -8,17 +8,15 @@
         {
             "type": "pear",
             "url": "http://pear.php.net"
-        },
-        {
-            "type": "git",
-            "url": "https://github.com/diversen/simple-php-classes.git"
         }
+
     ],
     "require": {
         "ext-mbstring": "*",
         "ext-gd": "*",
         "diversen/simple-php-classes": "dev-master",
         "diversen/http-send-file": "dev-master",
+        "diversen/simple-php-github-api": "1.0.*",
         "google/apiclient": "1.0.*@beta",
         "facebook/php-sdk-v4" : "4.0.20",
         "symfony/yaml": "2.*",
@@ -36,4 +34,3 @@
         "michelf/php-markdown": "1.*"
     }
 }
-
