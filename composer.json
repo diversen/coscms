@@ -1,11 +1,19 @@
 {
 
+    "repositories": [
+
+        {
+            "type": "pear",
+            "url": "http://pear.php.net"
+        }
+
+    ],
     "require": {
         "ext-mbstring": "*",
         "ext-gd": "*",
         "diversen/simple-php-classes": "dev-master",
         "diversen/http-send-file": "dev-master",
-        "diversen/simple-php-github-api": "1.0.*",
+        "diversen/simple-php-github-api": "dev-master",
         "google/apiclient": "1.0.*@beta",
         "facebook/php-sdk-v4" : "4.0.20",
         "symfony/yaml": "2.*",
@@ -23,3 +31,4 @@
         "michelf/php-markdown": "1.*"
     }
 }
+
