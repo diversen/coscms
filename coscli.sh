@@ -5,7 +5,6 @@ include_once "vendor/autoload.php";
 use diversen\conf;
 use diversen\cli;
 
-define('_COS_CLI', 1);
 $path = dirname(__FILE__);
 conf::setMainIni('base_path', $path); 
 
