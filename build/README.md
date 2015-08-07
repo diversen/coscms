@@ -1,4 +1,4 @@
-### About
+# Build dir
 
 This is a build directory where you can build tar.gz archives of a install profile
 
