@@ -1,16 +1,5 @@
 {
 
-    "repositories": [
-        {
-            "type": "composer",
-            "url": "https://packages.zendframework.com/"
-        },
-        {
-            "type": "pear",
-            "url": "http://pear.php.net"
-        }
-
-    ],
     "require": {
         "ext-mbstring": "*",
         "ext-gd": "*",
