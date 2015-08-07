@@ -1,3 +1,3 @@
-# README
+# sqlite
 
-Place for sqlite database
+Default place for a sqlite database
