@@ -1,4 +1,4 @@
-url = "mysql:dbname=coscms;host=localhost;charset=utf8"
+url = "mysql:dbname=test;host=localhost;charset=utf8"
 username = ""
 password = ""
 db_init = "SET NAMES utf8"
@@ -14,7 +14,7 @@ date_default_timezone = "Europe/Copenhagen"
 date_format_long = "%d-%b-%Y %T"
 date_format_short = "%d-%b-%Y"
 locale = "en_GB.UTF8"
-language = "en_GB"
+language = "en"
 lang = "en"
 session_time = 0
 session_path = "/"
@@ -31,3 +31,9 @@ captcha_image_chars = 4
 cached_assets = 1
 cached_assets_reload = 0
 media_width = 600
+base_path = "/home/dennis/www/default"
+htdocs_path = "/home/dennis/www/default/htdocs"
+modules_dir = "modules"
+modules_path = "/home/dennis/www/default/modules"
+files_dir = "files"
+server_name = "default"
