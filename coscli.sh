@@ -8,7 +8,7 @@ use diversen\cli;
 $path = dirname(__FILE__);
 conf::setMainIni('base_path', $path); 
 
-// som paths are set in coscli.sh
+// commands are called with mainCli. 
 class mainCli extends cli{}
 
 // init and run
