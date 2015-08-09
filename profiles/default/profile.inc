@@ -286,13 +286,6 @@ $_PROFILE_TEMPLATES = array (
   ),
   1 => 
   array (
-    'public_clone_url' => 'git://github.com/diversen/openid-selector.git',
-    'private_clone_url' => 'git@github.com:diversen/openid-selector.git',
-    'module_version' => '3.01',
-    'module_name' => 'openid-selector',
-  ),
-  2 => 
-  array (
     'public_clone_url' => 'git://github.com/diversen/jquery-markedit.git',
     'private_clone_url' => 'git@github.com:diversen/jquery-markedit.git',
     'module_version' => '4.01',
