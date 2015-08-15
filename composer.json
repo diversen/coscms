@@ -29,7 +29,7 @@
         "pear-pear.php.net/Console_Color": "1.0.*",
         "pear-pear.php.net/Mail_Mime": "1.8.*",
         "pear-pear.php.net/Mail": "1.2.*",
-        "michelf/php-markdown": "1.*"
+        "michelf/php-markdown": "1.*",
+        "symfony/console": "^2.7"
     }
 }
-
