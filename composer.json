@@ -11,10 +11,6 @@
     "require": {
         "ext-mbstring": "*",
         "ext-gd": "*",
-        "diversen/simple-php-classes": "dev-master",
-        "diversen/http-send-file": "dev-master",
-        "diversen/simple-php-github-api": "dev-master",
-        "diversen/simple-php-translation": "dev-master",
         "google/apiclient": "1.0.*@beta",
         "facebook/php-sdk-v4" : "4.0.20",
         "symfony/yaml": "2.*",
@@ -29,7 +25,11 @@
         "pear-pear.php.net/Console_Color": "1.0.*",
         "pear-pear.php.net/Mail_Mime": "1.8.*",
         "pear-pear.php.net/Mail": "1.2.*",
-        "michelf/php-markdown": "1.*"
+        "michelf/php-markdown": "1.*",
+        "symfony/console": "^2.7",
+        "diversen/http-send-file": "^1.0",
+        "diversen/simple-php-github-api": "^1.0",
+        "diversen/simple-php-classes": "^1.3",
+        "diversen/simple-php-translation": "^1.0"
     }
 }
-
