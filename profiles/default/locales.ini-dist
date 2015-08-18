@@ -1,2 +1,3 @@
 locales_allow = "admin"
 locales_languages[0] = "en"
+locales_languages[1] = "da"
