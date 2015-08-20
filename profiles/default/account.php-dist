@@ -1,0 +1,24 @@
+<?php
+
+namespace modules\account;
+
+class config {
+    
+    /**
+     * Event after a user has been created in 'account' table
+     * @param int $user_id
+     */
+    public static function onCreateUser ($user_id) {}
+    
+    /**
+     * Event after user is set as verified in 'account' table
+     * @param int $user_id
+     */
+    public static function onVerification($user_id) {}
+    
+    /**
+     * Event after user is authenticated 
+     * @param int $user_id
+     */
+    public static function onLogin ($user_id) {}
+}
