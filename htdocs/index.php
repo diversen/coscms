@@ -8,8 +8,7 @@ if (file_exists('vendor')) {
     $path = dirname('.');
     include 'vendor/autoload.php';
 } else {
-    //$path = dirname(__FILE__) . '/..';
-    $path = "../";
+    $path = "..";
     include '../vendor/autoload.php';
 }
 
