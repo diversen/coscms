@@ -1,5 +1,5 @@
 comment_view_filter = "markdown"
-comment_allow_anon_post = 0
+comment_allow_anon_post = 1
 comment_anon_post_verify = 1
 comment_user_post_verify = 0
 comment_akismet_key = ""
@@ -8,4 +8,4 @@ comment_allow_edit_comment = "admin"
 comment_disable_title = 1
 comment_sort_by = "vote"
 comment_send_notification = 1
-comment_ajax = 1
+comment_ajax = 0

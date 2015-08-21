@@ -1,4 +1,4 @@
-url = "sqlite://home/dennis/www/demo/sqlite/database.sql"
+url = "mysql:dbname=demo;host=localhost;charset=utf8"
 db_init = "SET NAMES utf8"
 username = ""
 password = ""
@@ -39,7 +39,6 @@ htdocs_path = "/home/dennis/www/demo/htdocs"
 modules_dir = "modules"
 modules_path = "/home/dennis/www/demo/modules"
 files_dir = "files"
-server_name = "demo"
 [development]
 server_name = "demo"
 debug = 1
