@@ -5,7 +5,7 @@ use diversen\boot;
 use diversen\conf;
 
 if (file_exists('vendor')) {
-    $path = dirname('.');
+    $path = '.';
     include 'vendor/autoload.php';
 } else {
     $path = "..";
@@ -13,5 +13,6 @@ if (file_exists('vendor')) {
 }
 
 conf::setMainIni('base_path', $path); 
+
 $boot = new boot();
 $boot->run();
