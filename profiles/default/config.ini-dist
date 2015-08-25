@@ -25,6 +25,7 @@ frontpage_module = "content"
 profile_module = "userinfo"
 blocks_top[0] = "/system/blocks/system_admin_menu_top.inc"
 blocks[0] = "/content/blocks/content_tree_keep_state.inc"
+blocks_top[1] = "/system/blocks/system_admin_menu_top.inc"
 blocks_all = "blocks,blocks_top"
 captcha_image_module = 1
 captcha_image_chars = 4
