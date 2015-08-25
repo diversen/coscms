@@ -1,6 +1,7 @@
 htdocs/app.yaml
 *.ini
 htdocs/test/*
+htdocs/test.php
 htdocs/phpdocs
 config/config.ini
 config/shared.ini
