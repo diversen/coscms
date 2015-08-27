@@ -5,7 +5,7 @@ $_PROFILE_MODULES = array (
   array (
     'id' => '1',
     'module_name' => 'system',
-    'module_version' => '6.11',
+    'module_version' => '6.12',
     'menu_item' => '0',
     'run_level' => '0',
     'load_on' => NULL,
