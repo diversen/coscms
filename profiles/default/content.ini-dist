@@ -1,7 +1,7 @@
 content_allow_edit = "admin"
 content_article_crumb = 1
 content_article_tags = 1
-content_article_filters[0] = "markdown"
+content_article_filters[0] = "markdownExt"
 content_article_filters[1] = "media"
 content_sub_modules[0] = "image"
 content_sub_modules[1] = "files"

@@ -13,3 +13,5 @@ system_modules_extra[11] = "files"
 system_modules_extra[12] = "video"
 system_modules_extra[13] = "counter"
 system_modules_all = 0
+system_profile = "default"
+system_repo = "https://github.com/diversen/coscms"
