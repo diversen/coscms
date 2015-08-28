@@ -43,3 +43,4 @@ files_dir = "files"
 [development]
 server_name = "demo"
 debug = 1
+hostname = "dennis-Inspiron-531"
