@@ -30,6 +30,7 @@
         "diversen/simple-php-classes": "^1.3",
         "diversen/simple-php-translation": "^1.0",
         "mtdowling/cron-expression": "^1.0",
-        "riimu/kit-csrf": "^2.4"
+        "riimu/kit-csrf": "^2.4",
+        "dapphp/securimage": "^3.5"
     }
 }
