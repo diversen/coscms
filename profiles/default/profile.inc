@@ -167,7 +167,7 @@ $_PROFILE_MODULES = array (
     'load_on' => NULL,
     'parent' => NULL,
     'is_shell' => NULL,
-    'public_clone_url' => 'git://github.com/diversen/blog.git',
+    'public_clone_url' => 'https://github.com/diversen/blog.git',
     'private_clone_url' => 'git@github.com:diversen/blog.git',
   ),
   13 => 
@@ -187,13 +187,13 @@ $_PROFILE_MODULES = array (
   array (
     'id' => '39',
     'module_name' => 'userinfo',
-    'module_version' => '6.01',
+    'module_version' => '6.11',
     'menu_item' => '1',
     'run_level' => '0',
     'load_on' => NULL,
     'parent' => NULL,
     'is_shell' => NULL,
-    'public_clone_url' => 'git://github.com/diversen/userinfo.git',
+    'public_clone_url' => 'https://github.com/diversen/userinfo.git',
     'private_clone_url' => 'git@github.com:diversen/userinfo.git',
   ),
   15 => 
