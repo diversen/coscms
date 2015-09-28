@@ -1,0 +1,11 @@
+<?php
+
+namespace modules\userinfo;
+use diversen\lang;
+class config {
+
+    public static function getMenuExtras() {
+	return array ();
+
+    }
+}
