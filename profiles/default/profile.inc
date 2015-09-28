@@ -135,7 +135,7 @@ $_PROFILE_MODULES = array (
   array (
     'id' => '24',
     'module_name' => 'content',
-    'module_version' => '7.01',
+    'module_version' => '7.02',
     'menu_item' => '1',
     'run_level' => '0',
     'load_on' => NULL,
@@ -161,7 +161,7 @@ $_PROFILE_MODULES = array (
   array (
     'id' => '37',
     'module_name' => 'blog',
-    'module_version' => '7.01',
+    'module_version' => '7.02',
     'menu_item' => '1',
     'run_level' => '0',
     'load_on' => NULL,
