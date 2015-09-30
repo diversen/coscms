@@ -44,7 +44,7 @@ $_PROFILE_MODULES = array (
   array (
     'id' => '5',
     'module_name' => 'account',
-    'module_version' => '7.05',
+    'module_version' => '7.06',
     'menu_item' => '0',
     'run_level' => '0',
     'load_on' => NULL,
