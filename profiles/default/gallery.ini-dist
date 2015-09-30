@@ -1,5 +1,5 @@
 gallery_thumb_size = 100
-gallery_image_size = 660
+gallery_image_size = 1200
 gallery_med_size = 200
 gallery_small_size = 100
 gallery_allow_edit = "admin"

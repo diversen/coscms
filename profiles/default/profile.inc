@@ -44,7 +44,7 @@ $_PROFILE_MODULES = array (
   array (
     'id' => '5',
     'module_name' => 'account',
-    'module_version' => '7.01',
+    'module_version' => '7.05',
     'menu_item' => '0',
     'run_level' => '0',
     'load_on' => NULL,
@@ -135,7 +135,7 @@ $_PROFILE_MODULES = array (
   array (
     'id' => '24',
     'module_name' => 'content',
-    'module_version' => '7.03',
+    'module_version' => '7.04',
     'menu_item' => '1',
     'run_level' => '0',
     'load_on' => NULL,
@@ -239,7 +239,7 @@ $_PROFILE_MODULES = array (
   array (
     'id' => '46',
     'module_name' => 'image',
-    'module_version' => '7.01',
+    'module_version' => '7.02',
     'menu_item' => '1',
     'run_level' => '0',
     'load_on' => NULL,
@@ -291,7 +291,7 @@ $_PROFILE_MODULES = array (
   array (
     'id' => '50',
     'module_name' => 'gallery',
-    'module_version' => '7.01',
+    'module_version' => '7.02',
     'menu_item' => '1',
     'run_level' => '0',
     'load_on' => NULL,
@@ -317,7 +317,7 @@ $_PROFILE_MODULES = array (
   array (
     'id' => '52',
     'module_name' => 'comment',
-    'module_version' => '7.01',
+    'module_version' => '7.02',
     'menu_item' => '1',
     'run_level' => '0',
     'load_on' => NULL,
