@@ -317,7 +317,7 @@ $_PROFILE_MODULES = array (
   array (
     'id' => '52',
     'module_name' => 'comment',
-    'module_version' => '7.02',
+    'module_version' => '7.03',
     'menu_item' => '1',
     'run_level' => '0',
     'load_on' => NULL,
