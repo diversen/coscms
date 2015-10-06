@@ -18,7 +18,7 @@ $_PROFILE_MODULES = array (
   array (
     'id' => '2',
     'module_name' => 'settings',
-    'module_version' => '7.01',
+    'module_version' => '7.02',
     'menu_item' => '0',
     'run_level' => '0',
     'load_on' => NULL,
@@ -44,7 +44,7 @@ $_PROFILE_MODULES = array (
   array (
     'id' => '5',
     'module_name' => 'account',
-    'module_version' => '7.06',
+    'module_version' => '7.07',
     'menu_item' => '0',
     'run_level' => '0',
     'load_on' => NULL,
@@ -135,7 +135,7 @@ $_PROFILE_MODULES = array (
   array (
     'id' => '24',
     'module_name' => 'content',
-    'module_version' => '7.04',
+    'module_version' => '7.06',
     'menu_item' => '1',
     'run_level' => '0',
     'load_on' => NULL,
@@ -161,7 +161,7 @@ $_PROFILE_MODULES = array (
   array (
     'id' => '37',
     'module_name' => 'blog',
-    'module_version' => '7.03',
+    'module_version' => '7.04',
     'menu_item' => '1',
     'run_level' => '0',
     'load_on' => NULL,
@@ -187,7 +187,7 @@ $_PROFILE_MODULES = array (
   array (
     'id' => '39',
     'module_name' => 'userinfo',
-    'module_version' => '7.01',
+    'module_version' => '7.02',
     'menu_item' => '1',
     'run_level' => '0',
     'load_on' => NULL,
@@ -200,20 +200,20 @@ $_PROFILE_MODULES = array (
   array (
     'id' => '43',
     'module_name' => 'analytics',
-    'module_version' => '7.01',
+    'module_version' => '7.02',
     'menu_item' => '1',
     'run_level' => '0,5',
     'load_on' => NULL,
     'parent' => NULL,
     'is_shell' => NULL,
-    'public_clone_url' => 'git://github.com/diversen/analytics.git',
-    'private_clone_url' => 'git@github.com:diversen/analytics.git',
+    'public_clone_url' => 'https://github.com/diversen/analytics',
+    'private_clone_url' => 'git@github.com:diversen/analytics',
   ),
   16 => 
   array (
     'id' => '44',
     'module_name' => 'share',
-    'module_version' => '7.01',
+    'module_version' => '7.02',
     'menu_item' => '0',
     'run_level' => '0',
     'load_on' => NULL,
@@ -289,19 +289,6 @@ $_PROFILE_MODULES = array (
   ),
   22 => 
   array (
-    'id' => '50',
-    'module_name' => 'gallery',
-    'module_version' => '7.02',
-    'menu_item' => '1',
-    'run_level' => '0',
-    'load_on' => NULL,
-    'parent' => NULL,
-    'is_shell' => NULL,
-    'public_clone_url' => 'https://github.com/diversen/gallery.git',
-    'private_clone_url' => 'git@github.com:diversen/gallery.git',
-  ),
-  23 => 
-  array (
     'id' => '51',
     'module_name' => 'vote',
     'module_version' => '7.01',
@@ -313,7 +300,7 @@ $_PROFILE_MODULES = array (
     'public_clone_url' => 'https://github.com/diversen/vote.git',
     'private_clone_url' => 'git@github.com:diversen/vote.git',
   ),
-  24 => 
+  23 => 
   array (
     'id' => '52',
     'module_name' => 'comment',
@@ -326,7 +313,7 @@ $_PROFILE_MODULES = array (
     'public_clone_url' => 'git://github.com/diversen/comment.git',
     'private_clone_url' => 'git@github.com:diversen/comment.git',
   ),
-  25 => 
+  24 => 
   array (
     'id' => '53',
     'module_name' => 'blocks',
@@ -339,6 +326,19 @@ $_PROFILE_MODULES = array (
     'public_clone_url' => 'git://github.com/diversen/blocks.git',
     'private_clone_url' => 'git@github.com:diversen/blocks.git',
   ),
+  25 => 
+  array (
+    'id' => '54',
+    'module_name' => 'gallery',
+    'module_version' => '7.04',
+    'menu_item' => '1',
+    'run_level' => '0',
+    'load_on' => NULL,
+    'parent' => NULL,
+    'is_shell' => NULL,
+    'public_clone_url' => 'https://github.com/diversen/gallery',
+    'private_clone_url' => 'git@github.com:diversen/gallery',
+  ),
 );
 
 $_PROFILE_TEMPLATES = array (
@@ -346,7 +346,7 @@ $_PROFILE_TEMPLATES = array (
   array (
     'public_clone_url' => 'git://github.com/diversen/zimpleza.git',
     'private_clone_url' => 'git@github.com:diversen/zimpleza.git',
-    'module_version' => '7.01',
+    'module_version' => '7.03',
     'module_name' => 'zimpleza',
   ),
   1 => 
@@ -362,7 +362,13 @@ $_PROFILE_TEMPLATES = array (
     'module_name' => 'fancyBox',
     'public_clone_url' => 'https://github.com/fancyapps/fancyBox.git',
   ),
+  3 => 
+  array (
+    'module_version' => '7.04',
+    'module_name' => 'uikit',
+    'public_clone_url' => 'https://github.com/diversen/uikit',
+  ),
 );
 
-$_PROFILE_TEMPLATE = 'zimpleza';
+$_PROFILE_TEMPLATE = 'uikit';
 
