@@ -330,7 +330,7 @@ $_PROFILE_MODULES = array (
   array (
     'id' => '54',
     'module_name' => 'gallery',
-    'module_version' => '7.04',
+    'module_version' => '7.05',
     'menu_item' => '1',
     'run_level' => '0',
     'load_on' => NULL,
