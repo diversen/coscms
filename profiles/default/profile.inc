@@ -11,7 +11,7 @@ $_PROFILE_MODULES = array (
     'load_on' => NULL,
     'parent' => NULL,
     'is_shell' => NULL,
-    'public_clone_url' => 'git://github.com/diversen/system.git',
+    'public_clone_url' => 'https://github.com/diversen/system.git',
     'private_clone_url' => 'git@github.com:diversen/system.git',
   ),
   1 => 
@@ -24,7 +24,7 @@ $_PROFILE_MODULES = array (
     'load_on' => NULL,
     'parent' => NULL,
     'is_shell' => NULL,
-    'public_clone_url' => 'git://github.com/diversen/settings.git',
+    'public_clone_url' => 'https://github.com/diversen/settings.git',
     'private_clone_url' => 'git@github.com:diversen/settings.git',
   ),
   2 => 
@@ -50,7 +50,7 @@ $_PROFILE_MODULES = array (
     'load_on' => NULL,
     'parent' => NULL,
     'is_shell' => NULL,
-    'public_clone_url' => 'git://github.com/diversen/configdb.git',
+    'public_clone_url' => 'https://github.com/diversen/configdb.git',
     'private_clone_url' => 'git@github.com:diversen/configdb.git',
   ),
   4 => 
@@ -76,7 +76,7 @@ $_PROFILE_MODULES = array (
     'load_on' => NULL,
     'parent' => NULL,
     'is_shell' => NULL,
-    'public_clone_url' => 'git://github.com/diversen/menus.git',
+    'public_clone_url' => 'https://github.com/diversen/menus.git',
     'private_clone_url' => 'git@github.com:diversen/menus.git',
   ),
   6 => 
@@ -89,7 +89,7 @@ $_PROFILE_MODULES = array (
     'load_on' => NULL,
     'parent' => NULL,
     'is_shell' => NULL,
-    'public_clone_url' => 'git://github.com/diversen/image.git',
+    'public_clone_url' => 'https://github.com/diversen/image.git',
     'private_clone_url' => 'git@github.com:diversen/image.git',
   ),
   7 => 
@@ -115,7 +115,7 @@ $_PROFILE_MODULES = array (
     'load_on' => NULL,
     'parent' => NULL,
     'is_shell' => NULL,
-    'public_clone_url' => 'git://github.com/diversen/rss.git',
+    'public_clone_url' => 'https://github.com/diversen/rss.git',
     'private_clone_url' => 'git@github.com:diversen/rss.git',
   ),
   9 => 
@@ -141,7 +141,7 @@ $_PROFILE_MODULES = array (
     'load_on' => NULL,
     'parent' => NULL,
     'is_shell' => NULL,
-    'public_clone_url' => 'git://github.com/diversen/disqus.git',
+    'public_clone_url' => 'https://github.com/diversen/disqus.git',
     'private_clone_url' => 'git@github.com:diversen/disqus.git',
   ),
   11 => 
@@ -154,7 +154,7 @@ $_PROFILE_MODULES = array (
     'load_on' => NULL,
     'parent' => NULL,
     'is_shell' => NULL,
-    'public_clone_url' => 'git://github.com/diversen/tags.git',
+    'public_clone_url' => 'https://github.com/diversen/tags.git',
     'private_clone_url' => 'git@github.com:diversen/tags.git',
   ),
   12 => 
@@ -167,7 +167,7 @@ $_PROFILE_MODULES = array (
     'load_on' => NULL,
     'parent' => NULL,
     'is_shell' => NULL,
-    'public_clone_url' => 'git://github.com/diversen/counter.git',
+    'public_clone_url' => 'https://github.com/diversen/counter.git',
     'private_clone_url' => 'git@github.com:diversen/counter.git',
   ),
   13 => 
@@ -193,7 +193,7 @@ $_PROFILE_MODULES = array (
     'load_on' => NULL,
     'parent' => NULL,
     'is_shell' => NULL,
-    'public_clone_url' => 'git://github.com/diversen/share.git',
+    'public_clone_url' => 'https://github.com/diversen/share.git',
     'private_clone_url' => 'git@github.com:diversen/share.git',
   ),
   15 => 
@@ -206,7 +206,7 @@ $_PROFILE_MODULES = array (
     'load_on' => NULL,
     'parent' => NULL,
     'is_shell' => '1',
-    'public_clone_url' => 'git://github.com/diversen/content.git',
+    'public_clone_url' => 'https://github.com/diversen/content.git',
     'private_clone_url' => 'git@github.com:diversen/content.git',
   ),
   16 => 
@@ -219,7 +219,7 @@ $_PROFILE_MODULES = array (
     'load_on' => NULL,
     'parent' => NULL,
     'is_shell' => NULL,
-    'public_clone_url' => 'git://github.com/diversen/files.git',
+    'public_clone_url' => 'https://github.com/diversen/files.git',
     'private_clone_url' => 'git@github.com:diversen/files.git',
   ),
   17 => 
@@ -232,7 +232,7 @@ $_PROFILE_MODULES = array (
     'load_on' => NULL,
     'parent' => NULL,
     'is_shell' => NULL,
-    'public_clone_url' => 'git://github.com/diversen/blocks.git',
+    'public_clone_url' => 'https://github.com/diversen/blocks.git',
     'private_clone_url' => 'git@github.com:diversen/blocks.git',
   ),
   18 => 
@@ -245,7 +245,7 @@ $_PROFILE_MODULES = array (
     'load_on' => NULL,
     'parent' => NULL,
     'is_shell' => NULL,
-    'public_clone_url' => 'git://github.com/diversen/error.git',
+    'public_clone_url' => 'https://github.com/diversen/error.git',
     'private_clone_url' => 'git@github.com:diversen/error.git',
   ),
   19 => 
@@ -258,7 +258,7 @@ $_PROFILE_MODULES = array (
     'load_on' => NULL,
     'parent' => NULL,
     'is_shell' => NULL,
-    'public_clone_url' => 'git://github.com/diversen/analytics.git',
+    'public_clone_url' => 'https://github.com/diversen/analytics.git',
     'private_clone_url' => 'git@github.com:diversen/analytics.git',
   ),
   20 => 
@@ -284,7 +284,7 @@ $_PROFILE_MODULES = array (
     'load_on' => NULL,
     'parent' => NULL,
     'is_shell' => '1',
-    'public_clone_url' => 'git://github.com/diversen/comment.git',
+    'public_clone_url' => 'https://github.com/diversen/comment.git',
     'private_clone_url' => 'git@github.com:diversen/comment.git',
   ),
   22 => 
@@ -297,7 +297,7 @@ $_PROFILE_MODULES = array (
     'load_on' => NULL,
     'parent' => NULL,
     'is_shell' => NULL,
-    'public_clone_url' => 'git://github.com/diversen/flood.git',
+    'public_clone_url' => 'https://github.com/diversen/flood.git',
     'private_clone_url' => 'git@github.com:diversen/flood.git',
   ),
 );
@@ -305,14 +305,14 @@ $_PROFILE_MODULES = array (
 $_PROFILE_TEMPLATES = array (
   0 => 
   array (
-    'public_clone_url' => 'git://github.com/diversen/zimpleza.git',
+    'public_clone_url' => 'https://github.com/diversen/zimpleza.git',
     'private_clone_url' => 'git@github.com:diversen/zimpleza.git',
     'module_version' => '7.01',
     'module_name' => 'zimpleza',
   ),
   1 => 
   array (
-    'public_clone_url' => 'git://github.com/diversen/jquery-markedit.git',
+    'public_clone_url' => 'https://github.com/diversen/jquery-markedit.git',
     'private_clone_url' => 'git@github.com:diversen/jquery-markedit.git',
     'module_version' => '7.01',
     'module_name' => 'jquery-markedit',
