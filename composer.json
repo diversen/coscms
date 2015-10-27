@@ -24,7 +24,7 @@
         "dapphp/securimage": "^3.5",
         "pear/validate": "^0.8.5",
         "phpmailer/phpmailer": "^5.2",
-        "gregwar/image": "^2.0"
+        "gregwar/image": "^2.0",
+        "symfony/yaml": "^2.7"
     }
 }
-
