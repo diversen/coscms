@@ -353,7 +353,7 @@ $_PROFILE_TEMPLATES = array (
   array (
     'public_clone_url' => 'git://github.com/diversen/jquery-markedit.git',
     'private_clone_url' => 'git@github.com:diversen/jquery-markedit.git',
-    'module_version' => '7.02',
+    'module_version' => '7.03',
     'module_name' => 'jquery-markedit',
   ),
   2 => 
