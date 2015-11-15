@@ -1,0 +1,14 @@
+{
+  "name": "jquery-html5-upload",
+  "homepage": "https://github.com/mihaild/jquery-html5-upload",
+  "_release": "ea33a26bc6",
+  "_resolution": {
+    "type": "branch",
+    "branch": "master",
+    "commit": "ea33a26bc64b5bfceef97f4d9b34fc0488508851"
+  },
+  "_source": "git://github.com/mihaild/jquery-html5-upload.git",
+  "_target": "*",
+  "_originalSource": "mihaild/jquery-html5-upload",
+  "_direct": true
+}

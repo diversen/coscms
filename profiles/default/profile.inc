@@ -276,19 +276,6 @@ $_PROFILE_MODULES = array (
   ),
   21 => 
   array (
-    'id' => '49',
-    'module_name' => 'counter',
-    'module_version' => '7.23',
-    'menu_item' => '0',
-    'run_level' => '0,6',
-    'load_on' => NULL,
-    'parent' => NULL,
-    'is_shell' => NULL,
-    'public_clone_url' => 'git://github.com/diversen/counter.git',
-    'private_clone_url' => 'git@github.com:diversen/counter.git',
-  ),
-  22 => 
-  array (
     'id' => '51',
     'module_name' => 'vote',
     'module_version' => '7.01',
@@ -300,7 +287,7 @@ $_PROFILE_MODULES = array (
     'public_clone_url' => 'https://github.com/diversen/vote.git',
     'private_clone_url' => 'git@github.com:diversen/vote.git',
   ),
-  23 => 
+  22 => 
   array (
     'id' => '52',
     'module_name' => 'comment',
@@ -313,7 +300,7 @@ $_PROFILE_MODULES = array (
     'public_clone_url' => 'git://github.com/diversen/comment.git',
     'private_clone_url' => 'git@github.com:diversen/comment.git',
   ),
-  24 => 
+  23 => 
   array (
     'id' => '53',
     'module_name' => 'blocks',
@@ -326,7 +313,7 @@ $_PROFILE_MODULES = array (
     'public_clone_url' => 'git://github.com/diversen/blocks.git',
     'private_clone_url' => 'git@github.com:diversen/blocks.git',
   ),
-  25 => 
+  24 => 
   array (
     'id' => '54',
     'module_name' => 'gallery',
@@ -338,6 +325,19 @@ $_PROFILE_MODULES = array (
     'is_shell' => NULL,
     'public_clone_url' => 'https://github.com/diversen/gallery',
     'private_clone_url' => 'git@github.com:diversen/gallery',
+  ),
+  25 => 
+  array (
+    'id' => '58',
+    'module_name' => 'counter',
+    'module_version' => '7.23',
+    'menu_item' => '0',
+    'run_level' => '0,6',
+    'load_on' => NULL,
+    'parent' => NULL,
+    'is_shell' => NULL,
+    'public_clone_url' => 'git://github.com/diversen/counter.git',
+    'private_clone_url' => 'git@github.com:diversen/counter.git',
   ),
 );
 

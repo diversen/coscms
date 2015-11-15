@@ -1,0 +1,15 @@
+{
+  "name": "Tabby",
+  "homepage": "https://github.com/alanhogan/Tabby",
+  "version": "0.13.1",
+  "_release": "0.13.1",
+  "_resolution": {
+    "type": "version",
+    "tag": "v0.13.1",
+    "commit": "997650af8c1fa9ba1b14629c6681b80342e8be68"
+  },
+  "_source": "git://github.com/alanhogan/Tabby.git",
+  "_target": "~0.13.1",
+  "_originalSource": "alanhogan/Tabby",
+  "_direct": true
+}
