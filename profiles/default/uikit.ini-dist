@@ -1,0 +1,5 @@
+uikit_highlight_disable = 0
+uikit_mathjax = 0
+uikit_htmleditor = 1
+uikit_blocks = 0
+uikit_htmleditor_cdn = 1
