@@ -1,3 +1,0 @@
-video_allow_edit = "admin"
-video_max_size = 60000000
-video_player = "videojs"

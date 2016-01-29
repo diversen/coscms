@@ -1,56 +1,55 @@
 <?php
 
-// Simple progress bar taken from:
-// http://www.johnboy.com/php-upload-progress-bar/
-// upload.php
-$url = basename($_SERVER['SCRIPT_FILENAME']);
 
+$url = basename($_SERVER['SCRIPT_FILENAME']);
 if (isset($_GET['progress_key'])) {
     if (!function_exists('apc_fetch')) {
-        // no progress bar
-        die;
+        die('No such function');
     }
     $status = apc_fetch('upload_' . $_GET['progress_key']);
     if ($status['total'] == 0) {
         echo "0";
     } else {
-        echo $status['current'] / $status['total'] * 100;
+        $total = $status['current'] / $status['total'] * 100;
+        echo (int)$total;
     }
-    die;
+    die();
 }
 
+// Simple progress bar rewritten from:
+// http://www.johnboy.com/php-upload-progress-bar/
+// upload.php
 
 ?>
 <!doctype html>
 <head>
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.0/jquery.js" type="text/javascript"></script>
-    <link href="/css/progress.css" rel="stylesheet" type="text/css" />
-
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <link href="/templates/uikit/css/uikit2.css" rel="stylesheet" />
+    <link href="/templates/uikit/css/components/progress.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/2.22.0/js/uikit.min.js"></script>
+    
     <script>
+
         $(document).ready(function () {
             setInterval(function () {
-                // get request to the current URL (upload_frame.php) 
+                // get request to the current URL (upload.php) 
                 // which calls the code at the top of the page.  It checks the 
                 // file's progress based on the file id "progress_key=" and 
                 // returns the value with the function below:
-                $.get("<?= $url ?>?progress_key=<?= $_GET['up_id']; ?>&randval=" + Math.random(), {
-                    //return information back from jQuery's get request
-                }, function (data) {
-                    $('#progress_container').fadeIn(100);	//fade in progress bar	
-                    $('#progress_bar').width(data + "%");	//set width of progress bar based on the $status value (set at the top of this page)
-                    $('#progress_completed').html(parseInt(data) + "%");	//display the % completed within the progress bar
-                }
-                )
-            }, 1000);	//Interval is set at 500 milliseconds (the progress bar will refresh every .5 seconds)
+                $.get("<?= $url ?>?progress_key=<?= $_GET['up_id']; ?>&randval=" + Math.random(), function (data) {
+
+                        var progress = parseInt(data); 
+                        $('.uk-progress-bar').attr('style', 'width: ' + data + '%');
+                        $('.uk-progress-bar').html(data + '%');
+                })
+            }, 1000); 
         });
 
 
     </script>
 </head>
 <body style="margin:0px">
-    <div id="progress_container">
-        <div id="progress_bar">
-            <div id="progress_completed"></div>
-        </div>
+    <div class="uk-progress">
+        <div class="uk-progress-bar"  style="width: 0%;">0%</div>
     </div>
 </body>
