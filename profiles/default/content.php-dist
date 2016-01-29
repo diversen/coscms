@@ -1,0 +1,58 @@
+<?php
+
+namespace modules\content;
+
+use diversen\conf;
+
+
+class config {
+
+    
+    /**
+     * Override pandoc options
+     * @param array $book
+     * @param string $type
+     * @return string $options options as a string
+     */
+    public static function pandocOptions ($book, $type) {
+        
+        $str = '';
+        if ($type == 'pdf') {
+            $str.= " -s -S --latex-engine=xelatex ";
+            $export_lang = conf::getModuleIni('content_export_lang');
+            $str.= " -V lang=$export_lang "; 
+        } elseif ($type == 'html') {
+            // $raw = " --from=markdown-raw_html+line_blocks";
+            $raw = " --from=markdown+line_blocks";
+            //$template = '--template /home/dennis/pandoc-bootstrap-template/template.html ';
+            //$template.= ' --css /home/dennis/pandoc-bootstrap-template/template.css ';            
+            
+            $base = conf::pathBase();
+            $template = "--template $base/modules/content/templates/html/bootstrap.html";
+            $str = " -s -S --base-header-level=1 --chapters  --toc $raw  $template -t html5 ";
+            //  --toc-depth=1 --number-sections 
+
+        } elseif ($type == 'revealjs') {
+            return $str = " -s -S --template=/home/dennis/default.revealjs --section-divs --variable transition='linear'  --mathjax -i -t revealjs  -V revealjs-url:/reveal.js -V theme:moon ";
+            // return $str = " -s -S --template=/home/dennis/default.revealjs --section-divs --variable transition='linear' --self-contained --mathjax -i -t revealjs  -V revealjs-url:/home/dennis/reveal.js -V theme:moon ";
+            // -V revealjs-url:/home/dennis/reveal.js/js/reveal.js
+            // --css=/home/dennis/reveal.js/css/reveal.css
+        } elseif ($type == 'epub') { 
+            $str.= " -s -S  --epub-chapter-level=1 ";
+            // example: style for epub
+            $style = config::getModulePath('content') . "/templates/epub/stylesheet.css";
+            $str.= " --css=$style ";
+        }
+        
+        if ($book['toc_show']) {
+            $str.= '--toc ';
+        } 
+        
+        // example: style for epub
+        // $style = config::getModulePath('content') . "/templates/epub/stylesheet.css";
+        // $command.= "--css=$style ";
+        return $str;
+    }
+    
+    
+}
