@@ -2,4 +2,3 @@ blocks_filters[1] = "markdown"
 blocks_blocks = "blocks,blocks_unused"
 blocks_allow = "admin"
 blocks_modules[0] = "image"
-blocks_markedit = 1
