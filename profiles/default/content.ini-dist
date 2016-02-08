@@ -14,3 +14,4 @@ content_sub_modules[6] = "rss"
 content_show_latest = 1
 content_article_per_page = 10
 content_book_formats = "pdf,epub,mobi"
+content_highlight_files = 0
