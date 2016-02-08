@@ -6,7 +6,7 @@
 
 # About
 
-CosCMS is a simple modular framework for building web application or shell applications. 
+CosCMS is a simple modular framework for building web application or shell applications.
 
 Modules are distrubuted as profiles. 
 
@@ -20,7 +20,13 @@ This is the default profile, it includes a
 * Analytics
 * And some other modules 
 
-# Requirements
+# Demo
+
+[Demo Site](http://demo.coscms.org/) 
+
+Login with `admin` / `admin`
+
+# Install Requirements
 
 You will need: 
 
@@ -42,13 +48,13 @@ Update composer packages
     
 	composer update
 
-Create an apache2 host (it should also work with other web servers)
+Create an apache2 host
 
 	./coscli.sh apache2 --en yoursite.com
 
 Install: 
 
-    ./coscli prompt-install --in
+    ./coscli.sh prompt-install --in
     
 You will need a: 
 
@@ -56,16 +62,13 @@ You will need a:
 * Database name to be created
 * Server name (yoursite.com - in our example)
 
-Tested with Apache2 on Debian systems, and Windows. 
-Should work anywhere, even though it is build on Debian systems.  
+Install will proceed, an clone all modules from .git repos. 
 
-# Demo
+At last you are prompted for a email and a password. Enter email and password, but just before logging in, run the following command to set correct file perms
 
-[Demo Site](http://demo.coscms.org/) 
+    sudo ./coscli.sh file --chmod-files
 
-Login with admin / admin. A simple demo with a blog (blog module),
-and a CMS (content module) and a comment module (comment), 
-and a few more modules. 
+[Other install methods](http://www.coscms.org/content/article/view/72/Install)
 
 # Homepage
 
