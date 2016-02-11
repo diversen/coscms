@@ -187,7 +187,7 @@ $_PROFILE_MODULES = array (
   array (
     'id' => '15',
     'module_name' => 'content',
-    'module_version' => '8.08',
+    'module_version' => '8.10',
     'menu_item' => '1',
     'run_level' => '0',
     'load_on' => NULL,
