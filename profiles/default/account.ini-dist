@@ -1,6 +1,6 @@
 account_allow_edit = "super"
 account_default_url = "/account/login/index"
-account_redirect_login = "/content/index"
+account_redirect_login = "/content/book/index"
 account_allow_create = "super"
 account_admin_only = 0
 account_logins[0] = "email"

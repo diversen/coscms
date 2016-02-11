@@ -10,7 +10,6 @@ content_sub_modules[2] = "video"
 content_sub_modules[3] = "counter"
 content_sub_modules[4] = "share"
 content_sub_modules[5] = "disqus"
-content_sub_modules[6] = "rss"
 content_show_latest = 1
 content_article_per_page = 10
 content_book_formats = "pdf,epub,mobi"

@@ -193,7 +193,7 @@ $_PROFILE_MODULES = array (
     'load_on' => NULL,
     'parent' => NULL,
     'is_shell' => NULL,
-    'public_clone_url' => 'git://github.com/diversen/content.git',
+    'public_clone_url' => 'https://github.com/diversen/content.git',
     'private_clone_url' => 'git@github.com:diversen/content.git',
   ),
   15 => 
