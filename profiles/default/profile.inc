@@ -161,7 +161,7 @@ $_PROFILE_MODULES = array (
   array (
     'id' => '13',
     'module_name' => 'userinfo',
-    'module_version' => '8.01',
+    'module_version' => '8.02',
     'menu_item' => '1',
     'run_level' => '0',
     'load_on' => NULL,
@@ -187,7 +187,7 @@ $_PROFILE_MODULES = array (
   array (
     'id' => '15',
     'module_name' => 'content',
-    'module_version' => '8.04',
+    'module_version' => '8.08',
     'menu_item' => '1',
     'run_level' => '0',
     'load_on' => NULL,
@@ -305,7 +305,7 @@ $_PROFILE_MODULES = array (
 $_PROFILE_TEMPLATES = array (
   0 => 
   array (
-    'module_version' => '8.06',
+    'module_version' => '8.09',
     'module_name' => 'uikit',
     'public_clone_url' => 'https://github.com/diversen/uikit',
   ),
