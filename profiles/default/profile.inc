@@ -291,7 +291,7 @@ $_PROFILE_MODULES = array (
   array (
     'id' => '26',
     'module_name' => 'gallery',
-    'module_version' => '8.03',
+    'module_version' => '8.04',
     'menu_item' => '1',
     'run_level' => '0',
     'load_on' => NULL,
