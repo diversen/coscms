@@ -4,6 +4,7 @@ use diversen\conf;
 use diversen\http;
 use diversen\file;
 use diversen\boot;
+use diversen\file\path;
 
 if (file_exists('vendor')) {
     $path = '.';
@@ -13,13 +14,15 @@ if (file_exists('vendor')) {
     include '../vendor/autoload.php';
 }
 
-conf::setMainIni('base_path', $path); 
+$real = path::truepath($path);
+conf::setMainIni('base_path', $real); 
 
-// Set real path
-$real = realpath($path);
-
-// PAth to current request
+// Path to current request
 $info = parse_url($_SERVER['REQUEST_URI']);
+
+if (preg_match('/\.(?:css|js)$/', $_SERVER["REQUEST_URI"])) {
+    return false;    // serve the requested resource as-is.
+}
 
 // Does htdocs dir exists
 if (file_exists($real . "/htdocs")) {
@@ -29,9 +32,7 @@ if (file_exists($real . "/htdocs")) {
 // Get full requst path
 if (file_exists($real) && $info['path'] != '/') {
 
-	//echo $real; die;
     $mime = file::getMime($real);
-    //die;
     if ($mime) {
         if ($mime == 'text/x-php') {
             return false;
