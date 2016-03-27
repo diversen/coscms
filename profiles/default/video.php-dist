@@ -1,0 +1,25 @@
+<?php
+
+namespace modules\video;
+
+/**
+ * Video example config class
+ */
+class config {
+    
+    /**
+     * Check access acording to video parent_id, e.g. a blog post ID
+     * @param int $id parent_id
+     * @return boolean $res
+     */
+    public function checkAccess ($id) {}
+    
+    /**
+     * Check access to download video according to video ID
+     * NOTE: Not implemented
+     * @param int $id image ID
+     * @return boolean $res
+     */
+    public function checkAccessDownload ($id) {}
+
+}
