@@ -29,6 +29,7 @@
         "phpmailer/phpmailer": "^5.2",
         "gregwar/image": "^2.0",
         "symfony/yaml": "^2.7",
-        "diversen/redbean-composer": "^4.3"
+        "diversen/redbean-composer": "^4.3",
+        "composer/semver": "^1.4"
     }
 }
