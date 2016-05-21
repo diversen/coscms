@@ -291,7 +291,7 @@ $_PROFILE_MODULES = array (
   array (
     'id' => '36',
     'module_name' => 'content',
-    'module_version' => 'v1.1.0',
+    'module_version' => 'v1.1.1',
     'menu_item' => '1',
     'run_level' => '0',
     'load_on' => NULL,
