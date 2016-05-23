@@ -30,7 +30,7 @@ Login with `admin` / `admin`
 
 You will need: 
 
-* PHP>=5.5
+* PHP>=5.5 (Tested with PHP7.0)
 * PHP extensions: PDO, PDO-mysql, GD, mbstring, intl
 * MySQL>=5.5, and 
 * Apache2 with mod rewrite module enabled
@@ -47,11 +47,11 @@ Install
     
 Update composer packages
     
-	composer update
+    composer update
 
 Create an apache2 host
 
-	./coscli.sh apache2 --en yoursite.com
+    ./coscli.sh apache2 --en yoursite.com
 
 Install: 
 
@@ -59,13 +59,13 @@ Install:
     
 You will need a: 
 
-* MySQL username and password who can create a database
+* MySQL user (username and password) who can create a database
 * Database name to be created
 * Server name (yoursite.com - in our example)
 
-Install will proceed, an clone all modules from .git repos. 
+Install will proceed, annd all modules will be cloned from `git` repos. 
 
-At last you are prompted for a email and a password. Enter email and password, but just before logging in, run the following command to set correct file perms
+At last you are prompted for an email and a password. Enter email and password, but just before logging in, run the following command to set correct file perms
 
     sudo ./coscli.sh file --chmod-files
 
@@ -83,4 +83,3 @@ At last you are prompted for a email and a password. Enter email and password, b
 
 [Shell Module Guide](http://www.coscms.org/content/article/view/60/Shell-Module-Guide)
 
-Enjoy!
