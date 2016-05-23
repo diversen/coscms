@@ -30,7 +30,8 @@ Login with `admin` / `admin`
 
 You will need: 
 
-* PHP>=5.5, PDO, 
+* PHP>=5.5
+* PHP extensions: PDO, PDO-mysql, GD, mbstring, intl
 * MySQL>=5.5, and 
 * Apache2 with mod rewrite module enabled
 
