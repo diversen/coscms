@@ -30,6 +30,7 @@
         "gregwar/image": "^2.0",
         "symfony/yaml": "^2.7",
         "diversen/redbean-composer": "^4.3",
-        "composer/semver": "^1.4"
+        "composer/semver": "^1.4",
+        "diversen/image-auto-rotate": "^1.0"
     }
 }
