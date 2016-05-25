@@ -83,7 +83,7 @@ $_PROFILE_MODULES = array (
   array (
     'id' => '7',
     'module_name' => 'image',
-    'module_version' => 'v10.0.1',
+    'module_version' => 'v10.0.2',
     'menu_item' => '1',
     'run_level' => '0',
     'load_on' => NULL,
@@ -252,7 +252,7 @@ $_PROFILE_MODULES = array (
   array (
     'id' => '58',
     'module_name' => 'gallery',
-    'module_version' => 'v10.0.1',
+    'module_version' => 'v10.0.2',
     'menu_item' => '1',
     'run_level' => '0',
     'load_on' => NULL,
@@ -265,7 +265,7 @@ $_PROFILE_MODULES = array (
   array (
     'id' => '59',
     'module_name' => 'content',
-    'module_version' => 'v10.0.1',
+    'module_version' => 'v10.0.2',
     'menu_item' => '1',
     'run_level' => '0',
     'load_on' => NULL,
@@ -305,7 +305,7 @@ $_PROFILE_MODULES = array (
 $_PROFILE_TEMPLATES = array (
   0 => 
   array (
-    'module_version' => 'v10.0.1',
+    'module_version' => 'v10.0.2',
     'module_name' => 'uikit',
     'public_clone_url' => 'https://github.com/diversen/uikit',
     'private_clone_url' => 'git@github.com:diversen/uikit',
