@@ -12,13 +12,17 @@ class config {
      * @param int $id parent_id
      * @return boolean $res
      */
-    public function checkAccess ($id) {}
+    public function checkAccess ($id) {
+        return true;
+    }
     
     /**
      * Check access to download according to image ID
      * @param int $id image ID
      * @return boolean $res
      */
-    public function checkAccessDownload ($id) {}
+    public function checkAccessDownload ($id) {
+        return true;
+    }
 
 }
