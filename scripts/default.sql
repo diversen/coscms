@@ -29,6 +29,6 @@ CREATE TABLE `language` (
     `id` int(11) NOT NULL AUTO_INCREMENT,
     `language` varchar(8) NOT NULL DEFAULT '',
     `module_name` varchar(256) NOT NULL DEFAULT '',
-    `translation` text NOT NULL DEFAULT '',
+    `translation` text,
     PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=UTF8;
