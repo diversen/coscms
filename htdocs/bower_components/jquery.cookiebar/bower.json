@@ -1,0 +1,26 @@
+{
+  "name": "jquery.cookiebar",
+  "version": "1.2.1",
+  "homepage": "https://github.com/delboy1978uk/jquery.cookiebar",
+  "description": "The paradoxical EU Cookie Law - Sorted.",
+  "main": "jquery.cookiebar.js",
+  "keywords": [
+    "cookie",
+    "eu",
+    "law",
+    "plugin",
+    "jquery"
+  ],
+  "authors": [
+    "Derek Stephen McLean",
+    "Colin Ross"
+  ],
+  "license": "CC0",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

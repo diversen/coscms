@@ -24,9 +24,9 @@ if (isset($_GET['progress_key'])) {
 <!doctype html>
 <head>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-    <link href="/templates/uikit/css/uikit2.css" rel="stylesheet" />
-    <link href="/templates/uikit/css/components/progress.min.css" rel="stylesheet" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/2.22.0/js/uikit.min.js"></script>
+    <link href="/templates/uikit/default/default.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/uikit/2.26.4/css/components/progress.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/2.26.4/js/uikit.min.js"></script>
     
     <script>
 
@@ -36,9 +36,10 @@ if (isset($_GET['progress_key'])) {
                 // which calls the code at the top of the page.  It checks the 
                 // file's progress based on the file id "progress_key=" and 
                 // returns the value with the function below:
-                $.get("<?= $url ?>?progress_key=<?= $_GET['up_id']; ?>&randval=" + Math.random(), function (data) {
+                $.get("<?=$url?>?progress_key=<?=$_GET['up_id']?>&randval=" + Math.random(), function (data) {
 
-                        var progress = parseInt(data); 
+                        var progress = parseInt(data);
+                        console.log(progress);
                         $('.uk-progress-bar').attr('style', 'width: ' + data + '%');
                         $('.uk-progress-bar').html(data + '%');
                 })
