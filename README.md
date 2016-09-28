@@ -22,7 +22,7 @@ This is the default profile, it includes a
 
 # Demo
 
-[Demo Site](http://demo.coscms.org/) 
+[Demo Site](http://coscms.os-cms.net/) 
 
 Login with `admin` / `admin`
 
@@ -69,17 +69,5 @@ At last you are prompted for an email and a password. Enter email and password, 
 
     sudo ./coscli.sh file --chmod-files
 
-[Other install methods](http://www.coscms.org/content/article/view/72/Install)
 
-# Homepage
-
-[Main site](http://www.coscms.org)
-
-# Extending: 
-
-[Extend](http://www.coscms.org/content/article/view/40/Extend)
-
-[Web Module](http://www.coscms.org/content/article/view/27/Web-Module-Guide)
-
-[Shell Module Guide](http://www.coscms.org/content/article/view/60/Shell-Module-Guide)
 
