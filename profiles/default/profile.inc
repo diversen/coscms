@@ -5,7 +5,7 @@ $_PROFILE_MODULES = array (
   array (
     'id' => '1',
     'module_name' => 'system',
-    'module_version' => 'v10.1.1',
+    'module_version' => 'v11.0.0',
     'menu_item' => '0',
     'run_level' => '0',
     'load_on' => NULL,
@@ -18,7 +18,7 @@ $_PROFILE_MODULES = array (
   array (
     'id' => '2',
     'module_name' => 'settings',
-    'module_version' => 'v10.1.1',
+    'module_version' => 'v11.0.0',
     'menu_item' => '0',
     'run_level' => '0',
     'load_on' => NULL,
@@ -31,7 +31,7 @@ $_PROFILE_MODULES = array (
   array (
     'id' => '3',
     'module_name' => 'account',
-    'module_version' => 'v10.1.1',
+    'module_version' => 'v11.0.0',
     'menu_item' => '0',
     'run_level' => '0',
     'load_on' => NULL,
@@ -44,7 +44,7 @@ $_PROFILE_MODULES = array (
   array (
     'id' => '4',
     'module_name' => 'configdb',
-    'module_version' => 'v10.1.1',
+    'module_version' => 'v11.0.0',
     'menu_item' => '0',
     'run_level' => '2,6',
     'load_on' => NULL,
@@ -57,7 +57,7 @@ $_PROFILE_MODULES = array (
   array (
     'id' => '5',
     'module_name' => 'jquerysort',
-    'module_version' => 'v10.1.1',
+    'module_version' => 'v11.0.0',
     'menu_item' => '0',
     'run_level' => '0',
     'load_on' => NULL,
@@ -70,7 +70,7 @@ $_PROFILE_MODULES = array (
   array (
     'id' => '6',
     'module_name' => 'menus',
-    'module_version' => 'v10.1.1',
+    'module_version' => 'v11.0.0',
     'menu_item' => '1',
     'run_level' => '0',
     'load_on' => NULL,
@@ -83,7 +83,7 @@ $_PROFILE_MODULES = array (
   array (
     'id' => '7',
     'module_name' => 'image',
-    'module_version' => 'v10.1.1',
+    'module_version' => 'v11.0.0',
     'menu_item' => '0',
     'run_level' => '0',
     'load_on' => NULL,
@@ -96,7 +96,7 @@ $_PROFILE_MODULES = array (
   array (
     'id' => '8',
     'module_name' => 'locales',
-    'module_version' => 'v10.1.1',
+    'module_version' => 'v11.0.0',
     'menu_item' => '1',
     'run_level' => '0',
     'load_on' => NULL,
@@ -109,7 +109,7 @@ $_PROFILE_MODULES = array (
   array (
     'id' => '9',
     'module_name' => 'disqus',
-    'module_version' => 'v10.0.1',
+    'module_version' => 'v11.0.0',
     'menu_item' => '1',
     'run_level' => '0',
     'load_on' => NULL,
@@ -122,7 +122,7 @@ $_PROFILE_MODULES = array (
   array (
     'id' => '10',
     'module_name' => 'tags',
-    'module_version' => 'v10.1.1',
+    'module_version' => 'v11.0.0',
     'menu_item' => '1',
     'run_level' => '0',
     'load_on' => NULL,
@@ -135,7 +135,7 @@ $_PROFILE_MODULES = array (
   array (
     'id' => '11',
     'module_name' => 'counter',
-    'module_version' => 'v10.0.1',
+    'module_version' => 'v11.0.0',
     'menu_item' => '0',
     'run_level' => '0,6',
     'load_on' => NULL,
@@ -148,7 +148,7 @@ $_PROFILE_MODULES = array (
   array (
     'id' => '12',
     'module_name' => 'userinfo',
-    'module_version' => 'v10.1.1',
+    'module_version' => 'v11.0.0',
     'menu_item' => '1',
     'run_level' => '0',
     'load_on' => NULL,
@@ -161,7 +161,7 @@ $_PROFILE_MODULES = array (
   array (
     'id' => '13',
     'module_name' => 'share',
-    'module_version' => 'v10.1.1',
+    'module_version' => 'v11.0.0',
     'menu_item' => '0',
     'run_level' => '0',
     'load_on' => NULL,
@@ -174,7 +174,7 @@ $_PROFILE_MODULES = array (
   array (
     'id' => '14',
     'module_name' => 'blocks',
-    'module_version' => 'v10.1.1',
+    'module_version' => 'v11.0.0',
     'menu_item' => '1',
     'run_level' => '0',
     'load_on' => NULL,
@@ -187,7 +187,7 @@ $_PROFILE_MODULES = array (
   array (
     'id' => '15',
     'module_name' => 'error',
-    'module_version' => 'v10.1.1',
+    'module_version' => 'v11.0.0',
     'menu_item' => '0',
     'run_level' => '0',
     'load_on' => NULL,
@@ -200,7 +200,7 @@ $_PROFILE_MODULES = array (
   array (
     'id' => '16',
     'module_name' => 'analytics',
-    'module_version' => 'v10.1.1',
+    'module_version' => 'v11.0.0',
     'menu_item' => '1',
     'run_level' => '0,5',
     'load_on' => NULL,
@@ -213,7 +213,7 @@ $_PROFILE_MODULES = array (
   array (
     'id' => '17',
     'module_name' => 'reload_site',
-    'module_version' => 'v10.0.1',
+    'module_version' => 'v11.0.0',
     'menu_item' => '0',
     'run_level' => '0',
     'load_on' => NULL,
@@ -226,7 +226,7 @@ $_PROFILE_MODULES = array (
   array (
     'id' => '18',
     'module_name' => 'debug',
-    'module_version' => 'v10.0.1',
+    'module_version' => 'v11.0.0',
     'menu_item' => '0',
     'run_level' => '1,7',
     'load_on' => NULL,
@@ -239,7 +239,7 @@ $_PROFILE_MODULES = array (
   array (
     'id' => '19',
     'module_name' => 'video',
-    'module_version' => 'v10.0.1',
+    'module_version' => 'v11.0.0',
     'menu_item' => '0',
     'run_level' => '0',
     'load_on' => NULL,
@@ -252,7 +252,7 @@ $_PROFILE_MODULES = array (
   array (
     'id' => '20',
     'module_name' => 'gallery',
-    'module_version' => 'v10.0.2',
+    'module_version' => 'v11.0.0',
     'menu_item' => '1',
     'run_level' => '0',
     'load_on' => NULL,
@@ -265,7 +265,7 @@ $_PROFILE_MODULES = array (
   array (
     'id' => '22',
     'module_name' => 'files',
-    'module_version' => 'v10.1.1',
+    'module_version' => 'v11.0.0',
     'menu_item' => '0',
     'run_level' => '0',
     'load_on' => NULL,
@@ -278,7 +278,7 @@ $_PROFILE_MODULES = array (
   array (
     'id' => '24',
     'module_name' => 'blog',
-    'module_version' => 'v10.1.1',
+    'module_version' => 'v11.0.0',
     'menu_item' => '1',
     'run_level' => '0',
     'load_on' => NULL,
@@ -292,7 +292,7 @@ $_PROFILE_MODULES = array (
 $_PROFILE_TEMPLATES = array (
   0 => 
   array (
-    'module_version' => 'v10.1.1',
+    'module_version' => 'v11.0.0',
     'module_name' => 'uikit',
     'public_clone_url' => 'https://github.com/diversen/uikit',
     'private_clone_url' => 'git@github.com:diversen/uikit',
