@@ -13,12 +13,10 @@ Modules are distrubuted as profiles.
 This is the default profile, it includes a 
 
 * Account system
-* Content / CMS system (with epub, mobi and pdf export options using pandoc)
 * A blog
 * Gallery. 
 * Disqus
 * Analytics
-* And some other modules 
 
 # Demo
 
@@ -68,6 +66,4 @@ Install will proceed, annd all modules will be cloned from `git` repos.
 At last you are prompted for an email and a password. Enter email and password, but just before logging in, run the following command to set correct file perms
 
     sudo ./coscli.sh file --chmod-files
-
-
 

@@ -3,26 +3,27 @@
 namespace modules\image;
 
 /**
- * Image config class
+ * Config class
  */
 class config {
     
     /**
-     * Check access acording to image parent_id, e.g. a blog post ID
+     * Check access acording to parent_id and a action, 'view' or 'edit'
      * @param int $id parent_id
+     * @parem string $action 'view' or 'edit'
      * @return boolean $res
      */
-    public function checkAccess ($id) {
+    public function checkAccessParentId ($id, $action) {
         return true;
     }
     
     /**
-     * Check access to download according to image ID
-     * @param int $id image ID
+     * Check access to download according to an id and an action, 'view' or 'edit'
+     * @param int $id image id
+     * @parem string $action 'view' or 'edit'
      * @return boolean $res
      */
-    public function checkAccessDownload ($id) {
+    public function checkAccessId ($id, $action) {
         return true;
     }
-
 }

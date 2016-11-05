@@ -1,2 +1,4 @@
 files_allow_edit = "admin"
-files_max_size = 80000000
+files_max_size = 60000000
+files_use_uniqid = 0
+files_redirect_parent = 1
