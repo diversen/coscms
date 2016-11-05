@@ -67,3 +67,4 @@ At last you are prompted for an email and a password. Enter email and password, 
 
     sudo ./coscli.sh file --chmod-files
 
+In order to change other settings, edit `config/config.ini`
