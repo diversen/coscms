@@ -250,20 +250,7 @@ $_PROFILE_MODULES = array (
   ),
   19 => 
   array (
-    'id' => '20',
-    'module_name' => 'gallery',
-    'module_version' => 'v11.0.0',
-    'menu_item' => '1',
-    'run_level' => '0',
-    'load_on' => NULL,
-    'parent' => NULL,
-    'is_shell' => NULL,
-    'public_clone_url' => 'https://github.com/diversen/gallery',
-    'private_clone_url' => 'git@github.com:diversen/gallery',
-  ),
-  20 => 
-  array (
-    'id' => '22',
+    'id' => '21',
     'module_name' => 'files',
     'module_version' => 'v11.0.0',
     'menu_item' => '0',
@@ -274,9 +261,9 @@ $_PROFILE_MODULES = array (
     'public_clone_url' => 'https://github.com/diversen/files.git',
     'private_clone_url' => 'git@github.com:diversen/files.git',
   ),
-  21 => 
+  20 => 
   array (
-    'id' => '24',
+    'id' => '22',
     'module_name' => 'blog',
     'module_version' => 'v11.0.0',
     'menu_item' => '1',
