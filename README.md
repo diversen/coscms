@@ -14,7 +14,6 @@ This is the default profile, it includes a
 
 * Account system
 * A blog
-* Gallery. 
 * Disqus
 * Analytics
 
@@ -61,7 +60,7 @@ You will need a:
 * Database name to be created
 * Server name (yoursite.com - in our example)
 
-Install will proceed, annd all modules will be cloned from `git` repos. 
+Install will proceed, and all modules will be cloned from `git` repos. 
 
 At last you are prompted for an email and a password. Enter email and password, but just before logging in, run the following command to set correct file perms
 
