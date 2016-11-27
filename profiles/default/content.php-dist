@@ -1,8 +1,0 @@
-<?php
-
-namespace modules\content;
-
-use diversen\conf;
-
-
-class config {}
