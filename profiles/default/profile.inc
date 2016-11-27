@@ -5,7 +5,7 @@ $_PROFILE_MODULES = array (
   array (
     'id' => '1',
     'module_name' => 'system',
-    'module_version' => 'v11.0.0',
+    'module_version' => 'v11.0.1',
     'menu_item' => '0',
     'run_level' => '0',
     'load_on' => NULL,
@@ -44,7 +44,7 @@ $_PROFILE_MODULES = array (
   array (
     'id' => '4',
     'module_name' => 'account',
-    'module_version' => 'v11.0.0',
+    'module_version' => 'v11.0.1',
     'menu_item' => '0',
     'run_level' => '0',
     'load_on' => NULL,
@@ -122,7 +122,7 @@ $_PROFILE_MODULES = array (
   array (
     'id' => '12',
     'module_name' => 'debug',
-    'module_version' => 'v11.0.0',
+    'module_version' => 'v11.0.1',
     'menu_item' => '0',
     'run_level' => '1,7',
     'load_on' => NULL,
@@ -148,7 +148,7 @@ $_PROFILE_MODULES = array (
   array (
     'id' => '33',
     'module_name' => 'share',
-    'module_version' => 'v11.0.0',
+    'module_version' => 'v11.0.1',
     'menu_item' => '0',
     'run_level' => '0',
     'load_on' => NULL,
@@ -226,7 +226,7 @@ $_PROFILE_MODULES = array (
   array (
     'id' => '40',
     'module_name' => 'blog',
-    'module_version' => 'v11.0.0',
+    'module_version' => 'v11.0.1',
     'menu_item' => '1',
     'run_level' => '0',
     'load_on' => NULL,
@@ -239,7 +239,7 @@ $_PROFILE_MODULES = array (
   array (
     'id' => '41',
     'module_name' => 'analytics',
-    'module_version' => 'v11.0.0',
+    'module_version' => 'v11.0.1',
     'menu_item' => '1',
     'run_level' => '0,5',
     'load_on' => NULL,
@@ -252,7 +252,7 @@ $_PROFILE_MODULES = array (
   array (
     'id' => '42',
     'module_name' => 'tags',
-    'module_version' => 'v11.0.0',
+    'module_version' => 'v11.0.1',
     'menu_item' => '1',
     'run_level' => '0',
     'load_on' => NULL,
@@ -265,7 +265,7 @@ $_PROFILE_MODULES = array (
   array (
     'id' => '43',
     'module_name' => 'userinfo',
-    'module_version' => 'v11.0.0',
+    'module_version' => 'v11.0.1',
     'menu_item' => '1',
     'run_level' => '0',
     'load_on' => NULL,
