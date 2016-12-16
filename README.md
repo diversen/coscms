@@ -19,7 +19,7 @@ This is the default profile, it includes a
 
 # Demo
 
-[Demo Site](http://coscms.os-cms.net/) 
+[Demo Site](https://coscms-demo.os-cms.net/account/login/index) 
 
 Login with `admin` / `admin`
 
