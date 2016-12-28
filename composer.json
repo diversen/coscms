@@ -10,6 +10,6 @@
 
 
     "require": {
-        "diversen/rook-framework": "^1.0"
+        "diversen/rook-framework": "^2.0"
     }
 }
