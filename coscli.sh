@@ -9,12 +9,10 @@ use diversen\minimalCli;
 use diversen\db\connect;
 use diversen\cli\helpers;
 
-$m = new modules();
-$m->autoloadRegister();
-
 $path = dirname(__FILE__);
 conf::setMainIni('base_path', $path);
 
+// Boot base system
 $cliHelp = new diversen\cli\helpers();
 $cliHelp->bootCli();
 
@@ -43,11 +41,14 @@ $commands['prompt-install'] =   new \diversen\commands\promptInstall();
 $commands['useradd'] =          new \diversen\commands\useradd();
 $commands['upgrade'] =          new \diversen\commands\upgrade();
 
+// Check if database connection exists
 $res = $cliHelp->dbConExists();
 if ($res) {
+    // Get module commands
     $module_commands = $cliHelp->getModuleCommands();
     $commands = array_merge($commands, $module_commands);
 }
 
+// Set commands and run the script
 $cli->commands = $commands;
 $cli->runMain();
