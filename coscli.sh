@@ -47,6 +47,7 @@ if ($res) {
     // Get module commands
     $module_commands = $cliHelp->getModuleCommands();
     $commands = array_merge($commands, $module_commands);
+    ksort($commands);
 }
 
 // Set commands and run the script
