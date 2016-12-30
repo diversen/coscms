@@ -265,7 +265,7 @@ $_PROFILE_MODULES = array (
   array (
     'id' => '21',
     'module_name' => 'reloadsite',
-    'module_version' => 'v11.0.4',
+    'module_version' => 'v11.0.5',
     'menu_item' => '0',
     'run_level' => '0',
     'load_on' => NULL,
