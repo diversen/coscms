@@ -94,7 +94,7 @@ $_PROFILE_MODULES = array (
   ),
   7 => 
   array (
-    'id' => '10',
+    'id' => '8',
     'module_name' => 'configdb',
     'module_version' => 'v11.0.0',
     'menu_item' => '0',
@@ -107,7 +107,7 @@ $_PROFILE_MODULES = array (
   ),
   8 => 
   array (
-    'id' => '12',
+    'id' => '9',
     'module_name' => 'debug',
     'module_version' => 'v11.0.1',
     'menu_item' => '0',
@@ -120,7 +120,7 @@ $_PROFILE_MODULES = array (
   ),
   9 => 
   array (
-    'id' => '24',
+    'id' => '10',
     'module_name' => 'blocks',
     'module_version' => 'v11.0.0',
     'menu_item' => '1',
@@ -133,7 +133,7 @@ $_PROFILE_MODULES = array (
   ),
   10 => 
   array (
-    'id' => '33',
+    'id' => '11',
     'module_name' => 'share',
     'module_version' => 'v11.0.1',
     'menu_item' => '0',
@@ -146,7 +146,7 @@ $_PROFILE_MODULES = array (
   ),
   11 => 
   array (
-    'id' => '34',
+    'id' => '12',
     'module_name' => 'disqus',
     'module_version' => 'v11.0.0',
     'menu_item' => '1',
@@ -159,10 +159,10 @@ $_PROFILE_MODULES = array (
   ),
   12 => 
   array (
-    'id' => '35',
+    'id' => '13',
     'module_name' => 'image',
     'module_version' => 'v11.0.1',
-    'menu_item' => '1',
+    'menu_item' => '0',
     'run_level' => '0',
     'load_on' => NULL,
     'parent' => NULL,
@@ -172,7 +172,7 @@ $_PROFILE_MODULES = array (
   ),
   13 => 
   array (
-    'id' => '36',
+    'id' => '14',
     'module_name' => 'files',
     'module_version' => 'v11.0.0',
     'menu_item' => '0',
@@ -185,7 +185,7 @@ $_PROFILE_MODULES = array (
   ),
   14 => 
   array (
-    'id' => '37',
+    'id' => '15',
     'module_name' => 'video',
     'module_version' => 'v11.0.0',
     'menu_item' => '0',
@@ -198,7 +198,7 @@ $_PROFILE_MODULES = array (
   ),
   15 => 
   array (
-    'id' => '38',
+    'id' => '16',
     'module_name' => 'counter',
     'module_version' => 'v11.0.1',
     'menu_item' => '0',
@@ -211,7 +211,7 @@ $_PROFILE_MODULES = array (
   ),
   16 => 
   array (
-    'id' => '40',
+    'id' => '17',
     'module_name' => 'blog',
     'module_version' => 'v11.0.1',
     'menu_item' => '1',
@@ -224,7 +224,7 @@ $_PROFILE_MODULES = array (
   ),
   17 => 
   array (
-    'id' => '41',
+    'id' => '18',
     'module_name' => 'analytics',
     'module_version' => 'v11.0.1',
     'menu_item' => '1',
@@ -237,7 +237,7 @@ $_PROFILE_MODULES = array (
   ),
   18 => 
   array (
-    'id' => '42',
+    'id' => '19',
     'module_name' => 'tags',
     'module_version' => 'v11.0.1',
     'menu_item' => '1',
@@ -250,7 +250,7 @@ $_PROFILE_MODULES = array (
   ),
   19 => 
   array (
-    'id' => '43',
+    'id' => '20',
     'module_name' => 'userinfo',
     'module_version' => 'v11.0.1',
     'menu_item' => '1',
@@ -263,14 +263,14 @@ $_PROFILE_MODULES = array (
   ),
   20 => 
   array (
-    'id' => '44',
+    'id' => '21',
     'module_name' => 'reloadsite',
-    'module_version' => 'v11.0.3',
+    'module_version' => 'v11.0.4',
     'menu_item' => '0',
     'run_level' => '0',
     'load_on' => NULL,
     'parent' => NULL,
-    'is_shell' => '1',
+    'is_shell' => NULL,
     'public_clone_url' => 'https://github.com/diversen/reloadsite.git',
     'private_clone_url' => 'git@github.com:diversen/reloadsite.git',
   ),
