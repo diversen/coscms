@@ -41,13 +41,14 @@ $commands['prompt-install'] =   new \diversen\commands\promptInstall();
 $commands['useradd'] =          new \diversen\commands\useradd();
 $commands['upgrade'] =          new \diversen\commands\upgrade();
 
-// Check if database connection exists
+// Check if database connection exists, and add any module commands
 $res = $cliHelp->dbConExists();
 if ($res) {
-    // Get module commands
-    $module_commands = $cliHelp->getModuleCommands();
-    $commands = array_merge($commands, $module_commands);
-    ksort($commands);
+    if ($cliHelp->tablesExists()) {
+        $module_commands = $cliHelp->getModuleCommands();
+        $commands = array_merge($commands, $module_commands);
+        ksort($commands);
+    } 
 }
 
 // Set commands and run the script
