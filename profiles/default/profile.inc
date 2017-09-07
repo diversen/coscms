@@ -107,19 +107,6 @@ $_PROFILE_MODULES = array (
   ),
   8 => 
   array (
-    'id' => '9',
-    'module_name' => 'debug',
-    'module_version' => 'v11.0.1',
-    'menu_item' => '0',
-    'run_level' => '1,7',
-    'load_on' => NULL,
-    'parent' => NULL,
-    'is_shell' => NULL,
-    'public_clone_url' => 'https://github.com/diversen/debug.git',
-    'private_clone_url' => 'git@github.com:diversen/debug.git',
-  ),
-  9 => 
-  array (
     'id' => '10',
     'module_name' => 'blocks',
     'module_version' => 'v11.0.0',
@@ -131,7 +118,7 @@ $_PROFILE_MODULES = array (
     'public_clone_url' => 'https://github.com/diversen/blocks.git',
     'private_clone_url' => 'git@github.com:diversen/blocks.git',
   ),
-  10 => 
+  9 => 
   array (
     'id' => '11',
     'module_name' => 'share',
@@ -144,7 +131,7 @@ $_PROFILE_MODULES = array (
     'public_clone_url' => 'https://github.com/diversen/share.git',
     'private_clone_url' => 'git@github.com:diversen/share.git',
   ),
-  11 => 
+  10 => 
   array (
     'id' => '12',
     'module_name' => 'disqus',
@@ -157,11 +144,11 @@ $_PROFILE_MODULES = array (
     'public_clone_url' => 'https://github.com/diversen/disqus.git',
     'private_clone_url' => 'git@github.com:diversen/disqus.git',
   ),
-  12 => 
+  11 => 
   array (
     'id' => '13',
     'module_name' => 'image',
-    'module_version' => 'v11.0.1',
+    'module_version' => 'v11.0.2',
     'menu_item' => '0',
     'run_level' => '0',
     'load_on' => NULL,
@@ -170,7 +157,7 @@ $_PROFILE_MODULES = array (
     'public_clone_url' => 'https://github.com/diversen/image.git',
     'private_clone_url' => 'git@github.com:diversen/image.git',
   ),
-  13 => 
+  12 => 
   array (
     'id' => '14',
     'module_name' => 'files',
@@ -183,20 +170,7 @@ $_PROFILE_MODULES = array (
     'public_clone_url' => 'https://github.com/diversen/files.git',
     'private_clone_url' => 'git@github.com:diversen/files.git',
   ),
-  14 => 
-  array (
-    'id' => '15',
-    'module_name' => 'video',
-    'module_version' => 'v11.0.0',
-    'menu_item' => '0',
-    'run_level' => '0',
-    'load_on' => NULL,
-    'parent' => NULL,
-    'is_shell' => NULL,
-    'public_clone_url' => 'https://github.com/diversen/video.git',
-    'private_clone_url' => 'git@github.com:diversen/video.git',
-  ),
-  15 => 
+  13 => 
   array (
     'id' => '16',
     'module_name' => 'counter',
@@ -209,7 +183,7 @@ $_PROFILE_MODULES = array (
     'public_clone_url' => 'https://github.com/diversen/counter.git',
     'private_clone_url' => 'git@github.com:diversen/counter.git',
   ),
-  16 => 
+  14 => 
   array (
     'id' => '17',
     'module_name' => 'blog',
@@ -222,7 +196,7 @@ $_PROFILE_MODULES = array (
     'public_clone_url' => 'https://github.com/diversen/blog.git',
     'private_clone_url' => 'git@github.com:diversen/blog.git',
   ),
-  17 => 
+  15 => 
   array (
     'id' => '18',
     'module_name' => 'analytics',
@@ -235,7 +209,7 @@ $_PROFILE_MODULES = array (
     'public_clone_url' => 'https://github.com/diversen/analytics',
     'private_clone_url' => 'git@github.com:diversen/analytics',
   ),
-  18 => 
+  16 => 
   array (
     'id' => '19',
     'module_name' => 'tags',
@@ -248,11 +222,11 @@ $_PROFILE_MODULES = array (
     'public_clone_url' => 'https://github.com/diversen/tags.git',
     'private_clone_url' => 'git@github.com:diversen/tags.git',
   ),
-  19 => 
+  17 => 
   array (
     'id' => '20',
     'module_name' => 'userinfo',
-    'module_version' => 'v11.0.1',
+    'module_version' => 'v11.0.3',
     'menu_item' => '1',
     'run_level' => '0',
     'load_on' => NULL,
@@ -261,7 +235,7 @@ $_PROFILE_MODULES = array (
     'public_clone_url' => 'https://github.com/diversen/userinfo.git',
     'private_clone_url' => 'git@github.com:diversen/userinfo.git',
   ),
-  20 => 
+  18 => 
   array (
     'id' => '21',
     'module_name' => 'reloadsite',
@@ -279,7 +253,7 @@ $_PROFILE_MODULES = array (
 $_PROFILE_TEMPLATES = array (
   0 => 
   array (
-    'module_version' => 'v11.0.1',
+    'module_version' => 'v11.0.3',
     'module_name' => 'uikit',
     'public_clone_url' => 'https://github.com/diversen/uikit',
     'private_clone_url' => 'git@github.com:diversen/uikit',
