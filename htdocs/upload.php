@@ -16,6 +16,8 @@ if (isset($_GET['progress_key'])) {
     die();
 }
 
+$_GET['up_id'] = htmlspecialchars($_GET['up_id']);
+
 // Simple progress bar rewritten from:
 // http://www.johnboy.com/php-upload-progress-bar/
 // upload.php

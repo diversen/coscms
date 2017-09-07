@@ -18,3 +18,4 @@ vendor/
 /*.lock
 /composer-master.json
 /test.php
+/htdocs/bower_components/jquery-ui
