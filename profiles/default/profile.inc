@@ -148,7 +148,7 @@ $_PROFILE_MODULES = array (
   array (
     'id' => '13',
     'module_name' => 'image',
-    'module_version' => 'v11.0.2',
+    'module_version' => 'v11.0.3',
     'menu_item' => '0',
     'run_level' => '0',
     'load_on' => NULL,
